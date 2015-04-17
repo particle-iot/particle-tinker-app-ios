@@ -2,7 +2,16 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Gotham-Book.otf">
+            <string>Gotham-Book</string>
+        </mutableArray>
+        <mutableArray key="Gotham-XLight.otf">
+            <string>Gotham-ExtraLight</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -16,23 +25,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgBackgroundCore" translatesAutoresizingMaskIntoConstraints="NO" id="mdj-1x-3UC">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
-                                <rect key="frame" x="277" y="285" width="33" height="30"/>
-                                <state key="normal" title="Start">
+                                <rect key="frame" x="257" y="540" width="87" height="27"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                <state key="normal" title="Get Started">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3dB-Jf-glm"/>
+                                </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSparkLogoV" translatesAutoresizingMaskIntoConstraints="NO" id="iA9-Xk-N8F">
+                                <rect key="frame" x="219" y="59" width="163" height="196"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photon Tinker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-C7-9e0">
+                                <rect key="frame" x="233" y="263" width="134" height="20"/>
+                                <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" constant="6.5" id="XoL-Ra-0rM"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mdj-1x-3UC" secondAttribute="bottom" id="2RC-ei-EN6"/>
+                            <constraint firstAttribute="centerX" secondItem="iA9-Xk-N8F" secondAttribute="centerX" id="EdA-xY-4a3"/>
+                            <constraint firstItem="mdj-1x-3UC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FKt-L2-adQ"/>
+                            <constraint firstItem="iA9-Xk-N8F" firstAttribute="centerX" secondItem="0sR-C7-9e0" secondAttribute="centerX" id="GMx-Rx-Sxl"/>
+                            <constraint firstItem="mdj-1x-3UC" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Nav-lB-cIn"/>
+                            <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="39" id="SnU-6L-0if"/>
+                            <constraint firstItem="0sR-C7-9e0" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="8" id="UaV-db-QjS"/>
+                            <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
+                            <constraint firstItem="cQK-Nl-VbT" firstAttribute="top" secondItem="mdj-1x-3UC" secondAttribute="bottom" constant="-60" id="ZUM-ZL-eBp"/>
+                            <constraint firstItem="mdj-1x-3UC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="aZa-3v-mY4"/>
+                            <constraint firstAttribute="trailing" secondItem="mdj-1x-3UC" secondAttribute="trailing" id="cwY-Oc-fJg"/>
+                            <constraint firstItem="mdj-1x-3UC" firstAttribute="centerY" secondItem="iA9-Xk-N8F" secondAttribute="centerY" constant="187" id="fJA-KS-bGN"/>
                             <constraint firstAttribute="centerY" secondItem="cQK-Nl-VbT" secondAttribute="centerY" id="gz7-cC-c4Z"/>
+                            <constraint firstItem="mdj-1x-3UC" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="-167" id="icX-Nh-cFa"/>
+                            <constraint firstItem="mdj-1x-3UC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="imR-Ra-Shd"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Nav-lB-cIn"/>
+                                <exclude reference="fJA-KS-bGN"/>
+                                <exclude reference="icX-Nh-cFa"/>
+                                <exclude reference="imR-Ra-Shd"/>
+                                <exclude reference="gz7-cC-c4Z"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="534" y="649"/>
+            <point key="canvasLocation" x="679" y="611"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="imgBackgroundCore" width="320" height="568"/>
+        <image name="imgSparkLogoV" width="163" height="196"/>
+    </resources>
 </document>

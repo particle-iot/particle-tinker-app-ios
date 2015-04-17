@@ -13,6 +13,8 @@ class ViewController: UIViewController, SparkSetupMainControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        SparkCloud.sharedInstance().logout()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,17 +55,21 @@ class ViewController: UIViewController, SparkSetupMainControllerDelegate {
 //        c.deviceName = "Connected Anvil"
 //        c.welcomeVideoFilename = "rr.mp4"
         
+        c.pageBackgroundImage = UIImage(named: "imgBackgroundLogin")
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"
-        c.fontSizeOffset = 1;
+        //c.fontSizeOffset = 1;
+        c.normalTextColor = UIColor.whiteColor()
+        c.linkTextColor = UIColor.lightGrayColor()
+        c.brandImageBackgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.4)
+        
     }
     
     @IBAction func startButtonTapped(sender: UIButton)
     {
         // Comment out this line to revert to standard "Unbranded" Spark Setup app
-        //        self.customizeSetup()
+        self.customizeSetup()
         
-        SparkCloud.sharedInstance().logout()
         // lines required for invoking the Spark Setup wizard
         if let vc = SparkSetupMainController(authenticationOnly: ())
         {
