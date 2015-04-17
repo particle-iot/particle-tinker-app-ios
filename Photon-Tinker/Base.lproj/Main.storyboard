@@ -7,16 +7,23 @@
     <customFonts key="customFonts">
         <mutableArray key="Gotham-Book.otf">
             <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+        </mutableArray>
+        <mutableArray key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
         </mutableArray>
         <mutableArray key="Gotham-XLight.otf">
             <string>Gotham-ExtraLight</string>
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Photon_Tinker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="Photon_Tinker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -77,14 +84,133 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <segue destination="Kib-3X-Zyf" kind="show" identifier="select" id="3ox-ek-eEM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="679" y="611"/>
+            <point key="canvasLocation" x="785" y="611"/>
+        </scene>
+        <!--Select Photon View Controller-->
+        <scene sceneID="aNv-HX-IZG">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" id="Kib-3X-Zyf" customClass="SelectPhotonViewController" customModule="Photon_Tinker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Xu-l8-DFW"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rin-Rz-dbU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="doS-be-EZj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Photon to tinker with" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
+                                <rect key="frame" x="182" y="88" width="236" height="17"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
+                                <rect key="frame" x="16" y="113" width="568" height="467"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photon" textLabel="Lea-k6-1WJ" detailTextLabel="5rs-La-zLw" style="IBUITableViewCellStyleSubtitle" id="gWy-QD-57B">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gWy-QD-57B" id="6in-oo-4ha">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lea-k6-1WJ">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                                    <color key="textColor" red="0.99504950495049505" green="0.99009900990099009" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Device ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5rs-La-zLw">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                                    <color key="textColor" red="0.92560191746404774" green="0.92099693280004757" blue="0.93020690212804802" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Kib-3X-Zyf" id="n7R-gB-Bj1"/>
+                                    <outlet property="delegate" destination="Kib-3X-Zyf" id="9rh-X7-yIQ"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0">
+                                <rect key="frame" x="16" y="20" width="59" height="27"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                <state key="normal" title="Log out">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="GEN-HU-N7w"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGe-YL-M8K">
+                                <rect key="frame" x="527" y="18" width="57" height="27"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                <state key="normal" title="Refresh">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="7t4-rQ-of9"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSparkLogoH" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="Yk8-bP-8Hb"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.83823208039999997" green="0.5192307692" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XGe-YL-M8K" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="-2" id="0IF-zp-K6M"/>
+                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="0ML-yo-2ef"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" id="4tY-y9-6tC"/>
+                            <constraint firstItem="ShA-Nw-uxr" firstAttribute="top" secondItem="4Ex-QS-fRu" secondAttribute="bottom" constant="8" id="5Yj-Aa-Psb"/>
+                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" id="7eE-XA-P7F"/>
+                            <constraint firstAttribute="trailing" secondItem="4Ex-QS-fRu" secondAttribute="trailing" id="ElL-Aw-Q58"/>
+                            <constraint firstAttribute="centerX" secondItem="ShA-Nw-uxr" secondAttribute="centerX" id="JB5-bs-nic"/>
+                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="kNA-WJ-NA0" secondAttribute="bottom" constant="-47" id="MVP-9w-A36"/>
+                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="leading" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="-75" id="PDX-XF-ucD"/>
+                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" id="QSG-XP-GHQ"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="8" id="cdp-2I-7GV"/>
+                            <constraint firstItem="XGe-YL-M8K" firstAttribute="leading" secondItem="4Ex-QS-fRu" secondAttribute="trailing" constant="-69" id="fkK-eB-Edv"/>
+                            <constraint firstItem="XGe-YL-M8K" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" id="k8m-62-VlN"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" id="uVc-GF-F2a"/>
+                            <constraint firstItem="Rin-Rz-dbU" firstAttribute="top" secondItem="l8r-gu-33x" secondAttribute="bottom" constant="20" id="wR8-9O-PrK"/>
+                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" id="zQ6-KB-ch3"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="MVP-9w-A36"/>
+                                <exclude reference="PDX-XF-ucD"/>
+                                <exclude reference="fkK-eB-Edv"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="btD-jl-5UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1505" y="611"/>
         </scene>
     </scenes>
     <resources>
         <image name="imgBackgroundCore" width="320" height="568"/>
+        <image name="imgSparkLogoH" width="86" height="47"/>
         <image name="imgSparkLogoV" width="163" height="196"/>
     </resources>
 </document>
