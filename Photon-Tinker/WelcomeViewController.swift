@@ -107,9 +107,19 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier! == "select"
         {
-//            SparkCloud.sharedInstance().getDevices({ (z<#[AnyObject]!#>, <#NSError!#>) -> Void in
-//                <#code#>
-//            })
+            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, error:NSError?) -> Void in
+                if (error != nil)
+                {
+                    println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
+                    println(error?.description)
+                }
+                else
+                {
+                    var vc : SelectPhotonViewController? = segue.destinationViewController as? SelectPhotonViewController
+                    println(devices)
+                    vc?.devices = devices as! [SparkDevice]
+                }
+            })
         }
     }
     
