@@ -13,9 +13,17 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        SparkCloud.sharedInstance().logout()
 //        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        
+        var backgroundImage = UIImageView(image: UIImage(named: "imgBackgroundBrown"))
+        backgroundImage.frame = UIScreen.mainScreen().bounds
+        backgroundImage.contentMode = .ScaleToFill;
+        self.view.addSubview(backgroundImage)
+        self.view.sendSubviewToBack(backgroundImage)
+
+//        SparkCloud.sharedInstance().logout()
+        
 
     }
     
@@ -65,13 +73,14 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
 //        c.deviceName = "Connected Anvil"
 //        c.welcomeVideoFilename = "rr.mp4"
         
-        c.pageBackgroundImage = UIImage(named: "imgBackgroundLogin")
+        c.pageBackgroundImage = UIImage(named: "imgBackgroundBlue")
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"
         //c.fontSizeOffset = 1;
         c.normalTextColor = UIColor.whiteColor()
         c.linkTextColor = UIColor.whiteColor()
         c.brandImageBackgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
+        c.elementBackgroundColor = UIColor(patternImage: UIImage(named: "imgOrangeGradient")!)
         
     }
     
@@ -92,6 +101,15 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
                 vc.delegate = self
                 self.presentViewController(vc, animated: true, completion: nil)
             }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier! == "select"
+        {
+//            SparkCloud.sharedInstance().getDevices({ (z<#[AnyObject]!#>, <#NSError!#>) -> Void in
+//                <#code#>
+//            })
         }
     }
     
