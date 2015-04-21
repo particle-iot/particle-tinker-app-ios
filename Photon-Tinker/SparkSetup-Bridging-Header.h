@@ -5,6 +5,10 @@
 #ifndef _SparkSetup_Bridging_Header_h
 #define _SparkSetup_Bridging_Header_h
 
+// Spark DeviceSetup library integration
 #include "SparkSetup.h"
+
+// additional Obj-C files we use
+#include "SPKCorePin.h"
 
 #endif

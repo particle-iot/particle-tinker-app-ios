@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "04.02-spark-logo.png"
+      "filename" : "imgSparkLogoWhiteH.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "04.02-spark-logo@2x.png"
+      "filename" : "imgSparkLogoWhiteH-1-1.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "imgSparkLogoWhiteH-1.png"
     }
   ],
   "info" : {

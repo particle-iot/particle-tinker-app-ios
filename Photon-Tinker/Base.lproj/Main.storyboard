@@ -98,10 +98,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSparkLogoH" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSparkLogoH" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
+                                <rect key="frame" x="0.0" y="15" width="600" height="65"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="Yk8-bP-8Hb"/>
+                                    <constraint firstAttribute="height" constant="65" id="Yk8-bP-8Hb"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0">
@@ -257,7 +257,7 @@
                             <constraint firstAttribute="centerX" secondItem="ShA-Nw-uxr" secondAttribute="centerX" id="JB5-bs-nic"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="kNA-WJ-NA0" secondAttribute="bottom" constant="-47" id="MVP-9w-A36"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="leading" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="-75" id="PDX-XF-ucD"/>
-                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" id="QSG-XP-GHQ"/>
+                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" constant="15" id="QSG-XP-GHQ"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="8" id="cdp-2I-7GV"/>
                             <constraint firstItem="XGe-YL-M8K" firstAttribute="leading" secondItem="4Ex-QS-fRu" secondAttribute="trailing" constant="-69" id="fkK-eB-Edv"/>
                             <constraint firstItem="XGe-YL-M8K" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" id="k8m-62-VlN"/>
@@ -282,10 +282,28 @@
             </objects>
             <point key="canvasLocation" x="1505" y="611"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="mGm-rm-8rL">
+            <objects>
+                <viewController id="a5I-VH-O31" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="boK-Ji-HRw"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tgk-V6-bHo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7EC-ES-QnO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0No-hK-k0q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2225" y="609"/>
+        </scene>
     </scenes>
     <resources>
         <image name="imgGreenCircle" width="256" height="256"/>
-        <image name="imgSparkLogoH" width="86" height="47"/>
+        <image name="imgSparkLogoH" width="600" height="265"/>
         <image name="imgSparkLogoV" width="163" height="196"/>
     </resources>
 </document>

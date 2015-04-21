@@ -15,6 +15,8 @@
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
 		50B125531AE06CF4003C29DC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50B125511AE06CF4003C29DC /* LaunchScreen.xib */; };
 		50B1255F1AE06CF4003C29DC /* Photon_TinkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */; };
+		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
+		50EB76161AE6EF2900C925A9 /* SPKCorePin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76141AE6EF2900C925A9 /* SPKCorePin.m */; };
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9B1AE0721200109F33 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
@@ -46,6 +48,10 @@
 		50B125581AE06CF4003C29DC /* Photon-TinkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Photon-TinkerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B1255D1AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photon_TinkerTests.swift; sourceTree = "<group>"; };
+		50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SparkDevice+pins.m"; sourceTree = "<group>"; };
+		50EB76131AE6EF2900C925A9 /* SPKCorePin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKCorePin.h; sourceTree = "<group>"; };
+		50EB76141AE6EF2900C925A9 /* SPKCorePin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKCorePin.m; sourceTree = "<group>"; };
+		50EB76191AE6F03600C925A9 /* SparkDevice+pins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SparkDevice+pins.h"; sourceTree = "<group>"; };
 		50F62D951AE0721200109F33 /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
 		50F62D961AE0721200109F33 /* Gotham-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.otf"; sourceTree = "<group>"; };
 		50F62D971AE0721200109F33 /* Gotham-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLight.otf"; sourceTree = "<group>"; };
@@ -107,6 +113,7 @@
 		50B125451AE06CF4003C29DC /* Photon-Tinker */ = {
 			isa = PBXGroup;
 			children = (
+				50EB76101AE6EE9C00C925A9 /* Models */,
 				50B125481AE06CF4003C29DC /* AppDelegate.swift */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */,
@@ -143,6 +150,17 @@
 				50B1255D1AE06CF4003C29DC /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		50EB76101AE6EE9C00C925A9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				50EB76191AE6F03600C925A9 /* SparkDevice+pins.h */,
+				50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */,
+				50EB76131AE6EF2900C925A9 /* SPKCorePin.h */,
+				50EB76141AE6EF2900C925A9 /* SPKCorePin.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		50F62D721AE071AF00109F33 /* Assets */ = {
@@ -317,6 +335,8 @@
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
+				50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */,
+				50EB76161AE6EF2900C925A9 /* SPKCorePin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
