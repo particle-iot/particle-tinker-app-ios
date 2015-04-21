@@ -27,7 +27,6 @@ static NSUInteger CORE_NAMES_COUNT = 55;
     }
 }
 
-#pragma mark - Private Methods
 
 @dynamic pins;
 
@@ -42,25 +41,54 @@ static NSUInteger CORE_NAMES_COUNT = 55;
 }
 
 
-- (void)configurePins
+- (void)configurePins:(SparkDeviceType)deviceType
 {
-    SPKCorePin *a0 = [[SPKCorePin alloc] initWithLabel:@"A0" side:SPKCorePinSideLeft row:7 availableFunctions:ALL_FUNCTIONS];
-    SPKCorePin *a1 = [[SPKCorePin alloc] initWithLabel:@"A1" side:SPKCorePinSideLeft row:6 availableFunctions:ALL_FUNCTIONS];
-    SPKCorePin *a2 = [[SPKCorePin alloc] initWithLabel:@"A2" side:SPKCorePinSideLeft row:5 availableFunctions:ALL_FUNCTIONS];
-    SPKCorePin *a3 = [[SPKCorePin alloc] initWithLabel:@"A3" side:SPKCorePinSideLeft row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-    SPKCorePin *a4 = [[SPKCorePin alloc] initWithLabel:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-    SPKCorePin *a5 = [[SPKCorePin alloc] initWithLabel:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS];
-    SPKCorePin *a6 = [[SPKCorePin alloc] initWithLabel:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
-    SPKCorePin *a7 = [[SPKCorePin alloc] initWithLabel:@"A7" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
+    SPKCorePin *a0, *a1, *a2, *a3, *a4, *a5, *a6, *a7;
+    SPKCorePin *d0, *d1, *d2, *d3, *d4, *d5, *d6, *d7;
+    
+    switch (deviceType) {
+        case SparkDeviceTypeCore:
+            a0 = [[SPKCorePin alloc] initWithLabel:@"A0" side:SPKCorePinSideLeft row:7 availableFunctions:ALL_FUNCTIONS];
+            a1 = [[SPKCorePin alloc] initWithLabel:@"A1" side:SPKCorePinSideLeft row:6 availableFunctions:ALL_FUNCTIONS];
+            a2 = [[SPKCorePin alloc] initWithLabel:@"A2" side:SPKCorePinSideLeft row:5 availableFunctions:ALL_FUNCTIONS];
+            a3 = [[SPKCorePin alloc] initWithLabel:@"A3" side:SPKCorePinSideLeft row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
+            a4 = [[SPKCorePin alloc] initWithLabel:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
+            a5 = [[SPKCorePin alloc] initWithLabel:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS];
+            a6 = [[SPKCorePin alloc] initWithLabel:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
+            a7 = [[SPKCorePin alloc] initWithLabel:@"A7" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
+            
+            d0 = [[SPKCorePin alloc] initWithLabel:@"D0" side:SPKCorePinSideRight row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
+            d1 = [[SPKCorePin alloc] initWithLabel:@"D1" side:SPKCorePinSideRight row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
+            d2 = [[SPKCorePin alloc] initWithLabel:@"D2" side:SPKCorePinSideRight row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d3 = [[SPKCorePin alloc] initWithLabel:@"D3" side:SPKCorePinSideRight row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d4 = [[SPKCorePin alloc] initWithLabel:@"D4" side:SPKCorePinSideRight row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d5 = [[SPKCorePin alloc] initWithLabel:@"D5" side:SPKCorePinSideRight row:2 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d6 = [[SPKCorePin alloc] initWithLabel:@"D6" side:SPKCorePinSideRight row:1 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d7 = [[SPKCorePin alloc] initWithLabel:@"D7" side:SPKCorePinSideRight row:0 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
 
-    SPKCorePin *d0 = [[SPKCorePin alloc] initWithLabel:@"D0" side:SPKCorePinSideRight row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-    SPKCorePin *d1 = [[SPKCorePin alloc] initWithLabel:@"D1" side:SPKCorePinSideRight row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-    SPKCorePin *d2 = [[SPKCorePin alloc] initWithLabel:@"D2" side:SPKCorePinSideRight row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-    SPKCorePin *d3 = [[SPKCorePin alloc] initWithLabel:@"D3" side:SPKCorePinSideRight row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-    SPKCorePin *d4 = [[SPKCorePin alloc] initWithLabel:@"D4" side:SPKCorePinSideRight row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-    SPKCorePin *d5 = [[SPKCorePin alloc] initWithLabel:@"D5" side:SPKCorePinSideRight row:2 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-    SPKCorePin *d6 = [[SPKCorePin alloc] initWithLabel:@"D6" side:SPKCorePinSideRight row:1 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-    SPKCorePin *d7 = [[SPKCorePin alloc] initWithLabel:@"D7" side:SPKCorePinSideRight row:0 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            break;
+            
+        default: // Photon -- TODO: edit pins functionality
+            a0 = [[SPKCorePin alloc] initWithLabel:@"A0" side:SPKCorePinSideLeft row:7 availableFunctions:ALL_FUNCTIONS];
+            a1 = [[SPKCorePin alloc] initWithLabel:@"A1" side:SPKCorePinSideLeft row:6 availableFunctions:ALL_FUNCTIONS];
+            a2 = [[SPKCorePin alloc] initWithLabel:@"A2" side:SPKCorePinSideLeft row:5 availableFunctions:ALL_FUNCTIONS];
+            a3 = [[SPKCorePin alloc] initWithLabel:@"A3" side:SPKCorePinSideLeft row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
+            a4 = [[SPKCorePin alloc] initWithLabel:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
+            a5 = [[SPKCorePin alloc] initWithLabel:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS];
+            a6 = [[SPKCorePin alloc] initWithLabel:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
+            a7 = [[SPKCorePin alloc] initWithLabel:@"A7" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
+            
+            d0 = [[SPKCorePin alloc] initWithLabel:@"D0" side:SPKCorePinSideRight row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
+            d1 = [[SPKCorePin alloc] initWithLabel:@"D1" side:SPKCorePinSideRight row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
+            d2 = [[SPKCorePin alloc] initWithLabel:@"D2" side:SPKCorePinSideRight row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d3 = [[SPKCorePin alloc] initWithLabel:@"D3" side:SPKCorePinSideRight row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d4 = [[SPKCorePin alloc] initWithLabel:@"D4" side:SPKCorePinSideRight row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d5 = [[SPKCorePin alloc] initWithLabel:@"D5" side:SPKCorePinSideRight row:2 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d6 = [[SPKCorePin alloc] initWithLabel:@"D6" side:SPKCorePinSideRight row:1 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d7 = [[SPKCorePin alloc] initWithLabel:@"D7" side:SPKCorePinSideRight row:0 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+
+            break;
+    }
 
     self.pins = @[a0, a1, a2, a3, a4, a5, a6, a7, d0, d1, d2, d3, d4, d5, d6, d7];
 }

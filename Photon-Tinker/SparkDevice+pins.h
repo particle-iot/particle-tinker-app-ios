@@ -13,6 +13,6 @@
 @property (nonatomic, strong) NSArray *pins;
 
 - (void)resetPins;
-- (void)configurePins;
+- (void)configurePins:(SparkDeviceType)deviceType;
 
 @end

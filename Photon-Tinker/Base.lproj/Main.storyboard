@@ -12,12 +12,24 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+        </mutableArray>
+        <mutableArray key="Gotham-BookIta.otf">
+            <string>Gotham-BookItalic</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
         </mutableArray>
         <mutableArray key="Gotham-XLight.otf">
+            <string>Gotham-ExtraLight</string>
             <string>Gotham-ExtraLight</string>
             <string>Gotham-ExtraLight</string>
         </mutableArray>
@@ -282,28 +294,219 @@
             </objects>
             <point key="canvasLocation" x="1505" y="611"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="mGm-rm-8rL">
+        <!--Tinker View Controller-->
+        <scene sceneID="00Q-tu-1VZ">
             <objects>
-                <viewController id="a5I-VH-O31" sceneMemberID="viewController">
+                <viewController id="7ON-uT-757" customClass="SPKTinkerViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="boK-Ji-HRw"/>
-                        <viewControllerLayoutGuide type="bottom" id="Tgk-V6-bHo"/>
+                        <viewControllerLayoutGuide type="top" id="YMO-a0-vwm"/>
+                        <viewControllerLayoutGuide type="bottom" id="hEr-Sg-6X4"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7EC-ES-QnO">
+                    <view key="view" contentMode="scaleToFill" id="FmS-sB-Lu1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgTinkerLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ynX-wZ-szB">
+                                <rect key="frame" x="87" y="207" width="146" height="153"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgDeviceShadow" translatesAutoresizingMaskIntoConstraints="NO" id="8DX-Om-YXp">
+                                <rect key="frame" x="7" y="60" width="307" height="465"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgSparkLogoH" translatesAutoresizingMaskIntoConstraints="NO" id="0YI-RW-FQr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="trashy_turtle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADi-HO-pFF">
+                                <rect key="frame" x="20" y="535" width="280" height="21"/>
+                                <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNE-dE-UbI">
+                                <rect key="frame" x="0.0" y="18" width="47" height="41"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RyY-vt-tJE">
+                                <rect key="frame" x="290" y="30" width="24" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Settings" image="imgGear">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AfR-wi-xpe">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8w-V4-cuv">
+                                        <rect key="frame" x="42" y="125" width="258" height="313"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <string key="text">Welcome To Tinker.
+
+Tinker is the fastest and easiest way to prototype and play with your Spark Core.
+
+Here you can access the basic input/output functions of the Spark Core without writing a line of code.
+
+Tap any pin to get started. Try digitalWrite on D7; there's an LED attached.
+
+Enjoy!</string>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Core is set up!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeT-SZ-kDy">
+                                        <rect key="frame" x="42" y="96" width="258" height="21"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-The Spark Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-AC-fuy">
+                                        <rect key="frame" x="47" y="420" width="236" height="21"/>
+                                        <fontDescription key="fontDescription" name="Gotham-BookItalic" family="Gotham" pointSize="15"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgPointAtD7" translatesAutoresizingMaskIntoConstraints="NO" id="Fjq-QW-zzV">
+                                        <rect key="frame" x="257" y="57" width="63" height="313"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.55000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X4v-br-Z1t" customClass="SPKPinFunctionView">
+                                <rect key="frame" x="60" y="226" width="200" height="116"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sunflower" translatesAutoresizingMaskIntoConstraints="NO" id="egC-uU-6oo">
+                                        <rect key="frame" x="0.0" y="79" width="5" height="37"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="emerald" translatesAutoresizingMaskIntoConstraints="NO" id="g1N-n1-osQ">
+                                        <rect key="frame" x="0.0" y="40" width="5" height="37"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cyan" translatesAutoresizingMaskIntoConstraints="NO" id="gvu-VR-SiC">
+                                        <rect key="frame" x="195" y="39" width="5" height="37"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alizarin" translatesAutoresizingMaskIntoConstraints="NO" id="bLt-bS-tD9">
+                                        <rect key="frame" x="195" y="79" width="5" height="37"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKL-un-mWU">
+                                        <rect key="frame" x="0.0" y="39" width="98" height="38"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="analogRead">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="functionSelected:" destination="X4v-br-Z1t" eventType="touchUpInside" id="22c-5l-la1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MW7-l5-PvR">
+                                        <rect key="frame" x="0.0" y="79" width="98" height="37"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="analogWrite">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="functionSelected:" destination="X4v-br-Z1t" eventType="touchUpInside" id="ZKU-NA-NjW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB6-Ef-3Nz">
+                                        <rect key="frame" x="102" y="39" width="98" height="38"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
+                                        <state key="normal" title="digitalRead">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="functionSelected:" destination="X4v-br-Z1t" eventType="touchUpInside" id="4y1-da-zaI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mP-Ql-ZzC">
+                                        <rect key="frame" x="102" y="79" width="98" height="37"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
+                                        <state key="normal" title="digitalWrite">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="functionSelected:" destination="X4v-br-Z1t" eventType="touchUpInside" id="MmP-C1-AeO"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd6-4J-EZv">
+                                        <rect key="frame" x="79" y="11" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="20"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Tb-YQ-Hfn">
+                                        <rect key="frame" x="0.0" y="21" width="94" height="20"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="functionSelected:" destination="X4v-br-Z1t" eventType="touchUpInside" id="fpv-jV-Mcq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoP-EF-UZS">
+                                        <rect key="frame" x="106" y="20" width="94" height="21"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="functionSelected:" destination="X4v-br-Z1t" eventType="touchUpInside" id="wpH-9U-Cc0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="analogReadButton" destination="AKL-un-mWU" id="hRC-Tq-Hlv"/>
+                                    <outlet property="analogReadHighButton" destination="9Tb-YQ-Hfn" id="y30-09-t6j"/>
+                                    <outlet property="analogReadImageView" destination="g1N-n1-osQ" id="EFZ-4A-I6D"/>
+                                    <outlet property="analogWriteButton" destination="MW7-l5-PvR" id="MxP-yQ-h49"/>
+                                    <outlet property="analogWriteImageView" destination="egC-uU-6oo" id="Cct-O8-opO"/>
+                                    <outlet property="digitalReadButton" destination="MB6-Ef-3Nz" id="sAm-rz-3hA"/>
+                                    <outlet property="digitalReadHighButton" destination="DoP-EF-UZS" id="BTm-bz-P31"/>
+                                    <outlet property="digitalReadImageView" destination="gvu-VR-SiC" id="HY2-8P-gJC"/>
+                                    <outlet property="digitalWriteButton" destination="5mP-Ql-ZzC" id="Cd5-3q-kYv"/>
+                                    <outlet property="digitalWriteImageView" destination="bLt-bS-tD9" id="Uzd-sj-sYh"/>
+                                    <outlet property="pinLabel" destination="Xd6-4J-EZv" id="WiD-bb-jJc"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="firstTimeView" destination="AfR-wi-xpe" id="nid-V3-jrq"/>
+                        <outlet property="nameLabel" destination="ADi-HO-pFF" id="ggp-gb-xZA"/>
+                        <outlet property="pinFunctionView" destination="X4v-br-Z1t" id="YWZ-U4-1Bd"/>
+                        <outlet property="shadowImageView" destination="8DX-Om-YXp" id="WS0-aA-Q2i"/>
+                        <outlet property="tinkerLogoImageView" destination="ynX-wZ-szB" id="YPB-2T-RBK"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0No-hK-k0q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yAy-IB-P2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2225" y="609"/>
+            <point key="canvasLocation" x="2278" y="611"/>
         </scene>
     </scenes>
     <resources>
+        <image name="alizarin" width="5" height="37"/>
+        <image name="cyan" width="5" height="37"/>
+        <image name="emerald" width="5" height="37"/>
+        <image name="imgDeviceShadow" width="307" height="465"/>
+        <image name="imgGear" width="300" height="299"/>
         <image name="imgGreenCircle" width="256" height="256"/>
+        <image name="imgPointAtD7" width="37" height="289"/>
         <image name="imgSparkLogoH" width="600" height="265"/>
         <image name="imgSparkLogoV" width="163" height="196"/>
+        <image name="imgTinkerLogo" width="132" height="139"/>
+        <image name="sunflower" width="5" height="37"/>
     </resources>
 </document>
