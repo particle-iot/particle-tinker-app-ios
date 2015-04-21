@@ -44,16 +44,14 @@
 {
     [super viewWillAppear:animated];
 
-    SPKCore *activeCore = [SPKSpark sharedInstance].activeCore;
-
-    for (SPKCorePin *pin in activeCore.pins) {
+    for (SPKCorePin *pin in self.device.pins) {
         SPKCorePinView *v = self.pinViews[pin.label];
         v.pin = pin;
     }
 
-    self.nameLabel.text = activeCore.name;
+    self.nameLabel.text = self.device.name;
 
-    self.firstTimeView.hidden = ![SPKSpark sharedInstance].user.firstTime;
+//    self.firstTimeView.hidden = ![SPKSpark sharedInstance].user.firstTime;
     self.tinkerLogoImageView.hidden = NO;
     self.nameLabel.hidden = NO;
 }
@@ -176,7 +174,7 @@
 - (void)dismissFirstTime
 {
     self.firstTimeView.hidden = YES;
-    [SPKSpark sharedInstance].user.firstTime = NO;
+//    [SPKSpark sharedInstance].user.firstTime = NO;
 }
 
 - (void)showFunctionView:(SPKCorePinView *)pinView
@@ -210,8 +208,8 @@
 
 - (void)pinCallHome:(SPKCorePinView *)pinView
 {
-    [[SPKSpark sharedInstance].webClient coreId:[SPKSpark sharedInstance].activeCore.coreId pin:pinView.pin.label function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger value) {
-        [SPKSpark sharedInstance].activeCore.connected = YES;
+    [self.device updatePin:pinView.pin.label function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger value) {
+        ///
         dispatch_async(dispatch_get_main_queue(), ^{
             if (pinView.pin.selectedFunction == SPKCorePinFunctionDigitalWrite || pinView.pin.selectedFunction == SPKCorePinFunctionAnalogWrite) {
                 if (value == -1) {
@@ -231,7 +229,6 @@
             [CATransaction commit];
         });
     } failure:^(NSString *errorMessage) {
-        [SPKSpark sharedInstance].activeCore.connected = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
             [[[UIAlertView alloc] initWithTitle:@"Core Pin" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
             [pinView.pin resetValue];

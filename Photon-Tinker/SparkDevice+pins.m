@@ -103,4 +103,63 @@ static NSUInteger CORE_NAMES_COUNT = 55;
     return [NSString stringWithFormat:@"%s_%s", first, last];
 }
 
+
+
+- (void)updatePin:(NSString *)pin function:(SPKCorePinFunction)function value:(NSUInteger)value success:(void (^)(NSUInteger value))success failure:(void (^)(NSString *error))failure
+{
+//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{ @"access_token": self.user.token }];
+//    NSMutableString *path = [NSMutableString stringWithFormat:@"v1/devices/%@/", [coreId hexString]];
+
+    NSString *functionName;
+    NSMutableArray *args = [NSMutableArray new];
+//    [self callFunction:<#(NSString *)#> withArguments:<#(NSArray *)#> completion:<#^(NSNumber *, NSError *)completion#>]
+    
+    switch (function) {
+        case SPKCorePinFunctionAnalogRead:
+            functionName = @"analogread";
+            [args addObject:pin];
+            break;
+        case SPKCorePinFunctionAnalogWrite:
+            functionName = @"analogwrite";
+            [args addObject:pin];
+            [args addObject:@(value)];
+            break;
+        case SPKCorePinFunctionDigitalRead:
+            functionName = @"digitalread";
+            [args addObject:pin];
+            break;
+        case SPKCorePinFunctionDigitalWrite:
+            functionName = @"digitalwrite";
+            [args addObject:pin];
+            [args addObject:(value ? @"HIGH" : @"LOW")];
+            break;
+        default:
+            break;
+    }
+    
+//    [self callMethod:@"POST" path:path parameters:params notifyAuthenticationFailure:YES success:^(NSInteger statusCode, id JSON) {
+//        NSString *errorMessage = JSON[@"error"];
+//        if (!errorMessage && JSON[@"return_value"] != [NSNull null]) {
+//            success([JSON[@"return_value"] unsignedIntegerValue]);
+//        } else {
+//            failure(errorMessage);
+//        }
+//    } failure:^(NSInteger statusCode, id JSON) {
+//        failure([NSString stringWithFormat:@"Unknown error: %d", statusCode]);
+//    }];
+    
+    [self callFunction:functionName withArguments:args completion:^(NSNumber *returnValue, NSError *error) {
+        if (!error)
+        {
+            success([returnValue intValue]);
+        }
+        else
+        {
+            failure(error.localizedDescription);
+        }
+    }];
+}
+
+
+
 @end

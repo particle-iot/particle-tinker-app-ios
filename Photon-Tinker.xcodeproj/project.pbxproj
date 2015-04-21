@@ -19,7 +19,6 @@
 		50EB76161AE6EF2900C925A9 /* SPKCorePin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76141AE6EF2900C925A9 /* SPKCorePin.m */; };
 		50EB761C1AE70AB200C925A9 /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB761B1AE70AB200C925A9 /* SPKTinkerViewController.m */; };
 		50EB76241AE70AF800C925A9 /* SPKCorePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB761F1AE70AF700C925A9 /* SPKCorePinView.m */; };
-		50EB76251AE70AF800C925A9 /* SPKCoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76211AE70AF700C925A9 /* SPKCoreCell.m */; };
 		50EB76261AE70AF800C925A9 /* SPKPinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76231AE70AF800C925A9 /* SPKPinFunctionView.m */; };
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
@@ -60,8 +59,6 @@
 		50EB761B1AE70AB200C925A9 /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKTinkerViewController.m; sourceTree = "<group>"; };
 		50EB761E1AE70AF700C925A9 /* SPKCorePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKCorePinView.h; sourceTree = "<group>"; };
 		50EB761F1AE70AF700C925A9 /* SPKCorePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKCorePinView.m; sourceTree = "<group>"; };
-		50EB76201AE70AF700C925A9 /* SPKCoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKCoreCell.h; sourceTree = "<group>"; };
-		50EB76211AE70AF700C925A9 /* SPKCoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKCoreCell.m; sourceTree = "<group>"; };
 		50EB76221AE70AF800C925A9 /* SPKPinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKPinFunctionView.h; sourceTree = "<group>"; };
 		50EB76231AE70AF800C925A9 /* SPKPinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKPinFunctionView.m; sourceTree = "<group>"; };
 		50F62D951AE0721200109F33 /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
@@ -183,8 +180,6 @@
 			children = (
 				50EB761E1AE70AF700C925A9 /* SPKCorePinView.h */,
 				50EB761F1AE70AF700C925A9 /* SPKCorePinView.m */,
-				50EB76201AE70AF700C925A9 /* SPKCoreCell.h */,
-				50EB76211AE70AF700C925A9 /* SPKCoreCell.m */,
 				50EB76221AE70AF800C925A9 /* SPKPinFunctionView.h */,
 				50EB76231AE70AF800C925A9 /* SPKPinFunctionView.m */,
 			);
@@ -362,7 +357,6 @@
 				5048CD231AE09AD00097150A /* SelectPhotonViewController.swift in Sources */,
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
 				50EB761C1AE70AB200C925A9 /* SPKTinkerViewController.m in Sources */,
-				50EB76251AE70AF800C925A9 /* SPKCoreCell.m in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
 				50EB76261AE70AF800C925A9 /* SPKPinFunctionView.m in Sources */,
 				50EB76241AE70AF800C925A9 /* SPKCorePinView.m in Sources */,
