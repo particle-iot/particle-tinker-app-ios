@@ -83,7 +83,7 @@
         <!--Select Photon View Controller-->
         <scene sceneID="aNv-HX-IZG">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="Kib-3X-Zyf" customClass="SelectPhotonViewController" customModule="Photon_Tinker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Kib-3X-Zyf" customClass="SelectPhotonViewController" customModule="Photon_Tinker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Xu-l8-DFW"/>
                         <viewControllerLayoutGuide type="bottom" id="Rin-Rz-dbU"/>
@@ -274,7 +274,6 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
                     </connections>

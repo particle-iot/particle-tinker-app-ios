@@ -55,16 +55,30 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         {
 //            println("DeviceTableViewCell : \(indexPath.row) / \(self.items.count)")
             var cell:DeviceTableViewCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("device_cell") as! DeviceTableViewCell
-            cell.deviceNameLabel.text = self.devices[indexPath.row].name
+            if let name = self.devices[indexPath.row].name
+            {
+                cell.deviceNameLabel.text = name
+            }
+            else
+            {
+                cell.deviceNameLabel.text = "<Empty>"
+            }
             
 //            cell.deviceIDLabel.text = NSUUID().UUIDString.stringByReplacingOccurrencesOfString("-", withString: "")
 //            cell.deviceIDLabel.text = cell.deviceIDLabel.text!.substringToIndex(advance(cell.deviceIDLabel.text!.startIndex,24))
-            cell.deviceIDLabel.text = devices[indexPath.row].ID
+            cell.deviceIDLabel.text = devices[indexPath.row].id
             
-            switch self.devices[indexPath.row].connected
+            let online = self.devices[indexPath.row].connected
+            switch online
             {
-                case true : cell.deviceStateLabel.text = "Online"
-                default : cell.deviceStateLabel.text = "Offline"
+                case true :
+                    cell.deviceStateLabel.text = "Online"
+                    cell.deviceStateImageView.image = UIImage(named: "imgGreenCircle")
+                
+                default :
+                    cell.deviceStateLabel.text = "Offline"
+                    cell.deviceStateImageView.image = UIImage(named: "imgRedCircle")
+
             }
             
             cell.deviceTypeLabel.text = "Photon"

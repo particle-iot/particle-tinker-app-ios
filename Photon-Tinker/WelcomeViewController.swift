@@ -104,14 +104,16 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
         if segue.identifier! == "select"
         {
-            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, error:NSError?) -> Void in
-                if (error != nil)
+//            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, error:NSError?) -> Void in
+            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, err:NSError!) -> Void in
+                if (err != nil)
                 {
                     println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
-                    println(error?.description)
+                    println(err?.description)
                 }
                 else
                 {
