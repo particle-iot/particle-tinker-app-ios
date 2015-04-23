@@ -8,6 +8,7 @@
 #import "SPKTinkerViewController.h"
 #import "Spark-SDK.h"
 #import "SPKCorePin.h"
+#import "SparkDevice+pins.h"
 
 @interface SPKTinkerViewController ()
 
@@ -20,12 +21,24 @@
 - (void)viewDidLoad
 {
     self.pinViews = [NSMutableDictionary dictionaryWithCapacity:16];
-
     self.pinFunctionView.delegate = self;
 
+    // background image
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgBackgroundOrange"]];
+    backgroundImage.frame = [UIScreen mainScreen].bounds;
+    backgroundImage.contentMode = UIViewContentModeScaleToFill;
+    [self.view addSubview:backgroundImage];
+    [self.view sendSubviewToBack:backgroundImage];
+
+    
+    // first time view
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissFirstTime)];
     [self.firstTimeView addGestureRecognizer:tap];
 
+    // inititalize pins
+    [self.device configurePins:SparkDeviceTypePhoton];//self.device.type];
+    
+    // initialize pin views
     for (SPKCorePin *pin in self.device.pins) {
         SPKCorePinView *v = [[SPKCorePinView alloc] init];
         v.pin = pin;
@@ -34,6 +47,7 @@
         [self.view insertSubview:v belowSubview:self.nameLabel];
     }
 
+    // TODO: handle this
     if (!isiPhone5) {
         self.shadowImageView.hidden = YES;
         self.nameLabel.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3];
