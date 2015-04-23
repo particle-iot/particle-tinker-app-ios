@@ -19,6 +19,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         var backgroundImage = UIImageView(image: UIImage(named: "imgBackgroundBrown"))
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
+        backgroundImage.alpha = 0.5
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
 

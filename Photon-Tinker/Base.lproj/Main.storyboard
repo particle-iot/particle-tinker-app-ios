@@ -24,7 +24,6 @@
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
-            <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
@@ -50,12 +49,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSparkLogoV" translatesAutoresizingMaskIntoConstraints="NO" id="iA9-Xk-N8F">
                                 <rect key="frame" x="219" y="59" width="163" height="196"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photon Tinker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-C7-9e0">
-                                <rect key="frame" x="232" y="263" width="137" height="20"/>
-                                <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
                                 <rect key="frame" x="251" y="538" width="98" height="29"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
@@ -67,21 +60,26 @@
                                     <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3dB-Jf-glm"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTinkerLogo" translatesAutoresizingMaskIntoConstraints="NO" id="on1-jM-hGs">
+                                <rect key="frame" x="219" y="263" width="163" height="163"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="163" id="fLZ-uk-S7j"/>
+                                    <constraint firstAttribute="width" constant="163" id="iSp-24-Qg0"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cQK-Nl-VbT" secondAttribute="bottom" constant="33" id="1sz-eh-AtD"/>
+                            <constraint firstAttribute="centerX" secondItem="on1-jM-hGs" secondAttribute="centerX" id="3ID-m0-xRl"/>
                             <constraint firstAttribute="centerX" secondItem="iA9-Xk-N8F" secondAttribute="centerX" id="EdA-xY-4a3"/>
-                            <constraint firstItem="iA9-Xk-N8F" firstAttribute="centerX" secondItem="0sR-C7-9e0" secondAttribute="centerX" id="GMx-Rx-Sxl"/>
                             <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="39" id="SnU-6L-0if"/>
-                            <constraint firstItem="0sR-C7-9e0" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="8" id="UaV-db-QjS"/>
                             <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
                             <constraint firstAttribute="centerY" secondItem="cQK-Nl-VbT" secondAttribute="centerY" id="gz7-cC-c4Z"/>
-                            <constraint firstAttribute="centerX" secondItem="0sR-C7-9e0" secondAttribute="centerX" id="lLJ-Oq-hj1"/>
+                            <constraint firstItem="on1-jM-hGs" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="8" id="vxT-bE-cCW"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="GMx-Rx-Sxl"/>
                                 <exclude reference="gz7-cC-c4Z"/>
                             </mask>
                         </variation>
@@ -550,9 +548,9 @@ Enjoy!</string>
         <image name="imgCog" width="64" height="64"/>
         <image name="imgDeviceShadow" width="307" height="465"/>
         <image name="imgGreenCircle" width="256" height="256"/>
-        <image name="imgLogout" width="595" height="842"/>
+        <image name="imgLogout" width="64" height="64"/>
         <image name="imgLoop" width="64" height="64"/>
-        <image name="imgPhoton" width="240" height="451"/>
+        <image name="imgPhoton" width="480" height="902"/>
         <image name="imgPointAtD7" width="37" height="289"/>
         <image name="imgSparkLogoH" width="600" height="265"/>
         <image name="imgSparkLogoV" width="163" height="196"/>
