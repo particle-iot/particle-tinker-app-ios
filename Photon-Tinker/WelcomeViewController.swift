@@ -13,7 +13,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
         
         var backgroundImage = UIImageView(image: UIImage(named: "imgBackgroundBrown"))
@@ -22,9 +22,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
 
-//        SparkCloud.sharedInstance().logout()
-        
-
+        self.customizeSetup()
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,7 +45,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     }
     
 
-    
+
     
     // Function will be called when setup finishes
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
@@ -79,8 +77,9 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         //c.fontSizeOffset = 1;
         c.normalTextColor = UIColor.whiteColor()
         c.linkTextColor = UIColor.whiteColor()
-        c.brandImageBackgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
+        c.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
         c.elementBackgroundColor = UIColor(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c.brandImage = UIImage(named: "imgSparkLogoHTop")
         
     }
     
@@ -92,9 +91,6 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         }
         else
         {
-            // Comment out this line to revert to standard "Unbranded" Spark Setup app
-            self.customizeSetup()
-            
             // lines required for invoking the Spark Setup wizard
             if let vc = SparkSetupMainController(authenticationOnly: true)
             {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
     internal var items: [String] = ["trashy_fox", "agent_orange", "test_core2"]
     var devices : [SparkDevice] = []
+    var selectedDevice : SparkDevice? = nil
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -94,14 +95,72 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         
         return masterCell!
     }
+    
+    func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
+        if result == .Success
+        {
+            self.photonSelectionTableView.reloadData()
+        }
+        else
+        {
+            // TODO: show some error message
+        }
+    }
+    
+    func invokeDeviceSetup()
+    {
+        if let vc = SparkSetupMainController()
+        {
+            vc.delegate = self
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
 
+    }
+    
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+        if self.devices.count == 0
+        {
+            self.invokeDeviceSetup()
+        }
+        else
+        {
+            
+            switch indexPath.row
+            {
+            case 0...self.devices.count-1 :
+                if self.devices[indexPath.row].connected
+                {
+                    self.selectedDevice = self.devices[indexPath.row]
+                    self.performSegueWithIdentifier("tinker", sender: self)
+                }
+                else
+                {
+                    // TODO: show some offline / not running tinker error
+                }
+            case self.devices.count :
+                self.invokeDeviceSetup()
+            default :
+                break
+        }
+        }
+    
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70
+    }
+    
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "tinker"
+        {
+            if let vc = segue.destinationViewController as? SPKTinkerViewController
+            {
+                vc.device = self.selectedDevice!
+            }
+        }
     }
     
     @IBAction func refreshButtonTapped(sender: UIButton) {
@@ -111,8 +170,14 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     
     @IBAction func logoutButtonTapped(sender: UIButton) {
+        SparkCloud.sharedInstance().logout()
+        if let navController = self.navigationController {
+            navController.popViewControllerAnimated(true)
+        }
 
     }
+    
+    
 
     
 }

@@ -10,5 +10,6 @@
 
 // additional Obj-C files we use
 #include "SPKCorePin.h"
+#include "SPKTinkerViewController.h"
 
 #endif
