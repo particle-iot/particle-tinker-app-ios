@@ -112,7 +112,6 @@ static NSUInteger CORE_NAMES_COUNT = 55;
 
     NSString *functionName;
     NSMutableArray *args = [NSMutableArray new];
-//    [self callFunction:<#(NSString *)#> withArguments:<#(NSArray *)#> completion:<#^(NSNumber *, NSError *)completion#>]
     
     switch (function) {
         case SPKCorePinFunctionAnalogRead:

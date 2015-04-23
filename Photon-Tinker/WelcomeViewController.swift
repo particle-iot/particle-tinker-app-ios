@@ -96,7 +96,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
             self.customizeSetup()
             
             // lines required for invoking the Spark Setup wizard
-            if let vc = SparkSetupMainController(authenticationOnly: ())
+            if let vc = SparkSetupMainController(authenticationOnly: true)
             {
                 vc.delegate = self
                 self.presentViewController(vc, animated: true, completion: nil)
