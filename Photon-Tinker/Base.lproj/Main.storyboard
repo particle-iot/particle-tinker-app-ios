@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N4k-nE-dcU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -19,12 +19,12 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-BookIta.otf">
             <string>Gotham-BookItalic</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
+            <string>Gotham-Light</string>
             <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
@@ -32,7 +32,6 @@
             <string>Gotham-Medium</string>
         </mutableArray>
         <mutableArray key="Gotham-XLight.otf">
-            <string>Gotham-ExtraLight</string>
             <string>Gotham-ExtraLight</string>
         </mutableArray>
     </customFonts>
@@ -53,14 +52,14 @@
                                 <rect key="frame" x="219" y="59" width="163" height="196"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photon Tinker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-C7-9e0">
-                                <rect key="frame" x="233" y="263" width="134" height="20"/>
-                                <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="20"/>
+                                <rect key="frame" x="232" y="263" width="137" height="20"/>
+                                <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
-                                <rect key="frame" x="257" y="540" width="87" height="27"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                <rect key="frame" x="251" y="538" width="98" height="29"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <state key="normal" title="Get Started">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,20 +78,23 @@
                             <constraint firstItem="0sR-C7-9e0" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="8" id="UaV-db-QjS"/>
                             <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
                             <constraint firstAttribute="centerY" secondItem="cQK-Nl-VbT" secondAttribute="centerY" id="gz7-cC-c4Z"/>
+                            <constraint firstAttribute="centerX" secondItem="0sR-C7-9e0" secondAttribute="centerX" id="lLJ-Oq-hj1"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="GMx-Rx-Sxl"/>
                                 <exclude reference="gz7-cC-c4Z"/>
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="u2E-GR-FTS"/>
                     <connections>
                         <segue destination="Kib-3X-Zyf" kind="show" identifier="select" id="3ox-ek-eEM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="785" y="611"/>
+            <point key="canvasLocation" x="1597" y="611"/>
         </scene>
         <!--Select Photon View Controller-->
         <scene sceneID="aNv-HX-IZG">
@@ -114,19 +116,19 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Photon to tinker with" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
-                                <rect key="frame" x="182" y="88" width="236" height="17"/>
+                                <rect key="frame" x="182" y="89" width="236" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSparkLogoH" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
-                                <rect key="frame" x="0.0" y="15" width="600" height="65"/>
+                                <rect key="frame" x="0.0" y="12" width="600" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="Yk8-bP-8Hb"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0">
-                                <rect key="frame" x="16" y="20" width="59" height="27"/>
+                            <button opaque="NO" alpha="0.74999999999999978" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0">
+                                <rect key="frame" x="16" y="30" width="59" height="27"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                 <state key="normal" title="Log out">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -136,18 +138,8 @@
                                     <action selector="logoutButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="GEN-HU-N7w"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGe-YL-M8K">
-                                <rect key="frame" x="527" y="18" width="57" height="27"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
-                                <state key="normal" title="Refresh">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="refreshButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="7t4-rQ-of9"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
-                                <rect key="frame" x="16" y="113" width="568" height="467"/>
+                                <rect key="frame" x="16" y="118" width="568" height="462"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -266,28 +258,41 @@
                                     <outlet property="delegate" destination="Kib-3X-Zyf" id="9rh-X7-yIQ"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" alpha="0.74999999999999978" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGe-YL-M8K">
+                                <rect key="frame" x="560" y="32" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="gfj-em-Hig"/>
+                                    <constraint firstAttribute="width" constant="24" id="lOs-bF-d6l"/>
+                                </constraints>
+                                <state key="normal" title="Refresh" image="imgRefreshIcon">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="7t4-rQ-of9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.60543263199535347" green="0.6299986055892115" blue="0.79396170377731323" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="XGe-YL-M8K" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="-2" id="0IF-zp-K6M"/>
+                            <constraint firstItem="XGe-YL-M8K" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="12" id="0IF-zp-K6M"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="0ML-yo-2ef"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" id="1vk-uV-3Sq"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" id="4tY-y9-6tC"/>
-                            <constraint firstItem="ShA-Nw-uxr" firstAttribute="top" secondItem="4Ex-QS-fRu" secondAttribute="bottom" constant="8" id="5Yj-Aa-Psb"/>
+                            <constraint firstItem="ShA-Nw-uxr" firstAttribute="top" secondItem="4Ex-QS-fRu" secondAttribute="bottom" constant="12" id="5Yj-Aa-Psb"/>
                             <constraint firstItem="kNA-WJ-NA0" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" id="7eE-XA-P7F"/>
                             <constraint firstAttribute="trailing" secondItem="4Ex-QS-fRu" secondAttribute="trailing" id="ElL-Aw-Q58"/>
                             <constraint firstAttribute="centerX" secondItem="ShA-Nw-uxr" secondAttribute="centerX" id="JB5-bs-nic"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="kNA-WJ-NA0" secondAttribute="bottom" constant="-47" id="MVP-9w-A36"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="leading" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="-75" id="PDX-XF-ucD"/>
-                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" constant="15" id="QSG-XP-GHQ"/>
-                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="8" id="cdp-2I-7GV"/>
+                            <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" constant="12" id="QSG-XP-GHQ"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="12" id="cdp-2I-7GV"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
                             <constraint firstItem="XGe-YL-M8K" firstAttribute="leading" secondItem="4Ex-QS-fRu" secondAttribute="trailing" constant="-69" id="fkK-eB-Edv"/>
                             <constraint firstItem="XGe-YL-M8K" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" id="k8m-62-VlN"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" id="uVc-GF-F2a"/>
                             <constraint firstItem="Rin-Rz-dbU" firstAttribute="top" secondItem="l8r-gu-33x" secondAttribute="bottom" constant="20" id="wR8-9O-PrK"/>
-                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" id="zQ6-KB-ch3"/>
+                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="10" id="zQ6-KB-ch3"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -305,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btD-jl-5UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1525" y="611"/>
+            <point key="canvasLocation" x="2337" y="611"/>
         </scene>
         <!--Tinker View Controller-->
         <scene sceneID="00Q-tu-1VZ">
@@ -506,7 +511,25 @@ Enjoy!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yAy-IB-P2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2278" y="611"/>
+            <point key="canvasLocation" x="3090" y="611"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QZP-6e-GKK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="N4k-nE-dcU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Y0-SB-VNa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9SM-Nm-3zh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1db-rH-NLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="611"/>
         </scene>
     </scenes>
     <resources>
@@ -517,6 +540,7 @@ Enjoy!</string>
         <image name="imgGear" width="300" height="299"/>
         <image name="imgGreenCircle" width="256" height="256"/>
         <image name="imgPointAtD7" width="37" height="289"/>
+        <image name="imgRefreshIcon" width="160" height="160"/>
         <image name="imgSparkLogoH" width="600" height="265"/>
         <image name="imgSparkLogoV" width="163" height="196"/>
         <image name="imgTinkerLogo" width="132" height="139"/>
