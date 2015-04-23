@@ -20,6 +20,8 @@ PODS:
   - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CBStoreHouseRefreshControl (1.0)
+  - HexColors (2.2.1)
   - MBProgressHUD (0.9.1)
   - Spark-SDK (0.2.3):
     - Spark-SDK/Helpers (= 0.2.3)
@@ -38,10 +40,14 @@ PODS:
     - SparkSetup/Comm
     - SparkSetup/Resources
   - SparkSetup/Resources (0.1.4)
+  - TSMessages (0.9.12):
+    - HexColors
 
 DEPENDENCIES:
+  - CBStoreHouseRefreshControl
   - MBProgressHUD
   - SparkSetup (from `../spark-setup-ios`)
+  - TSMessages
 
 EXTERNAL SOURCES:
   SparkSetup:
@@ -49,8 +55,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  CBStoreHouseRefreshControl: a814bd725e74ff4c1e8dd96eb02358199b0da04f
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Spark-SDK: f17e9fce6ccf7f5f6c0efbd7ed224e30c87665f8
   SparkSetup: c795683a23554f28d60c4a17b6f4fbe4643e20b6
+  TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
 
 COCOAPODS: 0.36.4

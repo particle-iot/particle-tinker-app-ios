@@ -43,6 +43,35 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     }
     */
     
+    override func viewWillAppear(animated: Bool) {
+        self.loadDevices()
+    }
+    
+    
+    func loadDevices()
+    {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
+            
+            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, err:NSError!) -> Void in
+                if (err != nil)
+                {
+                    println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
+                    println(err?.description)
+                }
+                else
+                {
+                    self.devices = devices as! [SparkDevice]
+                    dispatch_async(dispatch_get_main_queue()) {
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        self.photonSelectionTableView.reloadData()
+                    }
+                    
+                }
+            })
+        }
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.devices.count+1
     }

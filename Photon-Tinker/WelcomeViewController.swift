@@ -80,6 +80,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
         c.elementBackgroundColor = UIColor(patternImage: UIImage(named: "imgOrangeGradient")!)
         c.brandImage = UIImage(named: "imgSparkLogoHTop")
+        c.deviceImage = UIImage(named: "imgPhoton")
         
     }
     
@@ -99,28 +100,6 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
             }
         }
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
-    {
-        if segue.identifier! == "select"
-        {
-//            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, error:NSError?) -> Void in
-            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, err:NSError!) -> Void in
-                if (err != nil)
-                {
-                    println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
-                    println(err?.description)
-                }
-                else
-                {
-                    var vc : SelectPhotonViewController? = segue.destinationViewController as? SelectPhotonViewController
-                    println(devices)
-                    vc?.devices = devices as! [SparkDevice]
-                }
-            })
-        }
-    }
-    
-    
+      
 }
 

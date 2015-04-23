@@ -24,6 +24,7 @@
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
+            <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
@@ -113,8 +114,8 @@
                                     <constraint firstAttribute="height" constant="80" id="OtP-l0-T4M"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Photon to tinker with" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
-                                <rect key="frame" x="182" y="89" width="236" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select Photon to tinker with" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
+                                <rect key="frame" x="195" y="89" width="211" height="20"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -125,7 +126,7 @@
                                     <constraint firstAttribute="height" constant="65" id="Yk8-bP-8Hb"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0">
+                            <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0">
                                 <rect key="frame" x="8" y="28" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="WKj-ZV-LeO"/>
@@ -137,8 +138,8 @@
                                     <action selector="logoutButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="GEN-HU-N7w"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
-                                <rect key="frame" x="0.0" y="118" width="600" height="462"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
+                                <rect key="frame" x="0.0" y="133" width="600" height="447"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -147,20 +148,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Hd-ns-Ycr" id="4V0-a3-YrK">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-LG-cmy">
-                                                    <rect key="frame" x="56" y="8" width="536" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-LG-cmy">
+                                                    <rect key="frame" x="56" y="8" width="536" height="20"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kav-Qy-Jda">
-                                                    <rect key="frame" x="56" y="29" width="89" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kav-Qy-Jda">
+                                                    <rect key="frame" x="56" y="32" width="79" height="18"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
-                                                    <rect key="frame" x="478" y="27" width="86" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
+                                                    <rect key="frame" x="486" y="26" width="78" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="146" id="Q0c-RX-7tl"/>
                                                     </constraints>
@@ -180,8 +181,8 @@
                                                         <constraint firstAttribute="width" constant="20" id="e4F-Ke-7l4"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNp-V8-5Dy">
-                                                    <rect key="frame" x="56" y="48" width="61" height="13"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNp-V8-5Dy">
+                                                    <rect key="frame" x="56" y="54" width="56" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="273" id="E2r-l0-dPG"/>
                                                     </constraints>
@@ -264,6 +265,12 @@
                                     <outlet property="delegate" destination="Kib-3X-Zyf" id="9rh-X7-yIQ"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999987" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="(pull down to refresh table)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5o-PI-DzM">
+                                <rect key="frame" x="209" y="113" width="178" height="18"/>
+                                <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGe-YL-M8K">
                                 <rect key="frame" x="568" y="28" width="24" height="24"/>
                                 <constraints>
@@ -290,12 +297,14 @@
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="kNA-WJ-NA0" secondAttribute="bottom" constant="-47" id="MVP-9w-A36"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="leading" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="-75" id="PDX-XF-ucD"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" constant="12" id="QSG-XP-GHQ"/>
-                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="12" id="cdp-2I-7GV"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="24" id="cdp-2I-7GV"/>
+                            <constraint firstAttribute="centerX" secondItem="p5o-PI-DzM" secondAttribute="centerX" constant="2.5" id="dE6-xP-cL2"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
                             <constraint firstItem="XGe-YL-M8K" firstAttribute="leading" secondItem="4Ex-QS-fRu" secondAttribute="trailing" constant="-69" id="fkK-eB-Edv"/>
                             <constraint firstItem="XGe-YL-M8K" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" constant="8" id="k8m-62-VlN"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" constant="-16" id="uVc-GF-F2a"/>
+                            <constraint firstItem="p5o-PI-DzM" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="4" id="vBL-9Y-SaT"/>
                             <constraint firstItem="Rin-Rz-dbU" firstAttribute="top" secondItem="l8r-gu-33x" secondAttribute="bottom" constant="20" id="wR8-9O-PrK"/>
                             <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="8" id="zQ6-KB-ch3"/>
                         </constraints>
@@ -541,7 +550,7 @@ Enjoy!</string>
         <image name="imgCog" width="64" height="64"/>
         <image name="imgDeviceShadow" width="307" height="465"/>
         <image name="imgGreenCircle" width="256" height="256"/>
-        <image name="imgLogout" width="64" height="64"/>
+        <image name="imgLogout" width="595" height="842"/>
         <image name="imgLoop" width="64" height="64"/>
         <image name="imgPhoton" width="240" height="451"/>
         <image name="imgPointAtD7" width="37" height="289"/>

@@ -12,4 +12,10 @@
 #include "SPKCorePin.h"
 #include "SPKTinkerViewController.h"
 
+// pods
+#include "MBProgressHUD.h"
+#include "TSMessage.h"
+#include "CBStoreHouseRefreshControl.h"
+
+
 #endif
