@@ -362,11 +362,11 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <string key="text">Welcome To Tinker.
 
-Tinker is the fastest and easiest way to prototype and play with your Spark Core.
+Tinker is the fastest and easiest way to prototype and play with your Spark Photon.
 
-Here you can access the basic input/output functions of the Spark Core without writing a line of code.
+Here you can access the basic input/output functions of the Spark Photon without writing a line of code.
 
-Tap any pin to get started. Try digitalWrite on D7; there's an LED attached.
+Tap any pin to get started. Try digitalWrite on D7; there's a LED attached.
 
 Enjoy!</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
