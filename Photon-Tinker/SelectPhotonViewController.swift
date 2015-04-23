@@ -93,6 +93,15 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             
         }
         
+        if (indexPath.row % 2) == 0
+        {
+            masterCell?.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.3)
+        }
+        else
+        {
+            masterCell?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+        }
+        
         return masterCell!
     }
     

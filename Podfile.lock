@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - MBProgressHUD (0.9.1)
   - Spark-SDK (0.2.3):
     - Spark-SDK/Helpers (= 0.2.3)
     - Spark-SDK/SDK (= 0.2.3)
@@ -39,6 +40,7 @@ PODS:
   - SparkSetup/Resources (0.1.4)
 
 DEPENDENCIES:
+  - MBProgressHUD
   - SparkSetup (from `../spark-setup-ios`)
 
 EXTERNAL SOURCES:
@@ -47,6 +49,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Spark-SDK: f17e9fce6ccf7f5f6c0efbd7ed224e30c87665f8
   SparkSetup: c795683a23554f28d60c4a17b6f4fbe4643e20b6
 
