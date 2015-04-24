@@ -33,19 +33,22 @@
 
 @end
 
-#define Y_OFFSET            (isiPhone5?64.0:68.0)
+#define Y_OFFSET            64.0
 #define X_OFFSET            7.0
-#define WIDTH               250.0
-#define SPACING             (isiPhone5?24.0:22.0)
+#define SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
+
+#define SPACING             24.0
 #define PADDING             2.0
 #define RADIUS              13.5
 #define DIAMETER            (RADIUS*2.0)
 #define HEIGHT              (SPACING+RADIUS*2.0)
 #define CENTER              (HEIGHT/2.0)
-#define SCREEN_WIDTH        320.0
+#define BORDER              24
+
+#define WIDTH               SCREEN_WIDTH-(2*PIN_X_OFFSET)
 #define PIN_X_OFFSET        22.0
 #define RING_OUTER_DIAMETER 35.0
-#define RING_WIDTH          8.0
+#define RING_WIDTH          7.0 //
 
 #define BAR_WIDTH           53.0
 #define BAR_HEIGHT          9.0
@@ -157,9 +160,9 @@
     CGFloat x = pin.side == SPKCorePinSideLeft ? X_OFFSET : (SCREEN_WIDTH - X_OFFSET - WIDTH);
     CGRect f = CGRectMake(x, Y_OFFSET+pin.row*(HEIGHT+PADDING), WIDTH, HEIGHT);
 
-    if (!isiPhone5) {
-        f.origin.y -= 3.0;
-    }
+//    if (!isiPhone5) {
+//        f.origin.y -= 3.0;
+//    }
 
     self.frame = f;
 
@@ -168,9 +171,9 @@
 
 - (void)refresh
 {
-    CGFloat pinX = self.pin.side == SPKCorePinSideRight ? (WIDTH-PIN_X_OFFSET) : PIN_X_OFFSET;
-    CGFloat barX = self.pin.side == SPKCorePinSideRight ? (WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BAR_WIDTH/2.0;
-    CGFloat bigBarX = self.pin.side == SPKCorePinSideRight ? (WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BIG_BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BIG_BAR_WIDTH/2.0;
+    CGFloat pinX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-PIN_X_OFFSET) : PIN_X_OFFSET;
+    CGFloat barX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BAR_WIDTH/2.0;
+    CGFloat bigBarX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BIG_BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BIG_BAR_WIDTH/2.0;
     CGColorRef color = self.pin.selectedFunctionColor.CGColor;
 
     [CATransaction begin];

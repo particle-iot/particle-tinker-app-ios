@@ -1,8 +1,8 @@
 //
 //  SPKTinkerViewController.h
-//  Spark IOS
+//  Spark Photon Tinker for iOS
 //
-//  Copyright (c) 2013 Spark Devices. All rights reserved.
+//  Copyright (c) 2015 Spark Devices. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -15,12 +15,6 @@
     functionallity should following the same delegate pattern.
  */
 @interface SPKTinkerViewController : UIViewController <SPKCorePinViewDelegate, SPKPinFunctionDelegate>
-
-@property (weak) IBOutlet SPKPinFunctionView *pinFunctionView;
-@property (weak) IBOutlet UILabel *nameLabel;
-@property (weak) IBOutlet UIView *firstTimeView;
-@property (weak) IBOutlet UIImageView *tinkerLogoImageView;
-@property (weak) IBOutlet UIImageView *shadowImageView;
 
 @property (nonatomic, strong) SparkDevice *device;
 

@@ -53,6 +53,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         hud.mode = .CustomView//.Indeterminate
         hud.animationType = .ZoomIn
         hud.labelText = "Loading"
+        hud.minShowTime = 0.4
         
         // prepare spinner view for first time populating of devices into table
         var spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))

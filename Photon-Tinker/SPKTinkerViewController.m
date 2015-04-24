@@ -13,8 +13,16 @@
 @interface SPKTinkerViewController ()
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
+@property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
+@property (nonatomic, weak) IBOutlet SPKPinFunctionView *pinFunctionView;
+@property (nonatomic, weak) IBOutlet UIView *firstTimeView;
+@property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *shadowImageView;
+
+@property (weak, nonatomic) IBOutlet UIView *deviceView;
 
 @end
+
 
 @implementation SPKTinkerViewController
 
@@ -36,7 +44,7 @@
     [self.firstTimeView addGestureRecognizer:tap];
 
     // inititalize pins
-    [self.device configurePins:SparkDeviceTypePhoton];//self.device.type];
+    [self.device configurePins:SparkDeviceTypePhoton];//self.device.type]; // TODO: fix when device type becomes available
     
     // initialize pin views
     for (SPKCorePin *pin in self.device.pins) {
@@ -44,14 +52,26 @@
         v.pin = pin;
         v.delegate = self;
         self.pinViews[pin.label] = v;
-        [self.view insertSubview:v belowSubview:self.nameLabel];
+//        [self.view insertSubview:v belowSubview:self.shadowImageView];
+        [self.deviceView insertSubview:v aboveSubview:self.shadowImageView];
     }
 
     // TODO: handle this
 //    if (!isiPhone5) {
 //        self.shadowImageView.hidden = YES;
-        self.nameLabel.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3];
+//        self.nameLabel.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3];
 //    }
+}
+
+- (IBAction)editDeviceNameButtonTapped:(id)sender {
+}
+
+
+- (IBAction)backButtonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)helpButtonTapped:(id)sender {
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,17 +83,27 @@
         v.pin = pin;
     }
 
-    self.nameLabel.text = self.device.name;
+    if ((self.device.name) && (![self.device.name isEqualToString:@""]))
+    {
+        self.deviceNameLabel.text = self.device.name;
+    }
+    else
+    {
+        self.deviceNameLabel.text = @"<empty>";
+    }
 
 //    self.firstTimeView.hidden = ![SPKSpark sharedInstance].user.firstTime;
     self.tinkerLogoImageView.hidden = NO;
-    self.nameLabel.hidden = NO;
+//    self.deviceNameLabel.hidden = NO;
 }
 
+
+/*
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
 
+    
     if (!isiPhone5) {
         CGRect f = self.nameLabel.frame;
         f.origin.y = 340.0;
@@ -88,6 +118,7 @@
         self.tinkerLogoImageView.frame = f;
     }
 }
+*/
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -122,12 +153,14 @@
     }
 }
 
+
 - (void)pinViewHeld:(SPKCorePinView *)pinView
 {
     if (![self slidingAnalogWritePinView] && !pinView.active) {
         [self showFunctionView:pinView];
     }
 }
+
 
 - (void)pinViewTapped:(SPKCorePinView *)pinView inPin:(BOOL)inPin
 {
@@ -137,7 +170,7 @@
             pv.alpha = 1.0;
         }
         self.tinkerLogoImageView.hidden = NO;
-        self.nameLabel.hidden = NO;
+//        self.deviceNameLabel.hidden = NO;
     } else if (!pinView.active) {
         SPKCorePinView *slidingAnalogWritePinView = [self slidingAnalogWritePinView];
 
@@ -147,9 +180,9 @@
             }
 
             self.tinkerLogoImageView.hidden = YES;
-            if (!isiPhone5) {
-                self.nameLabel.hidden = YES;
-            }
+//            if (!isiPhone5) {
+//                self.nameLabel.hidden = YES;
+//            }
             [self.view bringSubviewToFront:pinView];
             [pinView slider];
         } else if (!slidingAnalogWritePinView && inPin && pinView.pin.selectedFunction == SPKCorePinFunctionNone) {
@@ -195,9 +228,9 @@
 {
     if (self.pinFunctionView.hidden) {
         self.tinkerLogoImageView.hidden = YES;
-        if (!isiPhone5) {
-            self.nameLabel.hidden = YES;
-        }
+//        if (!isiPhone5) {
+//            self.nameLabel.hidden = YES;
+//        }
         self.pinFunctionView.pin = pinView.pin;
         self.pinFunctionView.hidden = NO;
         for (SPKCorePinView *pv in self.pinViews.allValues) {
@@ -238,7 +271,7 @@
             [CATransaction setDisableActions:YES];
             [pinView deactivate];
             self.tinkerLogoImageView.hidden = NO;
-            self.nameLabel.hidden = NO;
+//            self.deviceNameLabel.hidden = NO;
             [pinView refresh];
             [CATransaction commit];
         });
@@ -250,7 +283,7 @@
             [CATransaction setDisableActions:YES];
             [pinView deactivate];
             self.tinkerLogoImageView.hidden = NO;
-            self.nameLabel.hidden = NO;
+//            self.deviceNameLabel.hidden = NO;
             [pinView refresh];
             [CATransaction commit];
         });
