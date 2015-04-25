@@ -189,34 +189,36 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         return masterCell!
     }
     
-//    
-//    - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//    [_objects removeObjectAtIndex:indexPath.row];
-//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//    } else {
-//    NSLog(@"Unhandled editing style! %d", editingStyle);
-//    }
-//    }
-    //
-    //
-    
+
     
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // user swiped left
         if editingStyle == .Delete
         {
-            self.devices.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                tableView.reloadData()
+            TSMessage.showNotificationInViewController(self, title: "Unclaim confirmation", subtitle: "Are you sure you want to remove this device from your account?", image: UIImage(named: "imgQuestionWhite"), type: .Error, duration: -1, callback: { () -> Void in
+                // callback for user dismiss by touching inside notification
+                TSMessage.dismissActiveNotification()
+                tableView.editing = false
+                } , buttonTitle: " Yes ", buttonCallback: { () -> Void in
+                    // callback for user tapping YES button - need to delete row and update table (TODO: actually unclaim device)
+                    self.devices.removeAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.25 * Double(NSEC_PER_SEC)))
+                    // update table view display to show dark/light cells with delay so that delete animation can complete nicely
+                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+                        tableView.reloadData()
+                }}, atPosition: .Top, canBeDismissedByUser: true)
             }
         }
-    }
-    
+        
     func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
         return "Unclaim"
+    }
+    
+    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+        // user touches elsewhere
+        TSMessage.dismissActiveNotification()
     }
     
     // prevent "Setup new photon" row from being edited/deleted
