@@ -20,14 +20,13 @@
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
-            <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
         </mutableArray>
-        <mutableArray key="Gotham-XLightIta.otf">
-            <string>Gotham-ExtraLightItalic</string>
+        <mutableArray key="Gotham-XLight.otf">
+            <string>Gotham-ExtraLight</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -134,7 +133,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
-                                <rect key="frame" x="0.0" y="130" width="600" height="450"/>
+                                <rect key="frame" x="0.0" y="114" width="600" height="466"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -260,12 +259,6 @@
                                     <outlet property="delegate" destination="Kib-3X-Zyf" id="9rh-X7-yIQ"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999987" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(pull down to refresh table)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5o-PI-DzM">
-                                <rect key="frame" x="197" y="110" width="202" height="15"/>
-                                <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.60543263199535347" green="0.6299986055892115" blue="0.79396170377731323" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -279,12 +272,10 @@
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="kNA-WJ-NA0" secondAttribute="bottom" constant="-47" id="MVP-9w-A36"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="leading" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="-75" id="PDX-XF-ucD"/>
                             <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" constant="12" id="QSG-XP-GHQ"/>
-                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="24" id="cdp-2I-7GV"/>
-                            <constraint firstAttribute="centerX" secondItem="p5o-PI-DzM" secondAttribute="centerX" constant="2.5" id="dE6-xP-cL2"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="8" id="cdp-2I-7GV"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" constant="-16" id="uVc-GF-F2a"/>
-                            <constraint firstItem="p5o-PI-DzM" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="4" id="vBL-9Y-SaT"/>
                             <constraint firstItem="Rin-Rz-dbU" firstAttribute="top" secondItem="l8r-gu-33x" secondAttribute="bottom" constant="20" id="wR8-9O-PrK"/>
                             <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="8" id="zQ6-KB-ch3"/>
                         </constraints>
@@ -369,9 +360,9 @@ Enjoy!</string>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-The Spark Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-AC-fuy">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-The Spark Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-AC-fuy">
                                         <rect key="frame" x="155" y="397" width="128" height="16"/>
-                                        <fontDescription key="fontDescription" name="Gotham-ExtraLightItalic" family="Gotham" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -591,11 +582,11 @@ Enjoy!</string>
                                 <exclude reference="Fwq-se-08c"/>
                                 <exclude reference="T4a-SJ-P77"/>
                                 <exclude reference="wm3-GL-oho"/>
+                                <exclude reference="Oj8-kk-3qD"/>
                                 <exclude reference="08M-nn-Oad"/>
                                 <exclude reference="NQG-gc-wc8"/>
                                 <exclude reference="W3e-Jz-GrI"/>
                                 <exclude reference="iwG-TF-iOW"/>
-                                <exclude reference="Oj8-kk-3qD"/>
                                 <exclude reference="MpT-mW-WJE"/>
                                 <exclude reference="oYF-Nk-nna"/>
                             </mask>

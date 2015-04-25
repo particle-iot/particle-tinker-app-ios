@@ -15,7 +15,5 @@
 // pods
 #include "MBProgressHUD.h"
 #include "TSMessage.h"
-#include "CBStoreHouseRefreshControl.h"
-
-
+#include "UIScrollView+PullToRefreshCoreText.h"
 #endif

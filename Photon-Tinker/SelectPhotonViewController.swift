@@ -18,18 +18,26 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         backgroundImage.contentMode = .ScaleToFill;
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
-        
+
         // Do any additional setup after loading the view.
+        //        self.storeHouseRefreshControl = CBStoreHouseRefreshControl.attachToScrollView(self.photonSelectionTableView, target: self, refreshAction: Selector("refreshAction"), plist: "storehouse")
     }
 
     var devices : [SparkDevice] = []
     var selectedDevice : SparkDevice? = nil
+//    var storeHouseRefreshControl : CBStoreHouseRefreshControl? = nil
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func refreshAction()
+    {
+        //...
+//         self.storeHouseRefreshControl!.finishingLoading()
+        
+    }
 
     @IBOutlet weak var photonSelectionTableView: UITableView!
     /*
@@ -84,10 +92,42 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     dispatch_async(dispatch_get_main_queue()) {
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
                         self.photonSelectionTableView.reloadData()
+                        // first time add the custom pull to refresh control to the tableview
+                        self.addRefreshControl()
+
+                        
                     }
                     
                 }
             })
+        }
+    }
+    
+    func addRefreshControl()
+    {
+
+        let refreshFont = UIFont(name: "Gotham-Book", size: 17.0)
+        
+        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
+//        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", pullTextColor: UIColor.whiteColor(), pullTextFont: refreshFont, refreshingText: "Refreshing Devices", refreshingTextColor: UIColor.whiteColor(), refreshingTextFont: refreshFont) { () -> Void in
+            SparkCloud.sharedInstance().getDevices() { (devices:[AnyObject]!, err:NSError!) -> Void in
+                if (err != nil)
+                {
+                    println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
+                    println(err?.description)
+                    TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check internet connection.", type: .Error)
+                }
+                else
+                {
+                    self.devices = devices as! [SparkDevice]
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.photonSelectionTableView.reloadData()
+                    }
+                    
+                }
+                self.photonSelectionTableView.finishLoading()
+            }
+            
         }
     }
     
@@ -149,6 +189,48 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         return masterCell!
     }
     
+//    
+//    - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//    [_objects removeObjectAtIndex:indexPath.row];
+//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    } else {
+//    NSLog(@"Unhandled editing style! %d", editingStyle);
+//    }
+//    }
+    //
+    //
+    
+    
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete
+        {
+            self.devices.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
+        return "Unclaim"
+    }
+    
+    // prevent "Setup new photon" row from being edited/deleted
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.row == self.devices.count
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        
+    }
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         if result == .Success
         {

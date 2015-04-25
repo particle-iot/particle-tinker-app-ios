@@ -33,7 +33,7 @@
 
 @end
 
-#define Y_OFFSET            64.0
+#define Y_OFFSET            8.0
 #define X_OFFSET            7.0
 #define SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
 
@@ -45,7 +45,7 @@
 #define CENTER              (HEIGHT/2.0)
 #define BORDER              24
 
-#define WIDTH               SCREEN_WIDTH-(2*PIN_X_OFFSET)
+#define WIDTH               (SCREEN_WIDTH-(2*PIN_X_OFFSET))/2
 #define PIN_X_OFFSET        22.0
 #define RING_OUTER_DIAMETER 35.0
 #define RING_WIDTH          7.0 //
@@ -157,7 +157,8 @@
 {
     _pin = pin;
 
-    CGFloat x = pin.side == SPKCorePinSideLeft ? X_OFFSET : (SCREEN_WIDTH - X_OFFSET - WIDTH);
+    CGFloat x = pin.side == SPKCorePinSideLeft ? PIN_X_OFFSET : (SCREEN_WIDTH - PIN_X_OFFSET);
+    NSLog(@"setPin: pin %@, x = %f",pin.label,x);
     CGRect f = CGRectMake(x, Y_OFFSET+pin.row*(HEIGHT+PADDING), WIDTH, HEIGHT);
 
 //    if (!isiPhone5) {
@@ -172,6 +173,8 @@
 - (void)refresh
 {
     CGFloat pinX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-PIN_X_OFFSET) : PIN_X_OFFSET;
+    NSLog(@"refresh: pin %@, x = %f",self.pin.label,pinX);
+
     CGFloat barX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BAR_WIDTH/2.0;
     CGFloat bigBarX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BIG_BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BIG_BAR_WIDTH/2.0;
     CGColorRef color = self.pin.selectedFunctionColor.CGColor;

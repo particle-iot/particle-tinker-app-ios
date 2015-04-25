@@ -1,4 +1,4 @@
 pod "SparkSetup", :path => "../spark-setup-ios"
 pod "MBProgressHUD"
 pod "TSMessages"
-pod "CBStoreHouseRefreshControl"
+pod 'PullToRefreshCoreText', '~> 0.1'
