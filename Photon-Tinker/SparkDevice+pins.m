@@ -159,6 +159,14 @@ static NSUInteger CORE_NAMES_COUNT = 55;
     }];
 }
 
+-(BOOL)isRunningTinker
+{
+    if (([self.functions containsObject:@"digitalread"]) && ([self.functions containsObject:@"digitalwrite"]) && ([self.functions containsObject:@"analogwrite"]) && ([self.functions containsObject:@"analogread"]))
+        return YES;
+    else
+        return NO;
+}
+
 
 
 @end

@@ -90,7 +90,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 {
                     self.devices = devices as! [SparkDevice]
                     dispatch_async(dispatch_get_main_queue()) {
-                        MBProgressHUD.hideHUDForView(self.view, animated: true)
                         self.photonSelectionTableView.reloadData()
                         // first time add the custom pull to refresh control to the tableview
                         self.addRefreshControl()
@@ -99,6 +98,10 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     }
                     
                 }
+                dispatch_async(dispatch_get_main_queue()) {
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                }
+
             })
         }
     }
@@ -157,14 +160,22 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             let online = self.devices[indexPath.row].connected
             switch online
             {
+            case true :
+                switch devices[indexPath.row].isRunningTinker()
+                {
                 case true :
                     cell.deviceStateLabel.text = "Online"
                     cell.deviceStateImageView.image = UIImage(named: "imgGreenCircle")
-                
                 default :
-                    cell.deviceStateLabel.text = "Offline"
-                    cell.deviceStateImageView.image = UIImage(named: "imgRedCircle")
-
+                    cell.deviceStateLabel.text = "Not running Tinker"
+                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle")
+                }
+                
+                
+            default :
+                cell.deviceStateLabel.text = "Offline"
+                cell.deviceStateImageView.image = UIImage(named: "imgRedCircle")
+                
             }
             
             cell.deviceTypeLabel.text = "Photon"
@@ -269,12 +280,25 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             case 0...self.devices.count-1 :
                 if self.devices[indexPath.row].connected
                 {
-                    self.selectedDevice = self.devices[indexPath.row]
-                    self.performSegueWithIdentifier("tinker", sender: self)
+                    switch devices[indexPath.row].isRunningTinker()
+                    {
+                    case true :
+                        self.selectedDevice = self.devices[indexPath.row]
+                        self.performSegueWithIdentifier("tinker", sender: self)
+                    default :
+                        // TODO: add "not running tinker, do you want to flash?"
+                        TSMessage.showNotificationInViewController(self, title: "Device not running Tinker", subtitle: "Do you want to flash Tinker firmware to this device? (Tap device again to force Tinker with it)", image: UIImage(named: "imgQuestionWhite"), type: .Message, duration: -1, callback: { () -> Void in
+                            // callback for user dismiss by touching inside notification
+                            TSMessage.dismissActiveNotification()
+                            } , buttonTitle: " Flash ", buttonCallback: { () -> Void in
+                                // TODO: spark cloud flash tinker command
+                            }, atPosition: .Top, canBeDismissedByUser: true)
+                    }
+                    
                 }
                 else
                 {
-                    // TODO: add "not running tinker, do you want to flash?"
+                    
                     TSMessage.showNotificationWithTitle("Device offline", subtitle: "This device is offline, please turn it on and refresh in order to Tinker with it.", type: .Error)
                 }
             case self.devices.count :
