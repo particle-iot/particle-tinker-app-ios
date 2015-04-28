@@ -75,8 +75,8 @@ static NSUInteger CORE_NAMES_COUNT = 55;
             a3 = [[SPKCorePin alloc] initWithLabel:@"A3" side:SPKCorePinSideLeft row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
             a4 = [[SPKCorePin alloc] initWithLabel:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
             a5 = [[SPKCorePin alloc] initWithLabel:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS];
-            a6 = [[SPKCorePin alloc] initWithLabel:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
-            a7 = [[SPKCorePin alloc] initWithLabel:@"A7" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
+            a6 = [[SPKCorePin alloc] initWithLabel:@"DAC" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
+            a7 = [[SPKCorePin alloc] initWithLabel:@"WKP" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
             
             d0 = [[SPKCorePin alloc] initWithLabel:@"D0" side:SPKCorePinSideRight row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
             d1 = [[SPKCorePin alloc] initWithLabel:@"D1" side:SPKCorePinSideRight row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];

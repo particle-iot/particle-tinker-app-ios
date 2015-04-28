@@ -325,7 +325,9 @@
     {
         // No previous item found; add the new one.
         result = SecItemAdd((__bridge CFDictionaryRef)[self dictionaryToSecItemFormat:keychainItemData], NULL);
+#ifndef NDEBUG
         NSAssert( result == noErr, @"Couldn't add the Keychain Item." );
+#endif
     }
     
     if(attributes) CFRelease(attributes);

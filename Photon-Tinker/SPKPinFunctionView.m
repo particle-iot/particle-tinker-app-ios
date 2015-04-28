@@ -63,6 +63,9 @@
         default:
             break;
     }
+    
+    [self.pinLabel sizeToFit];
+
 }
 
 - (IBAction)functionSelected:(id)sender

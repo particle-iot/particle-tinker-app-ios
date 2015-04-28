@@ -35,7 +35,7 @@
 
 #define Y_OFFSET            8.0
 #define X_OFFSET            7.0
-#define SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
+#define SCREEN_WIDTH        (self.superview.frame.size.width/[[UIScreen mainScreen] scale])
 
 #define SPACING             24.0
 #define PADDING             2.0
@@ -46,9 +46,10 @@
 #define BORDER              24
 
 #define WIDTH               (SCREEN_WIDTH-(2*PIN_X_OFFSET))/2
+#define PIN_WIDTH           51.0
 #define PIN_X_OFFSET        22.0
 #define RING_OUTER_DIAMETER 35.0
-#define RING_WIDTH          7.0 //
+#define RING_WIDTH          8.0
 
 #define BAR_WIDTH           53.0
 #define BAR_HEIGHT          9.0
@@ -67,6 +68,8 @@
 #define PIN_MAX_READ_VALUE  4096.0
 
 @implementation SPKCorePinView
+
+
 
 - (id)init
 {
@@ -157,13 +160,9 @@
 {
     _pin = pin;
 
-    CGFloat x = pin.side == SPKCorePinSideLeft ? PIN_X_OFFSET : (SCREEN_WIDTH - PIN_X_OFFSET);
-    NSLog(@"setPin: pin %@, x = %f",pin.label,x);
-    CGRect f = CGRectMake(x, Y_OFFSET+pin.row*(HEIGHT+PADDING), WIDTH, HEIGHT);
-
-//    if (!isiPhone5) {
-//        f.origin.y -= 3.0;
-//    }
+    CGFloat x = pin.side == SPKCorePinSideLeft ? PIN_X_OFFSET : (200-PIN_X_OFFSET-X_OFFSET);
+    CGRect f = CGRectMake(x, Y_OFFSET+pin.row*(HEIGHT+PADDING), PIN_WIDTH, HEIGHT);
+    NSLog(@"setPin: pin %@, frame: origin(%f,%f) size: (%f,%f)",pin.label,f.origin.x, f.origin.y, f.size.width, f.size.height);
 
     self.frame = f;
 
@@ -172,8 +171,8 @@
 
 - (void)refresh
 {
-    CGFloat pinX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-PIN_X_OFFSET) : PIN_X_OFFSET;
-    NSLog(@"refresh: pin %@, x = %f",self.pin.label,pinX);
+    CGFloat pinX = self.pin.side == SPKCorePinSideLeft ? PIN_X_OFFSET : (200-PIN_X_OFFSET-X_OFFSET);
+//    NSLog(@"refresh: pin %@, x = %f",self.pin.label,pinX);
 
     CGFloat barX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BAR_WIDTH/2.0;
     CGFloat bigBarX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BIG_BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BIG_BAR_WIDTH/2.0;
@@ -300,7 +299,7 @@
             _pinLabelLayer.foregroundColor = [[UIColor whiteColor] CGColor];
         }
     }
-    _pinLabelLayer.bounds = CGRectMake(0.0, 0.0, 2.0*RADIUS, RADIUS);
+    _pinLabelLayer.bounds = CGRectMake(0.0, 0.0, 2.0*RADIUS+10, RADIUS);
     _pinLabelLayer.position = CGPointMake(pinX, ((SPACING+DIAMETER+PADDING)/2.0));
     _pinLabelLayer.string = self.pin.label;
     _pinLabelLayer.alignmentMode = kCAAlignmentCenter;

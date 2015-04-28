@@ -16,10 +16,11 @@
 @property (nonatomic, weak) IBOutlet SPKPinFunctionView *pinFunctionView;
 @property (nonatomic, weak) IBOutlet UIView *firstTimeView;
 @property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *shadowImageView;
 @property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
+@property (weak, nonatomic) IBOutlet UIView *chipView;
+@property (weak, nonatomic) IBOutlet UIImageView *chipShadowImageView;
 
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
 @property (nonatomic) BOOL editingDeviceName;
@@ -37,9 +38,9 @@
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgBackgroundOrange"]];
     backgroundImage.frame = [UIScreen mainScreen].bounds;
     backgroundImage.contentMode = UIViewContentModeScaleToFill;
+    backgroundImage.alpha = 0.9;
     [self.view addSubview:backgroundImage];
     [self.view sendSubviewToBack:backgroundImage];
-
     
     // first time view
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissFirstTime)];
@@ -53,18 +54,12 @@
     // initialize pin views
     for (SPKCorePin *pin in self.device.pins) {
         SPKCorePinView *v = [[SPKCorePinView alloc] init];
+        [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
         v.pin = pin;
         v.delegate = self;
         self.pinViews[pin.label] = v;
-//        [self.view insertSubview:v belowSubview:self.shadowImageView];
-        [self.deviceView insertSubview:v aboveSubview:self.shadowImageView];
+        
     }
-
-    // TODO: handle this
-//    if (!isiPhone5) {
-//        self.shadowImageView.hidden = YES;
-//        self.nameLabel.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3];
-//    }
 }
 
 
@@ -120,7 +115,7 @@
     }
     else
     {
-        self.deviceNameLabel.text = @"<empty>";
+        self.deviceNameLabel.text = @"<no name>";
     }
 
 //    self.firstTimeView.hidden = ![SPKSpark sharedInstance].user.firstTime;
