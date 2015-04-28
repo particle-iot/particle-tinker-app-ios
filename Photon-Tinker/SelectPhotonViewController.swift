@@ -155,7 +155,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 cell.deviceNameLabel.text = "<Empty>"
             }
             
-            cell.deviceIDLabel.text = devices[indexPath.row].id
+            cell.deviceIDLabel.text = devices[indexPath.row].id.uppercaseString
             
             let online = self.devices[indexPath.row].connected
             switch online

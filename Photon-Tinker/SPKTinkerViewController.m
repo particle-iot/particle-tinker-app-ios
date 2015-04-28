@@ -10,17 +10,19 @@
 #import "SPKCorePin.h"
 #import "SparkDevice+pins.h"
 
-@interface SPKTinkerViewController ()
+@interface SPKTinkerViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
-@property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (nonatomic, weak) IBOutlet SPKPinFunctionView *pinFunctionView;
 @property (nonatomic, weak) IBOutlet UIView *firstTimeView;
 @property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *shadowImageView;
+@property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
+@property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
-
+@property (nonatomic) BOOL editingDeviceName;
 @end
 
 
@@ -46,6 +48,8 @@
     // inititalize pins
     [self.device configurePins:SparkDeviceTypePhoton];//self.device.type]; // TODO: fix when device type becomes available
     
+    self.deviceIDLabel.text = [self.device.id uppercaseString];
+    
     // initialize pin views
     for (SPKCorePin *pin in self.device.pins) {
         SPKCorePinView *v = [[SPKCorePinView alloc] init];
@@ -63,7 +67,34 @@
 //    }
 }
 
-- (IBAction)editDeviceNameButtonTapped:(id)sender {
+
+
+- (IBAction)editDeviceNameButtonTapped:(id)sender
+{
+    if (!self.editingDeviceName)
+    {
+        self.deviceNameLabel.hidden = YES;
+        self.deviceNameTextField.hidden = NO;
+        self.deviceNameTextField.text = self.deviceNameLabel.text;
+        self.deviceNameTextField.delegate = self;
+        self.editingDeviceName = YES;
+        [self.deviceNameTextField becomeFirstResponder];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+{
+    if (textField==self.deviceNameTextField)
+    {
+        [self.deviceNameTextField resignFirstResponder];
+        self.editingDeviceName = NO;
+        self.device.name = self.deviceNameTextField.text; // TODO: verify correctness
+        self.deviceNameLabel.text = self.deviceNameTextField.text;
+        self.deviceNameLabel.hidden = NO;
+        self.deviceNameTextField.hidden = YES;
+
+    }
+    return YES;
 }
 
 
