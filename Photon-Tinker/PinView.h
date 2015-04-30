@@ -18,12 +18,9 @@
 
 -initWithPin:(SPKCorePin *)pin;
 @property (nonatomic, strong) SPKCorePin *pin;
-@property (nonatomic, readonly) BOOL active;
+@property (nonatomic) BOOL active;
 
-
-//- (void)refresh;
-//- (void)deactivate;
-//- (void)activate;
+- (void)refresh;
 //- (void)hideDetails;
 //- (void)showDetails;
 //- (void)noslider;

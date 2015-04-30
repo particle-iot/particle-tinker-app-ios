@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
 @property (weak, nonatomic) IBOutlet UIView *chipView;
 @property (weak, nonatomic) IBOutlet UIImageView *chipShadowImageView;
-
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
 @property (nonatomic) BOOL editingDeviceName;
 @property (nonatomic) BOOL instanciatedPins;
@@ -66,6 +66,13 @@
         
     }
      */
+    
+    
+    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideFunctionView:)];
+    _tap.numberOfTapsRequired = 1;
+    _tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:_tap];
+
     
     
 }
@@ -230,8 +237,12 @@
     pin.selectedFunction = function;
     self.pinFunctionView.pin = pin;
 
-    SPKCorePinView *pinView = self.pinViews[pin.label];
+    PinView *pinView = self.pinViews[pin.label];
     [pinView.pin resetValue];
+    if (function == SPKCorePinFunctionNone)
+        pinView.active = NO;
+    else
+        pinView.active = YES;
     [pinView refresh];
 }
 
@@ -258,6 +269,8 @@
 //    }
     
     NSLog(@"Pin %@ held",pinView.pin.label);
+    pinView.active = NO;
+    
 }
 
 
@@ -271,7 +284,16 @@
         }
         self.tinkerLogoImageView.hidden = NO;
 //        self.deviceNameLabel.hidden = NO;
-    } /*
+    }
+    else
+    {
+        if (!pinView.active)
+        {
+            [self showFunctionView:pinView];
+        }
+    }
+    
+    /*
     else if (!pinView.active) {
         SPKCorePinView *slidingAnalogWritePinView = [self slidingAnalogWritePinView];
 
@@ -326,21 +348,32 @@
 //    [SPKSpark sharedInstance].user.firstTime = NO;
 }
 
-- (void)showFunctionView:(SPKCorePinView *)pinView
+- (void)showFunctionView:(PinView *)pinView
 {
     if (self.pinFunctionView.hidden) {
         self.tinkerLogoImageView.hidden = YES;
-//        if (!isiPhone5) {
-//            self.nameLabel.hidden = YES;
-//        }
         self.pinFunctionView.pin = pinView.pin;
         self.pinFunctionView.hidden = NO;
-        for (SPKCorePinView *pv in self.pinViews.allValues) {
+        for (PinView *pv in self.pinViews.allValues) {
             if (pv != pinView) {
                 pv.alpha = 0.1;
             }
         }
         [self.view bringSubviewToFront:self.pinFunctionView];
+    }
+}
+
+
+-(void)hideFunctionView:(id)sender
+{
+    if (!self.pinFunctionView.hidden)
+    {
+        self.tinkerLogoImageView.hidden = NO;
+        self.pinFunctionView.hidden = YES;
+        for (PinView *pv in self.pinViews.allValues) {
+                pv.alpha = 1;
+        }
+    
     }
 }
 
