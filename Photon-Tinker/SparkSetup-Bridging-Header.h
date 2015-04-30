@@ -16,4 +16,6 @@
 #include "MBProgressHUD.h"
 #include "TSMessage.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
+#include "ASValueTrackingSlider.h"
+
 #endif

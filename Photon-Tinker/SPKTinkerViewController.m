@@ -277,9 +277,11 @@
 -(void)pinViewTapped:(PinView *)pinView
 {
     NSLog(@"Pin %@ tapped",pinView.pin.label);
-    if (!self.pinFunctionView.hidden) {
+    if (!self.pinFunctionView.hidden)
+    {
         self.pinFunctionView.hidden = YES;
-        for (SPKCorePinView *pv in self.pinViews.allValues) {
+        for (SPKCorePinView *pv in self.pinViews.allValues)
+        {
             pv.alpha = 1.0;
         }
         self.tinkerLogoImageView.hidden = NO;
@@ -287,7 +289,7 @@
     }
     else
     {
-        if (!pinView.active)
+        if (!pinView.active) // pin is inactive - show pin function view
         {
             [self showFunctionView:pinView];
         }
@@ -395,7 +397,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (pinView.pin.selectedFunction == SPKCorePinFunctionDigitalWrite || pinView.pin.selectedFunction == SPKCorePinFunctionAnalogWrite) {
                 if (value == -1) {
-                    [[[UIAlertView alloc] initWithTitle:@"Core Pin" message:@"There was a problem writing to this pin." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+                    [[[UIAlertView alloc] initWithTitle:@"Device Pin" message:@"There was a problem writing to this pin." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
                     [pinView.pin resetValue];
                 }
             } else {

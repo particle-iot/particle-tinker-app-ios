@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - ASValueTrackingSlider (0.10.1)
   - HexColors (2.2.1)
   - MBProgressHUD (0.9.1)
   - PullToRefreshCoreText (0.2)
@@ -44,6 +45,7 @@ PODS:
     - HexColors
 
 DEPENDENCIES:
+  - ASValueTrackingSlider
   - MBProgressHUD
   - PullToRefreshCoreText (~> 0.1)
   - SparkSetup (from `../spark-setup-ios`)
@@ -55,6 +57,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  ASValueTrackingSlider: 00fe601d9b5b2efeac515c1673afbf452f8e78ba
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2

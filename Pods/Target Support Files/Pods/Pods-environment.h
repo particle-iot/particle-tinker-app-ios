@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 3
 
+// ASValueTrackingSlider
+#define COCOAPODS_POD_AVAILABLE_ASValueTrackingSlider
+#define COCOAPODS_VERSION_MAJOR_ASValueTrackingSlider 0
+#define COCOAPODS_VERSION_MINOR_ASValueTrackingSlider 10
+#define COCOAPODS_VERSION_PATCH_ASValueTrackingSlider 1
+
 // HexColors
 #define COCOAPODS_POD_AVAILABLE_HexColors
 #define COCOAPODS_VERSION_MAJOR_HexColors 2
