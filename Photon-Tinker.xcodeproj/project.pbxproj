@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		500A79291AF19068007E1C06 /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 500A79281AF19068007E1C06 /* PinView.m */; };
 		5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */; };
 		503F9D831AEB71B1008E64CB /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
 		5048CD231AE09AD00097150A /* SelectPhotonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD221AE09AD00097150A /* SelectPhotonViewController.swift */; };
@@ -40,6 +41,9 @@
 
 /* Begin PBXFileReference section */
 		11E94C4837B96B025C60BE2B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		500A79271AF19068007E1C06 /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinView.h; sourceTree = "<group>"; };
+		500A79281AF19068007E1C06 /* PinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinView.m; sourceTree = "<group>"; };
+		500A792A1AF1974A007E1C06 /* PinView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PinView.xib; sourceTree = "<group>"; };
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		5048CD221AE09AD00097150A /* SelectPhotonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotonViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
@@ -139,7 +143,6 @@
 				50EB761D1AE70AE700C925A9 /* Views */,
 				50EB76101AE6EE9C00C925A9 /* Models */,
 				50B125481AE06CF4003C29DC /* AppDelegate.swift */,
-				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				50B125511AE06CF4003C29DC /* LaunchScreen.xib */,
 				50B125461AE06CF4003C29DC /* Supporting Files */,
 			);
@@ -188,6 +191,9 @@
 			children = (
 				50EB761E1AE70AF700C925A9 /* SPKCorePinView.h */,
 				50EB761F1AE70AF700C925A9 /* SPKCorePinView.m */,
+				500A792A1AF1974A007E1C06 /* PinView.xib */,
+				500A79271AF19068007E1C06 /* PinView.h */,
+				500A79281AF19068007E1C06 /* PinView.m */,
 				50EB76221AE70AF800C925A9 /* SPKPinFunctionView.h */,
 				50EB76231AE70AF800C925A9 /* SPKPinFunctionView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
@@ -199,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
+				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				50F62D941AE0721200109F33 /* Fonts */,
 			);
 			name = Assets;
@@ -372,6 +379,7 @@
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
 				50EB76261AE70AF800C925A9 /* SPKPinFunctionView.m in Sources */,
 				50EB76241AE70AF800C925A9 /* SPKCorePinView.m in Sources */,
+				500A79291AF19068007E1C06 /* PinView.m in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */,
 				50EB76161AE6EF2900C925A9 /* SPKCorePin.m in Sources */,
@@ -403,6 +411,7 @@
 				50B1254D1AE06CF4003C29DC /* Base */,
 			);
 			name = Main.storyboard;
+			path = "Photon-Tinker";
 			sourceTree = "<group>";
 		};
 		50B125511AE06CF4003C29DC /* LaunchScreen.xib */ = {
@@ -509,6 +518,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/SparkSetup-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -522,6 +532,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/SparkSetup-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

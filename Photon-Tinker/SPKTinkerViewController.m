@@ -9,6 +9,8 @@
 #import "Spark-SDK.h"
 #import "SPKCorePin.h"
 #import "SparkDevice+pins.h"
+//#import "Photon_Tinker-Swift.h"
+#import "PinView.h"
 
 @interface SPKTinkerViewController () <UITextFieldDelegate>
 
@@ -52,6 +54,7 @@
     self.deviceIDLabel.text = [self.device.id uppercaseString];
     
     // initialize pin views
+    /*
     for (SPKCorePin *pin in self.device.pins) {
         SPKCorePinView *v = [[SPKCorePinView alloc] init];
         [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
@@ -60,6 +63,62 @@
         self.pinViews[pin.label] = v;
         
     }
+     */
+    
+    for (SPKCorePin *pin in self.device.pins) {
+        PinView *v = [[PinView alloc] initWithPin:pin];
+        CGFloat y_spacing = MIN(v.frame.size.height, (self.chipShadowImageView.bounds.size.height / (self.device.pins.count/2))); // assume even amount of pins per row
+        CGFloat y_offset = abs(self.chipShadowImageView.frame.origin.y - self.chipView.frame.origin.y);
+        NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
+        
+//        CGRect frame = v.frame;
+        //        frame.origin.y = pin.row*50+y_offset;
+        //        frame.origin.x = pin.side == SPKCorePinSideLeft ? 0 : self.chipShadowImageView.bounds.size.width - 80;
+        //        [v setFrame:frame];
+        [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
+        
+        v.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
+        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                                  attribute:xPosAttribute
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.chipView
+                                                                  attribute:xPosAttribute
+                                                                 multiplier:1.0
+                                                                   constant:0]];
+        
+        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                                  attribute:NSLayoutAttributeTop
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.chipView
+                                                                  attribute:NSLayoutAttributeTop
+                                                                 multiplier:1.0
+                                                                   constant:pin.row*y_spacing + y_offset]];
+        
+        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                      attribute:NSLayoutAttributeWidth
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:nil
+                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                     multiplier:1.0
+                                                       constant:50]];
+        
+        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                      attribute:NSLayoutAttributeHeight
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:nil
+                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                     multiplier:1.0
+                                                       constant:50]];
+
+        [self.chipView setNeedsLayout];
+        
+        //        v.delegate = self;
+//        self.pinViews[pin.label] = v;
+    }
+
+    
+    
 }
 
 

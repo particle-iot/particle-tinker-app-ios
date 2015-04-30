@@ -34,8 +34,9 @@
 @end
 
 #define Y_OFFSET            8.0
-#define X_OFFSET            7.0
-#define SCREEN_WIDTH        (self.superview.frame.size.width/[[UIScreen mainScreen] scale])
+#define X_OFFSET            16.0
+//#define SCREEN_WIDTH        self.superview.frame.size.width
+#define SCREEN_WIDTH        [UIScreen mainScreen].bounds.size.width
 
 #define SPACING             24.0
 #define PADDING             2.0
@@ -45,7 +46,7 @@
 #define CENTER              (HEIGHT/2.0)
 #define BORDER              24
 
-#define WIDTH               (SCREEN_WIDTH-(2*PIN_X_OFFSET))/2
+#define WIDTH               (SCREEN_WIDTH*0.82)//250.0//(SCREEN_WIDTH-(2*PIN_X_OFFSET))/2
 #define PIN_WIDTH           51.0
 #define PIN_X_OFFSET        22.0
 #define RING_OUTER_DIAMETER 35.0
@@ -160,7 +161,7 @@
 {
     _pin = pin;
 
-    CGFloat x = pin.side == SPKCorePinSideLeft ? PIN_X_OFFSET : (200-PIN_X_OFFSET-X_OFFSET);
+    CGFloat x = pin.side == SPKCorePinSideLeft ? X_OFFSET : (SCREEN_WIDTH - X_OFFSET - WIDTH);
     CGRect f = CGRectMake(x, Y_OFFSET+pin.row*(HEIGHT+PADDING), PIN_WIDTH, HEIGHT);
     NSLog(@"setPin: pin %@, frame: origin(%f,%f) size: (%f,%f)",pin.label,f.origin.x, f.origin.y, f.size.width, f.size.height);
 
@@ -171,11 +172,9 @@
 
 - (void)refresh
 {
-    CGFloat pinX = self.pin.side == SPKCorePinSideLeft ? PIN_X_OFFSET : (200-PIN_X_OFFSET-X_OFFSET);
-//    NSLog(@"refresh: pin %@, x = %f",self.pin.label,pinX);
-
-    CGFloat barX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BAR_WIDTH/2.0;
-    CGFloat bigBarX = self.pin.side == SPKCorePinSideRight ? (SCREEN_WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BIG_BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BIG_BAR_WIDTH/2.0;
+    CGFloat pinX = self.pin.side == SPKCorePinSideRight ? (WIDTH-PIN_X_OFFSET) : PIN_X_OFFSET;
+    CGFloat barX = self.pin.side == SPKCorePinSideRight ? (WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BAR_WIDTH/2.0;
+    CGFloat bigBarX = self.pin.side == SPKCorePinSideRight ? (WIDTH-(BAR_X_OFFSET+RING_OUTER_DIAMETER)-BIG_BAR_WIDTH/2.0) : BAR_X_OFFSET+RING_OUTER_DIAMETER + BIG_BAR_WIDTH/2.0;
     CGColorRef color = self.pin.selectedFunctionColor.CGColor;
 
     [CATransaction begin];
