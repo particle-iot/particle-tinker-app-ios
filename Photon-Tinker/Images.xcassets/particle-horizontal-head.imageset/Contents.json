@@ -7,12 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "particle-vertical-blue.png"
+      "filename" : "particle-horizontal-head.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "particle-vertical-blue-1.png"
+      "filename" : "particle-horizontal-head-1.png"
     }
   ],
   "info" : {

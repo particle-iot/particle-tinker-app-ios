@@ -12,6 +12,7 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
 
 class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
+    @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +21,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         backgroundImage.contentMode = .ScaleToFill;
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
-
+        self.titleLabel.text = "Device list (\(SparkCloud.sharedInstance().loggedInUsername))"
     }
 
     var devices : [SparkDevice] = []

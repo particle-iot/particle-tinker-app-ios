@@ -80,8 +80,9 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.linkTextColor = UIColor.whiteColor()
         c.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
         c.elementBackgroundColor = UIColor(patternImage: UIImage(named: "imgOrangeGradient")!)
-        c.brandImage = UIImage(named: "imgSparkLogoHTop")
+        c.brandImage = UIImage(named: "particle-horizontal-head")
         c.deviceImage = UIImage(named: "imgPhoton")
+        
         
     }
     

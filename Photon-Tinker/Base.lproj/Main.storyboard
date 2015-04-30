@@ -36,8 +36,8 @@
                                     <constraint firstAttribute="height" constant="200" id="Mom-Y1-nIe"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
-                                <rect key="frame" x="251" y="538" width="98" height="29"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
+                                <rect key="frame" x="256" y="535" width="88" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <state key="normal" title="Get Started">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgPhoton" translatesAutoresizingMaskIntoConstraints="NO" id="on1-jM-hGs">
-                                <rect key="frame" x="214" y="259" width="173" height="160"/>
+                                <rect key="frame" x="214" y="275" width="173" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="fLZ-uk-S7j"/>
                                     <constraint firstAttribute="width" constant="173" id="iSp-24-Qg0"/>
@@ -63,7 +63,7 @@
                             <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="39" id="SnU-6L-0if"/>
                             <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
                             <constraint firstAttribute="centerY" secondItem="cQK-Nl-VbT" secondAttribute="centerY" id="gz7-cC-c4Z"/>
-                            <constraint firstItem="on1-jM-hGs" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" id="vxT-bE-cCW"/>
+                            <constraint firstItem="on1-jM-hGs" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="16" id="vxT-bE-cCW"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -96,10 +96,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-horizontal-blue" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
-                                        <rect key="frame" x="205" y="8" width="190" height="60"/>
+                                        <rect key="frame" x="220" y="8" width="160" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Yk8-bP-8Hb"/>
-                                            <constraint firstAttribute="width" constant="190" id="nWd-nG-Axh"/>
+                                            <constraint firstAttribute="width" constant="160" id="nWd-nG-Axh"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
@@ -110,8 +110,8 @@
                                     <constraint firstAttribute="centerX" secondItem="4Ex-QS-fRu" secondAttribute="centerX" id="aPf-P2-vpw"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device list" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
-                                <rect key="frame" x="257" y="72" width="87" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device list" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
+                                <rect key="frame" x="262" y="72" width="87" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -126,20 +126,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Hd-ns-Ycr" id="4V0-a3-YrK">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-LG-cmy">
-                                                    <rect key="frame" x="56" y="8" width="536" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-LG-cmy">
+                                                    <rect key="frame" x="56" y="8" width="536" height="20"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kav-Qy-Jda">
-                                                    <rect key="frame" x="56" y="29" width="89" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kav-Qy-Jda">
+                                                    <rect key="frame" x="56" y="32" width="79" height="18"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                                     <color key="textColor" red="0.89411764705882346" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
-                                                    <rect key="frame" x="478" y="27" width="86" height="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
+                                                    <rect key="frame" x="486" y="26" width="78" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="146" id="Q0c-RX-7tl"/>
                                                     </constraints>
@@ -159,8 +159,8 @@
                                                         <constraint firstAttribute="width" constant="20" id="e4F-Ke-7l4"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNp-V8-5Dy">
-                                                    <rect key="frame" x="56" y="48" width="65" height="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNp-V8-5Dy">
+                                                    <rect key="frame" x="56" y="54" width="65" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="273" id="E2r-l0-dPG"/>
                                                     </constraints>
@@ -274,6 +274,7 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
+                        <outlet property="titleLabel" destination="ShA-Nw-uxr" id="ida-GM-KeT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btD-jl-5UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -303,7 +304,7 @@
         <image name="imgGreenCircle" width="256" height="256"/>
         <image name="imgLogout" width="64" height="64"/>
         <image name="imgPhoton" width="480" height="902"/>
-        <image name="particle-horizontal-blue" width="4200" height="1200"/>
-        <image name="particle-vertical-blue" width="3200" height="3200"/>
+        <image name="particle-horizontal-blue" width="321" height="75"/>
+        <image name="particle-vertical-blue" width="300" height="277"/>
     </resources>
 </document>
