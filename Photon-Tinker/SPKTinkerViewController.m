@@ -12,7 +12,7 @@
 //#import "Photon_Tinker-Swift.h"
 #import "PinView.h"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate>
+@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 @property (nonatomic, weak) IBOutlet SPKPinFunctionView *pinFunctionView;
@@ -26,6 +26,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
 @property (nonatomic) BOOL editingDeviceName;
+@property (nonatomic) BOOL instanciatedPins;
 @end
 
 
@@ -51,8 +52,9 @@
     // inititalize pins
     [self.device configurePins:SparkDeviceTypePhoton];//self.device.type]; // TODO: fix when device type becomes available
     
-    self.deviceIDLabel.text = [self.device.id uppercaseString];
+    self.deviceIDLabel.text = [NSString stringWithFormat:@"ID: %@",[self.device.id uppercaseString]];
     
+    self.instanciatedPins = NO;
     // initialize pin views
     /*
     for (SPKCorePin *pin in self.device.pins) {
@@ -65,62 +67,8 @@
     }
      */
     
-    for (SPKCorePin *pin in self.device.pins) {
-        PinView *v = [[PinView alloc] initWithPin:pin];
-        CGFloat y_spacing = MIN(v.frame.size.height, (self.chipShadowImageView.bounds.size.height / (self.device.pins.count/2))); // assume even amount of pins per row
-        CGFloat y_offset = abs(self.chipShadowImageView.frame.origin.y - self.chipView.frame.origin.y);
-        NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
-        
-//        CGRect frame = v.frame;
-        //        frame.origin.y = pin.row*50+y_offset;
-        //        frame.origin.x = pin.side == SPKCorePinSideLeft ? 0 : self.chipShadowImageView.bounds.size.width - 80;
-        //        [v setFrame:frame];
-        [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
-        
-        v.translatesAutoresizingMaskIntoConstraints = NO;
-        NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
-        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                                  attribute:xPosAttribute
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.chipView
-                                                                  attribute:xPosAttribute
-                                                                 multiplier:1.0
-                                                                   constant:0]];
-        
-        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                                  attribute:NSLayoutAttributeTop
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.chipView
-                                                                  attribute:NSLayoutAttributeTop
-                                                                 multiplier:1.0
-                                                                   constant:pin.row*y_spacing + y_offset]];
-        
-        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                      attribute:NSLayoutAttributeWidth
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:nil
-                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                     multiplier:1.0
-                                                       constant:50]];
-        
-        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                      attribute:NSLayoutAttributeHeight
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:nil
-                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                     multiplier:1.0
-                                                       constant:50]];
-
-        [self.chipView setNeedsLayout];
-        
-        //        v.delegate = self;
-//        self.pinViews[pin.label] = v;
-    }
-
-    
     
 }
-
 
 
 - (IBAction)editDeviceNameButtonTapped:(id)sender
@@ -159,14 +107,16 @@
 - (IBAction)helpButtonTapped:(id)sender {
 }
 
-- (void)viewWillAppear:(BOOL)animated
+-(void)viewDidLayoutSubviews
 {
-    [super viewWillAppear:animated];
+    // TODO: find a way to do it after layoutSubviews has been called for everything
+    
+}
 
-    for (SPKCorePin *pin in self.device.pins) {
-        SPKCorePinView *v = self.pinViews[pin.label];
-        v.pin = pin;
-    }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 
     if ((self.device.name) && (![self.device.name isEqualToString:@""]))
     {
@@ -180,10 +130,72 @@
 //    self.firstTimeView.hidden = ![SPKSpark sharedInstance].user.firstTime;
     self.tinkerLogoImageView.hidden = NO;
 //    self.deviceNameLabel.hidden = NO;
+    
+    CGFloat aspect = [UIScreen mainScreen].bounds.size.width / [UIScreen mainScreen].bounds.size.height; // calculate the screen aspect ratio
+    CGFloat x_offset = (aspect - (9.0/16.0))*250.0; // this will result in 25 for 3:2 screens and 0 for 16:9 screens (push pins in for old screens)
+    CGFloat chip_bottom_margin = 40.0;
+    
+//    NSLog(@"aspect ratio: %f",aspect);
+    
+    for (SPKCorePin *pin in self.device.pins) {
+        PinView *v = [[PinView alloc] initWithPin:pin];
+        //CGFloat y_spacing = MAX(v.frame.size.height, ((self.chipShadowImageView.bounds.size.height-40) / (self.device.pins.count/2-1))); // assume even amount of pins per row
+        CGFloat y_spacing = ((self.chipShadowImageView.frame.size.height-chip_bottom_margin) / (self.device.pins.count/2)); // assume even amount of pins per row
+        y_spacing = MAX(y_spacing,v.frame.size.height);
+        CGFloat y_offset = self.chipShadowImageView.frame.origin.y;//+5;//
+        if (x_offset<1) // NOT old 3:2 screens
+            y_offset += v.frame.size.height/4;
+        NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
+        
+        [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
+        v.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
+        CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -x_offset;
+        
+        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                                  attribute:xPosAttribute
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.chipView
+                                                                  attribute:xPosAttribute
+                                                                 multiplier:1.0
+                                                                   constant:xConstant]];
+        
+        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                                  attribute:NSLayoutAttributeTop
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.chipView
+                                                                  attribute:NSLayoutAttributeTop
+                                                                 multiplier:1.0
+                                                                   constant:pin.row*y_spacing + y_offset]];
+        
+        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                      attribute:NSLayoutAttributeWidth
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:nil
+                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                     multiplier:1.0
+                                                       constant:50]];
+        
+        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                      attribute:NSLayoutAttributeHeight
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:nil
+                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                     multiplier:1.0
+                                                       constant:50]];
+        
+        v.delegate = self;
+        self.pinViews[pin.label] = v;
+    }
+    [self.chipView setNeedsLayout];
+
 }
 
 
+
 /*
+ 
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
@@ -239,16 +251,19 @@
 }
 
 
-- (void)pinViewHeld:(SPKCorePinView *)pinView
+- (void)pinViewHeld:(PinView *)pinView
 {
-    if (![self slidingAnalogWritePinView] && !pinView.active) {
-        [self showFunctionView:pinView];
-    }
+//    if (![self slidingAnalogWritePinView] && !pinView.active) {
+//        [self showFunctionView:pinView];
+//    }
+    
+    NSLog(@"Pin %@ held",pinView.pin.label);
 }
 
 
-- (void)pinViewTapped:(SPKCorePinView *)pinView inPin:(BOOL)inPin
+-(void)pinViewTapped:(PinView *)pinView
 {
+    NSLog(@"Pin %@ tapped",pinView.pin.label);
     if (!self.pinFunctionView.hidden) {
         self.pinFunctionView.hidden = YES;
         for (SPKCorePinView *pv in self.pinViews.allValues) {
@@ -256,7 +271,8 @@
         }
         self.tinkerLogoImageView.hidden = NO;
 //        self.deviceNameLabel.hidden = NO;
-    } else if (!pinView.active) {
+    } /*
+    else if (!pinView.active) {
         SPKCorePinView *slidingAnalogWritePinView = [self slidingAnalogWritePinView];
 
         if (!slidingAnalogWritePinView && pinView.pin.selectedFunction == SPKCorePinFunctionAnalogWrite) {
@@ -298,7 +314,8 @@
                 [pinView showDetails];
             }
         }
-    }
+    }*/
+    
 }
 
 #pragma mark - Private Methods

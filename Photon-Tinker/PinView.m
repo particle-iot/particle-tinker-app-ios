@@ -13,9 +13,8 @@
 @property (nonatomic, strong) UIButton *outerPinButton;
 @property (nonatomic, strong) UILabel *label;
 //@property (nonatomic, strong) UILabel *valueLabel;
-
-//slider...
-
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic) BOOL longPressDetected;
 @end
 
 @implementation PinView
@@ -33,8 +32,10 @@
 {
     if (self = [super init])
     {
+        self.longPressDetected = NO;
+        
         _pin = pin;
-        [self setFrame:CGRectMake(0, 0, 50, 50)];
+        [self setFrame:CGRectMake(0,0,40,40)];
         
         self.innerPinButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.innerPinButton setFrame:CGRectMake(11, 8, 30, 30)];
@@ -64,14 +65,31 @@
         [self addSubview:self.innerPinButton];
         [self addSubview:self.label];
         
+        _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+        _longPressGestureRecognizer.minimumPressDuration = 1.0;
+        _longPressGestureRecognizer.cancelsTouchesInView = NO;
+        [self.innerPinButton addGestureRecognizer:_longPressGestureRecognizer];
+
     }
     
     return self;
 }
 
+-(void)longPress:(id)sender
+{
+    if (!self.longPressDetected) // wait for touchup to reset long press state
+    {
+        self.longPressDetected = YES;
+        [self.delegate pinViewHeld:self];
+    }
+}
+
 -(void)pinTapped:(PinView *)sender
 {
-    [self.delegate pinViewTapped:sender];
+    if (!self.longPressDetected) // prevent from long press being reported as tap+long press
+        [self.delegate pinViewTapped:self];
+    else
+        self.longPressDetected = NO;
 }
 
 

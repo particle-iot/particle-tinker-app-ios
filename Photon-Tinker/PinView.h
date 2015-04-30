@@ -6,7 +6,7 @@
 @protocol PinViewDelegate <NSObject>
 
 - (void)pinViewTapped:(PinView *)pinView;
-- (void)pinViewAdjusted:(PinView *)pinView newValue:(NSUInteger)newValue;
+//- (void)pinViewAdjusted:(PinView *)pinView newValue:(NSUInteger)newValue;
 - (void)pinViewHeld:(PinView *)pinView;
 
 @end
@@ -18,6 +18,7 @@
 
 -initWithPin:(SPKCorePin *)pin;
 @property (nonatomic, strong) SPKCorePin *pin;
+@property (nonatomic, readonly) BOOL active;
 
 
 //- (void)refresh;
