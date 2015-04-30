@@ -8,14 +8,9 @@
 // Spark DeviceSetup library integration
 #include "SparkSetup.h"
 
-// additional Obj-C files we use
-#include "SPKCorePin.h"
-#include "SPKTinkerViewController.h"
-
 // pods
 #include "MBProgressHUD.h"
 #include "TSMessage.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
-#include "ASValueTrackingSlider.h"
 
 #endif

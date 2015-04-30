@@ -60,7 +60,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     
     func customizeSetup()
     {
-//        self.checkFontNames()
+        self.checkFontNames()
         // Do customization for Spark Setup wizard UI
         let c = SparkSetupCustomization.sharedInstance()
         

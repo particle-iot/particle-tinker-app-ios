@@ -8,6 +8,8 @@
 
 import UIKit
 
+let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
+
 class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
     override func viewDidLoad() {
@@ -19,8 +21,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
 
-        // Do any additional setup after loading the view.
-        //        self.storeHouseRefreshControl = CBStoreHouseRefreshControl.attachToScrollView(self.photonSelectionTableView, target: self, refreshAction: Selector("refreshAction"), plist: "storehouse")
     }
 
     var devices : [SparkDevice] = []
@@ -32,12 +32,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func refreshAction()
-    {
-        //...
-//         self.storeHouseRefreshControl!.finishingLoading()
-        
-    }
 
     @IBOutlet weak var photonSelectionTableView: UITableView!
     /*
@@ -152,7 +146,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             }
             else
             {
-                cell.deviceNameLabel.text = "<Empty>"
+                cell.deviceNameLabel.text = "<no name>"
             }
             
             cell.deviceIDLabel.text = devices[indexPath.row].id.uppercaseString
@@ -161,15 +155,15 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             switch online
             {
             case true :
-                switch devices[indexPath.row].isRunningTinker()
-                {
-                case true :
+//                switch devices[indexPath.row].isRunningTinker()
+//                {
+//                case true :
                     cell.deviceStateLabel.text = "Online"
                     cell.deviceStateImageView.image = UIImage(named: "imgGreenCircle")
-                default :
-                    cell.deviceStateLabel.text = "Not running Tinker"
-                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle")
-                }
+//                default :
+//                    cell.deviceStateLabel.text = "Not running Tinker"
+//                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle")
+//                }
                 
                 
             default :
@@ -247,7 +241,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         if result == .Success
         {
+            device.name = self.generateDeviceName()
+            TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(device.name).", type: .Success)
+
             self.photonSelectionTableView.reloadData()
+            
         }
         else
         {
@@ -278,6 +276,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             switch indexPath.row
             {
             case 0...self.devices.count-1 :
+                println("Tapped on \(self.devices[indexPath.row].description)")
+                /*
                 if self.devices[indexPath.row].connected
                 {
                     switch devices[indexPath.row].isRunningTinker()
@@ -301,6 +301,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     
                     TSMessage.showNotificationWithTitle("Device offline", subtitle: "This device is offline, please turn it on and refresh in order to Tinker with it.", type: .Error)
                 }
+*/
             case self.devices.count :
                 self.invokeDeviceSetup()
             default :
@@ -315,21 +316,9 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     }
     
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "tinker"
-        {
-            if let vc = segue.destinationViewController as? SPKTinkerViewController
-            {
-                vc.device = self.selectedDevice!
-            }
-        }
-    }
     
     @IBAction func refreshButtonTapped(sender: UIButton) {
         self.photonSelectionTableView.reloadData()
-        
-        
-        
     }
     
     
@@ -342,6 +331,12 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     
+    func generateDeviceName() -> String
+    {
+        var name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + " " + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]
+        
+        return name
+    }
 
     
 }
