@@ -16,13 +16,19 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
 
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
         
-        var backgroundImage = UIImageView(image: UIImage(named: "imgBackgroundBrown"))
+        var backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue"))
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
-        backgroundImage.alpha = 0.5
+        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
-
+        var layer = self.getStartedButton.layer
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.borderColor = UIColor.whiteColor().CGColor
+        layer.cornerRadius = 2.0
+        layer.borderWidth = 2.0
+        
+        
         self.customizeSetup()
     }
     
@@ -57,6 +63,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         }
     }
     
+    @IBOutlet weak var getStartedButton: UIButton!
     
     func customizeSetup()
     {
@@ -72,14 +79,14 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
 //        c.deviceName = "Connected Anvil"
 //        c.welcomeVideoFilename = "rr.mp4"
         
-        c.pageBackgroundImage = UIImage(named: "imgBackgroundBlue")
+        c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"
         //c.fontSizeOffset = 1;
         c.normalTextColor = UIColor.whiteColor()
         c.linkTextColor = UIColor.whiteColor()
         c.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
-        c.elementBackgroundColor = UIColor(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c.elementBackgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c.brandImage = UIImage(named: "particle-horizontal-head")
         c.deviceImage = UIImage(named: "imgPhoton")
         

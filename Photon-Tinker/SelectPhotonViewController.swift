@@ -10,18 +10,18 @@ import UIKit
 
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
 
-class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
+@objc class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var backgroundImage = UIImageView(image: UIImage(named: "imgBackgroundBlue")!)
+        var backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
+        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
-        self.titleLabel.text = "Device list (\(SparkCloud.sharedInstance().loggedInUsername))"
     }
 
     var devices : [SparkDevice] = []

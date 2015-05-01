@@ -66,7 +66,7 @@
                 NSLocale *posix = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
                 [formatter setLocale:posix];
                 _lastHeard = [formatter dateFromString:dateString];
-                NSLog(@"last heard date = %@", _lastHeard); // debug
+//                NSLog(@"last heard date = %@", _lastHeard); // debug
             }
         }
         

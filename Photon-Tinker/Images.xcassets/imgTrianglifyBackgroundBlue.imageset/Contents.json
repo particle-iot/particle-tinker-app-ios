@@ -2,18 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "imgSparkLogoWhiteH.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "imgSparkLogoWhiteH-1.png"
+      "filename" : "trianglifyBackground_iphone6.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "imgSparkLogoWhiteH-1-1.png"
+      "filename" : "trianglifyBackground_iphone6plus.png"
     }
   ],
   "info" : {

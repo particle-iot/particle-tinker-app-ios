@@ -11,6 +11,9 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
         </mutableArray>
+        <mutableArray key="Gotham-Light.otf">
+            <string>Gotham-Light</string>
+        </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
@@ -30,14 +33,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-vertical-blue" translatesAutoresizingMaskIntoConstraints="NO" id="iA9-Xk-N8F">
-                                <rect key="frame" x="200" y="59" width="200" height="200"/>
+                                <rect key="frame" x="200" y="40" width="200" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Kgs-xY-gxF"/>
-                                    <constraint firstAttribute="height" constant="200" id="Mom-Y1-nIe"/>
+                                    <constraint firstAttribute="height" constant="180" id="Mom-Y1-nIe"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
-                                <rect key="frame" x="256" y="535" width="88" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
+                                <rect key="frame" x="180" y="524" width="240" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="cHq-eF-Jz3"/>
+                                    <constraint firstAttribute="width" constant="240" id="fKB-L0-gw5"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <state key="normal" title="Get Started">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,22 +55,28 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgPhoton" translatesAutoresizingMaskIntoConstraints="NO" id="on1-jM-hGs">
-                                <rect key="frame" x="214" y="275" width="173" height="160"/>
+                                <rect key="frame" x="220" y="260" width="160" height="224"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="fLZ-uk-S7j"/>
-                                    <constraint firstAttribute="width" constant="173" id="iSp-24-Qg0"/>
+                                    <constraint firstAttribute="width" constant="160" id="iSp-24-Qg0"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fLZ-uk-S7j"/>
+                                    </mask>
+                                </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cQK-Nl-VbT" secondAttribute="bottom" constant="33" id="1sz-eh-AtD"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cQK-Nl-VbT" secondAttribute="bottom" constant="36" id="1sz-eh-AtD"/>
                             <constraint firstAttribute="centerX" secondItem="on1-jM-hGs" secondAttribute="centerX" id="3ID-m0-xRl"/>
+                            <constraint firstItem="cQK-Nl-VbT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="on1-jM-hGs" secondAttribute="bottom" constant="40" id="AAh-Yu-5Yh"/>
                             <constraint firstAttribute="centerX" secondItem="iA9-Xk-N8F" secondAttribute="centerX" id="EdA-xY-4a3"/>
-                            <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="39" id="SnU-6L-0if"/>
+                            <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="SnU-6L-0if"/>
                             <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
                             <constraint firstAttribute="centerY" secondItem="cQK-Nl-VbT" secondAttribute="centerY" id="gz7-cC-c4Z"/>
-                            <constraint firstItem="on1-jM-hGs" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="16" id="vxT-bE-cCW"/>
+                            <constraint firstItem="on1-jM-hGs" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="40" id="vxT-bE-cCW"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -73,6 +86,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="u2E-GR-FTS"/>
                     <connections>
+                        <outlet property="getStartedButton" destination="cQK-Nl-VbT" id="ukx-jF-Ckb"/>
                         <segue destination="Kib-3X-Zyf" kind="show" identifier="select" id="3ox-ek-eEM"/>
                     </connections>
                 </viewController>
@@ -96,28 +110,50 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-horizontal-blue" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
-                                        <rect key="frame" x="220" y="8" width="160" height="60"/>
+                                        <rect key="frame" x="240" y="8" width="120" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Yk8-bP-8Hb"/>
-                                            <constraint firstAttribute="width" constant="160" id="nWd-nG-Axh"/>
+                                            <constraint firstAttribute="width" constant="120" id="nWd-nG-Axh"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0" userLabel="logoutButton">
+                                        <rect key="frame" x="537" y="26" width="55" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="WKj-ZV-LeO"/>
+                                            <constraint firstAttribute="width" constant="24" id="h37-ee-78v"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Log out">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="WKj-ZV-LeO"/>
+                                                <exclude reference="h37-ee-78v"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="logoutButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="GEN-HU-N7w"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="top" constant="8" id="Fgr-1e-hJd"/>
                                     <constraint firstAttribute="height" constant="64" id="OtP-l0-T4M"/>
                                     <constraint firstAttribute="centerX" secondItem="4Ex-QS-fRu" secondAttribute="centerX" id="aPf-P2-vpw"/>
+                                    <constraint firstAttribute="trailing" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="8" id="qb5-yQ-mHN"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device list" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
-                                <rect key="frame" x="262" y="72" width="87" height="17"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
+                                <rect key="frame" x="240" y="76" width="120" height="24"/>
+                                <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
-                                <rect key="frame" x="0.0" y="97" width="600" height="483"/>
+                                <rect key="frame" x="0.0" y="112" width="600" height="468"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -126,20 +162,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Hd-ns-Ycr" id="4V0-a3-YrK">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-LG-cmy">
-                                                    <rect key="frame" x="56" y="8" width="536" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKN-LG-cmy">
+                                                    <rect key="frame" x="56" y="12" width="536" height="17"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kav-Qy-Jda">
-                                                    <rect key="frame" x="56" y="32" width="79" height="18"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kav-Qy-Jda">
+                                                    <rect key="frame" x="56" y="33" width="71" height="12"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                                     <color key="textColor" red="0.89411764705882346" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
-                                                    <rect key="frame" x="486" y="26" width="78" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
+                                                    <rect key="frame" x="478" y="27" width="86" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="146" id="Q0c-RX-7tl"/>
                                                     </constraints>
@@ -159,8 +195,8 @@
                                                         <constraint firstAttribute="width" constant="20" id="e4F-Ke-7l4"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNp-V8-5Dy">
-                                                    <rect key="frame" x="56" y="54" width="65" height="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNp-V8-5Dy">
+                                                    <rect key="frame" x="56" y="49" width="65" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="273" id="E2r-l0-dPG"/>
                                                     </constraints>
@@ -190,7 +226,7 @@
                                                 <constraint firstItem="YLF-4O-nM0" firstAttribute="trailing" secondItem="JNp-V8-5Dy" secondAttribute="trailing" constant="98" id="SfL-v7-vMT"/>
                                                 <constraint firstItem="JNp-V8-5Dy" firstAttribute="leading" secondItem="4V0-a3-YrK" secondAttribute="leadingMargin" constant="48" id="TyB-NZ-TNY"/>
                                                 <constraint firstItem="Kav-Qy-Jda" firstAttribute="centerY" secondItem="JNp-V8-5Dy" secondAttribute="centerY" id="Whb-xM-LTI"/>
-                                                <constraint firstItem="jKN-LG-cmy" firstAttribute="top" secondItem="4V0-a3-YrK" secondAttribute="topMargin" id="aMh-d5-ljN"/>
+                                                <constraint firstItem="jKN-LG-cmy" firstAttribute="top" secondItem="4V0-a3-YrK" secondAttribute="topMargin" constant="4" id="aMh-d5-ljN"/>
                                                 <constraint firstAttribute="centerY" secondItem="Dqs-sM-SJ1" secondAttribute="centerY" id="cDq-QR-BQH"/>
                                                 <constraint firstItem="G7t-5B-Mqf" firstAttribute="top" secondItem="4V0-a3-YrK" secondAttribute="topMargin" constant="3" id="cie-Db-Tx2"/>
                                                 <constraint firstItem="JNp-V8-5Dy" firstAttribute="leading" secondItem="Kav-Qy-Jda" secondAttribute="trailing" constant="27" id="jSk-4R-Gdh"/>
@@ -243,32 +279,19 @@
                                     <outlet property="delegate" destination="Kib-3X-Zyf" id="9rh-X7-yIQ"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0" userLabel="logoutButton">
-                                <rect key="frame" x="8" y="28" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="WKj-ZV-LeO"/>
-                                    <constraint firstAttribute="width" constant="24" id="h37-ee-78v"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="imgLogout"/>
-                                <connections>
-                                    <action selector="logoutButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="GEN-HU-N7w"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.60543263199535347" green="0.6299986055892115" blue="0.79396170377731323" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" id="1vk-uV-3Sq"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" constant="16" id="4tY-y9-6tC"/>
-                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" constant="-8" id="7eE-XA-P7F"/>
                             <constraint firstAttribute="centerX" secondItem="ShA-Nw-uxr" secondAttribute="centerX" id="JB5-bs-nic"/>
-                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="8" id="cdp-2I-7GV"/>
+                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="6" id="JG8-Tv-Aib"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="12" id="cdp-2I-7GV"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" constant="-16" id="uVc-GF-F2a"/>
                             <constraint firstItem="Rin-Rz-dbU" firstAttribute="top" secondItem="l8r-gu-33x" secondAttribute="bottom" constant="20" id="wR8-9O-PrK"/>
-                            <constraint firstItem="ShA-Nw-uxr" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="bottom" constant="8" id="x5F-c2-dV8"/>
-                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="8" id="zQ6-KB-ch3"/>
+                            <constraint firstItem="ShA-Nw-uxr" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="bottom" constant="12" id="x5F-c2-dV8"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -302,7 +325,6 @@
     </scenes>
     <resources>
         <image name="imgGreenCircle" width="256" height="256"/>
-        <image name="imgLogout" width="64" height="64"/>
         <image name="imgPhoton" width="480" height="902"/>
         <image name="particle-horizontal-blue" width="321" height="75"/>
         <image name="particle-vertical-blue" width="300" height="277"/>

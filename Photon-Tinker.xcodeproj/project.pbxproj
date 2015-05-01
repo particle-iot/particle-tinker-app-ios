@@ -15,7 +15,6 @@
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
-		50B125531AE06CF4003C29DC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50B125511AE06CF4003C29DC /* LaunchScreen.xib */; };
 		50B1255F1AE06CF4003C29DC /* Photon_TinkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */; };
 		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
 		50EB76161AE6EF2900C925A9 /* SPKCorePin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76141AE6EF2900C925A9 /* SPKCorePin.m */; };
@@ -46,7 +45,6 @@
 		50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		50B1254D1AE06CF4003C29DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50B1254F1AE06CF4003C29DC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Photon-Tinker/Images.xcassets"; sourceTree = "<group>"; };
-		50B125521AE06CF4003C29DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		50B125581AE06CF4003C29DC /* Photon-TinkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Photon-TinkerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B1255D1AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photon_TinkerTests.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				50EB761D1AE70AE700C925A9 /* Views */,
 				50EB76101AE6EE9C00C925A9 /* Models */,
 				50B125481AE06CF4003C29DC /* AppDelegate.swift */,
-				50B125511AE06CF4003C29DC /* LaunchScreen.xib */,
 				50B125461AE06CF4003C29DC /* Supporting Files */,
 			);
 			path = "Photon-Tinker";
@@ -295,7 +292,6 @@
 			files = (
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
-				50B125531AE06CF4003C29DC /* LaunchScreen.xib in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
@@ -386,14 +382,6 @@
 			);
 			name = Main.storyboard;
 			path = "Photon-Tinker";
-			sourceTree = "<group>";
-		};
-		50B125511AE06CF4003C29DC /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50B125521AE06CF4003C29DC /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
