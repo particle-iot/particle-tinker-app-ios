@@ -19,7 +19,7 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
         var backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
-        backgroundImage.alpha = 0.85
+//        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
     }
@@ -242,8 +242,9 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         if result == .Success
         {
-            device.name = self.generateDeviceName()
-            TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(device.name).", type: .Success)
+            let deviceName = self.generateDeviceName()
+            device.name = deviceName
+            TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
 
             self.photonSelectionTableView.reloadData()
             

@@ -9,9 +9,9 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
+            <string>Gotham-Light</string>
             <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
@@ -23,7 +23,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="Photon_Tinker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -97,7 +97,7 @@
         <!--Select Photon View Controller-->
         <scene sceneID="aNv-HX-IZG">
             <objects>
-                <viewController id="Kib-3X-Zyf" customClass="SelectPhotonViewController" customModule="Photon_Tinker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Kib-3X-Zyf" customClass="SelectPhotonViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Xu-l8-DFW"/>
                         <viewControllerLayoutGuide type="bottom" id="Rin-Rz-dbU"/>
@@ -110,10 +110,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-horizontal-blue" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
-                                        <rect key="frame" x="240" y="8" width="120" height="60"/>
+                                        <rect key="frame" x="230" y="8" width="140" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Yk8-bP-8Hb"/>
-                                            <constraint firstAttribute="width" constant="120" id="nWd-nG-Axh"/>
+                                            <constraint firstAttribute="width" constant="140" id="nWd-nG-Axh"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0" userLabel="logoutButton">
@@ -122,7 +122,7 @@
                                             <constraint firstAttribute="height" constant="24" id="WKj-ZV-LeO"/>
                                             <constraint firstAttribute="width" constant="24" id="h37-ee-78v"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Log out">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -146,8 +146,8 @@
                                     <constraint firstAttribute="trailing" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="8" id="qb5-yQ-mHN"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
-                                <rect key="frame" x="240" y="76" width="120" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your devices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
+                                <rect key="frame" x="225" y="76" width="150" height="24"/>
                                 <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -157,7 +157,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="device_cell" rowHeight="70" id="5Hd-ns-Ycr" customClass="DeviceTableViewCell" customModule="Photon_Tinker" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="device_cell" rowHeight="70" id="5Hd-ns-Ycr" customClass="DeviceTableViewCell" customModule="Particle" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Hd-ns-Ycr" id="4V0-a3-YrK">
                                             <autoresizingMask key="autoresizingMask"/>

@@ -19,7 +19,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         var backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue"))
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
-        backgroundImage.alpha = 0.85
+//        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
         var layer = self.getStartedButton.layer
@@ -82,6 +82,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"
+        c.headerTextFontName = "Gotham-Light" // new
         //c.fontSizeOffset = 1;
         c.normalTextColor = UIColor.whiteColor()
         c.linkTextColor = UIColor.whiteColor()
@@ -89,6 +90,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.elementBackgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c.brandImage = UIImage(named: "particle-horizontal-head")
         c.deviceImage = UIImage(named: "imgPhoton")
+        c.tintSetupResultImage = true
         
         
     }
