@@ -90,7 +90,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.elementBackgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c.brandImage = UIImage(named: "particle-horizontal-head")
         c.deviceImage = UIImage(named: "imgPhoton")
-        c.tintSetupResultImage = true
+        c.tintSetupImages = true
         
         
     }

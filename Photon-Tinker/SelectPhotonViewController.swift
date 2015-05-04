@@ -74,7 +74,7 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
         
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
             
-            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]!, err:NSError!) -> Void in
+            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]?, err:NSError?) -> Void in
                 if (err != nil)
                 {
                     println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
@@ -83,7 +83,11 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
                 }
                 else
                 {
-                    self.devices = devices as! [SparkDevice]
+                    if let d = devices
+                    {
+                        self.devices = d as! [SparkDevice]
+                    }
+                    
                     dispatch_async(dispatch_get_main_queue()) {
                         self.photonSelectionTableView.reloadData()
                         // first time add the custom pull to refresh control to the tableview
@@ -108,7 +112,7 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
         
         self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
 //        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", pullTextColor: UIColor.whiteColor(), pullTextFont: refreshFont, refreshingText: "Refreshing Devices", refreshingTextColor: UIColor.whiteColor(), refreshingTextFont: refreshFont) { () -> Void in
-            SparkCloud.sharedInstance().getDevices() { (devices:[AnyObject]!, err:NSError!) -> Void in
+            SparkCloud.sharedInstance().getDevices() { (devices:[AnyObject]?, err:NSError?) -> Void in
                 if (err != nil)
                 {
                     println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
@@ -117,7 +121,10 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
                 }
                 else
                 {
-                    self.devices = devices as! [SparkDevice]
+                    if let d = devices
+                    {
+                        self.devices = d as! [SparkDevice]
+                    }
                     dispatch_async(dispatch_get_main_queue()) {
                         self.photonSelectionTableView.reloadData()
                     }
@@ -208,6 +215,14 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
                 tableView.editing = false
                 } , buttonTitle: " Yes ", buttonCallback: { () -> Void in
                     // callback for user tapping YES button - need to delete row and update table (TODO: actually unclaim device)
+                    self.devices[indexPath.row].unclaim() { (error: NSError?) -> Void in
+                        if let err = error
+                        {
+                            TSMessage.showNotificationWithTitle("Error", subtitle: err.localizedDescription, type: .Error)
+                            self.photonSelectionTableView.reloadData()
+                        }
+                    }
+                    
                     self.devices.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                     let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.25 * Double(NSEC_PER_SEC)))
@@ -267,10 +282,10 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if self.devices.count == 0
         {
             self.invokeDeviceSetup()
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
         else
         {
@@ -278,6 +293,8 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
             switch indexPath.row
             {
             case 0...self.devices.count-1 :
+                tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                
                 println("Tapped on \(self.devices[indexPath.row].description)")
                 /*
                 if self.devices[indexPath.row].connected
@@ -305,6 +322,7 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
                 }
 */
             case self.devices.count :
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
                 self.invokeDeviceSetup()
             default :
                 break

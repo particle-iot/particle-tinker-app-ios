@@ -34,7 +34,7 @@
 		141522E934103B316E796285 /* SparkSetupUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACB4F071B06A7DB7246F79D /* SparkSetupUIViewController.m */; };
 		16A76A68FDD40218CF9034F8 /* photon.imageset in Resources */ = {isa = PBXBuildFile; fileRef = A67F495CA3CD36685BF1B5D0 /* photon.imageset */; };
 		17565A58078611476C1019C4 /* SparkSetupUIElements.h in Headers */ = {isa = PBXBuildFile; fileRef = 631F5BAA80CDF178761A531E /* SparkSetupUIElements.h */; };
-		1776CF6C64E4E173FE7C4BC8 /* SparkSetupSuccessFailureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F30F323DAD6D6AE4BEFE80D6 /* SparkSetupSuccessFailureViewController.m */; };
+		1776CF6C64E4E173FE7C4BC8 /* SparkSetupResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F30F323DAD6D6AE4BEFE80D6 /* SparkSetupResultViewController.m */; };
 		1890378E1DBD70609C267CD2 /* spacer-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 746E60C6878707EC96758CFF /* spacer-1.png */; };
 		18921A450790DCD8F7ED4E23 /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = E7BC2F265D8FA3F04C983F09 /* UIProgressView+AFNetworking.h */; };
 		19185ECEAD3D67BA01FADABE /* x-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A31BBECD3F308944CAD86BB /* x-1.png */; };
@@ -94,7 +94,7 @@
 		5B84CEA4AB967DDB9A39BBF5 /* SparkGetReadyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BBBEFD745D0747572CE1B96 /* SparkGetReadyViewController.h */; };
 		5C9C88C650CD9CB450D2F9E6 /* spark-logo-head.imageset in Resources */ = {isa = PBXBuildFile; fileRef = 72F597FBB6EB323D126007E2 /* spark-logo-head.imageset */; };
 		5CDFA223D02282FF2E212EE7 /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3989132014AF0E5B319D2444 /* AppIcon76x76@2x.png */; };
-		5E01A2572316040587DC92AB /* SparkSetupSuccessFailureViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 547818F84B6057C0638F3A11 /* SparkSetupSuccessFailureViewController.h */; };
+		5E01A2572316040587DC92AB /* SparkSetupResultViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 547818F84B6057C0638F3A11 /* SparkSetupResultViewController.h */; };
 		5E0B36FBA35C623A9F82F9BD /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE15C95A43E0C72BE04DB31 /* AFURLResponseSerialization.m */; };
 		5F1B65CA1A266B1E38290354 /* wifi2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = D56EE54DC4B021C08B019F0A /* wifi2-1.png */; };
 		60F1A893A11C30CFD9E6F564 /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B3B8EF7F9069A3132C32D0 /* TSBlurView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -448,7 +448,7 @@
 		5366F5370ECD54D952D37E49 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLConnectionOperation.h; path = AFNetworking/AFURLConnectionOperation.h; sourceTree = "<group>"; };
 		54387E3A7AEFEFDEAD83510B /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		543899AD99D8A1A6100F9D08 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
-		547818F84B6057C0638F3A11 /* SparkSetupSuccessFailureViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SparkSetupSuccessFailureViewController.h; sourceTree = "<group>"; };
+		547818F84B6057C0638F3A11 /* SparkSetupResultViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SparkSetupResultViewController.h; sourceTree = "<group>"; };
 		55226AAA1B69D043C29B5E4B /* TSMessageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSMessageView.h; path = Pod/Classes/TSMessageView.h; sourceTree = "<group>"; };
 		554E5F21DA3A16C50713199E /* UIScrollView+PullToRefreshCoreText.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+PullToRefreshCoreText.h"; path = "PullToRefreshCoreText/PullToRefreshCoreText/UIScrollView+PullToRefreshCoreText.h"; sourceTree = "<group>"; };
 		57F9A83DCAEB9CB791226B72 /* SparkSetup.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SparkSetup.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -633,7 +633,7 @@
 		EF073267FFEE3A5F120EE37C /* SparkSetupMainController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SparkSetupMainController.h; sourceTree = "<group>"; };
 		F17D31767E76BBEEE54E3CE7 /* SparkUserForgotPasswordViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SparkUserForgotPasswordViewController.h; sourceTree = "<group>"; };
 		F212EFBEDD15E52A833A8486 /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
-		F30F323DAD6D6AE4BEFE80D6 /* SparkSetupSuccessFailureViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SparkSetupSuccessFailureViewController.m; sourceTree = "<group>"; };
+		F30F323DAD6D6AE4BEFE80D6 /* SparkSetupResultViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SparkSetupResultViewController.m; sourceTree = "<group>"; };
 		F319F8B4B9CAE472E46F5448 /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = TSMessagesDefaultDesign.json; path = Pod/Assets/TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
 		F41BC8CBA41A1390738CA196 /* PullToRefreshCoreTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PullToRefreshCoreTextView.h; path = PullToRefreshCoreText/PullToRefreshCoreText/PullToRefreshCoreTextView.h; sourceTree = "<group>"; };
 		F6689494F010DDB64469362A /* NotificationBackgroundError@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NotificationBackgroundError@2x.png"; path = "Pod/Assets/NotificationBackgroundError@2x.png"; sourceTree = "<group>"; };
@@ -1422,8 +1422,8 @@
 				4D808EE7A7721E23D43C017E /* SparkSelectNetworkViewController.m */,
 				386683EF0B01CC86246101EA /* SparkSetupPasswordEntryViewController.h */,
 				7C4A09135F34C09A1662CA29 /* SparkSetupPasswordEntryViewController.m */,
-				547818F84B6057C0638F3A11 /* SparkSetupSuccessFailureViewController.h */,
-				F30F323DAD6D6AE4BEFE80D6 /* SparkSetupSuccessFailureViewController.m */,
+				547818F84B6057C0638F3A11 /* SparkSetupResultViewController.h */,
+				F30F323DAD6D6AE4BEFE80D6 /* SparkSetupResultViewController.m */,
 				3067675798BA5E52D456BDDB /* SparkSetupWebViewController.h */,
 				47C4FEE4F6AE4F6803426EED /* SparkSetupWebViewController.m */,
 				F17D31767E76BBEEE54E3CE7 /* SparkUserForgotPasswordViewController.h */,
@@ -1668,7 +1668,7 @@
 				9AE03F9C43BBB2B5B333208E /* SparkSetupMainController.h in Headers */,
 				9146BC7BE6E50113F567CA2C /* SparkSetupPasswordEntryViewController.h in Headers */,
 				A99F3F36B97DD2121FDE5C19 /* SparkSetupSecurityManager.h in Headers */,
-				5E01A2572316040587DC92AB /* SparkSetupSuccessFailureViewController.h in Headers */,
+				5E01A2572316040587DC92AB /* SparkSetupResultViewController.h in Headers */,
 				C72B3A75DD034EF87994139F /* SparkSetupUIButton.h in Headers */,
 				17565A58078611476C1019C4 /* SparkSetupUIElements.h in Headers */,
 				E55EF6F83EBFE37D920993C0 /* SparkSetupUILabel.h in Headers */,
@@ -2133,7 +2133,7 @@
 				A5AEBF660EF5FEC6450134A9 /* SparkSetupMainController.m in Sources */,
 				E491BE56407EDAC0A4D572D1 /* SparkSetupPasswordEntryViewController.m in Sources */,
 				FEA439505177CD05024D66E2 /* SparkSetupSecurityManager.m in Sources */,
-				1776CF6C64E4E173FE7C4BC8 /* SparkSetupSuccessFailureViewController.m in Sources */,
+				1776CF6C64E4E173FE7C4BC8 /* SparkSetupResultViewController.m in Sources */,
 				B7F70CB5DE3E86249C931ACD /* SparkSetupUIButton.m in Sources */,
 				BCB99E05643363794C63B5EB /* SparkSetupUILabel.m in Sources */,
 				13124143F06F67F66C9557A7 /* SparkSetupUISpinner.m in Sources */,
