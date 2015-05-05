@@ -39,6 +39,10 @@
         if (![params[@"name"] isKindOfClass:[NSNull class]])
             if (params[@"name"])
                 _name = params[@"name"];
+            else
+                _name = nil;
+        else
+            _name = nil;
         
         if ([params[@"connected"] boolValue]==YES)
             self.connected = YES;
@@ -46,10 +50,10 @@
             self.connected = NO;
         
         if (params[@"functions"])
-            self.functions = params[@"functions"];
+            _functions = params[@"functions"];
         
         if (params[@"variables"])
-            self.variables = params[@"variables"];
+            _variables = params[@"variables"];
         
         _id = params[@"id"];
         
@@ -82,7 +86,7 @@
         
         if (params[@"device_needs_update"])
         {
-            self.requiresUpdate = YES;
+            _requiresUpdate = YES;
 
         }
         

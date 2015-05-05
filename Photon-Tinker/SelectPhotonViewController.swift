@@ -28,7 +28,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
     var devices : [SparkDevice] = []
     var selectedDevice : SparkDevice? = nil
-//    var storeHouseRefreshControl : CBStoreHouseRefreshControl? = nil
+    var refreshControlAdded : Bool = false
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,33 +54,41 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func loadDevices()
     {
-        var hud : MBProgressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.mode = .CustomView//.Indeterminate
-        hud.animationType = .ZoomIn
-        hud.labelText = "Loading"
-        hud.minShowTime = 0.4
+        var hud : MBProgressHUD
         
-        // prepare spinner view for first time populating of devices into table
-        var spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
-        spinnerView.frame = CGRectMake(0, 0, 37, 37);
-        spinnerView.contentMode = .ScaleToFill
-        var rotation = CABasicAnimation(keyPath:"transform.rotation")
-        rotation.fromValue = 0
-        rotation.toValue = 2*M_PI
-        rotation.duration = 1.0;
-        rotation.repeatCount = 1000; // Repeat
-        spinnerView.layer.addAnimation(rotation,forKey:"Spin")
-    
-        hud.customView = spinnerView
+        // do a HUD only for first time load
+        if self.refreshControlAdded == false
+        {
+            hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.mode = .CustomView//.Indeterminate
+            hud.animationType = .ZoomIn
+            hud.labelText = "Loading"
+            hud.minShowTime = 0.4
+            
+            // prepare spinner view for first time populating of devices into table
+            var spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
+            spinnerView.frame = CGRectMake(0, 0, 37, 37);
+            spinnerView.contentMode = .ScaleToFill
+            var rotation = CABasicAnimation(keyPath:"transform.rotation")
+            rotation.fromValue = 0
+            rotation.toValue = 2*M_PI
+            rotation.duration = 1.0;
+            rotation.repeatCount = 1000; // Repeat
+            spinnerView.layer.addAnimation(rotation,forKey:"Spin")
+            
+            hud.customView = spinnerView
+
+        }
+        
 
         
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
-            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]?, err:NSError?) -> Void in
-                if (err != nil)
+            SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]?, error:NSError?) -> Void in
+                if let e = error
                 {
                     println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
-                    println(err?.description)
+                    println(e.description)
                     TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check internet connection.", type: .Error)
                 }
                 else
@@ -100,7 +108,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 dispatch_async(dispatch_get_main_queue()) {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                     // first time add the custom pull to refresh control to the tableview
-                    self.addRefreshControl()
+                    if self.refreshControlAdded == false
+                    {
+                        self.addRefreshControl()
+                        self.refreshControlAdded = true
+                    }
                 }
             })
         }
@@ -109,7 +121,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     func addRefreshControl()
     {
 
-        let refreshFont = UIFont(name: "Gotham-Book", size: 17.0)
+//        let refreshFont = UIFont(name: "Gotham-Book", size: 17.0)
         
         self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
 //        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", pullTextColor: UIColor.whiteColor(), pullTextFont: refreshFont, refreshingText: "Refreshing Devices", refreshingTextColor: UIColor.whiteColor(), refreshingTextFont: refreshFont) { () -> Void in
@@ -258,10 +270,18 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         if result == .Success
         {
-            let deviceName = self.generateDeviceName()
-            device.name = deviceName
-            TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
+            if (device.name == nil)
+            {
+                let deviceName = self.generateDeviceName()
+                device.name = deviceName
+                TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
 
+            }
+            else
+            {
+                TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device is named \(device.name).", type: .Success)
+            }
+           
             self.photonSelectionTableView.reloadData()
             
         }
@@ -296,8 +316,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             case 0...self.devices.count-1 :
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 
+                /*
                 println("Tapped on \(self.devices[indexPath.row].description)")
-                
                 // debug to check rename:
                 self.devices[indexPath.row].rename(self.generateDeviceName(), completion: { (err : NSError?) -> Void in
                     if (err != nil)
@@ -309,6 +329,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                         self.photonSelectionTableView.reloadData()
                     }
                 })
+                */
+                
                 /*
                 if self.devices[indexPath.row].connected
                 {
@@ -349,11 +371,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     }
     
 
-    
-    @IBAction func refreshButtonTapped(sender: UIButton) {
-        self.photonSelectionTableView.reloadData()
-    }
-    
+
     
     @IBAction func logoutButtonTapped(sender: UIButton) {
         SparkCloud.sharedInstance().logout()
@@ -366,7 +384,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func generateDeviceName() -> String
     {
-        var name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + " " + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]
+        var name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + "_" + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]
         
         return name
     }

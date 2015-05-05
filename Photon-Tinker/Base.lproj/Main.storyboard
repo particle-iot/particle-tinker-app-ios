@@ -39,7 +39,7 @@
                                     <constraint firstAttribute="height" constant="180" id="Mom-Y1-nIe"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQK-Nl-VbT">
                                 <rect key="frame" x="180" y="524" width="240" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="cHq-eF-Jz3"/>
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgPhoton" translatesAutoresizingMaskIntoConstraints="NO" id="on1-jM-hGs">
-                                <rect key="frame" x="220" y="260" width="160" height="224"/>
+                                <rect key="frame" x="220" y="244" width="160" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="fLZ-uk-S7j"/>
                                     <constraint firstAttribute="width" constant="160" id="iSp-24-Qg0"/>
@@ -71,12 +71,12 @@
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cQK-Nl-VbT" secondAttribute="bottom" constant="36" id="1sz-eh-AtD"/>
                             <constraint firstAttribute="centerX" secondItem="on1-jM-hGs" secondAttribute="centerX" id="3ID-m0-xRl"/>
-                            <constraint firstItem="cQK-Nl-VbT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="on1-jM-hGs" secondAttribute="bottom" constant="40" id="AAh-Yu-5Yh"/>
+                            <constraint firstItem="cQK-Nl-VbT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="on1-jM-hGs" secondAttribute="bottom" constant="24" id="AAh-Yu-5Yh"/>
                             <constraint firstAttribute="centerX" secondItem="iA9-Xk-N8F" secondAttribute="centerX" id="EdA-xY-4a3"/>
                             <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="SnU-6L-0if"/>
                             <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
                             <constraint firstAttribute="centerY" secondItem="cQK-Nl-VbT" secondAttribute="centerY" id="gz7-cC-c4Z"/>
-                            <constraint firstItem="on1-jM-hGs" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="40" id="vxT-bE-cCW"/>
+                            <constraint firstItem="on1-jM-hGs" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iA9-Xk-N8F" secondAttribute="bottom" constant="24" id="vxT-bE-cCW"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -110,19 +110,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-horizontal-blue" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
-                                        <rect key="frame" x="230" y="8" width="140" height="60"/>
+                                        <rect key="frame" x="236" y="8" width="128" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Yk8-bP-8Hb"/>
-                                            <constraint firstAttribute="width" constant="140" id="nWd-nG-Axh"/>
+                                            <constraint firstAttribute="width" constant="128" id="nWd-nG-Axh"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0" userLabel="logoutButton">
-                                        <rect key="frame" x="537" y="26" width="55" height="27"/>
+                                        <rect key="frame" x="534" y="26" width="58" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="WKj-ZV-LeO"/>
                                             <constraint firstAttribute="width" constant="24" id="h37-ee-78v"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Log out">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
