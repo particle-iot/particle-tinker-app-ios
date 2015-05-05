@@ -229,7 +229,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)logout
 {
-    [SparkAccessToken removeSession];
+    [self.token removeSession];
     [self.user removeSession];
 }
 
@@ -268,13 +268,15 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
     NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@",deviceID];
+    NSLog(@"getDevice()");
     [self.manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
          {
              NSMutableDictionary *responseDict = responseObject;
-//             responseDict[@"access_token"] = self.accessToken; // add access token 
-             
+             NSLog(@"getDevice :%@",responseDict);
+
+//             responseDict[@"access_token"] = self.accessToken; // add access token
              SparkDevice *device = [[SparkDevice alloc] initWithParams:responseDict];
              if (completion)
                 completion(device, nil);
@@ -331,8 +333,9 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
      {
          if (completion)
          {
-             
              NSArray *responseList = responseObject;
+             NSLog(@"getDevices response: %@",responseList);
+             
              NSMutableArray *queryDeviceIDList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSMutableArray *deviceList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSError *deviceError = nil;
@@ -364,6 +367,8 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              
              for (NSString *deviceID in queryDeviceIDList)
              {
+                 NSLog(@"getDevices - online device: %@",deviceID);
+                 
                  dispatch_group_enter(group);
                  [self getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {
                      if ((!error) && (device))

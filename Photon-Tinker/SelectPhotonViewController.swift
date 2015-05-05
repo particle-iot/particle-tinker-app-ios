@@ -10,7 +10,7 @@ import UIKit
 
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
 
-@objc class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
+class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
@@ -22,6 +22,8 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
 //        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
+        srandom(arc4random())
+
     }
 
     var devices : [SparkDevice] = []
@@ -72,7 +74,7 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
         hud.customView = spinnerView
 
         
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
             SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]?, err:NSError?) -> Void in
                 if (err != nil)
@@ -90,17 +92,16 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         self.photonSelectionTableView.reloadData()
-                        // first time add the custom pull to refresh control to the tableview
-                        self.addRefreshControl()
-
-                        
                     }
                     
                 }
+                
+                // do anyway:
                 dispatch_async(dispatch_get_main_queue()) {
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    // first time add the custom pull to refresh control to the tableview
+                    self.addRefreshControl()
                 }
-
             })
         }
     }
@@ -296,6 +297,18 @@ let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobca
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 
                 println("Tapped on \(self.devices[indexPath.row].description)")
+                
+                // debug to check rename:
+                self.devices[indexPath.row].rename(self.generateDeviceName(), completion: { (err : NSError?) -> Void in
+                    if (err != nil)
+                    {
+                        println("Error renaming device")
+                    }
+                    else
+                    {
+                        self.photonSelectionTableView.reloadData()
+                    }
+                })
                 /*
                 if self.devices[indexPath.row].connected
                 {

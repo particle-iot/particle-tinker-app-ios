@@ -25,7 +25,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         var layer = self.getStartedButton.layer
         layer.backgroundColor = UIColor.clearColor().CGColor
         layer.borderColor = UIColor.whiteColor().CGColor
-        layer.cornerRadius = 2.0
+        layer.cornerRadius = 3.0
         layer.borderWidth = 2.0
         
         
@@ -67,17 +67,9 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     
     func customizeSetup()
     {
-        self.checkFontNames()
+//        self.checkFontNames()
         // Do customization for Spark Setup wizard UI
         let c = SparkSetupCustomization.sharedInstance()
-        
-//        c.brandImage = UIImage(named: "brand-logo-head")
-//        c.brandName = "Acme"
-//        c.brandImageBackgroundColor = UIColor(red: 0.88, green: 0.96, blue: 0.96, alpha: 0.9)
-//        c.appName = "Acme Setup"
-//        c.deviceImage = UIImage(named: "anvil")
-//        c.deviceName = "Connected Anvil"
-//        c.welcomeVideoFilename = "rr.mp4"
         
         c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
         c.normalTextFontName = "Gotham-Book"
