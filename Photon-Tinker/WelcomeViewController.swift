@@ -83,7 +83,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.brandImage = UIImage(named: "particle-horizontal-head")
         c.deviceImage = UIImage(named: "imgPhoton")
         c.tintSetupImages = true
-        
+        c.welcomeVideoFilename = "device setup video.m4v"
         
     }
     

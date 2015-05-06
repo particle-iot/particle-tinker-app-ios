@@ -11,6 +11,7 @@
 		5048CD231AE09AD00097150A /* SelectPhotonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD221AE09AD00097150A /* SelectPhotonViewController.swift */; };
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
+		505C6ECB1AF988F90099FF15 /* device setup video.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 505C6ECA1AF988F90099FF15 /* device setup video.m4v */; };
 		50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B125481AE06CF4003C29DC /* AppDelegate.swift */; };
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		5048CD221AE09AD00097150A /* SelectPhotonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotonViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		505C6ECA1AF988F90099FF15 /* device setup video.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "device setup video.m4v"; sourceTree = "<group>"; };
 		50B125431AE06CF4003C29DC /* Particle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B125471AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B125481AE06CF4003C29DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
+				505C6ECA1AF988F90099FF15 /* device setup video.m4v */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				50F62D941AE0721200109F33 /* Fonts */,
 			);
@@ -293,6 +296,7 @@
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
+				505C6ECB1AF988F90099FF15 /* device setup video.m4v in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				50B125501AE06CF4003C29DC /* Images.xcassets in Resources */,
