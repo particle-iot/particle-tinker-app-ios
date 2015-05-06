@@ -319,13 +319,13 @@
 #endif
         SecItemUpdate((__bridge CFDictionaryRef)updateItem, (__bridge CFDictionaryRef)tempCheck);
         
-        NSAssert( result == noErr, @"Couldn't update the Keychain Item." );
+//        NSAssert( result == noErr, @"Couldn't update the Keychain Item." );
     }
     else
     {
         // No previous item found; add the new one.
         result = SecItemAdd((__bridge CFDictionaryRef)[self dictionaryToSecItemFormat:keychainItemData], NULL);
-        NSAssert( result == noErr, @"Couldn't add the Keychain Item." );
+//        NSAssert( result == noErr, @"Couldn't add the Keychain Item." );
     }
     
     if(attributes) CFRelease(attributes);

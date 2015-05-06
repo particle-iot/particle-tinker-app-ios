@@ -13,6 +13,7 @@
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
+            <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
@@ -66,12 +67,20 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.89999999999999991" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vx.x" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFP-vH-xVN">
+                                <rect key="frame" x="555" y="569" width="29" height="15"/>
+                                <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="UFP-vH-xVN" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="1qa-e9-69c"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cQK-Nl-VbT" secondAttribute="bottom" constant="36" id="1sz-eh-AtD"/>
                             <constraint firstAttribute="centerX" secondItem="on1-jM-hGs" secondAttribute="centerX" id="3ID-m0-xRl"/>
                             <constraint firstItem="cQK-Nl-VbT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="on1-jM-hGs" secondAttribute="bottom" constant="24" id="AAh-Yu-5Yh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="UFP-vH-xVN" secondAttribute="bottom" constant="16" id="D6O-Af-t7V"/>
                             <constraint firstAttribute="centerX" secondItem="iA9-Xk-N8F" secondAttribute="centerX" id="EdA-xY-4a3"/>
                             <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="SnU-6L-0if"/>
                             <constraint firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
@@ -87,6 +96,7 @@
                     <navigationItem key="navigationItem" id="u2E-GR-FTS"/>
                     <connections>
                         <outlet property="getStartedButton" destination="cQK-Nl-VbT" id="ukx-jF-Ckb"/>
+                        <outlet property="versionLabel" destination="UFP-vH-xVN" id="IF9-oj-X4d"/>
                         <segue destination="Kib-3X-Zyf" kind="show" identifier="select" id="3ox-ek-eEM"/>
                     </connections>
                 </viewController>

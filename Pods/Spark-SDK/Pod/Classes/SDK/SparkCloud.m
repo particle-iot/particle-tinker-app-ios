@@ -268,13 +268,13 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
     [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
     NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@",deviceID];
-    NSLog(@"getDevice()");
+//    NSLog(@"getDevice()");
     [self.manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
          {
              NSMutableDictionary *responseDict = responseObject;
-             NSLog(@"getDevice :%@",responseDict);
+//             NSLog(@"getDevice :%@",responseDict);
 
 //             responseDict[@"access_token"] = self.accessToken; // add access token
              SparkDevice *device = [[SparkDevice alloc] initWithParams:responseDict];
@@ -334,7 +334,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
          if (completion)
          {
              NSArray *responseList = responseObject;
-             NSLog(@"getDevices response: %@",responseList);
+//             NSLog(@"getDevices response: %@",responseList);
              
              NSMutableArray *queryDeviceIDList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSMutableArray *deviceList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
@@ -367,7 +367,7 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
              
              for (NSString *deviceID in queryDeviceIDList)
              {
-                 NSLog(@"getDevices - online device: %@",deviceID);
+//                 NSLog(@"getDevices - online device: %@",deviceID);
                  
                  dispatch_group_enter(group);
                  [self getDevice:deviceID completion:^(SparkDevice *device, NSError *error) {

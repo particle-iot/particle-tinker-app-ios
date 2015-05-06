@@ -27,7 +27,8 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         layer.borderColor = UIColor.whiteColor().CGColor
         layer.cornerRadius = 3.0
         layer.borderWidth = 2.0
-        
+        var verStr = "V"+(NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String)
+        self.versionLabel.text = verStr
         
         self.customizeSetup()
     }
@@ -87,6 +88,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         
     }
     
+    @IBOutlet weak var versionLabel: UILabel!
     @IBAction func startButtonTapped(sender: UIButton)
     {
         if let u = SparkCloud.sharedInstance().loggedInUsername
