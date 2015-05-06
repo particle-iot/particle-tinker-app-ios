@@ -468,6 +468,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "158e6e37-8e30-41ec-ad98-c4e4879a5770";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -479,6 +480,7 @@
 			baseConfigurationReference = A140C444B87FD69864B59521 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -493,10 +495,12 @@
 			baseConfigurationReference = ACA16C4DEB7E02C52AEA513E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Particle;
+				PROVISIONING_PROFILE = "158e6e37-8e30-41ec-ad98-c4e4879a5770";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/SparkSetup-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
