@@ -42,6 +42,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "tinker"
         {
+            self.lastTappedNonTinkerDevice = nil
             if let vc = segue.destinationViewController as? SPKTinkerViewController
             {
                 vc.device = self.selectedDevice!
@@ -311,6 +312,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        TSMessage.dismissActiveNotification()
         if self.devices.count == 0
         {
             self.invokeDeviceSetup()
@@ -331,7 +333,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     switch devices[indexPath.row].isRunningTinker()
                     {
                     case true :
-                        self.lastTappedNonTinkerDevice = nil
+                        
                         self.selectedDevice = self.devices[indexPath.row]
                         self.performSegueWithIdentifier("tinker", sender: self)
                     default :
