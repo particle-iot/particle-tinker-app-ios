@@ -682,13 +682,13 @@ Enjoy!</string>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="0Sm-wE-dSo"/>
-                                <exclude reference="cMJ-Zh-FDF"/>
                                 <exclude reference="6zf-UN-Mzg"/>
-                                <exclude reference="glH-MM-uIR"/>
+                                <exclude reference="cMJ-Zh-FDF"/>
                                 <exclude reference="3xg-NL-zQV"/>
+                                <exclude reference="IKk-xL-1Et"/>
+                                <exclude reference="glH-MM-uIR"/>
                                 <exclude reference="pCM-O8-MQn"/>
                                 <exclude reference="vFP-eN-FEi"/>
-                                <exclude reference="IKk-xL-1Et"/>
                                 <exclude reference="nK0-18-fGQ"/>
                                 <exclude reference="LdC-IY-AMF"/>
                                 <exclude reference="LF5-Ll-QaR"/>

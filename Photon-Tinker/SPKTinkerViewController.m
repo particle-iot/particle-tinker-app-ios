@@ -38,10 +38,10 @@
     self.pinFunctionView.delegate = self;
 
     // background image
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgBackgroundOrange"]];
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgTrianglifyBackgroundBlue"]];
     backgroundImage.frame = [UIScreen mainScreen].bounds;
     backgroundImage.contentMode = UIViewContentModeScaleToFill;
-    backgroundImage.alpha = 0.9;
+    backgroundImage.alpha = 0.8;
     [self.view addSubview:backgroundImage];
     [self.view sendSubviewToBack:backgroundImage];
     
@@ -50,7 +50,7 @@
     [self.firstTimeView addGestureRecognizer:tap];
 
     // inititalize pins
-    [self.device configurePins:SparkDeviceTypePhoton];//self.device.type]; // TODO: fix when device type becomes available
+    [self.device configurePins:self.device.type];
     
     self.deviceIDLabel.text = [NSString stringWithFormat:@"ID: %@",[self.device.id uppercaseString]];
     

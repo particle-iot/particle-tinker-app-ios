@@ -7,7 +7,10 @@
 
 // Spark DeviceSetup library integration
 #include "SparkSetup.h"
+
+// Other Obj-C project files
 #include "SparkDevice+pins.h"
+#include "SPKTinkerViewController.h"
 
 // pods
 #include "MBProgressHUD.h"

@@ -28,6 +28,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
     var devices : [SparkDevice] = []
     var selectedDevice : SparkDevice? = nil
+    var lastTappedNonTinkerDevice : SparkDevice? = nil
     var refreshControlAdded : Bool = false
     
     override func didReceiveMemoryWarning() {
@@ -37,15 +38,17 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
 
     @IBOutlet weak var photonSelectionTableView: UITableView!
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "tinker"
+        {
+            if let vc = segue.destinationViewController as? SPKTinkerViewController
+            {
+                vc.device = self.selectedDevice!
+            }
+        }
     }
-    */
+
     
     override func viewWillAppear(animated: Bool) {
         self.loadDevices()
@@ -105,7 +108,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func handleGetDevicesResponse(devices:[AnyObject]?, error:NSError?)
     {
-        println("in handler \(devices)")
         if let e = error
         {
             println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
@@ -118,7 +120,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             {
                 self.devices = d as! [SparkDevice]
 
-                /*
                 // sort by device type
                 self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.type.rawValue > secondDevice.type.rawValue
@@ -128,7 +129,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.connected && !secondDevice.connected
                 })
-                */
+                
+                // and then by running tinker or not
+                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                    return firstDevice.isRunningTinker() && !secondDevice.isRunningTinker()
+                })
 
             }
             
@@ -161,7 +166,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         
         var masterCell : UITableViewCell?
         
-        
         if indexPath.row < self.devices.count
         {
             var cell:DeviceTableViewCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("device_cell") as! DeviceTableViewCell
@@ -180,15 +184,15 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             switch online
             {
             case true :
-//                switch devices[indexPath.row].isRunningTinker()
-//                {
-//                case true :
+                switch devices[indexPath.row].isRunningTinker()
+                {
+                case true :
                     cell.deviceStateLabel.text = "Online"
                     cell.deviceStateImageView.image = UIImage(named: "imgGreenCircle")
-//                default :
-//                    cell.deviceStateLabel.text = "Not running Tinker"
-//                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle")
-//                }
+                default :
+                    cell.deviceStateLabel.text = "Online, non-Tinker"
+                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle")
+                }
                 
                 
             default :
@@ -327,22 +331,35 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     switch devices[indexPath.row].isRunningTinker()
                     {
                     case true :
+                        self.lastTappedNonTinkerDevice = nil
                         self.selectedDevice = self.devices[indexPath.row]
                         self.performSegueWithIdentifier("tinker", sender: self)
                     default :
-                        // TODO: add "not running tinker, do you want to flash?"
-                        TSMessage.showNotificationInViewController(self, title: "Device not running Tinker", subtitle: "Do you want to flash Tinker firmware to this device? (Tap device again to force Tinker with it)", image: UIImage(named: "imgQuestionWhite"), type: .Message, duration: -1, callback: { () -> Void in
-                            // callback for user dismiss by touching inside notification
-                            TSMessage.dismissActiveNotification()
-                            } , buttonTitle: " Flash ", buttonCallback: { () -> Void in
-                                // TODO: spark cloud flash tinker command
-                            }, atPosition: .Top, canBeDismissedByUser: true)
+                        if let ntd = self.lastTappedNonTinkerDevice
+                        {
+                            if (self.devices[indexPath.row] == ntd)
+                            {
+                                self.selectedDevice = self.devices[indexPath.row]
+                                self.performSegueWithIdentifier("tinker", sender: self)
+                            }
+                        }
+                        else
+                        {
+                            self.lastTappedNonTinkerDevice = self.devices[indexPath.row]
+                            // TODO: add "not running tinker, do you want to flash?"
+                            TSMessage.showNotificationInViewController(self, title: "Device not running Tinker", subtitle: "Do you want to flash Tinker firmware to this device? Tap device again to Tinker with it anyway", image: UIImage(named: "imgQuestionWhite"), type: .Message, duration: -1, callback: { () -> Void in
+                                // callback for user dismiss by touching inside notification
+                                TSMessage.dismissActiveNotification()
+                                } , buttonTitle: " Flash ", buttonCallback: { () -> Void in
+                                    // TODO: spark cloud flash tinker command
+                                }, atPosition: .Top, canBeDismissedByUser: true)
+                        }
                     }
                     
                 }
                 else
                 {
-                    
+                    self.lastTappedNonTinkerDevice = nil
                     TSMessage.showNotificationWithTitle("Device offline", subtitle: "This device is offline, please turn it on and refresh in order to Tinker with it.", type: .Error)
                 }
             case self.devices.count :
