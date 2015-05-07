@@ -105,6 +105,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func handleGetDevicesResponse(devices:[AnyObject]?, error:NSError?)
     {
+        println(devices)
         if let e = error
         {
             println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
@@ -117,6 +118,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             {
                 self.devices = d as! [SparkDevice]
 
+                /*
                 // sort by device type
                 self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.type.rawValue > secondDevice.type.rawValue
@@ -126,6 +128,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.connected && !secondDevice.connected
                 })
+                */
 
             }
             
@@ -317,22 +320,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             case 0...self.devices.count-1 :
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 
-                /*
                 println("Tapped on \(self.devices[indexPath.row].description)")
-                // debug to check rename:
-                self.devices[indexPath.row].rename(self.generateDeviceName(), completion: { (err : NSError?) -> Void in
-                    if (err != nil)
-                    {
-                        println("Error renaming device")
-                    }
-                    else
-                    {
-                        self.photonSelectionTableView.reloadData()
-                    }
-                })
-                */
                 
-                /*
                 if self.devices[indexPath.row].connected
                 {
                     switch devices[indexPath.row].isRunningTinker()
@@ -356,7 +345,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     
                     TSMessage.showNotificationWithTitle("Device offline", subtitle: "This device is offline, please turn it on and refresh in order to Tinker with it.", type: .Error)
                 }
-*/
             case self.devices.count :
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
                 self.invokeDeviceSetup()

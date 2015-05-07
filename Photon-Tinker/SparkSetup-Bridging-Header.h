@@ -7,6 +7,7 @@
 
 // Spark DeviceSetup library integration
 #include "SparkSetup.h"
+#include "SparkDevice+pins.h"
 
 // pods
 #include "MBProgressHUD.h"
