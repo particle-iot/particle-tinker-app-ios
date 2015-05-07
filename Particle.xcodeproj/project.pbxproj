@@ -13,6 +13,7 @@
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
 		505C6ECB1AF988F90099FF15 /* device setup video.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 505C6ECA1AF988F90099FF15 /* device setup video.m4v */; };
 		5073D4C91AFB14DE00068C2A /* SPKPinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */; };
+		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
 		50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B125481AE06CF4003C29DC /* AppDelegate.swift */; };
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
@@ -46,6 +47,8 @@
 		505C6ECA1AF988F90099FF15 /* device setup video.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "device setup video.m4v"; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* SPKPinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKPinFunctionView.h; sourceTree = "<group>"; };
 		5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKPinFunctionView.m; sourceTree = "<group>"; };
+		5073D4CA1AFB2E3000068C2A /* PinValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinValueView.h; sourceTree = "<group>"; };
+		5073D4CB1AFB2E3000068C2A /* PinValueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinValueView.m; sourceTree = "<group>"; };
 		50B125431AE06CF4003C29DC /* Particle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B125471AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B125481AE06CF4003C29DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 			children = (
 				50D47F2E1AFAF56C004AD3AE /* PinView.h */,
 				50D47F2F1AFAF56C004AD3AE /* PinView.m */,
+				5073D4CA1AFB2E3000068C2A /* PinValueView.h */,
+				5073D4CB1AFB2E3000068C2A /* PinValueView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
 				5073D4C71AFB14DE00068C2A /* SPKPinFunctionView.h */,
 				5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */,
@@ -370,6 +375,7 @@
 				5073D4C91AFB14DE00068C2A /* SPKPinFunctionView.m in Sources */,
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,
+				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */,

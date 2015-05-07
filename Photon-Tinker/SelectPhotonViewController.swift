@@ -337,13 +337,10 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                         self.selectedDevice = self.devices[indexPath.row]
                         self.performSegueWithIdentifier("tinker", sender: self)
                     default :
-                        if let ntd = self.lastTappedNonTinkerDevice
+                        if let ntd = self.lastTappedNonTinkerDevice where self.devices[indexPath.row].id == ntd.id
                         {
-                            if (self.devices[indexPath.row] == ntd)
-                            {
                                 self.selectedDevice = self.devices[indexPath.row]
                                 self.performSegueWithIdentifier("tinker", sender: self)
-                            }
                         }
                         else
                         {

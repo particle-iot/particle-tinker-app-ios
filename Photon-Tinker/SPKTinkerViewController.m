@@ -11,10 +11,14 @@
 #import "SparkDevice+pins.h"
 //#import "Photon_Tinker-Swift.h"
 #import "PinView.h"
+#import "TSMessage.h"
+#import "PinValueView.h"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate>
+@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
+@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
+
 @property (nonatomic, weak) IBOutlet SPKPinFunctionView *pinFunctionView;
 @property (nonatomic, weak) IBOutlet UIView *firstTimeView;
 @property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
@@ -34,11 +38,13 @@
 
 - (void)viewDidLoad
 {
+    self.chipView.alpha = 0;
     self.pinViews = [NSMutableDictionary dictionaryWithCapacity:16];
+    self.pinValueViews = [NSMutableDictionary dictionaryWithCapacity:16];
     self.pinFunctionView.delegate = self;
 
     // background image
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgTrianglifyBackgroundBlue"]];
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgTrianglifyBackgroundBlue"]]; // make brown version?
     backgroundImage.frame = [UIScreen mainScreen].bounds;
     backgroundImage.contentMode = UIViewContentModeScaleToFill;
     backgroundImage.alpha = 0.8;
@@ -48,6 +54,16 @@
     // first time view
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissFirstTime)];
     [self.firstTimeView addGestureRecognizer:tap];
+
+    // fill in device name
+    if ((self.device.name) && (![self.device.name isEqualToString:@""]))
+    {
+        self.deviceNameLabel.text = self.device.name;
+    }
+    else
+    {
+        self.deviceNameLabel.text = @"<no name>";
+    }
 
     // inititalize pins
     [self.device configurePins:self.device.type];
@@ -125,15 +141,6 @@
 {
     [super viewDidAppear:animated];
 
-    if ((self.device.name) && (![self.device.name isEqualToString:@""]))
-    {
-        self.deviceNameLabel.text = self.device.name;
-    }
-    else
-    {
-        self.deviceNameLabel.text = @"<no name>";
-    }
-
 //    self.firstTimeView.hidden = ![SPKSpark sharedInstance].user.firstTime;
     self.tinkerLogoImageView.hidden = NO;
 //    self.deviceNameLabel.hidden = NO;
@@ -194,8 +201,63 @@
         
         v.delegate = self;
         self.pinViews[pin.label] = v;
+        
+        // Pin Value View
+        PinValueView *pvv = [[PinValueView alloc] initWithPin:pin];
+        [self.chipView insertSubview:pvv aboveSubview:self.chipShadowImageView];
+        pvv.translatesAutoresizingMaskIntoConstraints = NO;
+        // stick view to right of the pin when positioned in left or exact opposite
+        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight;
+        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft;
+
+        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                                  attribute:pvvXPosAttribute
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:v
+                                                                  attribute:inv_pvvXPosAttribute
+                                                                 multiplier:1.0
+                                                                   constant:0]];
+        
+        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                                  attribute:NSLayoutAttributeCenterY
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:v
+                                                                  attribute:NSLayoutAttributeCenterY
+                                                                 multiplier:1.0
+                                                                   constant:0]];
+        
+        [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                      attribute:NSLayoutAttributeWidth
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:nil
+                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                     multiplier:1.0
+                                                       constant:100]];
+        
+        [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                      attribute:NSLayoutAttributeHeight
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:nil
+                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                     multiplier:1.0
+                                                       constant:50]];
+        
+        self.pinValueViews[pin.label] = pvv;
+
+        
     }
-    [self.chipView setNeedsLayout];
+    
+    self.chipView.alpha=0;
+    [UIView animateWithDuration:0.5
+                          delay:0.5
+                        options: UIViewAnimationOptionAllowAnimatedContent
+                     animations:^{
+                         self.chipView.alpha=1;
+                         [self.chipView setNeedsLayout];
+                     }
+                     completion:^(BOOL finished){
+                         NSLog(@"Done!");
+                     }];
 
 }
 
@@ -248,18 +310,18 @@
 
 #pragma mark - Core Pin View Delegate
 
-- (void)pinViewAdjusted:(SPKCorePinView *)pinView newValue:(NSUInteger)newValue
-{
-    [pinView.pin adjustValue:newValue];
-
-    [pinView noslider];
-    [pinView refresh];
-    [pinView activate];
-    [self pinCallHome:pinView];
-    for (SPKCorePinView *pv in self.pinViews.allValues) {
-        [pv showDetails];
-    }
-}
+//- (void)pinViewAdjusted:(SPKCorePinView *)pinView newValue:(NSUInteger)newValue
+//{
+//    [pinView.pin adjustValue:newValue];
+//
+//    [pinView noslider];
+//    [pinView refresh];
+//    [pinView activate];
+//    [self pinCallHome:pinView];
+//    for (SPKCorePinView *pv in self.pinViews.allValues) {
+//        [pv showDetails];
+//    }
+//}
 
 
 - (void)pinViewHeld:(PinView *)pinView
@@ -292,6 +354,49 @@
         if (!pinView.active) // pin is inactive - show pin function view
         {
             [self showFunctionView:pinView];
+        }
+        else
+        {
+            switch (pinView.pin.selectedFunction) {
+                case SPKCorePinFunctionDigitalRead:
+                {
+                    
+                    break;
+                }
+
+                case SPKCorePinFunctionDigitalWrite:
+                {
+                    if (pinView.pin.value)
+                        [pinView.pin adjustValue:0];
+                    else
+                        [pinView.pin adjustValue:1];
+                    
+                    [self.pinValueViews[pinView.pin.label] refresh];
+                    
+                    [self pinCallHome:pinView completion:^(NSUInteger value) {
+                        [self.pinValueViews[pinView.pin.label] refresh];
+                    }];
+                    
+                    break;
+                }
+
+                case SPKCorePinFunctionAnalogRead:
+                {
+                    //
+                    break;
+                }
+
+                case SPKCorePinFunctionAnalogWrite:
+                {
+
+                    break;
+                }
+
+                default:
+                {
+                    break;
+                }
+            }
         }
     }
     
@@ -390,39 +495,33 @@
     return nil;
 }
 
-- (void)pinCallHome:(SPKCorePinView *)pinView
+- (void)pinCallHome:(PinView *)pinView completion:(void (^)(NSUInteger value))completion
 {
-    [self.device updatePin:pinView.pin.label function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger value) {
+    [self.device updatePin:pinView.pin.label function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger result) {
         ///
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.tinkerLogoImageView.hidden = NO;
             if (pinView.pin.selectedFunction == SPKCorePinFunctionDigitalWrite || pinView.pin.selectedFunction == SPKCorePinFunctionAnalogWrite) {
-                if (value == -1) {
-                    [[[UIAlertView alloc] initWithTitle:@"Device Pin" message:@"There was a problem writing to this pin." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+                if (result == -1) {
+
+                    [TSMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:TSMessageNotificationTypeError];
                     [pinView.pin resetValue];
                 }
             } else {
-                [pinView.pin adjustValue:value];
+                [pinView.pin adjustValue:result];
+                completion(result);
             }
-
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
-            [pinView deactivate];
-            self.tinkerLogoImageView.hidden = NO;
-//            self.deviceNameLabel.hidden = NO;
             [pinView refresh];
-            [CATransaction commit];
         });
     } failure:^(NSString *errorMessage) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[[UIAlertView alloc] initWithTitle:@"Core Pin" message:errorMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            // TSMessage
+            NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device: %@",errorMessage];
+            [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
+
             [pinView.pin resetValue];
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
-            [pinView deactivate];
             self.tinkerLogoImageView.hidden = NO;
-//            self.deviceNameLabel.hidden = NO;
             [pinView refresh];
-            [CATransaction commit];
         });
     }];
 }
