@@ -264,10 +264,10 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
 
 -(void)getDevice:(NSString *)deviceID completion:(void (^)(SparkDevice *, NSError *))completion
 {
-//    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
-//    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
+    NSString *authorization = [NSString stringWithFormat:@"Bearer %@",self.token.accessToken];
+    [self.manager.requestSerializer setValue:authorization forHTTPHeaderField:@"Authorization"];
 
-    NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@?access_token=%@",deviceID,self.token.accessToken];
+    NSString *urlPath = [NSString stringWithFormat:@"/v1/devices/%@",deviceID];
     [self.manager GET:urlPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          if (completion)
@@ -333,6 +333,8 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
          {
              
              NSArray *responseList = responseObject;
+             NSLog(@"getDevices: %@",responseList);
+
              NSMutableArray *queryDeviceIDList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSMutableArray *deviceList = [[NSMutableArray alloc] initWithCapacity:responseList.count];
              __block NSError *deviceError = nil;

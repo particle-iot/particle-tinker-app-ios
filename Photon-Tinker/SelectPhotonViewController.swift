@@ -105,7 +105,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func handleGetDevicesResponse(devices:[AnyObject]?, error:NSError?)
     {
-        println(devices)
+        println("in handler \(devices)")
         if let e = error
         {
             println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
