@@ -85,24 +85,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
             SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]?, error:NSError?) -> Void in
-                if let e = error
-                {
-                    println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
-                    println(e.description)
-                    TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check internet connection.", type: .Error)
-                }
-                else
-                {
-                    if let d = devices
-                    {
-                        self.devices = d as! [SparkDevice]
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.photonSelectionTableView.reloadData()
-                    }
-                    
-                }
+                self.handleGetDevicesResponse(devices, error: error)
                 
                 // do anyway:
                 dispatch_async(dispatch_get_main_queue()) {
@@ -118,6 +101,40 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    
+    
+    func handleGetDevicesResponse(devices:[AnyObject]?, error:NSError?)
+    {
+        if let e = error
+        {
+            println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
+            println(e.description)
+            TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check internet connection.", type: .Error)
+        }
+        else
+        {
+            if let d = devices
+            {
+                self.devices = d as! [SparkDevice]
+
+                // sort by device type
+                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                    return firstDevice.type.rawValue > secondDevice.type.rawValue
+                })
+
+                // and then by online/offline
+                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                    return firstDevice.connected && !secondDevice.connected
+                })
+
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.photonSelectionTableView.reloadData()
+            }
+        }
+    }
+    
     func addRefreshControl()
     {
 
@@ -125,24 +142,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         
         self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
 //        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", pullTextColor: UIColor.whiteColor(), pullTextFont: refreshFont, refreshingText: "Refreshing Devices", refreshingTextColor: UIColor.whiteColor(), refreshingTextFont: refreshFont) { () -> Void in
-            SparkCloud.sharedInstance().getDevices() { (devices:[AnyObject]?, err:NSError?) -> Void in
-                if (err != nil)
-                {
-                    println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
-                    println(err?.description)
-                    TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check internet connection.", type: .Error)
-                }
-                else
-                {
-                    if let d = devices
-                    {
-                        self.devices = d as! [SparkDevice]
-                    }
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.photonSelectionTableView.reloadData()
-                    }
-                    
-                }
+            SparkCloud.sharedInstance().getDevices() { (devices:[AnyObject]?, error:NSError?) -> Void in
+                self.handleGetDevicesResponse(devices, error: error)
                 self.photonSelectionTableView.finishLoading()
             }
             

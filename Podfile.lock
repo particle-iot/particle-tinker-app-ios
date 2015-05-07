@@ -24,11 +24,11 @@ PODS:
   - HexColors (2.2.1)
   - MBProgressHUD (0.9.1)
   - PullToRefreshCoreText (0.2)
-  - Spark-SDK (0.2.5):
-    - Spark-SDK/Helpers (= 0.2.5)
-    - Spark-SDK/SDK (= 0.2.5)
-  - Spark-SDK/Helpers (0.2.5)
-  - Spark-SDK/SDK (0.2.5):
+  - Spark-SDK (0.2.6):
+    - Spark-SDK/Helpers (= 0.2.6)
+    - Spark-SDK/SDK (= 0.2.6)
+  - Spark-SDK/Helpers (0.2.6)
+  - Spark-SDK/SDK (0.2.6):
     - AFNetworking
     - Spark-SDK/Helpers
   - SparkSetup (0.1.4):
@@ -61,7 +61,7 @@ SPEC CHECKSUMS:
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
-  Spark-SDK: f7ac2526a09a46573a988cb1cbdee43a0b0da966
+  Spark-SDK: 527057abf16c489ebc4d0da8249a9ff5106643a5
   SparkSetup: c795683a23554f28d60c4a17b6f4fbe4643e20b6
   TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
 
