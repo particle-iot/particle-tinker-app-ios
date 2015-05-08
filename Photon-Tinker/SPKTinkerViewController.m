@@ -384,7 +384,7 @@
 
                 case SPKCorePinFunctionAnalogWrite:
                 {
-
+                    [pinView.valueView showSlider];
                     break;
                 }
 

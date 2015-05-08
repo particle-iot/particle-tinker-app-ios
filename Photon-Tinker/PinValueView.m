@@ -7,10 +7,11 @@
 //
 
 #import "PinValueView.h"
+#import "ASValueTrackingSlider.h"
 
 @interface PinValueView()
 @property (nonatomic, strong) UILabel *valueLabel;
-
+@property (nonatomic, strong) ASValueTrackingSlider *slider;
 @end
 
 @implementation PinValueView
@@ -84,8 +85,40 @@
             break;
     }
     self.valueLabel.hidden = !self.pin.valueSet;
+}
+
+-(void)sliderAction:(id)sender
+{
+    ASValueTrackingSlider *slider = (ASValueTrackingSlider*)sender;
+//    [self.pin adjustValue:slider.value];
+    //-- Do further actions
+    
+    // delegate.sliderVlaueC4hanged...
+}
 
 
+-(void)showSlider
+{
+
+    self.valueLabel.hidden = YES;
+    self.hidden = NO;
+    _slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+    [_slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+    [_slider setBackgroundColor:[UIColor clearColor]];
+    _slider.minimumValue = 0.0;
+    _slider.maximumValue = PIN_ANALOGWRITE_MAX_VALUE;
+    _slider.continuous = NO;
+    _slider.value = self.pin.value;
+    _slider.hidden = NO;
+
+    _slider.popUpViewCornerRadius = 4.0;
+    [_slider setMaxFractionDigitsDisplayed:0];
+    _slider.popUpViewColor = self.pin.selectedFunctionColor;//[UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
+    _slider.font = [UIFont fontWithName:@"Gotham-Medium" size:20];
+    _slider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.4 alpha:1];
+    
+    [self addSubview:_slider];
+    [self setNeedsDisplay];
 }
 
 @end

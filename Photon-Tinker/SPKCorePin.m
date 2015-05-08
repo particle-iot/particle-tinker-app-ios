@@ -24,23 +24,6 @@
         _row = row;
         _availableFunctions = availableFunctions;
         _selectedFunction = SPKCorePinFunctionNone;
-
-
-//        SPKCorePinFunction functions[] = { SPKCorePinFunctionNone, SPKCorePinFunctionAnalogRead, SPKCorePinFunctionAnalogWrite, SPKCorePinFunctionDigitalRead, SPKCorePinFunctionDigitalWrite };
-//        BOOL stop;
-//        do {
-//            SPKCorePinFunction randomFunction = functions[rand() % 5];
-//            if ((randomFunction & availableFunctions) == randomFunction) {
-//                _selectedFunction = randomFunction;
-//                stop = YES;
-//            }
-//        } while (!stop);
-//
-//        if (SPKCorePinFunctionAnalog(self)) {
-//            _value = rand() % 1000;
-//        } else {
-//            _value = rand() % 2 == 0;
-//        }
     }
 
     return self;

@@ -7,10 +7,8 @@
 //
 
 #import "PinView.h"
+#import "PinValueView.h"
 #import "SSPieProgressView.h"
-
-#define PIN_ANALOGREAD_MAX_VALUE     4095.0f
-#define PIN_ANALOGWRITE_MAX_VALUE    255.0f
 
 @interface PinView()
 @property (nonatomic, strong) UIButton *innerPinButton;
@@ -67,8 +65,8 @@
         self.outerPieValueView.backgroundColor = [UIColor clearColor];
         self.outerPieValueView.pieBackgroundColor = [UIColor clearColor];
         self.outerPieValueView.progress = 1;
-        self.outerPieValueView.pieFillColor = [UIColor whiteColor];
         self.outerPieValueView.pieBorderWidth = 0;
+        self.outerPieFrameView.pieFillColor = [UIColor whiteColor]; // will change
         self.outerPieValueView.hidden = YES;
 
         // just a thin line around the circle to reflect selected function even when analog values = 0 (so pin will look active)
@@ -76,10 +74,11 @@
         self.outerPieFrameView.backgroundColor = [UIColor clearColor];
         self.outerPieFrameView.pieBackgroundColor = [UIColor clearColor];
         self.outerPieFrameView.progress = 1;
+        self.outerPieFrameView.pieBorderWidth = 1.0f;
+        self.outerPieFrameView.pieBorderColor = [UIColor whiteColor]; // will change
         self.outerPieFrameView.pieFillColor = [UIColor clearColor];
-        self.outerPieFrameView.pieBorderWidth = 0.5f;
-        self.outerPieFrameView.pieBorderColor = [UIColor whiteColor];
         self.outerPieFrameView.hidden = YES;
+
         
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 16)];
         self.label.center = self.innerPinButton.center;
@@ -87,7 +86,7 @@
         if (self.pin.label.length <= 2)
             self.label.font = [UIFont fontWithName:@"Gotham-Medium" size:14.0];
         else
-            self.label.font = [UIFont fontWithName:@"Gotham-Medium" size:11.0];
+            self.label.font = [UIFont fontWithName:@"Gotham-Medium" size:10.5];
         self.label.textColor = [UIColor whiteColor];
         self.label.textAlignment = NSTextAlignmentCenter;
         
@@ -129,9 +128,9 @@
 {
     if (self.active)
     {
-//        self.outerPinButton.tintColor = self.pin.selectedFunctionColor;
-//        self.outerPinButton.hidden = NO;
         self.outerPieValueView.hidden = NO;
+        self.outerPieFrameView.hidden = NO;
+        
         self.outerPieValueView.pieFillColor = self.pin.selectedFunctionColor;
         self.outerPieFrameView.pieBorderColor = self.pin.selectedFunctionColor;
 
@@ -146,6 +145,7 @@
                 
             case SPKCorePinFunctionAnalogWrite:
                 self.outerPieValueView.progress = self.pin.value/PIN_ANALOGWRITE_MAX_VALUE;
+
                 self.innerPinButton.tintColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.25 alpha:1];
                 self.label.textColor = [UIColor whiteColor];
                 
@@ -153,7 +153,6 @@
                 
             case SPKCorePinFunctionDigitalRead:
             case SPKCorePinFunctionDigitalWrite:
-                self.outerPieFrameView.hidden = NO;
                 self.outerPieValueView.progress = 1.0f;
 
 
