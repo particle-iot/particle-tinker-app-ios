@@ -15,7 +15,7 @@
 #define GLOBAL_API_TIMEOUT_INTERVAL     31.0f
 
 
-NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
+NSString *const kSparkAPIBaseURL = @"https://api.spark.io"; //staging-
 
 @interface SparkCloud () <SparkAccessTokenDelegate>
 @property (nonatomic, strong) NSURL* baseURL;
@@ -273,7 +273,9 @@ NSString *const kSparkAPIBaseURL = @"https://api.spark.io";
          if (completion)
          {
              NSMutableDictionary *responseDict = responseObject;
-//             responseDict[@"access_token"] = self.accessToken; // add access token 
+             NSLog(@"getDevice: %@",responseDict);
+
+//             responseDict[@"access_token"] = self.accessToken; // add access token
              
              SparkDevice *device = [[SparkDevice alloc] initWithParams:responseDict];
              if (completion)

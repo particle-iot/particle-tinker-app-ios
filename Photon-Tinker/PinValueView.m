@@ -52,7 +52,8 @@
 
         self.valueLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.0];
         self.valueLabel.textColor = [UIColor whiteColor];
-        self.valueLabel.text = @"???";
+        self.valueLabel.text = @"";
+        self.valueLabel.hidden = YES;
         
         [self addSubview:self.valueLabel];
         
@@ -76,12 +77,13 @@
         case SPKCorePinFunctionAnalogRead:
         case SPKCorePinFunctionAnalogWrite:
             self.valueLabel.text = [NSString stringWithFormat:@"%ld",self.pin.value];
+            break;
             
         default:
-            self.valueLabel.text = @"None";
+            self.valueLabel.text = @"";
             break;
     }
-    self.valueLabel.hidden = self.pin.valueSet;
+    self.valueLabel.hidden = !self.pin.valueSet;
 
 
 }

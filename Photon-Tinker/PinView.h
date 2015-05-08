@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "SPKCorePin.h"
+#import "PinValueView.h"
 
 @class PinView;
 
@@ -19,6 +20,7 @@
 -initWithPin:(SPKCorePin *)pin;
 @property (nonatomic, strong) SPKCorePin *pin;
 @property (nonatomic) BOOL active;
+@property (nonatomic, strong) PinValueView* valueView;
 
 - (void)refresh;
 //- (void)hideDetails;

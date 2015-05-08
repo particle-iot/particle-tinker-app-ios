@@ -17,7 +17,7 @@
 @interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
-@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
+//@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
 
 @property (nonatomic, weak) IBOutlet SPKPinFunctionView *pinFunctionView;
 @property (nonatomic, weak) IBOutlet UIView *firstTimeView;
@@ -40,7 +40,7 @@
 {
     self.chipView.alpha = 0;
     self.pinViews = [NSMutableDictionary dictionaryWithCapacity:16];
-    self.pinValueViews = [NSMutableDictionary dictionaryWithCapacity:16];
+//    self.pinValueViews = [NSMutableDictionary dictionaryWithCapacity:16];
     self.pinFunctionView.delegate = self;
 
     // background image
@@ -242,7 +242,8 @@
                                                      multiplier:1.0
                                                        constant:50]];
         
-        self.pinValueViews[pin.label] = pvv;
+        v.valueView = pvv;
+//        self.pinValueViews[pin.label] = pvv;
 
         
     }
@@ -333,12 +334,14 @@
     NSLog(@"Pin %@ held",pinView.pin.label);
     pinView.active = NO;
     
+    
 }
 
 
 -(void)pinViewTapped:(PinView *)pinView
 {
     NSLog(@"Pin %@ tapped",pinView.pin.label);
+    // if function view is showing, remove it
     if (!self.pinFunctionView.hidden)
     {
         self.pinFunctionView.hidden = YES;
@@ -348,18 +351,20 @@
         }
         self.tinkerLogoImageView.hidden = NO;
 //        self.deviceNameLabel.hidden = NO;
-    }
+    } // else if pin is not active then show function view
     else
     {
         if (!pinView.active) // pin is inactive - show pin function view
         {
             [self showFunctionView:pinView];
         }
-        else
+        else // or else just tinker the pin as 
         {
             switch (pinView.pin.selectedFunction) {
                 case SPKCorePinFunctionDigitalRead:
+                case SPKCorePinFunctionAnalogRead:
                 {
+                    [self pinCallHome:pinView completion:nil];
                     
                     break;
                 }
@@ -371,20 +376,11 @@
                     else
                         [pinView.pin adjustValue:1];
                     
-                    [self.pinValueViews[pinView.pin.label] refresh];
-                    
-                    [self pinCallHome:pinView completion:^(NSUInteger value) {
-                        [self.pinValueViews[pinView.pin.label] refresh];
-                    }];
+                    [self pinCallHome:pinView completion:nil];
                     
                     break;
                 }
 
-                case SPKCorePinFunctionAnalogRead:
-                {
-                    //
-                    break;
-                }
 
                 case SPKCorePinFunctionAnalogWrite:
                 {
@@ -509,7 +505,9 @@
                 }
             } else {
                 [pinView.pin adjustValue:result];
-                completion(result);
+                [pinView refresh];
+                if (completion)
+                    completion(result);
             }
             [pinView refresh];
         });

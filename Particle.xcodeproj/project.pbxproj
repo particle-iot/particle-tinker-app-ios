@@ -19,6 +19,7 @@
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
 		50B1255F1AE06CF4003C29DC /* Photon_TinkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */; };
+		50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */; };
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
 		50D47F301AFAF56C004AD3AE /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2F1AFAF56C004AD3AE /* PinView.m */; };
 		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
@@ -58,6 +59,8 @@
 		50B125581AE06CF4003C29DC /* ParticleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParticleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B1255D1AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photon_TinkerTests.swift; sourceTree = "<group>"; };
+		50B659991AFC6A2B00606A39 /* SSPieProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPieProgressView.h; sourceTree = "<group>"; };
+		50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
 		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKTinkerViewController.h; sourceTree = "<group>"; };
 		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKTinkerViewController.m; sourceTree = "<group>"; };
 		50D47F2E1AFAF56C004AD3AE /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinView.h; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				50D47F2F1AFAF56C004AD3AE /* PinView.m */,
 				5073D4CA1AFB2E3000068C2A /* PinValueView.h */,
 				5073D4CB1AFB2E3000068C2A /* PinValueView.m */,
+				50B659991AFC6A2B00606A39 /* SSPieProgressView.h */,
+				50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
 				5073D4C71AFB14DE00068C2A /* SPKPinFunctionView.h */,
 				5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */,
@@ -371,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
 				5048CD231AE09AD00097150A /* SelectPhotonViewController.swift in Sources */,
 				5073D4C91AFB14DE00068C2A /* SPKPinFunctionView.m in Sources */,
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
