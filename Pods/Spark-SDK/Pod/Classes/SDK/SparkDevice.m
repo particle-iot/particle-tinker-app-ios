@@ -55,13 +55,13 @@
         
         _id = params[@"id"];
 
-        _type = SparkDeviceTypePhoton;
+        _type = SparkDeviceTypeCore;
         if (![params[@"product_id"] isKindOfClass:[NSNull class]])
         {
             if (params[@"product_id"])
             {
-                if ([params[@"product_id"] intValue]==SparkDeviceTypeCore)
-                    _type = SparkDeviceTypeCore;
+                if ([params[@"product_id"] intValue]==SparkDeviceTypePhoton)
+                    _type = SparkDeviceTypePhoton;
             }
         }
 

@@ -182,9 +182,15 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             switch (self.devices[indexPath.row].type)
             {
             case .Core:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceCore")
+                cell.deviceImageView.image = UIImage(named: "imgCore")
+                cell.deviceTypeLabel.text = "Core"
+
+            case .Photon: // .Photon
+                fallthrough
             default:
-                cell.deviceImageView.image = UIImage(named: "imgDevicePhoton")
+                cell.deviceImageView.image = UIImage(named: "imgPhoton")
+                cell.deviceTypeLabel.text = "Photon"
+
             }
 
             
@@ -198,22 +204,19 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 {
                 case true :
                     cell.deviceStateLabel.text = "Online"
-                    cell.deviceStateImageView.image = UIImage(named: "imgGreenCircle")
+                    cell.deviceStateImageView.image = UIImage(named: "imgGreenCircle") // TODO: breathing cyan
                 default :
                     cell.deviceStateLabel.text = "Online, non-Tinker"
-                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle")
+                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle") // ?
                 }
                 
                 
             default :
                 cell.deviceStateLabel.text = "Offline"
-                cell.deviceStateImageView.image = UIImage(named: "imgRedCircle")
-                cell.deviceImageView.image = UIImage(named: "imgDeviceCore")
-
+                cell.deviceStateImageView.image = UIImage(named: "imgRedCircle") // gray circle
                 
             }
             
-            cell.deviceTypeLabel.text = "Photon"
             
             
             masterCell = cell
@@ -286,8 +289,9 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         {
             return true;
         }
-        
     }
+    
+    
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         if result == .Success
         {
