@@ -160,7 +160,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.devices.count+1
+        return self.devices.count+2
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -221,9 +221,13 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             
             masterCell = cell
         }
-        else
+        else if indexPath.row == self.devices.count
         {
-            masterCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("new_device_cell") as? UITableViewCell
+            masterCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("setup_photon_cell") as? UITableViewCell
+        }
+        else if indexPath.row == self.devices.count+1
+        {
+            masterCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("setup_core_cell") as? UITableViewCell
         }
         
         // make cell darker if it's even
@@ -281,14 +285,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     // prevent "Setup new photon" row from being edited/deleted
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.row == self.devices.count
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return indexPath.row < self.devices.count
     }
     
     
@@ -327,12 +324,25 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     
+    func showSparkCoreAppPopUp()
+    {
+        
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         TSMessage.dismissActiveNotification()
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
         if self.devices.count == 0
         {
-            self.invokeDeviceSetup()
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            switch indexPath.row
+            {
+            case 0:
+                self.invokeDeviceSetup()
+            default:
+                self.showSparkCoreAppPopUp()
+            }
+            
         }
         else
         {
@@ -378,8 +388,9 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     TSMessage.showNotificationWithTitle("Device offline", subtitle: "This device is offline, please turn it on and refresh in order to Tinker with it.", type: .Error)
                 }
             case self.devices.count :
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
                 self.invokeDeviceSetup()
+            case self.devices.count+1 :
+                self.showSparkCoreAppPopUp()
             default :
                 break
         }
