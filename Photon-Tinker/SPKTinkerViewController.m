@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
 @property (nonatomic) BOOL editingDeviceName;
 @property (nonatomic) BOOL instanciatedPins;
+@property (weak, nonatomic) IBOutlet UIButton *editDeviceNameButton;
 @end
 
 
@@ -100,6 +101,7 @@
     {
         self.deviceNameLabel.hidden = YES;
         self.deviceNameTextField.hidden = NO;
+        self.editDeviceNameButton.hidden = YES;
         self.deviceNameTextField.text = self.deviceNameLabel.text;
         self.deviceNameTextField.delegate = self;
         self.editingDeviceName = YES;
@@ -114,6 +116,7 @@
         [self.deviceNameTextField resignFirstResponder];
         self.editingDeviceName = NO;
         self.device.name = self.deviceNameTextField.text; // TODO: verify correctness
+        self.editDeviceNameButton.hidden = NO;
         self.deviceNameLabel.text = self.deviceNameTextField.text;
         self.deviceNameLabel.hidden = NO;
         self.deviceNameTextField.hidden = YES;

@@ -179,6 +179,15 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 cell.deviceNameLabel.text = "<no name>"
             }
             
+            switch (self.devices[indexPath.row].type)
+            {
+            case .Core:
+                cell.deviceImageView.image = UIImage(named: "imgDeviceCore")
+            default:
+                cell.deviceImageView.image = UIImage(named: "imgDevicePhoton")
+            }
+
+            
             cell.deviceIDLabel.text = devices[indexPath.row].id.uppercaseString
             
             let online = self.devices[indexPath.row].connected
@@ -199,10 +208,13 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             default :
                 cell.deviceStateLabel.text = "Offline"
                 cell.deviceStateImageView.image = UIImage(named: "imgRedCircle")
+                cell.deviceImageView.image = UIImage(named: "imgDeviceCore")
+
                 
             }
             
             cell.deviceTypeLabel.text = "Photon"
+            
             
             masterCell = cell
         }

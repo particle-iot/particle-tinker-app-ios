@@ -21,6 +21,7 @@ class DeviceTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBOutlet weak var deviceImageView: UIImageView!
     @IBOutlet weak var deviceTypeLabel: UILabel!
     @IBOutlet weak var deviceStateImageView: UIImageView!
     @IBOutlet weak var deviceIDLabel: UILabel!

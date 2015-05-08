@@ -2,8 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "cog-8x-1-1.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
