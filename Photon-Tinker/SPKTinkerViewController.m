@@ -14,7 +14,7 @@
 #import "TSMessage.h"
 #import "PinValueView.h"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate>
+@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate, PinValueViewDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -32,6 +32,7 @@
 @property (nonatomic) BOOL editingDeviceName;
 @property (nonatomic) BOOL instanciatedPins;
 @property (weak, nonatomic) IBOutlet UIButton *editDeviceNameButton;
+@property (nonatomic, strong) PinView *pinViewShowingSlider;
 @end
 
 
@@ -43,6 +44,8 @@
     self.pinViews = [NSMutableDictionary dictionaryWithCapacity:16];
 //    self.pinValueViews = [NSMutableDictionary dictionaryWithCapacity:16];
     self.pinFunctionView.delegate = self;
+    self.pinViewShowingSlider = nil;
+    
 
     // background image
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgTrianglifyBackgroundBlue"]]; // make brown version?
@@ -267,28 +270,6 @@
 
 
 
-/*
- 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-
-    
-    if (!isiPhone5) {
-        CGRect f = self.nameLabel.frame;
-        f.origin.y = 340.0;
-        self.nameLabel.frame = f;
-
-        f = self.firstTimeView.frame;
-        f.origin.y += 1.0;
-        self.firstTimeView.frame = f;
-
-        f = self.tinkerLogoImageView.frame;
-        f.origin.y -= 30.0;
-        self.tinkerLogoImageView.frame = f;
-    }
-}
-*/
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -300,50 +281,56 @@
 - (void)pinFunctionSelected:(SPKCorePinFunction)function
 {
     SPKCorePin *pin = self.pinFunctionView.pin;
-    pin.selectedFunction = function;
-    self.pinFunctionView.pin = pin;
-
     PinView *pinView = self.pinViews[pin.label];
-    [pinView.pin resetValue];
+
+    if (pin.selectedFunction != function)
+    {
+        [pinView.pin resetValue];
+    }
+
     if (function == SPKCorePinFunctionNone)
+    {
         pinView.active = NO;
+    }
     else
+    {
         pinView.active = YES;
-    [pinView refresh];
+        switch (function) {
+            case SPKCorePinFunctionAnalogWrite:
+                [pinView.valueView showSlider];
+                break;
+
+            case SPKCorePinFunctionDigitalRead:
+            case SPKCorePinFunctionAnalogRead:
+                [self pinCallHome:pinView completion:nil];
+                
+            default:
+                break;
+        }
+    }
+//    [pinView refresh];
 }
 
 #pragma mark - Core Pin View Delegate
 
-//- (void)pinViewAdjusted:(SPKCorePinView *)pinView newValue:(NSUInteger)newValue
-//{
-//    [pinView.pin adjustValue:newValue];
-//
-//    [pinView noslider];
-//    [pinView refresh];
-//    [pinView activate];
-//    [self pinCallHome:pinView];
-//    for (SPKCorePinView *pv in self.pinViews.allValues) {
-//        [pv showDetails];
-//    }
-//}
-
-
 - (void)pinViewHeld:(PinView *)pinView
 {
-//    if (![self slidingAnalogWritePinView] && !pinView.active) {
-//        [self showFunctionView:pinView];
-//    }
-    
     NSLog(@"Pin %@ held",pinView.pin.label);
     pinView.active = NO;
-    
-    
 }
 
 
 -(void)pinViewTapped:(PinView *)pinView
 {
     NSLog(@"Pin %@ tapped",pinView.pin.label);
+    // if a slider is showing remove it 
+    if (self.pinViewShowingSlider)
+    {
+        [self.pinViewShowingSlider.valueView hideSlider];
+        self.pinViewShowingSlider = nil;
+    }
+
+    
     // if function view is showing, remove it
     if (!self.pinFunctionView.hidden)
     {
@@ -367,6 +354,13 @@
                 case SPKCorePinFunctionDigitalRead:
                 case SPKCorePinFunctionAnalogRead:
                 {
+                    // if there's a slider showing, remove it
+                    if (self.pinViewShowingSlider)
+                    {
+                        [self.pinViewShowingSlider.valueView hideSlider];
+                        self.pinViewShowingSlider = nil;
+                    }
+                    
                     [self pinCallHome:pinView completion:nil];
                     
                     break;
@@ -374,6 +368,8 @@
 
                 case SPKCorePinFunctionDigitalWrite:
                 {
+                    // if there's a slider showing, remove it
+
                     if (pinView.pin.value)
                         [pinView.pin adjustValue:0];
                     else
@@ -387,7 +383,9 @@
 
                 case SPKCorePinFunctionAnalogWrite:
                 {
+                    self.pinViewShowingSlider = pinView;
                     [pinView.valueView showSlider];
+                    pinView.valueView.delegate = self;
                     break;
                 }
 
@@ -399,50 +397,20 @@
         }
     }
     
-    /*
-    else if (!pinView.active) {
-        SPKCorePinView *slidingAnalogWritePinView = [self slidingAnalogWritePinView];
 
-        if (!slidingAnalogWritePinView && pinView.pin.selectedFunction == SPKCorePinFunctionAnalogWrite) {
-            for (SPKCorePinView *pinView in self.pinViews.allValues) {
-                [pinView hideDetails];
-            }
+}
 
-            self.tinkerLogoImageView.hidden = YES;
-//            if (!isiPhone5) {
-//                self.nameLabel.hidden = YES;
-//            }
-            [self.view bringSubviewToFront:pinView];
-            [pinView slider];
-        } else if (!slidingAnalogWritePinView && inPin && pinView.pin.selectedFunction == SPKCorePinFunctionNone) {
-            [self showFunctionView:pinView];
-        } else if (!slidingAnalogWritePinView && pinView.pin.selectedFunction == SPKCorePinFunctionDigitalWrite) {
-            if (!pinView.pin.valueSet) {
-                [pinView.pin adjustValue:1];
-            } else {
-                [pinView.pin adjustValue:!pinView.pin.value];
-            }
-
-            [pinView refresh];
-            [pinView activate];
-            [self pinCallHome:pinView];
-        } else if (!slidingAnalogWritePinView && inPin) {
-            if (pinView.pin.selectedFunction == SPKCorePinFunctionAnalogRead || pinView.pin.selectedFunction == SPKCorePinFunctionDigitalRead) {
-                [pinView showDetails];
-                [self.view bringSubviewToFront:pinView];
-                [pinView activate];
-                [self pinCallHome:pinView];
-            }
-        } else if (slidingAnalogWritePinView && pinView != slidingAnalogWritePinView) {
-            [slidingAnalogWritePinView noslider];
-            [slidingAnalogWritePinView refresh];
-            [slidingAnalogWritePinView activate];
-            [self pinCallHome:slidingAnalogWritePinView];
-            for (SPKCorePinView *pinView in self.pinViews.allValues) {
-                [pinView showDetails];
-            }
-        }
-    }*/
+-(void)pinValueView:(PinValueView *)sender sliderMoved:(float)newValue touchUp:(BOOL)touchUp
+{
+    [sender.pin adjustValue:newValue];
+    PinView *pv = self.pinViews[sender.pin.label];
+    [pv refresh];
+    if (touchUp)
+    {
+        [self pinCallHome:pv completion:^(NSUInteger value) {
+            //
+        }];
+    }
     
 }
 

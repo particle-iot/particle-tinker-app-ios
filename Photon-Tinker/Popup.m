@@ -174,7 +174,7 @@ BOOL isBlurSet = YES;
     UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [visualEffectView setFrame:backgroundView.bounds];
     [backgroundView addSubview:visualEffectView];
-    visualEffectView.alpha = 0.9f;
+//    visualEffectView.alpha = 0.9f;
     //[backgroundView setAlpha:0.0];
     
     [self insertSubview:backgroundView belowSubview:popupView];

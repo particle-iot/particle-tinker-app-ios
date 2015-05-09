@@ -38,7 +38,7 @@
         _active = YES;//NO;
         self.hidden = NO;//YES;
         
-        [self setFrame:CGRectMake(0,0,100,50)];
+        [self setFrame:CGRectMake(0,0,100,40)];
         
         self.valueLabel = [[UILabel alloc] initWithFrame:self.frame];
 
@@ -85,15 +85,30 @@
             break;
     }
     self.valueLabel.hidden = !self.pin.valueSet;
+    if (self.slider)
+        self.valueLabel.hidden = YES;
 }
 
--(void)sliderAction:(id)sender
+-(void)sliderMoved:(id)sender
 {
+    NSLog(@"sliderMoved");
     ASValueTrackingSlider *slider = (ASValueTrackingSlider*)sender;
-//    [self.pin adjustValue:slider.value];
-    //-- Do further actions
+    if (self.delegate)
+    {
+        [self.delegate pinValueView:self sliderMoved:slider.value touchUp:NO];
+    }
+}
+
+-(void)sliderSetValue:(id)sender
+{
+    NSLog(@"sliderSetValue");
+
+    ASValueTrackingSlider *slider = (ASValueTrackingSlider*)sender;
+    if (self.delegate)
+    {
+        [self.delegate pinValueView:self sliderMoved:slider.value touchUp:YES];
+    }
     
-    // delegate.sliderVlaueC4hanged...
 }
 
 
@@ -102,12 +117,15 @@
 
     self.valueLabel.hidden = YES;
     self.hidden = NO;
-    _slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-    [_slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+    _slider = [[ASValueTrackingSlider alloc] initWithFrame:self.frame];// CGRectMake(0, 0, 160, 40)];
+    [_slider addTarget:self action:@selector(sliderMoved:) forControlEvents:UIControlEventValueChanged];
+    [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpInside];
+    [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpOutside];
+
     [_slider setBackgroundColor:[UIColor clearColor]];
     _slider.minimumValue = 0.0;
     _slider.maximumValue = PIN_ANALOGWRITE_MAX_VALUE;
-    _slider.continuous = NO;
+    _slider.continuous = YES;
     _slider.value = self.pin.value;
     _slider.hidden = NO;
 
@@ -115,10 +133,18 @@
     [_slider setMaxFractionDigitsDisplayed:0];
     _slider.popUpViewColor = self.pin.selectedFunctionColor;//[UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
     _slider.font = [UIFont fontWithName:@"Gotham-Medium" size:20];
-    _slider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.4 alpha:1];
+    _slider.textColor = [UIColor whiteColor];//[UIColor colorWithHue:0.55 saturation:1.0 brightness:0.4 alpha:1];
     
     [self addSubview:_slider];
     [self setNeedsDisplay];
+}
+
+-(void)hideSlider
+{
+    [self.slider removeFromSuperview];
+    self.slider = nil;
+    self.valueLabel.hidden = NO;
+    self.hidden = NO;
 }
 
 @end

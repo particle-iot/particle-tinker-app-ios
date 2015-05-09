@@ -5,13 +5,24 @@
 #define PIN_ANALOGWRITE_MAX_VALUE    255.0f
 
 
+@class PinValueView;
+
+@protocol PinValueViewDelegate <NSObject>
+
+-(void)pinValueView:(PinValueView *)sender sliderMoved:(float)newValue touchUp:(BOOL)touchUp;
+
+@end
+
 @interface PinValueView : UIView
 
 -(instancetype)initWithPin:(SPKCorePin *)pin;
 @property (nonatomic, strong) SPKCorePin *pin;
 @property (nonatomic) BOOL active;
+@property (nonatomic, weak) id <PinValueViewDelegate> delegate;
 
 -(void)refresh;
 -(void)showSlider;
+-(void)hideSlider;
+
 
 @end

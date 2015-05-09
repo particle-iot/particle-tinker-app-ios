@@ -80,7 +80,7 @@
         self.outerPieFrameView.hidden = YES;
 
         
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 16)];
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(11, 8, 30, 30)];
         self.label.center = self.innerPinButton.center;
         self.label.text = self.pin.label;
         if (self.pin.label.length <= 2)
