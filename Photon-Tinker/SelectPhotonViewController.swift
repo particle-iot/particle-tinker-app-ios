@@ -326,6 +326,24 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func showSparkCoreAppPopUp()
     {
+        var popup = Popup(title: "Core setup", subTitle: "Setting up a Core requires a different process. You can do it via the Spark Core app. Do you want to go to the Appstore to download it now?", cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
+            let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
+            UIApplication.sharedApplication().openURL(NSURL(string: sparkCoreAppStoreLink)!)
+        })
+        popup.incomingTransition = .SlideFromBottom
+        popup.outgoingTransition = .FallWithGravity
+        popup.backgroundBlurType = .Dark
+        popup.roundedCorners = true
+        popup.tapBackgroundToDismiss = true
+        popup.backgroundColor = UIColor.clearColor()// UIColor(red: 0, green: 123.0/255.0, blue: 181.0/255.0, alpha: 1.0) //UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+        popup.titleColor = UIColor.whiteColor()
+        popup.subTitleColor = UIColor.whiteColor()
+        popup.successBtnColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0)
+        popup.successTitleColor = UIColor.whiteColor()
+        popup.cancelBtnColor = UIColor.clearColor()
+        popup.cancelTitleColor = UIColor.whiteColor()
+        popup.borderColor = UIColor.clearColor()
+        popup.showPopup()
         
     }
     

@@ -18,8 +18,8 @@
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
-		50B1255F1AE06CF4003C29DC /* Photon_TinkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */; };
 		50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */; };
+		50B6599E1AFD922A00606A39 /* Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599D1AFD922A00606A39 /* Popup.m */; };
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
 		50D47F301AFAF56C004AD3AE /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2F1AFAF56C004AD3AE /* PinView.m */; };
 		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
@@ -29,16 +29,6 @@
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
 		FA958A2B21FB9DA5BB183532 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11E94C4837B96B025C60BE2B /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		50B125591AE06CF4003C29DC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50B1253B1AE06CF4003C29DC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 50B125421AE06CF4003C29DC;
-			remoteInfo = "Photon-Tinker";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		11E94C4837B96B025C60BE2B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,11 +46,12 @@
 		50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		50B1254D1AE06CF4003C29DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50B1254F1AE06CF4003C29DC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Photon-Tinker/Images.xcassets"; sourceTree = "<group>"; };
-		50B125581AE06CF4003C29DC /* ParticleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParticleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B1255D1AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photon_TinkerTests.swift; sourceTree = "<group>"; };
 		50B659991AFC6A2B00606A39 /* SSPieProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPieProgressView.h; sourceTree = "<group>"; };
 		50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
+		50B6599C1AFD922A00606A39 /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
+		50B6599D1AFD922A00606A39 /* Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popup.m; sourceTree = "<group>"; };
 		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKTinkerViewController.h; sourceTree = "<group>"; };
 		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKTinkerViewController.m; sourceTree = "<group>"; };
 		50D47F2E1AFAF56C004AD3AE /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinView.h; sourceTree = "<group>"; };
@@ -84,13 +75,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA958A2B21FB9DA5BB183532 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		50B125551AE06CF4003C29DC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				50B125431AE06CF4003C29DC /* Particle.app */,
-				50B125581AE06CF4003C29DC /* ParticleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,6 +182,8 @@
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
 				5073D4C71AFB14DE00068C2A /* SPKPinFunctionView.h */,
 				5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */,
+				50B6599C1AFD922A00606A39 /* Popup.h */,
+				50B6599D1AFD922A00606A39 /* Popup.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -257,24 +242,6 @@
 			productReference = 50B125431AE06CF4003C29DC /* Particle.app */;
 			productType = "com.apple.product-type.application";
 		};
-		50B125571AE06CF4003C29DC /* ParticleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 50B125651AE06CF4003C29DC /* Build configuration list for PBXNativeTarget "ParticleTests" */;
-			buildPhases = (
-				50B125541AE06CF4003C29DC /* Sources */,
-				50B125551AE06CF4003C29DC /* Frameworks */,
-				50B125561AE06CF4003C29DC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				50B1255A1AE06CF4003C29DC /* PBXTargetDependency */,
-			);
-			name = ParticleTests;
-			productName = "Photon-TinkerTests";
-			productReference = 50B125581AE06CF4003C29DC /* ParticleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -287,10 +254,6 @@
 					50B125421AE06CF4003C29DC = {
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = TNJ67X9MQD;
-					};
-					50B125571AE06CF4003C29DC = {
-						CreatedOnToolsVersion = 6.3;
-						TestTargetID = 50B125421AE06CF4003C29DC;
 					};
 				};
 			};
@@ -308,7 +271,6 @@
 			projectRoot = "";
 			targets = (
 				50B125421AE06CF4003C29DC /* Particle */,
-				50B125571AE06CF4003C29DC /* ParticleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -326,13 +288,6 @@
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				50B125501AE06CF4003C29DC /* Images.xcassets in Resources */,
 				50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		50B125561AE06CF4003C29DC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +337,7 @@
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,
 				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
+				50B6599E1AFD922A00606A39 /* Popup.m in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */,
@@ -390,23 +346,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		50B125541AE06CF4003C29DC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				50B1255F1AE06CF4003C29DC /* Photon_TinkerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		50B1255A1AE06CF4003C29DC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 50B125421AE06CF4003C29DC /* Particle */;
-			targetProxy = 50B125591AE06CF4003C29DC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		50B1254C1AE06CF4003C29DC /* Main.storyboard */ = {
@@ -536,40 +476,6 @@
 			};
 			name = Release;
 		};
-		50B125661AE06CF4003C29DC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Photon-TinkerTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = ParticleTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photon-Tinker.app/Photon-Tinker";
-			};
-			name = Debug;
-		};
-		50B125671AE06CF4003C29DC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Photon-TinkerTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = ParticleTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photon-Tinker.app/Photon-Tinker";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -587,15 +493,6 @@
 			buildConfigurations = (
 				50B125631AE06CF4003C29DC /* Debug */,
 				50B125641AE06CF4003C29DC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		50B125651AE06CF4003C29DC /* Build configuration list for PBXNativeTarget "ParticleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				50B125661AE06CF4003C29DC /* Debug */,
-				50B125671AE06CF4003C29DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
