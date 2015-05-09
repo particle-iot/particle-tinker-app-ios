@@ -114,35 +114,40 @@
 
 -(void)showSlider
 {
-
-    self.valueLabel.hidden = YES;
-    self.hidden = NO;
-    _slider = [[ASValueTrackingSlider alloc] initWithFrame:self.frame];// CGRectMake(0, 0, 160, 40)];
-    [_slider addTarget:self action:@selector(sliderMoved:) forControlEvents:UIControlEventValueChanged];
-    [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpInside];
-    [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpOutside];
-
-    [_slider setBackgroundColor:[UIColor clearColor]];
-    _slider.minimumValue = 0.0;
-    _slider.maximumValue = PIN_ANALOGWRITE_MAX_VALUE;
-    _slider.continuous = YES;
-    _slider.value = self.pin.value;
-    _slider.hidden = NO;
-
-    _slider.popUpViewCornerRadius = 4.0;
-    [_slider setMaxFractionDigitsDisplayed:0];
-    _slider.popUpViewColor = self.pin.selectedFunctionColor;//[UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
-    _slider.font = [UIFont fontWithName:@"Gotham-Medium" size:20];
-    _slider.textColor = [UIColor whiteColor];//[UIColor colorWithHue:0.55 saturation:1.0 brightness:0.4 alpha:1];
-    
-    [self addSubview:_slider];
+    if (!self.slider)
+    {
+        self.valueLabel.hidden = YES;
+        self.hidden = NO;
+        _slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(0, 0, 99, 40)];
+        [_slider addTarget:self action:@selector(sliderMoved:) forControlEvents:UIControlEventValueChanged];
+        [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpInside];
+        [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpOutside];
+        
+        [_slider setBackgroundColor:[UIColor clearColor]];
+        _slider.minimumValue = 0.0;
+        _slider.maximumValue = PIN_ANALOGWRITE_MAX_VALUE;
+        _slider.continuous = YES;
+        _slider.value = self.pin.value;
+        _slider.hidden = NO;
+        
+        _slider.popUpViewCornerRadius = 4.0;
+        [_slider setMaxFractionDigitsDisplayed:0];
+        _slider.popUpViewColor = self.pin.selectedFunctionColor;//[UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
+        _slider.font = [UIFont fontWithName:@"Gotham-Medium" size:20];
+        _slider.textColor = [UIColor whiteColor];//[UIColor colorWithHue:0.55 saturation:1.0 brightness:0.4 alpha:1];
+        
+        [self addSubview:_slider];
+    }
     [self setNeedsDisplay];
 }
 
 -(void)hideSlider
 {
-    [self.slider removeFromSuperview];
-    self.slider = nil;
+    if (self.slider)
+    {
+        [self.slider removeFromSuperview];
+        self.slider = nil;
+    }
     self.valueLabel.hidden = NO;
     self.hidden = NO;
 }

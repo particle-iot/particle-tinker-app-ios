@@ -288,6 +288,7 @@
         [pinView.pin resetValue];
     }
 
+    pinView.pin.selectedFunction = function;
     if (function == SPKCorePinFunctionNone)
     {
         pinView.active = NO;
@@ -297,6 +298,8 @@
         pinView.active = YES;
         switch (function) {
             case SPKCorePinFunctionAnalogWrite:
+                self.pinViewShowingSlider = pinView;
+                pinView.valueView.delegate = self;
                 [pinView.valueView showSlider];
                 break;
 
@@ -316,6 +319,8 @@
 - (void)pinViewHeld:(PinView *)pinView
 {
     NSLog(@"Pin %@ held",pinView.pin.label);
+    [pinView.valueView hideSlider];
+    pinView.pin.selectedFunction = SPKCorePinFunctionNone;
     pinView.active = NO;
 }
 
@@ -324,7 +329,7 @@
 {
     NSLog(@"Pin %@ tapped",pinView.pin.label);
     // if a slider is showing remove it 
-    if (self.pinViewShowingSlider)
+    if ((self.pinViewShowingSlider) && (self.pinViewShowingSlider != pinView))
     {
         [self.pinViewShowingSlider.valueView hideSlider];
         self.pinViewShowingSlider = nil;
@@ -354,13 +359,6 @@
                 case SPKCorePinFunctionDigitalRead:
                 case SPKCorePinFunctionAnalogRead:
                 {
-                    // if there's a slider showing, remove it
-                    if (self.pinViewShowingSlider)
-                    {
-                        [self.pinViewShowingSlider.valueView hideSlider];
-                        self.pinViewShowingSlider = nil;
-                    }
-                    
                     [self pinCallHome:pinView completion:nil];
                     
                     break;
@@ -383,8 +381,8 @@
 
                 case SPKCorePinFunctionAnalogWrite:
                 {
-                    self.pinViewShowingSlider = pinView;
                     [pinView.valueView showSlider];
+                    self.pinViewShowingSlider = pinView;
                     pinView.valueView.delegate = self;
                     break;
                 }
@@ -402,6 +400,7 @@
 
 -(void)pinValueView:(PinValueView *)sender sliderMoved:(float)newValue touchUp:(BOOL)touchUp
 {
+    NSLog(@"sliderMoved delegate");
     [sender.pin adjustValue:newValue];
     PinView *pv = self.pinViews[sender.pin.label];
     [pv refresh];
@@ -451,16 +450,6 @@
     }
 }
 
-- (SPKCorePinView *)slidingAnalogWritePinView
-{
-    for (SPKCorePinView *pv in self.pinViews.allValues) {
-        if (pv.pin.selectedFunction == SPKCorePinFunctionAnalogWrite && pv.sliding) {
-            return pv;
-        }
-    }
-
-    return nil;
-}
 
 - (void)pinCallHome:(PinView *)pinView completion:(void (^)(NSUInteger value))completion
 {
