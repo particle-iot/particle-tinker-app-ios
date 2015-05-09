@@ -134,37 +134,28 @@
         self.outerPieValueView.pieFillColor = self.pin.selectedFunctionColor;
         self.outerPieFrameView.pieBorderColor = self.pin.selectedFunctionColor;
 
+        // LOW color button+label
+        self.innerPinButton.tintColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.25 alpha:1];
+        self.label.textColor = [UIColor whiteColor];
+
         switch (self.pin.selectedFunction) {
             case SPKCorePinFunctionAnalogRead:
                 self.outerPieValueView.progress = self.pin.value/PIN_ANALOGREAD_MAX_VALUE;
-
-                self.innerPinButton.tintColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.25 alpha:1];
-                self.label.textColor = [UIColor whiteColor];
-
                 break;
                 
             case SPKCorePinFunctionAnalogWrite:
                 self.outerPieValueView.progress = self.pin.value/PIN_ANALOGWRITE_MAX_VALUE;
-
-                self.innerPinButton.tintColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.25 alpha:1];
-                self.label.textColor = [UIColor whiteColor];
-                
                 break;
                 
             case SPKCorePinFunctionDigitalRead:
             case SPKCorePinFunctionDigitalWrite:
                 self.outerPieValueView.progress = 1.0f;
 
-
                 if (self.pin.value)
                 {
+                    // HIGH color button+label
                     self.innerPinButton.tintColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.85 alpha:1];
                     self.label.textColor = [UIColor blackColor];
-                }
-                else
-                {
-                    self.innerPinButton.tintColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.25 alpha:1];
-                    self.label.textColor = [UIColor whiteColor];
                 }
                 
             default: //digital or none
@@ -185,6 +176,7 @@
 -(void)setActive:(BOOL)active
 {
     _active = active;
+    self.valueView.active = active;
     [self refresh];
 }
 

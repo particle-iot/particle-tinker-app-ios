@@ -171,7 +171,7 @@
         v.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
-        CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -x_offset;
+        CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -2*x_offset;
         
         [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
                                                                   attribute:xPosAttribute
@@ -195,7 +195,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:50]];
+                                                       constant:40]]; //50
         
         [v addConstraint:[NSLayoutConstraint constraintWithItem:v
                                                       attribute:NSLayoutAttributeHeight
@@ -203,7 +203,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:50]];
+                                                       constant:40]]; //50
         
         v.delegate = self;
         self.pinViews[pin.label] = v;
@@ -215,14 +215,15 @@
         // stick view to right of the pin when positioned in left or exact opposite
         NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight;
         NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft;
-
+        CGFloat pvvXOffset = (pin.side == SPKCorePinSideLeft) ? 10 : -10;
+        
         [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                                   attribute:pvvXPosAttribute
                                                                   relatedBy:NSLayoutRelationEqual
                                                                      toItem:v
                                                                   attribute:inv_pvvXPosAttribute
                                                                  multiplier:1.0
-                                                                   constant:0]];
+                                                                   constant:pvvXOffset]];
         
         [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                                   attribute:NSLayoutAttributeCenterY
@@ -230,7 +231,7 @@
                                                                      toItem:v
                                                                   attribute:NSLayoutAttributeCenterY
                                                                  multiplier:1.0
-                                                                   constant:0]];
+                                                                   constant:2]]; // Y offset of value-pin
         
         [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                       attribute:NSLayoutAttributeWidth
@@ -238,7 +239,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:100]];
+                                                       constant:PinValueViewWidth]];
         
         [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                       attribute:NSLayoutAttributeHeight
@@ -246,7 +247,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:50]];
+                                                       constant:PinValueViewHeight]];
         
         v.valueView = pvv;
 //        self.pinValueViews[pin.label] = pvv;
@@ -303,6 +304,7 @@
                 [pinView.valueView showSlider];
                 break;
 
+            case SPKCorePinFunctionDigitalWrite:
             case SPKCorePinFunctionDigitalRead:
             case SPKCorePinFunctionAnalogRead:
                 [self pinCallHome:pinView completion:nil];
@@ -462,8 +464,11 @@
 
                     [TSMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:TSMessageNotificationTypeError];
                     [pinView.pin resetValue];
+                    pinView.active = NO;
                 }
-            } else {
+            }
+            else
+            {
                 [pinView.pin adjustValue:result];
                 [pinView refresh];
                 if (completion)
@@ -474,7 +479,7 @@
     } failure:^(NSString *errorMessage) {
         dispatch_async(dispatch_get_main_queue(), ^{
             // TSMessage
-            NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device: %@",errorMessage];
+            NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device - %@",errorMessage];
             [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
 
             [pinView.pin resetValue];

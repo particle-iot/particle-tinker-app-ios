@@ -38,7 +38,7 @@
         _active = YES;//NO;
         self.hidden = NO;//YES;
         
-        [self setFrame:CGRectMake(0,0,100,40)];
+        [self setFrame:CGRectMake(0,0,PinValueViewWidth,PinValueViewHeight)];
         
         self.valueLabel = [[UILabel alloc] initWithFrame:self.frame];
 
@@ -118,7 +118,7 @@
     {
         self.valueLabel.hidden = YES;
         self.hidden = NO;
-        _slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(0, 0, 99, 40)];
+        _slider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(0, 0, PinValueViewWidth-1, PinValueViewHeight)];
         [_slider addTarget:self action:@selector(sliderMoved:) forControlEvents:UIControlEventValueChanged];
         [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpInside];
         [_slider addTarget:self action:@selector(sliderSetValue:) forControlEvents:UIControlEventTouchUpOutside];

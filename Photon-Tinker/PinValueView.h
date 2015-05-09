@@ -4,6 +4,8 @@
 #define PIN_ANALOGREAD_MAX_VALUE     4095.0f
 #define PIN_ANALOGWRITE_MAX_VALUE    255.0f
 
+#define PinValueViewWidth            160
+#define PinValueViewHeight           40
 
 @class PinValueView;
 
