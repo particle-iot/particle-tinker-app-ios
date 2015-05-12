@@ -36,6 +36,7 @@ typedef NS_OPTIONS(uint8_t, SPKCorePinFunction)
 @interface SPKCorePin : NSObject
 
 @property (nonatomic, readonly) NSString *label;
+@property (nonatomic, readonly) NSString *logicalName;
 @property (nonatomic, readonly) SPKCorePinSide side;
 @property (nonatomic, readonly) NSUInteger row;
 @property (nonatomic, readonly) SPKCorePinFunction availableFunctions;
@@ -43,7 +44,7 @@ typedef NS_OPTIONS(uint8_t, SPKCorePinFunction)
 @property (nonatomic, readonly) BOOL valueSet;
 @property (nonatomic, readonly) NSUInteger value;
 
-- (id)initWithLabel:(NSString *)label side:(SPKCorePinSide)side row:(NSUInteger)row availableFunctions:(SPKCorePinFunction)availableFunctions;
+- (id)initWithLabel:(NSString *)label logicalName:(NSString *)name side:(SPKCorePinSide)side row:(NSUInteger)row availableFunctions:(SPKCorePinFunction)availableFunctions;
 
 - (void)resetValue;
 - (void)adjustValue:(NSUInteger)newValue;

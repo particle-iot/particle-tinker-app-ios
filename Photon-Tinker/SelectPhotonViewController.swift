@@ -295,21 +295,32 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             if (device.name == nil)
             {
                 let deviceName = self.generateDeviceName()
-                device.name = deviceName
-                TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
+                device.rename(deviceName, completion: { (error:NSError!) -> Void in
+                    if let e=error
+                    {
+                        TSMessage.showNotificationWithTitle("Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .Warning)
+                    }
+                    else
+                    {
+                        TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
+                        self.photonSelectionTableView.reloadData()
+                    }
+                })
+                
 
             }
             else
             {
                 TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device is named \(device.name).", type: .Success)
+                self.photonSelectionTableView.reloadData()
+
             }
            
-            self.photonSelectionTableView.reloadData()
             
         }
         else
         {
-            TSMessage.showNotificationWithTitle("Warning", subtitle: "Device setup did not complete, new device was not added.", type: .Warning)
+            TSMessage.showNotificationWithTitle("Warning", subtitle: "Device setup did not complete, new device was not added to your account.", type: .Warning)
         }
     }
     

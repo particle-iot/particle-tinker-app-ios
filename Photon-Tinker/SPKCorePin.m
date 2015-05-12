@@ -16,12 +16,13 @@
 
 @implementation SPKCorePin
 
-- (id)initWithLabel:(NSString *)label side:(SPKCorePinSide)side row:(NSUInteger)row availableFunctions:(SPKCorePinFunction)availableFunctions
+- (id)initWithLabel:(NSString *)label logicalName:(NSString *)name side:(SPKCorePinSide)side row:(NSUInteger)row availableFunctions:(SPKCorePinFunction)availableFunctions
 {
     if (self = [super init]) {
         _label = label;
         _side = side;
         _row = row;
+        _logicalName = name;
         _availableFunctions = availableFunctions;
         _selectedFunction = SPKCorePinFunctionNone;
     }

@@ -195,7 +195,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:40]]; //50
+                                                       constant:50]]; //50
         
         [v addConstraint:[NSLayoutConstraint constraintWithItem:v
                                                       attribute:NSLayoutAttributeHeight
@@ -455,7 +455,7 @@
 
 - (void)pinCallHome:(PinView *)pinView completion:(void (^)(NSUInteger value))completion
 {
-    [self.device updatePin:pinView.pin.label function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger result) {
+    [self.device updatePin:pinView.pin.logicalName function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger result) {
         ///
         dispatch_async(dispatch_get_main_queue(), ^{
             self.tinkerLogoImageView.hidden = NO;
