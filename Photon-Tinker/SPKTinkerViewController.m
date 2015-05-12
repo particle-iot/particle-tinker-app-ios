@@ -9,7 +9,6 @@
 #import "Spark-SDK.h"
 #import "SPKCorePin.h"
 #import "SparkDevice+pins.h"
-//#import "Photon_Tinker-Swift.h"
 #import "PinView.h"
 #import "TSMessage.h"
 #import "PinValueView.h"
@@ -153,6 +152,7 @@
     
     CGFloat aspect = [UIScreen mainScreen].bounds.size.width / [UIScreen mainScreen].bounds.size.height; // calculate the screen aspect ratio
     CGFloat x_offset = (aspect - (9.0/16.0))*250.0; // this will result in 25 for 3:2 screens and 0 for 16:9 screens (push pins in for old screens)
+//    x_offset = MIN(x_offset, 16); //?
     CGFloat chip_bottom_margin = 40.0;
     
 //    NSLog(@"aspect ratio: %f",aspect);
@@ -231,7 +231,7 @@
                                                                      toItem:v
                                                                   attribute:NSLayoutAttributeCenterY
                                                                  multiplier:1.0
-                                                                   constant:2]]; // Y offset of value-pin
+                                                                   constant:0]]; // Y offset of value-pin
         
         [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                       attribute:NSLayoutAttributeWidth
@@ -255,7 +255,7 @@
         
     }
     
-    self.chipView.alpha=0;
+    self.chipView.alpha = 0;
     [UIView animateWithDuration:0.5
                           delay:0.5
                         options: UIViewAnimationOptionAllowAnimatedContent
@@ -305,6 +305,7 @@
                 break;
 
             case SPKCorePinFunctionDigitalWrite:
+                [pin adjustValue:0];
             case SPKCorePinFunctionDigitalRead:
             case SPKCorePinFunctionAnalogRead:
                 [self pinCallHome:pinView completion:nil];
@@ -321,6 +322,8 @@
 - (void)pinViewHeld:(PinView *)pinView
 {
     NSLog(@"Pin %@ held",pinView.pin.label);
+    if (pinView.valueView.sliderShowing)
+        self.pinViewShowingSlider = nil;
     [pinView.valueView hideSlider];
     pinView.pin.selectedFunction = SPKCorePinFunctionNone;
     pinView.active = NO;

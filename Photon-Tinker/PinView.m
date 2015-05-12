@@ -42,10 +42,12 @@
         _pin = pin;
         _active = NO;
         
-        [self setFrame:CGRectMake(0,0,40,40)];
+        CGFloat pinSizingOffset = 6; // TODO: calculate from screensize
+        
+        [self setFrame:CGRectMake(0,0,50,50)];
         
         self.innerPinButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [self.innerPinButton setFrame:CGRectMake(11, 8, 30, 30)];
+        [self.innerPinButton setFrame:CGRectMake(4, 4, 30+pinSizingOffset, 30+pinSizingOffset)];
         [self.innerPinButton setImage:[UIImage imageNamed:@"imgCircle"] forState:UIControlStateNormal];
         [self.innerPinButton setTitle:@"" forState:UIControlStateNormal];
 //        self.innerPinButton.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
@@ -61,7 +63,7 @@
 //        self.outerPinButton.userInteractionEnabled = NO;
 //        self.outerPinButton.hidden = YES;
         
-        self.outerPieValueView = [[SSPieProgressView alloc] initWithFrame:CGRectMake(7, 4, 38, 38)];
+        self.outerPieValueView = [[SSPieProgressView alloc] initWithFrame:CGRectMake(0, 0, 38+pinSizingOffset, 38+pinSizingOffset)];
         self.outerPieValueView.backgroundColor = [UIColor clearColor];
         self.outerPieValueView.pieBackgroundColor = [UIColor clearColor];
         self.outerPieValueView.progress = 1;
@@ -70,7 +72,7 @@
         self.outerPieValueView.hidden = YES;
 
         // just a thin line around the circle to reflect selected function even when analog values = 0 (so pin will look active)
-        self.outerPieFrameView = [[SSPieProgressView alloc] initWithFrame:CGRectMake(7, 4, 38, 38)];
+        self.outerPieFrameView = [[SSPieProgressView alloc] initWithFrame:CGRectMake(0, 0, 38+pinSizingOffset, 38+pinSizingOffset)];
         self.outerPieFrameView.backgroundColor = [UIColor clearColor];
         self.outerPieFrameView.pieBackgroundColor = [UIColor clearColor];
         self.outerPieFrameView.progress = 1;
@@ -80,13 +82,13 @@
         self.outerPieFrameView.hidden = YES;
 
         
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(11, 8, 30, 30)];
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(4, 4, 30+pinSizingOffset, 30+pinSizingOffset)];
         self.label.center = self.innerPinButton.center;
         self.label.text = self.pin.label;
         if (self.pin.label.length <= 2)
-            self.label.font = [UIFont fontWithName:@"Gotham-Medium" size:14.0];
+            self.label.font = [UIFont fontWithName:@"Gotham-Medium" size:14.0+(pinSizingOffset/3)];
         else
-            self.label.font = [UIFont fontWithName:@"Gotham-Medium" size:10.5];
+            self.label.font = [UIFont fontWithName:@"Gotham-Medium" size:10.5+(pinSizingOffset/3)];
         self.label.textColor = [UIColor whiteColor];
         self.label.textAlignment = NSTextAlignmentCenter;
         

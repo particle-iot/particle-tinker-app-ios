@@ -21,12 +21,12 @@
 
 @property (weak) IBOutlet UILabel *pinLabel;
 @property (weak) IBOutlet UIImageView *analogReadImageView;
-@property (weak) IBOutlet UIButton *analogReadHighButton;
+
 @property (weak) IBOutlet UIButton *analogReadButton;
 @property (weak) IBOutlet UIImageView *analogWriteImageView;
 @property (weak) IBOutlet UIButton *analogWriteButton;
 @property (weak) IBOutlet UIImageView *digitalReadImageView;
-@property (weak) IBOutlet UIButton *digitalReadHighButton;
+
 @property (weak) IBOutlet UIButton *digitalReadButton;
 @property (weak) IBOutlet UIImageView *digitalWriteImageView;
 @property (weak) IBOutlet UIButton *digitalWriteButton;

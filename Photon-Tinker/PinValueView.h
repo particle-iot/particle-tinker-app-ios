@@ -5,7 +5,7 @@
 #define PIN_ANALOGWRITE_MAX_VALUE    255.0f
 
 #define PinValueViewWidth            160
-#define PinValueViewHeight           40
+#define PinValueViewHeight           44
 
 @class PinValueView;
 
@@ -21,6 +21,7 @@
 @property (nonatomic, strong) SPKCorePin *pin;
 @property (nonatomic) BOOL active;
 @property (nonatomic, weak) id <PinValueViewDelegate> delegate;
+@property (nonatomic) BOOL sliderShowing;
 
 -(void)refresh;
 -(void)showSlider;

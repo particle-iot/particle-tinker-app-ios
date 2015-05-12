@@ -509,8 +509,8 @@ Enjoy!</string>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-The Particle Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5z-Hi-GOP">
-                                        <rect key="frame" x="155" y="411" width="134" height="19"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-The Particle Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5z-Hi-GOP">
+                                        <rect key="frame" x="155" y="411" width="142" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -539,8 +539,8 @@ Enjoy!</string>
                                     <action selector="backButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="nkl-yf-7Wp"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="SPKPinFunctionView">
-                                <rect key="frame" x="200" y="242" width="200" height="116"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="SPKPinFunctionView">
+                                <rect key="frame" x="200" y="241" width="200" height="118"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sunflower" translatesAutoresizingMaskIntoConstraints="NO" id="0Dp-bl-5EV">
                                         <rect key="frame" x="0.0" y="79" width="5" height="37"/>
@@ -606,44 +606,26 @@ Enjoy!</string>
                                             <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="9eD-zL-22T"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEU-nT-aGU">
-                                        <rect key="frame" x="79" y="11" width="42" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEU-nT-aGU">
+                                        <rect key="frame" x="90" y="12" width="21" height="15"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFq-RH-mFh">
-                                        <rect key="frame" x="0.0" y="21" width="94" height="20"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="u0R-OP-vx5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i10-Aj-Wd1">
-                                        <rect key="frame" x="106" y="20" width="94" height="21"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="UpE-82-fDF"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="NEU-nT-aGU" secondAttribute="centerX" id="1cy-7b-CrH"/>
                                     <constraint firstAttribute="width" constant="200" id="8xW-Ni-Q5c"/>
-                                    <constraint firstAttribute="height" constant="116" id="zgg-gs-GEc"/>
+                                    <constraint firstItem="NEU-nT-aGU" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="12" id="HEP-9L-tfh"/>
+                                    <constraint firstAttribute="height" constant="118" id="zgg-gs-GEc"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="analogReadButton" destination="0Uo-PR-xcJ" id="yhl-Zn-37G"/>
-                                    <outlet property="analogReadHighButton" destination="WFq-RH-mFh" id="vCW-o9-3wJ"/>
                                     <outlet property="analogReadImageView" destination="mDh-xo-YvB" id="f2J-LW-OHd"/>
                                     <outlet property="analogWriteButton" destination="Kep-d7-v4h" id="rn8-M2-oUK"/>
                                     <outlet property="analogWriteImageView" destination="0Dp-bl-5EV" id="LRq-ii-tlz"/>
                                     <outlet property="digitalReadButton" destination="HZI-mP-P5L" id="7mP-Wo-6Lt"/>
-                                    <outlet property="digitalReadHighButton" destination="i10-Aj-Wd1" id="ErP-3i-lCN"/>
                                     <outlet property="digitalReadImageView" destination="YGr-y1-Ivz" id="PZE-Mq-Jiw"/>
                                     <outlet property="digitalWriteButton" destination="GmO-7c-yA1" id="k63-bp-b5e"/>
                                     <outlet property="digitalWriteImageView" destination="hhT-Ph-kTP" id="ghm-uO-Dfw"/>
@@ -657,7 +639,7 @@ Enjoy!</string>
                                     <constraint firstAttribute="width" constant="24" id="f6y-IZ-Fq1"/>
                                 </constraints>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="imgQuestion"/>
+                                <state key="normal" image="imgCog"/>
                                 <connections>
                                     <action selector="helpButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="SBe-iQ-7Qe"/>
                                 </connections>
@@ -726,13 +708,6 @@ Enjoy!</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxJ-10-rv0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4X-8e-vkn">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
-                    <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="80" id="S7F-xj-xyQ"/>
-                    </constraints>
-                </view>
             </objects>
             <point key="canvasLocation" x="3090" y="611"/>
         </scene>
@@ -742,12 +717,12 @@ Enjoy!</string>
         <image name="cyan" width="5" height="37"/>
         <image name="emerald" width="5" height="37"/>
         <image name="imgChevronLeft" width="128" height="128"/>
+        <image name="imgCog" width="32" height="32"/>
         <image name="imgDeviceShadow" width="306" height="464"/>
         <image name="imgGreenCircle" width="128" height="128"/>
         <image name="imgPencil" width="32" height="32"/>
         <image name="imgPhoton" width="240" height="451"/>
         <image name="imgPointAtD7" width="37" height="289"/>
-        <image name="imgQuestion" width="64" height="64"/>
         <image name="imgTinkerLogo" width="132" height="139"/>
         <image name="particle-horizontal-blue" width="321" height="75"/>
         <image name="particle-vertical-blue" width="300" height="277"/>

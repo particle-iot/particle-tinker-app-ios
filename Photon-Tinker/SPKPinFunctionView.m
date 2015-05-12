@@ -7,8 +7,8 @@
 
 #import "SPKPinFunctionView.h"
 
-#define selectedColor       [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]
-#define unselectedColor     [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1]
+#define selectedColor       [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]
+#define unselectedColor     [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15]
 
 @implementation SPKPinFunctionView
 
@@ -22,21 +22,29 @@
     self.analogReadButton.backgroundColor = unselectedColor;
     self.analogWriteImageView.hidden = YES;
     self.analogWriteButton.backgroundColor = unselectedColor;
-    self.digitalReadImageView.hidden = YES;
+    self.digitalReadImageView.hidden = NO;
     self.digitalReadButton.backgroundColor = unselectedColor;
-    self.digitalWriteImageView.hidden = YES;
+    self.digitalWriteImageView.hidden = NO;
     self.digitalWriteButton.backgroundColor = unselectedColor;
 
     if ((pin.availableFunctions & SPKCorePinFunctionAnalogRead) == SPKCorePinFunctionAnalogRead) {
         self.analogReadButton.hidden = NO;
+        self.analogReadImageView.hidden = NO;
+
     } else {
         self.analogReadButton.hidden = YES;
+        self.analogReadImageView.hidden = YES;
+
     }
 
     if ((pin.availableFunctions & SPKCorePinFunctionAnalogWrite) == SPKCorePinFunctionAnalogWrite) {
         self.analogWriteButton.hidden = NO;
+        self.analogWriteImageView.hidden = NO;
+
     } else {
         self.analogWriteButton.hidden = YES;
+        self.analogWriteImageView.hidden = YES;
+
     }
 
     switch (_pin.selectedFunction) {
@@ -72,11 +80,11 @@
 {
     SPKCorePinFunction function = SPKCorePinFunctionNone;
 
-    if (sender == self.analogReadButton || sender == self.analogReadHighButton) {
+    if (sender == self.analogReadButton) {
         function = SPKCorePinFunctionAnalogRead;
     } else if (sender == self.analogWriteButton) {
         function = SPKCorePinFunctionAnalogWrite;
-    } else if (sender == self.digitalReadButton || sender == self.digitalReadHighButton) {
+    } else if (sender == self.digitalReadButton) {
         function = SPKCorePinFunctionDigitalRead;
     } else if (sender == self.digitalWriteButton) {
         function = SPKCorePinFunctionDigitalWrite;
