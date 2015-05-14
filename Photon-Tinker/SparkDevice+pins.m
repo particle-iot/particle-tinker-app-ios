@@ -68,21 +68,21 @@ static NSUInteger CORE_NAMES_COUNT = 55;
 
             break;
             
-        default: // Photon -- TODO: edit pins functionality
-            a0 = [[SPKCorePin alloc] initWithLabel:@"A0" logicalName:@"A0" side:SPKCorePinSideLeft row:7 availableFunctions:ALL_FUNCTIONS];
-            a1 = [[SPKCorePin alloc] initWithLabel:@"A1" logicalName:@"A1" side:SPKCorePinSideLeft row:6 availableFunctions:ALL_FUNCTIONS];
-            a2 = [[SPKCorePin alloc] initWithLabel:@"A2" logicalName:@"A2" side:SPKCorePinSideLeft row:5 availableFunctions:ALL_FUNCTIONS];
+        default: // Photon
+            a0 = [[SPKCorePin alloc] initWithLabel:@"A0" logicalName:@"A0" side:SPKCorePinSideLeft row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
+            a1 = [[SPKCorePin alloc] initWithLabel:@"A1" logicalName:@"A1" side:SPKCorePinSideLeft row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
+            a2 = [[SPKCorePin alloc] initWithLabel:@"A2" logicalName:@"A2" side:SPKCorePinSideLeft row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
             a3 = [[SPKCorePin alloc] initWithLabel:@"A3" logicalName:@"A3" side:SPKCorePinSideLeft row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a4 = [[SPKCorePin alloc] initWithLabel:@"A4" logicalName:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a5 = [[SPKCorePin alloc] initWithLabel:@"A5" logicalName:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS];
-            a6 = [[SPKCorePin alloc] initWithLabel:@"DAC" logicalName:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
+            a4 = [[SPKCorePin alloc] initWithLabel:@"A4" logicalName:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:ALL_FUNCTIONS]; // (II) Analog write duplicated to value in D3 (mention in UI)
+            a5 = [[SPKCorePin alloc] initWithLabel:@"A5" logicalName:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS]; // (I) Analog write duplicated to value in D2 (mention in UI)
+            a6 = [[SPKCorePin alloc] initWithLabel:@"DAC" logicalName:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
             a7 = [[SPKCorePin alloc] initWithLabel:@"WKP" logicalName:@"A7" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
             
             d0 = [[SPKCorePin alloc] initWithLabel:@"D0" logicalName:@"D0" side:SPKCorePinSideRight row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
             d1 = [[SPKCorePin alloc] initWithLabel:@"D1" logicalName:@"D1" side:SPKCorePinSideRight row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
             d2 = [[SPKCorePin alloc] initWithLabel:@"D2" logicalName:@"D2" side:SPKCorePinSideRight row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            d3 = [[SPKCorePin alloc] initWithLabel:@"D3" logicalName:@"D3" side:SPKCorePinSideRight row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            d4 = [[SPKCorePin alloc] initWithLabel:@"D4" logicalName:@"D4" side:SPKCorePinSideRight row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d3 = [[SPKCorePin alloc] initWithLabel:@"D3" logicalName:@"D3" side:SPKCorePinSideRight row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite]; // (II) Analog write duplicated to value in A3 (mention in UI)
+            d4 = [[SPKCorePin alloc] initWithLabel:@"D4" logicalName:@"D4" side:SPKCorePinSideRight row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite]; // (II) Analog write duplicated to value in A4 (mention in UI)
             d5 = [[SPKCorePin alloc] initWithLabel:@"D5" logicalName:@"D5" side:SPKCorePinSideRight row:2 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
             d6 = [[SPKCorePin alloc] initWithLabel:@"D6" logicalName:@"D6" side:SPKCorePinSideRight row:1 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
             d7 = [[SPKCorePin alloc] initWithLabel:@"D7" logicalName:@"D7" side:SPKCorePinSideRight row:0 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];

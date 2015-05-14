@@ -150,10 +150,16 @@
     self.tinkerLogoImageView.hidden = NO;
 //    self.deviceNameLabel.hidden = NO;
     
-    CGFloat aspect = [UIScreen mainScreen].bounds.size.width / [UIScreen mainScreen].bounds.size.height; // calculate the screen aspect ratio
-    CGFloat x_offset = (aspect - (9.0/16.0))*250.0; // this will result in 25 for 3:2 screens and 0 for 16:9 screens (push pins in for old screens)
+//    CGFloat aspect = [UIScreen mainScreen].bounds.size.width / [UIScreen mainScreen].bounds.size.height; // calculate the screen aspect ratio
+//    CGFloat x_offset = (aspect - (9.0/16.0))*290.0; // this will result in 29 for 3:2 screens and 0 for 16:9 screens (push pins in for old screens) // TODO: calculate for 4:3 (ipads)
+    CGFloat x_offset = 0;
+    if (IS_IPHONE_4_OR_LESS) x_offset = 29;
+    if (IS_IPHONE_6) x_offset = 8;
+    
 //    x_offset = MIN(x_offset, 16); //?
-    CGFloat chip_bottom_margin = 40.0;
+    CGFloat chip_bottom_margin = 32.0;
+    if ((IS_IPHONE_6) || (IS_IPHONE_6P))
+        chip_bottom_margin *= 2;
     
 //    NSLog(@"aspect ratio: %f",aspect);
     
@@ -163,15 +169,17 @@
         CGFloat y_spacing = ((self.chipShadowImageView.frame.size.height-chip_bottom_margin) / (self.device.pins.count/2)); // assume even amount of pins per row
         y_spacing = MAX(y_spacing,v.frame.size.height);
         CGFloat y_offset = self.chipShadowImageView.frame.origin.y;//+5;//
-        if (x_offset<1) // NOT old 3:2 screens
-            y_offset += v.frame.size.height/4;
+        if (IS_IPHONE_5)
+            y_offset += 10;
+        if ((IS_IPHONE_6) || (IS_IPHONE_6P))
+            y_offset += 20;
         NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
         
         [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
         v.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
-        CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -2*x_offset;
+        CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -x_offset;
         
         [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
                                                                   attribute:xPosAttribute
@@ -195,7 +203,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:50]]; //50
+                                                       constant:v.bounds.size.width]]; //50
         
         [v addConstraint:[NSLayoutConstraint constraintWithItem:v
                                                       attribute:NSLayoutAttributeHeight
@@ -203,7 +211,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:40]]; //50
+                                                       constant:v.bounds.size.height]]; //50
         
         v.delegate = self;
         self.pinViews[pin.label] = v;
@@ -213,9 +221,13 @@
         [self.chipView insertSubview:pvv aboveSubview:self.chipShadowImageView];
         pvv.translatesAutoresizingMaskIntoConstraints = NO;
         // stick view to right of the pin when positioned in left or exact opposite
-        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight;
-        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft;
-        CGFloat pvvXOffset = (pin.side == SPKCorePinSideLeft) ? 10 : -10;
+//        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight; // old
+        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
+
+//        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft; // old
+        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeTrailing : NSLayoutAttributeLeading;
+
+        CGFloat pvvXOffset = (pin.side == SPKCorePinSideLeft) ? 4 : -4; // distance between value and pin
         
         [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                                   attribute:pvvXPosAttribute
@@ -223,7 +235,7 @@
                                                                      toItem:v
                                                                   attribute:inv_pvvXPosAttribute
                                                                  multiplier:1.0
-                                                                   constant:pvvXOffset]];
+                                                                   constant:pvvXOffset]]; //pvvXOffset
         
         [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                                   attribute:NSLayoutAttributeCenterY
@@ -239,7 +251,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:PinValueViewWidth]];
+                                                       constant:pvv.bounds.size.width]];
         
         [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                       attribute:NSLayoutAttributeHeight
@@ -247,7 +259,7 @@
                                                          toItem:nil
                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                      multiplier:1.0
-                                                       constant:PinValueViewHeight]];
+                                                       constant:pvv.bounds.size.height]];
         
         v.valueView = pvv;
 //        self.pinValueViews[pin.label] = pvv;
@@ -302,6 +314,8 @@
                 self.pinViewShowingSlider = pinView;
                 pinView.valueView.delegate = self;
                 [pinView.valueView showSlider];
+                [self.chipView bringSubviewToFront:pinView.valueView];
+
                 break;
 
             case SPKCorePinFunctionDigitalWrite:
@@ -387,6 +401,7 @@
                 case SPKCorePinFunctionAnalogWrite:
                 {
                     [pinView.valueView showSlider];
+                    [self.chipView bringSubviewToFront:pinView.valueView];
                     self.pinViewShowingSlider = pinView;
                     pinView.valueView.delegate = self;
                     break;

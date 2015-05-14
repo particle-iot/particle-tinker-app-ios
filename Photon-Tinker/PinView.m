@@ -42,9 +42,12 @@
         _pin = pin;
         _active = NO;
         
-        CGFloat pinSizingOffset = 6; // TODO: calculate from screensize
         
-        [self setFrame:CGRectMake(0,0,50,50)];
+        CGFloat pinSizingOffset = 6; // TODO: calculate from screensize
+        if (IS_IPHONE_4_OR_LESS)
+            pinSizingOffset = 0;
+        
+        [self setFrame:CGRectMake(0,0,38+pinSizingOffset,38+pinSizingOffset)];
         
         self.innerPinButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.innerPinButton setFrame:CGRectMake(4, 4, 30+pinSizingOffset, 30+pinSizingOffset)];
@@ -76,7 +79,10 @@
         self.outerPieFrameView.backgroundColor = [UIColor clearColor];
         self.outerPieFrameView.pieBackgroundColor = [UIColor clearColor];
         self.outerPieFrameView.progress = 1;
-        self.outerPieFrameView.pieBorderWidth = 1.0f;
+        if ((IS_IPHONE_4_OR_LESS) || (IS_IPHONE_5)) // 3.5" / 4"
+            self.outerPieFrameView.pieBorderWidth = 1.0f;
+        else // >= 4.7"
+            self.outerPieFrameView.pieBorderWidth = 1.5f;
         self.outerPieFrameView.pieBorderColor = [UIColor whiteColor]; // will change
         self.outerPieFrameView.pieFillColor = [UIColor clearColor];
         self.outerPieFrameView.hidden = YES;

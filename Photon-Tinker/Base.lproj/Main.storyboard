@@ -410,13 +410,13 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tl-K2-82X" userLabel="deviceView">
-                                <rect key="frame" x="16" y="76" width="568" height="504"/>
+                                <rect key="frame" x="16" y="72" width="568" height="508"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" userLabel="chipView">
-                                        <rect key="frame" x="0.0" y="32" width="568" height="472"/>
+                                        <rect key="frame" x="0.0" y="24" width="568" height="484"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="248" image="imgDeviceShadow" translatesAutoresizingMaskIntoConstraints="NO" id="tjr-4o-6IO">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="472"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="568" height="484"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -474,7 +474,7 @@
                                     <constraint firstItem="HPv-oK-mru" firstAttribute="leading" secondItem="9tl-K2-82X" secondAttribute="leading" id="3Db-hA-8Sb"/>
                                     <constraint firstItem="9rh-mq-4bk" firstAttribute="centerY" secondItem="M8E-t7-pGt" secondAttribute="centerY" id="3iO-nq-dec"/>
                                     <constraint firstItem="9rh-mq-4bk" firstAttribute="top" secondItem="9tl-K2-82X" secondAttribute="top" id="LVj-8G-EVw"/>
-                                    <constraint firstItem="HPv-oK-mru" firstAttribute="top" secondItem="9rh-mq-4bk" secondAttribute="bottom" constant="8" id="Mkj-vd-dMN"/>
+                                    <constraint firstItem="HPv-oK-mru" firstAttribute="top" secondItem="9rh-mq-4bk" secondAttribute="bottom" id="Mkj-vd-dMN"/>
                                     <constraint firstItem="9rh-mq-4bk" firstAttribute="leading" secondItem="9tl-K2-82X" secondAttribute="leading" constant="20" id="NMh-DY-19g"/>
                                     <constraint firstItem="M8E-t7-pGt" firstAttribute="leading" secondItem="9tl-K2-82X" secondAttribute="leading" id="UIT-eC-QQQ"/>
                                     <constraint firstAttribute="trailing" secondItem="9rh-mq-4bk" secondAttribute="trailing" constant="20" id="Uxk-eq-vfk"/>
@@ -496,44 +496,41 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3P4-zn-2e7" userLabel="firstTimeView">
-                                <rect key="frame" x="16" y="72" width="568" height="508"/>
+                                <rect key="frame" x="32" y="52" width="536" height="516"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-AA-GQf">
-                                        <rect key="frame" x="155" y="98" width="258" height="313"/>
+                                        <rect key="frame" x="4" y="4" width="528" height="480"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="258" id="JWT-PJ-arr"/>
-                                            <constraint firstAttribute="height" constant="313" id="mMx-RO-DZb"/>
-                                        </constraints>
-                                        <string key="text">Welcome To Tinker.
+                                        <mutableString key="text">Welcome To Tinker!
 
-Tinker is the fastest and easiest way to prototype and play with your Particle Photon.
+Tinker is the fastest and easiest way to prototype and play with your Photon.
 
-Here you can access the basic input/output functions of the Photon without writing a line of code.
+You can access the basic input/output functions of the Photon without writing a line of code.
 
-Tap any pin to get started. Try digitalWrite on D7; there's a LED attached.
-
-Enjoy!</string>
+Tap any pin to get started, select a pin function and tinker with the value. Hold a pin to reset its function. 
+Enjoy!</mutableString>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-The Particle Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5z-Hi-GOP">
-                                        <rect key="frame" x="155" y="411" width="142" height="16"/>
+                                        <rect key="frame" x="177" y="492" width="142" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgPointAtD7" translatesAutoresizingMaskIntoConstraints="NO" id="SrP-yY-bWI">
-                                        <rect key="frame" x="257" y="81" width="63" height="313"/>
+                                        <rect key="frame" x="-32" y="-52" width="37" height="289"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.55000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="fnz-AA-GQf" secondAttribute="centerY" id="GHO-dB-T2C"/>
-                                    <constraint firstItem="t5z-Hi-GOP" firstAttribute="top" secondItem="fnz-AA-GQf" secondAttribute="bottom" id="HcY-yh-xsW"/>
-                                    <constraint firstItem="fnz-AA-GQf" firstAttribute="leading" secondItem="t5z-Hi-GOP" secondAttribute="leading" id="UGX-V6-GV9"/>
-                                    <constraint firstAttribute="centerX" secondItem="fnz-AA-GQf" secondAttribute="centerX" id="gO1-If-3KP"/>
+                                    <constraint firstItem="t5z-Hi-GOP" firstAttribute="top" secondItem="fnz-AA-GQf" secondAttribute="bottom" constant="8" id="1hy-0W-JJs"/>
+                                    <constraint firstItem="fnz-AA-GQf" firstAttribute="leading" secondItem="3P4-zn-2e7" secondAttribute="leading" constant="4" id="BAw-RH-oFz"/>
+                                    <constraint firstItem="fnz-AA-GQf" firstAttribute="top" secondItem="3P4-zn-2e7" secondAttribute="top" constant="4" id="BIz-R1-XX7"/>
+                                    <constraint firstAttribute="centerX" secondItem="t5z-Hi-GOP" secondAttribute="centerX" constant="20" id="REk-Q1-3Lg"/>
+                                    <constraint firstAttribute="trailing" secondItem="fnz-AA-GQf" secondAttribute="trailing" constant="4" id="iyT-gF-R4I"/>
+                                    <constraint firstAttribute="bottom" secondItem="t5z-Hi-GOP" secondAttribute="bottom" constant="8" id="zZH-Fm-Fpe"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-sx-cDn" userLabel="backButton">
@@ -707,13 +704,13 @@ Enjoy!</string>
                             <constraint firstItem="FUn-vZ-ZaU" firstAttribute="top" secondItem="hGx-VV-XEo" secondAttribute="bottom" constant="8" id="0Sm-wE-dSo"/>
                             <constraint firstItem="13L-Wr-K1a" firstAttribute="top" secondItem="9tl-K2-82X" secondAttribute="bottom" constant="20" id="0Tp-mu-72O"/>
                             <constraint firstItem="9tl-K2-82X" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leadingMargin" id="1HZ-NU-F5t"/>
-                            <constraint firstItem="13L-Wr-K1a" firstAttribute="top" secondItem="3P4-zn-2e7" secondAttribute="bottom" constant="20" id="3mS-Dc-9JH"/>
+                            <constraint firstItem="13L-Wr-K1a" firstAttribute="top" secondItem="3P4-zn-2e7" secondAttribute="bottom" constant="32" id="3mS-Dc-9JH"/>
                             <constraint firstAttribute="centerY" secondItem="3P4-zn-2e7" secondAttribute="centerY" id="3xg-NL-zQV"/>
                             <constraint firstItem="FUn-vZ-ZaU" firstAttribute="top" secondItem="hGx-VV-XEo" secondAttribute="bottom" constant="8" id="6zf-UN-Mzg"/>
                             <constraint firstItem="8kx-sx-cDn" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leadingMargin" constant="-8" id="DFO-E4-7D0"/>
-                            <constraint firstAttribute="trailing" secondItem="3P4-zn-2e7" secondAttribute="trailing" constant="16" id="EXW-IT-Pbb"/>
+                            <constraint firstAttribute="trailing" secondItem="3P4-zn-2e7" secondAttribute="trailing" constant="32" id="EXW-IT-Pbb"/>
                             <constraint firstAttribute="centerY" secondItem="6Dm-8R-bO7" secondAttribute="centerY" id="Eb9-iF-435"/>
-                            <constraint firstItem="3P4-zn-2e7" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leading" constant="16" id="GDi-qZ-Bm4"/>
+                            <constraint firstItem="3P4-zn-2e7" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leading" constant="32" id="GDi-qZ-Bm4"/>
                             <constraint firstItem="Gt1-dF-1aV" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leading" id="Hs2-6M-ygN"/>
                             <constraint firstItem="3P4-zn-2e7" firstAttribute="top" secondItem="9rh-mq-4bk" secondAttribute="bottom" constant="1" id="IKk-xL-1Et"/>
                             <constraint firstItem="hGx-VV-XEo" firstAttribute="leading" secondItem="3P4-zn-2e7" secondAttribute="trailing" constant="8" id="LF5-Ll-QaR"/>
@@ -721,6 +718,7 @@ Enjoy!</string>
                             <constraint firstAttribute="centerX" secondItem="6Dm-8R-bO7" secondAttribute="centerX" id="Lk8-O5-HVm"/>
                             <constraint firstItem="Gt1-dF-1aV" firstAttribute="top" secondItem="ucx-4a-6jp" secondAttribute="top" id="RXc-ya-nqj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hGx-VV-XEo" secondAttribute="trailing" constant="-8" id="S4T-EO-UAz"/>
+                            <constraint firstItem="3P4-zn-2e7" firstAttribute="top" secondItem="FUn-vZ-ZaU" secondAttribute="bottom" constant="32" id="XFu-mH-ECn"/>
                             <constraint firstItem="FUn-vZ-ZaU" firstAttribute="top" secondItem="hGx-VV-XEo" secondAttribute="bottom" constant="8" id="cMJ-Zh-FDF"/>
                             <constraint firstAttribute="trailing" secondItem="Gt1-dF-1aV" secondAttribute="trailing" id="fE6-Fm-5En"/>
                             <constraint firstItem="3P4-zn-2e7" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="bottom" constant="8" id="gM8-qK-qAS"/>
@@ -732,7 +730,7 @@ Enjoy!</string>
                             <constraint firstItem="8kx-sx-cDn" firstAttribute="top" secondItem="FUn-vZ-ZaU" secondAttribute="bottom" constant="8" id="unW-3s-y1k"/>
                             <constraint firstItem="3P4-zn-2e7" firstAttribute="top" secondItem="ucx-4a-6jp" secondAttribute="top" constant="100" id="vFP-eN-FEi"/>
                             <constraint firstAttribute="centerY" secondItem="cp9-M3-Ao7" secondAttribute="centerY" id="yG3-d7-fag"/>
-                            <constraint firstItem="9tl-K2-82X" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="bottom" constant="12" id="yoO-uS-xIH"/>
+                            <constraint firstItem="9tl-K2-82X" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="bottom" constant="8" id="yoO-uS-xIH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9tl-K2-82X" secondAttribute="trailing" id="yxh-Vd-71b"/>
                         </constraints>
                         <variation key="default">
@@ -740,12 +738,13 @@ Enjoy!</string>
                                 <exclude reference="0Sm-wE-dSo"/>
                                 <exclude reference="6zf-UN-Mzg"/>
                                 <exclude reference="cMJ-Zh-FDF"/>
+                                <exclude reference="nK0-18-fGQ"/>
                                 <exclude reference="3xg-NL-zQV"/>
                                 <exclude reference="IKk-xL-1Et"/>
+                                <exclude reference="gM8-qK-qAS"/>
                                 <exclude reference="glH-MM-uIR"/>
                                 <exclude reference="pCM-O8-MQn"/>
                                 <exclude reference="vFP-eN-FEi"/>
-                                <exclude reference="nK0-18-fGQ"/>
                                 <exclude reference="LdC-IY-AMF"/>
                                 <exclude reference="LF5-Ll-QaR"/>
                             </mask>
