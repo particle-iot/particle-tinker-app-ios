@@ -302,8 +302,10 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     }
                     else
                     {
-                        TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
-                        self.photonSelectionTableView.reloadData()
+                        dispatch_async(dispatch_get_main_queue()) {
+                            TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
+                            self.photonSelectionTableView.reloadData()
+                        }
                     }
                 })
                 
