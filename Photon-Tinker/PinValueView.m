@@ -18,13 +18,6 @@
 
 @implementation PinValueView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 -(void)setActive:(BOOL)active
 {
@@ -40,12 +33,11 @@
         _active = YES;//NO;
         self.hidden = NO;//YES;
         
-        CGFloat width=100, height=44; // unknown "
+        CGFloat width=140, height=44; // unknown "
         
         if (IS_IPHONE_4_OR_LESS) // 3.5"
         {
             height = 38;
-            width = 100;
         }
         else if (IS_IPHONE_5) // 4"
         {
@@ -57,7 +49,7 @@
         }
         else if (IS_IPHONE_6P) // 5.5"
         {
-            width = 240;
+            width = 210;
         }
         
         [self setFrame:CGRectMake(0,0,width,height)];

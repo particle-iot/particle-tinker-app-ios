@@ -13,6 +13,8 @@
 #import "TSMessage.h"
 #import "PinValueView.h"
 
+#define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
+
 @interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate, PinValueViewDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
@@ -25,11 +27,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
 @property (weak, nonatomic) IBOutlet UIView *chipView;
-@property (weak, nonatomic) IBOutlet UIImageView *chipShadowImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *chipShadowImageView;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
 @property (nonatomic) BOOL editingDeviceName;
-@property (nonatomic) BOOL instanciatedPins;
 @property (weak, nonatomic) IBOutlet UIButton *editDeviceNameButton;
 @property (nonatomic, strong) PinView *pinViewShowingSlider;
 @end
@@ -44,17 +45,29 @@
 //    self.pinValueViews = [NSMutableDictionary dictionaryWithCapacity:16];
     self.pinFunctionView.delegate = self;
     self.pinViewShowingSlider = nil;
-    
 
+    
     // background image
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgTrianglifyBackgroundBlue"]]; // make brown version?
     backgroundImage.frame = [UIScreen mainScreen].bounds;
     backgroundImage.contentMode = UIViewContentModeScaleToFill;
-    backgroundImage.alpha = 0.8;
+    backgroundImage.alpha = 0.75;
     [self.view addSubview:backgroundImage];
     [self.view sendSubviewToBack:backgroundImage];
     
+    self.firstTimeView.hidden = NO;
+    
     // first time view
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *userDefaults = [defaults objectForKey:[SparkCloud sharedInstance].loggedInUsername];
+    if (userDefaults)
+    {
+        if ([userDefaults[SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY] isEqualToNumber:@1])
+        {
+//            self.firstTimeView.hidden = YES;
+        }
+    }
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissFirstTime)];
     [self.firstTimeView addGestureRecognizer:tap];
 
@@ -72,20 +85,6 @@
     [self.device configurePins:self.device.type];
     
     self.deviceIDLabel.text = [NSString stringWithFormat:@"ID: %@",[self.device.id uppercaseString]];
-    
-    self.instanciatedPins = NO;
-    // initialize pin views
-    /*
-    for (SPKCorePin *pin in self.device.pins) {
-        SPKCorePinView *v = [[SPKCorePinView alloc] init];
-        [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
-        v.pin = pin;
-        v.delegate = self;
-        self.pinViews[pin.label] = v;
-        
-    }
-     */
-    
     
     _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideFunctionView:)];
     _tap.numberOfTapsRequired = 1;
@@ -146,20 +145,27 @@
 {
     [super viewDidAppear:animated];
 
-//    self.firstTimeView.hidden = ![SPKSpark sharedInstance].user.firstTime;
     self.tinkerLogoImageView.hidden = NO;
-//    self.deviceNameLabel.hidden = NO;
+    
+    // add chip shadow
+    _chipShadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgDeviceShadow"]];
+    _chipShadowImageView.frame = self.chipView.bounds;
+    _chipShadowImageView.alpha = 0.75;
+    _chipShadowImageView.contentMode = UIViewContentModeScaleToFill;
+    [self.chipView addSubview:_chipShadowImageView];
+    [self.chipView sendSubviewToBack:_chipShadowImageView];
+
     
 //    CGFloat aspect = [UIScreen mainScreen].bounds.size.width / [UIScreen mainScreen].bounds.size.height; // calculate the screen aspect ratio
 //    CGFloat x_offset = (aspect - (9.0/16.0))*290.0; // this will result in 29 for 3:2 screens and 0 for 16:9 screens (push pins in for old screens) // TODO: calculate for 4:3 (ipads)
-    CGFloat x_offset = 0;
-    if (IS_IPHONE_4_OR_LESS) x_offset = 29;
-    if (IS_IPHONE_6) x_offset = 8;
+    CGFloat x_offset = 6;
+//    if (IS_IPHONE_4_OR_LESS) x_offset = 29;
+//    if (IS_IPHONE_6) x_offset = 8;
     
 //    x_offset = MIN(x_offset, 16); //?
-    CGFloat chip_bottom_margin = 32.0;
-    if ((IS_IPHONE_6) || (IS_IPHONE_6P))
-        chip_bottom_margin *= 2;
+    CGFloat chip_bottom_margin = self.chipView.frame.size.height/14;
+//    if ((IS_IPHONE_6) || (IS_IPHONE_6P))
+//        chip_bottom_margin *= 2;
     
 //    NSLog(@"aspect ratio: %f",aspect);
     
@@ -168,11 +174,10 @@
         //CGFloat y_spacing = MAX(v.frame.size.height, ((self.chipShadowImageView.bounds.size.height-40) / (self.device.pins.count/2-1))); // assume even amount of pins per row
         CGFloat y_spacing = ((self.chipShadowImageView.frame.size.height-chip_bottom_margin) / (self.device.pins.count/2)); // assume even amount of pins per row
         y_spacing = MAX(y_spacing,v.frame.size.height);
-        CGFloat y_offset = self.chipShadowImageView.frame.origin.y;//+5;//
-        if (IS_IPHONE_5)
-            y_offset += 10;
-        if ((IS_IPHONE_6) || (IS_IPHONE_6P))
-            y_offset += 20;
+        CGFloat y_offset = self.chipShadowImageView.frame.origin.y+8;//(chip_bottom_margin/3);
+        
+//        y_offset = y_offset * (1.0+(((CGFloat)SCREEN_MAX_LENGTH-480.0)/512.0));
+
         NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
         
         [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
@@ -269,7 +274,7 @@
     
     self.chipView.alpha = 0;
     [UIView animateWithDuration:0.5
-                          delay:0.5
+                          delay:0//0.5
                         options: UIViewAnimationOptionAllowAnimatedContent
                      animations:^{
                          self.chipView.alpha=1;
@@ -322,7 +327,7 @@
                 [pin adjustValue:0];
             case SPKCorePinFunctionDigitalRead:
             case SPKCorePinFunctionAnalogRead:
-                [self pinCallHome:pinView completion:nil];
+                [self pinCallHome:pinView];
                 
             default:
                 break;
@@ -378,21 +383,19 @@
                 case SPKCorePinFunctionDigitalRead:
                 case SPKCorePinFunctionAnalogRead:
                 {
-                    [self pinCallHome:pinView completion:nil];
+                    [self pinCallHome:pinView];
                     
                     break;
                 }
 
                 case SPKCorePinFunctionDigitalWrite:
                 {
-                    // if there's a slider showing, remove it
-
                     if (pinView.pin.value)
                         [pinView.pin adjustValue:0];
                     else
                         [pinView.pin adjustValue:1];
                     
-                    [self pinCallHome:pinView completion:nil];
+                    [self pinCallHome:pinView];
                     
                     break;
                 }
@@ -426,9 +429,7 @@
     [pv refresh];
     if (touchUp)
     {
-        [self pinCallHome:pv completion:^(NSUInteger value) {
-            //
-        }];
+        [self pinCallHome:pv];
     }
     
 }
@@ -438,7 +439,10 @@
 - (void)dismissFirstTime
 {
     self.firstTimeView.hidden = YES;
-//    [SPKSpark sharedInstance].user.firstTime = NO;
+    // first time view
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *userDefaults = @{SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY : @1};
+    [defaults setObject:userDefaults forKey:[SparkCloud sharedInstance].loggedInUsername];
 }
 
 - (void)showFunctionView:(PinView *)pinView
@@ -471,7 +475,7 @@
 }
 
 
-- (void)pinCallHome:(PinView *)pinView completion:(void (^)(NSUInteger value))completion
+- (void)pinCallHome:(PinView *)pinView
 {
     [self.device updatePin:pinView.pin.logicalName function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger result) {
         ///
@@ -489,8 +493,6 @@
             {
                 [pinView.pin adjustValue:result];
                 [pinView refresh];
-                if (completion)
-                    completion(result);
             }
             [pinView refresh];
         });
