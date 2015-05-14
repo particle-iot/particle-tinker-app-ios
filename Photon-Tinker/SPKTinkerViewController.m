@@ -25,9 +25,9 @@
 @property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
 @property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
 @property (weak, nonatomic) IBOutlet UIView *chipView;
-@property (strong, nonatomic) IBOutlet UIImageView *chipShadowImageView;
+@property (strong, nonatomic) UIImageView *chipShadowImageView;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
 @property (nonatomic) BOOL editingDeviceName;
@@ -55,6 +55,7 @@
     [self.view addSubview:backgroundImage];
     [self.view sendSubviewToBack:backgroundImage];
     
+    self.deviceView.alpha = 0.2;
     self.firstTimeView.hidden = NO;
     
     // first time view
@@ -64,7 +65,7 @@
     {
         if ([userDefaults[SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY] isEqualToNumber:@1])
         {
-//            self.firstTimeView.hidden = YES;
+            [self dismissFirstTime];
         }
     }
     
@@ -84,7 +85,7 @@
     // inititalize pins
     [self.device configurePins:self.device.type];
     
-    self.deviceIDLabel.text = [NSString stringWithFormat:@"ID: %@",[self.device.id uppercaseString]];
+//    self.deviceIDLabel.text = [NSString stringWithFormat:@"ID: %@",[self.device.id uppercaseString]];
     
     _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideFunctionView:)];
     _tap.numberOfTapsRequired = 1;
@@ -438,6 +439,7 @@
 
 - (void)dismissFirstTime
 {
+    self.deviceView.alpha = 1;
     self.firstTimeView.hidden = YES;
     // first time view
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

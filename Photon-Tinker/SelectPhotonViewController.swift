@@ -400,6 +400,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                         else
                         {
                             self.lastTappedNonTinkerDevice = self.devices[indexPath.row]
+                            /*
                             // TODO: add "not running tinker, do you want to flash?"
                             TSMessage.showNotificationInViewController(self, title: "Device not running Tinker", subtitle: "Do you want to flash Tinker firmware to this device? Tap device again to Tinker with it anyway", image: UIImage(named: "imgQuestionWhite"), type: .Message, duration: -1, callback: { () -> Void in
                                 // callback for user dismiss by touching inside notification
@@ -407,6 +408,10 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                 } , buttonTitle: " Flash ", buttonCallback: { () -> Void in
                                     // TODO: spark cloud flash tinker command
                                 }, atPosition: .Top, canBeDismissedByUser: true)
+
+                            */
+                            TSMessage.showNotificationWithTitle("Device not running Tinker", subtitle: "This device firmware is not Tinker, tap it again if you want to Tinker with it anyway.", type: .Warning)
+
                         }
                     }
                     
