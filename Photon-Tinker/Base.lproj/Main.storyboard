@@ -413,12 +413,14 @@
                                 <rect key="frame" x="16" y="72" width="568" height="512"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8E-t7-pGt" userLabel="editDeviceNameButton">
-                                        <rect key="frame" x="548" y="2" width="20" height="20"/>
+                                        <rect key="frame" x="540" y="-2" width="28" height="28"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="kI8-ap-iyV"/>
-                                            <constraint firstAttribute="width" constant="20" id="w5R-Zm-cQo"/>
+                                            <constraint firstAttribute="height" constant="28" id="kI8-ap-iyV"/>
+                                            <constraint firstAttribute="width" constant="28" id="w5R-Zm-cQo"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
                                         <state key="normal" image="imgPencil"/>
                                         <connections>
                                             <action selector="editDeviceNameButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="zgO-q5-hwC"/>
@@ -552,44 +554,44 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="SPKPinFunctionView">
-                                <rect key="frame" x="200" y="241" width="200" height="118"/>
+                                <rect key="frame" x="198" y="238" width="204" height="124"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunflower" translatesAutoresizingMaskIntoConstraints="NO" id="0Dp-bl-5EV">
-                                        <rect key="frame" x="0.0" y="79" width="6" height="37"/>
+                                        <rect key="frame" x="0.0" y="86" width="6" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="6" id="2hh-kP-OcF"/>
                                             <constraint firstAttribute="height" constant="37" id="Yxs-A4-0It"/>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emerald" translatesAutoresizingMaskIntoConstraints="NO" id="mDh-xo-YvB">
-                                        <rect key="frame" x="0.0" y="40" width="5" height="37"/>
+                                        <rect key="frame" x="0.0" y="42" width="5" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="5" id="VaG-zl-xez"/>
                                             <constraint firstAttribute="height" constant="37" id="aWg-Bl-KSa"/>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cyan" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-y1-Ivz">
-                                        <rect key="frame" x="195" y="39" width="5" height="37"/>
+                                        <rect key="frame" x="199" y="41" width="5" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="YaM-Jg-0Dj"/>
                                             <constraint firstAttribute="width" constant="5" id="sZj-2E-xYl"/>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alizarin" translatesAutoresizingMaskIntoConstraints="NO" id="hhT-Ph-kTP">
-                                        <rect key="frame" x="195" y="79" width="5" height="37"/>
+                                        <rect key="frame" x="199" y="86" width="5" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="5" id="6mv-U3-ndH"/>
                                             <constraint firstAttribute="height" constant="37" id="Cul-HU-wXx"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Uo-PR-xcJ">
-                                        <rect key="frame" x="0.0" y="39" width="98" height="38"/>
+                                        <rect key="frame" x="0.0" y="40" width="100" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="38" id="kQu-xr-o17"/>
-                                            <constraint firstAttribute="width" constant="98" id="qws-0G-A5g"/>
+                                            <constraint firstAttribute="height" constant="40" id="kQu-xr-o17"/>
+                                            <constraint firstAttribute="width" constant="100" id="qws-0G-A5g"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                         <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="analogRead">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -600,13 +602,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kep-d7-v4h">
-                                        <rect key="frame" x="0.0" y="79" width="98" height="37"/>
+                                        <rect key="frame" x="0.0" y="84" width="100" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="98" id="Qob-Le-MTV"/>
-                                            <constraint firstAttribute="height" constant="37" id="lb3-Yp-fcH"/>
+                                            <constraint firstAttribute="width" constant="100" id="Qob-Le-MTV"/>
+                                            <constraint firstAttribute="height" constant="40" id="lb3-Yp-fcH"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                         <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="analogWrite">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -617,13 +619,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZI-mP-P5L">
-                                        <rect key="frame" x="102" y="39" width="98" height="38"/>
+                                        <rect key="frame" x="104" y="40" width="100" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="38" id="99w-iQ-ZSi"/>
-                                            <constraint firstAttribute="width" constant="98" id="CiN-25-sFq"/>
+                                            <constraint firstAttribute="height" constant="40" id="99w-iQ-ZSi"/>
+                                            <constraint firstAttribute="width" constant="100" id="CiN-25-sFq"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
                                         <state key="normal" title="digitalRead">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -634,13 +636,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmO-7c-yA1">
-                                        <rect key="frame" x="102" y="79" width="98" height="37"/>
+                                        <rect key="frame" x="104" y="84" width="100" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="37" id="PjV-hm-eS3"/>
-                                            <constraint firstAttribute="width" constant="98" id="qHY-5P-gmC"/>
+                                            <constraint firstAttribute="height" constant="40" id="PjV-hm-eS3"/>
+                                            <constraint firstAttribute="width" constant="100" id="qHY-5P-gmC"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
                                         <state key="normal" title="digitalWrite">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -651,8 +653,8 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEU-nT-aGU">
-                                        <rect key="frame" x="90" y="12" width="21" height="15"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                        <rect key="frame" x="91" y="12" width="23" height="15"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -662,23 +664,23 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <constraint firstAttribute="centerX" secondItem="NEU-nT-aGU" secondAttribute="centerX" id="1cy-7b-CrH"/>
                                     <constraint firstItem="hhT-Ph-kTP" firstAttribute="trailing" secondItem="GmO-7c-yA1" secondAttribute="trailing" id="29Z-1z-g5H"/>
                                     <constraint firstItem="YGr-y1-Ivz" firstAttribute="trailing" secondItem="HZI-mP-P5L" secondAttribute="trailing" id="6uE-C3-2nN"/>
-                                    <constraint firstAttribute="width" constant="200" id="8xW-Ni-Q5c"/>
+                                    <constraint firstAttribute="width" constant="204" id="8xW-Ni-Q5c"/>
                                     <constraint firstItem="NEU-nT-aGU" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="12" id="HEP-9L-tfh"/>
                                     <constraint firstItem="0Dp-bl-5EV" firstAttribute="centerY" secondItem="Kep-d7-v4h" secondAttribute="centerY" id="LCa-Th-DEJ"/>
-                                    <constraint firstItem="GmO-7c-yA1" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="79" id="LkK-Y0-Z1h"/>
+                                    <constraint firstItem="GmO-7c-yA1" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="84" id="LkK-Y0-Z1h"/>
                                     <constraint firstItem="0Dp-bl-5EV" firstAttribute="leading" secondItem="Kep-d7-v4h" secondAttribute="leading" id="OAF-Vg-U9c"/>
                                     <constraint firstItem="hhT-Ph-kTP" firstAttribute="centerY" secondItem="GmO-7c-yA1" secondAttribute="centerY" id="OyW-MP-yj4"/>
-                                    <constraint firstItem="HZI-mP-P5L" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="39" id="TQH-5g-IXk"/>
+                                    <constraint firstItem="HZI-mP-P5L" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="40" id="TQH-5g-IXk"/>
                                     <constraint firstAttribute="trailing" secondItem="GmO-7c-yA1" secondAttribute="trailing" id="ebb-2r-aob"/>
                                     <constraint firstItem="mDh-xo-YvB" firstAttribute="leading" secondItem="0Uo-PR-xcJ" secondAttribute="leading" id="ehs-HC-VBT"/>
                                     <constraint firstItem="0Uo-PR-xcJ" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" id="mr6-oT-O2j"/>
-                                    <constraint firstItem="Kep-d7-v4h" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="79" id="ozu-SD-8Ez"/>
+                                    <constraint firstItem="Kep-d7-v4h" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="84" id="ozu-SD-8Ez"/>
                                     <constraint firstItem="mDh-xo-YvB" firstAttribute="centerY" secondItem="0Uo-PR-xcJ" secondAttribute="centerY" constant="0.5" id="s0u-dg-KTG"/>
                                     <constraint firstAttribute="trailing" secondItem="HZI-mP-P5L" secondAttribute="trailing" id="sGI-va-rd6"/>
-                                    <constraint firstItem="0Uo-PR-xcJ" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="39" id="vNg-qS-Gri"/>
+                                    <constraint firstItem="0Uo-PR-xcJ" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="40" id="vNg-qS-Gri"/>
                                     <constraint firstItem="Kep-d7-v4h" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" id="vXk-7g-0ZO"/>
                                     <constraint firstItem="YGr-y1-Ivz" firstAttribute="centerY" secondItem="HZI-mP-P5L" secondAttribute="centerY" constant="-0.5" id="xh1-bn-Cxk"/>
-                                    <constraint firstAttribute="height" constant="118" id="zgg-gs-GEc"/>
+                                    <constraint firstAttribute="height" constant="124" id="zgg-gs-GEc"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="analogReadButton" destination="0Uo-PR-xcJ" id="yhl-Zn-37G"/>
@@ -741,7 +743,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxJ-10-rv0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3090" y="611"/>
+            <point key="canvasLocation" x="3096" y="611"/>
         </scene>
     </scenes>
     <resources>

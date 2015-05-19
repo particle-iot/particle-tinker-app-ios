@@ -151,7 +151,7 @@
     // add chip shadow
     _chipShadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgDeviceShadow"]];
     _chipShadowImageView.frame = self.chipView.bounds;
-    _chipShadowImageView.alpha = 0.75;
+    _chipShadowImageView.alpha = 0.85;
     _chipShadowImageView.contentMode = UIViewContentModeScaleToFill;
     [self.chipView addSubview:_chipShadowImageView];
     [self.chipView sendSubviewToBack:_chipShadowImageView];
@@ -455,7 +455,8 @@
         self.pinFunctionView.hidden = NO;
         for (PinView *pv in self.pinViews.allValues) {
             if (pv != pinView) {
-                pv.alpha = 0.1;
+                pv.alpha = 0.15;
+                pv.valueView.alpha = 0.15;
             }
         }
         [self.view bringSubviewToFront:self.pinFunctionView];
@@ -470,7 +471,8 @@
         self.tinkerLogoImageView.hidden = NO;
         self.pinFunctionView.hidden = YES;
         for (PinView *pv in self.pinViews.allValues) {
-                pv.alpha = 1;
+            pv.alpha = 1;
+            pv.valueView.alpha = 1;
         }
     
     }
@@ -479,9 +481,15 @@
 
 - (void)pinCallHome:(PinView *)pinView
 {
+    pinView.userInteractionEnabled = NO;
+    pinView.alpha = 0.35;
+    
     [self.device updatePin:pinView.pin.logicalName function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger result) {
         ///
         dispatch_async(dispatch_get_main_queue(), ^{
+            pinView.alpha = 1;
+            pinView.userInteractionEnabled = YES;
+
             self.tinkerLogoImageView.hidden = NO;
             if (pinView.pin.selectedFunction == SPKCorePinFunctionDigitalWrite || pinView.pin.selectedFunction == SPKCorePinFunctionAnalogWrite) {
                 if (result == -1) {
@@ -500,7 +508,9 @@
         });
     } failure:^(NSString *errorMessage) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            // TSMessage
+            pinView.alpha = 1;
+            pinView.userInteractionEnabled = YES;
+            
             NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device - %@",errorMessage];
             [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
 

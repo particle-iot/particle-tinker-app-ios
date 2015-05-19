@@ -189,11 +189,17 @@
 }
 
 
--(void)setAlpha:(CGFloat)alpha
+//-(void)setAlpha:(CGFloat)alpha
+//{
+//    // propagate alpha changes to value view too
+//    super.alpha = alpha;
+//    self.valueView.alpha = alpha;
+//}
+
+-(void)setUserInteractionEnabled:(BOOL)userInteractionEnabled
 {
-    // propagate alpha changes to value view too
-    super.alpha = alpha;
-    self.valueView.alpha = alpha;
-    
+    [super setUserInteractionEnabled:userInteractionEnabled];
+    self.valueView.userInteractionEnabled = userInteractionEnabled;
 }
+
 @end
