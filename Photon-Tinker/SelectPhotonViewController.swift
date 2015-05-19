@@ -120,8 +120,21 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             if let d = devices
             {
                 self.devices = d as! [SparkDevice]
+                
+                // Sort alphabetically
+                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                    if let n1 = firstDevice.name
+                    {
+                        if let n2 = secondDevice.name
+                        {
+                            return n1 < n2 //firstDevice.name < secondDevice.name
+                        }
+                    }
+                    return false;
+                    
+                })
 
-                // sort by device type
+                // then sort by device type
                 self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.type.rawValue > secondDevice.type.rawValue
                 })
@@ -135,6 +148,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.isRunningTinker() && !secondDevice.isRunningTinker()
                 })
+
 
             }
             

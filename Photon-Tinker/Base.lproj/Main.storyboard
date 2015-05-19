@@ -412,10 +412,34 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tl-K2-82X" userLabel="deviceView">
                                 <rect key="frame" x="16" y="72" width="568" height="512"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" userLabel="chipView">
-                                        <rect key="frame" x="0.0" y="28" width="568" height="484"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8E-t7-pGt" userLabel="editDeviceNameButton">
+                                        <rect key="frame" x="548" y="2" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="kI8-ap-iyV"/>
+                                            <constraint firstAttribute="width" constant="20" id="w5R-Zm-cQo"/>
+                                        </constraints>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="imgPencil"/>
+                                        <connections>
+                                            <action selector="editDeviceNameButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="zgO-q5-hwC"/>
+                                        </connections>
+                                    </button>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ecC-aQ-rz0">
+                                        <rect key="frame" x="20" y="0.0" width="528" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="MIf-2o-dyF"/>
+                                            <constraint firstAttribute="height" constant="24" id="Puj-hH-zrX"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="23"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="MIf-2o-dyF"/>
+                                                <exclude reference="Puj-hH-zrX"/>
+                                            </mask>
+                                        </variation>
+                                    </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="device_name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9rh-mq-4bk">
                                         <rect key="frame" x="20" y="0.0" width="528" height="24"/>
                                         <constraints>
@@ -433,34 +457,10 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ecC-aQ-rz0">
-                                        <rect key="frame" x="20" y="0.0" width="528" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="MIf-2o-dyF"/>
-                                            <constraint firstAttribute="height" constant="24" id="Puj-hH-zrX"/>
-                                        </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="23"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="MIf-2o-dyF"/>
-                                                <exclude reference="Puj-hH-zrX"/>
-                                            </mask>
-                                        </variation>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8E-t7-pGt" userLabel="editDeviceNameButton">
-                                        <rect key="frame" x="548" y="2" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="kI8-ap-iyV"/>
-                                            <constraint firstAttribute="width" constant="20" id="w5R-Zm-cQo"/>
-                                        </constraints>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="imgPencil"/>
-                                        <connections>
-                                            <action selector="editDeviceNameButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="zgO-q5-hwC"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" userLabel="chipView">
+                                        <rect key="frame" x="0.0" y="28" width="568" height="484"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -498,14 +498,14 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-AA-GQf">
                                         <rect key="frame" x="4" y="4" width="560" height="476"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <mutableString key="text">Welcome To Tinker!
+                                        <string key="text">Welcome To Tinker!
 
 Tinker is the fastest and easiest way to prototype and play with your Photon.
 
 You can access the basic input/output functions of the Photon without writing a line of code.
 
 Tap any pin to get started, select a pin function and tinker with the value. Hold a pin to reset its function. Start with pin D7 - select digitalWrite - blink the attached LED.  For more information visit:  docs.particle.io/photon/tinker/
- Enjoy!</mutableString>
+ Enjoy!</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -539,12 +539,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-sx-cDn" userLabel="backButton">
-                                <rect key="frame" x="8" y="28" width="24" height="24"/>
+                                <rect key="frame" x="8" y="28" width="32" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="5IO-lY-jQ6"/>
-                                    <constraint firstAttribute="height" constant="24" id="BQp-ki-g85"/>
+                                    <constraint firstAttribute="width" constant="32" id="5IO-lY-jQ6"/>
+                                    <constraint firstAttribute="height" constant="32" id="BQp-ki-g85"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="6" maxX="12" maxY="6"/>
                                 <state key="normal" image="imgChevronLeft"/>
                                 <connections>
                                     <action selector="backButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="nkl-yf-7Wp"/>
