@@ -1,3 +1,4 @@
+pod 'Spark-SDK', :path => '../spark-sdk-ios'
 pod 'SparkSetup', :path => '../spark-setup-ios'
 pod 'MBProgressHUD'
 pod 'TSMessages'

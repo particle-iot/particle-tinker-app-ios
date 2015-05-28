@@ -274,8 +274,8 @@
     }
     
     self.chipView.alpha = 0;
-    [UIView animateWithDuration:0.5
-                          delay:0//0.5
+    [UIView animateWithDuration:0.4
+                          delay:0
                         options: UIViewAnimationOptionAllowAnimatedContent
                      animations:^{
                          self.chipView.alpha=1;

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */; };
+		502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 502E9BBB1B15773D00D2C45B /* photon-tinker.bin */; };
 		5048CD231AE09AD00097150A /* SelectPhotonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD221AE09AD00097150A /* SelectPhotonViewController.swift */; };
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		11E94C4837B96B025C60BE2B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
+		502E9BBB1B15773D00D2C45B /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "photon-tinker.bin"; sourceTree = "<group>"; };
 		5048CD221AE09AD00097150A /* SelectPhotonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotonViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		505C6ECA1AF988F90099FF15 /* device setup video.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "device setup video.m4v"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
 				505C6ECA1AF988F90099FF15 /* device setup video.m4v */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
@@ -288,6 +291,7 @@
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				50B125501AE06CF4003C29DC /* Images.xcassets in Resources */,
 				50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */,
+				502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

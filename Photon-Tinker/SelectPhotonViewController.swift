@@ -415,18 +415,55 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                         }
                         else
                         {
-                            self.lastTappedNonTinkerDevice = self.devices[indexPath.row]
-                            /*
+                            var device = self.devices[indexPath.row]
+                            self.lastTappedNonTinkerDevice = device
+                            NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: "resetLastTappedDevice:", userInfo: nil, repeats: false)
+                            
                             // TODO: add "not running tinker, do you want to flash?"
                             TSMessage.showNotificationInViewController(self, title: "Device not running Tinker", subtitle: "Do you want to flash Tinker firmware to this device? Tap device again to Tinker with it anyway", image: UIImage(named: "imgQuestionWhite"), type: .Message, duration: -1, callback: { () -> Void in
                                 // callback for user dismiss by touching inside notification
                                 TSMessage.dismissActiveNotification()
                                 } , buttonTitle: " Flash ", buttonCallback: { () -> Void in
-                                    // TODO: spark cloud flash tinker command
-                                }, atPosition: .Top, canBeDismissedByUser: true)
+                                    self.lastTappedNonTinkerDevice = nil
+                                    switch (device.type)
+                                    {
+                                    case .Core:
+                                        device.flashKnownApp("tinker", completion: { (error:NSError!) -> Void in
+                                            if let e=error
+                                            {
+                                                TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
+                                            }
+                                            else
+                                            {
+                                                TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+                                                
+                                            }
+                                        })
+                                        
+                                    case .Photon:
+                                        let bundle = NSBundle.mainBundle()
+                                        let path = bundle.pathForResource("photon-tinker", ofType: "bin")
+                                        var error:NSError?
+                                        if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData
+                                        {
+                                            let filesDict = ["tinker.bin" : binary!]
+                                            device.flashFiles(filesDict, completion: { (error:NSError!) -> Void in
+                                                if let e=error
+                                                {
+                                                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
+                                                }
+                                                else
+                                                {
+                                                    TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+                                                }
+                                            })
 
-                            */
-                            TSMessage.showNotificationWithTitle("Device not running Tinker", subtitle: "This device firmware is not Tinker, tap it again if you want to Tinker with it anyway.", type: .Warning)
+                                        }
+                                    }
+                                }, atPosition: .Top, canBeDismissedByUser: true)
+                            
+                            
+                            //TSMessage.showNotificationWithTitle("Device not running Tinker", subtitle: "This device firmware is not Tinker, tap it again if you want to Tinker with it anyway.", type: .Warning)
 
                         }
                     }
@@ -447,6 +484,14 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         }
     
     }
+    
+    
+    func resetLastTappedDevice(timer : NSTimer)
+    {
+        println("lastTappedNonTinkerDevice reset")
+        self.lastTappedNonTinkerDevice = nil
+    }
+    
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70
