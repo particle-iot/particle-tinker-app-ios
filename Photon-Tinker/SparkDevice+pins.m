@@ -29,6 +29,7 @@ static NSUInteger CORE_NAMES_COUNT = 55;
 
 
 @dynamic pins;
+@dynamic flashingTimeLeft;
 
 - (void)setPins:(NSArray *)pins
 {
@@ -173,5 +174,52 @@ static NSUInteger CORE_NAMES_COUNT = 55;
 }
 
 
+
+-(void)flashingTimeLeftTimerFunc:(NSTimer *)timer
+{
+    if (self.flashingTimeLeft.intValue > 0)
+    {
+        self.flashingTimeLeft = [NSNumber numberWithInt:(self.flashingTimeLeft.intValue-1)];
+        NSLog(@"device %@ is flashing, time left: %d",self.id,self.flashingTimeLeft.intValue);
+    }
+    else
+    {
+        [timer invalidate];
+    }
+}
+
+- (void)setFlashingTimeLeft:(NSNumber *)flashingTimeLeft
+{
+    static NSTimer *timer;
+    objc_setAssociatedObject(self, @selector(flashingTimeLeft), flashingTimeLeft, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    NSLog(@"setFlashingTimeLeft: %d",flashingTimeLeft.intValue);
+    if ((self.flashingTimeLeft.intValue > 0) && (!timer.isValid))
+    {
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(flashingTimeLeftTimerFunc:) userInfo:nil repeats:YES];
+    }
+}
+
+-(NSNumber *)flashingTimeLeft
+{
+    NSNumber *flashingTime = objc_getAssociatedObject(self, @selector(flashingTimeLeft));
+    if (flashingTime == nil)
+    {
+        self.flashingTimeLeft = @0;
+        flashingTime = @0;
+    }
+    return flashingTime;
+}
+
+
+-(BOOL)isFlashing
+{
+//    NSNumber *flashingTimeLeft = [self flashingTimeLeft];
+    NSLog(@"isFlashing: %@",self.flashingTimeLeft);
+    
+    if (self.flashingTimeLeft.intValue > 0)
+        return YES;
+    else
+        return NO;
+}
 
 @end

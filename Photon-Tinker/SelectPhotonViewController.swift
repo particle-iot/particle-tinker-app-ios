@@ -9,6 +9,7 @@
 import UIKit
 
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
+let defaultFlashingTime : Int = 20
 
 class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
@@ -26,10 +27,14 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
     }
 
+    
     var devices : [SparkDevice] = []
     var selectedDevice : SparkDevice? = nil
     var lastTappedNonTinkerDevice : SparkDevice? = nil
     var refreshControlAdded : Bool = false
+    
+//    var deviceIDsBeingFlashed : Dictionary<String, Int> = Dictionary()
+//    var flashingTimer : NSTimer? = nil
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -43,6 +48,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         if segue.identifier == "tinker"
         {
             self.lastTappedNonTinkerDevice = nil
+//            self.flashingTimer?.invalidate()
+            
             if let vc = segue.destinationViewController as? SPKTinkerViewController
             {
                 vc.device = self.selectedDevice!
@@ -207,7 +214,6 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
             }
 
-            
             cell.deviceIDLabel.text = devices[indexPath.row].id.uppercaseString
             
             let online = self.devices[indexPath.row].connected
@@ -231,6 +237,12 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 
             }
             
+            // override everything else
+            if devices[indexPath.row].isFlashing()
+            {
+                cell.deviceStateLabel.text = "Flashing"
+                cell.deviceStateImageView.image = UIImage(named: "imgPurpleCircle") // gray circle
+            }
             
             
             masterCell = cell
@@ -374,6 +386,29 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         
     }
     
+    /*
+    // keep track of devices being flashed with [device_id : seconds_left_to_flashing] dictionary
+    func flashingTimerFunc(timer : NSTimer)
+    {
+        if self.deviceIDsBeingFlashed.count > 0
+        {
+            println(self.deviceIDsBeingFlashed)
+            for id in deviceIDsBeingFlashed.keys
+            {
+                self.deviceIDsBeingFlashed[id] = self.deviceIDsBeingFlashed[id]! - 1
+                if self.deviceIDsBeingFlashed[id]! < 1
+                {
+                    self.deviceIDsBeingFlashed.removeValueForKey(id)
+                }
+            }
+        }
+        else
+        {
+            self.flashingTimer?.invalidate()
+        }
+    }
+    */
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         TSMessage.dismissActiveNotification()
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -397,7 +432,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             case 0...self.devices.count-1 :
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 
-                println("Tapped on \(self.devices[indexPath.row].description)")
+//                println("Tapped on \(self.devices[indexPath.row].description)")
                 
                 if self.devices[indexPath.row].connected
                 {
@@ -436,6 +471,10 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                             else
                                             {
                                                 TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+//                                                self.deviceIDsBeingFlashed[device.id] = defaultFlashingTime
+//                                                self.flashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
+                                                device.flashingTimeLeft = 30
+                                                self.photonSelectionTableView.reloadData()
                                                 
                                             }
                                         })
@@ -455,6 +494,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                                 else
                                                 {
                                                     TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+//                                                    self.deviceIDsBeingFlashed[device.id] = defaultFlashingTime
+//                                                    self.flashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
+                                                    device.flashingTimeLeft = 20
+                                                    self.photonSelectionTableView.reloadData()
+
                                                 }
                                             })
 
