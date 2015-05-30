@@ -9,7 +9,6 @@
 import UIKit
 
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
-let defaultFlashingTime : Int = 20
 
 class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
@@ -238,7 +237,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             }
             
             // override everything else
-            if devices[indexPath.row].isFlashing()
+            if devices[indexPath.row].isFlashing
             {
                 cell.deviceStateLabel.text = "Flashing"
                 cell.deviceStateImageView.image = UIImage(named: "imgPurpleCircle") // gray circle
@@ -433,8 +432,12 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 
 //                println("Tapped on \(self.devices[indexPath.row].description)")
-                
-                if self.devices[indexPath.row].connected
+                if devices[indexPath.row].isFlashing
+                {
+                    TSMessage.showNotificationWithTitle("Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .Warning)
+
+                }
+                else if self.devices[indexPath.row].connected
                 {
                     switch devices[indexPath.row].isRunningTinker()
                     {
