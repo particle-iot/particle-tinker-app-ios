@@ -532,7 +532,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    
+ 
+     
     if ([segue.identifier isEqualToString:@"settings"])
     {
         UINavigationController *navController = [segue destinationViewController];

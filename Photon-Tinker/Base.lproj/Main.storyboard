@@ -168,11 +168,23 @@
                                             <action selector="logoutButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="GEN-HU-N7w"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0R-OL-GOo">
+                                        <rect key="frame" x="17" y="27" width="53" height="30"/>
+                                        <state key="normal" title="flashing">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setFlashingButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="tzo-8X-qdC"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="f0R-OL-GOo" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="top" constant="27" id="6Xj-zt-hJA"/>
                                     <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="top" constant="8" id="Fgr-1e-hJd"/>
                                     <constraint firstAttribute="height" constant="64" id="OtP-l0-T4M"/>
+                                    <constraint firstItem="f0R-OL-GOo" firstAttribute="leading" secondItem="xB3-Ur-rz3" secondAttribute="leading" constant="17" id="YvS-cy-qot"/>
                                     <constraint firstAttribute="centerX" secondItem="4Ex-QS-fRu" secondAttribute="centerX" id="aPf-P2-vpw"/>
                                     <constraint firstAttribute="trailing" secondItem="kNA-WJ-NA0" secondAttribute="trailing" constant="8" id="qb5-yQ-mHN"/>
                                 </constraints>
@@ -354,6 +366,7 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
+                        <outlet property="setFlashingTestButton" destination="f0R-OL-GOo" id="HEA-B5-Hat"/>
                         <outlet property="titleLabel" destination="ShA-Nw-uxr" id="ida-GM-KeT"/>
                         <segue destination="Nmh-ef-vpa" kind="show" identifier="tinker" id="4jN-EQ-1sH"/>
                     </connections>
@@ -775,11 +788,6 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgCopyToClipboard" translatesAutoresizingMaskIntoConstraints="NO" id="LK8-B9-FY2">
                                                     <rect key="frame" x="12" y="12" width="24" height="24"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="image.renderingMode">
-                                                            <integer key="value" value="0"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copy Device ID to clipboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFr-WW-GyA">
                                                     <rect key="frame" x="44" y="4" width="300" height="21"/>

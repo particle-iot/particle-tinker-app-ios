@@ -9,6 +9,9 @@
 import UIKit
 
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
+let kDefaultCoreFlashingTime : Int = 30
+let kDefaultPhotonFlashingTime : Int = 15
+
 
 class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
@@ -28,6 +31,9 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
     
     var devices : [SparkDevice] = []
+    var deviceIDflashingDict : Dictionary<String,Int> = Dictionary()
+    var deviceIDflashingTimer : NSTimer? = nil
+    
     var selectedDevice : SparkDevice? = nil
     var lastTappedNonTinkerDevice : SparkDevice? = nil
     var refreshControlAdded : Bool = false
@@ -40,10 +46,20 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    @IBOutlet weak var setFlashingTestButton: UIButton!
+
+    @IBAction func setFlashingButtonTapped(sender: AnyObject) {
+        self.devices[0].isFlashing = true
+        self.deviceIDflashingDict[self.devices[0].id] = kDefaultPhotonFlashingTime
+
+        self.photonSelectionTableView.reloadData()
+        
+    }
 
     @IBOutlet weak var photonSelectionTableView: UITableView!
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        self.deviceIDflashingTimer!.invalidate()
         if segue.identifier == "tinker"
         {
             self.lastTappedNonTinkerDevice = nil
@@ -59,8 +75,27 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewWillAppear(animated: Bool) {
         self.loadDevices()
+        
+        self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
     }
     
+    
+    func flashingTimerFunc(timer : NSTimer)
+    {
+        for (deviceid, timeleft) in self.deviceIDflashingDict
+        {
+            if timeleft > 0
+            {
+                self.deviceIDflashingDict[deviceid]=timeleft-1
+            }
+            else
+            {
+                self.deviceIDflashingDict.removeValueForKey(deviceid)
+                //self.photonSelectionTableView.reloadData()
+                self.loadDevices()
+            }
+        }
+    }
     
     func loadDevices()
     {
@@ -237,7 +272,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             }
             
             // override everything else
-            if devices[indexPath.row].isFlashing
+            if devices[indexPath.row].isFlashing || contains(self.deviceIDflashingDict.keys,devices[indexPath.row].id)
             {
                 cell.deviceStateLabel.text = "Flashing"
                 cell.deviceStateImageView.image = UIImage(named: "imgPurpleCircle") // gray circle
@@ -432,7 +467,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 
 //                println("Tapped on \(self.devices[indexPath.row].description)")
-                if devices[indexPath.row].isFlashing
+                if devices[indexPath.row].isFlashing || contains(self.deviceIDflashingDict.keys,devices[indexPath.row].id)
                 {
                     TSMessage.showNotificationWithTitle("Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .Warning)
 
@@ -476,7 +511,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                                 TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
 //                                                self.deviceIDsBeingFlashed[device.id] = defaultFlashingTime
 //                                                self.flashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
-                                                device.flashingTimeLeft = 30
+                                                device.isFlashing = true
+                                                self.deviceIDflashingDict[device.id] = kDefaultCoreFlashingTime
                                                 self.photonSelectionTableView.reloadData()
                                                 
                                             }
@@ -499,7 +535,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                                     TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
 //                                                    self.deviceIDsBeingFlashed[device.id] = defaultFlashingTime
 //                                                    self.flashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
-                                                    device.flashingTimeLeft = 20
+                                                    device.isFlashing = true
+                                                    self.deviceIDflashingDict[device.id] = kDefaultPhotonFlashingTime
                                                     self.photonSelectionTableView.reloadData()
 
                                                 }

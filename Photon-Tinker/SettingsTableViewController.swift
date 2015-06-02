@@ -25,6 +25,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
         })
     }
     
+    
     @IBOutlet weak var deviceIDlabel: UILabel!
 
     // add a navigation bar to the popover like this:
@@ -143,7 +144,6 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                 println("reflash tinker")
                 if self.device!.isFlashing == false
                 {
-                    
                     switch (self.device!.type)
                     {
                         
