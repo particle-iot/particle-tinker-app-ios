@@ -14,9 +14,9 @@ import UIKit
 }
 
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
-    var device : SparkDevice? = nil
+    @objc var device : SparkDevice? = nil
     var delegate : SettingsTableViewControllerDelegate? = nil
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
@@ -25,8 +25,22 @@ class SettingsTableViewController: UITableViewController {
         })
     }
     
+    @IBOutlet weak var deviceIDlabel: UILabel!
+
+    // add a navigation bar to the popover like this:
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.FullScreen
+    }
+    
+    func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        var navController = UINavigationController(rootViewController: controller.presentedViewController)
+        return navController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        TSMessage.setDefaultViewController(self.navigationController)
         
         
 //        self.navigationController?.navigationBar.topItem?.title = "Tinker settings"
@@ -100,15 +114,15 @@ class SettingsTableViewController: UITableViewController {
     
     
     override func viewWillAppear(animated: Bool) {
-        let navBar = self.navigationController!.navigationBar
-        let image = UIImage(named: "particle-horizontal-black")
-//        navBar.back
         self.tableView.reloadData()
+        self.deviceIDlabel.text = self.device!.id
     }
 
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
         switch indexPath.section
         {
         case 0: // actions
@@ -117,14 +131,60 @@ class SettingsTableViewController: UITableViewController {
             case 0:
                 println("copy device id")
                 UIPasteboard.generalPasteboard().string = self.device?.id
-                TSMessage.showNotificationInViewController(self, title: "Device ID", subtitle: "Your device ID string has been copied to clipboard", type: .Message)
+                TSMessage.showNotificationInViewController(self.navigationController, title: "Device ID", subtitle: "Your device ID string has been copied to clipboard", type: .Success)
+
             case 1:
                 println("reset all pins")
+                self.delegate?.resetAllPinFunctions()
+                self.dismissViewControllerAnimated(true, completion: nil)
 //                TSMessage.showNotificationInViewController(self, title: "Pin functions", subtitle: "Your device ID string has been copied to clipboard", type: .Message)
-                
 
             case 2:
                 println("reflash tinker")
+                if self.device!.isFlashing == false
+                {
+                    
+                    switch (self.device!.type)
+                    {
+                        
+                    case .Core:
+                        self.device!.flashKnownApp("tinker", completion: { (error:NSError!) -> Void in
+                            if let e=error
+                            {
+                                TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
+                            }
+                            else
+                            {
+                                TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+                                self.device!.isFlashing = true
+                            }
+                        })
+                        
+                    case .Photon:
+                        let bundle = NSBundle.mainBundle()
+                        let path = bundle.pathForResource("photon-tinker", ofType: "bin")
+                        var error:NSError?
+                        if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // TODO: fix depracation
+                        {
+                            let filesDict = ["tinker.bin" : binary!]
+                            self.device!.flashFiles(filesDict, completion: { (error:NSError!) -> Void in
+                                if let e=error
+                                {
+                                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
+                                }
+                                else
+                                {
+                                    TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+                                    self.device!.isFlashing = true
+                                }
+                            })
+                            
+                        }
+                    }
+                }
+
+                
+                
             default:
                 println("default")
             

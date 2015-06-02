@@ -34,6 +34,7 @@
 @property (nonatomic) BOOL editingDeviceName;
 @property (weak, nonatomic) IBOutlet UIButton *editDeviceNameButton;
 @property (nonatomic, strong) PinView *pinViewShowingSlider;
+@property (nonatomic) BOOL chipIsShowing;
 @end
 
 
@@ -41,6 +42,7 @@
 
 - (void)viewDidLoad
 {
+    self.chipIsShowing = NO;
     self.chipView.alpha = 0;
     self.pinViews = [NSMutableDictionary dictionaryWithCapacity:16];
 //    self.pinValueViews = [NSMutableDictionary dictionaryWithCapacity:16];
@@ -146,148 +148,151 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-    NSLog(@"view did appear");
     
-    self.tinkerLogoImageView.hidden = NO;
-    
-    // add chip shadow
-    _chipShadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgDeviceShadow"]];
-    _chipShadowImageView.frame = self.chipView.bounds;
-    _chipShadowImageView.alpha = 0.85;
-    _chipShadowImageView.contentMode = UIViewContentModeScaleToFill;
-    [self.chipView addSubview:_chipShadowImageView];
-    [self.chipView sendSubviewToBack:_chipShadowImageView];
-
-    
-//    CGFloat aspect = [UIScreen mainScreen].bounds.size.width / [UIScreen mainScreen].bounds.size.height; // calculate the screen aspect ratio
-//    CGFloat x_offset = (aspect - (9.0/16.0))*290.0; // this will result in 29 for 3:2 screens and 0 for 16:9 screens (push pins in for old screens) // TODO: calculate for 4:3 (ipads)
-    CGFloat x_offset = 6;
-//    if (IS_IPHONE_4_OR_LESS) x_offset = 29;
-//    if (IS_IPHONE_6) x_offset = 8;
-    
-//    x_offset = MIN(x_offset, 16); //?
-    CGFloat chip_bottom_margin = self.chipView.frame.size.height/14;
-//    if ((IS_IPHONE_6) || (IS_IPHONE_6P))
-//        chip_bottom_margin *= 2;
-    
-//    NSLog(@"aspect ratio: %f",aspect);
-    
-    for (SPKCorePin *pin in self.device.pins) {
-        PinView *v = [[PinView alloc] initWithPin:pin];
-        //CGFloat y_spacing = MAX(v.frame.size.height, ((self.chipShadowImageView.bounds.size.height-40) / (self.device.pins.count/2-1))); // assume even amount of pins per row
-        CGFloat y_spacing = ((self.chipShadowImageView.frame.size.height-chip_bottom_margin) / (self.device.pins.count/2)); // assume even amount of pins per row
-        y_spacing = MAX(y_spacing,v.frame.size.height);
-        CGFloat y_offset = self.chipShadowImageView.frame.origin.y+8;//(chip_bottom_margin/3);
+    if (!self.chipIsShowing)
+    {
         
-//        y_offset = y_offset * (1.0+(((CGFloat)SCREEN_MAX_LENGTH-480.0)/512.0));
-
-        NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
+        self.tinkerLogoImageView.hidden = NO;
         
-        [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
-        v.translatesAutoresizingMaskIntoConstraints = NO;
+        // add chip shadow
+        _chipShadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgDeviceShadow"]];
+        _chipShadowImageView.frame = self.chipView.bounds;
+        _chipShadowImageView.alpha = 0.85;
+        _chipShadowImageView.contentMode = UIViewContentModeScaleToFill;
+        [self.chipView addSubview:_chipShadowImageView];
+        [self.chipView sendSubviewToBack:_chipShadowImageView];
         
-        NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
-        CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -x_offset;
         
-        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                                  attribute:xPosAttribute
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.chipView
-                                                                  attribute:xPosAttribute
-                                                                 multiplier:1.0
-                                                                   constant:xConstant]];
+        //    CGFloat aspect = [UIScreen mainScreen].bounds.size.width / [UIScreen mainScreen].bounds.size.height; // calculate the screen aspect ratio
+        //    CGFloat x_offset = (aspect - (9.0/16.0))*290.0; // this will result in 29 for 3:2 screens and 0 for 16:9 screens (push pins in for old screens) // TODO: calculate for 4:3 (ipads)
+        CGFloat x_offset = 6;
+        //    if (IS_IPHONE_4_OR_LESS) x_offset = 29;
+        //    if (IS_IPHONE_6) x_offset = 8;
         
-        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                                  attribute:NSLayoutAttributeTop
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.chipView
-                                                                  attribute:NSLayoutAttributeTop
-                                                                 multiplier:1.0
-                                                                   constant:pin.row*y_spacing + y_offset]];
+        //    x_offset = MIN(x_offset, 16); //?
+        CGFloat chip_bottom_margin = self.chipView.frame.size.height/14;
+        //    if ((IS_IPHONE_6) || (IS_IPHONE_6P))
+        //        chip_bottom_margin *= 2;
         
-        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                      attribute:NSLayoutAttributeWidth
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:nil
-                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                     multiplier:1.0
-                                                       constant:v.bounds.size.width]]; //50
+        //    NSLog(@"aspect ratio: %f",aspect);
         
-        [v addConstraint:[NSLayoutConstraint constraintWithItem:v
-                                                      attribute:NSLayoutAttributeHeight
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:nil
-                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                     multiplier:1.0
-                                                       constant:v.bounds.size.height]]; //50
+        for (SPKCorePin *pin in self.device.pins) {
+            PinView *v = [[PinView alloc] initWithPin:pin];
+            //CGFloat y_spacing = MAX(v.frame.size.height, ((self.chipShadowImageView.bounds.size.height-40) / (self.device.pins.count/2-1))); // assume even amount of pins per row
+            CGFloat y_spacing = ((self.chipShadowImageView.frame.size.height-chip_bottom_margin) / (self.device.pins.count/2)); // assume even amount of pins per row
+            y_spacing = MAX(y_spacing,v.frame.size.height);
+            CGFloat y_offset = self.chipShadowImageView.frame.origin.y+8;//(chip_bottom_margin/3);
+            
+            //        y_offset = y_offset * (1.0+(((CGFloat)SCREEN_MAX_LENGTH-480.0)/512.0));
+            
+            NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
+            
+            [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
+            v.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
+            CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -x_offset;
+            
+            [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                                      attribute:xPosAttribute
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.chipView
+                                                                      attribute:xPosAttribute
+                                                                     multiplier:1.0
+                                                                       constant:xConstant]];
+            
+            [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                                      attribute:NSLayoutAttributeTop
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.chipView
+                                                                      attribute:NSLayoutAttributeTop
+                                                                     multiplier:1.0
+                                                                       constant:pin.row*y_spacing + y_offset]];
+            
+            [v addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:v.bounds.size.width]]; //50
+            
+            [v addConstraint:[NSLayoutConstraint constraintWithItem:v
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:v.bounds.size.height]]; //50
+            
+            v.delegate = self;
+            self.pinViews[pin.label] = v;
+            
+            // Pin Value View
+            PinValueView *pvv = [[PinValueView alloc] initWithPin:pin];
+            [self.chipView insertSubview:pvv aboveSubview:self.chipShadowImageView];
+            pvv.translatesAutoresizingMaskIntoConstraints = NO;
+            // stick view to right of the pin when positioned in left or exact opposite
+            //        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight; // old
+            NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
+            
+            //        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft; // old
+            NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeTrailing : NSLayoutAttributeLeading;
+            
+            CGFloat pvvXOffset = (pin.side == SPKCorePinSideLeft) ? 4 : -4; // distance between value and pin
+            
+            [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                                      attribute:pvvXPosAttribute
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:v
+                                                                      attribute:inv_pvvXPosAttribute
+                                                                     multiplier:1.0
+                                                                       constant:pvvXOffset]]; //pvvXOffset
+            
+            [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:v
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                     multiplier:1.0
+                                                                       constant:0]]; // Y offset of value-pin
+            
+            [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:nil
+                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                           multiplier:1.0
+                                                             constant:pvv.bounds.size.width]];
+            
+            [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
+                                                            attribute:NSLayoutAttributeHeight
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:nil
+                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                           multiplier:1.0
+                                                             constant:pvv.bounds.size.height]];
+            
+            v.valueView = pvv;
+            //        self.pinValueViews[pin.label] = pvv;
+            
+            
+        }
         
-        v.delegate = self;
-        self.pinViews[pin.label] = v;
-        
-        // Pin Value View
-        PinValueView *pvv = [[PinValueView alloc] initWithPin:pin];
-        [self.chipView insertSubview:pvv aboveSubview:self.chipShadowImageView];
-        pvv.translatesAutoresizingMaskIntoConstraints = NO;
-        // stick view to right of the pin when positioned in left or exact opposite
-//        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight; // old
-        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
-
-//        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft; // old
-        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeTrailing : NSLayoutAttributeLeading;
-
-        CGFloat pvvXOffset = (pin.side == SPKCorePinSideLeft) ? 4 : -4; // distance between value and pin
-        
-        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
-                                                                  attribute:pvvXPosAttribute
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:v
-                                                                  attribute:inv_pvvXPosAttribute
-                                                                 multiplier:1.0
-                                                                   constant:pvvXOffset]]; //pvvXOffset
-        
-        [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
-                                                                  attribute:NSLayoutAttributeCenterY
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:v
-                                                                  attribute:NSLayoutAttributeCenterY
-                                                                 multiplier:1.0
-                                                                   constant:0]]; // Y offset of value-pin
-        
-        [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
-                                                      attribute:NSLayoutAttributeWidth
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:nil
-                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                     multiplier:1.0
-                                                       constant:pvv.bounds.size.width]];
-        
-        [pvv addConstraint:[NSLayoutConstraint constraintWithItem:pvv
-                                                      attribute:NSLayoutAttributeHeight
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:nil
-                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                     multiplier:1.0
-                                                       constant:pvv.bounds.size.height]];
-        
-        v.valueView = pvv;
-//        self.pinValueViews[pin.label] = pvv;
-
-        
+        self.chipView.alpha = 0;
+        [UIView animateWithDuration:0.4
+                              delay:0
+                            options: UIViewAnimationOptionAllowAnimatedContent
+                         animations:^{
+                             self.chipView.alpha=1;
+                             [self.chipView setNeedsLayout];
+                         }
+                         completion:^(BOOL finished){
+                             NSLog(@"Done!");
+                         }];
+        self.chipIsShowing = YES;
     }
     
-    self.chipView.alpha = 0;
-    [UIView animateWithDuration:0.4
-                          delay:0
-                        options: UIViewAnimationOptionAllowAnimatedContent
-                     animations:^{
-                         self.chipView.alpha=1;
-                         [self.chipView setNeedsLayout];
-                     }
-                     completion:^(BOOL finished){
-                         NSLog(@"Done!");
-                     }];
-
 }
 
 
@@ -526,15 +531,30 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
+    
     if ([segue.identifier isEqualToString:@"settings"])
     {
-        SettingsTableViewController *stvc = segue.destinationViewController;
+        UINavigationController *navController = [segue destinationViewController];
+        SettingsTableViewController *stvc = navController.viewControllers[0];
         stvc.device = self.device;
+        stvc.delegate = self;
     }
 }
 
+
 -(void)resetAllPinFunctions
 {
+    for (PinView *pinView in self.pinViews.allValues)
+    {
+        pinView.pin.selectedFunction = SPKCorePinFunctionNone;
+        [pinView.pin resetValue];
+        pinView.active = NO;
+        pinView.valueView.active = NO;
+        
+        [pinView refresh];
+        [pinView.valueView refresh];
+    }
     
 }
 

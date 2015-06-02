@@ -713,7 +713,9 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <state key="normal" image="imgCog"/>
                                 <connections>
                                     <action selector="helpButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="SBe-iQ-7Qe"/>
-                                    <segue destination="1sI-OH-ynO" kind="presentation" identifier="settings" id="HbK-vQ-xcz"/>
+                                    <segue destination="AsJ-rX-MwB" kind="popoverPresentation" identifier="settings" popoverAnchorView="hGx-VV-XEo" id="LFl-jZ-kW5">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                         </subviews>
@@ -773,6 +775,11 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgCopyToClipboard" translatesAutoresizingMaskIntoConstraints="NO" id="LK8-B9-FY2">
                                                     <rect key="frame" x="12" y="12" width="24" height="24"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="image.renderingMode">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copy Device ID to clipboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFr-WW-GyA">
                                                     <rect key="frame" x="44" y="4" width="300" height="21"/>
@@ -919,28 +926,31 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="deviceIDlabel" destination="M8o-ut-Qwd" id="iQm-A5-bKQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cP9-x7-DaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4787" y="611"/>
+            <point key="canvasLocation" x="5285" y="611"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="hxl-oz-TUl">
+        <scene sceneID="BAQ-MQ-Meh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1sI-OH-ynO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AsJ-rX-MwB" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UCJ-X9-t1v">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oPx-v8-snG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="jih-2Y-r3C" kind="relationship" relationship="rootViewController" id="hhd-c4-Avb"/>
+                        <segue destination="jih-2Y-r3C" kind="relationship" relationship="rootViewController" id="hon-aA-SOk"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P1P-Jh-frt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TQY-oo-Zb8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3975" y="611"/>
+            <point key="canvasLocation" x="4473" y="611"/>
         </scene>
     </scenes>
     <resources>
