@@ -2,23 +2,21 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "leftChevron-1-1-1.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "leftChevron-1.png"
+      "filename" : "particle-horizontal-400width.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "leftChevron-1-1.png"
+      "filename" : "particle-horizontal-400width-1.png"
     }
   ],
   "info" : {
     "version" : 1,
-    "author" : "xcode",
-    "template-rendering-intent" : "template"
+    "author" : "xcode"
   }
 }

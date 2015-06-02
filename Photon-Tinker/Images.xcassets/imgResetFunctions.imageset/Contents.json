@@ -2,18 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "leftChevron-1-1-1.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "leftChevron-1.png"
+      "filename" : "noun_101790.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "leftChevron-1-1.png"
+      "filename" : "noun_101790-1.png"
     }
   ],
   "info" : {

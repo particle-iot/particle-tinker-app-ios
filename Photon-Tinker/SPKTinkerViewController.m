@@ -12,10 +12,11 @@
 #import "PinView.h"
 #import "TSMessage.h"
 #import "PinValueView.h"
+#import "Particle-Swift.h" // thats for SettingsTableViewControllerDelegate which is in Swift file
 
 #define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate, PinValueViewDelegate>
+@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate, PinValueViewDelegate, SettingsTableViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -146,6 +147,8 @@
 {
     [super viewDidAppear:animated];
 
+    NSLog(@"view did appear");
+    
     self.tinkerLogoImageView.hidden = NO;
     
     // add chip shadow
@@ -519,6 +522,20 @@
             [pinView refresh];
         });
     }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"settings"])
+    {
+        SettingsTableViewController *stvc = segue.destinationViewController;
+        stvc.device = self.device;
+    }
+}
+
+-(void)resetAllPinFunctions
+{
+    
 }
 
 @end
