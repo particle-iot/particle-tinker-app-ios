@@ -15,7 +15,7 @@
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
 		505C6ECB1AF988F90099FF15 /* device setup video.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 505C6ECA1AF988F90099FF15 /* device setup video.m4v */; };
-		5073D4C91AFB14DE00068C2A /* SPKPinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */; };
+		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
 		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
 		50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B125481AE06CF4003C29DC /* AppDelegate.swift */; };
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
@@ -26,7 +26,7 @@
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
 		50D47F301AFAF56C004AD3AE /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2F1AFAF56C004AD3AE /* PinView.m */; };
 		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
-		50EB76161AE6EF2900C925A9 /* SPKCorePin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76141AE6EF2900C925A9 /* SPKCorePin.m */; };
+		50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76141AE6EF2900C925A9 /* DevicePin.m */; };
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
@@ -42,8 +42,8 @@
 		5048CD221AE09AD00097150A /* SelectPhotonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotonViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		505C6ECA1AF988F90099FF15 /* device setup video.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "device setup video.m4v"; sourceTree = "<group>"; };
-		5073D4C71AFB14DE00068C2A /* SPKPinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKPinFunctionView.h; sourceTree = "<group>"; };
-		5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKPinFunctionView.m; sourceTree = "<group>"; };
+		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
+		5073D4C81AFB14DE00068C2A /* PinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinFunctionView.m; sourceTree = "<group>"; };
 		5073D4CA1AFB2E3000068C2A /* PinValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinValueView.h; sourceTree = "<group>"; };
 		5073D4CB1AFB2E3000068C2A /* PinValueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinValueView.m; sourceTree = "<group>"; };
 		50B125431AE06CF4003C29DC /* Particle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,13 +58,13 @@
 		50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
 		50B6599C1AFD922A00606A39 /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		50B6599D1AFD922A00606A39 /* Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popup.m; sourceTree = "<group>"; };
-		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKTinkerViewController.h; sourceTree = "<group>"; };
-		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKTinkerViewController.m; sourceTree = "<group>"; };
+		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SPKTinkerViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SPKTinkerViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		50D47F2E1AFAF56C004AD3AE /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinView.h; sourceTree = "<group>"; };
 		50D47F2F1AFAF56C004AD3AE /* PinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinView.m; sourceTree = "<group>"; };
 		50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SparkDevice+pins.m"; sourceTree = "<group>"; };
-		50EB76131AE6EF2900C925A9 /* SPKCorePin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPKCorePin.h; sourceTree = "<group>"; };
-		50EB76141AE6EF2900C925A9 /* SPKCorePin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPKCorePin.m; sourceTree = "<group>"; };
+		50EB76131AE6EF2900C925A9 /* DevicePin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicePin.h; sourceTree = "<group>"; };
+		50EB76141AE6EF2900C925A9 /* DevicePin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicePin.m; sourceTree = "<group>"; };
 		50EB76191AE6F03600C925A9 /* SparkDevice+pins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SparkDevice+pins.h"; sourceTree = "<group>"; };
 		50F62D951AE0721200109F33 /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
 		50F62D961AE0721200109F33 /* Gotham-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.otf"; sourceTree = "<group>"; };
@@ -172,8 +172,8 @@
 			children = (
 				50EB76191AE6F03600C925A9 /* SparkDevice+pins.h */,
 				50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */,
-				50EB76131AE6EF2900C925A9 /* SPKCorePin.h */,
-				50EB76141AE6EF2900C925A9 /* SPKCorePin.m */,
+				50EB76131AE6EF2900C925A9 /* DevicePin.h */,
+				50EB76141AE6EF2900C925A9 /* DevicePin.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -185,11 +185,11 @@
 				50D47F2F1AFAF56C004AD3AE /* PinView.m */,
 				5073D4CA1AFB2E3000068C2A /* PinValueView.h */,
 				5073D4CB1AFB2E3000068C2A /* PinValueView.m */,
+				5073D4C71AFB14DE00068C2A /* PinFunctionView.h */,
+				5073D4C81AFB14DE00068C2A /* PinFunctionView.m */,
 				50B659991AFC6A2B00606A39 /* SSPieProgressView.h */,
 				50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
-				5073D4C71AFB14DE00068C2A /* SPKPinFunctionView.h */,
-				5073D4C81AFB14DE00068C2A /* SPKPinFunctionView.m */,
 				50B6599C1AFD922A00606A39 /* Popup.h */,
 				50B6599D1AFD922A00606A39 /* Popup.m */,
 			);
@@ -344,7 +344,7 @@
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
 				502E9BC01B194DF800D2C45B /* SettingsTableViewController.swift in Sources */,
 				5048CD231AE09AD00097150A /* SelectPhotonViewController.swift in Sources */,
-				5073D4C91AFB14DE00068C2A /* SPKPinFunctionView.m in Sources */,
+				5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */,
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,
 				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
@@ -354,7 +354,7 @@
 				50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
-				50EB76161AE6EF2900C925A9 /* SPKCorePin.m in Sources */,
+				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

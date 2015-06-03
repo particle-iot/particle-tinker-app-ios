@@ -1,20 +1,20 @@
 //
-//  SPKCorePin.m
+//  DevicePin.m
 //  Spark IOS
 //
 //  Copyright (c) 2013 Spark Devices. All rights reserved.
 //
 
-#import "SPKCorePin.h"
+#import "DevicePin.h"
 
-@interface SPKCorePin ()
+@interface DevicePin ()
 
 @property (nonatomic, assign) BOOL valueSet;
 @property (nonatomic, assign) NSUInteger value;
 
 @end
 
-@implementation SPKCorePin
+@implementation DevicePin
 
 - (id)initWithLabel:(NSString *)label logicalName:(NSString *)name side:(SPKCorePinSide)side row:(NSUInteger)row availableFunctions:(SPKCorePinFunction)availableFunctions
 {

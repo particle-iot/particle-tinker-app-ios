@@ -25,7 +25,7 @@
     _active = active;
 }
 
--(instancetype)initWithPin:(SPKCorePin *)pin
+-(instancetype)initWithPin:(DevicePin *)pin
 {
     if (self = [super init])
     {

@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SPKCorePin.h"
+#import "DevicePin.h"
 
 #define isiPhone5                   (([[UIScreen mainScreen] bounds].size.height == 568)?TRUE:FALSE)
 
@@ -27,7 +27,7 @@
 
 @interface SPKCorePinView : UIView
 
-@property (nonatomic, strong) SPKCorePin *pin;
+@property (nonatomic, strong) DevicePin *pin;
 @property (nonatomic, readonly) BOOL active;
 @property (nonatomic, readonly) BOOL sliding;
 @property (weak) NSObject<SPKCorePinViewDelegate> *delegate;

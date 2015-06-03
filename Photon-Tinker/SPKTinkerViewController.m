@@ -7,7 +7,7 @@
 
 #import "SPKTinkerViewController.h"
 #import "Spark-SDK.h"
-#import "SPKCorePin.h"
+#import "DevicePin.h"
 #import "SparkDevice+pins.h"
 #import "PinView.h"
 #import "TSMessage.h"
@@ -16,12 +16,12 @@
 
 #define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, SPKPinFunctionDelegate, PinValueViewDelegate, SettingsTableViewControllerDelegate>
+@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SettingsTableViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
 
-@property (nonatomic, weak) IBOutlet SPKPinFunctionView *pinFunctionView;
+@property (nonatomic, weak) IBOutlet PinFunctionView *pinFunctionView;
 @property (nonatomic, weak) IBOutlet UIView *firstTimeView;
 @property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
 @property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
@@ -176,7 +176,7 @@
         
         //    NSLog(@"aspect ratio: %f",aspect);
         
-        for (SPKCorePin *pin in self.device.pins) {
+        for (DevicePin *pin in self.device.pins) {
             PinView *v = [[PinView alloc] initWithPin:pin];
             //CGFloat y_spacing = MAX(v.frame.size.height, ((self.chipShadowImageView.bounds.size.height-40) / (self.device.pins.count/2-1))); // assume even amount of pins per row
             CGFloat y_spacing = ((self.chipShadowImageView.frame.size.height-chip_bottom_margin) / (self.device.pins.count/2)); // assume even amount of pins per row
@@ -307,7 +307,7 @@
 
 - (void)pinFunctionSelected:(SPKCorePinFunction)function
 {
-    SPKCorePin *pin = self.pinFunctionView.pin;
+    DevicePin *pin = self.pinFunctionView.pin;
     PinView *pinView = self.pinViews[pin.label];
 
     if (pin.selectedFunction != function)
@@ -373,7 +373,7 @@
     if (!self.pinFunctionView.hidden)
     {
         self.pinFunctionView.hidden = YES;
-        for (SPKCorePinView *pv in self.pinViews.allValues)
+        for (PinView *pv in self.pinViews.allValues)
         {
             pv.alpha = 1.0;
         }

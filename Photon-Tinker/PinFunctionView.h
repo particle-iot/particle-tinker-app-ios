@@ -1,14 +1,14 @@
 //
-//  SPKPinFunctionView.h
+//  PinFunctionView.h
 //  Spark IOS
 //
 //  Copyright (c) 2013 Spark Devices. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "SPKCorePin.h"
+#import "DevicePin.h"
 
-@protocol SPKPinFunctionDelegate <NSObject>
+@protocol PinFunctionViewDelegate <NSObject>
 
 - (void)pinFunctionSelected:(SPKCorePinFunction)function;
 
@@ -17,7 +17,7 @@
 /*
     A view to select a pins function.
  */
-@interface SPKPinFunctionView : UIView
+@interface PinFunctionView : UIView
 
 @property (weak) IBOutlet UILabel *pinLabel;
 @property (weak) IBOutlet UIImageView *analogReadImageView;
@@ -31,8 +31,8 @@
 @property (weak) IBOutlet UIImageView *digitalWriteImageView;
 @property (weak) IBOutlet UIButton *digitalWriteButton;
 
-@property (nonatomic, strong) SPKCorePin *pin;
-@property (nonatomic, weak) NSObject<SPKPinFunctionDelegate> *delegate;
+@property (nonatomic, strong) DevicePin *pin;
+@property (nonatomic, weak) id<PinFunctionViewDelegate> delegate;
 
 - (IBAction)functionSelected:(id)sender;
 

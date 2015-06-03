@@ -1,5 +1,5 @@
 //
-//  SPKCorePin.h
+//  DevicePin.h
 //  Spark IOS
 //
 //  Copyright (c) 2013 Spark Devices. All rights reserved.
@@ -33,7 +33,7 @@ typedef NS_OPTIONS(uint8_t, SPKCorePinFunction)
 #define SPKCorePinFunctionDigital(pin)      ((pin.selectedFunction == SPKCorePinFunctionDigitalRead) || (pin.selectedFunction == SPKCorePinFunctionDigitalWrite))
 #define SPKCorePinFunctionNothing(pin)      (pin.selectedFunction == SPKCorePinFunctionNone)
 
-@interface SPKCorePin : NSObject
+@interface DevicePin : NSObject
 
 @property (nonatomic, readonly) NSString *label;
 @property (nonatomic, readonly) NSString *logicalName;

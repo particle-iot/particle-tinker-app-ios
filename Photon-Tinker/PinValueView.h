@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "SPKCorePin.h"
+#import "DevicePin.h"
 
 #define PIN_ANALOGREAD_MAX_VALUE     4095.0f
 #define PIN_ANALOGWRITE_MAX_VALUE    255.0f
@@ -14,8 +14,8 @@
 
 @interface PinValueView : UIView
 
--(instancetype)initWithPin:(SPKCorePin *)pin;
-@property (nonatomic, strong) SPKCorePin *pin;
+-(instancetype)initWithPin:(DevicePin *)pin;
+@property (nonatomic, strong) DevicePin *pin;
 @property (nonatomic) BOOL active;
 @property (nonatomic, weak) id <PinValueViewDelegate> delegate;
 @property (nonatomic) BOOL sliderShowing;

@@ -1,18 +1,18 @@
 //
-//  SPKPinFunctionView.m
+//  PinFunctionView.m
 //  Spark IOS
 //
 //  Copyright (c) 2013 Spark Devices. All rights reserved.
 //
 
-#import "SPKPinFunctionView.h"
+#import "PinFunctionView.h"
 
 #define selectedColor       [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]
 #define unselectedColor     [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15]
 
-@implementation SPKPinFunctionView
+@implementation PinFunctionView
 
-- (void)setPin:(SPKCorePin *)pin
+- (void)setPin:(DevicePin *)pin
 {
     _pin = pin;
 

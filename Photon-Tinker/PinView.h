@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "SPKCorePin.h"
+#import "DevicePin.h"
 #import "PinValueView.h"
 
 // TODO: move to utils (in SparkSetup lib?)
@@ -32,8 +32,8 @@
 @property (weak) id<PinViewDelegate> delegate;
 
 
--initWithPin:(SPKCorePin *)pin;
-@property (nonatomic, strong) SPKCorePin *pin;
+-initWithPin:(DevicePin *)pin;
+@property (nonatomic, strong) DevicePin *pin;
 @property (nonatomic) BOOL active;
 @property (nonatomic, strong) PinValueView* valueView;
 

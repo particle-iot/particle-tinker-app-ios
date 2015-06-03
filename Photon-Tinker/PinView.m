@@ -33,7 +33,7 @@
 */
 
 
--(id)initWithPin:(SPKCorePin *)pin
+-(id)initWithPin:(DevicePin *)pin
 {
     if (self = [super init])
     {

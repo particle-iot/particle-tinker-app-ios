@@ -6,8 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SPKCorePinView.h"
-#import "SPKPinFunctionView.h"
+#import "PinView.h"
+#import "PinFunctionView.h"
 #import "SparkDevice+pins.h"
 
 /*

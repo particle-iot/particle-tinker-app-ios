@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Spark-SDK.h>
-#import "SPKCorePin.h"
+#import "DevicePin.h"
 
 @interface SparkDevice(pins)
 
