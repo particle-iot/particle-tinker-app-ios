@@ -63,6 +63,23 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
     }
 
     
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 2 {
+            let infoDictionary = NSBundle.mainBundle().infoDictionary as! [String : AnyObject]
+            let version = infoDictionary["CFBundleShortVersionString"] as! String!
+            let build = infoDictionary["CFBundleVersion"] as! String!
+            let label = UILabel()
+            label.text = NSLocalizedString("Particle Tinker V\(version) (\(build))", comment: "")
+            label.textColor = UIColor.grayColor()
+            label.font = UIFont(name: "Gotham-Book", size: 13)!
+            label.textAlignment = .Center
+            return label
+        } else {
+            return nil
+        }
+    }
+
+    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -129,7 +146,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                 
                 
             default:
-                println("default")
+                println("default0")
             
             }
         case 1: // documenation
@@ -138,13 +155,17 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             {
             case 0:
                 println("documentation: app")
-                url = NSURL(string: "http://docs.particle.io")
+                url = NSURL(string: "http://docs.particle.io/photon/tinker/#tinkering-with-tinker")
             case 1:
-                println("documentation: setup")
+                println("documentation: setup your device")
+                url = NSURL(string: "http://docs.particle.io/photon/connect/#connecting-your-device")
+
             case 2:
-                println("documentation: make ios app ")
+                println("documentation: make ios app")
+                url = NSURL(string: "http://docs.particle.io/photon/ios/#ios-cloud-sdk")
+                
             default:
-                println("default")
+                println("default1")
                 
             }
         
@@ -156,17 +177,27 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             self.presentViewController(webVC, animated: true, completion: nil)
             
         case 2: // Support
+            var url : NSURL?
             switch indexPath.row
             {
                 case 0:
                 println("support: community")
+                url = NSURL(string: "http://community.particle.io/")
+                
                 case 1:
                 println("support: email")
-            default:
-                println("default")
+                url = NSURL(string: "http://support.particle.io/hc/en-us")
                 
-                
+                default:
+                println("default2")
             }
+            
+            var webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
+            webVC.link = url
+            webVC.linkTitle = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text
+
+            self.presentViewController(webVC, animated: true, completion: nil)
+            
         default:
             println("default")
 

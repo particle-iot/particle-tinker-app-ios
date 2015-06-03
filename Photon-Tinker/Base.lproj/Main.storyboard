@@ -797,7 +797,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="01234567890abcdef" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8o-ut-Qwd">
                                                     <rect key="frame" x="44" y="21" width="300" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                     <color key="textColor" red="0.49493634259259256" green="0.49493634259259256" blue="0.49493634259259256" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -888,7 +888,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="SUPPORT" id="NdL-nX-JL4">
+                            <tableViewSection headerTitle="SUPPORT" footerTitle="Particle Tinker vX.Y (zzz)" id="NdL-nX-JL4">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nxB-SX-5oO" style="IBUITableViewCellStyleDefault" id="zAa-gW-tnM">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -979,7 +979,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDc-YW-lrv">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
-                                    <navigationItem id="haW-Fl-TtH">
+                                    <navigationItem title="webView Title" id="haW-Fl-TtH">
                                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="teh-6O-PmY">
                                             <connections>
                                                 <action selector="closeButtonTapped:" destination="Aix-mE-R3J" id="cJT-MX-sBv"/>
@@ -989,7 +989,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hDc-YW-lrv" firstAttribute="trailing" secondItem="bXY-xp-ysD" secondAttribute="trailing" id="1yB-0h-QqM"/>
                             <constraint firstItem="hDc-YW-lrv" firstAttribute="leading" secondItem="bXY-xp-ysD" secondAttribute="leading" id="4Cj-sM-EUd"/>
@@ -1034,9 +1034,6 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <exclude reference="bXY-xp-ysD"/>
-                            </mask>
                             <mask key="constraints">
                                 <include reference="fIh-3y-yB0"/>
                                 <include reference="h2n-8C-M5R"/>

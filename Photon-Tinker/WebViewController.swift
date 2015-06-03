@@ -17,8 +17,9 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!]//,  NSForegroundColorAttributeName: UIColor.blackColor()]
 
         
-        self.webView.loadRequest(NSURLRequest(URL: self.link!))
-        
+        let request = NSURLRequest(URL: self.link!, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 15.0)
+        self.webView.loadRequest(request)
+
         self.webView.scalesPageToFit = true
         self.webView.delegate = self;
 
@@ -51,13 +52,16 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     func startSpinner()
     {
+        return
+        
         var hud : MBProgressHUD
         
         hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.mode = .CustomView//.Indeterminate
         hud.animationType = .ZoomIn
         hud.labelText = "Loading"
-        hud.minShowTime = 0.4
+        hud.minShowTime = 0.3
+        hud.dimBackground = true
         
         // prepare spinner view for first time populating of devices into table
         var spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
