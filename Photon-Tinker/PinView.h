@@ -39,4 +39,8 @@
 
 - (void)refresh;
 
+-(void)beginUpdating;
+-(void)endUpdating;
+
+
 @end

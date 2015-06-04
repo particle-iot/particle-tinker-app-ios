@@ -206,4 +206,22 @@
     self.valueView.userInteractionEnabled = userInteractionEnabled;
 }
 
+-(void)beginUpdating
+{
+    self.alpha = 0.35;
+    self.valueView.alpha = 0.35;
+    self.userInteractionEnabled = NO;
+    self.valueView.userInteractionEnabled = NO;
+    
+}
+
+-(void)endUpdating
+{
+    self.alpha = 1;
+    self.valueView.alpha = 1;
+    self.userInteractionEnabled = YES;
+    self.valueView.userInteractionEnabled = YES;
+}
+
+
 @end

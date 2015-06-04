@@ -490,14 +490,12 @@
 
 - (void)pinCallHome:(PinView *)pinView
 {
-    pinView.userInteractionEnabled = NO;
-    pinView.alpha = 0.35;
+    [pinView beginUpdating];
     
     [self.device updatePin:pinView.pin.logicalName function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger result) {
         ///
         dispatch_async(dispatch_get_main_queue(), ^{
-            pinView.alpha = 1;
-            pinView.userInteractionEnabled = YES;
+            [pinView endUpdating];
 
             self.tinkerLogoImageView.hidden = NO;
             if (pinView.pin.selectedFunction == DevicePinFunctionDigitalWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWriteDAC) {
@@ -517,8 +515,7 @@
         });
     } failure:^(NSString *errorMessage) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            pinView.alpha = 1;
-            pinView.userInteractionEnabled = YES;
+            [pinView endUpdating];
             
             NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device - %@",errorMessage];
             [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
@@ -532,9 +529,6 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
- 
-     
     if ([segue.identifier isEqualToString:@"settings"])
     {
         UINavigationController *navController = [segue destinationViewController];
