@@ -27,7 +27,8 @@
     self.digitalWriteImageView.hidden = NO;
     self.digitalWriteButton.backgroundColor = unselectedColor;
 
-    if ((pin.availableFunctions & SPKCorePinFunctionAnalogRead) == SPKCorePinFunctionAnalogRead) {
+    if (pin.availableFunctions & DevicePinFunctionAnalogRead)
+    {
         self.analogReadButton.hidden = NO;
         self.analogReadImageView.hidden = NO;
 
@@ -37,7 +38,8 @@
 
     }
 
-    if ((pin.availableFunctions & SPKCorePinFunctionAnalogWrite) == SPKCorePinFunctionAnalogWrite) {
+    if ((pin.availableFunctions & DevicePinFunctionAnalogWrite) || (pin.availableFunctions & DevicePinFunctionAnalogWriteDAC))
+    {
         self.analogWriteButton.hidden = NO;
         self.analogWriteImageView.hidden = NO;
 
@@ -48,22 +50,23 @@
     }
 
     switch (_pin.selectedFunction) {
-        case SPKCorePinFunctionAnalogRead:
+        case DevicePinFunctionAnalogRead:
             self.analogReadButton.backgroundColor = selectedColor;
             self.analogReadImageView.hidden = NO;
             break;
 
-        case SPKCorePinFunctionAnalogWrite:
+        case DevicePinFunctionAnalogWriteDAC:
+        case DevicePinFunctionAnalogWrite:
             self.analogWriteButton.backgroundColor = selectedColor;
             self.analogWriteImageView.hidden = NO;
             break;
 
-        case SPKCorePinFunctionDigitalRead:
+        case DevicePinFunctionDigitalRead:
             self.digitalReadButton.backgroundColor = selectedColor;
             self.digitalReadImageView.hidden = NO;
             break;
 
-        case SPKCorePinFunctionDigitalWrite:
+        case DevicePinFunctionDigitalWrite:
             self.digitalWriteButton.backgroundColor = selectedColor;
             self.digitalWriteImageView.hidden = NO;
             break;
@@ -78,16 +81,21 @@
 
 - (IBAction)functionSelected:(id)sender
 {
-    SPKCorePinFunction function = SPKCorePinFunctionNone;
+    DevicePinFunction function = DevicePinFunctionNone;
 
     if (sender == self.analogReadButton) {
-        function = SPKCorePinFunctionAnalogRead;
-    } else if (sender == self.analogWriteButton) {
-        function = SPKCorePinFunctionAnalogWrite;
+        function = DevicePinFunctionAnalogRead;
+    } else if (sender == self.analogWriteButton)
+    {
+        if (self.pin.availableFunctions & DevicePinFunctionAnalogWriteDAC)
+            function = DevicePinFunctionAnalogWriteDAC;
+        else
+            function = DevicePinFunctionAnalogWrite;
+
     } else if (sender == self.digitalReadButton) {
-        function = SPKCorePinFunctionDigitalRead;
+        function = DevicePinFunctionDigitalRead;
     } else if (sender == self.digitalWriteButton) {
-        function = SPKCorePinFunctionDigitalWrite;
+         function = DevicePinFunctionDigitalWrite;
     }
 
     [self.delegate pinFunctionSelected:function];

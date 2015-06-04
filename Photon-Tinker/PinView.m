@@ -147,16 +147,20 @@
         self.label.textColor = [UIColor whiteColor];
 
         switch (self.pin.selectedFunction) {
-            case SPKCorePinFunctionAnalogRead:
+            case DevicePinFunctionAnalogRead:
                 self.outerPieValueView.progress = self.pin.value/PIN_ANALOGREAD_MAX_VALUE;
                 break;
                 
-            case SPKCorePinFunctionAnalogWrite:
+            case DevicePinFunctionAnalogWrite:
                 self.outerPieValueView.progress = self.pin.value/PIN_ANALOGWRITE_MAX_VALUE;
                 break;
+
+            case DevicePinFunctionAnalogWriteDAC:
+                self.outerPieValueView.progress = self.pin.value/PIN_ANALOGWRITE_DAC_MAX_VALUE;
+                break;
                 
-            case SPKCorePinFunctionDigitalRead:
-            case SPKCorePinFunctionDigitalWrite:
+            case DevicePinFunctionDigitalRead:
+            case DevicePinFunctionDigitalWrite:
                 self.outerPieValueView.progress = 1.0f;
 
                 if (self.pin.value)

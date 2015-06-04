@@ -190,8 +190,8 @@
             [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
             v.translatesAutoresizingMaskIntoConstraints = NO;
             
-            NSLayoutAttribute xPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
-            CGFloat xConstant = (pin.side == SPKCorePinSideLeft) ? x_offset : -x_offset;
+            NSLayoutAttribute xPosAttribute = (pin.side == DevicePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
+            CGFloat xConstant = (pin.side == DevicePinSideLeft) ? x_offset : -x_offset;
             
             [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:v
                                                                       attribute:xPosAttribute
@@ -233,13 +233,13 @@
             [self.chipView insertSubview:pvv aboveSubview:self.chipShadowImageView];
             pvv.translatesAutoresizingMaskIntoConstraints = NO;
             // stick view to right of the pin when positioned in left or exact opposite
-            //        NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight; // old
-            NSLayoutAttribute pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
+            //        NSLayoutAttribute pvvXPosAttribute = (pin.side == DevicePinSideLeft) ? NSLayoutAttributeLeft : NSLayoutAttributeRight; // old
+            NSLayoutAttribute pvvXPosAttribute = (pin.side == DevicePinSideLeft) ? NSLayoutAttributeLeading : NSLayoutAttributeTrailing;
             
-            //        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft; // old
-            NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == SPKCorePinSideLeft) ? NSLayoutAttributeTrailing : NSLayoutAttributeLeading;
+            //        NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == DevicePinSideLeft) ? NSLayoutAttributeRight : NSLayoutAttributeLeft; // old
+            NSLayoutAttribute inv_pvvXPosAttribute = (pin.side == DevicePinSideLeft) ? NSLayoutAttributeTrailing : NSLayoutAttributeLeading;
             
-            CGFloat pvvXOffset = (pin.side == SPKCorePinSideLeft) ? 4 : -4; // distance between value and pin
+            CGFloat pvvXOffset = (pin.side == DevicePinSideLeft) ? 4 : -4; // distance between value and pin
             
             [self.chipView addConstraint:[NSLayoutConstraint constraintWithItem:pvv
                                                                       attribute:pvvXPosAttribute
@@ -305,7 +305,7 @@
 
 #pragma mark - Pin Function Delegate
 
-- (void)pinFunctionSelected:(SPKCorePinFunction)function
+- (void)pinFunctionSelected:(DevicePinFunction)function
 {
     DevicePin *pin = self.pinFunctionView.pin;
     PinView *pinView = self.pinViews[pin.label];
@@ -316,7 +316,7 @@
     }
 
     pinView.pin.selectedFunction = function;
-    if (function == SPKCorePinFunctionNone)
+    if (function == DevicePinFunctionNone)
     {
         pinView.active = NO;
     }
@@ -324,7 +324,8 @@
     {
         pinView.active = YES;
         switch (function) {
-            case SPKCorePinFunctionAnalogWrite:
+            case DevicePinFunctionAnalogWriteDAC:
+            case DevicePinFunctionAnalogWrite:
                 self.pinViewShowingSlider = pinView;
                 pinView.valueView.delegate = self;
                 [pinView.valueView showSlider];
@@ -332,10 +333,10 @@
 
                 break;
 
-            case SPKCorePinFunctionDigitalWrite:
+            case DevicePinFunctionDigitalWrite:
                 [pin adjustValue:0];
-            case SPKCorePinFunctionDigitalRead:
-            case SPKCorePinFunctionAnalogRead:
+            case DevicePinFunctionDigitalRead:
+            case DevicePinFunctionAnalogRead:
                 [self pinCallHome:pinView];
                 
             default:
@@ -353,7 +354,7 @@
     if (pinView.valueView.sliderShowing)
         self.pinViewShowingSlider = nil;
     [pinView.valueView hideSlider];
-    pinView.pin.selectedFunction = SPKCorePinFunctionNone;
+    pinView.pin.selectedFunction = DevicePinFunctionNone;
     pinView.active = NO;
 }
 
@@ -389,15 +390,15 @@
         else // or else just tinker the pin as 
         {
             switch (pinView.pin.selectedFunction) {
-                case SPKCorePinFunctionDigitalRead:
-                case SPKCorePinFunctionAnalogRead:
+                case DevicePinFunctionDigitalRead:
+                case DevicePinFunctionAnalogRead:
                 {
                     [self pinCallHome:pinView];
                     
                     break;
                 }
 
-                case SPKCorePinFunctionDigitalWrite:
+                case DevicePinFunctionDigitalWrite:
                 {
                     if (pinView.pin.value)
                         [pinView.pin adjustValue:0];
@@ -410,7 +411,7 @@
                 }
 
 
-                case SPKCorePinFunctionAnalogWrite:
+                case DevicePinFunctionAnalogWrite:
                 {
                     [pinView.valueView showSlider];
                     [self.chipView bringSubviewToFront:pinView.valueView];
@@ -433,7 +434,7 @@
 -(void)pinValueView:(PinValueView *)sender sliderMoved:(float)newValue touchUp:(BOOL)touchUp
 {
     NSLog(@"sliderMoved delegate");
-    [sender.pin adjustValue:newValue];
+    [sender.pin adjustValue:(NSUInteger)newValue];
     PinView *pv = self.pinViews[sender.pin.label];
     [pv refresh];
     if (touchUp)
@@ -499,7 +500,7 @@
             pinView.userInteractionEnabled = YES;
 
             self.tinkerLogoImageView.hidden = NO;
-            if (pinView.pin.selectedFunction == SPKCorePinFunctionDigitalWrite || pinView.pin.selectedFunction == SPKCorePinFunctionAnalogWrite) {
+            if (pinView.pin.selectedFunction == DevicePinFunctionDigitalWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWriteDAC) {
                 if (result == -1) {
 
                     [TSMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:TSMessageNotificationTypeError];
@@ -548,7 +549,7 @@
 {
     for (PinView *pinView in self.pinViews.allValues)
     {
-        pinView.pin.selectedFunction = SPKCorePinFunctionNone;
+        pinView.pin.selectedFunction = DevicePinFunctionNone;
         [pinView.pin resetValue];
         pinView.active = NO;
         pinView.valueView.active = NO;

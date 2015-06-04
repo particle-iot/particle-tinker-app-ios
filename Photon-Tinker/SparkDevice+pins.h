@@ -12,11 +12,10 @@
 @interface SparkDevice(pins)
 
 @property (nonatomic, strong) NSArray *pins;
-@property (nonatomic, strong) NSNumber *flashingTimeLeft;
 
 - (void)resetPins;
 - (void)configurePins:(SparkDeviceType)deviceType;
-- (void)updatePin:(NSString *)pin function:(SPKCorePinFunction)function value:(NSUInteger)value success:(void (^)(NSUInteger value))success failure:(void (^)(NSString *error))failure;
+- (void)updatePin:(NSString *)pin function:(DevicePinFunction)function value:(NSUInteger)value success:(void (^)(NSUInteger value))success failure:(void (^)(NSString *error))failure;
 -(BOOL)isRunningTinker;
 
 

@@ -10,7 +10,7 @@
 
 @protocol PinFunctionViewDelegate <NSObject>
 
-- (void)pinFunctionSelected:(SPKCorePinFunction)function;
+- (void)pinFunctionSelected:(DevicePinFunction)function;
 
 @end
 

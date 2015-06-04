@@ -16,7 +16,7 @@
 
 @implementation DevicePin
 
-- (id)initWithLabel:(NSString *)label logicalName:(NSString *)name side:(SPKCorePinSide)side row:(NSUInteger)row availableFunctions:(SPKCorePinFunction)availableFunctions
+- (id)initWithLabel:(NSString *)label logicalName:(NSString *)name side:(DevicePinSide)side row:(NSUInteger)row availableFunctions:(DevicePinFunction)availableFunctions
 {
     if (self = [super init]) {
         _label = label;
@@ -24,7 +24,7 @@
         _row = row;
         _logicalName = name;
         _availableFunctions = availableFunctions;
-        _selectedFunction = SPKCorePinFunctionNone;
+        _selectedFunction = DevicePinFunctionNone;
     }
 
     return self;
@@ -45,16 +45,19 @@
 - (UIColor *)selectedFunctionColor
 {
     switch (self.selectedFunction) {
-        case SPKCorePinFunctionDigitalRead:
-            return SPKCorePinFunctionDigitalReadColor;
-        case SPKCorePinFunctionDigitalWrite:
-            return SPKCorePinFunctionDigitalWriteColor;
-        case SPKCorePinFunctionAnalogRead:
-            return SPKCorePinFunctionAnalogReadColor;
-        case SPKCorePinFunctionAnalogWrite:
-            return SPKCorePinFunctionAnalogWriteColor;
+
+        case DevicePinFunctionDigitalRead:
+            return DevicePinFunctionDigitalReadColor;
+        case DevicePinFunctionDigitalWrite:
+            return DevicePinFunctionDigitalWriteColor;
+        case DevicePinFunctionAnalogRead:
+            return DevicePinFunctionAnalogReadColor;
+        case DevicePinFunctionAnalogWrite:
+            return DevicePinFunctionAnalogWriteColor;
+        case DevicePinFunctionAnalogWriteDAC:
+            return DevicePinFunctionAnalogWriteDACColor;
         default:
-            return SPKCorePinFunctionNoneColor;
+            return DevicePinFunctionNoneColor;
     }
 }
 

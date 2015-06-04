@@ -1,5 +1,5 @@
 //
-//  SPKCore.m
+//  Device.m
 //  Spark IOS
 //
 //  Copyright (c) 2013 Spark Devices. All rights reserved.
@@ -13,7 +13,7 @@ static const char * const CORE_NAMES[] = { "aardvark", "bacon", "badger", "banjo
 
 static NSUInteger CORE_NAMES_COUNT = 55;
 
-#define ALL_FUNCTIONS (SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead|SPKCorePinFunctionAnalogWrite)
+#define ALL_FUNCTIONS (DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead|DevicePinFunctionAnalogWrite)
 
 
 @implementation SparkDevice(pins)
@@ -22,7 +22,7 @@ static NSUInteger CORE_NAMES_COUNT = 55;
 - (void)resetPins
 {
     for (DevicePin *pin in self.pins) {
-        pin.selectedFunction = SPKCorePinFunctionNone;
+        pin.selectedFunction = DevicePinFunctionNone;
         [pin resetValue];
     }
 }
@@ -48,44 +48,44 @@ static NSUInteger CORE_NAMES_COUNT = 55;
     
     switch (deviceType) {
         case SparkDeviceTypeCore:
-            a0 = [[DevicePin alloc] initWithLabel:@"A0" logicalName:@"A0" side:SPKCorePinSideLeft row:7 availableFunctions:ALL_FUNCTIONS];
-            a1 = [[DevicePin alloc] initWithLabel:@"A1" logicalName:@"A1" side:SPKCorePinSideLeft row:6 availableFunctions:ALL_FUNCTIONS];
-            a2 = [[DevicePin alloc] initWithLabel:@"A2" logicalName:@"A2" side:SPKCorePinSideLeft row:5 availableFunctions:ALL_FUNCTIONS];
-            a3 = [[DevicePin alloc] initWithLabel:@"A3" logicalName:@"A3" side:SPKCorePinSideLeft row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a4 = [[DevicePin alloc] initWithLabel:@"A4" logicalName:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a5 = [[DevicePin alloc] initWithLabel:@"A5" logicalName:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS];
-            a6 = [[DevicePin alloc] initWithLabel:@"A6" logicalName:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
-            a7 = [[DevicePin alloc] initWithLabel:@"A7" logicalName:@"A7" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
+            a0 = [[DevicePin alloc] initWithLabel:@"A0" logicalName:@"A0" side:DevicePinSideLeft row:7 availableFunctions:ALL_FUNCTIONS];
+            a1 = [[DevicePin alloc] initWithLabel:@"A1" logicalName:@"A1" side:DevicePinSideLeft row:6 availableFunctions:ALL_FUNCTIONS];
+            a2 = [[DevicePin alloc] initWithLabel:@"A2" logicalName:@"A2" side:DevicePinSideLeft row:5 availableFunctions:ALL_FUNCTIONS];
+            a3 = [[DevicePin alloc] initWithLabel:@"A3" logicalName:@"A3" side:DevicePinSideLeft row:4 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead];
+            a4 = [[DevicePin alloc] initWithLabel:@"A4" logicalName:@"A4" side:DevicePinSideLeft row:3 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead];
+            a5 = [[DevicePin alloc] initWithLabel:@"A5" logicalName:@"A5" side:DevicePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS];
+            a6 = [[DevicePin alloc] initWithLabel:@"A6" logicalName:@"A6" side:DevicePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];
+            a7 = [[DevicePin alloc] initWithLabel:@"A7" logicalName:@"A7" side:DevicePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
             
-            d0 = [[DevicePin alloc] initWithLabel:@"D0" logicalName:@"D0" side:SPKCorePinSideRight row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            d1 = [[DevicePin alloc] initWithLabel:@"D1" logicalName:@"D1" side:SPKCorePinSideRight row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            d2 = [[DevicePin alloc] initWithLabel:@"D2" logicalName:@"D2" side:SPKCorePinSideRight row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-            d3 = [[DevicePin alloc] initWithLabel:@"D3" logicalName:@"D3" side:SPKCorePinSideRight row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-            d4 = [[DevicePin alloc] initWithLabel:@"D4" logicalName:@"D4" side:SPKCorePinSideRight row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-            d5 = [[DevicePin alloc] initWithLabel:@"D5" logicalName:@"D5" side:SPKCorePinSideRight row:2 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-            d6 = [[DevicePin alloc] initWithLabel:@"D6" logicalName:@"D6" side:SPKCorePinSideRight row:1 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-            d7 = [[DevicePin alloc] initWithLabel:@"D7" logicalName:@"D7" side:SPKCorePinSideRight row:0 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d0 = [[DevicePin alloc] initWithLabel:@"D0" logicalName:@"D0" side:DevicePinSideRight row:7 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogWrite];
+            d1 = [[DevicePin alloc] initWithLabel:@"D1" logicalName:@"D1" side:DevicePinSideRight row:6 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogWrite];
+            d2 = [[DevicePin alloc] initWithLabel:@"D2" logicalName:@"D2" side:DevicePinSideRight row:5 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
+            d3 = [[DevicePin alloc] initWithLabel:@"D3" logicalName:@"D3" side:DevicePinSideRight row:4 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
+            d4 = [[DevicePin alloc] initWithLabel:@"D4" logicalName:@"D4" side:DevicePinSideRight row:3 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
+            d5 = [[DevicePin alloc] initWithLabel:@"D5" logicalName:@"D5" side:DevicePinSideRight row:2 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
+            d6 = [[DevicePin alloc] initWithLabel:@"D6" logicalName:@"D6" side:DevicePinSideRight row:1 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
+            d7 = [[DevicePin alloc] initWithLabel:@"D7" logicalName:@"D7" side:DevicePinSideRight row:0 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
 
             break;
             
         default: // Photon
-            a0 = [[DevicePin alloc] initWithLabel:@"A0" logicalName:@"A0" side:SPKCorePinSideLeft row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a1 = [[DevicePin alloc] initWithLabel:@"A1" logicalName:@"A1" side:SPKCorePinSideLeft row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a2 = [[DevicePin alloc] initWithLabel:@"A2" logicalName:@"A2" side:SPKCorePinSideLeft row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a3 = [[DevicePin alloc] initWithLabel:@"A3" logicalName:@"A3" side:SPKCorePinSideLeft row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogRead];
-            a4 = [[DevicePin alloc] initWithLabel:@"A4" logicalName:@"A4" side:SPKCorePinSideLeft row:3 availableFunctions:ALL_FUNCTIONS]; // (II) Analog write duplicated to value in D3 (mention in UI)
-            a5 = [[DevicePin alloc] initWithLabel:@"A5" logicalName:@"A5" side:SPKCorePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS]; // (I) Analog write duplicated to value in D2 (mention in UI)
-            a6 = [[DevicePin alloc] initWithLabel:@"DAC" logicalName:@"A6" side:SPKCorePinSideLeft row:1 availableFunctions:ALL_FUNCTIONS];//SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            a7 = [[DevicePin alloc] initWithLabel:@"WKP" logicalName:@"A7" side:SPKCorePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
+            a0 = [[DevicePin alloc] initWithLabel:@"A0" logicalName:@"A0" side:DevicePinSideLeft row:7 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead];
+            a1 = [[DevicePin alloc] initWithLabel:@"A1" logicalName:@"A1" side:DevicePinSideLeft row:6 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead];
+            a2 = [[DevicePin alloc] initWithLabel:@"A2" logicalName:@"A2" side:DevicePinSideLeft row:5 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead];
+            a3 = [[DevicePin alloc] initWithLabel:@"A3" logicalName:@"A3" side:DevicePinSideLeft row:4 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead|DevicePinFunctionAnalogWriteDAC];
+            a4 = [[DevicePin alloc] initWithLabel:@"A4" logicalName:@"A4" side:DevicePinSideLeft row:3 availableFunctions:ALL_FUNCTIONS]; // (II) Analog write duplicated to value in D3 (mention in UI)
+            a5 = [[DevicePin alloc] initWithLabel:@"A5" logicalName:@"A5" side:DevicePinSideLeft row:2 availableFunctions:ALL_FUNCTIONS]; // (I) Analog write duplicated to value in D2 (mention in UI)
+            a6 = [[DevicePin alloc] initWithLabel:@"DAC" logicalName:@"A6" side:DevicePinSideLeft row:1 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead|DevicePinFunctionAnalogWriteDAC];
+            a7 = [[DevicePin alloc] initWithLabel:@"WKP" logicalName:@"A7" side:DevicePinSideLeft row:0 availableFunctions:ALL_FUNCTIONS];
             
-            d0 = [[DevicePin alloc] initWithLabel:@"D0" logicalName:@"D0" side:SPKCorePinSideRight row:7 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            d1 = [[DevicePin alloc] initWithLabel:@"D1" logicalName:@"D1" side:SPKCorePinSideRight row:6 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            d2 = [[DevicePin alloc] initWithLabel:@"D2" logicalName:@"D2" side:SPKCorePinSideRight row:5 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite];
-            d3 = [[DevicePin alloc] initWithLabel:@"D3" logicalName:@"D3" side:SPKCorePinSideRight row:4 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite|SPKCorePinFunctionAnalogWrite]; // (II) Analog write duplicated to value in A3 (mention in UI)
-            d4 = [[DevicePin alloc] initWithLabel:@"D4" logicalName:@"D4" side:SPKCorePinSideRight row:3 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite]; // (II) Analog write duplicated to value in A4 (mention in UI)
-            d5 = [[DevicePin alloc] initWithLabel:@"D5" logicalName:@"D5" side:SPKCorePinSideRight row:2 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-            d6 = [[DevicePin alloc] initWithLabel:@"D6" logicalName:@"D6" side:SPKCorePinSideRight row:1 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
-            d7 = [[DevicePin alloc] initWithLabel:@"D7" logicalName:@"D7" side:SPKCorePinSideRight row:0 availableFunctions:SPKCorePinFunctionDigitalRead|SPKCorePinFunctionDigitalWrite];
+            d0 = [[DevicePin alloc] initWithLabel:@"D0" logicalName:@"D0" side:DevicePinSideRight row:7 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogWrite];
+            d1 = [[DevicePin alloc] initWithLabel:@"D1" logicalName:@"D1" side:DevicePinSideRight row:6 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogWrite];
+            d2 = [[DevicePin alloc] initWithLabel:@"D2" logicalName:@"D2" side:DevicePinSideRight row:5 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogWrite];
+            d3 = [[DevicePin alloc] initWithLabel:@"D3" logicalName:@"D3" side:DevicePinSideRight row:4 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogWrite]; // (II) Analog write duplicated to value in A3 (mention in UI)
+            d4 = [[DevicePin alloc] initWithLabel:@"D4" logicalName:@"D4" side:DevicePinSideRight row:3 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite]; // (II) Analog write duplicated to value in A4 (mention in UI)
+            d5 = [[DevicePin alloc] initWithLabel:@"D5" logicalName:@"D5" side:DevicePinSideRight row:2 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
+            d6 = [[DevicePin alloc] initWithLabel:@"D6" logicalName:@"D6" side:DevicePinSideRight row:1 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
+            d7 = [[DevicePin alloc] initWithLabel:@"D7" logicalName:@"D7" side:DevicePinSideRight row:0 availableFunctions:DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite];
 
             break;
     }
@@ -105,7 +105,7 @@ static NSUInteger CORE_NAMES_COUNT = 55;
 
 
 
-- (void)updatePin:(NSString *)pin function:(SPKCorePinFunction)function value:(NSUInteger)value success:(void (^)(NSUInteger value))success failure:(void (^)(NSString *error))failure
+- (void)updatePin:(NSString *)pin function:(DevicePinFunction)function value:(NSUInteger)value success:(void (^)(NSUInteger value))success failure:(void (^)(NSString *error))failure
 {
 //    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{ @"access_token": self.user.token }];
 //    NSMutableString *path = [NSMutableString stringWithFormat:@"v1/devices/%@/", [coreId hexString]];
@@ -114,20 +114,21 @@ static NSUInteger CORE_NAMES_COUNT = 55;
     NSMutableArray *args = [NSMutableArray new];
     
     switch (function) {
-        case SPKCorePinFunctionAnalogRead:
+        case DevicePinFunctionAnalogRead:
             functionName = @"analogread";
             [args addObject:pin];
             break;
-        case SPKCorePinFunctionAnalogWrite:
+        case DevicePinFunctionAnalogWriteDAC:
+        case DevicePinFunctionAnalogWrite:
             functionName = @"analogwrite";
             [args addObject:pin];
             [args addObject:@(value)];
             break;
-        case SPKCorePinFunctionDigitalRead:
+        case DevicePinFunctionDigitalRead:
             functionName = @"digitalread";
             [args addObject:pin];
             break;
-        case SPKCorePinFunctionDigitalWrite:
+        case DevicePinFunctionDigitalWrite:
             functionName = @"digitalwrite";
             [args addObject:pin];
             [args addObject:(value ? @"HIGH" : @"LOW")];

@@ -56,7 +56,7 @@
         
         self.valueLabel = [[UILabel alloc] initWithFrame:self.frame];
 
-        if (pin.side == SPKCorePinSideLeft)
+        if (pin.side == DevicePinSideLeft)
         {
             self.valueLabel.textAlignment = NSTextAlignmentLeft;
         }
@@ -84,13 +84,13 @@
 -(void)refresh
 {
     switch (self.pin.selectedFunction) {
-        case SPKCorePinFunctionDigitalRead:
-        case SPKCorePinFunctionDigitalWrite:
+        case DevicePinFunctionDigitalRead:
+        case DevicePinFunctionDigitalWrite:
             self.valueLabel.text = self.pin.value ? @"HIGH" : @"LOW";
             break;
             
-        case SPKCorePinFunctionAnalogRead:
-        case SPKCorePinFunctionAnalogWrite:
+        case DevicePinFunctionAnalogRead:
+        case DevicePinFunctionAnalogWrite:
             self.valueLabel.text = [NSString stringWithFormat:@"%ld",self.pin.value];
             break;
             
@@ -141,7 +141,15 @@
         
         [_slider setBackgroundColor:[UIColor clearColor]];
         _slider.minimumValue = 0.0;
-        _slider.maximumValue = PIN_ANALOGWRITE_MAX_VALUE;
+        switch (self.pin.selectedFunction) {
+            case DevicePinFunctionAnalogWriteDAC:
+                _slider.maximumValue = PIN_ANALOGWRITE_DAC_MAX_VALUE;
+                break;
+                
+            default:
+                _slider.maximumValue = PIN_ANALOGWRITE_MAX_VALUE;
+                break;
+        }
         _slider.continuous = YES;
         _slider.value = self.pin.value;
         _slider.hidden = NO;
