@@ -522,14 +522,14 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-AA-GQf">
                                         <rect key="frame" x="4" y="4" width="560" height="476"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <string key="text">Welcome To Tinker!
+                                        <mutableString key="text">Welcome To Tinker!
 
 Tinker is the fastest and easiest way to prototype and play with your Photon.
 
 You can access the basic input/output functions of the Photon without writing a line of code.
 
 Tap any pin to get started, select a pin function and tinker with the value. Hold a pin to reset its function. Start with pin D7 - select digitalWrite - blink the attached LED.  For more information visit:  docs.particle.io/photon/tinker/
- Enjoy!</string>
+ Enjoy!</mutableString>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

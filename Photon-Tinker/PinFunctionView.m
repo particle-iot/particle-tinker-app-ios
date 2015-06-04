@@ -42,6 +42,15 @@
     {
         self.analogWriteButton.hidden = NO;
         self.analogWriteImageView.hidden = NO;
+        if (pin.availableFunctions & DevicePinFunctionAnalogWriteDAC)
+        {
+            self.analogWriteImageView.image = [self.analogWriteImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.analogWriteImageView.tintColor = DevicePinFunctionAnalogWriteDACColor;
+        }
+        else
+        {
+            self.analogWriteImageView.image = [self.analogWriteImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        }
 
     } else {
         self.analogWriteButton.hidden = YES;

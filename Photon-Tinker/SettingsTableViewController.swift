@@ -25,6 +25,10 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
         })
     }
     
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .Default
+    }
     
     @IBOutlet weak var deviceIDlabel: UILabel!
 

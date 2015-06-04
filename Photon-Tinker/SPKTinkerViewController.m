@@ -410,7 +410,7 @@
                     break;
                 }
 
-
+                case DevicePinFunctionAnalogWriteDAC:
                 case DevicePinFunctionAnalogWrite:
                 {
                     [pinView.valueView showSlider];

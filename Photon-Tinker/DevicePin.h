@@ -29,7 +29,7 @@ typedef NS_OPTIONS(uint8_t, DevicePinFunction)
 #define DevicePinFunctionDigitalWriteColor     [UIColor colorWithRed:0.91 green:0.30 blue:0.24 alpha:1.0]
 #define DevicePinFunctionAnalogReadColor       [UIColor colorWithRed:0.18 green:0.8 blue:0.44 alpha:1.0]
 #define DevicePinFunctionAnalogWriteColor      [UIColor colorWithRed:0.95 green:0.77 blue:0.06 alpha:1.0]
-#define DevicePinFunctionAnalogWriteDACColor   [UIColor colorWithRed:0.95 green:0.55 blue:0.06 alpha:1.0]
+#define DevicePinFunctionAnalogWriteDACColor   [UIColor colorWithRed:0.95 green:0.6 blue:0.06 alpha:1.0]
 
 
 #define DevicePinFunctionAnalog(pin)       ((pin.selectedFunction == DevicePinFunctionAnalogRead) || (pin.selectedFunction == DevicePinFunctionAnalogWrite) || || (pin.selectedFunction == DevicePinFunctionAnalogWriteDAC)))
