@@ -25,6 +25,24 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
         })
     }
     
+    /*
+    func selectRowsToEnableImageTinting()
+    {
+        // ugly hack to make the color tint for the table images work
+        var ip = NSIndexPath()
+        for (var j=0;j<self.tableView.numberOfSections();j++)
+        {
+            for (var i=0;i<self.tableView.numberOfRowsInSection(j);i++)
+            {
+                ip = NSIndexPath(forRow: i, inSection: j)
+                self.tableView.selectRowAtIndexPath(ip, animated: false, scrollPosition: .None)
+//                self.tableView.deselectRowAtIndexPath(ip, animated: false)
+            }
+        }
+        self.tableView.deselectRowAtIndexPath(ip, animated: false)
+    }
+*/
+    
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .Default
@@ -60,6 +78,8 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
         // Dispose of any resources that can be recreated.
     }
     
+
+
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()

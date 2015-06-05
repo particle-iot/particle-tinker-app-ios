@@ -788,6 +788,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgCopyToClipboard" translatesAutoresizingMaskIntoConstraints="NO" id="LK8-B9-FY2">
                                                     <rect key="frame" x="12" y="12" width="24" height="24"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copy Device ID to clipboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFr-WW-GyA">
                                                     <rect key="frame" x="44" y="4" width="300" height="21"/>
@@ -811,7 +812,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgResetFunctions" translatesAutoresizingMaskIntoConstraints="NO" id="m0U-5C-p6t">
                                                     <rect key="frame" x="12" y="12" width="24" height="24"/>
-                                                    <color key="tintColor" red="1" green="0.095951018067543248" blue="0.082876014075791038" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reset all pins functions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10n-Yh-CnX">
                                                     <rect key="frame" x="44" y="13" width="268" height="21"/>
@@ -829,7 +830,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgReflash" translatesAutoresizingMaskIntoConstraints="NO" id="M39-G9-vE2">
                                                     <rect key="frame" x="12" y="12" width="24" height="24"/>
-                                                    <color key="tintColor" red="0.41568627450000001" green="0.43921568630000002" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Re-flash Tinker firmware" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MgA-kq-fNS">
                                                     <rect key="frame" x="44" y="13" width="193" height="21"/>
