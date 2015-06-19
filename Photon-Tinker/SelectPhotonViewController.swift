@@ -399,7 +399,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func showSparkCoreAppPopUp()
     {
-        var popup = Popup(title: "Core setup", subTitle: "Setting up a Core requires a different process. You can do it via the Spark Core app. Do you want to go to the Appstore to download it now?", cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
+        var popup = Popup(title: "Core setup", subTitle: "Setting up a Core requires the Spark Core app. Do you want to install/open it now?", cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
             let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
             UIApplication.sharedApplication().openURL(NSURL(string: sparkCoreAppStoreLink)!)
         })

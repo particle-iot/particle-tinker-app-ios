@@ -85,9 +85,9 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c.elementBackgroundColor = UIColor.whiteColor()
         c.brandImage = UIImage(named: "particle-horizontal-head")
-        c.deviceImage = UIImage(named: "imgPhoton")
+//        c.deviceImage = UIImage(named: "imgPhoton")
         c.tintSetupImages = true
-        c.welcomeVideoFilename = "device setup video.m4v"
+        c.instructionalVideoFilename = "photon_wifi.mp4"
         
     }
     
