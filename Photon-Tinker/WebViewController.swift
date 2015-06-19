@@ -52,8 +52,8 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     func startSpinner()
     {
-        return
-        
+
+        /*
         var hud : MBProgressHUD
         
         hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -75,11 +75,13 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         spinnerView.layer.addAnimation(rotation,forKey:"Spin")
         
         hud.customView = spinnerView
+        */
+        
     }
     
     func stopSpinner()
     {
-        MBProgressHUD.hideHUDForView(self.view, animated: true)
+//        MBProgressHUD.hideHUDForView(self.view, animated: true)
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
