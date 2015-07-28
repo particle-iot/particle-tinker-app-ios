@@ -1,2 +1,3 @@
-# photon-tinker-ios
-The new Tinker app for Spark Photon
+#Particle Tinker app for iOS
+
+Documentation is [here](http://docs.particle.io/photon/tinker/).
