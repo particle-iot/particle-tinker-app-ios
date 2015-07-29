@@ -118,6 +118,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>MIT LICENSE Found in the repo</string>
+			<key>Title</key>
+			<string>Keys</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2009-2015 Matej Bukovinski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

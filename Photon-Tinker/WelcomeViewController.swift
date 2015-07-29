@@ -61,6 +61,10 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         if result == .LoggedIn
         {
             self.performSegueWithIdentifier("select", sender: self)
+            
+            var email = SparkCloud.sharedInstance().loggedInUsername
+            SEGAnalytics.sharedAnalytics().identify(email, traits: ["email":email])
+            SEGAnalytics.sharedAnalytics()
         }
     }
     

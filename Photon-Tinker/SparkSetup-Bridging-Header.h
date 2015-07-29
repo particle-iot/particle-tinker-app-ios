@@ -19,4 +19,5 @@
 #include "UIScrollView+PullToRefreshCoreText.h"
 
 #include "Analytics.h"
+#include "ParticleKeys.h"
 #endif

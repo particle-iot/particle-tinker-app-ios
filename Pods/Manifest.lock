@@ -30,6 +30,7 @@ PODS:
     - Analytics/Core-iOS
   - ASValueTrackingSlider (0.10.1)
   - HexColors (2.2.1)
+  - Keys (1.0.0)
   - MBProgressHUD (0.9.1)
   - Mixpanel (2.8.1):
     - Mixpanel/Mixpanel (= 2.8.1)
@@ -61,6 +62,7 @@ PODS:
 DEPENDENCIES:
   - Analytics/Mixpanel
   - ASValueTrackingSlider
+  - Keys (from `Pods/CocoaPodsKeys`)
   - MBProgressHUD
   - PullToRefreshCoreText (~> 0.1)
   - Spark-SDK (from `../spark-sdk-ios`)
@@ -68,6 +70,8 @@ DEPENDENCIES:
   - TSMessages
 
 EXTERNAL SOURCES:
+  Keys:
+    :path: Pods/CocoaPodsKeys
   Spark-SDK:
     :path: ../spark-sdk-ios
   SparkSetup:
@@ -78,6 +82,7 @@ SPEC CHECKSUMS:
   Analytics: 08029cf44cab6b82c8b8f00f50860a1054056618
   ASValueTrackingSlider: 00fe601d9b5b2efeac515c1673afbf452f8e78ba
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Mixpanel: 93c4825025e6380ced273ed7178496282e385077
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2

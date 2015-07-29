@@ -5,3 +5,10 @@ pod 'TSMessages'
 pod 'PullToRefreshCoreText', '~> 0.1'
 pod 'ASValueTrackingSlider'
 pod 'Analytics/Mixpanel'
+plugin 'cocoapods-keys', {
+    :project => "Particle",
+    :keys => [
+    "SegmentAnalyticsWriteKey",
+    "OAuthClientId",
+    "OAuthSecret"
+    ]}
