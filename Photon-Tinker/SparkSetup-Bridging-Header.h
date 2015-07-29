@@ -18,4 +18,5 @@
 #include "TSMessage.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
 
+#include "Analytics.h"
 #endif
