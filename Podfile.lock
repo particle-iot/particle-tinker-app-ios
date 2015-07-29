@@ -20,9 +20,22 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Analytics/Core-iOS (1.12.2):
+    - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
+  - Analytics/Mixpanel (1.12.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Mixpanel (= 2.8.1)
+  - Analytics/Segmentio (1.12.2):
+    - Analytics/Core-iOS
   - ASValueTrackingSlider (0.10.1)
   - HexColors (2.2.1)
   - MBProgressHUD (0.9.1)
+  - Mixpanel (2.8.1):
+    - Mixpanel/Mixpanel (= 2.8.1)
+  - Mixpanel/Mixpanel (2.8.1):
+    - Mixpanel/MPCategoryHelpers
+  - Mixpanel/MPCategoryHelpers (2.8.1)
   - PullToRefreshCoreText (0.2)
   - Spark-SDK (0.3.0):
     - Spark-SDK/Helpers (= 0.3.0)
@@ -31,20 +44,22 @@ PODS:
   - Spark-SDK/SDK (0.3.0):
     - AFNetworking
     - Spark-SDK/Helpers
-  - SparkSetup (0.2.0):
-    - SparkSetup/Comm (= 0.2.0)
-    - SparkSetup/Core (= 0.2.0)
-    - SparkSetup/Resources (= 0.2.0)
-  - SparkSetup/Comm (0.2.0)
-  - SparkSetup/Core (0.2.0):
+  - SparkSetup (0.2.1):
+    - SparkSetup/Comm (= 0.2.1)
+    - SparkSetup/Core (= 0.2.1)
+    - SparkSetup/Resources (= 0.2.1)
+  - SparkSetup/Comm (0.2.1)
+  - SparkSetup/Core (0.2.1):
     - Spark-SDK
     - SparkSetup/Comm
     - SparkSetup/Resources
-  - SparkSetup/Resources (0.2.0)
+  - SparkSetup/Resources (0.2.1)
+  - TRVSDictionaryWithCaseInsensitivity (0.0.2)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
 
 DEPENDENCIES:
+  - Analytics/Mixpanel
   - ASValueTrackingSlider
   - MBProgressHUD
   - PullToRefreshCoreText (~> 0.1)
@@ -60,12 +75,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  Analytics: 08029cf44cab6b82c8b8f00f50860a1054056618
   ASValueTrackingSlider: 00fe601d9b5b2efeac515c1673afbf452f8e78ba
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  Mixpanel: 93c4825025e6380ced273ed7178496282e385077
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
-  Spark-SDK: 398249f3b059b54b5868f12611cc73e490e6b78f
-  SparkSetup: 1f8d9dafcc41b847464da3293a77ec9b3d5a70d0
+  Spark-SDK: bb7b86b9a771bc1d38c4448156250c539cc89aed
+  SparkSetup: 94c42d2b2c98acaa642496ba0f6f4ab4ed6e9044
+  TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.38.2
