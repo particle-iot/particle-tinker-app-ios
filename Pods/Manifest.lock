@@ -24,25 +24,25 @@ PODS:
   - HexColors (2.2.1)
   - MBProgressHUD (0.9.1)
   - PullToRefreshCoreText (0.2)
-  - Spark-SDK (0.2.9):
-    - Spark-SDK/Helpers (= 0.2.9)
-    - Spark-SDK/SDK (= 0.2.9)
-  - Spark-SDK/Helpers (0.2.9)
-  - Spark-SDK/SDK (0.2.9):
+  - Spark-SDK (0.3.0):
+    - Spark-SDK/Helpers (= 0.3.0)
+    - Spark-SDK/SDK (= 0.3.0)
+  - Spark-SDK/Helpers (0.3.0)
+  - Spark-SDK/SDK (0.3.0):
     - AFNetworking
     - Spark-SDK/Helpers
-  - SparkSetup (0.1.4):
-    - SparkSetup/Comm (= 0.1.4)
-    - SparkSetup/Core (= 0.1.4)
-    - SparkSetup/Resources (= 0.1.4)
-  - SparkSetup/Comm (0.1.4)
-  - SparkSetup/Core (0.1.4):
+  - SparkSetup (0.2.0):
+    - SparkSetup/Comm (= 0.2.0)
+    - SparkSetup/Core (= 0.2.0)
+    - SparkSetup/Resources (= 0.2.0)
+  - SparkSetup/Comm (0.2.0)
+  - SparkSetup/Core (0.2.0):
     - Spark-SDK
     - SparkSetup/Comm
     - SparkSetup/Resources
-  - SparkSetup/Resources (0.1.4)
+  - SparkSetup/Resources (0.2.0)
   - TSMessages (0.9.12):
-    - HexColors
+    - HexColors (~> 2.2.0)
 
 DEPENDENCIES:
   - ASValueTrackingSlider
@@ -64,8 +64,8 @@ SPEC CHECKSUMS:
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
-  Spark-SDK: 623fd882f5a4f844941bab0790234c27f91c6ac8
-  SparkSetup: c795683a23554f28d60c4a17b6f4fbe4643e20b6
-  TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
+  Spark-SDK: 398249f3b059b54b5868f12611cc73e490e6b78f
+  SparkSetup: 1f8d9dafcc41b847464da3293a77ec9b3d5a70d0
+  TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
 COCOAPODS: 0.36.4
