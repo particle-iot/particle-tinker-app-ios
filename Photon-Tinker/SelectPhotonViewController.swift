@@ -68,6 +68,17 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             if let vc = segue.destinationViewController as? SPKTinkerViewController
             {
                 vc.device = self.selectedDevice!
+                
+                
+                if vc.device.type == .Photon
+                {
+                    Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":"Photon", "running_tinker":vc.device.isRunningTinker()])
+                }
+                else
+                {
+                    Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":"Core", "running_tinker":vc.device.isRunningTinker()])
+                }
+
             }
         }
     }
@@ -77,6 +88,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         self.loadDevices()
         
         self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
+        Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        Mixpanel.sharedInstance().track("Tinker: Device list screen activity")
     }
     
     
@@ -352,6 +368,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         if result == .Success
         {
+            Mixpanel.sharedInstance().track("Tinker: Device setup activity", properties: ["result":"success"])
+
             if (device.name == nil)
             {
                 let deviceName = self.generateDeviceName()
@@ -382,6 +400,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         }
         else
         {
+            Mixpanel.sharedInstance().track("Device setup process", properties: ["result":"cancelled or failed"])
+
             TSMessage.showNotificationWithTitle("Warning", subtitle: "Device setup did not complete, new device was not added to your account.", type: .Warning)
         }
     }
@@ -390,6 +410,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     {
         if let vc = SparkSetupMainController()
         {
+            Mixpanel.sharedInstance().timeEvent("Tinker: Device setup activity")
             vc.delegate = self
             self.presentViewController(vc, animated: true, completion: nil)
         }
@@ -399,8 +420,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func showSparkCoreAppPopUp()
     {
+        Mixpanel.sharedInstance().track("Tinker: User wants to setup a Core")
+
         var popup = Popup(title: "Core setup", subTitle: "Setting up a Core requires the Spark Core app. Do you want to install/open it now?", cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
             let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
+            Mixpanel.sharedInstance().track("Tinker: Send user to old Spark Core app")
             UIApplication.sharedApplication().openURL(NSURL(string: sparkCoreAppStoreLink)!)
         })
         popup.incomingTransition = .SlideFromBottom
@@ -498,9 +522,13 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                 TSMessage.dismissActiveNotification()
                                 } , buttonTitle: " Flash ", buttonCallback: { () -> Void in
                                     self.lastTappedNonTinkerDevice = nil
+
                                     switch (device.type)
                                     {
                                     case .Core:
+//                                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker",
+                                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
+
                                         device.flashKnownApp("tinker", completion: { (error:NSError!) -> Void in
                                             if let e=error
                                             {
@@ -519,6 +547,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                         })
                                         
                                     case .Photon:
+                                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Photon"])
+                                        
                                         let bundle = NSBundle.mainBundle()
                                         let path = bundle.pathForResource("photon-tinker", ofType: "bin")
                                         var error:NSError?

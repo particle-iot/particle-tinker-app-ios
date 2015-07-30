@@ -53,8 +53,6 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     }
     
 
-
-    
     // Function will be called when setup finishes
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         
@@ -63,8 +61,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
             self.performSegueWithIdentifier("select", sender: self)
             
             var email = SparkCloud.sharedInstance().loggedInUsername
-            SEGAnalytics.sharedAnalytics().identify(email, traits: ["email":email])
-            SEGAnalytics.sharedAnalytics()
+            Mixpanel.sharedInstance().identify(email)
         }
     }
     

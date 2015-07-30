@@ -13,6 +13,7 @@
 #import "TSMessage.h"
 #import "PinValueView.h"
 #import "Particle-Swift.h" // thats for SettingsTableViewControllerDelegate which is in Swift file
+#import "Mixpanel.h"
 
 #define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
 
@@ -94,9 +95,17 @@
     _tap.numberOfTapsRequired = 1;
     _tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:_tap];
+}
 
-    
-    
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[Mixpanel sharedInstance] timeEvent:@"Tinker: Tinker screen activity"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[Mixpanel sharedInstance] track:@"Tinker: Tinker screen activity"];
 }
 
 
@@ -501,6 +510,8 @@
             if (pinView.pin.selectedFunction == DevicePinFunctionDigitalWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWriteDAC) {
                 if (result == -1) {
 
+                    [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"pin write"}];
+
                     [TSMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:TSMessageNotificationTypeError];
                     [pinView.pin resetValue];
                     pinView.active = NO;
@@ -518,6 +529,8 @@
             [pinView endUpdating];
             
             NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device - %@",errorMessage];
+            [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
+
             [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
 
             [pinView.pin resetValue];

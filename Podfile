@@ -4,11 +4,11 @@ pod 'MBProgressHUD'
 pod 'TSMessages'
 pod 'PullToRefreshCoreText', '~> 0.1'
 pod 'ASValueTrackingSlider'
-pod 'Analytics/Mixpanel'
+pod 'Mixpanel'
 plugin 'cocoapods-keys', {
     :project => "Particle",
     :keys => [
-    "SegmentAnalyticsWriteKey",
+    "MixpanelToken",
     "OAuthClientId",
     "OAuthSecret"
     ]}

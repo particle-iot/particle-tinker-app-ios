@@ -84,6 +84,13 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
         self.deviceIDlabel.text = self.device!.id
+        
+//        [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
+        Mixpanel.sharedInstance().timeEvent("Tinker: Settings screen activity")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        Mixpanel.sharedInstance().track("Tinker: Settings screen activity")
     }
 
     
@@ -115,11 +122,14 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             {
             case 0:
                 println("copy device id")
+                Mixpanel.sharedInstance().track("Tinker: Copy device ID")
                 UIPasteboard.generalPasteboard().string = self.device?.id
                 TSMessage.showNotificationInViewController(self.navigationController, title: "Device ID", subtitle: "Your device ID string has been copied to clipboard", type: .Success)
 
             case 1:
                 println("reset all pins")
+                Mixpanel.sharedInstance().track("Tinker: Reset pins")
+
                 self.delegate?.resetAllPinFunctions()
                 self.dismissViewControllerAnimated(true, completion: nil)
 //                TSMessage.showNotificationInViewController(self, title: "Pin functions", subtitle: "Your device ID string has been copied to clipboard", type: .Message)
@@ -128,10 +138,13 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                 println("reflash tinker")
                 if self.device!.isFlashing == false
                 {
+                    // TODO: find a way to refactor duplicate code out
                     switch (self.device!.type)
                     {
                         
                     case .Core:
+                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
+
                         self.device!.flashKnownApp("tinker", completion: { (error:NSError!) -> Void in
                             if let e=error
                             {
@@ -145,6 +158,8 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                         })
                         
                     case .Photon:
+                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Photon"])
+
                         let bundle = NSBundle.mainBundle()
                         let path = bundle.pathForResource("photon-tinker", ofType: "bin")
                         var error:NSError?
@@ -170,10 +185,12 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                 
                 
             default:
-                println("default0")
+                println("default")
             
             }
         case 1: // documenation
+            Mixpanel.sharedInstance().track("Tinker: Go to documentation")
+
             var url : NSURL?
             switch indexPath.row
             {
@@ -201,6 +218,8 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             self.presentViewController(webVC, animated: true, completion: nil)
             
         case 2: // Support
+            Mixpanel.sharedInstance().track("Tinker: Go to support")
+
             var url : NSURL?
             switch indexPath.row
             {

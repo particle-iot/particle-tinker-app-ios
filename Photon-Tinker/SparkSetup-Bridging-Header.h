@@ -18,6 +18,6 @@
 #include "TSMessage.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
 
-#include "Analytics.h"
+#include "Mixpanel.h"
 #include "ParticleKeys.h"
 #endif

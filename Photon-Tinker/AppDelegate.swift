@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        SEGAnalytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: ParticleKeys().segmentAnalyticsWriteKey()))
+//        SEGAnalytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: ParticleKeys().segmentAnalyticsWriteKey()))
+        Mixpanel.sharedInstanceWithToken(ParticleKeys().mixpanelToken())
         
         SparkCloud.sharedInstance().OAuthClientId = ParticleKeys().oAuthClientId()
         SparkCloud.sharedInstance().OAuthClientSecret = ParticleKeys().oAuthSecret()
