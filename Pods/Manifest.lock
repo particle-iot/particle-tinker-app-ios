@@ -28,11 +28,11 @@ PODS:
     - Mixpanel/Mixpanel (= 2.8.2)
   - Mixpanel/Mixpanel (2.8.2)
   - PullToRefreshCoreText (0.2)
-  - Spark-SDK (0.3.0):
-    - Spark-SDK/Helpers (= 0.3.0)
-    - Spark-SDK/SDK (= 0.3.0)
-  - Spark-SDK/Helpers (0.3.0)
-  - Spark-SDK/SDK (0.3.0):
+  - Spark-SDK (0.3.1):
+    - Spark-SDK/Helpers (= 0.3.1)
+    - Spark-SDK/SDK (= 0.3.1)
+  - Spark-SDK/Helpers (0.3.1)
+  - Spark-SDK/SDK (0.3.1):
     - AFNetworking
     - Spark-SDK/Helpers
   - SparkSetup (0.2.1):
@@ -74,7 +74,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Mixpanel: f4d71ac2a306e7cda6ad03d4a2be249a0fd7a967
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
-  Spark-SDK: bb7b86b9a771bc1d38c4448156250c539cc89aed
+  Spark-SDK: dae108400dcd112b1c7d8c59103449cdce8aa3dc
   SparkSetup: 94c42d2b2c98acaa642496ba0f6f4ab4ed6e9044
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
