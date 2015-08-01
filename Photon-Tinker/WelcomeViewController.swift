@@ -63,6 +63,11 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
             var email = SparkCloud.sharedInstance().loggedInUsername
             Mixpanel.sharedInstance().identify(email)
         }
+        
+        if result == .SkippedAuth
+        {
+            self.performSegueWithIdentifier("select", sender: self)
+        }
     }
     
     @IBOutlet weak var getStartedButton: UIButton!
@@ -73,6 +78,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         // Do customization for Spark Setup wizard UI
         let c = SparkSetupCustomization.sharedInstance()
         
+        c.allowSkipAuthentication = true
         c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"

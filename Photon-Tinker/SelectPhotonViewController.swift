@@ -85,9 +85,12 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
     
     override func viewWillAppear(animated: Bool) {
-        self.loadDevices()
-        
-        self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
+        if SparkCloud.sharedInstance().loggedInUsername != nil
+        {
+            self.loadDevices()
+            
+            self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
+        }
         Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
     }
     
