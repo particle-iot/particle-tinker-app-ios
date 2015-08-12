@@ -22,6 +22,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         var backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
+        
+        if !SparkCloud.sharedInstance().isLoggedIn
+        {
+            self.logoutButton.setTitle("Log in", forState: .Normal)
+        }
 //        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
@@ -29,6 +34,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
 
     }
 
+    @IBOutlet weak var logoutButton: UIButton!
     
     var devices : [SparkDevice] = []
     var deviceIDflashingDict : Dictionary<String,Int> = Dictionary()
@@ -372,46 +378,56 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         if result == .Success
         {
             Mixpanel.sharedInstance().track("Tinker: Device setup activity", properties: ["result":"success"])
-
-            if (device.name == nil)
-            {
-                let deviceName = self.generateDeviceName()
-                device.rename(deviceName, completion: { (error:NSError!) -> Void in
-                    if let e=error
-                    {
-                        TSMessage.showNotificationWithTitle("Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .Warning)
-                    }
-                    else
-                    {
-                        dispatch_async(dispatch_get_main_queue()) {
-                            TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
-                            self.photonSelectionTableView.reloadData()
-                        }
-                    }
-                })
-                
-
-            }
-            else
-            {
-                TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device is named \(device.name).", type: .Success)
-                self.photonSelectionTableView.reloadData()
-
-            }
-           
             
+            if let deviceAdded = device
+            {
+                if (deviceAdded.name == nil)
+                {
+                    let deviceName = self.generateDeviceName()
+                    deviceAdded.rename(deviceName, completion: { (error:NSError!) -> Void in
+                        if let e=error
+                        {
+                            TSMessage.showNotificationWithTitle("Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .Warning)
+                        }
+                        else
+                        {
+                            dispatch_async(dispatch_get_main_queue()) {
+                                TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device has been named \(deviceName).", type: .Success)
+                                self.photonSelectionTableView.reloadData()
+                            }
+                        }
+                    })
+                    
+
+                }
+                else
+                {
+                    TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device is named \(deviceAdded.name).", type: .Success)
+                    self.photonSelectionTableView.reloadData()
+
+                }
+            }
+            else // Device is nil so we treat it as not claimed
+            {
+                TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .Success)
+                self.photonSelectionTableView.reloadData()
+            }
+        }
+        else if result == .SuccessNotClaimed
+        {
+            TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .Success)
+            self.photonSelectionTableView.reloadData()
         }
         else
         {
             Mixpanel.sharedInstance().track("Device setup process", properties: ["result":"cancelled or failed"])
-
-            TSMessage.showNotificationWithTitle("Warning", subtitle: "Device setup did not complete, new device was not added to your account.", type: .Warning)
+            TSMessage.showNotificationWithTitle("Warning", subtitle: "Device setup did not complete.", type: .Warning)
         }
     }
     
     func invokeDeviceSetup()
     {
-        if let vc = SparkSetupMainController()
+        if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isLoggedIn)
         {
             Mixpanel.sharedInstance().timeEvent("Tinker: Device setup activity")
             vc.delegate = self

@@ -79,6 +79,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         let c = SparkSetupCustomization.sharedInstance()
         
         c.allowSkipAuthentication = true
+        c.skipAuthenticationMessage = "Skipping authentication will run the app in limited functionality mode - you would only be able to setup Wi-Fi credentials to devices but not claim them nor use Tinker. Are you sure you want to continue?"
         c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"
