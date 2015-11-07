@@ -1,5 +1,5 @@
 //
-//  SelectPhotonViewController.swift
+//  DeviceListViewController.swift
 //  Photon-Tinker
 //
 //  Created by Ido on 4/16/15.
@@ -13,13 +13,13 @@ let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
 
 
-class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+        let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
         
@@ -52,17 +52,56 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var setFlashingTestButton: UIButton!
-
-    @IBAction func setFlashingButtonTapped(sender: AnyObject) {
-        self.devices[0].isFlashing = true
-        self.deviceIDflashingDict[self.devices[0].id] = kDefaultPhotonFlashingTime
-
-        self.photonSelectionTableView.reloadData()
-        
-    }
+//    @IBOutlet weak var setFlashingTestButton: UIButton!
+//
+//    @IBAction func setFlashingButtonTapped(sender: AnyObject) {
+//        self.devices[0].isFlashing = true
+//        self.deviceIDflashingDict[self.devices[0].id] = kDefaultPhotonFlashingTime
+//
+//        self.photonSelectionTableView.reloadData()
+//        
+//    }
 
     @IBOutlet weak var photonSelectionTableView: UITableView!
+    
+    @IBAction func setupNewDeviceButtonTapped(sender: UIButton) {
+        
+        // 1
+        let optionMenu = UIAlertController(title: nil, message: "Setup New Device", preferredStyle: .ActionSheet)
+        
+        // 2
+        let setupCoreAction = UIAlertAction(title: "Core", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Core")
+        })
+
+        let setupPhotonAction = UIAlertAction(title: "Photon", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Photon")
+        })
+
+        let setupElectronAction = UIAlertAction(title: "Electron", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Electron")
+        })
+
+        //
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancelled")
+        })
+        
+        
+        // 4
+        optionMenu.addAction(setupCoreAction)
+        optionMenu.addAction(setupPhotonAction)
+        optionMenu.addAction(setupElectronAction)
+        optionMenu.addAction(cancelAction)
+        
+        // 5
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+    
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         self.deviceIDflashingTimer!.invalidate()
@@ -136,10 +175,10 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             hud.minShowTime = 0.4
             
             // prepare spinner view for first time populating of devices into table
-            var spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
+            let spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
             spinnerView.frame = CGRectMake(0, 0, 37, 37);
             spinnerView.contentMode = .ScaleToFill
-            var rotation = CABasicAnimation(keyPath:"transform.rotation")
+            let rotation = CABasicAnimation(keyPath:"transform.rotation")
             rotation.fromValue = 0
             rotation.toValue = 2*M_PI
             rotation.duration = 1.0;
@@ -177,8 +216,8 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     {
         if let e = error
         {
-            println("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
-            println(e.description)
+            print("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
+            print(e.description)
             TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check internet connection.", type: .Error)
         }
         else
@@ -188,7 +227,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 self.devices = d as! [SparkDevice]
                 
                 // Sort alphabetically
-                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                self.devices.sortInPlace({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     if let n1 = firstDevice.name
                     {
                         if let n2 = secondDevice.name
@@ -201,17 +240,17 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 })
 
                 // then sort by device type
-                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                self.devices.sortInPlace({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.type.rawValue > secondDevice.type.rawValue
                 })
 
                 // and then by online/offline
-                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                self.devices.sortInPlace({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.connected && !secondDevice.connected
                 })
                 
                 // and then by running tinker or not
-                self.devices.sort({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
+                self.devices.sortInPlace({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
                     return firstDevice.isRunningTinker() && !secondDevice.isRunningTinker()
                 })
 
@@ -249,7 +288,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         
         if indexPath.row < self.devices.count
         {
-            var cell:DeviceTableViewCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("device_cell") as! DeviceTableViewCell
+            let cell:DeviceTableViewCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("device_cell") as! DeviceTableViewCell
             if let name = self.devices[indexPath.row].name
             {
                 cell.deviceNameLabel.text = name
@@ -264,6 +303,10 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             case .Core:
                 cell.deviceImageView.image = UIImage(named: "imgCore")
                 cell.deviceTypeLabel.text = "Core"
+
+            case .Electron:
+                cell.deviceImageView.image = UIImage(named: "imgElectron")
+                cell.deviceTypeLabel.text = "Electron"
 
             case .Photon: // .Photon
                 fallthrough
@@ -297,7 +340,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             }
             
             // override everything else
-            if devices[indexPath.row].isFlashing || contains(self.deviceIDflashingDict.keys,devices[indexPath.row].id)
+            if devices[indexPath.row].isFlashing || self.deviceIDflashingDict.keys.contains(devices[indexPath.row].id)
             {
                 cell.deviceStateLabel.text = "Flashing"
                 cell.deviceStateImageView.image = UIImage(named: "imgPurpleCircle") // gray circle
@@ -308,11 +351,11 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         }
         else if indexPath.row == self.devices.count
         {
-            masterCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("setup_photon_cell") as? UITableViewCell
+            masterCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("setup_photon_cell") as UITableViewCell?
         }
         else if indexPath.row == self.devices.count+1
         {
-            masterCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("setup_core_cell") as? UITableViewCell
+            masterCell = self.photonSelectionTableView.dequeueReusableCellWithIdentifier("setup_core_cell") as UITableViewCell?
         }
         
         // make cell darker if it's even
@@ -359,7 +402,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
         return "Unclaim"
     }
     
@@ -385,7 +428,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 {
                     let deviceName = self.generateDeviceName()
                     deviceAdded.rename(deviceName, completion: { (error:NSError!) -> Void in
-                        if let e=error
+                        if let _=error
                         {
                             TSMessage.showNotificationWithTitle("Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .Warning)
                         }
@@ -425,7 +468,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func invokeDeviceSetup()
+    func invokePhotonDeviceSetup()
     {
         if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isLoggedIn)
         {
@@ -441,7 +484,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     {
         Mixpanel.sharedInstance().track("Tinker: User wants to setup a Core")
 
-        var popup = Popup(title: "Core setup", subTitle: "Setting up a Core requires the Spark Core app. Do you want to install/open it now?", cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
+        let popup = Popup(title: "Core setup", subTitle: "Setting up a Core requires the Spark Core app. Do you want to install/open it now?", cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
             let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
             Mixpanel.sharedInstance().track("Tinker: Send user to old Spark Core app")
             UIApplication.sharedApplication().openURL(NSURL(string: sparkCoreAppStoreLink)!)
@@ -495,7 +538,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
             switch indexPath.row
             {
             case 0:
-                self.invokeDeviceSetup()
+                self.invokePhotonDeviceSetup()
             default:
                 self.showSparkCoreAppPopUp()
             }
@@ -510,7 +553,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 
 //                println("Tapped on \(self.devices[indexPath.row].description)")
-                if devices[indexPath.row].isFlashing || contains(self.deviceIDflashingDict.keys,devices[indexPath.row].id)
+                if devices[indexPath.row].isFlashing || self.deviceIDflashingDict.keys.contains(devices[indexPath.row].id)
                 {
                     TSMessage.showNotificationWithTitle("Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .Warning)
 
@@ -531,7 +574,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                         }
                         else
                         {
-                            var device = self.devices[indexPath.row]
+                            let device = self.devices[indexPath.row]
                             self.lastTappedNonTinkerDevice = device
                             NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: "resetLastTappedDevice:", userInfo: nil, repeats: false)
                             
@@ -570,7 +613,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                                         
                                         let bundle = NSBundle.mainBundle()
                                         let path = bundle.pathForResource("photon-tinker", ofType: "bin")
-                                        var error:NSError?
+//                                        var error:NSError?
                                         if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData
                                         {
                                             let filesDict = ["tinker.bin" : binary!]
@@ -608,7 +651,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
                     TSMessage.showNotificationWithTitle("Device offline", subtitle: "This device is offline, please turn it on and refresh in order to Tinker with it.", type: .Error)
                 }
             case self.devices.count :
-                self.invokeDeviceSetup()
+                self.invokePhotonDeviceSetup()
             case self.devices.count+1 :
                 self.showSparkCoreAppPopUp()
             default :
@@ -621,7 +664,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func resetLastTappedDevice(timer : NSTimer)
     {
-        println("lastTappedNonTinkerDevice reset")
+        print("lastTappedNonTinkerDevice reset")
         self.lastTappedNonTinkerDevice = nil
     }
     
@@ -644,7 +687,7 @@ class SelectPhotonViewController: UIViewController, UITableViewDelegate, UITable
     
     func generateDeviceName() -> String
     {
-        var name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + "_" + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]
+        let name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + "_" + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]
         
         return name
     }

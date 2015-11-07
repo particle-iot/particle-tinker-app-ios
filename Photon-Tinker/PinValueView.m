@@ -91,7 +91,7 @@
             
         case DevicePinFunctionAnalogRead:
         case DevicePinFunctionAnalogWrite:
-            self.valueLabel.text = [NSString stringWithFormat:@"%ld",self.pin.value];
+            self.valueLabel.text = [NSString stringWithFormat:@"%ld",(unsigned long)self.pin.value];
             break;
             
         default:

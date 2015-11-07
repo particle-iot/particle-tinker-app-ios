@@ -56,7 +56,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
     }
     
     func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-        var navController = UINavigationController(rootViewController: controller.presentedViewController)
+        let navController = UINavigationController(rootViewController: controller.presentedViewController)
         return navController
     }
     
@@ -96,9 +96,9 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 2 {
-            let infoDictionary = NSBundle.mainBundle().infoDictionary as! [String : AnyObject]
-            let version = infoDictionary["CFBundleShortVersionString"] as! String!
-            let build = infoDictionary["CFBundleVersion"] as! String!
+            let infoDictionary = NSBundle.mainBundle().infoDictionary as [String : AnyObject]?
+            let version = infoDictionary!["CFBundleShortVersionString"] as! String
+            let build = infoDictionary!["CFBundleVersion"] as! String
             let label = UILabel()
             label.text = NSLocalizedString("Particle Tinker V\(version) (\(build))", comment: "")
             label.textColor = UIColor.grayColor()
@@ -121,13 +121,13 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             switch indexPath.row
             {
             case 0:
-                println("copy device id")
+                print("copy device id")
                 Mixpanel.sharedInstance().track("Tinker: Copy device ID")
                 UIPasteboard.generalPasteboard().string = self.device?.id
                 TSMessage.showNotificationInViewController(self.navigationController, title: "Device ID", subtitle: "Your device ID string has been copied to clipboard", type: .Success)
 
             case 1:
-                println("reset all pins")
+                print("reset all pins")
                 Mixpanel.sharedInstance().track("Tinker: Reset pins")
 
                 self.delegate?.resetAllPinFunctions()
@@ -135,7 +135,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
 //                TSMessage.showNotificationInViewController(self, title: "Pin functions", subtitle: "Your device ID string has been copied to clipboard", type: .Message)
 
             case 2:
-                println("reflash tinker")
+                print("reflash tinker")
                 if self.device!.isFlashing == false
                 {
                     // TODO: find a way to refactor duplicate code out
@@ -162,7 +162,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
 
                         let bundle = NSBundle.mainBundle()
                         let path = bundle.pathForResource("photon-tinker", ofType: "bin")
-                        var error:NSError?
+//                        _:NSError?
                         if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // TODO: fix depracation
                         {
                             let filesDict = ["tinker.bin" : binary!]
@@ -185,7 +185,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                 
                 
             default:
-                println("default")
+                print("default")
             
             }
         case 1: // documenation
@@ -195,23 +195,23 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             switch indexPath.row
             {
             case 0:
-                println("documentation: app")
-                url = NSURL(string: "http://docs.particle.io/photon/tinker/#tinkering-with-tinker")
+                print("documentation: app")
+                url = NSURL(string: "https://docs.particle.io/guide/getting-started/tinker/photon/")
             case 1:
-                println("documentation: setup your device")
-                url = NSURL(string: "http://docs.particle.io/photon/connect/#connecting-your-device")
+                print("documentation: setup your device")
+                url = NSURL(string: "https://docs.particle.io/guide/getting-started/start/photon/#connect-your-photon")
 
             case 2:
-                println("documentation: make ios app")
-                url = NSURL(string: "http://docs.particle.io/photon/ios/#ios-cloud-sdk")
+                print("documentation: make your mobile app")
+                url = NSURL(string: "https://docs.particle.io/guide/how-to-build-a-product/mobile-app/")
                 
             default:
-                println("default1")
+                print("default1")
                 
             }
         
             
-            var webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
+            let webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
             webVC.link = url
             webVC.linkTitle = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text
             
@@ -224,25 +224,25 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             switch indexPath.row
             {
                 case 0:
-                println("support: community")
-                url = NSURL(string: "http://community.particle.io/")
+                print("support: community")
+                url = NSURL(string: "https://community.particle.io/")
                 
                 case 1:
-                println("support: email")
-                url = NSURL(string: "http://support.particle.io/hc/en-us")
+                print("support: email")
+                url = NSURL(string: "https://docs.particle.io/support/troubleshooting/common-issues/photon/")
                 
                 default:
-                println("default2")
+                print("default2")
             }
             
-            var webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
+            let webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
             webVC.link = url
             webVC.linkTitle = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text
 
             self.presentViewController(webVC, animated: true, completion: nil)
             
         default:
-            println("default")
+            print("default")
 
             
             

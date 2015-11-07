@@ -84,7 +84,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
 //        MBProgressHUD.hideHUDForView(self.view, animated: true)
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         self.stopSpinner()
     }
     

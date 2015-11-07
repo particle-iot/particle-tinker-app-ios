@@ -16,18 +16,18 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
 
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
         
-        var backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue"))
+        let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue"))
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
 //        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
-        var layer = self.getStartedButton.layer
+        let layer = self.getStartedButton.layer
         layer.backgroundColor = UIColor.clearColor().CGColor
         layer.borderColor = UIColor.whiteColor().CGColor
         layer.cornerRadius = 3.0
         layer.borderWidth = 2.0
-        var verStr = "V"+(NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String)
+        let verStr = "V"+(NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String)
         self.versionLabel.text = verStr
         
         self.customizeSetup()
@@ -43,10 +43,10 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     {
         for family in UIFont.familyNames()
         {
-            print("\(family)\n")
-            for name in UIFont.fontNamesForFamilyName(family as! String)
+            print("\(family)\n", terminator: "")
+            for name in UIFont.fontNamesForFamilyName(family )
             {
-                print("   \(name)\n")
+                print("   \(name)\n", terminator: "")
             }
             
         }
@@ -60,7 +60,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         {
             self.performSegueWithIdentifier("select", sender: self)
             
-            var email = SparkCloud.sharedInstance().loggedInUsername
+            let email = SparkCloud.sharedInstance().loggedInUsername
             Mixpanel.sharedInstance().identify(email)
         }
         
@@ -102,7 +102,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     @IBOutlet weak var versionLabel: UILabel!
     @IBAction func startButtonTapped(sender: UIButton)
     {
-        if let u = SparkCloud.sharedInstance().loggedInUsername
+        if let _ = SparkCloud.sharedInstance().loggedInUsername
         {
             self.performSegueWithIdentifier("select", sender: self)
         }
