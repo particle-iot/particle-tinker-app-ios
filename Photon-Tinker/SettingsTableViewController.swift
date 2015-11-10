@@ -179,7 +179,12 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                             })
                             
                         }
+                    
+                    case .Electron:
+                        // TODO: flash tinker to Electron
+                        print("flash Tinker to Electron");
                     }
+                    
                 }
 
                 

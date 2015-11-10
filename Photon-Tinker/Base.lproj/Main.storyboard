@@ -35,8 +35,6 @@
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
-            <string>Gotham-Medium</string>
-            <string>Gotham-Medium</string>
         </mutableArray>
         <mutableArray key="Gotham-XLight.otf">
             <string>Gotham-ExtraLight</string>
@@ -335,48 +333,6 @@
                                             <outlet property="deviceStateLabel" destination="YLF-4O-nM0" id="MkM-BA-AY7"/>
                                             <outlet property="deviceTypeLabel" destination="Kav-Qy-Jda" id="GU7-75-yWq"/>
                                         </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="setup_photon_cell" textLabel="byi-0z-wzF" rowHeight="70" style="IBUITableViewCellStyleDefault" id="Bsl-cJ-FGj">
-                                        <rect key="frame" x="0.0" y="92" width="592" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bsl-cJ-FGj" id="CUk-OR-km9">
-                                            <rect key="frame" x="0.0" y="0.0" width="559" height="70"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Setup a Photon..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="byi-0z-wzF">
-                                                    <rect key="frame" x="15" y="0.0" width="542" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <animations/>
-                                        </tableViewCellContentView>
-                                        <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="setup_core_cell" textLabel="Ffh-By-1IP" rowHeight="70" style="IBUITableViewCellStyleDefault" id="gR7-De-Kxx">
-                                        <rect key="frame" x="0.0" y="162" width="592" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gR7-De-Kxx" id="NhU-8t-5Qs">
-                                            <rect key="frame" x="0.0" y="0.0" width="559" height="70"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Setup a Core..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ffh-By-1IP">
-                                                    <rect key="frame" x="15" y="0.0" width="542" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <animations/>
-                                        </tableViewCellContentView>
-                                        <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
