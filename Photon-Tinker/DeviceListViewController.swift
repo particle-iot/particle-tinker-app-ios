@@ -83,8 +83,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let setupElectronAction = UIAlertAction(title: "Electron", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Electron setup placeholder")
-            // TODO: Electron setup invoke
+            self.invokeElectronSetup();
         })
 
         //
@@ -105,6 +104,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     }
 
+    func invokeElectronSetup() {
+        let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewControllerWithIdentifier("electronSetup") as! ElectronSetupViewController
+        self.presentViewController(esVC, animated: true, completion: nil)
+        
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         self.deviceIDflashingTimer!.invalidate()
         if segue.identifier == "tinker"

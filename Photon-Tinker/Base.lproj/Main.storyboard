@@ -1128,6 +1128,103 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
             </objects>
             <point key="canvasLocation" x="5483" y="605"/>
         </scene>
+        <!--Electron Setup View Controller-->
+        <scene sceneID="6Bj-G9-tLs">
+            <objects>
+                <viewController storyboardIdentifier="electronSetup" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IfV-sN-Qx6" customClass="ElectronSetupViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c2j-de-bAT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dbn-eM-B9f"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zHA-9M-mRg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tmn-xn-mq0">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <animations/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bM-zQ-eHA">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <navigationItem title="Electron Setup" id="amL-eH-66y">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="rWe-H7-eHO">
+                                            <connections>
+                                                <action selector="closeButtonTapped:" destination="IfV-sN-Qx6" id="2vL-bA-93G"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Tmn-xn-mq0" firstAttribute="top" secondItem="2bM-zQ-eHA" secondAttribute="bottom" id="0Vn-5N-4m3"/>
+                            <constraint firstItem="2bM-zQ-eHA" firstAttribute="leading" secondItem="zHA-9M-mRg" secondAttribute="leadingMargin" id="8Zp-ae-SUe">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstItem="2bM-zQ-eHA" firstAttribute="leading" secondItem="Tmn-xn-mq0" secondAttribute="leading" id="ECj-AT-mYH"/>
+                            <constraint firstItem="Tmn-xn-mq0" firstAttribute="trailing" secondItem="zHA-9M-mRg" secondAttribute="trailingMargin" id="F9W-qh-tVi">
+                                <variation key="heightClass=regular-widthClass=compact" constant="16"/>
+                            </constraint>
+                            <constraint firstItem="2bM-zQ-eHA" firstAttribute="top" secondItem="c2j-de-bAT" secondAttribute="bottom" id="J8m-ik-7BV"/>
+                            <constraint firstAttribute="trailing" secondItem="2bM-zQ-eHA" secondAttribute="trailing" id="OKb-LY-coo"/>
+                            <constraint firstItem="2bM-zQ-eHA" firstAttribute="top" secondItem="c2j-de-bAT" secondAttribute="bottom" id="QeW-5l-MM1"/>
+                            <constraint firstItem="Tmn-xn-mq0" firstAttribute="leading" secondItem="zHA-9M-mRg" secondAttribute="leadingMargin" id="Uh0-Dw-D7y">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstItem="2bM-zQ-eHA" firstAttribute="trailing" secondItem="Tmn-xn-mq0" secondAttribute="trailing" id="Wvf-PG-KX9"/>
+                            <constraint firstItem="Dbn-eM-B9f" firstAttribute="top" secondItem="Tmn-xn-mq0" secondAttribute="bottom" id="dfz-LO-JDc"/>
+                            <constraint firstItem="Tmn-xn-mq0" firstAttribute="top" secondItem="zHA-9M-mRg" secondAttribute="topMargin" id="i5Y-xK-VUn">
+                                <variation key="heightClass=regular-widthClass=compact" constant="64"/>
+                            </constraint>
+                            <constraint firstItem="Tmn-xn-mq0" firstAttribute="leading" secondItem="zHA-9M-mRg" secondAttribute="leading" id="jMe-kw-LDa"/>
+                            <constraint firstItem="2bM-zQ-eHA" firstAttribute="bottom" secondItem="Tmn-xn-mq0" secondAttribute="top" id="lE2-lB-BAd"/>
+                            <constraint firstItem="Dbn-eM-B9f" firstAttribute="top" secondItem="Tmn-xn-mq0" secondAttribute="bottom" id="op2-xB-SZo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2bM-zQ-eHA" secondAttribute="trailing" id="sXd-Bc-Obe">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="Tmn-xn-mq0" secondAttribute="trailing" id="vX8-xq-4JH"/>
+                            <constraint firstItem="2bM-zQ-eHA" firstAttribute="leading" secondItem="zHA-9M-mRg" secondAttribute="leading" id="wm6-Gp-dVI"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Wvf-PG-KX9"/>
+                                <exclude reference="ECj-AT-mYH"/>
+                                <exclude reference="lE2-lB-BAd"/>
+                                <exclude reference="sXd-Bc-Obe"/>
+                                <exclude reference="QeW-5l-MM1"/>
+                                <exclude reference="8Zp-ae-SUe"/>
+                                <exclude reference="i5Y-xK-VUn"/>
+                                <exclude reference="F9W-qh-tVi"/>
+                                <exclude reference="Uh0-Dw-D7y"/>
+                                <exclude reference="op2-xB-SZo"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="sXd-Bc-Obe"/>
+                                <include reference="QeW-5l-MM1"/>
+                                <include reference="8Zp-ae-SUe"/>
+                                <include reference="i5Y-xK-VUn"/>
+                                <include reference="F9W-qh-tVi"/>
+                                <include reference="Uh0-Dw-D7y"/>
+                                <include reference="op2-xB-SZo"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="navBar" destination="2bM-zQ-eHA" id="1OQ-oh-KOt"/>
+                        <outlet property="webView" destination="Tmn-xn-mq0" id="Zyd-v6-Lys"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r4U-hO-VGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5483" y="1318"/>
+        </scene>
     </scenes>
     <resources>
         <image name="alizarin" width="5" height="37"/>
