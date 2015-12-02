@@ -1192,26 +1192,26 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Wvf-PG-KX9"/>
+                                <exclude reference="8Zp-ae-SUe"/>
                                 <exclude reference="ECj-AT-mYH"/>
+                                <exclude reference="QeW-5l-MM1"/>
+                                <exclude reference="Wvf-PG-KX9"/>
                                 <exclude reference="lE2-lB-BAd"/>
                                 <exclude reference="sXd-Bc-Obe"/>
-                                <exclude reference="QeW-5l-MM1"/>
-                                <exclude reference="8Zp-ae-SUe"/>
-                                <exclude reference="i5Y-xK-VUn"/>
                                 <exclude reference="F9W-qh-tVi"/>
                                 <exclude reference="Uh0-Dw-D7y"/>
+                                <exclude reference="i5Y-xK-VUn"/>
                                 <exclude reference="op2-xB-SZo"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="sXd-Bc-Obe"/>
-                                <include reference="QeW-5l-MM1"/>
                                 <include reference="8Zp-ae-SUe"/>
-                                <include reference="i5Y-xK-VUn"/>
+                                <include reference="QeW-5l-MM1"/>
+                                <include reference="sXd-Bc-Obe"/>
                                 <include reference="F9W-qh-tVi"/>
                                 <include reference="Uh0-Dw-D7y"/>
+                                <include reference="i5Y-xK-VUn"/>
                                 <include reference="op2-xB-SZo"/>
                             </mask>
                         </variation>
