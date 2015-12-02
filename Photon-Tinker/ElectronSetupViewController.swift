@@ -37,8 +37,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
         }
         context.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
         
-        
-        context.objectForKeyedSubscript("window").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
+        // force inject the access token and current username into the JS context 'window'
+        context.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken")
+        context.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername")
+
         // Do any additional setup after loading the view.
     }
     
@@ -51,6 +53,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
     var request : NSURLRequest? = nil
     var loading : Bool = false
+    var loadFramesCount : Int = 0
     /*
     // MARK: - Navigation
     
@@ -63,6 +66,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         self.webView.loadRequest(self.request!)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.startSpinner()
     }
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
@@ -118,12 +125,16 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
     
     func webViewDidStartLoad(webView: UIWebView) {
         print("DidStartLoad")
-        self.startSpinner()
+        self.loadFramesCount++
+//        self.startSpinner()
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
         print("DidFinishLoad")
-        self.stopSpinner()
+        print(self.loadFramesCount)
+        if --self.loadFramesCount == 0 {
+            self.stopSpinner()
+        }
         
 //        let contentSize = self.webView.scrollView.contentSize;
 //        let viewSize = self.view.bounds.size;
@@ -134,9 +145,12 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
 //        self.webView.scrollView.maximumZoomScale = rw;
 //        self.webView.scrollView.zoomScale = rw;
 
-        let jsCallBack = "window.getSelection().removeAllRanges();"
-        self.webView.stringByEvaluatingJavaScriptFromString(jsCallBack) //disable user markings
-        
+//        let jsCallBack = "window.getSelection().removeAllRanges();"
+//        self.webView.stringByEvaluatingJavaScriptFromString(jsCallBack) //disable user markings
+
+        /*
+
+        // old and laggy technique to inject access token to JS code - bye bye
         // set global var
         var jsFunc = "window.particleAccessToken=\(SparkCloud.sharedInstance().accessToken)"
         self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
@@ -146,6 +160,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
         
         jsFunc = "window.mobileClient='iOS'"
         self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
+
+        */
 
 
     }
