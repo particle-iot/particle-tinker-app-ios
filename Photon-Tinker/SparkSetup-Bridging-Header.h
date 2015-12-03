@@ -11,6 +11,7 @@
 // Other Obj-C project files
 #include "SparkDevice+pins.h"
 #include "SPKTinkerViewController.h"
+#include "ScanBarcodeViewController.h"
 #include "Popup.h"
 
 // pods
