@@ -28,8 +28,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.request = NSURLRequest(URL: url!, cachePolicy: .ReloadIgnoringCacheData, timeoutInterval: 10.0)
         
 //        self.webView.scalesPageToFit = true
-        self.webView.delegate = self;
-        self.webView.scrollView.bounces = false;
+        self.webView.delegate = self
+        self.webView.scrollView.bounces = false
+        self.closeButton.hidden = true
         
         // Slick hack to get the JS console.logs() to XCode debugger!
         let context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as! JSContext
@@ -53,6 +54,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         // Dispose of any resources that can be recreated.
     }
     
+    @IBOutlet weak var closeButton: UIButton!
 
     @IBOutlet weak var webView: UIWebView!
     var request : NSURLRequest? = nil
@@ -125,6 +127,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         self.stopSpinner()
         print("failed loading")
+        self.closeButton.hidden = false
     }
     
     func webViewDidStartLoad(webView: UIWebView) {
@@ -138,6 +141,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         print(self.loadFramesCount)
         if --self.loadFramesCount == 0 {
             self.stopSpinner()
+            self.closeButton.hidden = false
         }
         
 //        let contentSize = self.webView.scrollView.contentSize;
@@ -173,6 +177,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        print("shouldStartLoadWithRequest \(request.description)");
         let myAppScheme = "particle"
         
         if request.URL?.scheme != myAppScheme {
@@ -193,68 +198,22 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     // MARK: ScanBarcodeViewControllerDelegate functions
     
+    func didFinishScanningBarcodeWithResult(scanBarcodeViewController: ScanBarcodeViewController!, barcodeValue: String!) {
+        let jsFunc = "setIccid(\(barcodeValue))";
+        self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
+    }
+    
+    func didCancelScanningBarcode(scanBarcodeViewController: ScanBarcodeViewController!) {
+        scanBarcodeViewController .dismissViewControllerAnimated(true, completion: nil)
+        print("ICCID barcode scanning cancelled by user")
+    }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "scan" {
+            let sbcvc = segue.destinationViewController as? ScanBarcodeViewController
+            sbcvc!.delegate = self
+        }
+    }
     
-    
-    //// CONVERT TO SWIFT:
-    /*
 
-    
-    - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-    {
-    // these need to match the values defined in your JavaScript
-    NSString *myAppScheme = @"particle";
-    
-    // ignore legit webview requests so they load normally
-    if (![request.URL.scheme isEqualToString:myAppScheme]) {
-    return YES;
-    }
-    
-    // get the action from the path
-    NSString *actionType = request.URL.host;
-    // deserialize the request JSON
-    NSString *jsonDictString = [request.URL.fragment stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    
-    // look at the actionType and do whatever you want here
-    if ([actionType isEqualToString:@"scanBarcode"]) {
-    NSLog(@"open SIM barcode scan");
-    [self performSegueWithIdentifier:@"scan" sender:self];
-    // do something in response to your javascript action
-    // if you used an action parameters dict, deserialize and inspect it here
-    }
-    else if ([actionType isEqualToString:@"scanCreditCard"]) {
-    NSLog(@"open Credit card scan");
-    [self scanCreditCard:self];
-    }
-    
-    
-    // make sure to return NO so that your webview doesn't try to load your made-up URL
-    return NO;
-    }
-    
-    -(void)didFinishScanningBarcodeWithResult:(ScanBarcodeViewController *)scanBarcodeViewController barcodeValue:(NSString *)barcodeValue
-    {
-    [scanBarcodeViewController dismissViewControllerAnimated:YES completion:nil];
-    
-    NSString *jsFunc = [NSString stringWithFormat:@"setText('%@')",barcodeValue];
-    NSLog(@"Calling JS code: %@",jsFunc);
-    [self.webView stringByEvaluatingJavaScriptFromString:jsFunc];
-    }
-    
-    -(void)didCancelScanningBarcode:(ScanBarcodeViewController *)scanBarcodeViewController
-    {
-    [scanBarcodeViewController dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"Cancelled");
-    }
-    
-    -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-    {
-    if ([segue.identifier isEqualToString:@"scan"])
-    {
-    ScanBarcodeViewController *sbcvc = segue.destinationViewController;
-    sbcvc.delegate = self;
-    }
-    }
-    
-    */
 }
