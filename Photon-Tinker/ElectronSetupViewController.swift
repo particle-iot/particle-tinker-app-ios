@@ -9,12 +9,14 @@
 import UIKit
 import JavaScriptCore
 
-class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
+
+class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarcodeViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL(string: "http://localhost:8080/")
+        let url = NSURL(string: "http://localhost:8080/") // TODO: change to setup.particle.io when done
+        
 //        self.navBar.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
 //        self.navBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
 //        self.navBar.shadowImage = UIImage()
@@ -27,8 +29,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
         
 //        self.webView.scalesPageToFit = true
         self.webView.delegate = self;
+        self.webView.scrollView.bounces = false;
         
-        // Amazing hack to get the JS console.logs() !
+        // Slick hack to get the JS console.logs() to XCode debugger!
         let context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as! JSContext
         let logFunction : @convention(block) (String) -> Void =
         {
@@ -37,19 +40,20 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
         }
         context.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
         
-        // force inject the access token and current username into the JS context 'window'
+        // force inject the access token and current username into the JS context global 'window' object
         context.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken")
         context.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername")
+        context.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient")
 
         // Do any additional setup after loading the view.
     }
     
-    @IBOutlet weak var navBar: UINavigationBar!
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+
     @IBOutlet weak var webView: UIWebView!
     var request : NSURLRequest? = nil
     var loading : Bool = false
@@ -91,7 +95,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
                 hud.animationType = .ZoomIn
                 hud.labelText = "Loading"
 //                hud.minShowTime = 0.3
-                hud.dimBackground = true
+                hud.dimBackground = false
                 
                 // prepare spinner view for first time populating of devices into table
                 let spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
@@ -166,4 +170,91 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate {
 
     }
     
+    
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        let myAppScheme = "particle"
+        
+        if request.URL?.scheme != myAppScheme {
+            return true
+        }
+        
+        let actionType = request.URL?.host;
+//        let jsonDictString = request.URL?.fragment?.stringByReplacingPercentEscapesUsingEncoding(NSASCIIStringEncoding)
+        if actionType == "scanIccid" {
+            self.performSegueWithIdentifier("scan", sender: self)
+        } else if actionType == "scanCreditCard" {
+            print("Scan credit card requested.. not implemented yet")
+        }
+        
+        return false;
+        
+    }
+    
+    // MARK: ScanBarcodeViewControllerDelegate functions
+    
+
+    
+    
+    //// CONVERT TO SWIFT:
+    /*
+
+    
+    - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+    {
+    // these need to match the values defined in your JavaScript
+    NSString *myAppScheme = @"particle";
+    
+    // ignore legit webview requests so they load normally
+    if (![request.URL.scheme isEqualToString:myAppScheme]) {
+    return YES;
+    }
+    
+    // get the action from the path
+    NSString *actionType = request.URL.host;
+    // deserialize the request JSON
+    NSString *jsonDictString = [request.URL.fragment stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    
+    // look at the actionType and do whatever you want here
+    if ([actionType isEqualToString:@"scanBarcode"]) {
+    NSLog(@"open SIM barcode scan");
+    [self performSegueWithIdentifier:@"scan" sender:self];
+    // do something in response to your javascript action
+    // if you used an action parameters dict, deserialize and inspect it here
+    }
+    else if ([actionType isEqualToString:@"scanCreditCard"]) {
+    NSLog(@"open Credit card scan");
+    [self scanCreditCard:self];
+    }
+    
+    
+    // make sure to return NO so that your webview doesn't try to load your made-up URL
+    return NO;
+    }
+    
+    -(void)didFinishScanningBarcodeWithResult:(ScanBarcodeViewController *)scanBarcodeViewController barcodeValue:(NSString *)barcodeValue
+    {
+    [scanBarcodeViewController dismissViewControllerAnimated:YES completion:nil];
+    
+    NSString *jsFunc = [NSString stringWithFormat:@"setText('%@')",barcodeValue];
+    NSLog(@"Calling JS code: %@",jsFunc);
+    [self.webView stringByEvaluatingJavaScriptFromString:jsFunc];
+    }
+    
+    -(void)didCancelScanningBarcode:(ScanBarcodeViewController *)scanBarcodeViewController
+    {
+    [scanBarcodeViewController dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Cancelled");
+    }
+    
+    -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+    {
+    if ([segue.identifier isEqualToString:@"scan"])
+    {
+    ScanBarcodeViewController *sbcvc = segue.destinationViewController;
+    sbcvc.delegate = self;
+    }
+    }
+    
+    */
 }
