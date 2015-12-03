@@ -83,7 +83,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let setupElectronAction = UIAlertAction(title: "Electron", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.invokeElectronSetup();
+
+            if SparkCloud.sharedInstance().loggedInUsername != nil {
+                self.invokeElectronSetup()
+            } else {
+                TSMessage.showNotificationWithTitle("Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .Error)
+            }
+            
         })
 
         //
