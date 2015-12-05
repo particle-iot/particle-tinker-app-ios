@@ -26,6 +26,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 //        self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!]//,  NSForegroundColorAttributeName: UIColor.blackColor()]
         
         self.request = NSURLRequest(URL: url!, cachePolicy: .ReloadIgnoringCacheData, timeoutInterval: 10.0)
+        self.webView.loadRequest(self.request!)
+        
         
 //        self.webView.scalesPageToFit = true
         self.webView.delegate = self
@@ -33,18 +35,18 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.closeButton.hidden = true
         
         // Slick hack to get the JS console.logs() to XCode debugger!
-        let context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as! JSContext
+        self.context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
         let logFunction : @convention(block) (String) -> Void =
         {
             (msg: String) in
             NSLog("JS Console: %@", msg)
         }
-        context.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
+        context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
         
         // force inject the access token and current username into the JS context global 'window' object
-        context.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken")
-        context.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername")
-        context.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient")
+        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken")
+        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername")
+        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient")
 
         // Do any additional setup after loading the view.
     }
@@ -56,6 +58,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     @IBOutlet weak var closeButton: UIButton!
 
+    var context : JSContext? = nil
+    
     @IBOutlet weak var webView: UIWebView!
     var request : NSURLRequest? = nil
     var loading : Bool = false
@@ -71,11 +75,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     */
     
     override func viewWillAppear(animated: Bool) {
-        self.webView.loadRequest(self.request!)
+       //self.webView.loadRequest(self.request!)
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.startSpinner()
+        
     }
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
@@ -139,7 +143,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     func webViewDidFinishLoad(webView: UIWebView) {
         print("DidFinishLoad")
         print(self.loadFramesCount)
-        if --self.loadFramesCount == 0 {
+        if --self.loadFramesCount <= 0 {
             self.stopSpinner()
             self.closeButton.hidden = false
         }
@@ -178,6 +182,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         print("shouldStartLoadWithRequest \(request.description)");
+        self.startSpinner()
+        
         let myAppScheme = "particle"
         
         if request.URL?.scheme != myAppScheme {
@@ -199,8 +205,28 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     // MARK: ScanBarcodeViewControllerDelegate functions
     
     func didFinishScanningBarcodeWithResult(scanBarcodeViewController: ScanBarcodeViewController!, barcodeValue: String!) {
-        let jsFunc = "setIccid(\(barcodeValue))";
-        self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
+//        self.startSpinner()
+        self.stopSpinner()
+        scanBarcodeViewController .dismissViewControllerAnimated(true, completion: nil)
+//        let jsFunc = "setIccid('\(barcodeValue)');";
+//        print(jsFunc);
+//        self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
+
+//        JSContext *ctx = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//        ctx[@"myUpdateCallback"] = ^(JSValue *msg) {
+//            [self fieldUpdated];
+//        };
+        
+
+        self.context!.evaluateScript("document.getElementById('iccid').focus();");
+        self.context!.evaluateScript("document.getElementById('iccid').value='\(barcodeValue)';") // fails because react does not update its virtual dom
+        self.context!.evaluateScript("document.getElementById('iccid').blur();");
+
+//        self.context!.evaluateScript("ElectronSIM.setIccidFromMobile('\(barcodeValue)');")
+//        self.context!.evaluateScript("document.getElementById('next-button').click();")
+        
+//        context!.objectForKeyedSubscript("window").setObject(barcodeValue, forKeyedSubscript: "iccidValue")
+        
     }
     
     func didCancelScanningBarcode(scanBarcodeViewController: ScanBarcodeViewController!) {
