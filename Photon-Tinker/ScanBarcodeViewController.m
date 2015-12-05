@@ -40,7 +40,7 @@
     _label.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _label.textColor = [UIColor whiteColor];
     _label.textAlignment = NSTextAlignmentCenter;
-    _label.text = @"Point camera at SIM barcode";
+    _label.text = @"Point at SIM ICCID barcode";
     [self.view addSubview:_label];
 
     UIImageView *overlayImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"overlaygraphic"]];
@@ -128,6 +128,15 @@
 }
 
 
+- (IBAction)test:(id)sender {
+    [_session stopRunning];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.55 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.delegate didFinishScanningBarcodeWithResult:self barcodeValue:@"1234567890123456789012"];
+    });
+
+}
+
+
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     CGRect highlightViewRect = CGRectZero;
@@ -162,7 +171,7 @@
             break;
         }
         else
-            _label.text = @"Point camera at SIM barcode";
+            _label.text = @"Point at SIM ICCID barcode";
     }
 
     _highlightView.frame = highlightViewRect;

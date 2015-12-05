@@ -66,21 +66,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func setupNewDeviceButtonTapped(sender: UIButton) {
         
-        // 1
+        // heading
         let optionMenu = UIAlertController(title: nil, message: "Setup New Device", preferredStyle: .ActionSheet)
         
-        // 2
-        let setupCoreAction = UIAlertAction(title: "Core", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.showSparkCoreAppPopUp()
-
-        })
-
+      
+        // 1
         let setupPhotonAction = UIAlertAction(title: "Photon", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.invokePhotonDeviceSetup()
         })
 
+        // 2
         let setupElectronAction = UIAlertAction(title: "Electron", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
 
@@ -89,20 +85,24 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             } else {
                 TSMessage.showNotificationWithTitle("Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .Error)
             }
-            
+        })
+        
+        // 3
+        let setupCoreAction = UIAlertAction(title: "Core", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.showSparkCoreAppPopUp()
         })
 
-        //
+        // cancel
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Cancelled")
         })
         
         
         // 4
-        optionMenu.addAction(setupCoreAction)
         optionMenu.addAction(setupPhotonAction)
         optionMenu.addAction(setupElectronAction)
+        optionMenu.addAction(setupCoreAction)
         optionMenu.addAction(cancelAction)
         
         // 5
