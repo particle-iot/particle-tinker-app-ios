@@ -208,24 +208,14 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 //        self.startSpinner()
         self.stopSpinner()
         scanBarcodeViewController .dismissViewControllerAnimated(true, completion: nil)
-//        let jsFunc = "setIccid('\(barcodeValue)');";
-//        print(jsFunc);
-//        self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
-
-//        JSContext *ctx = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-//        ctx[@"myUpdateCallback"] = ^(JSValue *msg) {
-//            [self fieldUpdated];
-//        };
         
-
-        self.context!.evaluateScript("document.getElementById('iccid').focus();");
-        self.context!.evaluateScript("document.getElementById('iccid').value='\(barcodeValue)';") // fails because react does not update its virtual dom
-        self.context!.evaluateScript("document.getElementById('iccid').blur();");
-
-//        self.context!.evaluateScript("ElectronSIM.setIccidFromMobile('\(barcodeValue)');")
-//        self.context!.evaluateScript("document.getElementById('next-button').click();")
+        var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
+        jsCode+="inputElement.value = '\(barcodeValue)';\n"
+        jsCode+="var e = new Event('change');\n"
+        jsCode+="e.target = inputElement;\n"
+        jsCode+="inputElement.dispatchEvent(e);\n"
         
-//        context!.objectForKeyedSubscript("window").setObject(barcodeValue, forKeyedSubscript: "iccidValue")
+        self.context!.evaluateScript(jsCode)
         
     }
     
