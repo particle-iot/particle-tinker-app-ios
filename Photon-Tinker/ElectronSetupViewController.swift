@@ -9,13 +9,36 @@
 import UIKit
 import JavaScriptCore
 
+extension String {
+    func unescape()->String {
+        
+        guard (self != "") else { return self }
+        
+        var newStr = self
+        
+        let entities = [
+            "%7B" : "{",
+            "%7D" : "}",
+            "%20" : " ",
+            "%3A" : ":",
+            "%22" : "\"",
+            "%2C" : ",",
+        ]
+        
+        for (name,value) in entities {
+            newStr = newStr.stringByReplacingOccurrencesOfString(name, withString: value)
+        }
+        return newStr
+    }
+}
+
 
 class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarcodeViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL(string: "http://localhost:8080/") // TODO: change to setup.particle.io when done
+        let url = NSURL(string: "https://setup.staging.particle.io/") //://localhost:8080") //
         
 //        self.navBar.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
 //        self.navBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
@@ -75,11 +98,17 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     */
     
     override func viewWillAppear(animated: Bool) {
-       //self.webView.loadRequest(self.request!)
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().statusBarStyle = .Default
+       
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
     }
     
     override func viewDidAppear(animated: Bool) {
-        
     }
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
@@ -182,11 +211,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         print("shouldStartLoadWithRequest \(request.description)");
-        self.startSpinner()
         
         let myAppScheme = "particle"
         
         if request.URL?.scheme != myAppScheme {
+            self.startSpinner()
             return true
         }
         
@@ -196,9 +225,34 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             self.performSegueWithIdentifier("scan", sender: self)
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
+        } else if actionType == "notification" {
+//            print("\(request.URL)")
+            //            print("fragment: \(request.URL?.fragment?.unescape())")
+            
+            let JSONDictionary : NSDictionary?
+            if let JSONData = request.URL?.fragment?.unescape().dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+                do {
+                    
+                    JSONDictionary = try NSJSONSerialization.JSONObjectWithData(JSONData, options: .AllowFragments) as? NSDictionary
+                } catch _ {
+                    print("could not deserialize request");
+                    JSONDictionary = nil
+                }
+                //print (JSONDictionary?.description)
+                dispatch_async(dispatch_get_main_queue()) {
+                    if JSONDictionary != nil {
+                        if JSONDictionary!["level"] as! String == "info" {
+                            TSMessage.showNotificationInViewController(self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .Success)
+                        } else {
+                            TSMessage.showNotificationInViewController(self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .Error)
+                        }
+                    }
+                }
+            }
         }
         
         return false;
+
         
     }
     
@@ -207,15 +261,22 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     func didFinishScanningBarcodeWithResult(scanBarcodeViewController: ScanBarcodeViewController!, barcodeValue: String!) {
 //        self.startSpinner()
         self.stopSpinner()
-        scanBarcodeViewController .dismissViewControllerAnimated(true, completion: nil)
+        scanBarcodeViewController.dismissViewControllerAnimated(true, completion: {
+            dispatch_async(dispatch_get_main_queue()) {
+            
+                var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
+                jsCode+="inputElement.value = '\(barcodeValue)';\n"
+                jsCode+="var e = new Event('change');\n"
+                jsCode+="e.target = inputElement;\n"
+                jsCode+="inputElement.dispatchEvent(e);\n"
+            
+                self.webView.stringByEvaluatingJavaScriptFromString(jsCode)
+//            self.context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
+//            self.context!.evaluateScript(jsCode)
+            
+            }
+        })
         
-        var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
-        jsCode+="inputElement.value = '\(barcodeValue)';\n"
-        jsCode+="var e = new Event('change');\n"
-        jsCode+="e.target = inputElement;\n"
-        jsCode+="inputElement.dispatchEvent(e);\n"
-        
-        self.context!.evaluateScript(jsCode)
         
     }
     
