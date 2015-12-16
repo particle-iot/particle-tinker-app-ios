@@ -38,7 +38,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL(string: "https://setup.staging.particle.io/") //://localhost:8080") //
+        let url = NSURL(string: "https://setup.particle.io/") //://localhost:8080") //staging.particle.io
         
         self.request = NSURLRequest(URL: url!, cachePolicy: .ReloadIgnoringCacheData, timeoutInterval: 10.0)
         self.webView.loadRequest(self.request!)
@@ -266,7 +266,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             
                 self.webView.stringByEvaluatingJavaScriptFromString(jsCode)
 //            self.context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
-//            self.context!.evaluateScript(jsCode)
+//            self.context!.evaluateScript(jsCode)  // this causes a crash for some strange reason
             
             }
         })
