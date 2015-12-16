@@ -214,6 +214,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
             SparkCloud.sharedInstance().getDevices({ (devices:[AnyObject]?, error:NSError?) -> Void in
+
                 self.handleGetDevicesResponse(devices, error: error)
                 
                 // do anyway:

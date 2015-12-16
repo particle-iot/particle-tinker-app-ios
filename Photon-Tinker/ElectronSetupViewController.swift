@@ -40,14 +40,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
         let url = NSURL(string: "https://setup.staging.particle.io/") //://localhost:8080") //
         
-//        self.navBar.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-//        self.navBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
-//        self.navBar.shadowImage = UIImage()
-//        self.navBar.translucent = false
-        
-//        self.navBar.topItem?.title = "Electron Setup"
-//        self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!]//,  NSForegroundColorAttributeName: UIColor.blackColor()]
-        
         self.request = NSURLRequest(URL: url!, cachePolicy: .ReloadIgnoringCacheData, timeoutInterval: 10.0)
         self.webView.loadRequest(self.request!)
         
@@ -225,6 +217,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             self.performSegueWithIdentifier("scan", sender: self)
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
+        } else if actionType == "done" {
+            self.closeButtonTapped(self)
         } else if actionType == "notification" {
 //            print("\(request.URL)")
             //            print("fragment: \(request.URL?.fragment?.unescape())")
