@@ -239,7 +239,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             print("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
             print(e.description)
-            TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check internet connection.", type: .Error)
+            if e.code == 401 {
+                print("invalid access token - logging out")
+                self.logoutButtonTapped(self.logoutButton)
+            } else {
+                TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check your internet connection.", type: .Error)
+            }
         }
         else
         {
