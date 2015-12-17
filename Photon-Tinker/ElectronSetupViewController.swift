@@ -54,7 +54,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         let logFunction : @convention(block) (String) -> Void =
         {
             (msg: String) in
-            NSLog("JS Console: %@", msg)
+//            NSLog("JS Console: %@", msg)
         }
         context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
         
@@ -104,6 +104,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
+        Mixpanel.sharedInstance().track("Tinker: Electron setup activity", properties: ["result":"cancelled"])
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -151,18 +152,18 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         self.stopSpinner()
-        print("failed loading")
+//        print("failed loading")
         self.closeButton.hidden = false
     }
     
     func webViewDidStartLoad(webView: UIWebView) {
-        print("DidStartLoad")
+//        print("DidStartLoad")
         self.loadFramesCount++
 //        self.startSpinner()
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        print("DidFinishLoad")
+//        print("DidFinishLoad")
         print(self.loadFramesCount)
         if --self.loadFramesCount <= 0 {
             self.stopSpinner()
@@ -202,7 +203,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        print("shouldStartLoadWithRequest \(request.description)");
+//        print("shouldStartLoadWithRequest \(request.description)");
         
         let myAppScheme = "particle"
         
@@ -214,11 +215,13 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         let actionType = request.URL?.host;
 //        let jsonDictString = request.URL?.fragment?.stringByReplacingPercentEscapesUsingEncoding(NSASCIIStringEncoding)
         if actionType == "scanIccid" {
+            Mixpanel.sharedInstance().track("Tinker: Electron setup scan ICCID")
             self.performSegueWithIdentifier("scan", sender: self)
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
         } else if actionType == "done" {
-            self.closeButtonTapped(self)
+            Mixpanel.sharedInstance().track("Tinker: Electron setup activity", properties: ["result":"success"])
+            self.dismissViewControllerAnimated(true, completion: nil)
         } else if actionType == "notification" {
 //            print("\(request.URL)")
             //            print("fragment: \(request.URL?.fragment?.unescape())")
@@ -276,7 +279,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     func didCancelScanningBarcode(scanBarcodeViewController: ScanBarcodeViewController!) {
         scanBarcodeViewController .dismissViewControllerAnimated(true, completion: nil)
-        print("ICCID barcode scanning cancelled by user")
+//        print("ICCID barcode scanning cancelled by user")
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

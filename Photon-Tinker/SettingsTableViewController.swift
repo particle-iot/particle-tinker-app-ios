@@ -181,8 +181,10 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                         }
                     
                     case .Electron:
-                        // TODO: flash tinker to Electron
-                        print("flash Tinker to Electron");
+                        // TODO: flash tinker to Electron - add support
+                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
+                        // TODO: support flashing tinker to Electron
+                        TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
                     }
                     
                 }

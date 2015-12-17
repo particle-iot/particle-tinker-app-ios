@@ -111,6 +111,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func invokeElectronSetup() {
+        Mixpanel.sharedInstance().timeEvent("Tinker: Electron setup activity")
         let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewControllerWithIdentifier("electronSetup") as! ElectronSetupViewController
         self.presentViewController(esVC, animated: true, completion: nil)
         
@@ -237,10 +238,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     {
         if let e = error
         {
-            print("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
-            print(e.description)
+//            print("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
+//            print(e.description)
             if e.code == 401 {
-                print("invalid access token - logging out")
+//                print("invalid access token - logging out")
                 self.logoutButtonTapped(self.logoutButton)
             } else {
                 TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check your internet connection.", type: .Error)
@@ -640,7 +641,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                                 }
                             case .Electron:
                                 print("flash tinker to Electron");
-                                // TODO: flash tinker to Electron
+                                Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
+                                // TODO: support flashing tinker to Electron
+                                TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
                                 
                             }
                         }, atPosition: .Top, canBeDismissedByUser: true)
