@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N4k-nE-dcU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N4k-nE-dcU">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -511,7 +511,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-The Particle Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5z-Hi-GOP">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-The Particle Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5z-Hi-GOP">
                                         <rect key="frame" x="190" y="488" width="142" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -759,10 +759,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="ACTIONS" id="cHO-et-udr">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZOg-gw-Hpv">
-                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZOg-gw-Hpv" id="Fc5-Pl-aJe">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgCopyToClipboard" translatesAutoresizingMaskIntoConstraints="NO" id="LK8-B9-FY2">
@@ -785,10 +785,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Hhi-0V-VWh">
-                                        <rect key="frame" x="0.0" y="157.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="158" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hhi-0V-VWh" id="sGv-0i-qpS">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgResetFunctions" translatesAutoresizingMaskIntoConstraints="NO" id="m0U-5C-p6t">
@@ -805,10 +805,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Zri-RM-BL3">
-                                        <rect key="frame" x="0.0" y="201.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="202" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zri-RM-BL3" id="L0N-FP-GCn">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgReflash" translatesAutoresizingMaskIntoConstraints="NO" id="M39-G9-vE2">
@@ -829,7 +829,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="DOCUMENTATION" id="nF7-UA-NXy">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="LDJ-gz-MOm" style="IBUITableViewCellStyleDefault" id="AW4-q4-syb">
-                                        <rect key="frame" x="0.0" y="287.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="288" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AW4-q4-syb" id="uJP-YI-5Hu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -846,7 +846,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="HZ1-gm-9mL" style="IBUITableViewCellStyleDefault" id="jQX-Qm-3i5">
-                                        <rect key="frame" x="0.0" y="331.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="332" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jQX-Qm-3i5" id="qub-QU-7Mk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -863,7 +863,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="xp8-3N-Puz" style="IBUITableViewCellStyleDefault" id="yXs-Or-qMD">
-                                        <rect key="frame" x="0.0" y="375.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="376" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yXs-Or-qMD" id="u3f-RU-gRL">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -884,7 +884,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="SUPPORT" footerTitle="Particle Tinker vX.Y (zzz)" id="NdL-nX-JL4">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nxB-SX-5oO" style="IBUITableViewCellStyleDefault" id="zAa-gW-tnM">
-                                        <rect key="frame" x="0.0" y="461.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="462" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zAa-gW-tnM" id="aiw-VV-tW1">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -901,7 +901,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="u0T-kr-vzR" style="IBUITableViewCellStyleDefault" id="OTZ-aX-dlB">
-                                        <rect key="frame" x="0.0" y="505.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="506" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OTZ-aX-dlB" id="9Lf-Lc-52p">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>

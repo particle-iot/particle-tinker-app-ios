@@ -77,7 +77,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         })
 
         // 2
-        let setupElectronAction = UIAlertAction(title: "Electron", style: .Default, handler: {
+        let setupElectronAction = UIAlertAction(title: "Electron/SIM", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
 
             if SparkCloud.sharedInstance().loggedInUsername != nil {
@@ -446,7 +446,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 if (deviceAdded.name == nil)
                 {
                     let deviceName = self.generateDeviceName()
-                    deviceAdded.rename(deviceName, completion: { (error:NSError!) -> Void in
+                    deviceAdded.rename(deviceName, completion: { (error:NSError?) -> Void in
                         if let _=error
                         {
                             TSMessage.showNotificationWithTitle("Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .Warning)
@@ -595,7 +595,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                                 //                                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker",
                                 Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
                                 
-                                device.flashKnownApp("tinker", completion: { (error:NSError!) -> Void in
+                                device.flashKnownApp("tinker", completion: { (error:NSError?) -> Void in
                                     if let e=error
                                     {
                                         TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
@@ -618,10 +618,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                                 let bundle = NSBundle.mainBundle()
                                 let path = bundle.pathForResource("photon-tinker", ofType: "bin")
                                 //                                        var error:NSError?
-                                if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData
+                                if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // fix deprecation
                                 {
                                     let filesDict = ["tinker.bin" : binary!]
-                                    device.flashFiles(filesDict, completion: { (error:NSError!) -> Void in
+                                    device.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
                                         if let e=error
                                         {
                                             TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)

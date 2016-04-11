@@ -145,7 +145,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                     case .Core:
                         Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
 
-                        self.device!.flashKnownApp("tinker", completion: { (error:NSError!) -> Void in
+                        self.device!.flashKnownApp("tinker", completion: { (error:NSError?) -> Void in
                             if let e=error
                             {
                                 TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
@@ -166,7 +166,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                         if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // TODO: fix depracation
                         {
                             let filesDict = ["tinker.bin" : binary!]
-                            self.device!.flashFiles(filesDict, completion: { (error:NSError!) -> Void in
+                            self.device!.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
                                 if let e=error
                                 {
                                     TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)

@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+let mixpanelToken = "123"
+let oAuthClientId = "456"
+let oAuthSecret = "567"

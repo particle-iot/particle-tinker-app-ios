@@ -35,34 +35,54 @@ extension String {
 
 class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarcodeViewControllerDelegate {
     
+    func printTimestamp() -> String {
+//        let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .ShortStyle, timeStyle: .FullStyle)
+        let t = (NSDate().timeIntervalSince1970 - self.startTime);
+        return String(format:"%f", t)
+    }
+    
+    var startTime : Double = 0;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL(string: "https://setup.particle.io/") //://localhost:8080") //staging.particle.io
+        self.startTime = NSDate().timeIntervalSince1970
         
-        self.request = NSURLRequest(URL: url!, cachePolicy: .ReloadIgnoringCacheData, timeoutInterval: 10.0)
-        self.webView.loadRequest(self.request!)
+        print("start:"+self.printTimestamp())
         
+        self.setupWebAddress = NSURL(string: "https://setup.staging.particle.io/") //://localhost:8080") //
+//        let url =
+        
+        self.request = NSURLRequest(URL: self.setupWebAddress!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 30.0)
         
 //        self.webView.scalesPageToFit = true
         self.webView.delegate = self
+        self.webView.loadRequest(self.request!)
+        
+        print("after load request:"+self.printTimestamp())
+
         self.webView.scrollView.bounces = false
-        self.closeButton.hidden = true
+        self.closeButton.hidden = false//true
         
         // Slick hack to get the JS console.logs() to XCode debugger!
+        
         self.context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
+        
         let logFunction : @convention(block) (String) -> Void =
         {
             (msg: String) in
-//            NSLog("JS Console: %@", msg)
+            NSLog("JS Console: %@", msg)
         }
         context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
+        print("after tapping into console logs:"+self.printTimestamp())
+        
         
         // force inject the access token and current username into the JS context global 'window' object
         context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken")
         context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername")
-        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient")
+        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient")  
 
+        print("after setting mobileClient:"+self.printTimestamp())
         // Do any additional setup after loading the view.
     }
     
@@ -74,6 +94,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     @IBOutlet weak var closeButton: UIButton!
 
     var context : JSContext? = nil
+    var setupWebAddress : NSURL? = nil
     
     @IBOutlet weak var webView: UIWebView!
     var request : NSURLRequest? = nil
@@ -163,8 +184,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
+        
+        print("webViewDidFinishLoad:"+self.printTimestamp())
 //        print("DidFinishLoad")
-        print(self.loadFramesCount)
+//        print(self.loadFramesCount)
         if --self.loadFramesCount <= 0 {
             self.stopSpinner()
             self.closeButton.hidden = false
@@ -201,15 +224,27 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     
-    
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 //        print("shouldStartLoadWithRequest \(request.description)");
         
+        if let rurl = request.URL {
+            print("shouldStartLoadWithRequest: "+rurl.description+" : "+self.printTimestamp())
+        } else {
+            print("shouldStartLoadWithRequest: "+self.printTimestamp())
+        }
+        
+        
         let myAppScheme = "particle"
         
-        if request.URL?.scheme != myAppScheme {
-            self.startSpinner()
-            return true
+        if request.URL?.scheme != myAppScheme { //&& request.URL?.host != self.setupWebAddress?.host {
+            if navigationType == UIWebViewNavigationType.LinkClicked {
+                UIApplication.sharedApplication().openURL(request.URL!)
+                return false
+            } else {
+                
+                self.startSpinner()
+                return true
+            }
         }
         
         let actionType = request.URL?.host;
