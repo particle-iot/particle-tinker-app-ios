@@ -61,7 +61,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
             self.performSegueWithIdentifier("select", sender: self)
             
             let email = SparkCloud.sharedInstance().loggedInUsername
-            Mixpanel.sharedInstance().identify(email)
+            Mixpanel.sharedInstance().identify(email!)
         }
         
         if result == .SkippedAuth

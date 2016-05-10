@@ -15,6 +15,7 @@
 		502E9BC01B194DF800D2C45B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E9BBF1B194DF800D2C45B /* SettingsTableViewController.swift */; };
 		5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD221AE09AD00097150A /* DeviceListViewController.swift */; };
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
+		505062D21CE19AFF0060FEE7 /* Keys.template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505062D11CE19AFF0060FEE7 /* Keys.template.swift */; };
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
 		5067A0CF1B30EBB500A87D71 /* photon_wifi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5067A0CE1B30EBB500A87D71 /* photon_wifi.mp4 */; };
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
@@ -27,7 +28,6 @@
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
 		50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */; };
 		50B6599E1AFD922A00606A39 /* Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599D1AFD922A00606A39 /* Popup.m */; };
-		50C368771CBC44FF004607ED /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C368761CBC44FF004607ED /* Keys.swift */; };
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
 		50D47F301AFAF56C004AD3AE /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2F1AFAF56C004AD3AE /* PinView.m */; };
 		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
@@ -45,6 +45,7 @@
 		502E9BBF1B194DF800D2C45B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		5048CD221AE09AD00097150A /* DeviceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		505062D11CE19AFF0060FEE7 /* Keys.template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keys.template.swift; path = ../Keys.template.swift; sourceTree = "<group>"; };
 		5067A0CE1B30EBB500A87D71 /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = photon_wifi.mp4; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
 		5073D4C81AFB14DE00068C2A /* PinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinFunctionView.m; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
 		50B6599C1AFD922A00606A39 /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		50B6599D1AFD922A00606A39 /* Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popup.m; sourceTree = "<group>"; };
-		50C368761CBC44FF004607ED /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SPKTinkerViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SPKTinkerViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		50D47F2E1AFAF56C004AD3AE /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinView.h; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 				50EB761D1AE70AE700C925A9 /* Views */,
 				50EB76101AE6EE9C00C925A9 /* Models */,
 				50B125481AE06CF4003C29DC /* AppDelegate.swift */,
-				50C368761CBC44FF004607ED /* Keys.swift */,
+				505062D11CE19AFF0060FEE7 /* Keys.template.swift */,
 				50B125461AE06CF4003C29DC /* Supporting Files */,
 			);
 			path = "Photon-Tinker";
@@ -275,7 +275,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = spark;
 				TargetAttributes = {
 					50B125421AE06CF4003C29DC = {
@@ -375,7 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
-				50C368771CBC44FF004607ED /* Keys.swift in Sources */,
+				505062D21CE19AFF0060FEE7 /* Keys.template.swift in Sources */,
 				502E9BC01B194DF800D2C45B /* SettingsTableViewController.swift in Sources */,
 				5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */,
 				5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */,
@@ -430,6 +430,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -503,6 +504,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.particle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/SparkSetup-Bridging-Header.h";
@@ -520,6 +522,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.particle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/SparkSetup-Bridging-Header.h";

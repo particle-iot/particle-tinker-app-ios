@@ -23,7 +23,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
         
-        if !SparkCloud.sharedInstance().isLoggedIn
+        if !SparkCloud.sharedInstance().isAuthenticated
         {
             self.logoutButton.setTitle("Log in", forState: .Normal)
         }
@@ -155,7 +155,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             self.loadDevices()
             
-            self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
+            self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(DeviceListViewController.flashingTimerFunc(_:)), userInfo: nil, repeats: true)
         }
         Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
     }
@@ -489,7 +489,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func invokePhotonDeviceSetup()
     {
-        if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isLoggedIn)
+        if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isAuthenticated)
         {
             Mixpanel.sharedInstance().timeEvent("Tinker: Device setup activity")
             vc.delegate = self
@@ -579,7 +579,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 {
                     let device = self.devices[indexPath.row]
                     self.lastTappedNonTinkerDevice = device
-                    NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: "resetLastTappedDevice:", userInfo: nil, repeats: false)
+                    NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(DeviceListViewController.resetLastTappedDevice(_:)), userInfo: nil, repeats: false)
                     
                     // TODO: add "not running tinker, do you want to flash?"
                     TSMessage.showNotificationInViewController(self, title: "Device not running Tinker", subtitle: "Do you want to flash Tinker firmware to this device? Tap device again to Tinker with it anyway", image: UIImage(named: "imgQuestionWhite"), type: .Message, duration: -1, callback: { () -> Void in

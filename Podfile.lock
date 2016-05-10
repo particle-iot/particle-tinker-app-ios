@@ -17,9 +17,9 @@ PODS:
   - ASValueTrackingSlider (0.11.2)
   - HexColors (2.2.1)
   - MBProgressHUD (0.9.2)
-  - Mixpanel (2.9.6):
-    - Mixpanel/Mixpanel (= 2.9.6)
-  - Mixpanel/Mixpanel (2.9.6)
+  - Mixpanel (2.9.9):
+    - Mixpanel/Mixpanel (= 2.9.9)
+  - Mixpanel/Mixpanel (2.9.9)
   - PullToRefreshCoreText (0.2)
   - Spark-SDK (0.4.1):
     - Spark-SDK/Helpers (= 0.4.1)
@@ -55,12 +55,12 @@ SPEC CHECKSUMS:
   ASValueTrackingSlider: 45c9f78252da60de01d8f2afe869aaf90dd978d9
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  Mixpanel: 048a9f2512ac1bb8bfdecf719da024873f50a9c2
+  Mixpanel: 818d1940c2d9402453b349545022a86968097f57
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   Spark-SDK: e9f7713a28526157983d28c452f4f271e8496912
   SparkSetup: 0788966f922f3852d399973b780f2c14cb7c03ee
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
-PODFILE CHECKSUM: 8d7e6b8a90c631f9685da7a1681e89623c0d97df
+PODFILE CHECKSUM: 4d5af2380abb78982d95463e4eb466e2433d84a0
 
-COCOAPODS: 1.0.0.beta.6
+COCOAPODS: 1.0.0.rc.2

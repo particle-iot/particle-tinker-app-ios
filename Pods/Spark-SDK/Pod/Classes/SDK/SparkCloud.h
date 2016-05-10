@@ -21,6 +21,7 @@
 #import "SparkDevice.h"
 #import "SparkEvent.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const kSparkAPIBaseURL;

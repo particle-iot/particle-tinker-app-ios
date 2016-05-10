@@ -179,7 +179,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     func webViewDidStartLoad(webView: UIWebView) {
 //        print("DidStartLoad")
-        self.loadFramesCount++
+        self.loadFramesCount += 1
 //        self.startSpinner()
     }
     
@@ -188,7 +188,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         print("webViewDidFinishLoad:"+self.printTimestamp())
 //        print("DidFinishLoad")
 //        print(self.loadFramesCount)
-        if --self.loadFramesCount <= 0 {
+        self.loadFramesCount-=1
+        if self.loadFramesCount <= 0 {
             self.stopSpinner()
             self.closeButton.hidden = false
         }
