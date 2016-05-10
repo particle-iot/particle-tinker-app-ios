@@ -11,7 +11,7 @@ import UIKit
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
 let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
-
+let kDefaultElectronFlashingTime : Int = 15
 
 class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
 
@@ -640,10 +640,49 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                                     
                                 }
                             case .Electron:
-                                print("flash tinker to Electron");
                                 Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
                                 // TODO: support flashing tinker to Electron
-                                TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
+//                                TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
+                                
+                                
+                                // heading
+                                let optionMenu = UIAlertController(title: "Flashing Tinker to Electron", message: "Flashing Tinker to Electron will consume X KB of data from your data plan, are you sure you want to continue?", preferredStyle: .Alert)
+                                
+                                
+                                let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: {
+                                    (alert: UIAlertAction!) -> Void in
+                                    // check if this works otherwise put binary
+                                    device.flashKnownApp("tinker", completion: { (error:NSError?) -> Void in
+                                        if let e=error
+                                        {
+                                            TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
+                                        }
+                                        else
+                                        {
+                                            TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your Electron is being flashed with Tinker firmware...", type: .Success)
+                                            device.isFlashing = true
+                                            self.deviceIDflashingDict[device.id] = kDefaultElectronFlashingTime
+                                            self.photonSelectionTableView.reloadData()
+                                            
+                                        }
+                                    })
+
+                                    
+                                })
+                                
+                                                              // cancel
+                                let cancelAction = UIAlertAction(title: "No", style: .Cancel, handler: {
+                                    (alert: UIAlertAction!) -> Void in
+                                })
+                                
+                                
+                                // 4
+                                optionMenu.addAction(yesAction)
+                                optionMenu.addAction(cancelAction)
+                                
+                                // 5
+                                self.presentViewController(optionMenu, animated: true, completion: nil)
+                                
                                 
                             }
                         }, atPosition: .Top, canBeDismissedByUser: true)
