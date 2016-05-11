@@ -25,6 +25,7 @@ class DeviceInfoViewController: UIViewController {
     @IBOutlet weak var deviceNameLabel: UILabel!
     @IBOutlet weak var IMEITitleLabel: UILabel!
     @IBOutlet weak var IMEILabel: UILabel!
+    @IBOutlet weak var deviceStateImageView: UIImageView!
 
     @IBOutlet weak var ICCIDTitleLabel: UILabel!
     @IBOutlet weak var ICCIDLabel: UILabel!

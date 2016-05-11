@@ -943,7 +943,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62a-sd-Yfk">
-                                <rect key="frame" x="424" y="117" width="16" height="16"/>
+                                <rect key="frame" x="422" y="117" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="o3A-UR-wuy"/>
                                     <constraint firstAttribute="width" constant="16" id="s7T-oF-LZO"/>
@@ -970,6 +970,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgGreenCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Z49-Pf-Ydr">
+                                <rect key="frame" x="274" y="185" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="cZA-XF-f86"/>
+                                    <constraint firstAttribute="height" constant="16" id="fwe-BO-NbC"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.60543263199999997" green="0.62999860559999998" blue="0.79396170379999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -980,6 +987,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="leading" secondItem="m6x-Ka-4d8" secondAttribute="leading" id="1tE-xe-Y1I"/>
                             <constraint firstItem="LaH-eW-MIB" firstAttribute="leading" secondItem="0wE-hR-B91" secondAttribute="leading" id="2Xk-Yl-h3o"/>
                             <constraint firstItem="xc6-qW-hr4" firstAttribute="baseline" secondItem="LaH-eW-MIB" secondAttribute="baseline" id="3kf-hw-0vn"/>
+                            <constraint firstItem="Z49-Pf-Ydr" firstAttribute="centerY" secondItem="YuC-hX-n3m" secondAttribute="centerY" id="3zk-wi-QuO"/>
                             <constraint firstItem="A93-do-PWp" firstAttribute="top" secondItem="Mte-nW-hU6" secondAttribute="bottom" constant="373" id="5sd-Hy-Tzw"/>
                             <constraint firstItem="H0f-gV-kwC" firstAttribute="baseline" secondItem="9Qe-Un-SES" secondAttribute="baseline" id="6Ei-G2-Mn0"/>
                             <constraint firstItem="9Qe-Un-SES" firstAttribute="leading" secondItem="Agj-8M-8Pe" secondAttribute="leading" id="6WG-ca-0KI"/>
@@ -997,7 +1005,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="9Qe-Un-SES" firstAttribute="top" secondItem="Agj-8M-8Pe" secondAttribute="bottom" constant="4" id="HnE-xu-raJ"/>
                             <constraint firstItem="62a-sd-Yfk" firstAttribute="centerY" secondItem="yWN-E5-MQi" secondAttribute="centerY" id="Htx-6x-vOB"/>
                             <constraint firstItem="Mte-nW-hU6" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="bottom" constant="21" id="JG3-Mj-4cZ"/>
-                            <constraint firstItem="62a-sd-Yfk" firstAttribute="leading" secondItem="yWN-E5-MQi" secondAttribute="trailing" constant="6" id="Jpz-Dv-s20"/>
+                            <constraint firstItem="62a-sd-Yfk" firstAttribute="leading" secondItem="yWN-E5-MQi" secondAttribute="trailing" constant="4" id="Jpz-Dv-s20"/>
                             <constraint firstItem="H0f-gV-kwC" firstAttribute="leading" secondItem="9Qe-Un-SES" secondAttribute="trailing" constant="10" id="K3Y-sv-WCC"/>
                             <constraint firstItem="rgN-WA-viV" firstAttribute="top" secondItem="Hbd-cs-U4l" secondAttribute="bottom" constant="4" id="KbH-rV-mnZ"/>
                             <constraint firstItem="H6C-zO-Erf" firstAttribute="leading" secondItem="YuC-hX-n3m" secondAttribute="leading" id="LId-xT-5Fu"/>
@@ -1034,6 +1042,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="baseline" secondItem="Agj-8M-8Pe" secondAttribute="baseline" id="mrc-pj-obd"/>
                             <constraint firstItem="Mte-nW-hU6" firstAttribute="leading" secondItem="H1f-Qk-EZe" secondAttribute="leading" id="mx5-nY-fpC"/>
                             <constraint firstItem="Hbd-cs-U4l" firstAttribute="top" secondItem="9Qe-Un-SES" secondAttribute="bottom" constant="4" id="mxc-PZ-KZR"/>
+                            <constraint firstItem="Z49-Pf-Ydr" firstAttribute="leading" secondItem="YuC-hX-n3m" secondAttribute="trailing" constant="4" id="ogO-DZ-zDL"/>
                             <constraint firstItem="Agj-8M-8Pe" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" symbolic="YES" id="olF-yO-1hj"/>
                             <constraint firstItem="aV9-7l-p4f" firstAttribute="leading" secondItem="H6C-zO-Erf" secondAttribute="leading" id="pbs-eF-4GK"/>
                             <constraint firstItem="A93-do-PWp" firstAttribute="top" secondItem="8Km-iq-M9K" secondAttribute="bottom" id="q22-cH-8Ga"/>
@@ -1084,6 +1093,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                         <outlet property="deviceIPAddressLabel" destination="H6C-zO-Erf" id="GL6-de-daF"/>
                         <outlet property="deviceImageView" destination="Mte-nW-hU6" id="llV-VZ-5TI"/>
                         <outlet property="deviceNameLabel" destination="H1f-Qk-EZe" id="Wfa-sY-OjW"/>
+                        <outlet property="deviceStateImageView" destination="Z49-Pf-Ydr" id="sV6-Xb-2PV"/>
                         <outlet property="deviceStateLabel" destination="YuC-hX-n3m" id="awF-rt-REh"/>
                         <outlet property="deviceTypeLabel" destination="m6x-Ka-4d8" id="bQl-4o-1be"/>
                         <outlet property="dfsfds" destination="m6x-Ka-4d8" id="3A1-xg-fsP"/>
