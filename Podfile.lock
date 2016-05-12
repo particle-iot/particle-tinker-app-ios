@@ -21,11 +21,11 @@ PODS:
     - Mixpanel/Mixpanel (= 2.9.9)
   - Mixpanel/Mixpanel (2.9.9)
   - PullToRefreshCoreText (0.2)
-  - Spark-SDK (0.4.1):
-    - Spark-SDK/Helpers (= 0.4.1)
-    - Spark-SDK/SDK (= 0.4.1)
-  - Spark-SDK/Helpers (0.4.1)
-  - Spark-SDK/SDK (0.4.1):
+  - Spark-SDK (0.5.0):
+    - Spark-SDK/Helpers (= 0.5.0)
+    - Spark-SDK/SDK (= 0.5.0)
+  - Spark-SDK/Helpers (0.5.0)
+  - Spark-SDK/SDK (0.5.0):
     - AFNetworking (~> 3.0)
     - Spark-SDK/Helpers
   - SparkSetup (0.4.0):
@@ -46,9 +46,13 @@ DEPENDENCIES:
   - MBProgressHUD
   - Mixpanel
   - PullToRefreshCoreText (~> 0.1)
-  - Spark-SDK
+  - Spark-SDK (from `../spark-sdk-ios`)
   - SparkSetup
   - TSMessages
+
+EXTERNAL SOURCES:
+  Spark-SDK:
+    :path: "../spark-sdk-ios"
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -57,10 +61,10 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   Mixpanel: 818d1940c2d9402453b349545022a86968097f57
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
-  Spark-SDK: e9f7713a28526157983d28c452f4f271e8496912
+  Spark-SDK: 99cf0b127732618d5a35f5c03169a21b2482e220
   SparkSetup: 0788966f922f3852d399973b780f2c14cb7c03ee
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
-PODFILE CHECKSUM: 4d5af2380abb78982d95463e4eb466e2433d84a0
+PODFILE CHECKSUM: fc0b113d5bfd8c522b4e540e81b359fe6ff4cee6
 
 COCOAPODS: 1.0.0.rc.2

@@ -3,12 +3,12 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 5/10/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 Particle. All rights reserved.
 //
 
 import Foundation
 
-class DeviceInfoViewController: UIViewController {
+class DeviceInfoViewController: UIViewController, UITableViewDelegate {
     
     
     @IBOutlet weak var deviceIPAddressLabel: UILabel!
@@ -36,5 +36,11 @@ class DeviceInfoViewController: UIViewController {
     
     @IBAction func backButtonTapped(sender: AnyObject) {
     }
+    
+    var device : SparkDevice?
+    
+    
+    
+    
     
 }

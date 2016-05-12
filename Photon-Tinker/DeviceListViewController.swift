@@ -120,36 +120,49 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         self.deviceIDflashingTimer!.invalidate()
-        if segue.identifier == "tinker"
+        self.lastTappedNonTinkerDevice = nil
+        
+        
+        var deviceTypeStr = "";
+        
+        switch self.selectedDevice!.type
         {
-            self.lastTappedNonTinkerDevice = nil
-            //            self.flashingTimer?.invalidate()
+        case .Photon:
+            deviceTypeStr = "Photon";
             
-            if let vc = segue.destinationViewController as? SPKTinkerViewController
-            {
-                vc.device = self.selectedDevice!
-                
-                var deviceTypeStr = "";
-                switch vc.device.type
-                {
-                case .Photon:
-                    deviceTypeStr = "Photon";
-                    
-                case .Electron:
-                    deviceTypeStr = "Electron";
-                    
-                case .Core:
-                    deviceTypeStr = "Core";
-                    
-                }
+        case .Electron:
+            deviceTypeStr = "Electron";
+            
+        case .Core:
+            deviceTypeStr = "Core";
+            
+        default:
+            deviceTypeStr = "Other";
+            
+        }
+        
+        if segue.identifier == "tinker" {
+            if let vc = segue.destinationViewController as? SPKTinkerViewController {
+                vc.device = self.selectedDevice
                 
                 Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceTypeStr, "running_tinker":vc.device.isRunningTinker()])
                 
             }
         }
+        
+        if segue.identifier == "info" {
+            if let vc = segue.destinationViewController as? DeviceInfoViewController {
+                vc.device = self.selectedDevice
+                
+                Mixpanel.sharedInstance().track("Tinker: Info", properties: ["device":deviceTypeStr])
+                
+            }
+        }
+
+    
     }
-    
-    
+
+
     override func viewWillAppear(animated: Bool) {
         if SparkCloud.sharedInstance().loggedInUsername != nil
         {
@@ -328,18 +341,36 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             switch (self.devices[indexPath.row].type)
             {
             case .Core:
-                cell.deviceImageView.image = UIImage(named: "imgCore")
+                cell.deviceImageView.image = UIImage(named: "imgDeviceCore")
                 cell.deviceTypeLabel.text = "Core"
                 
             case .Electron:
-                cell.deviceImageView.image = UIImage(named: "imgElectron")
+                cell.deviceImageView.image = UIImage(named: "imgDeviceElectron")
                 cell.deviceTypeLabel.text = "Electron"
                 
-            case .Photon: // .Photon
-                fallthrough
+            case .Photon:
+                cell.deviceImageView.image = UIImage(named: "imgDevicePhoton")
+                cell.deviceTypeLabel.text = "Photon/P0"
+
+            case .P1:
+                cell.deviceImageView.image = UIImage(named: "imgDeviceP1")
+                cell.deviceTypeLabel.text = "Photon/P0"
+
+            case .RedBearDuo:
+                cell.deviceImageView.image = UIImage(named: "imgDeviceRedBearDuo")
+                cell.deviceTypeLabel.text = "RedBear Duo"
+
+            case .Bluz:
+                cell.deviceImageView.image = UIImage(named: "imgDeviceBluz")
+                cell.deviceTypeLabel.text = "RedBear Duo"
+
+            case .DigistumpOak:
+                cell.deviceImageView.image = UIImage(named: "imgDeviceDigistumpOak")
+                cell.deviceTypeLabel.text = "Digistump Oak"
+                
             default:
-                cell.deviceImageView.image = UIImage(named: "imgPhoton")
-                cell.deviceTypeLabel.text = "Photon"
+                cell.deviceImageView.image = UIImage(named: "imgDeviceUnknown")
+                cell.deviceTypeLabel.text = "Unknown"
                 
             }
             
@@ -676,6 +707,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     optionMenu.addAction(yesAction)
                     optionMenu.addAction(noAction)
                     self.presentViewController(areYouSureAlert, animated: true, completion: nil)
+                
+                default:
+                    TSMessage.showNotificationWithTitle("Reflash Tinker", subtitle: "Cannot reflash Tinker to a non-Particle device", type: .Warning)
+
+                    
                 }
                 
             })
@@ -700,7 +736,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             let infoAction = UIAlertAction(title: "More info", style: .Default) {
                 (alert: UIAlertAction!) -> Void in
-                //                self.showSparkCoreAppPopUp()
+                self.selectedDevice = self.devices[indexPath.row]
+                self.performSegueWithIdentifier("info", sender: self)
             }
             
             // cancel
@@ -714,7 +751,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             if device.isRunningTinker() {
                 optionMenu.addAction(tinkerAction)
             } else {
-                optionMenu.addAction(reflashAction)
+                if device.type == .Photon || device.type == .Electron || device.type == .Core {
+                    optionMenu.addAction(reflashAction)
+                }
             }
             //            optionMenu.addAction(functionsAction)
             //            optionMenu.addAction(variablesAction)

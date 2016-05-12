@@ -185,6 +185,11 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
                         Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
                         // TODO: support flashing tinker to Electron
                         TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
+                        
+                    default:
+                        TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported for non-Particle device.", type: .Warning)
+
+                        
                     }
                     
                 }
