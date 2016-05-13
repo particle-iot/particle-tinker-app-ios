@@ -123,13 +123,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.lastTappedNonTinkerDevice = nil
         
         
-        let deviceInfo = self.getDeviceNameAndImage(self.selectedDevice)
+        let deviceInfo = self.getDeviceTypeAndImage(self.selectedDevice)
         
         if segue.identifier == "tinker" {
             if let vc = segue.destinationViewController as? SPKTinkerViewController {
                 vc.device = self.selectedDevice
                 
-                Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceName, "running_tinker":vc.device.isRunningTinker()])
+                Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 
             }
         }
@@ -139,7 +139,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 vc.device = self.selectedDevice
                 vc.deviceListViewController = self
                 
-                Mixpanel.sharedInstance().track("Tinker: Info", properties: ["device":deviceInfo.deviceName])
+                Mixpanel.sharedInstance().track("Tinker: Info", properties: ["device":deviceInfo.deviceType])
                 
             }
         }
@@ -309,7 +309,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     
-    func getDeviceNameAndImage(device : SparkDevice?) -> (deviceName: String, deviceImage: UIImage) {
+    func getDeviceTypeAndImage(device : SparkDevice?) -> (deviceType: String, deviceImage: UIImage) {
         
         var image : UIImage?
         var text : String?
@@ -402,10 +402,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.deviceNameLabel.text = "<no name>"
             }
             
-            let deviceInfo = self.getDeviceNameAndImage(self.devices[indexPath.row])
+            let deviceInfo = self.getDeviceTypeAndImage(self.devices[indexPath.row])
 
             cell.deviceImageView.image = deviceInfo.deviceImage
-            cell.deviceTypeLabel.text = deviceInfo.deviceName
+            cell.deviceTypeLabel.text = deviceInfo.deviceType
 
             cell.deviceIDLabel.text = devices[indexPath.row].id.uppercaseString
             

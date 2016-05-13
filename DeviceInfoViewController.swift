@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceInfoViewController: UIViewController, UITableViewDelegate {
+class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var deviceIPAddressLabel: UILabel!
@@ -49,8 +49,12 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate {
         backgroundImage.contentMode = .ScaleToFill;
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
+        self.deviceDataTableView.delegate = self
+        self.deviceDataTableView.dataSource = self
 
     }
+    
+    var variablesList : [String]?
     
     override func viewWillAppear(animated: Bool) {
         if self.device!.type != .Electron {
@@ -73,15 +77,90 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate {
         self.deviceStateLabel.text = deviceStateInfo.deviceStateText
         self.deviceStateImageView.image = deviceStateInfo.deviceStateImage
 
-        let deviceInfo = self.deviceListViewController!.getDeviceNameAndImage(self.device)
+        let deviceInfo = self.deviceListViewController!.getDeviceTypeAndImage(self.device)
         self.deviceImageView.image = deviceInfo.deviceImage
-        self.deviceNameLabel.text = deviceInfo.deviceName
-
+        self.deviceTypeLabel.text = deviceInfo.deviceType
         
-   
+        self.variablesList = [String]()
+        for (key, value) in (self.device?.variables)! {
+            self.variablesList?.append(String("\(key) (\(value))"))
+        }
+    
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title : String?
+        switch section {
+        case 0 : title = "Functions"
+        case 1 : title = "Variables"
+        default : title = "Events"
+        }
+        return title
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0 : return self.device!.functions.count
+        case 1 : return self.device!.variables.count
+        default : return 1;
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+//        var masterCell : UITableViewCell?
+        
+        let cell : UITableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("infoCell")
+        
+        switch indexPath.section {
+        case 0 : // Functions
+            cell!.textLabel?.text = self.device?.functions[indexPath.row]
+        case 1 :
+            cell!.textLabel?.text = self.variablesList![indexPath.row]
+        default :
+            cell!.textLabel?.text = "Tap for events stream"
+            
+            
+        }
+        
+        return cell!
+        
+        
         
     }
     
+    
+    
+    
+//    func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView!
+//    {
+//        let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
+//        headerView.backgroundColor = UIColor.clearColor()
+
+        
+//        
+//        UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,300,44)];
+//        tempLabel.backgroundColor=[UIColor clearColor];
+//        tempLabel.shadowColor = [UIColor blackColor];
+//        tempLabel.shadowOffset = CGSizeMake(0,2);
+//        tempLabel.textColor = [UIColor redColor]; //here you can change the text color of header.
+//        tempLabel.font = [UIFont fontWithName:@"Helvetica" size:fontSizeForHeaders];
+//        tempLabel.font = [UIFont boldSystemFontOfSize:fontSizeForHeaders];
+//        tempLabel.text=@"Header Text";
+//        
+//        [tempView addSubview:tempLabel];
+//        
+//        [tempLabel release];
+//        return tempView;
+        
+//        
+//        return headerView
+//    }
+//    
     
     
     
