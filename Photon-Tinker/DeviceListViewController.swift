@@ -123,29 +123,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.lastTappedNonTinkerDevice = nil
         
         
-        var deviceTypeStr = "";
-        
-        switch self.selectedDevice!.type
-        {
-        case .Photon:
-            deviceTypeStr = "Photon";
-            
-        case .Electron:
-            deviceTypeStr = "Electron";
-            
-        case .Core:
-            deviceTypeStr = "Core";
-            
-        default:
-            deviceTypeStr = "Other";
-            
-        }
+        let deviceInfo = self.getDeviceNameAndImage(self.selectedDevice)
         
         if segue.identifier == "tinker" {
             if let vc = segue.destinationViewController as? SPKTinkerViewController {
                 vc.device = self.selectedDevice
                 
-                Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceTypeStr, "running_tinker":vc.device.isRunningTinker()])
+                Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceName, "running_tinker":vc.device.isRunningTinker()])
                 
             }
         }
@@ -153,8 +137,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "info" {
             if let vc = segue.destinationViewController as? DeviceInfoViewController {
                 vc.device = self.selectedDevice
+                vc.deviceListViewController = self
                 
-                Mixpanel.sharedInstance().track("Tinker: Info", properties: ["device":deviceTypeStr])
+                Mixpanel.sharedInstance().track("Tinker: Info", properties: ["device":deviceInfo.deviceName])
                 
             }
         }
@@ -322,6 +307,85 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         return self.devices.count
     }
     
+    
+    
+    func getDeviceNameAndImage(device : SparkDevice?) -> (deviceName: String, deviceImage: UIImage) {
+        
+        var image : UIImage?
+        var text : String?
+        
+        switch (device!.type)
+        {
+        case .Core:
+            image = UIImage(named: "imgDeviceCore")
+            text = "Core"
+            
+        case .Electron:
+            image = UIImage(named: "imgDeviceElectron")
+            text = "Electron"
+            
+        case .Photon:
+            image = UIImage(named: "imgDevicePhoton")
+            text = "Photon/P0"
+            
+        case .P1:
+            image = UIImage(named: "imgDeviceP1")
+            text = "P1"
+            
+        case .RedBearDuo:
+            image = UIImage(named: "imgDeviceRedBearDuo")
+            text = "RedBear Duo"
+            
+        case .Bluz:
+            image = UIImage(named: "imgDeviceBluz")
+            text = "Bluz"
+            
+        case .DigistumpOak:
+            image = UIImage(named: "imgDeviceDigistumpOak")
+            text = "Digistump Oak"
+            
+        default:
+            image = UIImage(named: "imgDeviceUnknown")
+            text = "Unknown"
+            
+        }
+        
+        
+        return (text!, image!)
+        
+    }
+    
+    
+    func getDeviceStateDescAndImage(device : SparkDevice?) -> (deviceStateText : String, deviceStateImage : UIImage) {
+        let online = device?.connected
+        var text : String?
+        var image : UIImage?
+        
+        switch online!
+        {
+        case true :
+            switch device!.isRunningTinker()
+            {
+            case true :
+                text = "Online"
+                image = UIImage(named: "imgGreenCircle") // TODO: breathing cyan
+            default :
+                text = "Online, non-Tinker"
+                image = UIImage(named: "imgYellowCircle")
+            }
+            
+            
+        default :
+            text = "Offline"
+            image = UIImage(named: "imgRedCircle") // gray circle
+            
+        }
+        
+        return (text!,image!)
+    
+    }
+
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var masterCell : UITableViewCell?
@@ -338,65 +402,18 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.deviceNameLabel.text = "<no name>"
             }
             
-            switch (self.devices[indexPath.row].type)
-            {
-            case .Core:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceCore")
-                cell.deviceTypeLabel.text = "Core"
-                
-            case .Electron:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceElectron")
-                cell.deviceTypeLabel.text = "Electron"
-                
-            case .Photon:
-                cell.deviceImageView.image = UIImage(named: "imgDevicePhoton")
-                cell.deviceTypeLabel.text = "Photon/P0"
+            let deviceInfo = self.getDeviceNameAndImage(self.devices[indexPath.row])
 
-            case .P1:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceP1")
-                cell.deviceTypeLabel.text = "Photon/P0"
+            cell.deviceImageView.image = deviceInfo.deviceImage
+            cell.deviceTypeLabel.text = deviceInfo.deviceName
 
-            case .RedBearDuo:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceRedBearDuo")
-                cell.deviceTypeLabel.text = "RedBear Duo"
-
-            case .Bluz:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceBluz")
-                cell.deviceTypeLabel.text = "RedBear Duo"
-
-            case .DigistumpOak:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceDigistumpOak")
-                cell.deviceTypeLabel.text = "Digistump Oak"
-                
-            default:
-                cell.deviceImageView.image = UIImage(named: "imgDeviceUnknown")
-                cell.deviceTypeLabel.text = "Unknown"
-                
-            }
-            
             cell.deviceIDLabel.text = devices[indexPath.row].id.uppercaseString
             
-            let online = self.devices[indexPath.row].connected
-            switch online
-            {
-            case true :
-                switch devices[indexPath.row].isRunningTinker()
-                {
-                case true :
-                    cell.deviceStateLabel.text = "Online"
-                    cell.deviceStateImageView.image = UIImage(named: "imgGreenCircle") // TODO: breathing cyan
-                default :
-                    cell.deviceStateLabel.text = "Online, non-Tinker"
-                    cell.deviceStateImageView.image = UIImage(named: "imgYellowCircle") // ?
-                }
-                
-                
-            default :
-                cell.deviceStateLabel.text = "Offline"
-                cell.deviceStateImageView.image = UIImage(named: "imgRedCircle") // gray circle
-                
-            }
-            
+
+            let deviceStateInfo = getDeviceStateDescAndImage(devices[indexPath.row])
+            cell.deviceStateLabel.text = deviceStateInfo.deviceStateText
+            cell.deviceStateImageView.image = deviceStateInfo.deviceStateImage
+
             // override everything else
             if devices[indexPath.row].isFlashing || self.deviceIDflashingDict.keys.contains(devices[indexPath.row].id)
             {
