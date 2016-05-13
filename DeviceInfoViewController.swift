@@ -134,6 +134,27 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
+            return 100.0 // Expanded height
+        }
+        
+        return 44.0 // Normal height
+    }
+
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        updateTableView()
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        updateTableView()
+    }
+    
+    private func updateTableView() {
+        self.deviceDataTableView.beginUpdates()
+        self.deviceDataTableView.endUpdates()
+    }
     
     
 //    func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView!

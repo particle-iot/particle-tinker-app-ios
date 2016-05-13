@@ -751,7 +751,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
              })
              */
             
-            let infoAction = UIAlertAction(title: "More info", style: .Default) {
+            let infoAction = UIAlertAction(title: "Device Inspector", style: .Default) {
                 (alert: UIAlertAction!) -> Void in
                 self.selectedDevice = self.devices[indexPath.row]
                 self.performSegueWithIdentifier("info", sender: self)
