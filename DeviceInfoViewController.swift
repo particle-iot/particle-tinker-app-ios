@@ -34,6 +34,9 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var deviceImageView: UIImageView!
     
+    @IBOutlet weak var copyDeviceIccidButton: UIButton!
+    @IBOutlet weak var dataUsageTitleLabel: UILabel!
+    @IBOutlet weak var dataUsageLabel: UILabel!
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -56,12 +59,33 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var variablesList : [String]?
     
+    @IBAction func copyDeviceIccid(sender: AnyObject) {
+    }
+    
+    @IBAction func refresh(sender: AnyObject) {
+    }
+    
+    @IBAction func editDeviceName(sender: AnyObject) {
+    }
+    
+    @IBAction func signalDevice(sender: AnyObject) {
+    }
+    
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+    
     override func viewWillAppear(animated: Bool) {
         if self.device!.type != .Electron {
             self.ICCIDTitleLabel.hidden = true
             self.IMEITitleLabel.hidden = true
             self.IMEILabel.hidden = true
             self.ICCIDLabel.hidden = true
+            self.dataUsageLabel.hidden = true
+            self.dataUsageTitleLabel.hidden = true
+            self.copyDeviceIccidButton.hidden = true
+            
+            // try to decrease size for auto layout table to expand up
+            tableViewTopConstraint.constant -= 24;
+            
         } else {
             self.IMEILabel.text = self.device?.imei
             self.ICCIDLabel.text = self.device?.lastIccid
