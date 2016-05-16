@@ -194,7 +194,7 @@
             
             //        y_offset = y_offset * (1.0+(((CGFloat)SCREEN_MAX_LENGTH-480.0)/512.0));
             
-            NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
+//            NSLog(@"y spacing %f / y_ofs %f",y_spacing, y_offset);
             
             [self.chipView insertSubview:v aboveSubview:self.chipShadowImageView];
             v.translatesAutoresizingMaskIntoConstraints = NO;

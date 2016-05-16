@@ -20,6 +20,8 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var deviceIDLabel: UILabel!
     
     @IBAction func copyDeviceID(sender: AnyObject) {
+        UIPasteboard.generalPasteboard().string = self.device?.id
+        TSMessage.showNotificationWithTitle("Copied", subtitle: "Device ID was copied to the clipboard", type: .Success)
     }
     
     @IBOutlet weak var deviceNameLabel: UILabel!
@@ -60,20 +62,36 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     var variablesList : [String]?
     
     @IBAction func copyDeviceIccid(sender: AnyObject) {
+        UIPasteboard.generalPasteboard().string = self.device?.lastIccid
+        TSMessage.showNotificationWithTitle("Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .Success)
+
     }
     
     @IBAction func refresh(sender: AnyObject) {
+        self.device?.refresh({ (err: NSError?) in
+            
+            // test what happens when device goes offline and refresh is triggered
+            if (err == nil) {
+                self.updateDeviceInfoDisplay()
+            }
+        })
     }
     
     @IBAction func editDeviceName(sender: AnyObject) {
     }
     
+    var signalling : Bool = false
+    
     @IBAction func signalDevice(sender: AnyObject) {
+        signalling = !signalling
+        self.device?.signal(signalling, completion: nil)
+        // TODO: change button when active/inactive
     }
     
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     
-    override func viewWillAppear(animated: Bool) {
+    
+    private func updateDeviceInfoDisplay() {
         if self.device!.type != .Electron {
             self.ICCIDTitleLabel.hidden = true
             self.IMEITitleLabel.hidden = true
@@ -84,11 +102,13 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             self.copyDeviceIccidButton.hidden = true
             
             // try to decrease size for auto layout table to expand up
-            tableViewTopConstraint.constant -= 24;
+            tableViewTopConstraint.constant = 8;
             
         } else {
             self.IMEILabel.text = self.device?.imei
             self.ICCIDLabel.text = self.device?.lastIccid
+            tableViewTopConstraint.constant = 36;
+            
         }
         
         self.deviceIPAddressLabel.text = self.device?.lastIPAdress
@@ -96,11 +116,11 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         self.deviceNameLabel.text = self.device?.name
         self.deviceIDLabel.text = self.device?.id
         self.connectionLabel.text = (self.device!.type == .Electron) ? "Cellular" : "Wi-Fi"
-
+        
         let deviceStateInfo = self.deviceListViewController!.getDeviceStateDescAndImage(self.device)
         self.deviceStateLabel.text = deviceStateInfo.deviceStateText
         self.deviceStateImageView.image = deviceStateInfo.deviceStateImage
-
+        
         let deviceInfo = self.deviceListViewController!.getDeviceTypeAndImage(self.device)
         self.deviceImageView.image = deviceInfo.deviceImage
         self.deviceTypeLabel.text = deviceInfo.deviceType
@@ -109,7 +129,26 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         for (key, value) in (self.device?.variables)! {
             self.variablesList?.append(String("\(key) (\(value))"))
         }
+        
+        self.dataUsageLabel.hidden = true
+        self.device?.getCurrentDataUsage({ (dataUsed: Float, err: NSError?) in
+            if let _ = err {
+                self.dataUsageTitleLabel.hidden = true
+            } else {
+                self.dataUsageLabel.hidden = false
+                let ud = NSString(format: "%.3f", dataUsed)
+                self.dataUsageLabel.text = "\(ud) MBs"
+            }
+        })
+        
+        self.deviceDataTableView.reloadData()
+    }
     
+    override func viewWillAppear(animated: Bool) {
+        // move to refresh function
+        
+        self.updateDeviceInfoDisplay()
+        
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
