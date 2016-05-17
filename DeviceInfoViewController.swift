@@ -54,6 +54,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         backgroundImage.contentMode = .ScaleToFill;
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
+        self.deviceDataTableView.allowsMultipleSelection = true
         self.deviceDataTableView.delegate = self
         self.deviceDataTableView.dataSource = self
 
@@ -127,7 +128,16 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.variablesList = [String]()
         for (key, value) in (self.device?.variables)! {
-            self.variablesList?.append(String("\(key) (\(value))"))
+            var varType : String = ""
+            switch value {
+            case "int32" :
+                varType = "Integer"
+            case "float" :
+                varType = "Float"
+            default:
+                varType = "String"
+            }
+            self.variablesList?.append(String("\(key),\(varType)"))
         }
         
         self.dataUsageLabel.hidden = true
@@ -176,21 +186,63 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
 //        var masterCell : UITableViewCell?
+        var masterCell : UITableViewCell?
+        var selected : Bool = false
         
-        let cell : UITableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("infoCell")
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
+            selected = true
+        }
+        
+        
         
         switch indexPath.section {
         case 0 : // Functions
-            cell!.textLabel?.text = self.device?.functions[indexPath.row]
+            let cell : DeviceFunctionTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("functionCell") as? DeviceFunctionTableViewCell
+            cell!.functionNameLabel.text = self.device?.functions[indexPath.row]
+            cell!.device = self.device
+            
+//            cell?.centerFunctionNameLayoutConstraint.constant = selected ? 0 : -20
+
+            masterCell = cell
+        
         case 1 :
-            cell!.textLabel?.text = self.variablesList![indexPath.row]
+            let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("variableCell") as? DeviceVariableTableViewCell
+            
+            let varArr =  self.variablesList![indexPath.row].characters.split{$0 == ","}.map(String.init)
+            //
+            cell!.variableNameLabel.text = varArr[0]
+            cell!.variableTypeString.text = varArr[1]
+            cell!.device = self.device
+//            cell?.variableNameCenterLayoutConstraint.constant = selected ? 0 : -20
+           
+            masterCell = cell;
+            
         default :
-            cell!.textLabel?.text = "Tap for events stream"
+            // events WIP
+            // temp
+            
+            let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("variableCell") as? DeviceVariableTableViewCell
+            cell!.variableNameLabel.text = ""
+            cell!.variableTypeString.text = ""
+            
+            masterCell = cell;
             
             
         }
         
-        return cell!
+        masterCell?.selectionStyle = .None
+
+        //        masterCell?.selectedBackgroundView
+//        masterCell?.select
+       
+
+//        if (selected) {
+//            masterCell?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+//        } else {
+//            masterCell?.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.3)
+//        }
+
+        return masterCell!
         
         
         
@@ -199,7 +251,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
-            return 100.0 // Expanded height
+            return 90.0 // Expanded height
         }
         
         return 44.0 // Normal height

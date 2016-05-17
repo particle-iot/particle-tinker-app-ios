@@ -11,6 +11,8 @@
 		500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */; };
 		5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */; };
 		5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022204A1B1E7F8400387B24 /* WebViewController.swift */; };
+		502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */; };
+		502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */; };
 		502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 502E9BBB1B15773D00D2C45B /* photon-tinker.bin */; };
 		502E9BC01B194DF800D2C45B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E9BBF1B194DF800D2C45B /* SettingsTableViewController.swift */; };
 		5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD221AE09AD00097150A /* DeviceListViewController.swift */; };
@@ -42,6 +44,8 @@
 		500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElectronSetupViewController.swift; sourceTree = "<group>"; };
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		5022204A1B1E7F8400387B24 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceFunctionTableViewCell.swift; path = ../DeviceFunctionTableViewCell.swift; sourceTree = "<group>"; };
+		502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceVariableTableViewCell.swift; path = ../DeviceVariableTableViewCell.swift; sourceTree = "<group>"; };
 		502E9BBB1B15773D00D2C45B /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "photon-tinker.bin"; sourceTree = "<group>"; };
 		502E9BBF1B194DF800D2C45B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		5048CD221AE09AD00097150A /* DeviceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 				50B659991AFC6A2B00606A39 /* SSPieProgressView.h */,
 				50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
+				502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */,
+				502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */,
 				50B6599C1AFD922A00606A39 /* Popup.h */,
 				50B6599D1AFD922A00606A39 /* Popup.m */,
 			);
@@ -388,6 +394,7 @@
 				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
 				50B6599E1AFD922A00606A39 /* Popup.m in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
+				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,
 				508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
@@ -395,6 +402,7 @@
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
+				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

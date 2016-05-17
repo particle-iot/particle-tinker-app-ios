@@ -35,6 +35,11 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
@@ -44,6 +49,8 @@
             <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
+            <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
         </mutableArray>
         <mutableArray key="Gotham-XLight.otf">
@@ -948,14 +955,148 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoCell" textLabel="LNX-7c-SN9" style="IBUITableViewCellStyleDefault" id="xZX-Os-SxE">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="functionCell" rowHeight="90" id="xZX-Os-SxE" customClass="DeviceFunctionTableViewCell" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xZX-Os-SxE" id="uae-oZ-flr">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FunctionName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bo-oN-XV7">
+                                                    <rect key="frame" x="8" y="16" width="117" height="16"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arguments " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmI-qt-lIf">
+                                                    <rect key="frame" x="8" y="56" width="94" height="16"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bI-NF-sOv">
+                                                    <rect key="frame" x="539" y="50" width="53" height="29"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                                    <state key="normal" title="  Call  ">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="callButtonTapped:" destination="xZX-Os-SxE" eventType="touchUpInside" id="wLU-sB-NNK"/>
+                                                    </connections>
+                                                </button>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQx-IB-Eyj">
+                                                    <rect key="frame" x="110" y="49" width="421" height="30"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Op-mh-sFC">
+                                                    <rect key="frame" x="560" y="14" width="31" height="20"/>
+                                                    <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="17"/>
+                                                    <color key="textColor" red="0.91099476439790572" green="0.91099476439790572" blue="0.91099476439790572" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="KjT-No-4ck">
+                                                    <rect key="frame" x="556" y="54" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hQx-IB-Eyj" firstAttribute="centerY" secondItem="KmI-qt-lIf" secondAttribute="centerY" id="0f1-0H-0VP"/>
+                                                <constraint firstItem="4bI-NF-sOv" firstAttribute="centerY" secondItem="hQx-IB-Eyj" secondAttribute="centerY" id="3om-Jf-3BN"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="KmI-qt-lIf" secondAttribute="leading" id="5cw-8d-teO"/>
+                                                <constraint firstItem="9bo-oN-XV7" firstAttribute="top" secondItem="uae-oZ-flr" secondAttribute="topMargin" constant="8" id="Ama-cy-wmV"/>
+                                                <constraint firstItem="KjT-No-4ck" firstAttribute="centerX" secondItem="4bI-NF-sOv" secondAttribute="centerX" id="BEQ-gS-B84"/>
+                                                <constraint firstItem="KmI-qt-lIf" firstAttribute="top" secondItem="9bo-oN-XV7" secondAttribute="bottom" constant="24" id="Dja-KM-SfP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="4Op-mh-sFC" secondAttribute="trailing" constant="1" id="RqW-KJ-MUT"/>
+                                                <constraint firstItem="4bI-NF-sOv" firstAttribute="leading" secondItem="hQx-IB-Eyj" secondAttribute="trailing" constant="8" id="ZXW-Of-EOI"/>
+                                                <constraint firstItem="hQx-IB-Eyj" firstAttribute="leading" secondItem="KmI-qt-lIf" secondAttribute="trailing" constant="8" id="gIL-SL-3T0"/>
+                                                <constraint firstItem="4Op-mh-sFC" firstAttribute="centerY" secondItem="9bo-oN-XV7" secondAttribute="centerY" id="gsv-Gq-05V"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="9bo-oN-XV7" secondAttribute="leading" id="k78-Ez-qUc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="4bI-NF-sOv" secondAttribute="trailing" id="wTv-sI-EBD"/>
+                                                <constraint firstItem="KjT-No-4ck" firstAttribute="centerY" secondItem="4bI-NF-sOv" secondAttribute="centerY" id="wfx-4X-92D"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="KjT-No-4ck" id="CfX-4L-4EF"/>
+                                            <outlet property="argumentsTextField" destination="hQx-IB-Eyj" id="8TE-4C-Ebj"/>
+                                            <outlet property="argumentsTitleLabel" destination="KmI-qt-lIf" id="flC-GB-bm2"/>
+                                            <outlet property="callButton" destination="4bI-NF-sOv" id="xvR-JF-EuG"/>
+                                            <outlet property="functionNameLabel" destination="9bo-oN-XV7" id="6d2-Dk-ndN"/>
+                                            <outlet property="resultLabel" destination="4Op-mh-sFC" id="x15-SA-nJ2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="variableCell" rowHeight="90" id="mdQ-n5-CYc" customClass="DeviceVariableTableViewCell" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="118" width="600" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mdQ-n5-CYc" id="otD-t8-UtI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VariableName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFi-Cx-E1U" userLabel="Variable Name Label">
+                                                    <rect key="frame" x="8" y="16" width="111" height="16"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VariableType" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sap-BY-3yi" userLabel="Variable Type Label">
+                                                    <rect key="frame" x="8" y="56" width="103" height="16"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NEh-ev-TRg">
+                                                    <rect key="frame" x="527" y="50" width="65" height="29"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                                    <state key="normal" title="  Read  ">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="readButtonTapped:" destination="mdQ-n5-CYc" eventType="touchUpInside" id="fEh-wh-5SJ"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cY-E6-uc5">
+                                                    <rect key="frame" x="560" y="14" width="31" height="20"/>
+                                                    <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="17"/>
+                                                    <color key="textColor" red="0.91099476440000005" green="0.91099476440000005" blue="0.91099476440000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="R6A-0h-3vA">
+                                                    <rect key="frame" x="549" y="55" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="dFi-Cx-E1U" firstAttribute="top" secondItem="otD-t8-UtI" secondAttribute="topMargin" constant="8" id="09L-Ng-1Wp"/>
+                                                <constraint firstItem="R6A-0h-3vA" firstAttribute="centerX" secondItem="NEh-ev-TRg" secondAttribute="centerX" id="B7c-Xm-c1s"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="dFi-Cx-E1U" secondAttribute="leading" id="M4a-c0-9H3"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="sap-BY-3yi" secondAttribute="leading" id="Xbz-Xl-hFZ"/>
+                                                <constraint firstItem="sap-BY-3yi" firstAttribute="top" secondItem="dFi-Cx-E1U" secondAttribute="bottom" constant="24" id="eJK-5k-Rto"/>
+                                                <constraint firstItem="7cY-E6-uc5" firstAttribute="centerY" secondItem="dFi-Cx-E1U" secondAttribute="centerY" id="glC-1g-yDg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="NEh-ev-TRg" secondAttribute="trailing" id="hv1-Zf-OZy"/>
+                                                <constraint firstItem="NEh-ev-TRg" firstAttribute="centerY" secondItem="sap-BY-3yi" secondAttribute="centerY" id="hxX-FT-pVT"/>
+                                                <constraint firstItem="R6A-0h-3vA" firstAttribute="centerY" secondItem="NEh-ev-TRg" secondAttribute="centerY" id="ilr-nc-LNF"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="7cY-E6-uc5" secondAttribute="trailing" constant="1" id="t9l-ZT-UaD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="R6A-0h-3vA" id="vSw-Yn-5Gl"/>
+                                            <outlet property="readButton" destination="NEh-ev-TRg" id="qAd-yT-Y3Y"/>
+                                            <outlet property="resultLabel" destination="7cY-E6-uc5" id="gFn-kB-Nrj"/>
+                                            <outlet property="variableNameLabel" destination="dFi-Cx-E1U" id="bTa-OY-SKb"/>
+                                            <outlet property="variableTypeString" destination="sap-BY-3yi" id="TJl-O5-VZu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoCell" textLabel="qrG-KO-SP0" style="IBUITableViewCellStyleDefault" id="3eb-qL-4S4" customClass="DeviceVariableTableViewCell" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="208" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3eb-qL-4S4" id="kAD-oT-UT6">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LNX-7c-SN9">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qrG-KO-SP0">
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1027,8 +1168,8 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.88MB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Zr-np-68A">
-                                <rect key="frame" x="198" y="238" width="47" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Zr-np-68A">
+                                <rect key="frame" x="198" y="238" width="24" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1158,10 +1299,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <exclude reference="1c2-ib-kbY"/>
                                 <exclude reference="Jpz-Dv-s20"/>
                                 <exclude reference="cQI-9V-3bb"/>
+                                <exclude reference="5sd-Hy-Tzw"/>
                                 <exclude reference="6OC-HO-FIC"/>
                                 <exclude reference="Mg9-Yh-d1l"/>
                                 <exclude reference="bFI-om-rpC"/>
-                                <exclude reference="5sd-Hy-Tzw"/>
                             </mask>
                         </variation>
                     </view>
