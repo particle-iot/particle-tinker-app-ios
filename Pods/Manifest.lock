@@ -28,16 +28,13 @@ PODS:
   - Spark-SDK/SDK (0.5.0):
     - AFNetworking (~> 3.0)
     - Spark-SDK/Helpers
-  - SparkSetup (0.4.0):
-    - SparkSetup/Comm (= 0.4.0)
-    - SparkSetup/Core (= 0.4.0)
-    - SparkSetup/Resources (= 0.4.0)
-  - SparkSetup/Comm (0.4.0)
-  - SparkSetup/Core (0.4.0):
+  - SparkSetup (0.4.1):
+    - SparkSetup/Comm (= 0.4.1)
+    - SparkSetup/Core (= 0.4.1)
+  - SparkSetup/Comm (0.4.1)
+  - SparkSetup/Core (0.4.1):
     - Spark-SDK
     - SparkSetup/Comm
-    - SparkSetup/Resources
-  - SparkSetup/Resources (0.4.0)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
 
@@ -47,12 +44,14 @@ DEPENDENCIES:
   - Mixpanel
   - PullToRefreshCoreText (~> 0.1)
   - Spark-SDK (from `../spark-sdk-ios`)
-  - SparkSetup
+  - SparkSetup (from `../spark-setup-ios`)
   - TSMessages
 
 EXTERNAL SOURCES:
   Spark-SDK:
     :path: "../spark-sdk-ios"
+  SparkSetup:
+    :path: "../spark-setup-ios"
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -62,9 +61,9 @@ SPEC CHECKSUMS:
   Mixpanel: 818d1940c2d9402453b349545022a86968097f57
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   Spark-SDK: 99cf0b127732618d5a35f5c03169a21b2482e220
-  SparkSetup: 0788966f922f3852d399973b780f2c14cb7c03ee
+  SparkSetup: 55e7028417e01fe919a8b77d2a80a9a6f950cd81
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
-PODFILE CHECKSUM: fc0b113d5bfd8c522b4e540e81b359fe6ff4cee6
+PODFILE CHECKSUM: 67a8f06eca4ca349ee7c4e6103d9af50727bef3d
 
-COCOAPODS: 1.0.0.rc.2
+COCOAPODS: 1.0.0

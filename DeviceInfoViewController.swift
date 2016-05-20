@@ -61,6 +61,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     var variablesList : [String]?
+    var signalling : Bool = false
     
     @IBAction func copyDeviceIccid(sender: AnyObject) {
         UIPasteboard.generalPasteboard().string = self.device?.lastIccid
@@ -68,26 +69,65 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
 
     }
     
-    @IBAction func refresh(sender: AnyObject) {
-        self.device?.refresh({ (err: NSError?) in
-            
-            // test what happens when device goes offline and refresh is triggered
-            if (err == nil) {
-                self.updateDeviceInfoDisplay()
-            }
+    @IBAction func actionButtonTapped(sender: AnyObject) {
+        // heading
+        let actionMenu = UIAlertController(title: "Device action", message: nil, preferredStyle: .ActionSheet)
+        
+        
+        // 1
+        let refreshAction = UIAlertAction(title: "Refresh data", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.device?.refresh({ (err: NSError?) in
+                
+                // test what happens when device goes offline and refresh is triggered
+                if (err == nil) {
+                    self.updateDeviceInfoDisplay()
+                }
+            })
+
         })
+        
+        // 2
+        let signalAction = UIAlertAction(title: signalling ? "Stop Signal" : "Signal", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.signalling = !self.signalling
+            self.device?.signal(self.signalling, completion: nil)
+
+        })
+        
+        // 3
+        let reflashAction = UIAlertAction(title: "Reflash Tinker", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+
+        let editNameAction = UIAlertAction(title: "Edit Name", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+
+        
+        // cancel
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        
+        // 4
+        actionMenu.addAction(refreshAction)
+        actionMenu.addAction(signalAction)
+        actionMenu.addAction(reflashAction)
+        actionMenu.addAction(editNameAction)
+        actionMenu.addAction(cancelAction)
+        
+        // 5
+        self.presentViewController(actionMenu, animated: true, completion: nil)
+        
     }
+    
+    
     
     @IBAction func editDeviceName(sender: AnyObject) {
     }
     
-    var signalling : Bool = false
-    
-    @IBAction func signalDevice(sender: AnyObject) {
-        signalling = !signalling
-        self.device?.signal(signalling, completion: nil)
-        // TODO: change button when active/inactive
-    }
     
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     
@@ -103,18 +143,23 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             self.copyDeviceIccidButton.hidden = true
             
             // try to decrease size for auto layout table to expand up
-            tableViewTopConstraint.constant = 8;
+            tableViewTopConstraint.constant = 16;
             
         } else {
             self.IMEILabel.text = self.device?.imei
             self.ICCIDLabel.text = self.device?.lastIccid
-            tableViewTopConstraint.constant = 36;
+//            tableViewTopConstraint.constant = 48;
             
         }
         
         self.deviceIPAddressLabel.text = self.device?.lastIPAdress
         self.lastHeardLabel.text = self.device?.lastHeard?.description.stringByReplacingOccurrencesOfString("+0000", withString: "") // process
-        self.deviceNameLabel.text = self.device?.name
+        if let name = self.device?.name {
+            self.deviceNameLabel.text = name
+        } else {
+            self.deviceNameLabel.text = "<no name>"
+        }
+        
         self.deviceIDLabel.text = self.device?.id
         self.connectionLabel.text = (self.device!.type == .Electron) ? "Cellular" : "Wi-Fi"
         
@@ -179,7 +224,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         switch section {
         case 0 : return self.device!.functions.count
         case 1 : return self.device!.variables.count
-        default : return 1;
+        default : return 0; // num of events logged
         }
     }
     
@@ -226,6 +271,8 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             cell!.variableTypeString.text = ""
             
             masterCell = cell;
+            
+            
             
             
         }

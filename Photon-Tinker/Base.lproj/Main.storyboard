@@ -39,7 +39,6 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
@@ -812,9 +811,9 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             <constraint firstAttribute="width" constant="24" id="Iq9-pI-Osv"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="imgRefreshIcon"/>
+                                        <state key="normal" image="imgCog"/>
                                         <connections>
-                                            <action selector="refresh:" destination="JNA-0n-EYY" eventType="touchUpInside" id="a7t-9S-IDq"/>
+                                            <action selector="actionButtonTapped:" destination="JNA-0n-EYY" eventType="touchUpInside" id="DR6-aK-mtP"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -830,116 +829,104 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceUnknown" translatesAutoresizingMaskIntoConstraints="NO" id="Mte-nW-hU6">
-                                <rect key="frame" x="20" y="97" width="80" height="130"/>
+                                <rect key="frame" x="12" y="72" width="70" height="130"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="81" id="L2i-8W-noo"/>
-                                    <constraint firstAttribute="width" constant="80" id="UVO-eu-4GJ"/>
                                     <constraint firstAttribute="height" constant="130" id="mb4-rL-RjD"/>
+                                    <constraint firstAttribute="width" constant="70" id="rik-vw-VQh"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="L2i-8W-noo"/>
-                                    </mask>
-                                </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPG-q2-aYb">
-                                <rect key="frame" x="108" y="101" width="46" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5c-IK-cUt">
-                                <rect key="frame" x="108" y="169" width="36" height="15"/>
+                                <rect key="frame" x="90" y="168" width="36" height="15"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last heard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qe-Un-SES">
-                                <rect key="frame" x="108" y="135" width="69" height="13"/>
+                                <rect key="frame" x="90" y="134" width="69" height="13"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbd-cs-U4l">
-                                <rect key="frame" x="108" y="152" width="75" height="13"/>
+                                <rect key="frame" x="90" y="151" width="75" height="13"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agj-8M-8Pe">
-                                <rect key="frame" x="108" y="118" width="17" height="13"/>
+                                <rect key="frame" x="90" y="117" width="17" height="13"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IP Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcg-dD-B2A">
-                                <rect key="frame" x="108" y="188" width="70" height="13"/>
+                                <rect key="frame" x="90" y="187" width="70" height="13"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="b4ca4ca75ac67882872a67bcb98a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWN-E5-MQi">
-                                <rect key="frame" x="198" y="117" width="378" height="15"/>
+                                <rect key="frame" x="179" y="116" width="397" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6x-Ka-4d8">
-                                <rect key="frame" x="198" y="100" width="47" height="15"/>
+                                <rect key="frame" x="90" y="93" width="47" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0f-gV-kwC">
-                                <rect key="frame" x="198" y="134" width="164" height="15"/>
+                                <rect key="frame" x="179" y="133" width="164" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WiFi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBI-ve-vxL">
-                                <rect key="frame" x="198" y="151" width="32" height="15"/>
+                                <rect key="frame" x="179" y="150" width="32" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-hX-n3m">
-                                <rect key="frame" x="198" y="170" width="71" height="15"/>
+                                <rect key="frame" x="179" y="169" width="71" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="192.168.0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6C-zO-Erf">
-                                <rect key="frame" x="198" y="187" width="86" height="15"/>
+                                <rect key="frame" x="179" y="186" width="86" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICCID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wE-hR-B91">
-                                <rect key="frame" x="108" y="205" width="39" height="13"/>
+                                <rect key="frame" x="90" y="204" width="39" height="13"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMEI:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaH-eW-MIB">
-                                <rect key="frame" x="108" y="222" width="30" height="13"/>
+                                <rect key="frame" x="90" y="221" width="30" height="13"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" text="8934076500002580000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV9-7l-p4f">
-                                <rect key="frame" x="198" y="204" width="378" height="15"/>
+                                <rect key="frame" x="179" y="203" width="397" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="352252068560000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xc6-qW-hr4">
-                                <rect key="frame" x="198" y="221" width="118" height="15"/>
+                                <rect key="frame" x="179" y="220" width="118" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62a-sd-Yfk" userLabel="copyDeviceIdButton">
-                                <rect key="frame" x="576" y="117" width="16" height="16"/>
+                                <rect key="frame" x="576" y="116" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="o3A-UR-wuy"/>
                                     <constraint firstAttribute="width" constant="16" id="s7T-oF-LZO"/>
@@ -951,7 +938,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Km-iq-M9K">
-                                <rect key="frame" x="0.0" y="263" width="600" height="337"/>
+                                <rect key="frame" x="0.0" y="254" width="600" height="346"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1111,47 +1098,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <sections/>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgGreenCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Z49-Pf-Ydr">
-                                <rect key="frame" x="273" y="171" width="12" height="12"/>
+                                <rect key="frame" x="254" y="170" width="12" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="12" id="cZA-XF-f86"/>
                                     <constraint firstAttribute="height" constant="12" id="fwe-BO-NbC"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1f-Qk-EZe">
-                                <rect key="frame" x="20" y="72" width="516" height="17"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLc-Zf-xAk" userLabel="signalDeviceButton">
-                                <rect key="frame" x="568" y="67" width="28" height="28"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="RPg-vV-AY4"/>
-                                    <constraint firstAttribute="width" constant="28" id="m1b-kM-3C0"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="imgLedSignal"/>
-                                <connections>
-                                    <action selector="signalDevice:" destination="JNA-0n-EYY" eventType="touchUpInside" id="ChO-aJ-VKf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onI-VN-OHR" userLabel="editDeviceNameButton">
-                                <rect key="frame" x="540" y="67" width="28" height="28"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="28" id="1yT-6W-qKX"/>
-                                    <constraint firstAttribute="height" constant="28" id="C7d-Ry-tLS"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
-                                <state key="normal" image="imgPencil"/>
-                                <connections>
-                                    <action selector="editDeviceName:" destination="JNA-0n-EYY" eventType="touchUpInside" id="7dE-qh-NQJ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-AS-l5U" userLabel="copyDeviceIccidButton">
-                                <rect key="frame" x="576" y="204" width="16" height="16"/>
+                                <rect key="frame" x="576" y="203" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="ahU-mr-AAv"/>
                                     <constraint firstAttribute="height" constant="16" id="pR4-aB-Xr7"/>
@@ -1163,14 +1117,27 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data usage:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLd-8e-H9n">
-                                <rect key="frame" x="108" y="239" width="74" height="13"/>
+                                <rect key="frame" x="90" y="238" width="74" height="13"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Zr-np-68A">
-                                <rect key="frame" x="198" y="238" width="24" height="15"/>
+                                <rect key="frame" x="179" y="237" width="24" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQt-Kv-4DB" userLabel="DividerView">
+                                <rect key="frame" x="90" y="112" width="502" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ngH-lY-OH6"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1f-Qk-EZe">
+                                <rect key="frame" x="90" y="72" width="490" height="17"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1183,7 +1150,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstAttribute="trailingMargin" secondItem="H1f-Qk-EZe" secondAttribute="trailing" constant="50" id="1cd-0f-9cw"/>
                             <constraint firstItem="Umo-LC-HMf" firstAttribute="top" secondItem="kV2-re-2ui" secondAttribute="bottom" id="1fE-te-0kS"/>
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="leading" secondItem="m6x-Ka-4d8" secondAttribute="leading" id="1tE-xe-Y1I"/>
-                            <constraint firstItem="onI-VN-OHR" firstAttribute="centerY" secondItem="H1f-Qk-EZe" secondAttribute="centerY" id="26I-Im-dCu"/>
+                            <constraint firstItem="yWN-E5-MQi" firstAttribute="centerY" secondItem="Agj-8M-8Pe" secondAttribute="centerY" id="1yc-OY-75M"/>
                             <constraint firstItem="LaH-eW-MIB" firstAttribute="leading" secondItem="0wE-hR-B91" secondAttribute="leading" id="2Xk-Yl-h3o"/>
                             <constraint firstItem="xc6-qW-hr4" firstAttribute="baseline" secondItem="LaH-eW-MIB" secondAttribute="baseline" id="3kf-hw-0vn"/>
                             <constraint firstItem="Z49-Pf-Ydr" firstAttribute="centerY" secondItem="YuC-hX-n3m" secondAttribute="centerY" constant="-1" id="3zk-wi-QuO"/>
@@ -1191,35 +1158,36 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="H0f-gV-kwC" firstAttribute="baseline" secondItem="9Qe-Un-SES" secondAttribute="baseline" id="6Ei-G2-Mn0"/>
                             <constraint firstItem="TOw-AS-l5U" firstAttribute="baseline" secondItem="aV9-7l-p4f" secondAttribute="baseline" id="6OC-HO-FIC"/>
                             <constraint firstItem="9Qe-Un-SES" firstAttribute="leading" secondItem="Agj-8M-8Pe" secondAttribute="leading" id="6WG-ca-0KI"/>
-                            <constraint firstItem="tLc-Zf-xAk" firstAttribute="leading" secondItem="onI-VN-OHR" secondAttribute="trailing" id="6yA-HW-9cG"/>
+                            <constraint firstItem="H1f-Qk-EZe" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" id="7yY-Mg-dJl"/>
                             <constraint firstItem="Hbd-cs-U4l" firstAttribute="leading" secondItem="9Qe-Un-SES" secondAttribute="leading" id="81K-IB-L7W"/>
                             <constraint firstItem="Umo-LC-HMf" firstAttribute="leading" secondItem="ajO-tY-e4O" secondAttribute="leading" id="8KZ-ZT-gtn"/>
-                            <constraint firstItem="cPG-q2-aYb" firstAttribute="top" secondItem="Mte-nW-hU6" secondAttribute="top" constant="4" id="8fQ-Ew-gNJ"/>
+                            <constraint firstItem="m6x-Ka-4d8" firstAttribute="leading" secondItem="H1f-Qk-EZe" secondAttribute="trailing" id="9L2-Ax-adf"/>
                             <constraint firstItem="9Qe-Un-SES" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" symbolic="YES" id="9lf-qB-4iJ"/>
                             <constraint firstItem="TOw-AS-l5U" firstAttribute="trailing" secondItem="62a-sd-Yfk" secondAttribute="trailing" id="Aat-w2-YvM"/>
                             <constraint firstItem="H1f-Qk-EZe" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="bottom" constant="8" id="B9l-Q6-E1p"/>
+                            <constraint firstItem="Mte-nW-hU6" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="bottom" constant="8" id="CvM-IK-Gh6"/>
                             <constraint firstItem="tLd-8e-H9n" firstAttribute="leading" secondItem="LaH-eW-MIB" secondAttribute="leading" id="DrJ-AI-Zgb"/>
-                            <constraint firstItem="cPG-q2-aYb" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" symbolic="YES" id="ELc-8q-58K"/>
                             <constraint firstAttribute="leadingMargin" secondItem="8Km-iq-M9K" secondAttribute="leading" constant="20" id="F7i-SZ-9xg"/>
                             <constraint firstItem="0wE-hR-B91" firstAttribute="top" secondItem="bcg-dD-B2A" secondAttribute="bottom" constant="4" id="FH3-U1-3OA"/>
                             <constraint firstItem="YuC-hX-n3m" firstAttribute="top" secondItem="iBI-ve-vxL" secondAttribute="bottom" constant="4" id="Hhp-Y1-9NF"/>
-                            <constraint firstItem="tLc-Zf-xAk" firstAttribute="leading" secondItem="onI-VN-OHR" secondAttribute="trailing" constant="1" id="Hks-3D-zoT"/>
                             <constraint firstItem="9Qe-Un-SES" firstAttribute="top" secondItem="Agj-8M-8Pe" secondAttribute="bottom" constant="4" id="HnE-xu-raJ"/>
                             <constraint firstItem="62a-sd-Yfk" firstAttribute="centerY" secondItem="yWN-E5-MQi" secondAttribute="centerY" id="Htx-6x-vOB"/>
                             <constraint firstItem="Mte-nW-hU6" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="bottom" constant="21" id="JG3-Mj-4cZ"/>
+                            <constraint firstItem="H1f-Qk-EZe" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" id="Jgh-q3-1Qh"/>
                             <constraint firstItem="62a-sd-Yfk" firstAttribute="leading" secondItem="yWN-E5-MQi" secondAttribute="trailing" constant="4" id="Jpz-Dv-s20"/>
                             <constraint firstItem="H0f-gV-kwC" firstAttribute="leading" secondItem="9Qe-Un-SES" secondAttribute="trailing" constant="10" id="K3Y-sv-WCC"/>
+                            <constraint firstItem="m6x-Ka-4d8" firstAttribute="top" secondItem="H1f-Qk-EZe" secondAttribute="bottom" constant="4" id="Kgh-JD-gDM"/>
                             <constraint firstItem="H6C-zO-Erf" firstAttribute="leading" secondItem="YuC-hX-n3m" secondAttribute="leading" id="LId-xT-5Fu"/>
                             <constraint firstItem="YuC-hX-n3m" firstAttribute="leading" secondItem="iBI-ve-vxL" secondAttribute="leading" id="LMs-1Q-dif"/>
                             <constraint firstItem="TOw-AS-l5U" firstAttribute="leading" secondItem="aV9-7l-p4f" secondAttribute="trailing" constant="216" id="Mg9-Yh-d1l"/>
+                            <constraint firstItem="Agj-8M-8Pe" firstAttribute="top" secondItem="jQt-Kv-4DB" secondAttribute="bottom" constant="4" id="Mia-6m-8kr"/>
                             <constraint firstItem="8Zr-np-68A" firstAttribute="centerY" secondItem="tLd-8e-H9n" secondAttribute="centerY" id="Og8-lQ-RwB"/>
                             <constraint firstItem="iBI-ve-vxL" firstAttribute="leading" secondItem="H0f-gV-kwC" secondAttribute="leading" id="OqW-E8-oLF"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="Mte-nW-hU6" secondAttribute="leading" id="PZR-Px-awK"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Mte-nW-hU6" secondAttribute="leading" constant="8" id="PZR-Px-awK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Umo-LC-HMf" secondAttribute="trailing" id="Q3Z-1B-0eJ"/>
-                            <constraint firstItem="onI-VN-OHR" firstAttribute="baseline" secondItem="H1f-Qk-EZe" secondAttribute="baseline" id="Sdg-9S-brb"/>
-                            <constraint firstItem="8Km-iq-M9K" firstAttribute="top" secondItem="Mte-nW-hU6" secondAttribute="bottom" constant="36" id="Sfs-qx-j7N"/>
+                            <constraint firstItem="8Km-iq-M9K" firstAttribute="top" secondItem="Mte-nW-hU6" secondAttribute="bottom" constant="52" id="Sfs-qx-j7N"/>
                             <constraint firstItem="Umo-LC-HMf" firstAttribute="top" secondItem="kV2-re-2ui" secondAttribute="bottom" constant="-20" id="TPt-iC-8sn"/>
-                            <constraint firstItem="Agj-8M-8Pe" firstAttribute="top" secondItem="cPG-q2-aYb" secondAttribute="bottom" constant="4" id="UNl-pq-xgA"/>
+                            <constraint firstItem="jQt-Kv-4DB" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" id="Ths-tJ-DuS"/>
                             <constraint firstItem="iBI-ve-vxL" firstAttribute="baseline" secondItem="Hbd-cs-U4l" secondAttribute="baseline" id="URc-aJ-hBe"/>
                             <constraint firstItem="Umo-LC-HMf" firstAttribute="leading" secondItem="ajO-tY-e4O" secondAttribute="leadingMargin" constant="-20" id="Uiv-8d-mZS"/>
                             <constraint firstItem="YuC-hX-n3m" firstAttribute="baseline" secondItem="c5c-IK-cUt" secondAttribute="baseline" id="UsI-lV-jrE"/>
@@ -1227,23 +1195,22 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="0wE-hR-B91" firstAttribute="leading" secondItem="bcg-dD-B2A" secondAttribute="leading" id="Vaq-K0-sgT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Umo-LC-HMf" secondAttribute="trailing" constant="-20" id="Vsh-12-bVk"/>
                             <constraint firstItem="bcg-dD-B2A" firstAttribute="top" secondItem="c5c-IK-cUt" secondAttribute="bottom" constant="4" id="WMg-uC-hnt"/>
-                            <constraint firstItem="onI-VN-OHR" firstAttribute="leading" secondItem="H1f-Qk-EZe" secondAttribute="trailing" constant="4" id="X6j-Ai-wzL"/>
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="leading" secondItem="Agj-8M-8Pe" secondAttribute="trailing" constant="68" id="XuZ-DS-I9j"/>
                             <constraint firstItem="8Zr-np-68A" firstAttribute="leading" secondItem="xc6-qW-hr4" secondAttribute="leading" id="Z5J-D4-h8u"/>
                             <constraint firstItem="c5c-IK-cUt" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" symbolic="YES" id="ZcA-70-osz"/>
                             <constraint firstItem="Mte-nW-hU6" firstAttribute="top" secondItem="H1f-Qk-EZe" secondAttribute="bottom" constant="3" id="a1f-3u-H44"/>
+                            <constraint firstItem="jQt-Kv-4DB" firstAttribute="top" secondItem="m6x-Ka-4d8" secondAttribute="bottom" constant="4" id="akI-az-zAf"/>
                             <constraint firstItem="TOw-AS-l5U" firstAttribute="leading" secondItem="aV9-7l-p4f" secondAttribute="trailing" priority="100" id="bFI-om-rpC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jQt-Kv-4DB" secondAttribute="trailing" constant="-12" id="buR-KR-5Zu"/>
                             <constraint firstItem="62a-sd-Yfk" firstAttribute="height" secondItem="ajO-tY-e4O" secondAttribute="height" id="cQI-9V-3bb"/>
                             <constraint firstItem="Umo-LC-HMf" firstAttribute="centerX" secondItem="ajO-tY-e4O" secondAttribute="centerX" id="d47-Ke-Qpv"/>
-                            <constraint firstItem="m6x-Ka-4d8" firstAttribute="baseline" secondItem="cPG-q2-aYb" secondAttribute="baseline" id="dm4-ko-0Cv"/>
                             <constraint firstItem="bcg-dD-B2A" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" symbolic="YES" id="dor-8n-8Re"/>
+                            <constraint firstItem="Agj-8M-8Pe" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" id="eLd-PT-rJC"/>
                             <constraint firstItem="H6C-zO-Erf" firstAttribute="baseline" secondItem="bcg-dD-B2A" secondAttribute="baseline" id="ekY-i9-ROn"/>
                             <constraint firstItem="tLd-8e-H9n" firstAttribute="top" secondItem="LaH-eW-MIB" secondAttribute="bottom" constant="4" id="fD0-06-JPg"/>
                             <constraint firstItem="62a-sd-Yfk" firstAttribute="leading" secondItem="yWN-E5-MQi" secondAttribute="trailing" id="g8K-V7-OWR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tLc-Zf-xAk" secondAttribute="trailing" constant="-16" id="hki-GU-584"/>
                             <constraint firstItem="TOw-AS-l5U" firstAttribute="centerY" secondItem="aV9-7l-p4f" secondAttribute="centerY" id="iRf-G1-ELa"/>
-                            <constraint firstItem="tLc-Zf-xAk" firstAttribute="baseline" secondItem="H1f-Qk-EZe" secondAttribute="baseline" id="jTa-QB-T0G"/>
-                            <constraint firstItem="cPG-q2-aYb" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" id="jjJ-2u-Hdp"/>
+                            <constraint firstItem="m6x-Ka-4d8" firstAttribute="leading" secondItem="H1f-Qk-EZe" secondAttribute="leading" id="jFU-el-zLG"/>
                             <constraint firstItem="H0f-gV-kwC" firstAttribute="leading" secondItem="yWN-E5-MQi" secondAttribute="leading" id="k4i-7r-l10"/>
                             <constraint firstItem="Hbd-cs-U4l" firstAttribute="leading" secondItem="Mte-nW-hU6" secondAttribute="trailing" constant="8" symbolic="YES" id="kCV-0B-2fI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8Km-iq-M9K" secondAttribute="trailing" constant="-20" id="kVQ-bF-0PJ"/>
@@ -1262,13 +1229,11 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="c5c-IK-cUt" firstAttribute="top" secondItem="Hbd-cs-U4l" secondAttribute="bottom" constant="4" id="rPX-cq-RpF"/>
                             <constraint firstItem="bcg-dD-B2A" firstAttribute="leading" secondItem="c5c-IK-cUt" secondAttribute="leading" id="riI-mC-NGi"/>
                             <constraint firstItem="Mte-nW-hU6" firstAttribute="top" secondItem="H1f-Qk-EZe" secondAttribute="bottom" constant="8" id="sEM-yB-bGx"/>
-                            <constraint firstItem="Agj-8M-8Pe" firstAttribute="leading" secondItem="cPG-q2-aYb" secondAttribute="leading" id="uOl-As-2hr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H1f-Qk-EZe" secondAttribute="trailing" id="soL-ha-GkO"/>
                             <constraint firstAttribute="leadingMargin" secondItem="H1f-Qk-EZe" secondAttribute="leading" id="w6I-OQ-HNe"/>
+                            <constraint firstItem="yWN-E5-MQi" firstAttribute="leading" secondItem="Agj-8M-8Pe" secondAttribute="trailing" constant="72" id="wna-zX-Tfh"/>
                             <constraint firstItem="iBI-ve-vxL" firstAttribute="leading" secondItem="Hbd-cs-U4l" secondAttribute="trailing" constant="3" id="wzu-Xy-uUI"/>
-                            <constraint firstItem="m6x-Ka-4d8" firstAttribute="leading" secondItem="cPG-q2-aYb" secondAttribute="trailing" constant="44" id="x7W-87-RwE"/>
-                            <constraint firstItem="onI-VN-OHR" firstAttribute="leading" secondItem="H1f-Qk-EZe" secondAttribute="trailing" constant="-7" id="xBY-a4-HIp"/>
                             <constraint firstItem="xc6-qW-hr4" firstAttribute="leading" secondItem="aV9-7l-p4f" secondAttribute="leading" id="yFG-R9-TYk"/>
-                            <constraint firstItem="tLc-Zf-xAk" firstAttribute="centerY" secondItem="onI-VN-OHR" secondAttribute="centerY" id="zIQ-ur-LQK"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -1276,26 +1241,27 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <exclude reference="8KZ-ZT-gtn"/>
                                 <exclude reference="Q3Z-1B-0eJ"/>
                                 <exclude reference="d47-Ke-Qpv"/>
-                                <exclude reference="1cd-0f-9cw"/>
                                 <exclude reference="JG3-Mj-4cZ"/>
                                 <exclude reference="a1f-3u-H44"/>
                                 <exclude reference="kfe-p4-ot3"/>
                                 <exclude reference="mx5-nY-fpC"/>
-                                <exclude reference="ELc-8q-58K"/>
+                                <exclude reference="sEM-yB-bGx"/>
+                                <exclude reference="1cd-0f-9cw"/>
+                                <exclude reference="7yY-Mg-dJl"/>
+                                <exclude reference="w6I-OQ-HNe"/>
+                                <exclude reference="9L2-Ax-adf"/>
                                 <exclude reference="olF-yO-1hj"/>
                                 <exclude reference="9lf-qB-4iJ"/>
                                 <exclude reference="kCV-0B-2fI"/>
                                 <exclude reference="ZcA-70-osz"/>
                                 <exclude reference="dor-8n-8Re"/>
+                                <exclude reference="VNW-Lj-AkQ"/>
+                                <exclude reference="1tE-xe-Y1I"/>
                                 <exclude reference="XuZ-DS-I9j"/>
+                                <exclude reference="mrc-pj-obd"/>
                                 <exclude reference="K3Y-sv-WCC"/>
                                 <exclude reference="wzu-Xy-uUI"/>
-                                <exclude reference="VNW-Lj-AkQ"/>
                                 <exclude reference="13F-0k-klf"/>
-                                <exclude reference="Sdg-9S-brb"/>
-                                <exclude reference="xBY-a4-HIp"/>
-                                <exclude reference="Hks-3D-zoT"/>
-                                <exclude reference="jTa-QB-T0G"/>
                                 <exclude reference="1c2-ib-kbY"/>
                                 <exclude reference="Jpz-Dv-s20"/>
                                 <exclude reference="cQI-9V-3bb"/>
@@ -1738,12 +1704,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="imgDeviceFamily" width="424" height="383"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
         <image name="imgGreenCircle" width="128" height="128"/>
-        <image name="imgLedSignal" width="100" height="100"/>
         <image name="imgPencil" width="32" height="32"/>
         <image name="imgPlus" width="256" height="256"/>
         <image name="imgPointAtD7" width="37" height="289"/>
         <image name="imgReflash" width="600" height="600"/>
-        <image name="imgRefreshIcon" width="160" height="160"/>
         <image name="imgResetFunctions" width="600" height="600"/>
         <image name="imgTinkerLogo" width="132" height="139"/>
         <image name="particle-horizontal-blue" width="321" height="75"/>
