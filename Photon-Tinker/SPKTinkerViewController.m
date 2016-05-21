@@ -14,10 +14,12 @@
 #import "PinValueView.h"
 #import "Particle-Swift.h" // thats for SettingsTableViewControllerDelegate which is in Swift file
 #import "Mixpanel.h"
+#import "Particle-Swift.h"
+
 
 #define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SettingsTableViewControllerDelegate>
+@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -147,10 +149,15 @@
 - (IBAction)helpButtonTapped:(id)sender {
 }
 
+
+
 -(void)viewDidLayoutSubviews
 {
     // TODO: find a way to do it after layoutSubviews has been called for everything
     
+}
+
+- (IBAction)deviceInfoButtonTapped:(id)sender {
 }
 
 
@@ -542,13 +549,14 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"settings"])
+    if ([segue.identifier isEqualToString:@"info"])
     {
-        UINavigationController *navController = [segue destinationViewController];
-        SettingsTableViewController *stvc = navController.viewControllers[0];
-        stvc.device = self.device;
-        stvc.delegate = self;
+        DeviceInfoViewController *divc = segue.destinationViewController;
+        divc.deviceListViewController = self.deviceListViewController;
+        divc.device = self.device;
     }
+
+    
 }
 
 

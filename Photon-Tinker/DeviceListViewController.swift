@@ -128,6 +128,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "tinker" {
             if let vc = segue.destinationViewController as? SPKTinkerViewController {
                 vc.device = self.selectedDevice
+                vc.deviceListViewController = self
                 
                 Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 

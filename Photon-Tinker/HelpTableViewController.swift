@@ -8,16 +8,16 @@
 
 import UIKit
 
-@objc protocol SettingsTableViewControllerDelegate
-{
-    func resetAllPinFunctions()
-}
+//@objc protocol SettingsTableViewControllerDelegate
+//{
+//    func resetAllPinFunctions()
+//}
 
 
-class SettingsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class HelpTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
-    @objc var device : SparkDevice? = nil
-    var delegate : SettingsTableViewControllerDelegate? = nil
+//    @objc var device : SparkDevice? = nil
+//    var delegate : SettingsTableViewControllerDelegate? = nil
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -48,7 +48,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
         return .Default
     }
     
-    @IBOutlet weak var deviceIDlabel: UILabel!
+//    @IBOutlet weak var deviceIDlabel: UILabel!
 
     // add a navigation bar to the popover like this:
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -83,7 +83,7 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
-        self.deviceIDlabel.text = self.device!.id
+//        self.deviceIDlabel.text = self.device!.id
         
 //        [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
         Mixpanel.sharedInstance().timeEvent("Tinker: Settings screen activity")
@@ -117,108 +117,23 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
         
         switch indexPath.section
         {
-        case 0: // actions
-            switch indexPath.row
-            {
-            case 0:
-                print("copy device id")
-                Mixpanel.sharedInstance().track("Tinker: Copy device ID")
-                UIPasteboard.generalPasteboard().string = self.device?.id
-                TSMessage.showNotificationInViewController(self.navigationController, title: "Device ID", subtitle: "Your device ID string has been copied to clipboard", type: .Success)
-
-            case 1:
-                print("reset all pins")
-                Mixpanel.sharedInstance().track("Tinker: Reset pins")
-
-                self.delegate?.resetAllPinFunctions()
-                self.dismissViewControllerAnimated(true, completion: nil)
-//                TSMessage.showNotificationInViewController(self, title: "Pin functions", subtitle: "Your device ID string has been copied to clipboard", type: .Message)
-
-            case 2:
-                print("reflash tinker")
-                if self.device!.isFlashing == false
-                {
-                    // TODO: find a way to refactor duplicate code out
-                    switch (self.device!.type)
-                    {
-                        
-                    case .Core:
-                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
-
-                        self.device!.flashKnownApp("tinker", completion: { (error:NSError?) -> Void in
-                            if let e=error
-                            {
-                                TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                            }
-                            else
-                            {
-                                TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
-                                self.device!.isFlashing = true
-                            }
-                        })
-                        
-                    case .Photon:
-                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Photon"])
-
-                        let bundle = NSBundle.mainBundle()
-                        let path = bundle.pathForResource("photon-tinker", ofType: "bin")
-//                        _:NSError?
-                        if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // TODO: fix depracation
-                        {
-                            let filesDict = ["tinker.bin" : binary!]
-                            self.device!.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
-                                if let e=error
-                                {
-                                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                                }
-                                else
-                                {
-                                    TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
-                                    self.device!.isFlashing = true
-                                }
-                            })
-                            
-                        }
-                    
-                    case .Electron:
-                        // TODO: flash tinker to Electron - add support
-                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
-                        // TODO: support flashing tinker to Electron
-                        TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
-                        
-                    default:
-                        TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported for non-Particle device.", type: .Warning)
-
-                        
-                    }
-                    
-                }
-
-                
-                
-            default:
-                print("default")
-            
-            }
-        case 1: // documenation
+        case 0: // docs
             Mixpanel.sharedInstance().track("Tinker: Go to documentation")
 
             var url : NSURL?
             switch indexPath.row
             {
             case 0:
-                print("documentation: app")
+//                print("documentation: app")
                 url = NSURL(string: "https://docs.particle.io/guide/getting-started/tinker/photon/")
             case 1:
-                print("documentation: setup your device")
+//                print("documentation: setup your device")
                 url = NSURL(string: "https://docs.particle.io/guide/getting-started/start/photon/#connect-your-photon")
 
-            case 2:
-                print("documentation: make your mobile app")
+            default:
+//                print("documentation: make your mobile app")
                 url = NSURL(string: "https://docs.particle.io/guide/how-to-build-a-product/mobile-app/")
                 
-            default:
-                print("default1")
                 
             }
         
@@ -229,22 +144,20 @@ class SettingsTableViewController: UITableViewController, UIPopoverPresentationC
             
             self.presentViewController(webVC, animated: true, completion: nil)
             
-        case 2: // Support
+        case 1: // Support
             Mixpanel.sharedInstance().track("Tinker: Go to support")
 
             var url : NSURL?
             switch indexPath.row
             {
                 case 0:
-                print("support: community")
-                url = NSURL(string: "https://community.particle.io/")
-                
-                case 1:
-                print("support: email")
-                url = NSURL(string: "https://docs.particle.io/support/troubleshooting/common-issues/photon/")
+//                    print("support: community")
+                    url = NSURL(string: "https://community.particle.io/")
                 
                 default:
-                print("default2")
+//                    print("support: email")
+                    url = NSURL(string: "https://docs.particle.io/support/troubleshooting/common-issues/photon/")
+                
             }
             
             let webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController

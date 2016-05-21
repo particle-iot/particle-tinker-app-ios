@@ -98,12 +98,23 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         // 3
         let reflashAction = UIAlertAction(title: "Reflash Tinker", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
+            
+            /// WIP
+            self.reflashTinker()
         })
 
         let editNameAction = UIAlertAction(title: "Edit Name", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
+            /// WIP
+        })
+        
+        let docsAction = UIAlertAction(title: "Support/Documentation", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.performSegueWithIdentifier("help", sender: self);
+            
         })
 
+        
         
         // cancel
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
@@ -116,6 +127,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         actionMenu.addAction(signalAction)
         actionMenu.addAction(reflashAction)
         actionMenu.addAction(editNameAction)
+        actionMenu.addAction(docsAction)
         actionMenu.addAction(cancelAction)
         
         // 5
@@ -124,6 +136,17 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "help" {
+//            let navController = segue.destinationViewController as! UINavigationController;
+//            let docsVC = navController.viewControllers[0] as! DocsTableViewController
+//            docsVC.device = self.device
+            
+        }
+        
+
+    }
     
     @IBAction func editDeviceName(sender: AnyObject) {
     }
@@ -151,6 +174,8 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
 //            tableViewTopConstraint.constant = 48;
             
         }
+        
+        self.deviceDataTableView.hidden = !self.device!.connected
         
         self.deviceIPAddressLabel.text = self.device?.lastIPAdress
         self.lastHeardLabel.text = self.device?.lastHeard?.description.stringByReplacingOccurrencesOfString("+0000", withString: "") // process
@@ -232,12 +257,12 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         
 //        var masterCell : UITableViewCell?
         var masterCell : UITableViewCell?
-        var selected : Bool = false
-        
-        if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
-            selected = true
-        }
-        
+//        var selected : Bool = false
+//        
+//        if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
+//            selected = true
+//        }
+//        
         
         
         switch indexPath.section {

@@ -34,10 +34,6 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
@@ -437,6 +433,7 @@
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                        <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
                                         <state key="normal" image="imgPencil"/>
                                         <connections>
                                             <action selector="editDeviceNameButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="zgO-q5-hwC"/>
@@ -725,12 +722,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <constraint firstAttribute="width" constant="24" id="f6y-IZ-Fq1"/>
                                 </constraints>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="imgCog"/>
+                                <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                                <state key="normal" image="imgWrench"/>
                                 <connections>
-                                    <action selector="helpButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="SBe-iQ-7Qe"/>
-                                    <segue destination="AsJ-rX-MwB" kind="popoverPresentation" identifier="settings" popoverAnchorView="hGx-VV-XEo" id="LFl-jZ-kW5">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <segue destination="JNA-0n-EYY" kind="show" identifier="info" id="U3o-w4-uqe"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -943,7 +938,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="28" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xZX-Os-SxE" id="uae-oZ-flr">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FunctionName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bo-oN-XV7">
@@ -1015,7 +1010,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="118" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mdQ-n5-CYc" id="otD-t8-UtI">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VariableName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFi-Cx-E1U" userLabel="Variable Name Label">
@@ -1077,7 +1072,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="208" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3eb-qL-4S4" id="kAD-oT-UT6">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qrG-KO-SP0">
@@ -1300,95 +1295,26 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                         <outlet property="deviceTypeLabel" destination="m6x-Ka-4d8" id="bQl-4o-1be"/>
                         <outlet property="lastHeardLabel" destination="H0f-gV-kwC" id="kxS-eH-UqP"/>
                         <outlet property="tableViewTopConstraint" destination="Sfs-qx-j7N" id="ASi-OX-ce2"/>
+                        <segue destination="AsJ-rX-MwB" kind="show" identifier="help" id="eU2-SF-E5J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J5D-ne-Lwe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3096" y="1400"/>
+            <point key="canvasLocation" x="3109" y="1507"/>
         </scene>
         <!--Tinker settings-->
         <scene sceneID="LBX-yq-i5m">
             <objects>
-                <tableViewController id="jih-2Y-r3C" customClass="SettingsTableViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="jih-2Y-r3C" customClass="HelpTableViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="YgS-IB-fzU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="ACTIONS" id="cHO-et-udr">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZOg-gw-Hpv">
-                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZOg-gw-Hpv" id="Fc5-Pl-aJe">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgCopyToClipboard" translatesAutoresizingMaskIntoConstraints="NO" id="LK8-B9-FY2">
-                                                    <rect key="frame" x="12" y="12" width="24" height="24"/>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Copy Device ID to clipboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFr-WW-GyA">
-                                                    <rect key="frame" x="44" y="4" width="300" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="01234567890abcdef" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8o-ut-Qwd">
-                                                    <rect key="frame" x="44" y="21" width="300" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                    <color key="textColor" red="0.49493634259259256" green="0.49493634259259256" blue="0.49493634259259256" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Hhi-0V-VWh">
-                                        <rect key="frame" x="0.0" y="157.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hhi-0V-VWh" id="sGv-0i-qpS">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgResetFunctions" translatesAutoresizingMaskIntoConstraints="NO" id="m0U-5C-p6t">
-                                                    <rect key="frame" x="12" y="12" width="24" height="24"/>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reset all pins functions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10n-Yh-CnX">
-                                                    <rect key="frame" x="44" y="13" width="268" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Zri-RM-BL3">
-                                        <rect key="frame" x="0.0" y="201.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zri-RM-BL3" id="L0N-FP-GCn">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgReflash" translatesAutoresizingMaskIntoConstraints="NO" id="M39-G9-vE2">
-                                                    <rect key="frame" x="12" y="12" width="24" height="24"/>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Re-flash Tinker firmware" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MgA-kq-fNS">
-                                                    <rect key="frame" x="44" y="13" width="193" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="DOCUMENTATION" id="nF7-UA-NXy">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="LDJ-gz-MOm" style="IBUITableViewCellStyleDefault" id="AW4-q4-syb">
-                                        <rect key="frame" x="0.0" y="287.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AW4-q4-syb" id="uJP-YI-5Hu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1405,7 +1331,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="HZ1-gm-9mL" style="IBUITableViewCellStyleDefault" id="jQX-Qm-3i5">
-                                        <rect key="frame" x="0.0" y="331.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="157.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jQX-Qm-3i5" id="qub-QU-7Mk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1422,7 +1348,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="xp8-3N-Puz" style="IBUITableViewCellStyleDefault" id="yXs-Or-qMD">
-                                        <rect key="frame" x="0.0" y="375.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="201.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yXs-Or-qMD" id="u3f-RU-gRL">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1443,7 +1369,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="SUPPORT" footerTitle="Particle Tinker vX.Y (zzz)" id="NdL-nX-JL4">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nxB-SX-5oO" style="IBUITableViewCellStyleDefault" id="zAa-gW-tnM">
-                                        <rect key="frame" x="0.0" y="461.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="287.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zAa-gW-tnM" id="aiw-VV-tW1">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1460,7 +1386,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="u0T-kr-vzR" style="IBUITableViewCellStyleDefault" id="OTZ-aX-dlB">
-                                        <rect key="frame" x="0.0" y="505.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="331.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OTZ-aX-dlB" id="9Lf-Lc-52p">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1492,9 +1418,6 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="deviceIDlabel" destination="M8o-ut-Qwd" id="iQm-A5-bKQ"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cP9-x7-DaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1709,18 +1632,19 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="imgCloseIcon" width="256" height="256"/>
         <image name="imgCog" width="32" height="32"/>
         <image name="imgCopyClipboard" width="128" height="128"/>
-        <image name="imgCopyToClipboard" width="600" height="600"/>
         <image name="imgDeviceFamily" width="424" height="383"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
         <image name="imgGreenCircle" width="128" height="128"/>
         <image name="imgPencil" width="32" height="32"/>
         <image name="imgPlus" width="256" height="256"/>
         <image name="imgPointAtD7" width="37" height="289"/>
-        <image name="imgReflash" width="600" height="600"/>
-        <image name="imgResetFunctions" width="600" height="600"/>
         <image name="imgTinkerLogo" width="132" height="139"/>
+        <image name="imgWrench" width="600" height="600"/>
         <image name="particle-horizontal-blue" width="321" height="75"/>
         <image name="particle-vertical-blue" width="300" height="277"/>
         <image name="sunflower" width="5" height="37"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="U3o-w4-uqe"/>
+    </inferredMetricsTieBreakers>
 </document>
