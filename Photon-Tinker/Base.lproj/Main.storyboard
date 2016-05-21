@@ -38,7 +38,6 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
@@ -48,6 +47,7 @@
             <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
@@ -835,38 +835,41 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <constraint firstAttribute="width" constant="70" id="rik-vw-VQh"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5c-IK-cUt">
-                                <rect key="frame" x="90" y="168" width="36" height="15"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="c5c-IK-cUt">
+                                <rect key="frame" x="90" y="165" width="35" height="17"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last heard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qe-Un-SES">
-                                <rect key="frame" x="90" y="134" width="69" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last heard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="9Qe-Un-SES">
+                                <rect key="frame" x="90" y="133" width="66" height="12"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbd-cs-U4l">
-                                <rect key="frame" x="90" y="151" width="75" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Hbd-cs-U4l">
+                                <rect key="frame" x="90" y="149" width="72" height="12"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agj-8M-8Pe">
-                                <rect key="frame" x="90" y="117" width="17" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Agj-8M-8Pe">
+                                <rect key="frame" x="90" y="117" width="80" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="q3a-yP-vjt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IP Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcg-dD-B2A">
-                                <rect key="frame" x="90" y="187" width="70" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IP Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="bcg-dD-B2A">
+                                <rect key="frame" x="90" y="186" width="67" height="12"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="b4ca4ca75ac67882872a67bcb98a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWN-E5-MQi">
-                                <rect key="frame" x="179" y="116" width="397" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="b4ca4ca75ac67882872a67bcb98a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWN-E5-MQi">
+                                <rect key="frame" x="170" y="116" width="406" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -877,50 +880,44 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0f-gV-kwC">
-                                <rect key="frame" x="179" y="133" width="164" height="15"/>
-                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WiFi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBI-ve-vxL">
-                                <rect key="frame" x="179" y="150" width="32" height="15"/>
+                                <rect key="frame" x="170" y="149" width="32" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-hX-n3m">
-                                <rect key="frame" x="179" y="169" width="71" height="15"/>
+                                <rect key="frame" x="170" y="168" width="71" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="192.168.0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6C-zO-Erf">
-                                <rect key="frame" x="179" y="186" width="86" height="15"/>
+                                <rect key="frame" x="170" y="184" width="86" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICCID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wE-hR-B91">
-                                <rect key="frame" x="90" y="204" width="39" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICCID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="0wE-hR-B91">
+                                <rect key="frame" x="90" y="202" width="37" height="12"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMEI:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaH-eW-MIB">
-                                <rect key="frame" x="90" y="221" width="30" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMEI:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="LaH-eW-MIB">
+                                <rect key="frame" x="90" y="218" width="29" height="12"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" text="8934076500002580000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV9-7l-p4f">
-                                <rect key="frame" x="179" y="203" width="397" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" text="8934076500002580000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aV9-7l-p4f">
+                                <rect key="frame" x="170" y="200" width="406" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="352252068560000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xc6-qW-hr4">
-                                <rect key="frame" x="179" y="220" width="118" height="15"/>
+                                <rect key="frame" x="170" y="216" width="118" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -946,7 +943,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="28" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xZX-Os-SxE" id="uae-oZ-flr">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FunctionName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bo-oN-XV7">
@@ -1018,7 +1015,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="118" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mdQ-n5-CYc" id="otD-t8-UtI">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VariableName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFi-Cx-E1U" userLabel="Variable Name Label">
@@ -1080,7 +1077,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="208" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3eb-qL-4S4" id="kAD-oT-UT6">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qrG-KO-SP0">
@@ -1098,14 +1095,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <sections/>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgGreenCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Z49-Pf-Ydr">
-                                <rect key="frame" x="254" y="170" width="12" height="12"/>
+                                <rect key="frame" x="245" y="169" width="12" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="12" id="cZA-XF-f86"/>
                                     <constraint firstAttribute="height" constant="12" id="fwe-BO-NbC"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-AS-l5U" userLabel="copyDeviceIccidButton">
-                                <rect key="frame" x="576" y="203" width="16" height="16"/>
+                                <rect key="frame" x="576" y="200" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="ahU-mr-AAv"/>
                                     <constraint firstAttribute="height" constant="16" id="pR4-aB-Xr7"/>
@@ -1116,14 +1113,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <action selector="copyDeviceIccid:" destination="JNA-0n-EYY" eventType="touchUpInside" id="Q0G-dg-eN5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data usage:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLd-8e-H9n">
-                                <rect key="frame" x="90" y="238" width="74" height="13"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data usage:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="tLd-8e-H9n">
+                                <rect key="frame" x="90" y="234" width="71" height="12"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Zr-np-68A">
-                                <rect key="frame" x="179" y="237" width="24" height="15"/>
+                                <rect key="frame" x="170" y="233" width="24" height="15"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1137,7 +1134,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1f-Qk-EZe">
                                 <rect key="frame" x="90" y="72" width="490" height="17"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H0f-gV-kwC">
+                                <rect key="frame" x="170" y="131" width="410" height="15"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1152,6 +1155,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="leading" secondItem="m6x-Ka-4d8" secondAttribute="leading" id="1tE-xe-Y1I"/>
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="centerY" secondItem="Agj-8M-8Pe" secondAttribute="centerY" id="1yc-OY-75M"/>
                             <constraint firstItem="LaH-eW-MIB" firstAttribute="leading" secondItem="0wE-hR-B91" secondAttribute="leading" id="2Xk-Yl-h3o"/>
+                            <constraint firstItem="iBI-ve-vxL" firstAttribute="centerY" secondItem="Hbd-cs-U4l" secondAttribute="centerY" constant="1" id="30f-8l-xd7"/>
                             <constraint firstItem="xc6-qW-hr4" firstAttribute="baseline" secondItem="LaH-eW-MIB" secondAttribute="baseline" id="3kf-hw-0vn"/>
                             <constraint firstItem="Z49-Pf-Ydr" firstAttribute="centerY" secondItem="YuC-hX-n3m" secondAttribute="centerY" constant="-1" id="3zk-wi-QuO"/>
                             <constraint firstItem="A93-do-PWp" firstAttribute="top" secondItem="Mte-nW-hU6" secondAttribute="bottom" constant="373" id="5sd-Hy-Tzw"/>
@@ -1169,6 +1173,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="tLd-8e-H9n" firstAttribute="leading" secondItem="LaH-eW-MIB" secondAttribute="leading" id="DrJ-AI-Zgb"/>
                             <constraint firstAttribute="leadingMargin" secondItem="8Km-iq-M9K" secondAttribute="leading" constant="20" id="F7i-SZ-9xg"/>
                             <constraint firstItem="0wE-hR-B91" firstAttribute="top" secondItem="bcg-dD-B2A" secondAttribute="bottom" constant="4" id="FH3-U1-3OA"/>
+                            <constraint firstItem="Agj-8M-8Pe" firstAttribute="leading" secondItem="jQt-Kv-4DB" secondAttribute="leading" id="HVa-38-FcK"/>
                             <constraint firstItem="YuC-hX-n3m" firstAttribute="top" secondItem="iBI-ve-vxL" secondAttribute="bottom" constant="4" id="Hhp-Y1-9NF"/>
                             <constraint firstItem="9Qe-Un-SES" firstAttribute="top" secondItem="Agj-8M-8Pe" secondAttribute="bottom" constant="4" id="HnE-xu-raJ"/>
                             <constraint firstItem="62a-sd-Yfk" firstAttribute="centerY" secondItem="yWN-E5-MQi" secondAttribute="centerY" id="Htx-6x-vOB"/>
@@ -1216,6 +1221,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstAttribute="trailingMargin" secondItem="8Km-iq-M9K" secondAttribute="trailing" constant="-20" id="kVQ-bF-0PJ"/>
                             <constraint firstItem="aV9-7l-p4f" firstAttribute="baseline" secondItem="0wE-hR-B91" secondAttribute="baseline" id="keW-tl-HsX"/>
                             <constraint firstItem="Mte-nW-hU6" firstAttribute="leading" secondItem="ajO-tY-e4O" secondAttribute="leadingMargin" id="kfe-p4-ot3"/>
+                            <constraint firstItem="yWN-E5-MQi" firstAttribute="leading" secondItem="Agj-8M-8Pe" secondAttribute="trailing" id="lbZ-Vc-mAD"/>
                             <constraint firstItem="c5c-IK-cUt" firstAttribute="leading" secondItem="Hbd-cs-U4l" secondAttribute="leading" id="lqZ-xe-VWR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="62a-sd-Yfk" secondAttribute="trailing" constant="-12" id="mg3-Hh-fpO"/>
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="baseline" secondItem="Agj-8M-8Pe" secondAttribute="baseline" id="mrc-pj-obd"/>
@@ -1230,6 +1236,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <constraint firstItem="bcg-dD-B2A" firstAttribute="leading" secondItem="c5c-IK-cUt" secondAttribute="leading" id="riI-mC-NGi"/>
                             <constraint firstItem="Mte-nW-hU6" firstAttribute="top" secondItem="H1f-Qk-EZe" secondAttribute="bottom" constant="8" id="sEM-yB-bGx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="H1f-Qk-EZe" secondAttribute="trailing" id="soL-ha-GkO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H0f-gV-kwC" secondAttribute="trailing" id="upM-i5-SIW"/>
                             <constraint firstAttribute="leadingMargin" secondItem="H1f-Qk-EZe" secondAttribute="leading" id="w6I-OQ-HNe"/>
                             <constraint firstItem="yWN-E5-MQi" firstAttribute="leading" secondItem="Agj-8M-8Pe" secondAttribute="trailing" constant="72" id="wna-zX-Tfh"/>
                             <constraint firstItem="iBI-ve-vxL" firstAttribute="leading" secondItem="Hbd-cs-U4l" secondAttribute="trailing" constant="3" id="wzu-Xy-uUI"/>
@@ -1254,13 +1261,15 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <exclude reference="9lf-qB-4iJ"/>
                                 <exclude reference="kCV-0B-2fI"/>
                                 <exclude reference="ZcA-70-osz"/>
-                                <exclude reference="dor-8n-8Re"/>
-                                <exclude reference="VNW-Lj-AkQ"/>
                                 <exclude reference="1tE-xe-Y1I"/>
                                 <exclude reference="XuZ-DS-I9j"/>
                                 <exclude reference="mrc-pj-obd"/>
+                                <exclude reference="wna-zX-Tfh"/>
+                                <exclude reference="dor-8n-8Re"/>
                                 <exclude reference="K3Y-sv-WCC"/>
+                                <exclude reference="URc-aJ-hBe"/>
                                 <exclude reference="wzu-Xy-uUI"/>
+                                <exclude reference="VNW-Lj-AkQ"/>
                                 <exclude reference="13F-0k-klf"/>
                                 <exclude reference="1c2-ib-kbY"/>
                                 <exclude reference="Jpz-Dv-s20"/>

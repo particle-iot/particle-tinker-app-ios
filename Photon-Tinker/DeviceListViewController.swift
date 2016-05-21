@@ -608,191 +608,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             TSMessage.showNotificationWithTitle("Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .Warning)
             
-        }
-        else if !device.connected
-        {
-            self.lastTappedNonTinkerDevice = nil
-            TSMessage.showNotificationWithTitle("Device offline", subtitle: "This device is offline, please turn it on and refresh in order to Tinker with it.", type: .Error)
-            
+        } else if device.connected && device.isRunningTinker() {
+            self.selectedDevice = self.devices[indexPath.row]
+            self.performSegueWithIdentifier("tinker", sender: self)
         } else {
-            
-            
-            // heading
-            let optionMenu = UIAlertController(title: "Device selected", message: device.id, preferredStyle: .ActionSheet)
-            
-            
-            // 1
-            let tinkerAction = UIAlertAction(title: "Tinker", style: .Default, handler: {
-                (alert: UIAlertAction!) -> Void in
-                //                self.invokePhotonDeviceSetup()
-                self.selectedDevice = self.devices[indexPath.row]
-                self.performSegueWithIdentifier("tinker", sender: self)
-                
-            })
-            
-            // 2
-            let reflashAction = UIAlertAction(title: "Reflash Tinker", style: .Default, handler: {
-                (alert: UIAlertAction!) -> Void in
-                
-                switch (device.type)
-                {
-                case .Core:
-                    //                                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker",
-                    Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
-                    
-                    device.flashKnownApp("tinker", completion: { (error:NSError?) -> Void in
-                        if let e=error
-                        {
-                            TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                        }
-                        else
-                        {
-                            TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
-                            //                                                self.deviceIDsBeingFlashed[device.id] = defaultFlashingTime
-                            //                                                self.flashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
-                            device.isFlashing = true
-                            self.deviceIDflashingDict[device.id] = kDefaultCoreFlashingTime
-                            self.photonSelectionTableView.reloadData()
-                            
-                        }
-                    })
-                    
-                case .Photon:
-                    Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Photon"])
-                    
-                    let bundle = NSBundle.mainBundle()
-                    let path = bundle.pathForResource("photon-tinker", ofType: "bin")
-                    //                                        var error:NSError?
-                    if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // fix deprecation
-                    {
-                        let filesDict = ["tinker.bin" : binary!]
-                        device.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
-                            if let e=error
-                            {
-                                TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                            }
-                            else
-                            {
-                                TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
-                                device.isFlashing = true
-                                self.deviceIDflashingDict[device.id] = kDefaultPhotonFlashingTime
-                                self.photonSelectionTableView.reloadData()
-                                
-                            }
-                        })
-                        
-                    }
-                case .Electron:
-                    Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
-                    // TODO: support flashing tinker to Electron
-                    //                                TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
-                    
-                    
-                    // heading
-                    let areYouSureAlert = UIAlertController(title: "Flashing Tinker to Electron", message: "Flashing Tinker to Electron will consume X KB of data from your data plan, are you sure you want to continue?", preferredStyle: .Alert)
-                    
-                    let noAction = UIAlertAction(title: "No", style: .Cancel, handler: {
-                        (alert: UIAlertAction!) -> Void in
-                    })
-                    
-                    let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: {
-                        (alert: UIAlertAction!) -> Void in
-                        // check if this works otherwise put binary
-                        let bundle = NSBundle.mainBundle()
-                        let path = bundle.pathForResource("electron-tinker", ofType: "bin")
-                        //                                        var error:NSError?
-                        if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // fix deprecation
-                        {
-                            let filesDict = ["tinker.bin" : binary!]
-                            device.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
-                                if let e=error
-                                {
-                                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                                }
-                                else
-                                {
-                                    TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while Electron is being flashed with Tinker firmware...", type: .Success)
-                                    device.isFlashing = true
-                                    self.deviceIDflashingDict[device.id] = kDefaultPhotonFlashingTime
-                                    self.photonSelectionTableView.reloadData()
-                                    
-                                }
-                            })
-                            
-                        }
-                    })
-                    optionMenu.addAction(yesAction)
-                    optionMenu.addAction(noAction)
-                    self.presentViewController(areYouSureAlert, animated: true, completion: nil)
-                
-                default:
-                    TSMessage.showNotificationWithTitle("Reflash Tinker", subtitle: "Cannot reflash Tinker to a non-Particle device", type: .Warning)
-
-                    
-                }
-                
-            })
-            
-            // 3
-            /*
-             let functionsAction = UIAlertAction(title: "Functions", style: .Default, handler: {
-             (alert: UIAlertAction!) -> Void in
-             //                self.showSparkCoreAppPopUp()
-             })
-             
-             let variablesAction = UIAlertAction(title: "Variables", style: .Default, handler: {
-             (alert: UIAlertAction!) -> Void in
-             //                self.showSparkCoreAppPopUp()
-             })
-             
-             let eventsAction = UIAlertAction(title: "Events", style: .Default, handler: {
-             (alert: UIAlertAction!) -> Void in
-             //                self.showSparkCoreAppPopUp()
-             })
-             */
-            
-            let infoAction = UIAlertAction(title: "Device Inspector", style: .Default) {
-                (alert: UIAlertAction!) -> Void in
-                self.selectedDevice = self.devices[indexPath.row]
-                self.performSegueWithIdentifier("info", sender: self)
-            }
-            
-            // cancel
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                (alert: UIAlertAction!) -> Void in
-            })
-            
-            
-            // 4
-            
-            if device.isRunningTinker() {
-                optionMenu.addAction(tinkerAction)
-            } else {
-                if device.type == .Photon || device.type == .Electron || device.type == .Core {
-                    optionMenu.addAction(reflashAction)
-                }
-            }
-            //            optionMenu.addAction(functionsAction)
-            //            optionMenu.addAction(variablesAction)
-            //            optionMenu.addAction(eventsAction)
-            optionMenu.addAction(infoAction)
-            optionMenu.addAction(cancelAction)
-            
-            
-            // 5
-            self.presentViewController(optionMenu, animated: true, completion: nil)
-            
+            self.selectedDevice = self.devices[indexPath.row]
+            self.performSegueWithIdentifier("info", sender: self)
         }
     }
     
-
-
-
-    func resetLastTappedDevice(timer : NSTimer)
-    {
-        print("lastTappedNonTinkerDevice reset")
-        self.lastTappedNonTinkerDevice = nil
-    }
+    
 
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -800,9 +625,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
-
-
-    @IBAction func logoutButtonTapped(sender: UIButton) {
+    func logoutButtonTapped(sender: UIButton) {
         SparkCloud.sharedInstance().logout()
         if let navController = self.navigationController {
             navController.popViewControllerAnimated(true)
