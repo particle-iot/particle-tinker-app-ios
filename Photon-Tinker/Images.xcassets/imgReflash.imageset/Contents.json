@@ -6,18 +6,19 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "noun_56077.png"
+      "filename" : "noun_56077.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "noun_56077-1.png"
+      "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
-    "author" : "xcode",
+    "author" : "xcode"
+  },
+  "properties" : {
     "template-rendering-intent" : "template"
   }
 }

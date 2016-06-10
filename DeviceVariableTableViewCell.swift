@@ -8,15 +8,13 @@
 
 import Foundation
 
-class DeviceVariableTableViewCell: UITableViewCell {
+class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
-    var device : SparkDevice?
-    
     @IBAction func readButtonTapped(sender: AnyObject) {
         self.readButton.hidden = true
         self.activityIndicator.startAnimating()
         
-        device?.getVariable(self.variableNameLabel!.text!, completion: { (resultObj:AnyObject?, error:NSError?) in
+        self.device?.getVariable(self.variableNameLabel!.text!, completion: { (resultObj:AnyObject?, error:NSError?) in
             
             self.readButton.hidden = false
             self.activityIndicator.stopAnimating()

@@ -8,9 +8,7 @@
 
 import Foundation
 
-internal class DeviceFunctionTableViewCell: UITableViewCell {
-    
-    var device : SparkDevice?
+internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
     
     @IBOutlet weak var functionNameLabel: UILabel!
     @IBAction func callButtonTapped(sender: AnyObject) {
@@ -18,7 +16,7 @@ internal class DeviceFunctionTableViewCell: UITableViewCell {
         args.append(self.argumentsTextField.text!)
         self.callButton.hidden = true
         self.activityIndicator.startAnimating()
-        device?.callFunction(self.functionNameLabel.text!, withArguments: args, completion: { (resultValue :NSNumber?, error: NSError?) in
+        self.device?.callFunction(self.functionNameLabel.text!, withArguments: args, completion: { (resultValue :NSNumber?, error: NSError?) in
             self.callButton.hidden = false
             self.activityIndicator.stopAnimating()
             if let _ = error  {

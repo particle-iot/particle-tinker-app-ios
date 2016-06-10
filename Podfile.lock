@@ -28,11 +28,11 @@ PODS:
   - Spark-SDK/SDK (0.5.0):
     - AFNetworking (~> 3.0)
     - Spark-SDK/Helpers
-  - SparkSetup (0.4.1):
-    - SparkSetup/Comm (= 0.4.1)
-    - SparkSetup/Core (= 0.4.1)
-  - SparkSetup/Comm (0.4.1)
-  - SparkSetup/Core (0.4.1):
+  - SparkSetup (0.5.0):
+    - SparkSetup/Comm (= 0.5.0)
+    - SparkSetup/Core (= 0.5.0)
+  - SparkSetup/Comm (0.5.0)
+  - SparkSetup/Core (0.5.0):
     - Spark-SDK
     - SparkSetup/Comm
   - TSMessages (0.9.12):
@@ -61,7 +61,7 @@ SPEC CHECKSUMS:
   Mixpanel: 818d1940c2d9402453b349545022a86968097f57
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   Spark-SDK: 99cf0b127732618d5a35f5c03169a21b2482e220
-  SparkSetup: 55e7028417e01fe919a8b77d2a80a9a6f950cd81
+  SparkSetup: 5b749ddbde434f48359acdcf772052ca8a421486
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
 PODFILE CHECKSUM: 67a8f06eca4ca349ee7c4e6103d9af50727bef3d

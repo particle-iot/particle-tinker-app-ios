@@ -43,21 +43,35 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    // Standard colors
+    let sparkLightGrayColor = UIColor(white: 0.968, alpha: 1.0)
+    let sparkDarkGrayColor = UIColor(white: 0.466, alpha: 1.0)
+    let sparkCyanColor = UIColor(red: 0, green: 0.654, blue: 0.901, alpha: 1.0)
+    
     
     var deviceListViewController : DeviceListViewController?
     
     var device : SparkDevice?
     
     override func viewDidLoad() {
+        self.view.backgroundColor = UIColor.grayColor()
         let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
+        backgroundImage.alpha = 0.75
         self.view.addSubview(backgroundImage)
         self.view.sendSubviewToBack(backgroundImage)
         self.deviceDataTableView.allowsMultipleSelection = true
         self.deviceDataTableView.delegate = self
         self.deviceDataTableView.dataSource = self
 
+        //Looks for single or multiple taps.
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     var variablesList : [String]?
@@ -68,6 +82,15 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         TSMessage.showNotificationWithTitle("Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .Success)
 
     }
+    
+
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = sparkLightGrayColor
+        let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = sparkDarkGrayColor
+    }
+    
     
     @IBAction func actionButtonTapped(sender: AnyObject) {
         // heading
@@ -86,6 +109,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             })
 
         })
+        refreshAction.setValue(UIImage(named: "imgLoop"), forKey: "image")
         
         // 2
         let signalAction = UIAlertAction(title: signalling ? "Stop Signal" : "Signal", style: .Default, handler: {
@@ -94,6 +118,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             self.device?.signal(self.signalling, completion: nil)
 
         })
+        signalAction.setValue(UIImage(named: "imgLedSignal"), forKey: "image")
         
         // 3
         let reflashAction = UIAlertAction(title: "Reflash Tinker", style: .Default, handler: {
@@ -102,17 +127,21 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             /// WIP
             self.reflashTinker()
         })
+        reflashAction.setValue(UIImage(named: "imgReflash"), forKey: "image")
+        
 
         let editNameAction = UIAlertAction(title: "Edit Name", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             /// WIP
         })
+        editNameAction.setValue(UIImage(named: "imgPencil"), forKey: "image")
         
         let docsAction = UIAlertAction(title: "Support/Documentation", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.performSegueWithIdentifier("help", sender: self);
             
         })
+        docsAction.setValue(UIImage(named: "imgQuestion"), forKey: "image")
 
         
         
@@ -247,8 +276,8 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0 : return self.device!.functions.count
-        case 1 : return self.device!.variables.count
+        case 0 : return max(self.device!.functions.count,1)
+        case 1 : return max(self.device!.variables.count,1)
         default : return 0; // num of events logged
         }
     }
@@ -268,8 +297,13 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         switch indexPath.section {
         case 0 : // Functions
             let cell : DeviceFunctionTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("functionCell") as? DeviceFunctionTableViewCell
-            cell!.functionNameLabel.text = self.device?.functions[indexPath.row]
-            cell!.device = self.device
+            if (self.device!.functions.count == 0) {
+                cell!.functionNameLabel.text = "(No exposed functions)"
+                cell!.textLabel?.textColor = sparkDarkGrayColor
+            } else {
+                cell!.functionNameLabel.text = self.device?.functions[indexPath.row]
+                cell!.device = self.device
+            }
             
 //            cell?.centerFunctionNameLayoutConstraint.constant = selected ? 0 : -20
 
@@ -278,11 +312,16 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         case 1 :
             let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("variableCell") as? DeviceVariableTableViewCell
             
-            let varArr =  self.variablesList![indexPath.row].characters.split{$0 == ","}.map(String.init)
-            //
-            cell!.variableNameLabel.text = varArr[0]
-            cell!.variableTypeString.text = varArr[1]
-            cell!.device = self.device
+            if (self.device!.variables.count == 0) {
+                cell!.variableNameLabel.text = "(No exposed variables)"
+                cell!.textLabel?.textColor = sparkDarkGrayColor
+            } else {
+                let varArr =  self.variablesList![indexPath.row].characters.split{$0 == ","}.map(String.init)
+                //
+                cell!.variableNameLabel.text = varArr[0]
+                cell!.variableTypeString.text = varArr[1]
+                cell!.device = self.device
+            }
 //            cell?.variableNameCenterLayoutConstraint.constant = selected ? 0 : -20
            
             masterCell = cell;
@@ -331,11 +370,18 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        updateTableView()
+        let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
+        if cell.device == nil { // prevent expansion of non existent cells (no var/no func)
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        } else {
+            updateTableView()
+        }
+        view.endEditing(true)
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         updateTableView()
+        view.endEditing(true)
     }
     
     private func updateTableView() {
