@@ -10,13 +10,31 @@ import Foundation
 
 class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
+    var variableType : String? {
+        didSet {
+            self.variableTypeButton.setTitle("("+self.variableType!+")", forState: .Normal)
+        }
+    }
+    
+    var variableName : String? {
+        didSet {
+            if variableName == "" {
+                self.noVarsLabel.hidden = false
+                self.variableTypeButton.hidden = true
+                self.variableNameButton.hidden = true
+                self.resultLabel.hidden = true
+            } else {
+            self.variableNameButton.setTitle(variableName!+" ", forState: .Normal)
+            }
+        }
+    }
     @IBAction func readButtonTapped(sender: AnyObject) {
-        self.readButton.hidden = true
+
         self.activityIndicator.startAnimating()
-        
-        self.device?.getVariable(self.variableNameLabel!.text!, completion: { (resultObj:AnyObject?, error:NSError?) in
+        self.resultLabel.hidden = true
+        self.device?.getVariable(variableName!, completion: { (resultObj:AnyObject?, error:NSError?) in
             
-            self.readButton.hidden = false
+            self.resultLabel.hidden = false
             self.activityIndicator.stopAnimating()
             if let _ = error  {
                 self.resultLabel.text = "Error"
@@ -27,11 +45,12 @@ class DeviceVariableTableViewCell: DeviceDataTableViewCell {
         
     }
     @IBOutlet weak var resultLabel: UILabel!
-    @IBOutlet weak var variableNameLabel: UILabel!
-    @IBOutlet weak var variableTypeString: UILabel!
     
-    @IBOutlet weak var readButton: UIButton!
+    @IBOutlet weak var noVarsLabel: UILabel!
+    @IBOutlet weak var variableNameButton: UIButton!
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var variableTypeButton: UIButton!
     
 }

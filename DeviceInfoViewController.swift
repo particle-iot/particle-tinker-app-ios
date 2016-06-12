@@ -54,7 +54,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     var device : SparkDevice?
     
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.grayColor()
+        self.view.backgroundColor = UIColor.darkGrayColor()
         let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
@@ -180,6 +180,22 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func editDeviceName(sender: AnyObject) {
     }
     
+    override func viewDidAppear(animated: Bool) {
+        
+        // auto read all variables
+        var index : NSIndexPath
+        
+        for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
+            index = NSIndexPath(forRow: i, inSection: 1)
+            let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRowAtIndexPath(index) as? DeviceVariableTableViewCell
+            
+            if cell!.device == nil {
+                return
+            } else {
+                cell?.readButtonTapped(self)
+            }
+        }
+    }
     
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     
@@ -278,7 +294,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         switch section {
         case 0 : return max(self.device!.functions.count,1)
         case 1 : return max(self.device!.variables.count,1)
-        default : return 0; // num of events logged
+        default : return 1; 
         }
     }
     
@@ -313,13 +329,12 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("variableCell") as? DeviceVariableTableViewCell
             
             if (self.device!.variables.count == 0) {
-                cell!.variableNameLabel.text = "(No exposed variables)"
-                cell!.textLabel?.textColor = sparkDarkGrayColor
+                cell!.variableName = ""
             } else {
                 let varArr =  self.variablesList![indexPath.row].characters.split{$0 == ","}.map(String.init)
                 //
-                cell!.variableNameLabel.text = varArr[0]
-                cell!.variableTypeString.text = varArr[1]
+                cell!.variableType = varArr[1]
+                cell!.variableName = varArr[0]
                 cell!.device = self.device
             }
 //            cell?.variableNameCenterLayoutConstraint.constant = selected ? 0 : -20
@@ -330,9 +345,10 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             // events WIP
             // temp
             
-            let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("variableCell") as? DeviceVariableTableViewCell
-            cell!.variableNameLabel.text = ""
-            cell!.variableTypeString.text = ""
+            let cell : UITableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("infoCell")
+            
+            cell?.accessoryType = .DisclosureIndicator
+            cell?.textLabel?.text = "Device Event Stream"
             
             masterCell = cell;
             
@@ -371,7 +387,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
-        if cell.device == nil { // prevent expansion of non existent cells (no var/no func)
+        if cell.device == nil || indexPath.section > 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             tableView.deselectRowAtIndexPath(indexPath, animated: false)
         } else {
             updateTableView()
