@@ -32,8 +32,6 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
@@ -42,7 +40,6 @@
             <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
-            <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
@@ -813,13 +810,6 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <constraint firstItem="7Mg-YU-3wz" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="top" constant="28" id="uR5-Ve-VOw"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceUnknown" translatesAutoresizingMaskIntoConstraints="NO" id="Mte-nW-hU6">
-                                <rect key="frame" x="12" y="72" width="70" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="mb4-rL-RjD"/>
-                                    <constraint firstAttribute="width" constant="70" id="rik-vw-VQh"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="c5c-IK-cUt">
                                 <rect key="frame" x="90" y="165" width="35" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
@@ -931,68 +921,92 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FunctionName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bo-oN-XV7">
-                                                    <rect key="frame" x="16" y="16" width="117" height="16"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arguments " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmI-qt-lIf">
-                                                    <rect key="frame" x="16" y="56" width="94" height="16"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bI-NF-sOv">
-                                                    <rect key="frame" x="539" y="50" width="53" height="29"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.60392156862745094" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                                    <state key="normal" title="  Call  ">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="callButtonTapped:" destination="xZX-Os-SxE" eventType="touchUpInside" id="wLU-sB-NNK"/>
-                                                    </connections>
-                                                </button>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQx-IB-Eyj">
-                                                    <rect key="frame" x="118" y="49" width="413" height="30"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Op-mh-sFC">
-                                                    <rect key="frame" x="560" y="14" width="31" height="20"/>
+                                                    <rect key="frame" x="560" y="12" width="31" height="20"/>
                                                     <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="17"/>
                                                     <color key="textColor" red="0.91099476439790572" green="0.91099476439790572" blue="0.91099476439790572" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSx-xd-Gxd">
+                                                    <rect key="frame" x="16" y="8" width="143" height="28"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="4x7-LR-AGh"/>
+                                                    </constraints>
+                                                    <state key="normal" title="functionName " image="f">
+                                                        <color key="titleColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="callButtonTapped:" destination="xZX-Os-SxE" eventType="touchUpInside" id="DYg-N0-64d"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pu-fd-Wkm">
+                                                    <rect key="frame" x="159" y="8" width="28" height="28"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="13S-vv-Cv1"/>
+                                                        <constraint firstAttribute="width" constant="28" id="Ie7-0B-HG9"/>
+                                                    </constraints>
+                                                    <state key="normal" image="imgArguments">
+                                                        <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="KjT-No-4ck">
-                                                    <rect key="frame" x="556" y="54" width="20" height="20"/>
+                                                    <rect key="frame" x="565" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="L" translatesAutoresizingMaskIntoConstraints="NO" id="NIK-DG-2hz">
+                                                    <rect key="frame" x="26" y="44" width="12" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="b6m-fm-cXs"/>
+                                                        <constraint firstAttribute="width" constant="12" id="xuo-Fw-lmS"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No exposed functions)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZW-Ok-qqe">
+                                                    <rect key="frame" x="24" y="11" width="179" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Arguments)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQx-IB-Eyj">
+                                                    <rect key="frame" x="40" y="44" width="552" height="30"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hQx-IB-Eyj" firstAttribute="centerY" secondItem="KmI-qt-lIf" secondAttribute="centerY" id="0f1-0H-0VP"/>
-                                                <constraint firstItem="4bI-NF-sOv" firstAttribute="centerY" secondItem="hQx-IB-Eyj" secondAttribute="centerY" id="3om-Jf-3BN"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="KmI-qt-lIf" secondAttribute="leading" constant="-8" id="5cw-8d-teO"/>
-                                                <constraint firstItem="9bo-oN-XV7" firstAttribute="top" secondItem="uae-oZ-flr" secondAttribute="topMargin" constant="8" id="Ama-cy-wmV"/>
-                                                <constraint firstItem="KjT-No-4ck" firstAttribute="centerX" secondItem="4bI-NF-sOv" secondAttribute="centerX" id="BEQ-gS-B84"/>
-                                                <constraint firstItem="KmI-qt-lIf" firstAttribute="top" secondItem="9bo-oN-XV7" secondAttribute="bottom" constant="24" id="Dja-KM-SfP"/>
+                                                <constraint firstItem="KjT-No-4ck" firstAttribute="top" secondItem="4Op-mh-sFC" secondAttribute="bottom" constant="-20" id="2Fk-52-bzO"/>
+                                                <constraint firstItem="hQx-IB-Eyj" firstAttribute="leading" secondItem="uae-oZ-flr" secondAttribute="leadingMargin" constant="32" id="F6A-No-Mh2"/>
+                                                <constraint firstItem="hQx-IB-Eyj" firstAttribute="top" secondItem="wSx-xd-Gxd" secondAttribute="bottom" constant="8" id="Ija-fw-2Ah"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hQx-IB-Eyj" secondAttribute="trailing" id="KFA-7n-JhC"/>
+                                                <constraint firstItem="4Op-mh-sFC" firstAttribute="leading" secondItem="KjT-No-4ck" secondAttribute="trailing" constant="-25" id="LyP-ct-Zo6"/>
+                                                <constraint firstItem="hQx-IB-Eyj" firstAttribute="leading" secondItem="NIK-DG-2hz" secondAttribute="trailing" constant="2" id="McT-Qx-olk"/>
+                                                <constraint firstItem="8Pu-fd-Wkm" firstAttribute="leading" secondItem="wSx-xd-Gxd" secondAttribute="trailing" id="Pbu-7z-fZt"/>
+                                                <constraint firstItem="KjT-No-4ck" firstAttribute="centerX" secondItem="4Op-mh-sFC" secondAttribute="centerX" id="Qro-Pa-af9"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="4Op-mh-sFC" secondAttribute="trailing" constant="1" id="RqW-KJ-MUT"/>
-                                                <constraint firstItem="4bI-NF-sOv" firstAttribute="leading" secondItem="hQx-IB-Eyj" secondAttribute="trailing" constant="8" id="ZXW-Of-EOI"/>
-                                                <constraint firstItem="hQx-IB-Eyj" firstAttribute="leading" secondItem="KmI-qt-lIf" secondAttribute="trailing" constant="8" id="gIL-SL-3T0"/>
-                                                <constraint firstItem="4Op-mh-sFC" firstAttribute="centerY" secondItem="9bo-oN-XV7" secondAttribute="centerY" id="gsv-Gq-05V"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="9bo-oN-XV7" secondAttribute="leading" constant="-8" id="k78-Ez-qUc"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="4bI-NF-sOv" secondAttribute="trailing" id="wTv-sI-EBD"/>
-                                                <constraint firstItem="KjT-No-4ck" firstAttribute="centerY" secondItem="4bI-NF-sOv" secondAttribute="centerY" id="wfx-4X-92D"/>
+                                                <constraint firstItem="KjT-No-4ck" firstAttribute="centerY" secondItem="4Op-mh-sFC" secondAttribute="centerY" id="Sv3-AW-tKZ"/>
+                                                <constraint firstItem="wSx-xd-Gxd" firstAttribute="top" secondItem="uae-oZ-flr" secondAttribute="topMargin" id="Y35-tG-IGH"/>
+                                                <constraint firstItem="TZW-Ok-qqe" firstAttribute="centerY" secondItem="wSx-xd-Gxd" secondAttribute="centerY" id="eBI-eH-eC7"/>
+                                                <constraint firstItem="wSx-xd-Gxd" firstAttribute="leading" secondItem="uae-oZ-flr" secondAttribute="leadingMargin" constant="8" id="iSe-bY-jPm"/>
+                                                <constraint firstItem="4Op-mh-sFC" firstAttribute="centerY" secondItem="wSx-xd-Gxd" secondAttribute="centerY" id="jrD-Nr-Pnz"/>
+                                                <constraint firstItem="TZW-Ok-qqe" firstAttribute="leading" secondItem="uae-oZ-flr" secondAttribute="leadingMargin" constant="16" id="kiJ-A9-FgW"/>
+                                                <constraint firstItem="8Pu-fd-Wkm" firstAttribute="centerY" secondItem="wSx-xd-Gxd" secondAttribute="centerY" id="oBQ-qV-1ae"/>
+                                                <constraint firstItem="NIK-DG-2hz" firstAttribute="top" secondItem="hQx-IB-Eyj" secondAttribute="top" id="vEG-oe-ufY"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="LyP-ct-Zo6"/>
+                                                    <exclude reference="2Fk-52-bzO"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="activityIndicator" destination="KjT-No-4ck" id="CfX-4L-4EF"/>
+                                            <outlet property="argumentsButton" destination="8Pu-fd-Wkm" id="yBp-eJ-F9U"/>
                                             <outlet property="argumentsTextField" destination="hQx-IB-Eyj" id="8TE-4C-Ebj"/>
-                                            <outlet property="argumentsTitleLabel" destination="KmI-qt-lIf" id="flC-GB-bm2"/>
-                                            <outlet property="callButton" destination="4bI-NF-sOv" id="xvR-JF-EuG"/>
-                                            <outlet property="functionNameLabel" destination="9bo-oN-XV7" id="6d2-Dk-ndN"/>
+                                            <outlet property="functionNameButton" destination="wSx-xd-Gxd" id="S2i-kc-aaj"/>
+                                            <outlet property="noFunctionsLabel" destination="TZW-Ok-qqe" id="5R9-hp-8kR"/>
                                             <outlet property="resultLabel" destination="4Op-mh-sFC" id="x15-SA-nJ2"/>
                                         </connections>
                                     </tableViewCell>
@@ -1129,6 +1143,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceUnknown" translatesAutoresizingMaskIntoConstraints="NO" id="Mte-nW-hU6">
+                                <rect key="frame" x="12" y="72" width="70" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="mb4-rL-RjD"/>
+                                    <constraint firstAttribute="width" constant="70" id="rik-vw-VQh"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.60543263199999997" green="0.62999860559999998" blue="0.79396170379999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1615,10 +1636,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         </scene>
     </scenes>
     <resources>
+        <image name="L" width="32" height="32"/>
         <image name="alizarin" width="5" height="37"/>
         <image name="cyan" width="5" height="37"/>
         <image name="device-inspector-header" width="321" height="75"/>
         <image name="emerald" width="5" height="37"/>
+        <image name="f" width="24" height="24"/>
+        <image name="imgArguments" width="20" height="20"/>
         <image name="imgChevronLeft" width="128" height="128"/>
         <image name="imgCloseIcon" width="256" height="256"/>
         <image name="imgCog" width="32" height="32"/>

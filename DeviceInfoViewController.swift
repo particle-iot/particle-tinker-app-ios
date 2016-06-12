@@ -298,10 +298,10 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         case 0 : // Functions
             let cell : DeviceFunctionTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("functionCell") as? DeviceFunctionTableViewCell
             if (self.device!.functions.count == 0) {
-                cell!.functionNameLabel.text = "(No exposed functions)"
-                cell!.textLabel?.textColor = sparkDarkGrayColor
+                // something else
+                cell!.functionName = ""
             } else {
-                cell!.functionNameLabel.text = self.device?.functions[indexPath.row]
+                cell!.functionName = self.device?.functions[indexPath.row]
                 cell!.device = self.device
             }
             
@@ -362,7 +362,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
-            return 90.0 // Expanded height
+            return 80.0 // Expanded height
         }
         
         return 44.0 // Normal height

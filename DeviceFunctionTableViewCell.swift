@@ -10,14 +10,26 @@ import Foundation
 
 internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
     
-    @IBOutlet weak var functionNameLabel: UILabel!
+    var functionName : String? {
+        didSet {
+            if self.functionName == "" {
+                self.noFunctionsLabel.hidden = false
+                self.functionNameButton.hidden = true
+                self.argumentsButton.hidden = true
+            } else {
+                self.functionNameButton.setTitle(self.functionName!+"  ", forState: .Normal)
+            }
+        }
+    }
+
+    @IBOutlet weak var noFunctionsLabel: UILabel!
     @IBAction func callButtonTapped(sender: AnyObject) {
         var args = [String]()
         args.append(self.argumentsTextField.text!)
-        self.callButton.hidden = true
+        self.resultLabel.hidden = true
         self.activityIndicator.startAnimating()
-        self.device?.callFunction(self.functionNameLabel.text!, withArguments: args, completion: { (resultValue :NSNumber?, error: NSError?) in
-            self.callButton.hidden = false
+        self.device?.callFunction(self.functionName!, withArguments: args, completion: { (resultValue :NSNumber?, error: NSError?) in
+            self.resultLabel.hidden = false
             self.activityIndicator.stopAnimating()
             if let _ = error  {
                 self.resultLabel.text = "Error"
@@ -26,14 +38,13 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
             }
         })
     }
+    @IBOutlet weak var argumentsButton: UIButton!
+    @IBOutlet weak var functionNameButton: UIButton!
     @IBOutlet weak var argumentsTextField: UITextField!
     @IBOutlet weak var resultLabel: UILabel!
-    @IBOutlet weak var argumentsTitleLabel: UILabel!
-//    @IBOutlet weak var centerFunctionNameLayoutConstraint: NSLayoutConstraint!
+    
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var callButton: UIButton!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,5 +60,8 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
 //        self.centerFunctionNameLayoutConstraint.constant = selected ? -20 : 0
     }
     
+//    @IBAction func argumentsButtonTapped(sender: AnyObject) {
+//        self.setSelected(!self.selected, animated: true)
+//    }
     
 }
