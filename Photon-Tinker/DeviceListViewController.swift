@@ -429,7 +429,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         // make cell darker if it's even
         if (indexPath.row % 2) == 0
         {
-            masterCell?.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.3)
+            masterCell?.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
         }
         else // lighter if even
         {
@@ -538,6 +538,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func invokePhotonDeviceSetup()
     {
+//        let dsc = SparkSetupCustomization.sharedInstance()
+//        dsc.brandImage = UIImage(named: "setup-device-header")
+        
         if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isAuthenticated)
         {
             Mixpanel.sharedInstance().timeEvent("Tinker: Device setup activity")

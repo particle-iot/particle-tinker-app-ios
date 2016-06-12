@@ -88,7 +88,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = sparkLightGrayColor
         let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = sparkDarkGrayColor
+        header.textLabel?.textColor = UIColor.darkGrayColor()// sparkDarkGrayColor
     }
     
     
@@ -267,9 +267,9 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var title : String?
         switch section {
-        case 0 : title = "Functions"
-        case 1 : title = "Variables"
-        default : title = "Events"
+        case 0 : title = "FUNCTIONS"
+        case 1 : title = "VARIABLES"
+        default : title = "EVENTS"
         }
         return title
     }

@@ -40,7 +40,6 @@
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
-            <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
             <string>Gotham-Medium</string>
@@ -155,13 +154,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-Ur-rz3" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-horizontal-blue" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
-                                        <rect key="frame" x="236" y="8" width="128" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="Yk8-bP-8Hb"/>
-                                            <constraint firstAttribute="width" constant="128" id="nWd-nG-Axh"/>
-                                        </constraints>
-                                    </imageView>
                                     <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0" userLabel="logoutButton">
                                         <rect key="frame" x="8" y="26" width="58" height="27"/>
                                         <constraints>
@@ -195,10 +187,17 @@
                                             <action selector="setupNewDeviceButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="h4J-iw-u0f"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="your-devices-header" translatesAutoresizingMaskIntoConstraints="NO" id="4Ex-QS-fRu">
+                                        <rect key="frame" x="214" y="6" width="172" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="Yk8-bP-8Hb"/>
+                                            <constraint firstAttribute="width" constant="172" id="nWd-nG-Axh"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="top" constant="8" id="Fgr-1e-hJd"/>
+                                    <constraint firstItem="4Ex-QS-fRu" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="top" constant="6" id="Fgr-1e-hJd"/>
                                     <constraint firstItem="kNA-WJ-NA0" firstAttribute="leading" secondItem="xB3-Ur-rz3" secondAttribute="leading" constant="8" id="Fm5-2Q-B07"/>
                                     <constraint firstAttribute="trailing" secondItem="4Cw-AT-ACb" secondAttribute="trailing" id="H2d-31-kc6"/>
                                     <constraint firstAttribute="height" constant="64" id="OtP-l0-T4M"/>
@@ -206,14 +205,8 @@
                                     <constraint firstItem="4Cw-AT-ACb" firstAttribute="centerY" secondItem="kNA-WJ-NA0" secondAttribute="centerY" id="e3a-5H-dDW"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your devices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShA-Nw-uxr">
-                                <rect key="frame" x="225" y="76" width="150" height="24"/>
-                                <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
-                                <rect key="frame" x="4" y="112" width="592" height="468"/>
+                                <rect key="frame" x="4" y="64" width="592" height="516"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -340,23 +333,20 @@
                         </subviews>
                         <color key="backgroundColor" red="0.60543263199535347" green="0.6299986055892115" blue="0.79396170377731323" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="bottom" id="0C6-W6-nHa"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" id="1vk-uV-3Sq"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" constant="16" id="4tY-y9-6tC"/>
-                            <constraint firstAttribute="centerX" secondItem="ShA-Nw-uxr" secondAttribute="centerX" id="JB5-bs-nic"/>
                             <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="6" id="JG8-Tv-Aib"/>
-                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="ShA-Nw-uxr" secondAttribute="bottom" constant="12" id="cdp-2I-7GV"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" constant="-16" id="uVc-GF-F2a"/>
                             <constraint firstItem="Rin-Rz-dbU" firstAttribute="top" secondItem="l8r-gu-33x" secondAttribute="bottom" constant="20" id="wR8-9O-PrK"/>
-                            <constraint firstItem="ShA-Nw-uxr" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="bottom" constant="12" id="x5F-c2-dV8"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <connections>
                         <outlet property="logoutButton" destination="kNA-WJ-NA0" id="WTO-yA-BLU"/>
                         <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
-                        <outlet property="titleLabel" destination="ShA-Nw-uxr" id="ida-GM-KeT"/>
                         <segue destination="Nmh-ef-vpa" kind="show" identifier="tinker" id="4jN-EQ-1sH"/>
                         <segue destination="JNA-0n-EYY" kind="show" identifier="info" id="LYr-nL-dWE"/>
                     </connections>
@@ -398,19 +388,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-dF-1aV" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-horizontal-blue" translatesAutoresizingMaskIntoConstraints="NO" id="Hcq-Tv-47F">
-                                        <rect key="frame" x="236" y="8" width="128" height="60"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tinker-header" translatesAutoresizingMaskIntoConstraints="NO" id="Hcq-Tv-47F">
+                                        <rect key="frame" x="214" y="6" width="172" height="64"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="128" id="IJu-e9-Pwf"/>
-                                            <constraint firstAttribute="height" constant="60" id="d0u-Kw-IIq"/>
+                                            <constraint firstAttribute="width" constant="172" id="IJu-e9-Pwf"/>
+                                            <constraint firstAttribute="height" constant="64" id="d0u-Kw-IIq"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="0.25" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="BVX-8d-Zcs"/>
-                                    <constraint firstItem="Hcq-Tv-47F" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="top" constant="8" id="JNw-9E-rKg"/>
+                                    <constraint firstItem="Hcq-Tv-47F" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="top" constant="6" id="JNw-9E-rKg"/>
                                     <constraint firstAttribute="centerX" secondItem="Hcq-Tv-47F" secondAttribute="centerX" id="bC4-Ug-xye"/>
                                 </constraints>
                             </view>
@@ -778,11 +768,11 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Umo-LC-HMf" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-horizontal-blue" translatesAutoresizingMaskIntoConstraints="NO" id="4wv-cG-ORL">
-                                        <rect key="frame" x="236" y="8" width="128" height="60"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="device-inspector-header" translatesAutoresizingMaskIntoConstraints="NO" id="4wv-cG-ORL">
+                                        <rect key="frame" x="214" y="6" width="172" height="64"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="128" id="VWB-Nt-s6v"/>
-                                            <constraint firstAttribute="height" constant="60" id="jz4-Wh-kAb"/>
+                                            <constraint firstAttribute="width" constant="172" id="VWB-Nt-s6v"/>
+                                            <constraint firstAttribute="height" constant="64" id="jz4-Wh-kAb"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIm-qg-2df" userLabel="backButton">
@@ -816,7 +806,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="7Mg-YU-3wz" secondAttribute="trailing" constant="8" id="7ED-ed-S8w"/>
                                     <constraint firstAttribute="centerX" secondItem="4wv-cG-ORL" secondAttribute="centerX" id="7u6-sY-EZt"/>
-                                    <constraint firstItem="4wv-cG-ORL" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="top" constant="8" id="JPs-OK-qGC"/>
+                                    <constraint firstItem="4wv-cG-ORL" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="top" constant="6" id="JPs-OK-qGC"/>
                                     <constraint firstItem="zIm-qg-2df" firstAttribute="leading" secondItem="Umo-LC-HMf" secondAttribute="leading" constant="16" id="X7k-SO-Rei"/>
                                     <constraint firstItem="zIm-qg-2df" firstAttribute="top" secondItem="Umo-LC-HMf" secondAttribute="top" constant="24" id="nlB-FE-cXp"/>
                                     <constraint firstAttribute="height" constant="64" id="sKX-DA-uHb"/>
@@ -1302,7 +1292,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
             </objects>
             <point key="canvasLocation" x="3109" y="1507"/>
         </scene>
-        <!--Tinker settings-->
+        <!--Documentation & Support-->
         <scene sceneID="LBX-yq-i5m">
             <objects>
                 <tableViewController id="jih-2Y-r3C" customClass="HelpTableViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
@@ -1410,7 +1400,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <outlet property="delegate" destination="jih-2Y-r3C" id="Mwz-zO-r2C"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tinker settings" id="JeP-5e-u5d">
+                    <navigationItem key="navigationItem" title="Documentation &amp; Support" id="JeP-5e-u5d">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="a71-BG-wsc">
                             <connections>
                                 <action selector="closeButtonTapped:" destination="jih-2Y-r3C" id="ycg-Un-kgA"/>
@@ -1627,6 +1617,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
     <resources>
         <image name="alizarin" width="5" height="37"/>
         <image name="cyan" width="5" height="37"/>
+        <image name="device-inspector-header" width="321" height="75"/>
         <image name="emerald" width="5" height="37"/>
         <image name="imgChevronLeft" width="128" height="128"/>
         <image name="imgCloseIcon" width="256" height="256"/>
@@ -1637,12 +1628,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="imgGreenCircle" width="128" height="128"/>
         <image name="imgPencil" width="32" height="32"/>
         <image name="imgPlus" width="256" height="256"/>
-        <image name="imgPointAtD7" width="37" height="289"/>
-        <image name="imgTinkerLogo" width="132" height="139"/>
+        <image name="imgPointAtD7" width="37" height="288"/>
+        <image name="imgTinkerLogo" width="131" height="138"/>
         <image name="imgWrench" width="600" height="600"/>
-        <image name="particle-horizontal-blue" width="321" height="75"/>
         <image name="particle-vertical-blue" width="300" height="277"/>
         <image name="sunflower" width="5" height="37"/>
+        <image name="tinker-header" width="321" height="75"/>
+        <image name="your-devices-header" width="321" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LYr-nL-dWE"/>
