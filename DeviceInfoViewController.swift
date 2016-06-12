@@ -177,6 +177,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
 
     }
     
+    @IBOutlet weak var tableVerticalPositionContraint: NSLayoutConstraint!
     @IBAction func editDeviceName(sender: AnyObject) {
     }
     
@@ -211,7 +212,7 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             self.copyDeviceIccidButton.hidden = true
             
             // try to decrease size for auto layout table to expand up
-            tableViewTopConstraint.constant = 16;
+            tableVerticalPositionContraint.constant = -32;
             
         } else {
             self.IMEILabel.text = self.device?.imei
