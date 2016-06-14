@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import QuartzCore
+
 
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
 let kDefaultCoreFlashingTime : Int = 30
@@ -368,11 +370,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             switch device!.isRunningTinker()
             {
             case true :
-                text = "Online"
+                text = "Online (Tinker)"
                 image = UIImage(named: "imgGreenCircle") // TODO: breathing cyan
             default :
-                text = "Online, non-Tinker"
-                image = UIImage(named: "imgYellowCircle")
+                text = "Online"
+                image = UIImage(named: "imgYellowCircle") // TODO: breathing cyan
             }
             
             
@@ -406,9 +408,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             let deviceInfo = self.getDeviceTypeAndImage(self.devices[indexPath.row])
 
             cell.deviceImageView.image = deviceInfo.deviceImage
-            cell.deviceTypeLabel.text = deviceInfo.deviceType
+            cell.deviceTypeLabel.text = " "+deviceInfo.deviceType+" "
+            cell.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
+            
+            cell.deviceTypeLabel.textColor = UIColor(white: 0.96, alpha: 1.0)
+            cell.deviceTypeLabel.layer.cornerRadius = 4
+            cell.deviceTypeLabel.layer.masksToBounds = true
 
-            cell.deviceIDLabel.text = devices[indexPath.row].id.uppercaseString
+//            cell.deviceIDLabel.text = ""//devices[indexPath.row].id.uppercaseString
             
 
             let deviceStateInfo = getDeviceStateDescAndImage(devices[indexPath.row])
@@ -625,7 +632,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 70
+        return 60
     }
 
 
