@@ -421,7 +421,6 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         if cell.device != nil && indexPath.section == 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
 
             let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell
-            let halfRotation = CGFloat(-M_PI)
             
             UIView.animateWithDuration(0.3, animations: {
                 // animating `transform` allows us to change 2D geometry of the object
