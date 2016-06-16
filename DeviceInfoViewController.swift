@@ -240,7 +240,13 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let deviceInfo = self.deviceListViewController!.getDeviceTypeAndImage(self.device)
         self.deviceImageView.image = deviceInfo.deviceImage
-        self.deviceTypeLabel.text = deviceInfo.deviceType
+        self.deviceTypeLabel.text = " "+deviceInfo.deviceType+" "
+        self.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
+        
+        self.deviceTypeLabel.textColor = UIColor(white: 0.99, alpha: 1.0)
+        self.deviceTypeLabel.layer.cornerRadius = 4
+        self.deviceTypeLabel.layer.masksToBounds = true
+
         
         self.variablesList = [String]()
         for (key, value) in (self.device?.variables)! {
@@ -256,10 +262,11 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             self.variablesList?.append(String("\(key),\(varType)"))
         }
         
-        self.dataUsageLabel.hidden = true
+//        self.dataUsageLabel.hidden = true
         self.device?.getCurrentDataUsage({ (dataUsed: Float, err: NSError?) in
             if let _ = err {
-                self.dataUsageTitleLabel.hidden = true
+//                self.dataUsageTitleLabel.hidden = true
+                self.dataUsageLabel.text = "No data"
             } else {
                 self.dataUsageLabel.hidden = false
                 let ud = NSString(format: "%.3f", dataUsed)
@@ -391,12 +398,39 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         if cell.device == nil || indexPath.section > 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             tableView.deselectRowAtIndexPath(indexPath, animated: false)
         } else {
+            
+//            let duration = 0.25
+//            let delay = 0.0
+//            let options = UIViewKeyframeAnimationOptions.CalculationModeLinear
+            let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell
+            let halfRotation = CGFloat(M_PI)
+            
+            UIView.animateWithDuration(0.3, animations: {
+                // animating `transform` allows us to change 2D geometry of the object
+                // like `scale`, `rotation` or `translate`
+                cellAnim.argumentsButton.transform = CGAffineTransformMakeRotation(halfRotation)
+            })
+            
             updateTableView()
         }
         view.endEditing(true)
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
+        if cell.device != nil && indexPath.section == 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
+
+            let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell
+            let halfRotation = CGFloat(-M_PI)
+            
+            UIView.animateWithDuration(0.3, animations: {
+                // animating `transform` allows us to change 2D geometry of the object
+                // like `scale`, `rotation` or `translate`
+                cellAnim.argumentsButton.transform = CGAffineTransformIdentity//CGAffineTransformMakeRotation(halfRotation)
+            })
+            
+            
+        }
         updateTableView()
         view.endEditing(true)
     }
