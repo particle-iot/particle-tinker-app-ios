@@ -1360,10 +1360,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
             </objects>
             <point key="canvasLocation" x="3109" y="1507"/>
         </scene>
-        <!--View Controller-->
+        <!--Event Stream View Controller-->
         <scene sceneID="mmN-nm-KqE">
             <objects>
-                <viewController id="HfH-gQ-fUz" sceneMemberID="viewController">
+                <viewController id="HfH-gQ-fUz" customClass="EventStreamViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s7G-e5-w6V"/>
                         <viewControllerLayoutGuide type="bottom" id="Dhe-4m-9Pc"/>
@@ -1457,7 +1457,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <rect key="frame" x="0.0" y="165" width="605" height="435"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="60" id="vDz-OW-Qpw">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="60" id="vDz-OW-Qpw" customClass="EventTableViewCell" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="605" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vDz-OW-Qpw" id="TkH-c6-nHH">

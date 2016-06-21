@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceDataTableViewCell: UITableViewCell {
+internal class DeviceDataTableViewCell: UITableViewCell {
     
     var device : SparkDevice?
 }

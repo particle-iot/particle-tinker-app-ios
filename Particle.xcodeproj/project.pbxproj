@@ -24,6 +24,8 @@
 		5067A0CF1B30EBB500A87D71 /* photon_wifi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5067A0CE1B30EBB500A87D71 /* photon_wifi.mp4 */; };
 		507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */; };
 		507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */; };
+		507118C41D13737F00EB6DD3 /* EventStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507118C31D13737F00EB6DD3 /* EventStreamViewController.swift */; };
+		507118C61D13747B00EB6DD3 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507118C51D13747B00EB6DD3 /* EventTableViewCell.swift */; };
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
 		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
 		508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508311451C0E907E009C0161 /* JavaScriptCore.framework */; };
@@ -60,6 +62,8 @@
 		5067A0CE1B30EBB500A87D71 /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = photon_wifi.mp4; sourceTree = "<group>"; };
 		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Medium.ttf"; sourceTree = "<group>"; };
 		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Regular.ttf"; sourceTree = "<group>"; };
+		507118C31D13737F00EB6DD3 /* EventStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventStreamViewController.swift; sourceTree = "<group>"; };
+		507118C51D13747B00EB6DD3 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
 		5073D4C81AFB14DE00068C2A /* PinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinFunctionView.m; sourceTree = "<group>"; };
 		5073D4CA1AFB2E3000068C2A /* PinValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinValueView.h; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 		5014D1EE1AE87B7000725BA8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				507118C31D13737F00EB6DD3 /* EventStreamViewController.swift */,
 				505062D61CE2BAA10060FEE7 /* DeviceInfoViewController.swift */,
 				5022204A1B1E7F8400387B24 /* WebViewController.swift */,
 				500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */,
@@ -210,6 +215,7 @@
 				50B659991AFC6A2B00606A39 /* SSPieProgressView.h */,
 				50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
+				507118C51D13747B00EB6DD3 /* EventTableViewCell.swift */,
 				502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */,
 				502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */,
 				5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */,
@@ -398,6 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507118C61D13747B00EB6DD3 /* EventTableViewCell.swift in Sources */,
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
 				502E9BC01B194DF800D2C45B /* HelpTableViewController.swift in Sources */,
 				505062D71CE2BAA10060FEE7 /* DeviceInfoViewController.swift in Sources */,
@@ -419,6 +426,7 @@
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
 				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
+				507118C41D13737F00EB6DD3 /* EventStreamViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

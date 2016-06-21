@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceVariableTableViewCell: DeviceDataTableViewCell {
+internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
     var variableType : String? {
         didSet {

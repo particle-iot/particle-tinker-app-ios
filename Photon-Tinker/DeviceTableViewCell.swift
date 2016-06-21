@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeviceTableViewCell: UITableViewCell {
+internal class DeviceTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
