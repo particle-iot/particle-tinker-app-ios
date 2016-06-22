@@ -151,17 +151,29 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
+    var statusEventID : AnyObject?
+    
     override func viewWillAppear(animated: Bool) {
-        if SparkCloud.sharedInstance().loggedInUsername != nil
+        if SparkCloud.sharedInstance().isAuthenticated
         {
             self.loadDevices()
+            print("! subscribing to status event")
+            self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark/status", handler: { (event: SparkEvent?, error: NSError?) in
+                // if we received a status event so probably one of the device came online or offline - update the device list
+                self.loadDevices()
+                print("! got status event: "+event!.description)
+            })
             
             self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(DeviceListViewController.flashingTimerFunc(_:)), userInfo: nil, repeats: true)
         }
         Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
     }
     
+    
+    
     override func viewWillDisappear(animated: Bool) {
+        SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.statusEventID!)
+        print("! unsubscribing from status event")
         Mixpanel.sharedInstance().track("Tinker: Device list screen activity")
     }
     
