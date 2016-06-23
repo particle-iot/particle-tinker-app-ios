@@ -541,7 +541,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 else
                 {
-                    TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device is named \(deviceAdded.name).", type: .Success)
+                    TSMessage.showNotificationWithTitle("Success", subtitle: "You successfully added a new device to your account. Device is named \(deviceAdded.name!).", type: .Success)
                     self.photonSelectionTableView.reloadData()
                     
                 }
