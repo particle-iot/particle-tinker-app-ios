@@ -540,6 +540,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D ORG_TEST_MODE";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.particle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
@@ -558,6 +559,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D ORG_TEST_MODE";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.particle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";

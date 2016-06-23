@@ -97,6 +97,22 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         c.tintSetupImages = true
         c.instructionalVideoFilename = "photon_wifi.mp4"
         
+        #if ORG_TEST_MODE
+            
+            SparkSetupCustomization.sharedInstance().organization = true
+            SparkSetupCustomization.sharedInstance().organizationSlug = "dinobots"
+            SparkSetupCustomization.sharedInstance().productSlug = "ido-test-product-1"
+            
+            // for creating customers (signup) to work you need:
+            SparkCloud.sharedInstance().OAuthClientId = orgTestClientId
+            SparkCloud.sharedInstance().OAuthClientSecret = orgTestSecret
+
+            
+            print("Tinker app in ORG_TEST_MODE")
+            
+        #endif
+
+       
     }
     
     @IBOutlet weak var versionLabel: UILabel!
@@ -111,6 +127,8 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
             // lines required for invoking the Spark Setup wizard
             if let vc = SparkSetupMainController(authenticationOnly: true)
             {
+                
+                
                 vc.delegate = self
                 self.presentViewController(vc, animated: true, completion: nil)
             }
