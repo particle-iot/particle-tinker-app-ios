@@ -129,6 +129,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+
     func startSpinner()
     {
      
@@ -146,13 +147,19 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 //                hud.minShowTime = 0.3
                 hud.dimBackground = false
                 
+                
                 // prepare spinner view for first time populating of devices into table
-                let spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
+                let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
                 spinnerView.frame = CGRectMake(0, 0, 37, 37);
                 spinnerView.contentMode = .ScaleToFill
+                spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+                spinnerView.tintColor = UIColor.whiteColor()
+
+                
                 let rotation = CABasicAnimation(keyPath:"transform.rotation")
                 rotation.fromValue = 0
                 rotation.toValue = 2*M_PI
+                rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 rotation.duration = 1.0;
                 rotation.repeatCount = 1000; // Repeat
                 spinnerView.layer.addAnimation(rotation,forKey:"Spin")
