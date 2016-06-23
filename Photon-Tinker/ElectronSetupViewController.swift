@@ -50,7 +50,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
         print("start:"+self.printTimestamp())
         
-        self.setupWebAddress = NSURL(string: "https://setup.staging.particle.io/") //://localhost:8080") //
+        self.setupWebAddress = NSURL(string: "https://setup.particle.io/") //://localhost:8080") //
 //        let url =
         
         self.request = NSURLRequest(URL: self.setupWebAddress!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 30.0)
@@ -59,7 +59,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.webView.delegate = self
         self.webView.loadRequest(self.request!)
         
-        print("after load request:"+self.printTimestamp())
+//        print("after load request:"+self.printTimestamp())
 
         self.webView.scrollView.bounces = false
         self.closeButton.hidden = false//true
@@ -71,10 +71,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         let logFunction : @convention(block) (String) -> Void =
         {
             (msg: String) in
-            NSLog("JS Console: %@", msg)
+//            NSLog("JS Console: %@", msg)
         }
         context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
-        print("after tapping into console logs:"+self.printTimestamp())
+//        print("after tapping into console logs:"+self.printTimestamp())
         
         
         // force inject the access token and current username into the JS context global 'window' object
@@ -82,7 +82,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername")
         context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient")  
 
-        print("after setting mobileClient:"+self.printTimestamp())
+//        print("after setting mobileClient:"+self.printTimestamp())
         // Do any additional setup after loading the view.
     }
     

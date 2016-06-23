@@ -209,13 +209,22 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             hud.minShowTime = 0.4
             
             // prepare spinner view for first time populating of devices into table
-            let spinnerView : UIImageView = UIImageView(image: UIImage(named: "imgSpinner"))
+            let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
             spinnerView.frame = CGRectMake(0, 0, 37, 37);
             spinnerView.contentMode = .ScaleToFill
+
+            spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            spinnerView.tintColor = UIColor.whiteColor()
+            
+//            UIView.animateWithDuration(1.0, delay: 0, options: .CurveEaseInOut, animations: {
+//                spinnerView.transform = CGAffineTransformRotate(spinnerView.transform, 2*CGFloat(M_PI))
+//                }, completion: nil)
+            
             let rotation = CABasicAnimation(keyPath:"transform.rotation")
             rotation.fromValue = 0
-            rotation.toValue = 2*M_PI
-            rotation.duration = 1.0;
+            rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            rotation.toValue = 2*M_PI;
+            rotation.duration = 1;
             rotation.repeatCount = 1000; // Repeat
             spinnerView.layer.addAnimation(rotation,forKey:"Spin")
             
