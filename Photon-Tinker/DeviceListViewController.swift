@@ -10,7 +10,8 @@ import UIKit
 import QuartzCore
 
 
-let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
+let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
+
 let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
 let kDefaultElectronFlashingTime : Int = 15
@@ -72,6 +73,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func setupNewDeviceButtonTapped(sender: UIButton) {
         
         // heading
+        // TODO: format with Particle cyan and Gotham font!
+        
         let optionMenu = UIAlertController(title: nil, message: "Setup New Device", preferredStyle: .ActionSheet)
         
         
@@ -164,8 +167,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark/status", handler: { (event: SparkEvent?, error: NSError?) in
                 // if we received a status event so probably one of the device came online or offline - update the device list
                 self.loadDevices()
+                self.animateOnlineIndicators()
                 print("! got status event: "+event!.description)
             })
+            
+            animateOnlineIndicators()
             
             self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(DeviceListViewController.flashingTimerFunc(_:)), userInfo: nil, repeats: true)
         }
@@ -208,7 +214,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             hud.mode = .CustomView//.Indeterminate
             hud.animationType = .ZoomIn
-            hud.labelText = "Loading"
+//            hud.labelText = "Loading"
             hud.minShowTime = 0.4
             
             // prepare spinner view for first time populating of devices into table
@@ -271,12 +277,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             } else {
                 TSMessage.showNotificationWithTitle("Error", subtitle: "Error loading devices, please check your internet connection.", type: .Error)
             }
+            self.noDevicesLabel.hidden = false
         }
         else
         {
             if let d = devices
             {
                 self.devices = d as! [SparkDevice]
+                
+                self.noDevicesLabel.hidden = self.devices.count == 0 ? false : true
                 
                 // Sort alphabetically
                 self.devices.sortInPlace({ (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
@@ -307,6 +316,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 })
                 
                 
+            } else {
+                self.noDevicesLabel.hidden = false
             }
             
             dispatch_async(dispatch_get_main_queue()) {
@@ -322,9 +333,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
             //        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", pullTextColor: UIColor.whiteColor(), pullTextFont: refreshFont, refreshingText: "Refreshing Devices", refreshingTextColor: UIColor.whiteColor(), refreshingTextFont: refreshFont) { () -> Void in
+            weak var weakSelf = self
             SparkCloud.sharedInstance().getDevices() { (devices:[AnyObject]?, error:NSError?) -> Void in
-                self.handleGetDevicesResponse(devices, error: error)
-                self.photonSelectionTableView.finishLoading()
+                weakSelf?.handleGetDevicesResponse(devices, error: error)
+                weakSelf?.photonSelectionTableView.finishLoading()
+                weakSelf?.animateOnlineIndicators()
             }
             
         }
@@ -382,6 +395,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    @IBOutlet weak var noDevicesLabel: UILabel!
     
     func getDeviceStateDescAndImage(device : SparkDevice?) -> (deviceStateText : String, deviceStateImage : UIImage) {
         let online = device?.connected
@@ -396,6 +410,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             case true :
                 text = "Online (Tinker)"
                 image = UIImage(named: "imgGreenCircle") // TODO: breathing cyan
+                
             default :
                 text = "Online"
                 image = UIImage(named: "imgYellowCircle") // TODO: breathing cyan
@@ -412,6 +427,31 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     }
 
+    
+    func animateOnlineIndicators() {
+        
+        dispatch_async(dispatch_get_main_queue(),{
+            for row in 0..<self.photonSelectionTableView.numberOfRowsInSection(0) {
+                
+                
+                let indexPath = NSIndexPath(forRow: row, inSection: 0)
+                let deviceCell = self.photonSelectionTableView.cellForRowAtIndexPath(indexPath) as! DeviceTableViewCell?
+                
+                if let cell = deviceCell { // if cell is not visibile it'll be nil
+                    if self.devices[indexPath.row].connected {
+                        cell.deviceStateImageView.tintColor = UIColor(red: 0, green: 173.0/255.0, blue: 239.0/255.0, alpha: 1.0)
+                        cell.deviceStateImageView.alpha = 1
+                        
+                        UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, .BeginFromCurrentState], animations: {
+                            cell.deviceStateImageView.alpha = 0
+                            }, completion: nil)
+                    } else {
+                        cell.deviceStateImageView.tintColor = UIColor.darkGrayColor()
+                    }
+                }
+            }
+        })
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -446,6 +486,18 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             let deviceStateInfo = getDeviceStateDescAndImage(devices[indexPath.row])
             cell.deviceStateLabel.text = deviceStateInfo.deviceStateText
             cell.deviceStateImageView.image = deviceStateInfo.deviceStateImage
+            cell.deviceStateImageView.image = cell.deviceStateImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            
+            cell.deviceStateImageView.alpha = 1
+            if self.devices[indexPath.row].connected {
+                cell.deviceStateImageView.tintColor = UIColor(red: 0, green: 173.0/255.0, blue: 239.0/255.0, alpha: 1.0)
+                UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, .BeginFromCurrentState], animations: {
+                    cell.deviceStateImageView.alpha = 0
+                    }, completion: nil)
+            } else {
+                cell.deviceStateImageView.tintColor = UIColor.darkGrayColor()
+            }
+            
 
             // override everything else
             if devices[indexPath.row].isFlashing || self.deviceIDflashingDict.keys.contains(devices[indexPath.row].id)

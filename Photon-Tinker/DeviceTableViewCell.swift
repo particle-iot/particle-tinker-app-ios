@@ -14,7 +14,7 @@ internal class DeviceTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.deviceCellBackgroundView.layer.cornerRadius = 2
+        self.deviceCellBackgroundView.layer.cornerRadius = 4.0
         self.deviceCellBackgroundView.layer.masksToBounds = true
 
     }
@@ -34,20 +34,3 @@ internal class DeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var deviceNameLabel: UILabel!
     @IBOutlet weak var deviceStateLabel: UILabel!
 }
-
-class NewDeviceTableViewCell: UITableViewCell {
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        // Initialization code
-    }
-    
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-}
-
