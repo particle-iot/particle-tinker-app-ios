@@ -21,17 +21,20 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
         backgroundImage.frame = UIScreen.mainScreen().bounds
         backgroundImage.contentMode = .ScaleToFill;
+        self.view.addSubview(backgroundImage)
+        self.view.sendSubviewToBack(backgroundImage)
+
+        */
         
         if !SparkCloud.sharedInstance().isAuthenticated
         {
             self.logoutButton.setTitle("Log in", forState: .Normal)
         }
         //        backgroundImage.alpha = 0.85
-        self.view.addSubview(backgroundImage)
-        self.view.sendSubviewToBack(backgroundImage)
         srandom(arc4random())
         
     }
@@ -429,10 +432,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             let deviceInfo = self.getDeviceTypeAndImage(self.devices[indexPath.row])
 
             cell.deviceImageView.image = deviceInfo.deviceImage
-            cell.deviceTypeLabel.text = " "+deviceInfo.deviceType+" "
-            cell.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
-            
-            cell.deviceTypeLabel.textColor = UIColor(white: 0.96, alpha: 1.0)
+            cell.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
+//            cell.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
+            cell.deviceTypeLabel.layer.borderColor = UIColor.grayColor().CGColor
+            cell.deviceTypeLabel.layer.borderWidth = 1.0
+//            cell.deviceTypeLabel.textColor = UIColor(white: 0.96, alpha: 1.0)
             cell.deviceTypeLabel.layer.cornerRadius = 4
             cell.deviceTypeLabel.layer.masksToBounds = true
 
@@ -455,6 +459,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         // make cell darker if it's even
+        /*
         if (indexPath.row % 2) == 0
         {
             masterCell?.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
@@ -463,6 +468,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             masterCell?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
         }
+        */
         
         return masterCell!
     }
@@ -653,7 +659,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        return 60.0
     }
 
 
