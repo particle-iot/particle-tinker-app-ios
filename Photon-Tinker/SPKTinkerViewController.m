@@ -54,12 +54,14 @@
 
     
     // background image
+    /*
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgTrianglifyBackgroundBlue"]]; // make brown version?
     backgroundImage.frame = [UIScreen mainScreen].bounds;
     backgroundImage.contentMode = UIViewContentModeScaleToFill;
     backgroundImage.alpha = 0.75;
     [self.view addSubview:backgroundImage];
     [self.view sendSubviewToBack:backgroundImage];
+    */
     
     self.deviceView.alpha = 0.2;
     self.firstTimeView.hidden = NO;

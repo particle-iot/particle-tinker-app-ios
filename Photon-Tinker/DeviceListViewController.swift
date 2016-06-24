@@ -38,6 +38,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         //        backgroundImage.alpha = 0.85
         srandom(arc4random())
         
+        
+
+        
+    }
+    
+    func appDidBecomeActive(sender : AnyObject) {
+        print("appDidBecomeActive observer triggered")
+//        self.animateOnlineIndicators()
+        self.photonSelectionTableView.reloadData()
     }
     
     @IBOutlet weak var logoutButton: UIButton!
@@ -152,8 +161,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 
             }
         }
-
-    
     }
 
 
@@ -162,27 +169,31 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(animated: Bool) {
         if SparkCloud.sharedInstance().isAuthenticated
         {
-            animateOnlineIndicators()
+            
             self.loadDevices()
             print("! subscribing to status event")
             self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark/status", handler: { (event: SparkEvent?, error: NSError?) in
                 // if we received a status event so probably one of the device came online or offline - update the device list
                 self.loadDevices()
-                self.animateOnlineIndicators()
+//                self.animateOnlineIndicators()
                 print("! got status event: "+event!.description)
             })
-            animateOnlineIndicators()
+            
             
             
             self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(DeviceListViewController.flashingTimerFunc(_:)), userInfo: nil, repeats: true)
         }
         Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
+//        animateOnlineIndicators()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
     }
-    
     
     
     override func viewWillDisappear(animated: Bool) {
         SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.statusEventID!)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         print("! unsubscribing from status event")
         Mixpanel.sharedInstance().track("Tinker: Device list screen activity")
     }
@@ -399,10 +410,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var noDevicesLabel: UILabel!
     
-    func getDeviceStateDescAndImage(device : SparkDevice?) -> (deviceStateText : String, deviceStateImage : UIImage) {
+    func getDeviceStateDescription(device : SparkDevice?) -> String {
         let online = device?.connected
-        var text : String?
-        var image : UIImage?
         
         switch online!
         {
@@ -410,49 +419,62 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             switch device!.isRunningTinker()
             {
             case true :
-                text = "Online (Tinker)"
-                image = UIImage(named: "imgGreenCircle") // TODO: breathing cyan
+                return "Online (Tinker)"
                 
             default :
-                text = "Online"
-                image = UIImage(named: "imgYellowCircle") // TODO: breathing cyan
+                return "Online"
             }
             
             
         default :
-            text = "Offline"
-            image = UIImage(named: "imgRedCircle") // gray circle
+            return "Offline"
             
         }
         
-        return (text!,image!)
-    
     }
+    
+    
+    func animateOnlineIndicatorImageView(imageView: UIImageView, online: Bool) {
+        dispatch_async(dispatch_get_main_queue(), {
+            imageView.image = UIImage(named: "imgCircle")
+//            imageView.alpha = 1
+        
+            imageView.image = imageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
 
+            if online {
+                imageView.tintColor = UIColor(red: 0, green: 173.0/255.0, blue: 239.0/255.0, alpha: 1.0) // ParticleCyan
+
+                if imageView.alpha == 1 {
+//                    print ("1-->0")
+                    UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
+                        imageView.alpha = 0
+                        }, completion: nil)
+                } else {
+//                    print ("0-->1")
+                    imageView.alpha = 0
+                    UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
+                        imageView.alpha = 1
+                        }, completion: nil)
+
+                }
+            } else {
+                imageView.tintColor = UIColor(white: 0.466, alpha: 1.0) // ParticleGray
+            }
+        })
+    }
+    
     
     func animateOnlineIndicators() {
         
-        dispatch_async(dispatch_get_main_queue(),{
-            for row in 0..<self.photonSelectionTableView.numberOfRowsInSection(0) {
-                
-                
-                let indexPath = NSIndexPath(forRow: row, inSection: 0)
-                let deviceCell = self.photonSelectionTableView.cellForRowAtIndexPath(indexPath) as! DeviceTableViewCell?
-                
-                if let cell = deviceCell { // if cell is not visibile it'll be nil
-                    if self.devices[indexPath.row].connected {
-                        cell.deviceStateImageView.tintColor = UIColor(red: 0, green: 173.0/255.0, blue: 239.0/255.0, alpha: 1.0)
-                        cell.deviceStateImageView.alpha = 1
-                        
-                        UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, .BeginFromCurrentState], animations: {
-                            cell.deviceStateImageView.alpha = 0
-                            }, completion: nil)
-                    } else {
-                        cell.deviceStateImageView.tintColor = UIColor.grayColor()
-                    }
-                }
+        for row in 0..<self.photonSelectionTableView.numberOfRowsInSection(0) {
+            
+            let indexPath = NSIndexPath(forRow: row, inSection: 0)
+            let deviceCell = self.photonSelectionTableView.cellForRowAtIndexPath(indexPath) as! DeviceTableViewCell?
+            
+            if let cell = deviceCell { // if cell is not visibile it'll be nil
+                self.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected)
             }
-        })
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -476,7 +498,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.deviceImageView.image = deviceInfo.deviceImage
             cell.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
 //            cell.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
-            cell.deviceTypeLabel.layer.borderColor = UIColor.grayColor().CGColor
+            
+            let deviceTypeColor = UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
+            cell.deviceTypeLabel.layer.borderColor = deviceTypeColor.CGColor
+            cell.deviceTypeLabel.textColor = deviceTypeColor
+            
             cell.deviceTypeLabel.layer.borderWidth = 1.0
 //            cell.deviceTypeLabel.textColor = UIColor(white: 0.96, alpha: 1.0)
             cell.deviceTypeLabel.layer.cornerRadius = 4
@@ -485,27 +511,19 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 //            cell.deviceIDLabel.text = ""//devices[indexPath.row].id.uppercaseString
             
 
-            let deviceStateInfo = getDeviceStateDescAndImage(devices[indexPath.row])
-            cell.deviceStateLabel.text = deviceStateInfo.deviceStateText
-            cell.deviceStateImageView.image = deviceStateInfo.deviceStateImage
-            cell.deviceStateImageView.image = cell.deviceStateImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            let deviceStateInfo = getDeviceStateDescription(devices[indexPath.row])
+            cell.deviceStateLabel.text = deviceStateInfo
             
-            cell.deviceStateImageView.alpha = 1
-            if self.devices[indexPath.row].connected {
-                cell.deviceStateImageView.tintColor = UIColor(red: 0, green: 173.0/255.0, blue: 239.0/255.0, alpha: 1.0)
-                UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, .BeginFromCurrentState], animations: {
-                    cell.deviceStateImageView.alpha = 0
-                    }, completion: nil)
-            } else {
-                cell.deviceStateImageView.tintColor = UIColor.grayColor()
-            }
+            
+            
+            self.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected)
             
 
             // override everything else
             if devices[indexPath.row].isFlashing || self.deviceIDflashingDict.keys.contains(devices[indexPath.row].id)
             {
                 cell.deviceStateLabel.text = "Flashing"
-                cell.deviceStateImageView.image = UIImage(named: "imgPurpleCircle") // gray circle
+                cell.deviceStateImageView.image = UIImage(named: "imgCircle") // TDO blink this -
             }
             
             

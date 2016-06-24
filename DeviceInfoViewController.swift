@@ -234,9 +234,11 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         self.deviceIDLabel.text = self.device?.id
         self.connectionLabel.text = (self.device!.type == .Electron) ? "Cellular" : "Wi-Fi"
         
-        let deviceStateInfo = self.deviceListViewController!.getDeviceStateDescAndImage(self.device)
-        self.deviceStateLabel.text = deviceStateInfo.deviceStateText
-        self.deviceStateImageView.image = deviceStateInfo.deviceStateImage
+        let deviceStateInfo = self.deviceListViewController!.getDeviceStateDescription(self.device)
+        self.deviceStateLabel.text = deviceStateInfo
+        self.deviceStateImageView.image = UIImage(named: "imgCircle")
+        
+        self.deviceListViewController?.animateOnlineIndicatorImageView(self.deviceStateImageView, online: self.device!.connected)
         
         let deviceInfo = self.deviceListViewController!.getDeviceTypeAndImage(self.device)
         self.deviceImageView.image = deviceInfo.deviceImage

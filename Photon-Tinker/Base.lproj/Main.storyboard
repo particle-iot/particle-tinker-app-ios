@@ -49,14 +49,15 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
-            <string>Gotham-Light</string>
-            <string>Gotham-Light</string>
         </mutableArray>
         <mutableArray key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
@@ -275,7 +276,7 @@
                                                         <constraint firstAttribute="height" constant="20" id="NaM-TS-RVL"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
-                                                    <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
@@ -292,8 +293,9 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgGreenCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Dqs-sM-SJ1">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Dqs-sM-SJ1">
                                                     <rect key="frame" x="564" y="22" width="16" height="16"/>
+                                                    <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="MHH-cC-OY5"/>
                                                         <constraint firstAttribute="width" constant="16" id="e4F-Ke-7l4"/>
@@ -418,66 +420,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-dF-1aV" userLabel="topBarView">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-dF-1aV" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tinker-header" translatesAutoresizingMaskIntoConstraints="NO" id="Hcq-Tv-47F">
-                                        <rect key="frame" x="214" y="6" width="172" height="64"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="172" id="IJu-e9-Pwf"/>
-                                            <constraint firstAttribute="height" constant="64" id="d0u-Kw-IIq"/>
-                                        </constraints>
+                                    <imageView userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Xh4-Ow-FEu">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSw-TQ-wYp" userLabel="Border">
+                                        <rect key="frame" x="0.0" y="63" width="600" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="M7P-vs-4c0"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-sx-cDn" userLabel="backButton">
+                                        <rect key="frame" x="8" y="24" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="5IO-lY-jQ6"/>
+                                            <constraint firstAttribute="height" constant="32" id="BQp-ki-g85"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="6" maxX="12" maxY="6"/>
+                                        <state key="normal" image="imgChevronLeft"/>
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="nkl-yf-7Wp"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tinker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7n-eW-MLl">
+                                        <rect key="frame" x="270" y="32" width="60" height="19"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="19"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="0.25" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Xh4-Ow-FEu" secondAttribute="bottom" id="23T-nV-cqf"/>
+                                    <constraint firstItem="8kx-sx-cDn" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="top" constant="24" id="23d-YP-xsl"/>
                                     <constraint firstAttribute="height" constant="64" id="BVX-8d-Zcs"/>
-                                    <constraint firstItem="Hcq-Tv-47F" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="top" constant="6" id="JNw-9E-rKg"/>
-                                    <constraint firstAttribute="centerX" secondItem="Hcq-Tv-47F" secondAttribute="centerX" id="bC4-Ug-xye"/>
+                                    <constraint firstAttribute="trailing" secondItem="Xh4-Ow-FEu" secondAttribute="trailing" id="CAn-MZ-v02"/>
+                                    <constraint firstItem="8kx-sx-cDn" firstAttribute="leading" secondItem="Gt1-dF-1aV" secondAttribute="leading" constant="8" id="CDh-ei-0JF"/>
+                                    <constraint firstItem="Xh4-Ow-FEu" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="top" id="EMe-Xo-NQT"/>
+                                    <constraint firstItem="M7n-eW-MLl" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="top" constant="32" id="MOx-eQ-rwr"/>
+                                    <constraint firstItem="FSw-TQ-wYp" firstAttribute="leading" secondItem="Gt1-dF-1aV" secondAttribute="leading" id="Mal-Nw-wDX"/>
+                                    <constraint firstItem="M7n-eW-MLl" firstAttribute="centerX" secondItem="Gt1-dF-1aV" secondAttribute="centerX" id="bEd-zi-A1A"/>
+                                    <constraint firstAttribute="trailing" secondItem="FSw-TQ-wYp" secondAttribute="trailing" id="czT-be-vbr"/>
+                                    <constraint firstAttribute="bottom" secondItem="FSw-TQ-wYp" secondAttribute="bottom" id="vXS-np-PAP"/>
+                                    <constraint firstItem="Xh4-Ow-FEu" firstAttribute="leading" secondItem="Gt1-dF-1aV" secondAttribute="leading" id="ygz-E4-xTA"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTinkerLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6Dm-8R-bO7">
-                                <rect key="frame" x="225" y="225" width="150" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="a32-K4-l3b"/>
-                                    <constraint firstAttribute="height" constant="150" id="cnt-rl-Xc6"/>
-                                </constraints>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tl-K2-82X" userLabel="deviceView">
-                                <rect key="frame" x="20" y="72" width="560" height="512"/>
+                                <rect key="frame" x="20" y="64" width="560" height="520"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8E-t7-pGt" userLabel="editDeviceNameButton">
-                                        <rect key="frame" x="532" y="-2" width="28" height="28"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="kI8-ap-iyV"/>
-                                            <constraint firstAttribute="width" constant="28" id="w5R-Zm-cQo"/>
-                                        </constraints>
-                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
-                                        <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
-                                        <state key="normal" image="imgPencil"/>
-                                        <connections>
-                                            <action selector="editDeviceNameButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="zgO-q5-hwC"/>
-                                        </connections>
-                                    </button>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ecC-aQ-rz0">
-                                        <rect key="frame" x="20" y="0.0" width="520" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="MIf-2o-dyF"/>
-                                            <constraint firstAttribute="height" constant="24" id="Puj-hH-zrX"/>
-                                        </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="23"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="MIf-2o-dyF"/>
-                                                <exclude reference="Puj-hH-zrX"/>
-                                            </mask>
-                                        </variation>
-                                    </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="device_name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9rh-mq-4bk">
                                         <rect key="frame" x="20" y="0.0" width="520" height="24"/>
                                         <constraints>
@@ -485,8 +479,8 @@
                                             <constraint firstAttribute="height" constant="24" id="bVu-VI-nfk"/>
                                             <constraint firstAttribute="height" constant="24" id="kKv-OP-Evz"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="23"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -496,28 +490,28 @@
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" userLabel="chipView">
-                                        <rect key="frame" x="0.0" y="28" width="560" height="484"/>
+                                        <rect key="frame" x="0.0" y="24" width="560" height="496"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3P4-zn-2e7" userLabel="firstTimeView">
-                                                <rect key="frame" x="0.0" y="-28" width="560" height="512"/>
+                                                <rect key="frame" x="0.0" y="-28" width="560" height="524"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-AA-GQf">
-                                                        <rect key="frame" x="4" y="4" width="552" height="476"/>
+                                                        <rect key="frame" x="4" y="4" width="552" height="488"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <string key="text">Welcome To Tinker!
+                                                        <mutableString key="text">Welcome To Tinker!
 
-Tinker is the fastest and easiest way to prototype and play with your Photon.
+Tinker is the fastest and easiest way to prototype and play with your Particle device.
 
-You can access the basic input/output functions of the Photon without writing a line of code.
+You can access the basic input/output functions of the device without writing a line of code.
 
 Tap any pin to get started, select a pin function and tinker with the value. Hold a pin to reset its function. Start with pin D7 - select digitalWrite - blink the attached LED.  For more information visit: docs.particle.io/photon/tinker/
- Enjoy!</string>
+ Enjoy!</mutableString>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-The Particle Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5z-Hi-GOP">
-                                                        <rect key="frame" x="189" y="488" width="142" height="16"/>
+                                                        <rect key="frame" x="189" y="500" width="142" height="16"/>
                                                         <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="16"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -557,46 +551,22 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="HPv-oK-mru" secondAttribute="trailing" id="05U-yb-v7U"/>
-                                    <constraint firstItem="ecC-aQ-rz0" firstAttribute="leading" secondItem="M8E-t7-pGt" secondAttribute="trailing" constant="-223" id="1W0-jB-JvA"/>
                                     <constraint firstItem="HPv-oK-mru" firstAttribute="leading" secondItem="9tl-K2-82X" secondAttribute="leading" id="3Db-hA-8Sb"/>
-                                    <constraint firstItem="9rh-mq-4bk" firstAttribute="centerY" secondItem="M8E-t7-pGt" secondAttribute="centerY" id="3iO-nq-dec"/>
-                                    <constraint firstItem="ecC-aQ-rz0" firstAttribute="width" secondItem="9rh-mq-4bk" secondAttribute="width" id="9nW-OD-uWp"/>
                                     <constraint firstItem="9rh-mq-4bk" firstAttribute="top" secondItem="9tl-K2-82X" secondAttribute="top" id="LVj-8G-EVw"/>
-                                    <constraint firstItem="HPv-oK-mru" firstAttribute="top" secondItem="9rh-mq-4bk" secondAttribute="bottom" constant="4" id="Mkj-vd-dMN"/>
+                                    <constraint firstItem="HPv-oK-mru" firstAttribute="top" secondItem="9rh-mq-4bk" secondAttribute="bottom" id="Mkj-vd-dMN"/>
                                     <constraint firstItem="9rh-mq-4bk" firstAttribute="leading" secondItem="9tl-K2-82X" secondAttribute="leading" constant="20" id="NMh-DY-19g"/>
-                                    <constraint firstItem="ecC-aQ-rz0" firstAttribute="height" secondItem="9rh-mq-4bk" secondAttribute="height" id="Qj1-9a-l6V"/>
-                                    <constraint firstItem="M8E-t7-pGt" firstAttribute="leading" secondItem="9tl-K2-82X" secondAttribute="leading" id="UIT-eC-QQQ"/>
                                     <constraint firstAttribute="trailing" secondItem="9rh-mq-4bk" secondAttribute="trailing" constant="20" id="Uxk-eq-vfk"/>
-                                    <constraint firstItem="9rh-mq-4bk" firstAttribute="centerX" secondItem="ecC-aQ-rz0" secondAttribute="centerX" id="V8i-NN-C5c"/>
-                                    <constraint firstItem="9rh-mq-4bk" firstAttribute="centerY" secondItem="ecC-aQ-rz0" secondAttribute="centerY" id="gK9-Qc-j1n"/>
-                                    <constraint firstAttribute="trailing" secondItem="M8E-t7-pGt" secondAttribute="trailing" id="gbn-Bx-GCq"/>
                                     <constraint firstAttribute="bottom" secondItem="HPv-oK-mru" secondAttribute="bottom" id="miP-KZ-c1q"/>
-                                    <constraint firstItem="M8E-t7-pGt" firstAttribute="trailing" secondItem="ecC-aQ-rz0" secondAttribute="trailing" constant="16" id="obw-Kx-p9N"/>
-                                    <constraint firstItem="9rh-mq-4bk" firstAttribute="trailing" secondItem="M8E-t7-pGt" secondAttribute="trailing" constant="-30" id="wtx-wD-uwB"/>
                                     <constraint firstAttribute="centerX" secondItem="9rh-mq-4bk" secondAttribute="centerX" id="zVy-E1-VxR"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="wtx-wD-uwB"/>
-                                        <exclude reference="1W0-jB-JvA"/>
-                                        <exclude reference="UIT-eC-QQQ"/>
-                                        <exclude reference="obw-Kx-p9N"/>
-                                    </mask>
-                                </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kx-sx-cDn" userLabel="backButton">
-                                <rect key="frame" x="12" y="28" width="32" height="32"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTinkerLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6Dm-8R-bO7">
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="5IO-lY-jQ6"/>
-                                    <constraint firstAttribute="height" constant="32" id="BQp-ki-g85"/>
+                                    <constraint firstAttribute="width" constant="150" id="a32-K4-l3b"/>
+                                    <constraint firstAttribute="height" constant="150" id="cnt-rl-Xc6"/>
                                 </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="6" maxX="12" maxY="6"/>
-                                <state key="normal" image="imgChevronLeft"/>
-                                <connections>
-                                    <action selector="backButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="nkl-yf-7Wp"/>
-                                </connections>
-                            </button>
+                            </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="PinFunctionView">
                                 <rect key="frame" x="198" y="238" width="204" height="124"/>
                                 <subviews>
@@ -738,45 +708,48 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <outlet property="pinLabel" destination="NEU-nT-aGU" id="eSG-yd-UYa"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGx-VV-XEo" userLabel="helpButton">
-                                <rect key="frame" x="562" y="28" width="26" height="26"/>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGx-VV-XEo" userLabel="inspectButton">
+                                <rect key="frame" x="529" y="36" width="59" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="ceL-wx-nv3"/>
                                     <constraint firstAttribute="width" constant="26" id="f6y-IZ-Fq1"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                                <state key="normal" image="imgDeviceInspector"/>
+                                <state key="normal" title="Inspect"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ceL-wx-nv3"/>
+                                        <exclude reference="f6y-IZ-Fq1"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <segue destination="JNA-0n-EYY" kind="show" identifier="info" id="U3o-w4-uqe"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="13L-Wr-K1a" firstAttribute="top" secondItem="9tl-K2-82X" secondAttribute="bottom" constant="16" id="0Tp-mu-72O"/>
                             <constraint firstItem="9tl-K2-82X" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leadingMargin" id="1HZ-NU-F5t"/>
-                            <constraint firstItem="8kx-sx-cDn" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leadingMargin" constant="-8" id="DFO-E4-7D0"/>
                             <constraint firstAttribute="centerY" secondItem="6Dm-8R-bO7" secondAttribute="centerY" id="Eb9-iF-435"/>
                             <constraint firstItem="Gt1-dF-1aV" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leading" id="Hs2-6M-ygN"/>
                             <constraint firstAttribute="centerX" secondItem="6Dm-8R-bO7" secondAttribute="centerX" id="Lk8-O5-HVm"/>
                             <constraint firstItem="Gt1-dF-1aV" firstAttribute="top" secondItem="ucx-4a-6jp" secondAttribute="top" id="RXc-ya-nqj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hGx-VV-XEo" secondAttribute="trailing" constant="-8" id="S4T-EO-UAz"/>
                             <constraint firstAttribute="trailing" secondItem="Gt1-dF-1aV" secondAttribute="trailing" id="fE6-Fm-5En"/>
-                            <constraint firstItem="hGx-VV-XEo" firstAttribute="top" secondItem="FUn-vZ-ZaU" secondAttribute="bottom" constant="8" id="nb3-tM-gSJ"/>
+                            <constraint firstItem="hGx-VV-XEo" firstAttribute="top" secondItem="FUn-vZ-ZaU" secondAttribute="bottom" constant="16" id="nb3-tM-gSJ"/>
                             <constraint firstAttribute="centerX" secondItem="cp9-M3-Ao7" secondAttribute="centerX" id="sFH-6w-dlZ"/>
-                            <constraint firstItem="8kx-sx-cDn" firstAttribute="top" secondItem="FUn-vZ-ZaU" secondAttribute="bottom" constant="8" id="unW-3s-y1k"/>
                             <constraint firstAttribute="centerY" secondItem="cp9-M3-Ao7" secondAttribute="centerY" id="yG3-d7-fag"/>
-                            <constraint firstItem="9tl-K2-82X" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="bottom" constant="8" id="yoO-uS-xIH"/>
+                            <constraint firstItem="9tl-K2-82X" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="bottom" id="yoO-uS-xIH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9tl-K2-82X" secondAttribute="trailing" id="yxh-Vd-71b"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="chipView" destination="HPv-oK-mru" id="jix-yd-G6j"/>
                         <outlet property="deviceNameLabel" destination="9rh-mq-4bk" id="ynf-M8-EkI"/>
-                        <outlet property="deviceNameTextField" destination="ecC-aQ-rz0" id="0kb-nu-gtv"/>
                         <outlet property="deviceView" destination="9tl-K2-82X" id="hD8-Em-bdH"/>
-                        <outlet property="editDeviceNameButton" destination="M8E-t7-pGt" id="Zby-Sh-9cs"/>
                         <outlet property="firstTimeView" destination="3P4-zn-2e7" id="9iQ-i4-Ut4"/>
                         <outlet property="pinFunctionView" destination="cp9-M3-Ao7" id="ue2-CL-pyP"/>
                         <outlet property="tinkerLogoImageView" destination="6Dm-8R-bO7" id="qQY-O0-lHF"/>
@@ -867,20 +840,20 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last heard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="9Qe-Un-SES">
-                                <rect key="frame" x="20" y="150" width="77" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Last heard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="9Qe-Un-SES">
+                                <rect key="frame" x="20" y="152" width="71" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Hbd-cs-U4l">
-                                <rect key="frame" x="20" y="169" width="84" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Connection:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Hbd-cs-U4l">
+                                <rect key="frame" x="20" y="172" width="76" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Agj-8M-8Pe">
-                                <rect key="frame" x="20" y="131" width="80" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Agj-8M-8Pe">
+                                <rect key="frame" x="20" y="131" width="80" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="q3a-yP-vjt"/>
                                 </constraints>
@@ -954,7 +927,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <action selector="copyDeviceID:" destination="JNA-0n-EYY" eventType="touchUpInside" id="NBj-tB-Ikm"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="imgGreenCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Z49-Pf-Ydr">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Z49-Pf-Ydr">
                                 <rect key="frame" x="200" y="191" width="12" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="12" id="cZA-XF-f86"/>
@@ -992,14 +965,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <constraint firstAttribute="height" constant="1" id="ngH-lY-OH6"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1f-Qk-EZe">
-                                <rect key="frame" x="62" y="72" width="518" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1f-Qk-EZe">
+                                <rect key="frame" x="62" y="72" width="518" height="20"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H0f-gV-kwC">
-                                <rect key="frame" x="120" y="149" width="460" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="09/09/2016 03:02:01AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H0f-gV-kwC">
+                                <rect key="frame" x="120" y="151" width="460" height="17"/>
                                 <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
                                 <color key="textColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1013,7 +986,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="28" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xZX-Os-SxE" id="uae-oZ-flr">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Op-mh-sFC">
@@ -1022,7 +995,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                     <color key="textColor" red="0.91099476439790572" green="0.91099476439790572" blue="0.91099476439790572" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSx-xd-Gxd">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSx-xd-Gxd">
                                                     <rect key="frame" x="16" y="8" width="150" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="4x7-LR-AGh"/>
@@ -1035,7 +1008,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                         <action selector="callButtonTapped:" destination="xZX-Os-SxE" eventType="touchUpInside" id="DYg-N0-64d"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pu-fd-Wkm">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pu-fd-Wkm">
                                                     <rect key="frame" x="166" y="10" width="28" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="13S-vv-Cv1"/>
@@ -1109,7 +1082,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="118" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mdQ-n5-CYc" id="otD-t8-UtI">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cY-E6-uc5">
@@ -1121,7 +1094,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="R6A-0h-3vA">
                                                     <rect key="frame" x="565" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptz-8N-J2S">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptz-8N-J2S">
                                                     <rect key="frame" x="16" y="8" width="153" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="2J1-OT-70Q"/>
@@ -1140,7 +1113,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                     <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h28-a7-rCU">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h28-a7-rCU">
                                                     <rect key="frame" x="169" y="8" width="70" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="A6g-Mw-KRz"/>
@@ -1206,8 +1179,8 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6x-Ka-4d8">
-                                <rect key="frame" x="62" y="95" width="47" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Photon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6x-Ka-4d8">
+                                <rect key="frame" x="62" y="98" width="42" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="GLP-S6-AU8"/>
                                 </constraints>
@@ -1501,16 +1474,16 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <rect key="frame" x="0.0" y="28" width="605" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vDz-OW-Qpw" id="TkH-c6-nHH">
-                                            <rect key="frame" x="0.0" y="0.0" width="605" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="605" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwo-4g-zMK">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwo-4g-zMK">
                                                     <rect key="frame" x="9" y="0.0" width="48" height="15"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                                     <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQU-mG-faa">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Data:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQU-mG-faa">
                                                     <rect key="frame" x="9" y="23" width="39" height="15"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                                     <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1534,7 +1507,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                         <action selector="copyDeviceIccid:" destination="JNA-0n-EYY" eventType="touchUpInside" id="QD1-Je-P4n"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="event-payload" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMN-PT-shz">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="event-payload" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMN-PT-shz">
                                                     <rect key="frame" x="65" y="22" width="117" height="18"/>
                                                     <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1612,7 +1585,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="DOCUMENTATION" id="nF7-UA-NXy">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="LDJ-gz-MOm" style="IBUITableViewCellStyleDefault" id="AW4-q4-syb">
-                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AW4-q4-syb" id="uJP-YI-5Hu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1629,7 +1602,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="HZ1-gm-9mL" style="IBUITableViewCellStyleDefault" id="jQX-Qm-3i5">
-                                        <rect key="frame" x="0.0" y="157.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="158" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jQX-Qm-3i5" id="qub-QU-7Mk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1646,7 +1619,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="xp8-3N-Puz" style="IBUITableViewCellStyleDefault" id="yXs-Or-qMD">
-                                        <rect key="frame" x="0.0" y="201.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="202" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yXs-Or-qMD" id="u3f-RU-gRL">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1667,7 +1640,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="SUPPORT" footerTitle="Particle Tinker vX.Y (zzz)" id="NdL-nX-JL4">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nxB-SX-5oO" style="IBUITableViewCellStyleDefault" id="zAa-gW-tnM">
-                                        <rect key="frame" x="0.0" y="287.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="288" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zAa-gW-tnM" id="aiw-VV-tW1">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1684,7 +1657,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="u0T-kr-vzR" style="IBUITableViewCellStyleDefault" id="OTZ-aX-dlB">
-                                        <rect key="frame" x="0.0" y="331.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="332" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OTZ-aX-dlB" id="9Lf-Lc-52p">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -1943,24 +1916,21 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="f" width="24" height="24"/>
         <image name="imgArrowDown" width="64" height="64"/>
         <image name="imgChevronLeft" width="128" height="128"/>
+        <image name="imgCircle" width="128" height="128"/>
         <image name="imgCloseIcon" width="256" height="256"/>
         <image name="imgCopyClipboard" width="128" height="128"/>
         <image name="imgDeviceFamily" width="424" height="383"/>
-        <image name="imgDeviceInspector" width="64" height="64"/>
         <image name="imgDevicePhoton" width="240" height="451"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
-        <image name="imgGreenCircle" width="128" height="128"/>
         <image name="imgPause" width="256" height="256"/>
-        <image name="imgPencil" width="32" height="32"/>
         <image name="imgPlus" width="256" height="256"/>
         <image name="imgPointAtD7" width="37" height="288"/>
-        <image name="imgThreeDots" width="32" height="32"/>
+        <image name="imgThreeDots" width="600" height="600"/>
         <image name="imgTinkerLogo" width="131" height="138"/>
         <image name="imgTrianglifyHeader" width="749" height="250"/>
         <image name="particle-horizontal-blue" width="321" height="75"/>
         <image name="particle-vertical-blue" width="300" height="277"/>
         <image name="sunflower" width="5" height="37"/>
-        <image name="tinker-header" width="321" height="75"/>
         <image name="v" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
