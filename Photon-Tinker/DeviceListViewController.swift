@@ -162,6 +162,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(animated: Bool) {
         if SparkCloud.sharedInstance().isAuthenticated
         {
+            animateOnlineIndicators()
             self.loadDevices()
             print("! subscribing to status event")
             self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark/status", handler: { (event: SparkEvent?, error: NSError?) in
@@ -170,8 +171,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.animateOnlineIndicators()
                 print("! got status event: "+event!.description)
             })
-            
             animateOnlineIndicators()
+            
             
             self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(DeviceListViewController.flashingTimerFunc(_:)), userInfo: nil, repeats: true)
         }
@@ -215,15 +216,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             hud.mode = .CustomView//.Indeterminate
             hud.animationType = .ZoomIn
 //            hud.labelText = "Loading"
-            hud.minShowTime = 0.4
+            hud.minShowTime = 0.5
+            hud.color = UIColor.clearColor()
             
             // prepare spinner view for first time populating of devices into table
             let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
-            spinnerView.frame = CGRectMake(0, 0, 37, 37);
+            spinnerView.frame = CGRectMake(0, 0, 64, 64);
             spinnerView.contentMode = .ScaleToFill
 
-            spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-            spinnerView.tintColor = UIColor.whiteColor()
+//            spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+//            spinnerView.tintColor = UIColor.whiteColor()
             
 //            UIView.animateWithDuration(1.0, delay: 0, options: .CurveEaseInOut, animations: {
 //                spinnerView.transform = CGAffineTransformRotate(spinnerView.transform, 2*CGFloat(M_PI))
@@ -446,7 +448,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                             cell.deviceStateImageView.alpha = 0
                             }, completion: nil)
                     } else {
-                        cell.deviceStateImageView.tintColor = UIColor.darkGrayColor()
+                        cell.deviceStateImageView.tintColor = UIColor.grayColor()
                     }
                 }
             }
@@ -495,7 +497,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     cell.deviceStateImageView.alpha = 0
                     }, completion: nil)
             } else {
-                cell.deviceStateImageView.tintColor = UIColor.darkGrayColor()
+                cell.deviceStateImageView.tintColor = UIColor.grayColor()
             }
             
 

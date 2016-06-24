@@ -179,7 +179,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-Ur-rz3" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-Uz-IIB">
+                                    <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-Uz-IIB">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5g-NQ-f2Y" userLabel="Border">
@@ -229,7 +229,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="D7w-cb-MbB" firstAttribute="centerX" secondItem="xB3-Ur-rz3" secondAttribute="centerX" id="60g-fg-Hca"/>
                                     <constraint firstItem="D7w-cb-MbB" firstAttribute="centerY" secondItem="kNA-WJ-NA0" secondAttribute="centerY" id="9hz-Eh-QC6"/>
