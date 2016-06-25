@@ -111,6 +111,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[Mixpanel sharedInstance] timeEvent:@"Tinker: Tinker screen activity"];
+    if (self.chipView.alpha == 0)
+        [self.deviceListViewController showParticleSpinner:self.view];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -169,9 +171,12 @@
 }
 
 
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     
     if (!self.chipIsShowing)
     {
@@ -183,7 +188,7 @@
         _chipShadowImageView.frame = self.chipView.bounds;
 //        _chipShadowImageView.alpha = 0.85;
         _chipShadowImageView.image = [_chipShadowImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        _chipShadowImageView.tintColor = [[UIColor alloc] initWithWhite:0.21 alpha:1.0];
+        _chipShadowImageView.tintColor = [[UIColor alloc] initWithWhite:0.2 alpha:0.5];
         
         _chipShadowImageView.contentMode = UIViewContentModeScaleToFill;
         [self.chipView addSubview:_chipShadowImageView];
@@ -307,7 +312,8 @@
         }
         
         self.chipView.alpha = 0;
-        [UIView animateWithDuration:0.25
+        [self.deviceListViewController hideParticleSpinner:self.view];
+        [UIView animateWithDuration:0.4
                               delay:0
                             options: UIViewAnimationOptionAllowAnimatedContent
                          animations:^{
@@ -316,6 +322,7 @@
                          }
                          completion:^(BOOL finished){
 //                             NSLog(@"Done!");
+                             
                          }];
         self.chipIsShowing = YES;
     }
@@ -360,7 +367,7 @@
                 self.pinViewShowingSlider = pinView;
                 pinView.valueView.delegate = self;
                 [pinView.valueView showSlider];
-//                [self.chipView bringSubviewToFront:pinView.valueView];
+//                [self.chipView bringSubviewToFront:pinView.valueView]; // move to end of animation
 
                 break;
 
@@ -406,8 +413,8 @@
     {
         [self hideFunctionView:self];
         
-        // and show a new one for the new pin
-        if (self.pinFunctionView.pinView != pinView) {
+        // and show a new one for the new pin (if it's not active yet)
+        if ((self.pinFunctionView.pinView != pinView) && (!pinView.active)) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.30 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self showFunctionView:pinView];
             });
@@ -503,7 +510,7 @@
         [self.pinFunctionView setFrame:pinView.frame];
         [self.pinFunctionView setCenter:CGPointMake(pinView.center.x, pinView.center.y)];
         
-        [self.view bringSubviewToFront:self.pinFunctionView];
+        [self.chipView bringSubviewToFront:self.pinFunctionView];
         self.pinFunctionView.alpha = 0;
 
 //        self.pinFunctionViewWidth.constant = 32;
@@ -512,7 +519,7 @@
 //        self.pinFunctionViewCenterY.constant = pinView.frame.origin.y;
 
 //        [self.view layoutIfNeeded];
-        [UIView animateWithDuration:0.250 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             [self.pinFunctionView setFrame:self.originalPinFunctionFrame];
 //            self.pinFunctionViewWidth.constant = 204;
 //            self.pinFunctionViewHeight.constant = 124;
@@ -533,7 +540,7 @@
 
             
         } completion:^(BOOL finished) {
-            //
+            [self.chipView bringSubviewToFront:self.pinFunctionView];
         }];
         
         
@@ -554,7 +561,7 @@
     if (!self.pinFunctionView.hidden)
     {
         
-        [UIView animateWithDuration:0.250 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.pinFunctionView.alpha = 0.2;
             self.tinkerLogoImageView.alpha = 1;
             for (PinView *pv in self.pinViews.allValues) {
@@ -567,6 +574,7 @@
             
         } completion:^(BOOL finished) {
             self.pinFunctionView.hidden = YES;
+            [self.chipView bringSubviewToFront:pinView.valueView]; // otherwise right side sliders do not respond to user touch
         }];
         
         

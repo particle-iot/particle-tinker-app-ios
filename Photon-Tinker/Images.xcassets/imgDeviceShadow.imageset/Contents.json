@@ -2,18 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "09.03-core-shadow@2x-2.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "09.03-core-shadow@2x.png"
+      "filename" : "09.03-core-shadow@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "09.03-core-shadow@2x-1.png"
+      "filename" : "09.03-core-shadow@2x-1.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

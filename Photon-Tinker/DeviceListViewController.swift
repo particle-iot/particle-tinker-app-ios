@@ -216,45 +216,53 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func loadDevices()
-    {
+    
+    @objc func showParticleSpinner(view : UIView) {
         var hud : MBProgressHUD
         
+        hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.mode = .CustomView//.Indeterminate
+        hud.animationType = .ZoomIn
+        //            hud.labelText = "Loading"
+        hud.minShowTime = 0.5
+        hud.color = UIColor.clearColor()
+        
+        // prepare spinner view for first time populating of devices into table
+        let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
+        spinnerView.frame = CGRectMake(0, 0, 64, 64);
+        spinnerView.contentMode = .ScaleToFill
+        
+        //            spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        //            spinnerView.tintColor = UIColor.whiteColor()
+        
+        //            UIView.animateWithDuration(1.0, delay: 0, options: .CurveEaseInOut, animations: {
+        //                spinnerView.transform = CGAffineTransformRotate(spinnerView.transform, 2*CGFloat(M_PI))
+        //                }, completion: nil)
+        
+        let rotation = CABasicAnimation(keyPath:"transform.rotation")
+        rotation.fromValue = 0
+        rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        rotation.toValue = 2*M_PI;
+        rotation.duration = 1;
+        rotation.repeatCount = 1000; // Repeat
+        spinnerView.layer.addAnimation(rotation,forKey:"Spin")
+        
+        hud.customView = spinnerView
+ 
+    }
+    
+    
+    @objc func hideParticleSpinner(view : UIView) {
+        MBProgressHUD.hideHUDForView(view, animated: true)
+    }
+    
+    func loadDevices()
+    {
         // do a HUD only for first time load
         if self.refreshControlAdded == false
         {
-            hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            hud.mode = .CustomView//.Indeterminate
-            hud.animationType = .ZoomIn
-//            hud.labelText = "Loading"
-            hud.minShowTime = 0.5
-            hud.color = UIColor.clearColor()
-            
-            // prepare spinner view for first time populating of devices into table
-            let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
-            spinnerView.frame = CGRectMake(0, 0, 64, 64);
-            spinnerView.contentMode = .ScaleToFill
-
-//            spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-//            spinnerView.tintColor = UIColor.whiteColor()
-            
-//            UIView.animateWithDuration(1.0, delay: 0, options: .CurveEaseInOut, animations: {
-//                spinnerView.transform = CGAffineTransformRotate(spinnerView.transform, 2*CGFloat(M_PI))
-//                }, completion: nil)
-            
-            let rotation = CABasicAnimation(keyPath:"transform.rotation")
-            rotation.fromValue = 0
-            rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            rotation.toValue = 2*M_PI;
-            rotation.duration = 1;
-            rotation.repeatCount = 1000; // Repeat
-            spinnerView.layer.addAnimation(rotation,forKey:"Spin")
-            
-            hud.customView = spinnerView
-            
+            showParticleSpinner(self.view)
         }
-        
-        
         
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
@@ -264,7 +272,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 // do anyway:
                 dispatch_async(dispatch_get_main_queue()) {
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.hideParticleSpinner(self.view) // TODO weak self
                     // first time add the custom pull to refresh control to the tableview
                     if self.refreshControlAdded == false
                     {
