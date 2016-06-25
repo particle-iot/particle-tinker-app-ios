@@ -37,6 +37,7 @@
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
 		50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */; };
 		50B6599E1AFD922A00606A39 /* Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599D1AFD922A00606A39 /* Popup.m */; };
+		50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB1521D1E24D10060659B /* ParticleSpinner.swift */; };
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
 		50D47F301AFAF56C004AD3AE /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2F1AFAF56C004AD3AE /* PinView.m */; };
 		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
@@ -84,6 +85,7 @@
 		50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
 		50B6599C1AFD922A00606A39 /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		50B6599D1AFD922A00606A39 /* Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popup.m; sourceTree = "<group>"; };
+		50BBB1521D1E24D10060659B /* ParticleSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSpinner.swift; sourceTree = "<group>"; };
 		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SPKTinkerViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SPKTinkerViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		50D47F2E1AFAF56C004AD3AE /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinView.h; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		50EB761D1AE70AE700C925A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				50BBB1521D1E24D10060659B /* ParticleSpinner.swift */,
 				50D47F2E1AFAF56C004AD3AE /* PinView.h */,
 				50D47F2F1AFAF56C004AD3AE /* PinView.m */,
 				5073D4CA1AFB2E3000068C2A /* PinValueView.h */,
@@ -415,6 +418,7 @@
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,
 				505062D51CE19F920060FEE7 /* Keys.swift in Sources */,
 				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
+				50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */,
 				50B6599E1AFD922A00606A39 /* Popup.m in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
 				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,

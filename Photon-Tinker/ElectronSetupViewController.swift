@@ -132,50 +132,17 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 
     func startSpinner()
     {
-     
         if !self.loading
         {
-            dispatch_async(dispatch_get_main_queue()) {
-
-                var hud : MBProgressHUD
-                
-                hud = MBProgressHUD.showHUDAddedTo(self.webView, animated: true)
-                self.loading = true
-                hud.mode = .CustomView //.Indeterminate
-                hud.animationType = .ZoomIn
-                hud.labelText = "Loading"
-//                hud.minShowTime = 0.3
-                hud.dimBackground = false
-                
-                
-                // prepare spinner view for first time populating of devices into table
-                let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
-                spinnerView.frame = CGRectMake(0, 0, 37, 37);
-                spinnerView.contentMode = .ScaleToFill
-                spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                spinnerView.tintColor = UIColor.whiteColor()
-
-                
-                let rotation = CABasicAnimation(keyPath:"transform.rotation")
-                rotation.fromValue = 0
-                rotation.toValue = 2*M_PI
-                rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                rotation.duration = 1.0;
-                rotation.repeatCount = 1000; // Repeat
-                spinnerView.layer.addAnimation(rotation,forKey:"Spin")
-                hud.customView = spinnerView
-            }
+            ParticleSpinner.show(self.view)
+            self.loading = true
         }
-
-        
     }
     
     func stopSpinner()
     {
-        dispatch_async(dispatch_get_main_queue()) {
-            MBProgressHUD.hideHUDForView(self.webView, animated: true)
-            self.loading = false
-        }
+        ParticleSpinner.hide(self.view)
+        self.loading = false
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {

@@ -112,7 +112,7 @@
 {
     [[Mixpanel sharedInstance] timeEvent:@"Tinker: Tinker screen activity"];
     if (self.chipView.alpha == 0)
-        [self.deviceListViewController showParticleSpinner:self.view];
+        [ParticleSpinner show:self.view];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -312,7 +312,7 @@
         }
         
         self.chipView.alpha = 0;
-        [self.deviceListViewController hideParticleSpinner:self.view];
+        [ParticleSpinner hide:self.view];
         [UIView animateWithDuration:0.4
                               delay:0
                             options: UIViewAnimationOptionAllowAnimatedContent
