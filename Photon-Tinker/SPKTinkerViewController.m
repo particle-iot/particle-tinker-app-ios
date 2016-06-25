@@ -101,10 +101,10 @@
     
 //    self.deviceIDLabel.text = [NSString stringWithFormat:@"ID: %@",[self.device.id uppercaseString]];
     
-    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideFunctionView:)];
-    _tap.numberOfTapsRequired = 1;
-    _tap.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:_tap];
+//    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideFunctionView:)];
+//    _tap.numberOfTapsRequired = 1;
+//    _tap.cancelsTouchesInView = NO;
+//    [self.view addGestureRecognizer:_tap];
 }
 
 
@@ -307,7 +307,7 @@
         }
         
         self.chipView.alpha = 0;
-        [UIView animateWithDuration:0.4
+        [UIView animateWithDuration:0.25
                               delay:0
                             options: UIViewAnimationOptionAllowAnimatedContent
                          animations:^{
@@ -315,7 +315,7 @@
                              [self.chipView setNeedsLayout];
                          }
                          completion:^(BOOL finished){
-                             NSLog(@"Done!");
+//                             NSLog(@"Done!");
                          }];
         self.chipIsShowing = YES;
     }
@@ -335,8 +335,7 @@
 
 - (void)pinFunctionSelected:(DevicePinFunction)function
 {
-    
-    
+    [self hideFunctionView:self];
     DevicePin *pin = self.pinFunctionView.pin;
     NSLog(@"function selection for pin %@ is %d",pin.logicalName, function);
     PinView *pinView = self.pinViews[pin.label];
@@ -361,7 +360,7 @@
                 self.pinViewShowingSlider = pinView;
                 pinView.valueView.delegate = self;
                 [pinView.valueView showSlider];
-                [self.chipView bringSubviewToFront:pinView.valueView];
+//                [self.chipView bringSubviewToFront:pinView.valueView];
 
                 break;
 
@@ -376,9 +375,10 @@
         }
     }
 //    [pinView refresh];
+    
 }
 
-#pragma mark - Core Pin View Delegate
+#pragma mark - Pin View Delegate
 
 - (void)pinViewHeld:(PinView *)pinView
 {
@@ -401,17 +401,18 @@
         self.pinViewShowingSlider = nil;
     }
 
-    
     // if function view is showing, remove it
-    if (!self.pinFunctionView.hidden)
+    if (self.pinFunctionView.hidden == NO)
     {
-        self.pinFunctionView.hidden = YES;
-        for (PinView *pv in self.pinViews.allValues)
-        {
-            pv.alpha = 1.0;
+        [self hideFunctionView:self];
+        
+        // and show a new one for the new pin
+        if (self.pinFunctionView.pinView != pinView) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.30 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self showFunctionView:pinView];
+            });
+            
         }
-        self.tinkerLogoImageView.hidden = NO;
-//        self.deviceNameLabel.hidden = NO;
     } // else if pin is not active then show function view
     else
     {
@@ -465,7 +466,7 @@
 
 -(void)pinValueView:(PinValueView *)sender sliderMoved:(float)newValue touchUp:(BOOL)touchUp
 {
-    NSLog(@"sliderMoved delegate");
+
     [sender.pin adjustValue:(NSUInteger)newValue];
     PinView *pv = self.pinViews[sender.pin.label];
     [pv refresh];
@@ -496,8 +497,11 @@
         
         self.pinFunctionView.hidden = NO;
         
+        CGRect pinFrame = pinView.frame;
+        pinFrame.size.height = 16;
+        pinFrame.size.width = 16;
         [self.pinFunctionView setFrame:pinView.frame];
-        
+        [self.pinFunctionView setCenter:CGPointMake(pinView.center.x, pinView.center.y)];
         
         [self.view bringSubviewToFront:self.pinFunctionView];
         self.pinFunctionView.alpha = 0;
@@ -536,10 +540,16 @@
     }
 }
 
+- (IBAction)pinFunctionCancelButtonTapped:(id)sender {
+    [self hideFunctionView:self];
+}
 
 -(void)hideFunctionView:(id)sender
 {
-    CGRect pinViewFrame = self.pinFunctionView.pinView.frame;
+    PinView *pinView = self.pinFunctionView.pinView;
+    CGRect pinViewFrame = pinView.frame;
+    pinViewFrame.size.height = 16;
+    pinViewFrame.size.width = 16;
     
     if (!self.pinFunctionView.hidden)
     {
@@ -552,6 +562,8 @@
                 pv.valueView.alpha = 1;
             }
             [self.pinFunctionView setFrame:pinViewFrame];
+            [self.pinFunctionView setCenter:CGPointMake(pinView.center.x, pinView.center.y)];
+
             
         } completion:^(BOOL finished) {
             self.pinFunctionView.hidden = YES;

@@ -105,7 +105,7 @@
 
 -(void)sliderMoved:(id)sender
 {
-    NSLog(@"sliderMoved");
+
     ASValueTrackingSlider *slider = (ASValueTrackingSlider*)sender;
     if (self.delegate)
     {
@@ -165,12 +165,12 @@
         [self insertSubview:_slider aboveSubview:self.valueLabel];
     }
     
-    //debug:
-    NSLog(@"valueView.frame: %@",NSStringFromCGRect(self.frame));
-    NSLog(@"valueView.bounds: %@",NSStringFromCGRect(self.bounds));
-
-    NSLog(@"slider.frame: %@",NSStringFromCGRect(_slider.frame));
-    NSLog(@"slider.bounds: %@",NSStringFromCGRect(_slider.bounds));
+//    //debug:
+//    NSLog(@"valueView.frame: %@",NSStringFromCGRect(self.frame));
+//    NSLog(@"valueView.bounds: %@",NSStringFromCGRect(self.bounds));
+//
+//    NSLog(@"slider.frame: %@",NSStringFromCGRect(_slider.frame));
+//    NSLog(@"slider.bounds: %@",NSStringFromCGRect(_slider.bounds));
 
     
     [self setNeedsDisplay];

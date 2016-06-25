@@ -549,23 +549,23 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emerald" translatesAutoresizingMaskIntoConstraints="NO" id="mDh-xo-YvB">
-                                                        <rect key="frame" x="0.0" y="42" width="5" height="37"/>
+                                                        <rect key="frame" x="0.0" y="42" width="6" height="37"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="5" id="VaG-zl-xez"/>
+                                                            <constraint firstAttribute="width" constant="6" id="VaG-zl-xez"/>
                                                             <constraint firstAttribute="height" constant="37" id="aWg-Bl-KSa"/>
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cyan" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-y1-Ivz">
-                                                        <rect key="frame" x="199" y="41" width="5" height="37"/>
+                                                        <rect key="frame" x="198" y="41" width="6" height="37"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="37" id="YaM-Jg-0Dj"/>
-                                                            <constraint firstAttribute="width" constant="5" id="sZj-2E-xYl"/>
+                                                            <constraint firstAttribute="width" constant="6" id="sZj-2E-xYl"/>
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alizarin" translatesAutoresizingMaskIntoConstraints="NO" id="hhT-Ph-kTP">
-                                                        <rect key="frame" x="199" y="86" width="5" height="37"/>
+                                                        <rect key="frame" x="198" y="86" width="6" height="37"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="5" id="6mv-U3-ndH"/>
+                                                            <constraint firstAttribute="width" constant="6" id="6mv-U3-ndH"/>
                                                             <constraint firstAttribute="height" constant="37" id="Cul-HU-wXx"/>
                                                         </constraints>
                                                     </imageView>
@@ -643,6 +643,24 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yx1-Ug-Dt4" userLabel="cancel">
+                                                        <rect key="frame" x="0.0" y="4" width="24" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="24" id="P9y-5N-aKu"/>
+                                                            <constraint firstAttribute="height" constant="24" id="Z6y-Is-Y2y"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                                        <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
+                                                        <state key="normal" image="imgCloseIcon">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="kpe-Fa-7A6"/>
+                                                            <action selector="pinFunctionCancelButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="cJc-Wv-TPh"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -650,10 +668,12 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                     <constraint firstItem="hhT-Ph-kTP" firstAttribute="trailing" secondItem="GmO-7c-yA1" secondAttribute="trailing" id="29Z-1z-g5H"/>
                                                     <constraint firstItem="YGr-y1-Ivz" firstAttribute="trailing" secondItem="HZI-mP-P5L" secondAttribute="trailing" id="6uE-C3-2nN"/>
                                                     <constraint firstAttribute="width" constant="204" id="8xW-Ni-Q5c"/>
+                                                    <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="4" id="Cuw-HM-wjy"/>
                                                     <constraint firstItem="NEU-nT-aGU" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="12" id="HEP-9L-tfh"/>
                                                     <constraint firstItem="0Dp-bl-5EV" firstAttribute="centerY" secondItem="Kep-d7-v4h" secondAttribute="centerY" id="LCa-Th-DEJ"/>
                                                     <constraint firstItem="GmO-7c-yA1" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="84" id="LkK-Y0-Z1h"/>
                                                     <constraint firstItem="0Dp-bl-5EV" firstAttribute="leading" secondItem="Kep-d7-v4h" secondAttribute="leading" id="OAF-Vg-U9c"/>
+                                                    <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" id="OrL-bz-EGp"/>
                                                     <constraint firstItem="hhT-Ph-kTP" firstAttribute="centerY" secondItem="GmO-7c-yA1" secondAttribute="centerY" id="OyW-MP-yj4"/>
                                                     <constraint firstItem="HZI-mP-P5L" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="40" id="TQH-5g-IXk"/>
                                                     <constraint firstAttribute="trailing" secondItem="GmO-7c-yA1" secondAttribute="trailing" id="ebb-2r-aob"/>
