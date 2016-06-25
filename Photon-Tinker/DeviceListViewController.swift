@@ -350,7 +350,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             SparkCloud.sharedInstance().getDevices() { (devices:[AnyObject]?, error:NSError?) -> Void in
                 weakSelf?.handleGetDevicesResponse(devices, error: error)
                 weakSelf?.photonSelectionTableView.finishLoading()
-                weakSelf?.animateOnlineIndicators()
+//                weakSelf?.animateOnlineIndicators()
             }
             
         }
@@ -464,6 +464,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
+    /*
     func animateOnlineIndicators() {
         
         for row in 0..<self.photonSelectionTableView.numberOfRowsInSection(0) {
@@ -476,6 +477,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
+     */
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -530,18 +532,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             masterCell = cell
         }
         
-        // make cell darker if it's even
-        /*
-        if (indexPath.row % 2) == 0
-        {
-            masterCell?.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
-        }
-        else // lighter if even
-        {
-            masterCell?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
-        }
-        */
-        
+               
         return masterCell!
     }
     

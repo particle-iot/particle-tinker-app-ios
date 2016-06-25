@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DevicePin.h"
+#import "PinView.h"
 
 @protocol PinFunctionViewDelegate <NSObject>
 
@@ -32,6 +33,7 @@
 @property (weak) IBOutlet UIButton *digitalWriteButton;
 
 @property (nonatomic, strong) DevicePin *pin;
+@property (nonatomic, strong) PinView *pinView;
 @property (nonatomic, weak) id<PinFunctionViewDelegate> delegate;
 
 - (IBAction)functionSelected:(id)sender;

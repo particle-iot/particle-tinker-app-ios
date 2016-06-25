@@ -23,6 +23,10 @@
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pinFunctionViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pinFunctionViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pinFunctionViewCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pinFunctionViewCenterY;
 
 @property (nonatomic, weak) IBOutlet PinFunctionView *pinFunctionView;
 @property (nonatomic, weak) IBOutlet UIView *firstTimeView;
@@ -38,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *editDeviceNameButton;
 @property (nonatomic, strong) PinView *pinViewShowingSlider;
 @property (nonatomic) BOOL chipIsShowing;
+@property (nonatomic) CGRect originalPinFunctionFrame;
+
 @end
 
 
@@ -51,7 +57,7 @@
 //    self.pinValueViews = [NSMutableDictionary dictionaryWithCapacity:16];
     self.pinFunctionView.delegate = self;
     self.pinViewShowingSlider = nil;
-
+    
     
     // background image
     /*
@@ -175,7 +181,10 @@
         // add chip shadow
         _chipShadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgDeviceShadow"]];
         _chipShadowImageView.frame = self.chipView.bounds;
-        _chipShadowImageView.alpha = 0.85;
+//        _chipShadowImageView.alpha = 0.85;
+        _chipShadowImageView.image = [_chipShadowImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _chipShadowImageView.tintColor = [[UIColor alloc] initWithWhite:0.21 alpha:1.0];
+        
         _chipShadowImageView.contentMode = UIViewContentModeScaleToFill;
         [self.chipView addSubview:_chipShadowImageView];
         [self.chipView sendSubviewToBack:_chipShadowImageView];
@@ -310,6 +319,7 @@
                          }];
         self.chipIsShowing = YES;
     }
+    self.originalPinFunctionFrame = self.pinFunctionView.frame;
     
 }
 
@@ -325,9 +335,13 @@
 
 - (void)pinFunctionSelected:(DevicePinFunction)function
 {
+    
+    
     DevicePin *pin = self.pinFunctionView.pin;
+    NSLog(@"function selection for pin %@ is %d",pin.logicalName, function);
     PinView *pinView = self.pinViews[pin.label];
 
+    
     if (pin.selectedFunction != function)
     {
         [pinView.pin resetValue];
@@ -477,30 +491,74 @@
 - (void)showFunctionView:(PinView *)pinView
 {
     if (self.pinFunctionView.hidden) {
-        self.tinkerLogoImageView.hidden = YES;
         self.pinFunctionView.pin = pinView.pin;
+        self.pinFunctionView.pinView = pinView;
+        
         self.pinFunctionView.hidden = NO;
-        for (PinView *pv in self.pinViews.allValues) {
-            if (pv != pinView) {
-                pv.alpha = 0.15;
-                pv.valueView.alpha = 0.15;
-            }
-        }
+        
+        [self.pinFunctionView setFrame:pinView.frame];
+        
+        
         [self.view bringSubviewToFront:self.pinFunctionView];
+        self.pinFunctionView.alpha = 0;
+
+//        self.pinFunctionViewWidth.constant = 32;
+//        self.pinFunctionViewHeight.constant = 32;
+//        self.pinFunctionViewCenterX.constant = pinView.frame.origin.x;
+//        self.pinFunctionViewCenterY.constant = pinView.frame.origin.y;
+
+//        [self.view layoutIfNeeded];
+        [UIView animateWithDuration:0.250 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [self.pinFunctionView setFrame:self.originalPinFunctionFrame];
+//            self.pinFunctionViewWidth.constant = 204;
+//            self.pinFunctionViewHeight.constant = 124;
+//            self.pinFunctionViewCenterX.constant = 0;
+//            self.pinFunctionViewCenterY.constant = 0;
+//            
+            self.pinFunctionView.alpha = 1;
+            self.tinkerLogoImageView.alpha = 0;
+            
+            for (PinView *pv in self.pinViews.allValues) {
+                if (pv != pinView) {
+                    pv.alpha = 0.15;
+                    pv.valueView.alpha = 0.15;
+                }
+            }
+            
+//            [self.view layoutIfNeeded];
+
+            
+        } completion:^(BOOL finished) {
+            //
+        }];
+        
+        
     }
 }
 
 
 -(void)hideFunctionView:(id)sender
 {
+    CGRect pinViewFrame = self.pinFunctionView.pinView.frame;
+    
     if (!self.pinFunctionView.hidden)
     {
-        self.tinkerLogoImageView.hidden = NO;
-        self.pinFunctionView.hidden = YES;
-        for (PinView *pv in self.pinViews.allValues) {
-            pv.alpha = 1;
-            pv.valueView.alpha = 1;
-        }
+        
+        [UIView animateWithDuration:0.250 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.pinFunctionView.alpha = 0.2;
+            self.tinkerLogoImageView.alpha = 1;
+            for (PinView *pv in self.pinViews.allValues) {
+                pv.alpha = 1;
+                pv.valueView.alpha = 1;
+            }
+            [self.pinFunctionView setFrame:pinViewFrame];
+            
+        } completion:^(BOOL finished) {
+            self.pinFunctionView.hidden = YES;
+        }];
+        
+        
+        
     
     }
 }
