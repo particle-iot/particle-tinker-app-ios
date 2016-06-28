@@ -391,15 +391,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             switch device!.isRunningTinker()
             {
             case true :
-                return "Online (Tinker)"
+                return "Tinker" // Online (Tinker)
                 
             default :
-                return "Online"
+                return "" //Online
             }
             
             
         default :
-            return "Offline"
+            return "" //Offline
             
         }
         

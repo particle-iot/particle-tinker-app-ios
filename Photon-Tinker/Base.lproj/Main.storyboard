@@ -17,6 +17,12 @@
             <string>FiraMono-Regular</string>
             <string>FiraMono-Regular</string>
             <string>FiraMono-Regular</string>
+            <string>FiraMono-Regular</string>
+            <string>FiraMono-Regular</string>
+            <string>FiraMono-Regular</string>
+            <string>FiraMono-Regular</string>
+            <string>FiraMono-Regular</string>
+            <string>FiraMono-Regular</string>
         </mutableArray>
         <mutableArray key="Gotham-Book.otf">
             <string>Gotham-Book</string>
@@ -51,8 +57,15 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
+            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
+            <string>Gotham-Light</string>
+            <string>Gotham-Light</string>
+            <string>Gotham-Light</string>
+            <string>Gotham-Light</string>
+            <string>Gotham-Light</string>
+            <string>Gotham-Light</string>
             <string>Gotham-Light</string>
             <string>Gotham-Light</string>
         </mutableArray>
@@ -2141,7 +2154,237 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                     <view key="view" contentMode="scaleToFill" id="E3P-2B-YL5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nka-SA-he6" userLabel="InfoView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECO-4v-GVj" userLabel="copyDeviceIdButton">
+                                        <rect key="frame" x="560" y="19" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="WzA-6g-dCF"/>
+                                            <constraint firstAttribute="width" constant="24" id="ZVs-uw-1T8"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="imgCopyToClipboard"/>
+                                        <connections>
+                                            <action selector="copyDeviceID:" destination="JNA-0n-EYY" eventType="touchUpInside" id="4mL-Vr-cv6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHE-qn-8qb" userLabel="copyDeviceIccidButton">
+                                        <rect key="frame" x="560" y="121" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="Bxb-82-ngf"/>
+                                            <constraint firstAttribute="width" constant="24" id="bHF-PZ-25y"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="imgCopyToClipboard"/>
+                                        <connections>
+                                            <action selector="copyDeviceIccid:" destination="JNA-0n-EYY" eventType="touchUpInside" id="ACB-jP-ZUU"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDevicePhoton" translatesAutoresizingMaskIntoConstraints="NO" id="Wy3-Vb-FHk" userLabel="deviceTypeImage">
+                                        <rect key="frame" x="16" y="8" width="100" height="160"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="160" id="7BW-O0-gd4"/>
+                                            <constraint firstAttribute="width" constant="100" id="CQv-YX-eyi"/>
+                                            <constraint firstAttribute="height" constant="130" id="Ith-sS-NDX"/>
+                                            <constraint firstAttribute="width" constant="70" id="Vtn-26-R87"/>
+                                            <constraint firstAttribute="height" constant="160" id="gxC-fa-ga7"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="7BW-O0-gd4"/>
+                                                <exclude reference="CQv-YX-eyi"/>
+                                                <exclude reference="Ith-sS-NDX"/>
+                                                <exclude reference="Vtn-26-R87"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last heard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="MmM-v9-HXV">
+                                        <rect key="frame" x="120" y="43" width="68" height="13"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="13"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="DLA-FL-lRE">
+                                        <rect key="frame" x="120" y="9" width="14" height="13"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="13"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IP Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-yc-yLx">
+                                        <rect key="frame" x="120" y="77" width="69" height="13"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="13"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="b4ca4ca75ac67882872a67bcb98a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76C-HE-Mrc">
+                                        <rect key="frame" x="120" y="22" width="236" height="17"/>
+                                        <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="192.168.0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hl2-mK-ai2">
+                                        <rect key="frame" x="120" y="90" width="93" height="17"/>
+                                        <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICCID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="4k9-e3-U7x">
+                                        <rect key="frame" x="120" y="111" width="37" height="13"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="13"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" text="8934076500002580000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ccw-Kf-C0I">
+                                        <rect key="frame" x="120" y="124" width="160" height="17"/>
+                                        <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="352252068560000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awl-q8-DeS">
+                                        <rect key="frame" x="120" y="158" width="127" height="17"/>
+                                        <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data usage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="DFI-76-2zX">
+                                        <rect key="frame" x="120" y="179" width="73" height="13"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="13"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNd-PV-bTT">
+                                        <rect key="frame" x="120" y="192" width="93" height="17"/>
+                                        <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM - do time ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeY-0U-LTa">
+                                        <rect key="frame" x="120" y="56" width="294" height="17"/>
+                                        <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMEI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="M4k-Xp-y5z">
+                                        <rect key="frame" x="120" y="145" width="28" height="13"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="13"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Photon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KOg-vo-j3b" userLabel="deviceTypeLabel">
+                                        <rect key="frame" x="16" y="176" width="100" height="15"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Hl2-mK-ai2" firstAttribute="top" secondItem="a3o-yc-yLx" secondAttribute="bottom" id="0y1-69-AaT"/>
+                                    <constraint firstItem="ECO-4v-GVj" firstAttribute="height" secondItem="nka-SA-he6" secondAttribute="height" id="2fa-60-sLx"/>
+                                    <constraint firstItem="Awl-q8-DeS" firstAttribute="leading" secondItem="M4k-Xp-y5z" secondAttribute="leading" id="4Wg-78-4l1"/>
+                                    <constraint firstItem="Ccw-Kf-C0I" firstAttribute="leading" secondItem="4k9-e3-U7x" secondAttribute="leading" id="4rJ-gd-Lod"/>
+                                    <constraint firstItem="KOg-vo-j3b" firstAttribute="width" secondItem="Wy3-Vb-FHk" secondAttribute="width" id="7eX-pu-Y0B"/>
+                                    <constraint firstItem="DLA-FL-lRE" firstAttribute="top" secondItem="nka-SA-he6" secondAttribute="top" constant="9" id="83c-Kd-5GF"/>
+                                    <constraint firstItem="M4k-Xp-y5z" firstAttribute="top" secondItem="Ccw-Kf-C0I" secondAttribute="bottom" constant="4" id="9Ma-Ph-Rgl"/>
+                                    <constraint firstItem="MmM-v9-HXV" firstAttribute="leading" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="8" symbolic="YES" id="AIJ-cI-GlJ"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="-12" id="BBc-tw-zPQ"/>
+                                    <constraint firstItem="QNd-PV-bTT" firstAttribute="top" secondItem="DFI-76-2zX" secondAttribute="bottom" id="CZr-4I-lbS"/>
+                                    <constraint firstItem="Awl-q8-DeS" firstAttribute="top" secondItem="M4k-Xp-y5z" secondAttribute="bottom" id="CmL-9A-8IK"/>
+                                    <constraint firstItem="DFI-76-2zX" firstAttribute="top" secondItem="Awl-q8-DeS" secondAttribute="bottom" constant="4" id="FdO-jh-ylB"/>
+                                    <constraint firstItem="DLA-FL-lRE" firstAttribute="leading" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="8" id="Jdn-sc-IEf"/>
+                                    <constraint firstAttribute="trailing" secondItem="ECO-4v-GVj" secondAttribute="trailing" constant="16" id="KFe-5W-ody"/>
+                                    <constraint firstItem="76C-HE-Mrc" firstAttribute="leading" secondItem="DLA-FL-lRE" secondAttribute="trailing" constant="72" id="Kxp-2p-ptv"/>
+                                    <constraint firstItem="DLA-FL-lRE" firstAttribute="leading" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="8" symbolic="YES" id="LI4-PQ-MiD"/>
+                                    <constraint firstItem="QNd-PV-bTT" firstAttribute="leading" secondItem="DFI-76-2zX" secondAttribute="leading" id="LkS-r2-seE"/>
+                                    <constraint firstItem="DFI-76-2zX" firstAttribute="leading" secondItem="Awl-q8-DeS" secondAttribute="leading" id="Llw-to-Up3"/>
+                                    <constraint firstItem="OeY-0U-LTa" firstAttribute="leading" secondItem="MmM-v9-HXV" secondAttribute="leading" id="Mah-Gx-kW6"/>
+                                    <constraint firstItem="MmM-v9-HXV" firstAttribute="leading" secondItem="76C-HE-Mrc" secondAttribute="leading" id="Mkg-57-pt6"/>
+                                    <constraint firstItem="Ccw-Kf-C0I" firstAttribute="top" secondItem="4k9-e3-U7x" secondAttribute="bottom" id="Mqf-In-WvZ"/>
+                                    <constraint firstItem="M4k-Xp-y5z" firstAttribute="leading" secondItem="Ccw-Kf-C0I" secondAttribute="leading" id="P5U-P3-hMo"/>
+                                    <constraint firstItem="GHE-qn-8qb" firstAttribute="leading" secondItem="Ccw-Kf-C0I" secondAttribute="trailing" priority="100" id="PKf-ep-iYB"/>
+                                    <constraint firstItem="ECO-4v-GVj" firstAttribute="leading" secondItem="76C-HE-Mrc" secondAttribute="trailing" constant="4" id="RMU-ii-b6O"/>
+                                    <constraint firstAttribute="trailing" secondItem="GHE-qn-8qb" secondAttribute="trailing" constant="16" id="U6e-qG-wNk"/>
+                                    <constraint firstItem="OeY-0U-LTa" firstAttribute="leading" secondItem="MmM-v9-HXV" secondAttribute="trailing" constant="10" id="U7g-sO-Zva"/>
+                                    <constraint firstAttribute="leadingMargin" secondItem="Wy3-Vb-FHk" secondAttribute="leading" constant="8" id="UMM-vk-lPj"/>
+                                    <constraint firstItem="Hl2-mK-ai2" firstAttribute="leading" secondItem="a3o-yc-yLx" secondAttribute="trailing" constant="-78" id="UYa-Di-cLV"/>
+                                    <constraint firstItem="76C-HE-Mrc" firstAttribute="top" secondItem="DLA-FL-lRE" secondAttribute="bottom" id="Uk9-6T-df0"/>
+                                    <constraint firstItem="Hl2-mK-ai2" firstAttribute="leading" secondItem="a3o-yc-yLx" secondAttribute="leading" id="WXa-bz-GuQ"/>
+                                    <constraint firstItem="OeY-0U-LTa" firstAttribute="top" secondItem="MmM-v9-HXV" secondAttribute="bottom" id="YfJ-9i-Jyh"/>
+                                    <constraint firstItem="KOg-vo-j3b" firstAttribute="top" secondItem="Wy3-Vb-FHk" secondAttribute="bottom" constant="8" id="dcF-Jo-ANt"/>
+                                    <constraint firstItem="ECO-4v-GVj" firstAttribute="centerY" secondItem="76C-HE-Mrc" secondAttribute="centerY" id="e23-AK-FA2"/>
+                                    <constraint firstItem="76C-HE-Mrc" firstAttribute="leading" secondItem="DLA-FL-lRE" secondAttribute="trailing" constant="68" id="eAY-tf-ZTY"/>
+                                    <constraint firstItem="a3o-yc-yLx" firstAttribute="leading" secondItem="OeY-0U-LTa" secondAttribute="leading" id="eMF-IB-maa"/>
+                                    <constraint firstItem="GHE-qn-8qb" firstAttribute="baseline" secondItem="Ccw-Kf-C0I" secondAttribute="baseline" id="ec3-LT-czM"/>
+                                    <constraint firstItem="GHE-qn-8qb" firstAttribute="leading" secondItem="Ccw-Kf-C0I" secondAttribute="trailing" constant="216" id="fHL-la-gRq"/>
+                                    <constraint firstItem="76C-HE-Mrc" firstAttribute="leading" secondItem="DLA-FL-lRE" secondAttribute="leading" id="fag-Jy-RGx"/>
+                                    <constraint firstItem="a3o-yc-yLx" firstAttribute="leading" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="8" symbolic="YES" id="hhG-XK-t4j"/>
+                                    <constraint firstItem="76C-HE-Mrc" firstAttribute="baseline" secondItem="DLA-FL-lRE" secondAttribute="baseline" id="iZ1-rI-eob"/>
+                                    <constraint firstItem="Wy3-Vb-FHk" firstAttribute="leading" secondItem="nka-SA-he6" secondAttribute="leading" constant="16" id="jGZ-p3-GjE"/>
+                                    <constraint firstItem="DLA-FL-lRE" firstAttribute="leading" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="4" id="k1r-ct-kef"/>
+                                    <constraint firstItem="4k9-e3-U7x" firstAttribute="leading" secondItem="Hl2-mK-ai2" secondAttribute="leading" id="kI8-wA-cob"/>
+                                    <constraint firstItem="KOg-vo-j3b" firstAttribute="centerX" secondItem="Wy3-Vb-FHk" secondAttribute="centerX" id="kip-jf-1Lj"/>
+                                    <constraint firstItem="a3o-yc-yLx" firstAttribute="top" secondItem="OeY-0U-LTa" secondAttribute="bottom" constant="4" id="m7d-0j-SY8"/>
+                                    <constraint firstItem="Wy3-Vb-FHk" firstAttribute="leading" secondItem="nka-SA-he6" secondAttribute="leadingMargin" id="nug-Jz-vfE"/>
+                                    <constraint firstItem="ECO-4v-GVj" firstAttribute="baseline" secondItem="76C-HE-Mrc" secondAttribute="baseline" id="p7g-NC-Ac3"/>
+                                    <constraint firstItem="GHE-qn-8qb" firstAttribute="centerY" secondItem="Ccw-Kf-C0I" secondAttribute="centerY" id="rUw-bE-zl8"/>
+                                    <constraint firstItem="QNd-PV-bTT" firstAttribute="top" secondItem="Awl-q8-DeS" secondAttribute="bottom" constant="1" id="tdJ-Uz-ML6"/>
+                                    <constraint firstItem="4k9-e3-U7x" firstAttribute="top" secondItem="Hl2-mK-ai2" secondAttribute="bottom" constant="4" id="xQO-6n-5M1"/>
+                                    <constraint firstItem="DLA-FL-lRE" firstAttribute="leading" secondItem="nka-SA-he6" secondAttribute="leading" constant="120" id="yVn-dm-ZuI"/>
+                                    <constraint firstItem="MmM-v9-HXV" firstAttribute="top" secondItem="76C-HE-Mrc" secondAttribute="bottom" constant="4" id="ywD-ch-3H0"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BBc-tw-zPQ"/>
+                                        <exclude reference="UMM-vk-lPj"/>
+                                        <exclude reference="nug-Jz-vfE"/>
+                                        <exclude reference="Jdn-sc-IEf"/>
+                                        <exclude reference="LI4-PQ-MiD"/>
+                                        <exclude reference="Kxp-2p-ptv"/>
+                                        <exclude reference="eAY-tf-ZTY"/>
+                                        <exclude reference="iZ1-rI-eob"/>
+                                        <exclude reference="AIJ-cI-GlJ"/>
+                                        <exclude reference="U7g-sO-Zva"/>
+                                        <exclude reference="hhG-XK-t4j"/>
+                                        <exclude reference="UYa-Di-cLV"/>
+                                        <exclude reference="tdJ-Uz-ML6"/>
+                                        <exclude reference="2fa-60-sLx"/>
+                                        <exclude reference="RMU-ii-b6O"/>
+                                        <exclude reference="p7g-NC-Ac3"/>
+                                        <exclude reference="PKf-ep-iYB"/>
+                                        <exclude reference="ec3-LT-czM"/>
+                                        <exclude reference="fHL-la-gRq"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="nka-SA-he6" secondAttribute="trailing" constant="-20" id="0Hn-Nd-ZXe"/>
+                            <constraint firstItem="nka-SA-he6" firstAttribute="leading" secondItem="E3P-2B-YL5" secondAttribute="leadingMargin" constant="-20" id="40t-ch-igE"/>
+                            <constraint firstItem="nka-SA-he6" firstAttribute="leading" secondItem="E3P-2B-YL5" secondAttribute="leadingMargin" constant="-20" id="9CH-hB-lOe"/>
+                            <constraint firstItem="nka-SA-he6" firstAttribute="top" secondItem="8j1-Xn-rJY" secondAttribute="bottom" id="LPH-CN-Jrx"/>
+                            <constraint firstItem="Wy3-Vb-FHk" firstAttribute="top" secondItem="8j1-Xn-rJY" secondAttribute="bottom" constant="8" id="Zfc-zE-J98"/>
+                            <constraint firstItem="w7c-b1-yhI" firstAttribute="top" secondItem="nka-SA-he6" secondAttribute="bottom" id="qlU-uh-ACn"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9CH-hB-lOe"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQS-rH-Sml" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2212,6 +2455,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="imgCircle" width="128" height="128"/>
         <image name="imgCloseIcon" width="256" height="256"/>
         <image name="imgCopyClipboard" width="128" height="128"/>
+        <image name="imgCopyToClipboard" width="600" height="600"/>
         <image name="imgDeviceFamily" width="424" height="383"/>
         <image name="imgDevicePhoton" width="240" height="451"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
