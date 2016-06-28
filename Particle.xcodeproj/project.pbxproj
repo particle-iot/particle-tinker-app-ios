@@ -38,6 +38,7 @@
 		50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */; };
 		50B6599E1AFD922A00606A39 /* Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599D1AFD922A00606A39 /* Popup.m */; };
 		50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB1521D1E24D10060659B /* ParticleSpinner.swift */; };
+		50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */; };
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
 		50D47F301AFAF56C004AD3AE /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2F1AFAF56C004AD3AE /* PinView.m */; };
 		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
@@ -86,6 +87,7 @@
 		50B6599C1AFD922A00606A39 /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		50B6599D1AFD922A00606A39 /* Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popup.m; sourceTree = "<group>"; };
 		50BBB1521D1E24D10060659B /* ParticleSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSpinner.swift; sourceTree = "<group>"; };
+		50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceInspectorViewController.swift; path = ../DeviceInspectorViewController.swift; sourceTree = "<group>"; };
 		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SPKTinkerViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SPKTinkerViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		50D47F2E1AFAF56C004AD3AE /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinView.h; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				5048CD221AE09AD00097150A /* DeviceListViewController.swift */,
 				508311471C0EAF98009C0161 /* ScanBarcodeViewController.h */,
 				508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */,
+				50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */,
+				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
