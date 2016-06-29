@@ -14,11 +14,13 @@ class DeviceInspectorViewController : UIViewController {
     
     
     @IBAction func backButtonTapped(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     
     @IBOutlet weak var actionButtonTapped: UIButton!
     
+    @IBOutlet weak var deviceOnlineIndicatorImageView: UIImageView!
     
     
     @IBAction func segmentControlChanged(sender: UISegmentedControl) {
@@ -57,6 +59,19 @@ class DeviceInspectorViewController : UIViewController {
         
         self.modeSegmentedControl.setTitleTextAttributes(attrib, forState: .Normal)
         
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // if its either the info data or events VC then set the device to what we are inspecting
+        if let vc = segue.destinationViewController as? DeviceInspectorChildViewController {
+            vc.device = self.device
+        }
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        DeviceUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected)
     }
     
     

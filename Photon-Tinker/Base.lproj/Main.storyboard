@@ -398,7 +398,7 @@
                         <outlet property="noDevicesLabel" destination="HSb-Q2-MhK" id="sYp-yb-Dya"/>
                         <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
                         <segue destination="Nmh-ef-vpa" kind="show" identifier="tinker" id="4jN-EQ-1sH"/>
-                        <segue destination="JNA-0n-EYY" kind="show" identifier="info" id="LYr-nL-dWE"/>
+                        <segue destination="XC3-E0-ieD" kind="show" identifier="deviceInspector" id="Gcf-aV-58w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btD-jl-5UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -762,7 +762,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="XC3-E0-ieD" kind="show" id="tNr-Sb-zVv"/>
+                                    <segue destination="XC3-E0-ieD" kind="show" identifier="deviceInspector" id="tNr-Sb-zVv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -796,7 +796,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxJ-10-rv0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3096" y="611"/>
+            <point key="canvasLocation" x="3244" y="621"/>
         </scene>
         <!--Device Info View Controller-->
         <scene sceneID="B4N-Jm-qlR">
@@ -1557,19 +1557,19 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j53-yb-22l" userLabel="Info Container View">
                                 <rect key="frame" x="0.0" y="128" width="600" height="472"/>
                                 <connections>
-                                    <segue destination="bVo-qC-obK" kind="embed" id="KTg-Sb-sox"/>
+                                    <segue destination="bVo-qC-obK" kind="embed" identifier="deviceInfo" id="KTg-Sb-sox"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAG-IN-cc4" userLabel="Data Container View">
                                 <rect key="frame" x="0.0" y="128" width="600" height="472"/>
                                 <connections>
-                                    <segue destination="kdR-Qg-PIV" kind="embed" id="IBD-VA-QFD"/>
+                                    <segue destination="kdR-Qg-PIV" kind="embed" identifier="deviceData" id="IBD-VA-QFD"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qE-LS-o5n" userLabel="Events Container View">
                                 <rect key="frame" x="0.0" y="128" width="600" height="472"/>
                                 <connections>
-                                    <segue destination="syL-62-7a7" kind="embed" id="RwG-U2-Md0"/>
+                                    <segue destination="syL-62-7a7" kind="embed" identifier="deviceEvents" id="RwG-U2-Md0"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -1612,6 +1612,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                         <outlet property="deviceDataContainerView" destination="AAG-IN-cc4" id="G6B-Pa-Nvx"/>
                         <outlet property="deviceEventsContainerView" destination="7qE-LS-o5n" id="xRn-D1-OOx"/>
                         <outlet property="deviceInfoContainerView" destination="j53-yb-22l" id="u0V-v9-cfa"/>
+                        <outlet property="deviceOnlineIndicatorImageView" destination="aop-XH-BTl" id="oUd-ij-ZiL"/>
                         <outlet property="modeSegmentedControl" destination="2FK-PL-EJc" id="lut-eU-8m8"/>
                     </connections>
                 </viewController>
@@ -1956,7 +1957,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TQY-oo-Zb8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3935" y="605"/>
+            <point key="canvasLocation" x="4013" y="917"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="zeS-EI-8fe">
@@ -2152,10 +2153,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
             </objects>
             <point key="canvasLocation" x="5483" y="1339"/>
         </scene>
-        <!--View Controller-->
+        <!--Device Inspector Info View Controller-->
         <scene sceneID="muz-ed-KXB">
             <objects>
-                <viewController id="bVo-qC-obK" sceneMemberID="viewController">
+                <viewController id="bVo-qC-obK" customClass="DeviceInspectorInfoViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8j1-Xn-rJY"/>
                         <viewControllerLayoutGuide type="bottom" id="w7c-b1-yhI"/>
@@ -2177,6 +2178,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <state key="normal" image="imgCopyToClipboard"/>
                                         <connections>
                                             <action selector="copyDeviceID:" destination="JNA-0n-EYY" eventType="touchUpInside" id="4mL-Vr-cv6"/>
+                                            <action selector="copyDeviceIdButtonTapped:" destination="bVo-qC-obK" eventType="touchUpInside" id="vLg-b5-jZd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHE-qn-8qb" userLabel="copyDeviceIccidButton">
@@ -2282,22 +2284,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Photon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KOg-vo-j3b" userLabel="deviceTypeLabel">
-                                        <rect key="frame" x="16" y="176" width="100" height="15"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                        <rect key="frame" x="45" y="176" width="43" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="3xh-k4-RME"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
                                         <color key="textColor" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                                <color key="value" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2371,6 +2364,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <exclude reference="U7g-sO-Zva"/>
                                         <exclude reference="hhG-XK-t4j"/>
                                         <exclude reference="UYa-Di-cLV"/>
+                                        <exclude reference="7eX-pu-Y0B"/>
                                         <exclude reference="tdJ-Uz-ML6"/>
                                         <exclude reference="2fa-60-sLx"/>
                                         <exclude reference="RMU-ii-b6O"/>
@@ -2397,6 +2391,21 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="copyDeviceIccidButton" destination="GHE-qn-8qb" id="rrh-cw-ALS"/>
+                        <outlet property="copyDeviceIccidButtonTapped" destination="GHE-qn-8qb" id="cYN-AK-bzf"/>
+                        <outlet property="dataUsageLabel" destination="DFI-76-2zX" id="szz-Ux-EKe"/>
+                        <outlet property="dataUsageValueLabel" destination="QNd-PV-bTT" id="P4n-WO-OMz"/>
+                        <outlet property="deviceIccidLabel" destination="4k9-e3-U7x" id="RYi-Bk-LSj"/>
+                        <outlet property="deviceIccidValueLabel" destination="Ccw-Kf-C0I" id="p73-vZ-7mn"/>
+                        <outlet property="deviceIdValueLabel" destination="76C-HE-Mrc" id="WiI-1D-w6x"/>
+                        <outlet property="deviceImageView" destination="Wy3-Vb-FHk" id="onV-4s-Pkf"/>
+                        <outlet property="deviceImeiLabel" destination="M4k-Xp-y5z" id="quh-T7-u1Y"/>
+                        <outlet property="deviceImeiValueLabel" destination="Awl-q8-DeS" id="nVq-Uh-ztP"/>
+                        <outlet property="deviceIpAddressValueLabel" destination="Hl2-mK-ai2" id="Ghk-cK-dVJ"/>
+                        <outlet property="deviceLastHeardValueLabel" destination="OeY-0U-LTa" id="1pC-fP-UWx"/>
+                        <outlet property="deviceTypeLabel" destination="KOg-vo-j3b" id="LTs-jd-F4z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQS-rH-Sml" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2417,7 +2426,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89u-M9-fAU">
                                 <rect key="frame" x="269" y="225" width="52" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2447,7 +2456,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BJ-Kc-d16">
                                 <rect key="frame" x="285" y="225" width="36" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2489,4 +2498,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="sunflower" width="5" height="37"/>
         <image name="v" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Gcf-aV-58w"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -629,10 +629,9 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"info"])
+    if ([segue.identifier isEqualToString:@"deviceInspector"])
     {
-        DeviceInfoViewController *divc = segue.destinationViewController;
-        divc.deviceListViewController = self.deviceListViewController;
+        DeviceInspectorViewController *divc = segue.destinationViewController;
         divc.device = self.device;
     }
 

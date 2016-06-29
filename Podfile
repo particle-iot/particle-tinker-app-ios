@@ -8,6 +8,7 @@ target 'Particle' do
     pod 'PullToRefreshCoreText', '~> 0.1'
     pod 'ASValueTrackingSlider'
     pod 'Mixpanel'
+    pod 'DateTools'
 end
 
 

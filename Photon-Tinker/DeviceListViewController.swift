@@ -140,7 +140,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.lastTappedNonTinkerDevice = nil
         
         
-        let deviceInfo = self.getDeviceTypeAndImage(self.selectedDevice)
+        let deviceInfo = DeviceUtils.getDeviceTypeAndImage(self.selectedDevice)
         
         if segue.identifier == "tinker" {
             if let vc = segue.destinationViewController as? SPKTinkerViewController {
@@ -152,12 +152,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         
-        if segue.identifier == "info" {
-            if let vc = segue.destinationViewController as? DeviceInfoViewController {
+        if segue.identifier == "deviceInspector" {
+            if let vc = segue.destinationViewController as? DeviceInspectorViewController {
                 vc.device = self.selectedDevice
-                vc.deviceListViewController = self
                 
-                Mixpanel.sharedInstance().track("Tinker: Info", properties: ["device":deviceInfo.deviceType])
+                Mixpanel.sharedInstance().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
                 
             }
         }
@@ -331,54 +330,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         return self.devices.count
     }
     
-    
-    
-    func getDeviceTypeAndImage(device : SparkDevice?) -> (deviceType: String, deviceImage: UIImage) {
-        
-        var image : UIImage?
-        var text : String?
-        
-        switch (device!.type)
-        {
-        case .Core:
-            image = UIImage(named: "imgDeviceCore")
-            text = "Core"
-            
-        case .Electron:
-            image = UIImage(named: "imgDeviceElectron")
-            text = "Electron"
-            
-        case .Photon:
-            image = UIImage(named: "imgDevicePhoton")
-            text = "Photon/P0"
-            
-        case .P1:
-            image = UIImage(named: "imgDeviceP1")
-            text = "P1"
-            
-        case .RedBearDuo:
-            image = UIImage(named: "imgDeviceRedBearDuo")
-            text = "RedBear Duo"
-            
-        case .Bluz:
-            image = UIImage(named: "imgDeviceBluz")
-            text = "Bluz"
-            
-        case .DigistumpOak:
-            image = UIImage(named: "imgDeviceDigistumpOak")
-            text = "Digistump Oak"
-            
-        default:
-            image = UIImage(named: "imgDeviceUnknown")
-            text = "Unknown"
-            
-        }
-        
-        
-        return (text!, image!)
-        
-    }
-    
     @IBOutlet weak var noDevicesLabel: UILabel!
     
     
@@ -405,35 +356,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    
-    func animateOnlineIndicatorImageView(imageView: UIImageView, online: Bool) {
-        dispatch_async(dispatch_get_main_queue(), {
-            imageView.image = UIImage(named: "imgCircle")
-//            imageView.alpha = 1
-        
-            imageView.image = imageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-
-            if online {
-                imageView.tintColor = UIColor(red: 0, green: 173.0/255.0, blue: 239.0/255.0, alpha: 1.0) // ParticleCyan
-
-                if imageView.alpha == 1 {
-//                    print ("1-->0")
-                    UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
-                        imageView.alpha = 0
-                        }, completion: nil)
-                } else {
-//                    print ("0-->1")
-                    imageView.alpha = 0
-                    UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
-                        imageView.alpha = 1
-                        }, completion: nil)
-
-                }
-            } else {
-                imageView.tintColor = UIColor(white: 0.466, alpha: 1.0) // ParticleGray
-            }
-        })
-    }
     
     
     /*
@@ -467,13 +389,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.deviceNameLabel.text = "<no name>"
             }
             
-            let deviceInfo = self.getDeviceTypeAndImage(self.devices[indexPath.row])
+            let deviceInfo = DeviceUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
 
             cell.deviceImageView.image = deviceInfo.deviceImage
             cell.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
 //            cell.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
             
-            let deviceTypeColor = UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
+            let deviceTypeColor = DeviceUtils.particleCyanColor// UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
             cell.deviceTypeLabel.layer.borderColor = deviceTypeColor.CGColor
             cell.deviceTypeLabel.textColor = deviceTypeColor
             
@@ -490,7 +412,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             
             
-            self.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected)
+            DeviceUtils.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected)
             
 
             // override everything else
@@ -686,7 +608,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.performSegueWithIdentifier("tinker", sender: self)
         } else {
             self.selectedDevice = self.devices[indexPath.row]
-            self.performSegueWithIdentifier("info", sender: self)
+            self.performSegueWithIdentifier("deviceInspector", sender: self)
         }
     }
     

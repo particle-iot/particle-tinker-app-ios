@@ -18,6 +18,7 @@
 #include "MBProgressHUD.h"
 #include "TSMessage.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
+#include "DateTools.h"
 
 #include "Mixpanel.h"
 //#include "ParticleKeys.h"
