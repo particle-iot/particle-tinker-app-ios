@@ -23,12 +23,17 @@ class DeviceInspectorViewController : UIViewController {
     
     @IBAction func segmentControlChanged(sender: UISegmentedControl) {
         
-        UIView.animateWithDuration(1.0) { 
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveLinear, animations: {
+            self.deviceInfoContainerView.alpha = (sender.selectedSegmentIndex == 0 ? 1.0 : 0.0)
+            self.deviceDataContainerView.alpha = (sender.selectedSegmentIndex == 1 ? 1.0 : 0.0)
+            self.deviceEventsContainerView.alpha = (sender.selectedSegmentIndex == 2 ? 1.0 : 0.0)
+            
+        }) { (Bool) in
             self.deviceInfoContainerView.hidden = (sender.selectedSegmentIndex == 0 ? false : true)
             self.deviceDataContainerView.hidden = (sender.selectedSegmentIndex == 1 ? false : true)
             self.deviceEventsContainerView.hidden = (sender.selectedSegmentIndex == 2 ? false : true)
+            
         }
-        
     }
     
     @IBOutlet weak var modeSegmentedControl: UISegmentedControl!

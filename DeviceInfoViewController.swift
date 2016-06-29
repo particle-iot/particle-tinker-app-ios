@@ -228,7 +228,6 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         if let name = self.device?.name {
             self.deviceNameLabel.text = name
         } else {
-            self.deviceNameLabel.text = "<no name>"
         }
         
         self.deviceIDLabel.text = self.device?.id

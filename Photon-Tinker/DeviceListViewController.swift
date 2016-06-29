@@ -382,7 +382,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var noDevicesLabel: UILabel!
     
     
-    public func getDeviceStateDescription(device : SparkDevice?) -> String {
+    internal func getDeviceStateDescription(device : SparkDevice?) -> String {
         let online = device?.connected
         
         switch online!

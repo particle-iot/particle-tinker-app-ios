@@ -1,4 +1,5 @@
 PODS:
+  - 1PasswordExtension (1.8.2)
   - AFNetworking (3.1.0):
     - AFNetworking/NSURLSession (= 3.1.0)
     - AFNetworking/Reachability (= 3.1.0)
@@ -17,9 +18,9 @@ PODS:
   - ASValueTrackingSlider (0.11.2)
   - HexColors (2.2.1)
   - MBProgressHUD (0.9.2)
-  - Mixpanel (2.9.9):
-    - Mixpanel/Mixpanel (= 2.9.9)
-  - Mixpanel/Mixpanel (2.9.9)
+  - Mixpanel (3.0.0):
+    - Mixpanel/Mixpanel (= 3.0.0)
+  - Mixpanel/Mixpanel (3.0.0)
   - PullToRefreshCoreText (0.2)
   - Spark-SDK (0.5.0):
     - Spark-SDK/Helpers (= 0.5.0)
@@ -33,6 +34,7 @@ PODS:
     - SparkSetup/Core (= 0.5.0)
   - SparkSetup/Comm (0.5.0)
   - SparkSetup/Core (0.5.0):
+    - 1PasswordExtension
     - Spark-SDK
     - SparkSetup/Comm
   - TSMessages (0.9.12):
@@ -54,16 +56,17 @@ EXTERNAL SOURCES:
     :path: "../spark-setup-ios"
 
 SPEC CHECKSUMS:
+  1PasswordExtension: 303f2b7bbf6dc19ede3090bd6b5987530648d687
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   ASValueTrackingSlider: 45c9f78252da60de01d8f2afe869aaf90dd978d9
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  Mixpanel: 818d1940c2d9402453b349545022a86968097f57
+  Mixpanel: ac92056ee35a961362513ba11049e67cffcaa1f1
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   Spark-SDK: 99cf0b127732618d5a35f5c03169a21b2482e220
-  SparkSetup: 5b749ddbde434f48359acdcf772052ca8a421486
+  SparkSetup: 6b01b9d275299f5632181d05139ef678bcd5c5b2
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
 PODFILE CHECKSUM: 67a8f06eca4ca349ee7c4e6103d9af50727bef3d
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

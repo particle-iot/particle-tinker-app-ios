@@ -513,14 +513,14 @@
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-AA-GQf">
                                                         <rect key="frame" x="4" y="4" width="552" height="488"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <mutableString key="text">Welcome To Tinker!
+                                                        <string key="text">Welcome To Tinker!
 
 Tinker is the fastest and easiest way to prototype and play with your Particle device.
 
 You can access the basic input/output functions of the device without writing a line of code.
 
 Tap any pin to get started, select a pin function and tinker with the value. Hold a pin to reset its function. Start with pin D7 - select digitalWrite - blink the attached LED.  For more information visit: docs.particle.io/photon/tinker/
- Enjoy!</mutableString>
+ Enjoy!</string>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1525,9 +1525,17 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                             </mask>
                                         </variation>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="aop-XH-BTl">
+                                        <rect key="frame" x="576" y="40" width="16" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="Az9-A9-q99"/>
+                                            <constraint firstAttribute="width" constant="16" id="fjD-Ir-qCs"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="aop-XH-BTl" firstAttribute="centerY" secondItem="0k8-O3-CxC" secondAttribute="centerY" id="75J-Ae-7ct"/>
                                     <constraint firstItem="0k8-O3-CxC" firstAttribute="centerX" secondItem="G9s-Hy-T2h" secondAttribute="centerX" id="GMB-cy-hXO"/>
                                     <constraint firstItem="V7t-tO-Oq8" firstAttribute="leading" secondItem="G9s-Hy-T2h" secondAttribute="leading" id="Il7-Jh-cZ2"/>
                                     <constraint firstAttribute="trailing" secondItem="2FK-PL-EJc" secondAttribute="trailing" constant="8" id="Mxa-dh-At0"/>
@@ -1537,6 +1545,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <constraint firstItem="2FK-PL-EJc" firstAttribute="top" secondItem="G9s-Hy-T2h" secondAttribute="top" constant="8" id="lXH-WS-QRx"/>
                                     <constraint firstAttribute="bottom" secondItem="V7t-tO-Oq8" secondAttribute="bottom" id="m73-h7-DAd"/>
                                     <constraint firstItem="0k8-O3-CxC" firstAttribute="top" secondItem="2FK-PL-EJc" secondAttribute="bottom" constant="8" id="mVb-Jl-UAO"/>
+                                    <constraint firstAttribute="trailing" secondItem="aop-XH-BTl" secondAttribute="trailing" constant="8" id="sy1-t1-C0v"/>
                                     <constraint firstAttribute="bottom" secondItem="2FK-PL-EJc" secondAttribute="bottom" constant="10" id="szi-Yd-MUQ"/>
                                 </constraints>
                                 <variation key="default">
@@ -2218,8 +2227,8 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="b4ca4ca75ac67882872a67bcb98a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000001192092896" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76C-HE-Mrc">
-                                        <rect key="frame" x="120" y="22" width="236" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="b4ca4ca75ac67882872a67bcb98a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76C-HE-Mrc">
+                                        <rect key="frame" x="120" y="22" width="432" height="17"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2260,8 +2269,8 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM - do time ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeY-0U-LTa">
-                                        <rect key="frame" x="120" y="56" width="294" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM - do time ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeY-0U-LTa">
+                                        <rect key="frame" x="120" y="56" width="464" height="17"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="14"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2300,11 +2309,13 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     <constraint firstItem="KOg-vo-j3b" firstAttribute="width" secondItem="Wy3-Vb-FHk" secondAttribute="width" id="7eX-pu-Y0B"/>
                                     <constraint firstItem="DLA-FL-lRE" firstAttribute="top" secondItem="nka-SA-he6" secondAttribute="top" constant="9" id="83c-Kd-5GF"/>
                                     <constraint firstItem="M4k-Xp-y5z" firstAttribute="top" secondItem="Ccw-Kf-C0I" secondAttribute="bottom" constant="4" id="9Ma-Ph-Rgl"/>
+                                    <constraint firstAttribute="trailing" secondItem="OeY-0U-LTa" secondAttribute="trailing" constant="16" id="A6p-Y8-obl"/>
                                     <constraint firstItem="MmM-v9-HXV" firstAttribute="leading" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="8" symbolic="YES" id="AIJ-cI-GlJ"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="-12" id="BBc-tw-zPQ"/>
                                     <constraint firstItem="QNd-PV-bTT" firstAttribute="top" secondItem="DFI-76-2zX" secondAttribute="bottom" id="CZr-4I-lbS"/>
                                     <constraint firstItem="Awl-q8-DeS" firstAttribute="top" secondItem="M4k-Xp-y5z" secondAttribute="bottom" id="CmL-9A-8IK"/>
                                     <constraint firstItem="DFI-76-2zX" firstAttribute="top" secondItem="Awl-q8-DeS" secondAttribute="bottom" constant="4" id="FdO-jh-ylB"/>
+                                    <constraint firstItem="ECO-4v-GVj" firstAttribute="leading" secondItem="76C-HE-Mrc" secondAttribute="trailing" constant="8" id="IsF-6M-VLb"/>
                                     <constraint firstItem="DLA-FL-lRE" firstAttribute="leading" secondItem="Wy3-Vb-FHk" secondAttribute="trailing" constant="8" id="Jdn-sc-IEf"/>
                                     <constraint firstAttribute="trailing" secondItem="ECO-4v-GVj" secondAttribute="trailing" constant="16" id="KFe-5W-ody"/>
                                     <constraint firstItem="76C-HE-Mrc" firstAttribute="leading" secondItem="DLA-FL-lRE" secondAttribute="trailing" constant="72" id="Kxp-2p-ptv"/>
@@ -2395,6 +2406,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <scene sceneID="mpT-va-E1c">
             <objects>
                 <viewController id="syL-62-7a7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3wb-Kf-aZU"/>
+                        <viewControllerLayoutGuide type="bottom" id="rnv-7X-v9C"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="v2v-vy-LHY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2421,6 +2436,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <scene sceneID="LdX-GU-HAl">
             <objects>
                 <viewController id="kdR-Qg-PIV" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xhb-fe-1X8"/>
+                        <viewControllerLayoutGuide type="bottom" id="24f-p3-d4d"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2Ga-xt-ElE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
