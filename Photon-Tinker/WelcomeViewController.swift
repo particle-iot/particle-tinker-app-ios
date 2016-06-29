@@ -96,6 +96,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
 //        c.deviceImage = UIImage(named: "imgPhoton")
         c.tintSetupImages = true
         c.instructionalVideoFilename = "photon_wifi.mp4"
+        c.allowPasswordManager = true
         
         #if ORG_TEST_MODE
             
