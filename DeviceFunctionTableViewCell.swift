@@ -48,9 +48,19 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.bkgView.layer.cornerRadius = 4
+        self.bkgView.layer.masksToBounds = true
+
         // Initialization code
     }
     
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        textField.resignFirstResponder()
+        self.callButtonTapped(textField)
+        return true
+    }
+
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
@@ -60,8 +70,12 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
 //        self.centerFunctionNameLayoutConstraint.constant = selected ? -20 : 0
     }
     
-//    @IBAction func argumentsButtonTapped(sender: AnyObject) {
-//        self.setSelected(!self.selected, animated: true)
-//    }
+    
+    @IBOutlet weak var bkgView: UIView!
+    
+    
+    @IBAction func argumentsButtonTapped(sender: AnyObject) {
+        self.setSelected(!self.selected, animated: true)
+    }
     
 }

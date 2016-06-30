@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */; };
 		5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */; };
+		501DA8E41D24A5D0003CE43F /* DeviceInspectorDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */; };
 		5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022204A1B1E7F8400387B24 /* WebViewController.swift */; };
 		502B6B1B1CF0446E00A09F9E /* electron-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 502B6B1A1CF0446E00A09F9E /* electron-tinker.bin */; };
 		502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */; };
@@ -55,6 +56,7 @@
 		196768D3F563A13AF276FDBC /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElectronSetupViewController.swift; sourceTree = "<group>"; };
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
+		501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorDataViewController.swift; sourceTree = "<group>"; };
 		5022204A1B1E7F8400387B24 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		502B6B1A1CF0446E00A09F9E /* electron-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "electron-tinker.bin"; sourceTree = "<group>"; };
 		502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceFunctionTableViewCell.swift; path = ../DeviceFunctionTableViewCell.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */,
 				507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */,
 				507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */,
+				501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */,
 				5022204A1B1E7F8400387B24 /* WebViewController.swift */,
 				500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */,
 				502E9BBF1B194DF800D2C45B /* HelpTableViewController.swift */,
@@ -231,9 +234,9 @@
 				50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
 				507118C51D13747B00EB6DD3 /* EventTableViewCell.swift */,
+				5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */,
 				502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */,
 				502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */,
-				5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */,
 				50B6599C1AFD922A00606A39 /* Popup.h */,
 				50B6599D1AFD922A00606A39 /* Popup.m */,
 			);
@@ -424,6 +427,7 @@
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
 				502E9BC01B194DF800D2C45B /* HelpTableViewController.swift in Sources */,
 				505062D71CE2BAA10060FEE7 /* DeviceInfoViewController-Old.swift in Sources */,
+				501DA8E41D24A5D0003CE43F /* DeviceInspectorDataViewController.swift in Sources */,
 				5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */,
 				5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */,
 				5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */,
