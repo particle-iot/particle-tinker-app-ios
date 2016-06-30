@@ -25,9 +25,15 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     @IBOutlet weak var copyDeviceIccidButton: UIButton!
     
     @IBAction func copyDeviceIdButtonTapped(sender: AnyObject) {
+        UIPasteboard.generalPasteboard().string = self.device?.id
+        TSMessage.showNotificationWithTitle("Copied", subtitle: "Device ID was copied to the clipboard", type: .Success)
     }
     
-    @IBOutlet weak var copyDeviceIccidButtonTapped: UIButton!
+    @IBAction func copyDeviceIccidButtonTapped(sender: UIButton) {
+        UIPasteboard.generalPasteboard().string = self.device?.lastIccid
+        TSMessage.showNotificationWithTitle("Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .Success)
+    }
+    
     
     private func updateDeviceInfoDisplay() {
         if self.device!.type != .Electron {

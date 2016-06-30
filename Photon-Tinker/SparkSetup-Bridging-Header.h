@@ -17,6 +17,8 @@
 // pods
 #include "MBProgressHUD.h"
 #include "TSMessage.h"
+#include "TSMessages/TSMessageView.h"
+
 #include "UIScrollView+PullToRefreshCoreText.h"
 #include "DateTools.h"
 

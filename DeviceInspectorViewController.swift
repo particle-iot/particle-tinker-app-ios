@@ -22,20 +22,40 @@ class DeviceInspectorViewController : UIViewController {
     
     @IBOutlet weak var deviceOnlineIndicatorImageView: UIImageView!
     
+    @IBOutlet weak var deviceNameLabel: UILabel!
     
     @IBAction func segmentControlChanged(sender: UISegmentedControl) {
+        
+    
+        
+        
+//        [UIView transitionWithView:self.view duration:0.3 options: UIViewAnimationOptionTransitionCrossDissolve animations: ^ {
+//            [self.view addSubview:blurView];
+//            } completion:nil];
+//        
+
         
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveLinear, animations: {
             self.deviceInfoContainerView.alpha = (sender.selectedSegmentIndex == 0 ? 1.0 : 0.0)
             self.deviceDataContainerView.alpha = (sender.selectedSegmentIndex == 1 ? 1.0 : 0.0)
             self.deviceEventsContainerView.alpha = (sender.selectedSegmentIndex == 2 ? 1.0 : 0.0)
             
-        }) { (Bool) in
-            self.deviceInfoContainerView.hidden = (sender.selectedSegmentIndex == 0 ? false : true)
-            self.deviceDataContainerView.hidden = (sender.selectedSegmentIndex == 1 ? false : true)
-            self.deviceEventsContainerView.hidden = (sender.selectedSegmentIndex == 2 ? false : true)
+                        
+        }) { (finished: Bool) in
+            
+            var delayTime = dispatch_time(DISPATCH_TIME_NOW,0)
+            if !finished {
+                delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
+            }
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.deviceInfoContainerView.hidden = (sender.selectedSegmentIndex == 0 ? false : true)
+                self.deviceDataContainerView.hidden = (sender.selectedSegmentIndex == 1 ? false : true)
+                self.deviceEventsContainerView.hidden = (sender.selectedSegmentIndex == 2 ? false : true)
+            }
             
         }
+ 
+        
     }
     
     @IBOutlet weak var modeSegmentedControl: UISegmentedControl!
@@ -71,6 +91,7 @@ class DeviceInspectorViewController : UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.deviceNameLabel.text = self.device?.name
         DeviceUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected)
     }
     

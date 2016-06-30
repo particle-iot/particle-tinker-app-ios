@@ -8,6 +8,7 @@
 
 import UIKit
 import QuartzCore
+//import TSMessageView
 
 
 let deviceNamesArr : [String] = [ "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" ]
@@ -22,14 +23,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*
-        let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue")!)
-        backgroundImage.frame = UIScreen.mainScreen().bounds
-        backgroundImage.contentMode = .ScaleToFill;
-        self.view.addSubview(backgroundImage)
-        self.view.sendSubviewToBack(backgroundImage)
-
-        */
+        //        TSMessageView.appearance().setTitleFont(UIFont(name: "Gotham-book", size: 13.0))
+        
+        
         
         if !SparkCloud.sharedInstance().isAuthenticated
         {
@@ -39,13 +35,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         srandom(arc4random())
         
         
-
+        
         
     }
     
     func appDidBecomeActive(sender : AnyObject) {
         print("appDidBecomeActive observer triggered")
-//        self.animateOnlineIndicators()
+        //        self.animateOnlineIndicators()
         self.photonSelectionTableView.reloadData()
     }
     

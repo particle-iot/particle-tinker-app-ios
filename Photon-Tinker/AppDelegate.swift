@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SparkCloud.sharedInstance().OAuthClientId = oAuthClientId
         SparkCloud.sharedInstance().OAuthClientSecret = oAuthSecret
         
+//        [[TSMessageView appearance] setTitleFont:[UIFont boldSystemFontOfSize:6]];
+//        [[TSMessageView appearance] setTitleTextColor:[UIColor redColor]];
+//        [[TSMessageView appearance] setContentFont:[UIFont boldSystemFontOfSize:10]];
+        
         return true
     }
 

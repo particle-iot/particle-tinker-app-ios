@@ -237,9 +237,9 @@ class DeviceInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         self.deviceStateLabel.text = deviceStateInfo
         self.deviceStateImageView.image = UIImage(named: "imgCircle")
         
-        self.deviceListViewController?.animateOnlineIndicatorImageView(self.deviceStateImageView, online: self.device!.connected)
+        DeviceUtils.animateOnlineIndicatorImageView(self.deviceStateImageView, online: self.device!.connected)
         
-        let deviceInfo = self.deviceListViewController!.getDeviceTypeAndImage(self.device)
+        let deviceInfo = DeviceUtils.getDeviceTypeAndImage(self.device)
         self.deviceImageView.image = deviceInfo.deviceImage
         self.deviceTypeLabel.text = " "+deviceInfo.deviceType+" "
         self.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
