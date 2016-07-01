@@ -9,6 +9,7 @@ target 'Particle' do
     pod 'ASValueTrackingSlider'
     pod 'Mixpanel'
     pod 'DateTools'
+    pod 'IQKeyboardManager'
 end
 
 

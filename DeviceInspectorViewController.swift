@@ -136,6 +136,7 @@ class DeviceInspectorViewController : UIViewController {
     
     var device : SparkDevice?
     
+//    var frameView: UIView!
     
     override func viewDidLoad() {
 
@@ -150,6 +151,10 @@ class DeviceInspectorViewController : UIViewController {
         
         self.modeSegmentedControl.setTitleTextAttributes(attrib, forState: .Normal)
         
+//        self.frameView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
+        
+        
+
     }
     
     
@@ -166,7 +171,7 @@ class DeviceInspectorViewController : UIViewController {
         DeviceUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected)
     }
     
- 
+    
     
     // 2
     func reflashTinker() {

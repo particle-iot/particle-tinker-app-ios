@@ -34,6 +34,8 @@
 		508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508311451C0E907E009C0161 /* JavaScriptCore.framework */; };
 		508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */; };
 		5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */; };
+		50A11F2A1D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A11F291D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift */; };
+		50A11F2C1D2609ED0062BD79 /* DeviceEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A11F2B1D2609ED0062BD79 /* DeviceEventTableViewCell.swift */; };
 		50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B125481AE06CF4003C29DC /* AppDelegate.swift */; };
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
@@ -49,11 +51,11 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
-		F1831FCD265D6F1F0D7D8AEB /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 196768D3F563A13AF276FDBC /* libPods-Particle.a */; };
+		8FC578B363E63722BD7BDC2F /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		196768D3F563A13AF276FDBC /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElectronSetupViewController.swift; sourceTree = "<group>"; };
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorDataViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,8 @@
 		508311471C0EAF98009C0161 /* ScanBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanBarcodeViewController.h; sourceTree = "<group>"; };
 		508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanBarcodeViewController.m; sourceTree = "<group>"; };
 		5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDataTableViewCell.swift; sourceTree = "<group>"; };
+		50A11F291D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorEventsViewController.swift; sourceTree = "<group>"; };
+		50A11F2B1D2609ED0062BD79 /* DeviceEventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceEventTableViewCell.swift; sourceTree = "<group>"; };
 		50B125431AE06CF4003C29DC /* Particle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B125471AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B125481AE06CF4003C29DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,7 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */,
-				F1831FCD265D6F1F0D7D8AEB /* libPods-Particle.a in Frameworks */,
+				8FC578B363E63722BD7BDC2F /* libPods-Particle.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +140,7 @@
 				507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */,
 				507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */,
 				501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */,
+				50A11F291D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift */,
 				5022204A1B1E7F8400387B24 /* WebViewController.swift */,
 				500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */,
 				502E9BBF1B194DF800D2C45B /* HelpTableViewController.swift */,
@@ -237,6 +242,7 @@
 				5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */,
 				502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */,
 				502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */,
+				50A11F2B1D2609ED0062BD79 /* DeviceEventTableViewCell.swift */,
 				50B6599C1AFD922A00606A39 /* Popup.h */,
 				50B6599D1AFD922A00606A39 /* Popup.m */,
 			);
@@ -275,7 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				508311451C0E907E009C0161 /* JavaScriptCore.framework */,
-				196768D3F563A13AF276FDBC /* libPods-Particle.a */,
+				47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -439,6 +445,7 @@
 				50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */,
 				50B6599E1AFD922A00606A39 /* Popup.m in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
+				50A11F2A1D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift in Sources */,
 				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,
 				508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */,
@@ -448,6 +455,7 @@
 				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
+				50A11F2C1D2609ED0062BD79 /* DeviceEventTableViewCell.swift in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
 				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
 				507118C41D13737F00EB6DD3 /* EventStreamViewController.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
+internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextFieldDelegate {
     
     var functionName : String? {
         didSet {
@@ -38,6 +38,7 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
             }
         })
     }
+    
     @IBOutlet weak var argumentsButton: UIButton!
     @IBOutlet weak var functionNameButton: UIButton!
     @IBOutlet weak var argumentsTextField: UITextField!
@@ -50,12 +51,20 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell {
         super.awakeFromNib()
         self.bkgView.layer.cornerRadius = 4
         self.bkgView.layer.masksToBounds = true
+        
+        self.argumentsTextField.delegate = self
+        
 
         // Initialization code
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        self.setSelected(true, animated: true)
+        return true
+    }
     
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         self.callButtonTapped(textField)
         return true

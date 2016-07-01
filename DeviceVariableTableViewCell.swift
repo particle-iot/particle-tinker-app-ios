@@ -12,7 +12,7 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
     var variableType : String? {
         didSet {
-            self.variableTypeButton.setTitle("("+self.variableType!+")", forState: .Normal)
+            self.variableTypeButton.setTitle(" ("+self.variableType!+")", forState: .Normal)
         }
     }
     
@@ -24,7 +24,7 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
                 self.variableNameButton.hidden = true
                 self.resultLabel.hidden = true
             } else {
-            self.variableNameButton.setTitle(variableName!+" ", forState: .Normal)
+                self.variableNameButton.setTitle(" "+variableName!, forState: .Normal)
             }
         }
     }
@@ -53,4 +53,14 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
     
     @IBOutlet weak var variableTypeButton: UIButton!
     
+    @IBOutlet weak var bkgView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.bkgView.layer.cornerRadius = 4
+        self.bkgView.layer.masksToBounds = true
+        
+        // Initialization code
+    }
+
 }

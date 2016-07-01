@@ -24,9 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SparkCloud.sharedInstance().OAuthClientSecret = oAuthSecret
         
 //        [[TSMessageView appearance] setTitleFont:[UIFont boldSystemFontOfSize:6]];
-//        [[TSMessageView appearance] setTitleTextColor:[UIColor redColor]];
-//        [[TSMessageView appearance] setContentFont:[UIFont boldSystemFontOfSize:10]];
+        //        [[TSMessageView appearance] setTitleTextColor:[UIColor redColor]];
+        //        [[TSMessageView appearance] setContentFont:[UIFont boldSystemFontOfSize:10]];
         
+        
+        IQKeyboardManager.sharedManager().enable = true
         return true
     }
 

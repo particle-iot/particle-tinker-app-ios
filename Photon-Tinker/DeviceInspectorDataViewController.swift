@@ -148,29 +148,27 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
-            return 80.0 // Expanded height
+            return 96.0 // Expanded height
         }
         
-        return 44.0 // Normal height
+        return 48.0 // Normal height
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
+        print ("select "+indexPath.description)
         if cell.device == nil || indexPath.section > 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             tableView.deselectRowAtIndexPath(indexPath, animated: false)
         } else {
             
-            //            let duration = 0.25
-            //            let delay = 0.0
-            //            let options = UIViewKeyframeAnimationOptions.CalculationModeLinear
             let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell
             let halfRotation = CGFloat(M_PI)
             
             UIView.animateWithDuration(0.3, animations: {
-                // animating `transform` allows us to change 2D geometry of the object
-                // like `scale`, `rotation` or `translate`
                 cellAnim.argumentsButton.transform = CGAffineTransformMakeRotation(halfRotation)
+                }, completion: { (done: Bool) in
+                cellAnim.argumentsTextField.becomeFirstResponder()
             })
             
             updateTableView()
@@ -181,6 +179,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
+        print ("deselect "+indexPath.description)
         if cell.device != nil && indexPath.section == 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             
             let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell
