@@ -56,7 +56,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     }
     
     
-    private func refreshVariableList() {
+    func refreshVariableList() {
         
         self.variablesList = [String]()
         for (key, value) in (self.device?.variables)! {

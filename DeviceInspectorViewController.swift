@@ -21,17 +21,37 @@ class DeviceInspectorViewController : UIViewController {
     
     @IBAction func actionButtonTapped(sender: UIButton) {
             // heading
-            let actionMenu = UIAlertController(title: "Device action", message: nil, preferredStyle: .ActionSheet)
+            let actionMenu = UIAlertController(title: "", message: nil, preferredStyle: .ActionSheet)
             
             
             // 1
-            let refreshAction = UIAlertAction(title: "Refresh data", style: .Default, handler: {
+            let refreshAction = UIAlertAction(title: "Refresh data", style: .Default, handler: {[unowned self]
                 (alert: UIAlertAction!) -> Void in
-                self.device?.refresh({ (err: NSError?) in
+                self.device?.refresh({[unowned self] (err: NSError?) in
+                    
                     
                     // test what happens when device goes offline and refresh is triggered
                     if (err == nil) {
-//                        self.updateDeviceInfoDisplay()
+                        self.viewWillAppear(false)
+                        
+                        if let info = self.infoVC {
+                            info.device = self.device
+                            info.updateDeviceInfoDisplay()
+                        }
+                        
+                        if let data = self.dataVC {
+                            data.device = self.device
+                            data.refreshVariableList()
+                        }
+
+                        if let events = self.eventsVC {
+                            events.unsubscribeFromDeviceEvents()
+                            events.device = self.device
+                            if !events.paused {
+                                events.subscribeToDeviceEvents()
+                            }
+                            
+                        }
                     }
                 })
                 
@@ -39,16 +59,21 @@ class DeviceInspectorViewController : UIViewController {
 //            refreshAction.setValue(UIImage(named: "imgLoop"), forKey: "image")
         
             // 2
-            let signalAction = UIAlertAction(title: signalling ? "Stop Signal" : "Signal", style: .Default, handler: {
+            let signalAction = UIAlertAction(title: "Signal for 10sec", style: .Default, handler: {[unowned self]
                 (alert: UIAlertAction!) -> Void in
-                self.signalling = !self.signalling
-                self.device?.signal(self.signalling, completion: nil)
+                
+                self.device?.signal(true, completion: nil)
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+                dispatch_after(delayTime, dispatch_get_main_queue()) {
+                    self.device?.signal(false, completion: nil)
+                }
+                
                 
             })
 //            signalAction.setValue(UIImage(named: "imgLedSignal"), forKey: "image")
         
             // 3
-            let reflashAction = UIAlertAction(title: "Reflash Tinker", style: .Default, handler: {
+            let reflashAction = UIAlertAction(title: "Reflash Tinker", style: .Default, handler: {[unowned self]
                 (alert: UIAlertAction!) -> Void in
                 
                 /// WIP
@@ -57,15 +82,40 @@ class DeviceInspectorViewController : UIViewController {
 //            reflashAction.setValue(UIImage(named: "imgReflash"), forKey: "image")
         
             
-            let editNameAction = UIAlertAction(title: "Edit Name", style: .Default, handler: {
+            let editNameAction = UIAlertAction(title: "Edit Name", style: .Default, handler: {[unowned self]
                 (alert: UIAlertAction!) -> Void in
+                
+                let renameDialog = UIAlertController(title: "Rename device", message: "Device name", preferredStyle: .Alert)
+                
+                renameDialog.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                    textField.placeholder = "New name"
+                    textField.secureTextEntry = false
+                })
+                
+                
+                renameDialog.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+                
+                
+                renameDialog.addAction(UIAlertAction(title: "Rename", style: .Default, handler: {[unowned renameDialog, unowned self] (alert :UIAlertAction!) in
+                    let tf = renameDialog.textFields![0] as UITextField
+                    self.device?.rename(tf.text!, completion: {[unowned self, unowned tf] (error :NSError?) in
+                        //
+                        if error != nil {
+                            self.deviceNameLabel.text = tf.text
+                        }
+                        
+                        })
+                    }))
+                
+                self.presentViewController(renameDialog, animated: true, completion: nil)
                 /// WIP
             })
 //            editNameAction.setValue(UIImage(named: "imgPencil"), forKey: "image")
         
-            let docsAction = UIAlertAction(title: "Support/Documentation", style: .Default, handler: {
+            let docsAction = UIAlertAction(title: "Support/Documentation", style: .Default, handler: {[unowned self]
                 (alert: UIAlertAction!) -> Void in
-                self.performSegueWithIdentifier("help", sender: self);
+
+                // WIP
                 
             })
 //            docsAction.setValue(UIImage(named: "imgQuestion"), forKey: "image")
@@ -158,11 +208,27 @@ class DeviceInspectorViewController : UIViewController {
 
     }
     
+    var infoVC : DeviceInspectorInfoViewController?
+    var dataVC : DeviceInspectorDataViewController?
+    var eventsVC : DeviceInspectorEventsViewController?
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // if its either the info data or events VC then set the device to what we are inspecting
         if let vc = segue.destinationViewController as? DeviceInspectorChildViewController {
             vc.device = self.device
+            
+            if let i = vc as? DeviceInspectorInfoViewController {
+                self.infoVC = i
+            }
+            
+            if let d = vc as? DeviceInspectorDataViewController {
+                self.dataVC = d
+            }
+
+            if let e = vc as? DeviceInspectorEventsViewController {
+                self.eventsVC = e
+            }
+
         }
         
     }

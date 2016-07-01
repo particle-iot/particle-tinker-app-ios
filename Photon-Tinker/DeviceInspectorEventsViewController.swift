@@ -77,10 +77,11 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
     @IBAction func clearButtonTapped(sender: AnyObject) {
         let deleteEventsAlert = UIAlertController(title: "Clear all events", message: "All events data will be lost. Are you sure?", preferredStyle: UIAlertControllerStyle.Alert)
         
-        deleteEventsAlert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: { (action: UIAlertAction!) in
+        deleteEventsAlert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {[unowned self] (action: UIAlertAction!) in
             
             self.events = nil
             self.deviceEventsTableView.reloadData()
+            self.noEventsLabel.hidden = false
             
         }))
         
@@ -95,7 +96,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
     @IBOutlet weak var playPauseButton: UIButton!
     
     override func viewWillDisappear(animated: Bool) {
-        
+        unsubscribeFromDeviceEvents()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -126,11 +127,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
         let cell : DeviceEventTableViewCell? = self.deviceEventsTableView.dequeueReusableCellWithIdentifier("eventCell") as? DeviceEventTableViewCell
         
         if let eventsArr = self.events {
-            
-            let event : SparkEvent = eventsArr[indexPath.row]
-            cell?.eventNameValueLabel.text = event.event
-            cell?.eventDataValueLabel.text = event.data
-            cell?.eventTimeValueLabel.text = event.time.description.stringByReplacingOccurrencesOfString("+0000", withString: "")
+            cell?.event = eventsArr[indexPath.row]
         }
         
         return cell!

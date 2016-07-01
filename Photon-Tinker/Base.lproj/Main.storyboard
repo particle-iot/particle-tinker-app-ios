@@ -1613,7 +1613,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Event name filter " translatesAutoresizingMaskIntoConstraints="NO" id="vRp-Sf-BPF">
                                         <rect key="frame" x="72" y="0.0" width="488" height="44"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="search"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpV-hU-TWA">
                                         <rect key="frame" x="0.0" y="6" width="32" height="32"/>
@@ -1663,7 +1663,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                     </mask>
                                 </variation>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iee-Fl-d7y" userLabel="DeviceEventsTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iee-Fl-d7y" userLabel="DeviceEventsTableView">
                                 <rect key="frame" x="20" y="44" width="560" height="428"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1679,42 +1679,42 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                     <rect key="frame" x="8" y="8" width="544" height="89"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTG-Li-XMh">
-                                                            <rect key="frame" x="4" y="4" width="43" height="15"/>
-                                                            <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
+                                                            <rect key="frame" x="4" y="4" width="40" height="15"/>
+                                                            <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSv-Ri-TgF">
-                                                            <rect key="frame" x="12" y="27" width="35" height="15"/>
-                                                            <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
+                                                            <rect key="frame" x="11" y="27" width="33" height="15"/>
+                                                            <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5a-3O-bj2">
-                                                            <rect key="frame" x="11" y="70" width="36" height="15"/>
-                                                            <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
+                                                            <rect key="frame" x="10" y="70" width="34" height="15"/>
+                                                            <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Event name&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y1Q-sM-bnH">
-                                                            <rect key="frame" x="55" y="3" width="108" height="18"/>
+                                                            <rect key="frame" x="52" y="3" width="108" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Event payload&gt;" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bts-70-KsD">
-                                                            <rect key="frame" x="55" y="26" width="135" height="18"/>
+                                                            <rect key="frame" x="52" y="26" width="135" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;event time&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSR-Ot-gbp">
-                                                            <rect key="frame" x="55" y="69" width="108" height="18"/>
+                                                            <rect key="frame" x="52" y="69" width="108" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rP-b0-5xp" userLabel="copyEventButton">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rP-b0-5xp" userLabel="copyEventButton">
                                                             <rect key="frame" x="508" y="4" width="32" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="GTm-fJ-Yqp"/>
@@ -1724,7 +1724,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                             <state key="normal" image="imgCopyToClipboard"/>
                                                             <connections>
                                                                 <action selector="copyDeviceIccidButtonTapped:" destination="bVo-qC-obK" eventType="touchUpInside" id="2wn-XD-vuv"/>
-                                                                <action selector="copyEventButtonTapped:" destination="UHz-MM-BR6" eventType="touchUpInside" id="S4i-DH-28u"/>
+                                                                <action selector="copyEventButtonTapped:" destination="UHz-MM-BR6" eventType="touchUpInside" id="1Ul-OK-Onw"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
