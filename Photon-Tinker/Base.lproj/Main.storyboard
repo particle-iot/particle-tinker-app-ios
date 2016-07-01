@@ -1356,10 +1356,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECO-4v-GVj" userLabel="copyDeviceIdButton">
-                                        <rect key="frame" x="556" y="21" width="24" height="24"/>
+                                        <rect key="frame" x="548" y="17" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="WzA-6g-dCF"/>
-                                            <constraint firstAttribute="width" constant="24" id="ZVs-uw-1T8"/>
+                                            <constraint firstAttribute="height" constant="32" id="WzA-6g-dCF"/>
+                                            <constraint firstAttribute="width" constant="32" id="ZVs-uw-1T8"/>
                                         </constraints>
                                         <color key="tintColor" red="0.14901960784313725" green="0.59607843137254901" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="imgCopyToClipboard"/>
@@ -1368,10 +1368,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHE-qn-8qb" userLabel="copyDeviceIccidButton">
-                                        <rect key="frame" x="556" y="144" width="24" height="24"/>
+                                        <rect key="frame" x="548" y="140" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="Bxb-82-ngf"/>
-                                            <constraint firstAttribute="width" constant="24" id="bHF-PZ-25y"/>
+                                            <constraint firstAttribute="height" constant="32" id="Bxb-82-ngf"/>
+                                            <constraint firstAttribute="width" constant="32" id="bHF-PZ-25y"/>
                                         </constraints>
                                         <color key="tintColor" red="0.14901960784313725" green="0.59607843137254901" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="imgCopyToClipboard"/>
@@ -1416,7 +1416,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="b4ca4ca75ac67882872a67bcb98a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76C-HE-Mrc">
-                                        <rect key="frame" x="120" y="24" width="428" height="18"/>
+                                        <rect key="frame" x="120" y="24" width="420" height="18"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1612,7 +1612,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <rect key="frame" x="20" y="0.0" width="560" height="44"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Event name filter " translatesAutoresizingMaskIntoConstraints="NO" id="vRp-Sf-BPF">
-                                        <rect key="frame" x="40" y="0.0" width="520" height="44"/>
+                                        <rect key="frame" x="72" y="0.0" width="488" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpV-hU-TWA">
@@ -1623,16 +1623,34 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </constraints>
                                         <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button" image="imgPause"/>
+                                        <connections>
+                                            <action selector="playPauseButtonTapped:" destination="syL-62-7a7" eventType="touchUpInside" id="Wd1-rT-7p2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCf-JS-MRu">
+                                        <rect key="frame" x="36" y="6" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="JHv-FY-CcR"/>
+                                            <constraint firstAttribute="width" constant="32" id="sZO-bL-E1V"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="imgTrash"/>
+                                        <connections>
+                                            <action selector="clearButtonTapped:" destination="syL-62-7a7" eventType="touchUpInside" id="gpG-le-iNM"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="vRp-Sf-BPF" secondAttribute="bottom" id="7GP-S1-DpA"/>
                                     <constraint firstItem="vRp-Sf-BPF" firstAttribute="top" secondItem="awF-Zs-E6z" secondAttribute="top" id="A5P-ON-Y9c"/>
+                                    <constraint firstItem="QCf-JS-MRu" firstAttribute="centerY" secondItem="cpV-hU-TWA" secondAttribute="centerY" id="HAw-nQ-4dC"/>
                                     <constraint firstAttribute="height" constant="44" id="JSZ-u3-uCr"/>
+                                    <constraint firstItem="vRp-Sf-BPF" firstAttribute="leading" secondItem="QCf-JS-MRu" secondAttribute="trailing" constant="4" id="NLv-tq-Zsv"/>
+                                    <constraint firstItem="QCf-JS-MRu" firstAttribute="leading" secondItem="cpV-hU-TWA" secondAttribute="trailing" constant="4" id="RB3-aj-hHN"/>
                                     <constraint firstItem="cpV-hU-TWA" firstAttribute="top" secondItem="awF-Zs-E6z" secondAttribute="top" constant="8" id="agx-7t-ysm"/>
                                     <constraint firstAttribute="trailing" secondItem="vRp-Sf-BPF" secondAttribute="trailing" id="cDX-da-hhL"/>
-                                    <constraint firstItem="vRp-Sf-BPF" firstAttribute="leading" secondItem="cpV-hU-TWA" secondAttribute="trailing" constant="8" id="j9e-eU-iZ1"/>
+                                    <constraint firstItem="vRp-Sf-BPF" firstAttribute="leading" secondItem="cpV-hU-TWA" secondAttribute="trailing" constant="40" id="j9e-eU-iZ1"/>
                                     <constraint firstItem="cpV-hU-TWA" firstAttribute="centerY" secondItem="awF-Zs-E6z" secondAttribute="centerY" id="qnx-qy-DxL"/>
                                     <constraint firstItem="cpV-hU-TWA" firstAttribute="leading" secondItem="awF-Zs-E6z" secondAttribute="leading" id="yfv-Fe-Os7"/>
                                     <constraint firstItem="vRp-Sf-BPF" firstAttribute="leading" secondItem="awF-Zs-E6z" secondAttribute="leading" constant="64" id="yjI-4E-vP2"/>
@@ -1640,6 +1658,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="agx-7t-ysm"/>
+                                        <exclude reference="j9e-eU-iZ1"/>
                                         <exclude reference="yjI-4E-vP2"/>
                                     </mask>
                                 </variation>
@@ -1696,10 +1715,10 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rP-b0-5xp" userLabel="copyEventButton">
-                                                            <rect key="frame" x="516" y="4" width="24" height="24"/>
+                                                            <rect key="frame" x="508" y="4" width="32" height="32"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="24" id="GTm-fJ-Yqp"/>
-                                                                <constraint firstAttribute="width" constant="24" id="coY-Kg-B0m"/>
+                                                                <constraint firstAttribute="height" constant="32" id="GTm-fJ-Yqp"/>
+                                                                <constraint firstAttribute="width" constant="32" id="coY-Kg-B0m"/>
                                                             </constraints>
                                                             <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                             <state key="normal" image="imgCopyToClipboard"/>
@@ -1796,6 +1815,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                     <connections>
                         <outlet property="deviceEventsTableView" destination="iee-Fl-d7y" id="aYY-co-0fd"/>
                         <outlet property="noEventsLabel" destination="F6e-1K-ahG" id="igB-YR-qLV"/>
+                        <outlet property="playPauseButton" destination="cpV-hU-TWA" id="cj9-eC-ypl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVl-B5-uER" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2081,6 +2101,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="imgPointAtD7" width="37" height="288"/>
         <image name="imgThreeDots" width="600" height="600"/>
         <image name="imgTinkerLogo" width="131" height="138"/>
+        <image name="imgTrash" width="600" height="600"/>
         <image name="imgTrianglifyHeader" width="749" height="250"/>
         <image name="particle-vertical-blue" width="300" height="277"/>
         <image name="sunflower" width="5" height="37"/>

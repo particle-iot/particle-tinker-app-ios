@@ -27,10 +27,15 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     }
     
     
+    
     override func viewDidAppear(animated: Bool) {
         
         // auto read all variables
         var index : NSIndexPath
+        
+        
+        IQKeyboardManager.sharedManager().shouldHidePreviousNext = true
+        
         
         for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
             index = NSIndexPath(forRow: i, inSection: 1)
@@ -44,6 +49,10 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
                 cell?.readButtonTapped(self)
             }
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        IQKeyboardManager.sharedManager().shouldHidePreviousNext = false
     }
     
     

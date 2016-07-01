@@ -24,7 +24,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
 //    }
     
     
-    override func viewWillAppear(animated: Bool) {
+    func subscribeToDeviceEvents() {
         self.subscribeId = SparkCloud.sharedInstance().subscribeToDeviceEventsWithPrefix(nil, deviceID: self.device!.id, handler: {[unowned self] (event:SparkEvent?, error:NSError?) in
             if let _ = error {
                 // ?
@@ -36,32 +36,66 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
                             self.noEventsLabel.hidden = true
                         })
                     }
+                    // insert new event to datasource
                     self.events?.insert(e, atIndex: 0)
-                    /*
+                    
                     dispatch_async(dispatch_get_main_queue(),{
-                        UIView.transitionWithView(self.deviceEventsTableView,
-                            duration: 0.35,
-                            options: .TransitionFlipFromTop,
-                            animations:
-                            { () -> Void in
-                                self.deviceEventsTableView.reloadData()
-                            },
-                            completion: nil);
+                        // add new event row on top
+                        self.deviceEventsTableView.beginUpdates()
+                        self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
+                        self.deviceEventsTableView.endUpdates()
                         
-                    })
-                    */
-                    dispatch_async(dispatch_get_main_queue(),{
-                        self.deviceEventsTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Bottom)
                     })
                 }
             }
             })
-        
+    }
+    
+    func unsubscribeFromDeviceEvents() {
+        SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.subscribeId!)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        subscribeToDeviceEvents()
         
     }
     
+    var paused : Bool = false
+    
+    @IBAction func playPauseButtonTapped(sender: AnyObject) {
+        if paused {
+            paused = false
+            playPauseButton.setImage(UIImage(named: "imgPause"), forState: .Normal)
+            subscribeToDeviceEvents()
+        } else {
+            paused = true
+            playPauseButton.setImage(UIImage(named: "imgPlay"), forState: .Normal)
+            unsubscribeFromDeviceEvents()
+        }
+    }
+    
+    @IBAction func clearButtonTapped(sender: AnyObject) {
+        let deleteEventsAlert = UIAlertController(title: "Clear all events", message: "All events data will be lost. Are you sure?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        deleteEventsAlert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: { (action: UIAlertAction!) in
+            
+            self.events = nil
+            self.deviceEventsTableView.reloadData()
+            
+        }))
+        
+        deleteEventsAlert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (action: UIAlertAction!) in
+//            print("Handle Cancel Logic here")
+        }))
+        
+        presentViewController(deleteEventsAlert, animated: true, completion: nil)
+    }
+    
+    
+    @IBOutlet weak var playPauseButton: UIButton!
+    
     override func viewWillDisappear(animated: Bool) {
-        SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.subscribeId!)
+        
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

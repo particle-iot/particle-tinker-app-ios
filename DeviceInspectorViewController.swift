@@ -96,6 +96,7 @@ class DeviceInspectorViewController : UIViewController {
     
     @IBOutlet weak var deviceNameLabel: UILabel!
     
+    
     @IBAction func segmentControlChanged(sender: UISegmentedControl) {
         
         
@@ -104,7 +105,7 @@ class DeviceInspectorViewController : UIViewController {
 //            [self.view addSubview:blurView];
 //            } completion:nil];
 //        
-
+        view.endEditing(true)
         
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveLinear, animations: {
             self.deviceInfoContainerView.alpha = (sender.selectedSegmentIndex == 0 ? 1.0 : 0.0)
