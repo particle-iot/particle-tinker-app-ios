@@ -6,8 +6,10 @@
 //  Copyright © 2016 spark. All rights reserved.
 //
 
-import Cocoa
+
 
 class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
 
+    @IBOutlet weak var deviceEventsTableView: UITableView!
+    
 }

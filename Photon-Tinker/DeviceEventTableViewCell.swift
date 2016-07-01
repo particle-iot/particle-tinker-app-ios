@@ -6,8 +6,15 @@
 //  Copyright © 2016 spark. All rights reserved.
 //
 
-import Cocoa
 
-internal class DeviceEventTableViewCell: DeviceDataTableViewCell {
 
+class DeviceEventTableViewCell: DeviceDataTableViewCell {
+
+    @IBOutlet weak var bkgView: UIView!
+    
+    @IBAction func copyEventButtonTapped(sender: AnyObject) {
+    }
+    @IBOutlet weak var eventTimeValueLabel: UILabel!
+    @IBOutlet weak var eventDataValueLabel: UILabel!
+    @IBOutlet weak var eventNameValueLabel: UILabel!
 }
