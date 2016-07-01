@@ -192,7 +192,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0" userLabel="logoutButton">
-                                        <rect key="frame" x="8" y="26" width="59" height="27"/>
+                                        <rect key="frame" x="8" y="28" width="59" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="WKj-ZV-LeO"/>
                                             <constraint firstAttribute="width" constant="24" id="h37-ee-78v"/>
@@ -213,7 +213,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cw-AT-ACb" userLabel="Setup new device">
-                                        <rect key="frame" x="568" y="24" width="32" height="32"/>
+                                        <rect key="frame" x="568" y="26" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="GCQ-hE-4hR"/>
                                             <constraint firstAttribute="height" constant="32" id="PV4-cO-TWo"/>
@@ -225,7 +225,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your devices" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7w-cb-MbB">
-                                        <rect key="frame" x="236" y="30" width="128" height="20"/>
+                                        <rect key="frame" x="236" y="32" width="128" height="20"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -371,7 +371,7 @@
                             <constraint firstItem="l8r-gu-33x" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailingMargin" constant="16" id="4tY-y9-6tC"/>
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerY" secondItem="doS-be-EZj" secondAttribute="centerY" constant="30" id="BhF-q9-8Pt"/>
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerX" secondItem="doS-be-EZj" secondAttribute="centerX" id="DGb-m6-Do1"/>
-                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="6" id="JG8-Tv-Aib"/>
+                            <constraint firstItem="kNA-WJ-NA0" firstAttribute="top" secondItem="8Xu-l8-DFW" secondAttribute="bottom" constant="8" id="JG8-Tv-Aib"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leadingMargin" constant="-16" id="uVc-GF-F2a"/>
@@ -2108,6 +2108,6 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="v" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Gcf-aV-58w"/>
+        <segue reference="tNr-Sb-zVv"/>
     </inferredMetricsTieBreakers>
 </document>
