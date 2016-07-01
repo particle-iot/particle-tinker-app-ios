@@ -17,4 +17,14 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
     @IBOutlet weak var eventTimeValueLabel: UILabel!
     @IBOutlet weak var eventDataValueLabel: UILabel!
     @IBOutlet weak var eventNameValueLabel: UILabel!
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.bkgView.layer.cornerRadius = 4
+        self.bkgView.layer.masksToBounds = true
+    
+    }
+    
+    
 }

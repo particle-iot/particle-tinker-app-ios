@@ -19,7 +19,6 @@
 		5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD221AE09AD00097150A /* DeviceListViewController.swift */; };
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
 		505062D51CE19F920060FEE7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505062D41CE19F920060FEE7 /* Keys.swift */; };
-		505062D71CE2BAA10060FEE7 /* DeviceInfoViewController-Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505062D61CE2BAA10060FEE7 /* DeviceInfoViewController-Old.swift */; };
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
 		5067A0CF1B30EBB500A87D71 /* photon_wifi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5067A0CE1B30EBB500A87D71 /* photon_wifi.mp4 */; };
 		507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */; };
@@ -66,7 +65,6 @@
 		5048CD221AE09AD00097150A /* DeviceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = SOURCE_ROOT; };
-		505062D61CE2BAA10060FEE7 /* DeviceInfoViewController-Old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DeviceInfoViewController-Old.swift"; path = "../DeviceInfoViewController-Old.swift"; sourceTree = "<group>"; };
 		5067A0CE1B30EBB500A87D71 /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = photon_wifi.mp4; sourceTree = "<group>"; };
 		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Medium.ttf"; sourceTree = "<group>"; };
 		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Regular.ttf"; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 		5014D1EE1AE87B7000725BA8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				505062D61CE2BAA10060FEE7 /* DeviceInfoViewController-Old.swift */,
 				50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */,
 				507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */,
 				507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */,
@@ -425,7 +422,6 @@
 				507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */,
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
 				502E9BC01B194DF800D2C45B /* HelpTableViewController.swift in Sources */,
-				505062D71CE2BAA10060FEE7 /* DeviceInfoViewController-Old.swift in Sources */,
 				501DA8E41D24A5D0003CE43F /* DeviceInspectorDataViewController.swift in Sources */,
 				5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */,
 				5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */,
