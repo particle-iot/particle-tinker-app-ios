@@ -40,7 +40,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func appDidBecomeActive(sender : AnyObject) {
-        print("appDidBecomeActive observer triggered")
+//        print("appDidBecomeActive observer triggered")
         //        self.animateOnlineIndicators()
         self.photonSelectionTableView.reloadData()
     }
@@ -183,6 +183,18 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the + button to bla bla bla") { 
+            // first time = false
+        }
+        
+        tutorial.showAndFocusView(self.logoutButton)
+        
+//        YCTutorialBox *tutorial = [[YCTutorialBox alloc] initWithHeadline:@"HEADLINE"
+//        withHelpText:@"HELPTEXT"];
+//        [tutorial showAndFocusView:UIVIEW_OBJECT_TO_FOCUS];
     }
     
     

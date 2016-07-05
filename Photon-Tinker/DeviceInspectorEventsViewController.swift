@@ -27,7 +27,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
     func subscribeToDeviceEvents() {
         self.subscribeId = SparkCloud.sharedInstance().subscribeToDeviceEventsWithPrefix(nil, deviceID: self.device!.id, handler: {[unowned self] (event:SparkEvent?, error:NSError?) in
             if let _ = error {
-                // ?
+                print ("could not subscribe to events to show in events inspector...")
             } else {
                 if let e = event {
                     if self.events == nil {

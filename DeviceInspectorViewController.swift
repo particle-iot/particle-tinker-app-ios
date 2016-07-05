@@ -11,9 +11,6 @@ import Foundation
 class DeviceInspectorViewController : UIViewController {
     
     
-    var signalling : Bool = false
- 
-    
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -85,10 +82,11 @@ class DeviceInspectorViewController : UIViewController {
             let editNameAction = UIAlertAction(title: "Edit Name", style: .Default, handler: {[unowned self]
                 (alert: UIAlertAction!) -> Void in
                 
-                let renameDialog = UIAlertController(title: "Rename device", message: "Device name", preferredStyle: .Alert)
+                let renameDialog = UIAlertController(title: "Rename device", message: nil, preferredStyle: .Alert)
                 
                 renameDialog.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-                    textField.placeholder = "New name"
+                    textField.placeholder = "New device name"
+                    textField.text = self.device?.name
                     textField.secureTextEntry = false
                 })
                 
@@ -97,18 +95,22 @@ class DeviceInspectorViewController : UIViewController {
                 
                 
                 renameDialog.addAction(UIAlertAction(title: "Rename", style: .Default, handler: {[unowned renameDialog, unowned self] (alert :UIAlertAction!) in
+                    /*
+                    // this shit cause crashes
                     let tf = renameDialog.textFields![0] as UITextField
                     self.device?.rename(tf.text!, completion: {[unowned self, unowned tf] (error :NSError?) in
                         //
-                        if error != nil {
-                            self.deviceNameLabel.text = tf.text
-                        }
+                            if error != nil {
+                                self.deviceNameLabel.text = tf.text
+                            }
                         
                         })
+                     */
                     }))
                 
+                    
                 self.presentViewController(renameDialog, animated: true, completion: nil)
-                /// WIP
+                
             })
 //            editNameAction.setValue(UIImage(named: "imgPencil"), forKey: "image")
         

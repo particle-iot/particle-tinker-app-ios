@@ -19,7 +19,7 @@
 #include "TSMessage.h"
 #include "TSMessages/TSMessageView.h"
 #include "IQKeyboardManager.h"
-
+#include "YCTutorialBox.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
 #include "DateTools.h"
 
