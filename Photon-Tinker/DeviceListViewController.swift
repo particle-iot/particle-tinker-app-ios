@@ -38,6 +38,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
     }
+    @IBOutlet weak var setupNewDeviceButton: UIButton!
     
     func appDidBecomeActive(sender : AnyObject) {
 //        print("appDidBecomeActive observer triggered")
@@ -80,7 +81,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         // heading
         // TODO: format with Particle cyan and Gotham font!
         
-        let optionMenu = UIAlertController(title: nil, message: "Setup New Device", preferredStyle: .ActionSheet)
+        let optionMenu = UIAlertController(title: nil, message: "Setup a New Device", preferredStyle: .ActionSheet)
         
         
         // 1
@@ -107,9 +108,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         })
         
         // cancel
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
         
         // 4
@@ -185,17 +184,31 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        let tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the + button to bla bla bla") { 
-            // first time = false
+    
+    
+    
+    func showTutorial() {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+
+            var tutorial = YCTutorialBox(headline: "Logout", withHelpText: "Tap to logout from your account and switch to a different user.")
+            
+            tutorial.showAndFocusView(self.logoutButton)
+
+            tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to start setting up a new Particle-powered device you wish to add to your account")
+            
+            tutorial.showAndFocusView(self.setupNewDeviceButton)
+            
+            
+            let firstDeviceCell = self.photonSelectionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) // TODO: what is theres not cell
+            tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "Here you can see and manage the devices you currently have under your account. Online devices have their indicator 'breathing' cyan, offline ones will be gray. Tapping a device will go to Tinker or Device Inspector mode - Device must be running the Tinker firmware to enter Tinker mode.  Swipe left if you wish to remove a device from your account. Swipe down to refresh your list.")
+            
+            tutorial.showAndFocusView(firstDeviceCell)
+            
         }
-        
-        tutorial.showAndFocusView(self.logoutButton)
-        
-//        YCTutorialBox *tutorial = [[YCTutorialBox alloc] initWithHeadline:@"HEADLINE"
-//        withHelpText:@"HELPTEXT"];
-//        [tutorial showAndFocusView:UIVIEW_OBJECT_TO_FOCUS];
     }
+    
+    
     
     
     override func viewWillDisappear(animated: Bool) {
@@ -241,7 +254,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.handleGetDevicesResponse(devices, error: error)
                 
                 // do anyway:
-                dispatch_async(dispatch_get_main_queue()) {
+                dispatch_async(dispatch_get_main_queue()) {[unowned self] () -> () in
                     ParticleSpinner.hide(self.view) // TODO weak self
                     // first time add the custom pull to refresh control to the tableview
                     if self.refreshControlAdded == false
@@ -249,6 +262,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                         self.addRefreshControl()
                         self.refreshControlAdded = true
                     }
+                    self.showTutorial()
                 }
             })
         }

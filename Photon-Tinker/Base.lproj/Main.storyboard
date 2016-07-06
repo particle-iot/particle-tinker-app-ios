@@ -383,6 +383,7 @@
                         <outlet property="logoutButton" destination="kNA-WJ-NA0" id="WTO-yA-BLU"/>
                         <outlet property="noDevicesLabel" destination="HSb-Q2-MhK" id="sYp-yb-Dya"/>
                         <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
+                        <outlet property="setupNewDeviceButton" destination="4Cw-AT-ACb" id="by9-6y-6rD"/>
                         <segue destination="Nmh-ef-vpa" kind="show" identifier="tinker" id="4jN-EQ-1sH"/>
                         <segue destination="XC3-E0-ieD" kind="show" identifier="deviceInspector" id="Gcf-aV-58w"/>
                     </connections>
@@ -1022,14 +1023,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="DOCUMENTATION" id="nF7-UA-NXy">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="LDJ-gz-MOm" style="IBUITableViewCellStyleDefault" id="AW4-q4-syb">
-                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AW4-q4-syb" id="uJP-YI-5Hu">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Particle app / Tinker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LDJ-gz-MOm">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1039,14 +1040,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="HZ1-gm-9mL" style="IBUITableViewCellStyleDefault" id="jQX-Qm-3i5">
-                                        <rect key="frame" x="0.0" y="157.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="158" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jQX-Qm-3i5" id="qub-QU-7Mk">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Setting up your Photon / Core" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HZ1-gm-9mL">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1056,14 +1057,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="xp8-3N-Puz" style="IBUITableViewCellStyleDefault" id="yXs-Or-qMD">
-                                        <rect key="frame" x="0.0" y="201.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="202" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yXs-Or-qMD" id="u3f-RU-gRL">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Create your own iOS app" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xp8-3N-Puz">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1077,14 +1078,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <tableViewSection headerTitle="SUPPORT" footerTitle="Particle Tinker vX.Y (zzz)" id="NdL-nX-JL4">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nxB-SX-5oO" style="IBUITableViewCellStyleDefault" id="zAa-gW-tnM">
-                                        <rect key="frame" x="0.0" y="287.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="289" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zAa-gW-tnM" id="aiw-VV-tW1">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Particle community" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nxB-SX-5oO">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1094,14 +1095,14 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="u0T-kr-vzR" style="IBUITableViewCellStyleDefault" id="OTZ-aX-dlB">
-                                        <rect key="frame" x="0.0" y="331.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="333" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OTZ-aX-dlB" id="9Lf-Lc-52p">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Troubleshooting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u0T-kr-vzR">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2108,6 +2109,6 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="v" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tNr-Sb-zVv"/>
+        <segue reference="Gcf-aV-58w"/>
     </inferredMetricsTieBreakers>
 </document>
