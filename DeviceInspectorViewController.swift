@@ -17,131 +17,117 @@ class DeviceInspectorViewController : UIViewController {
     
     
     @IBAction func actionButtonTapped(sender: UIButton) {
-            // heading
-            let actionMenu = UIAlertController(title: "", message: nil, preferredStyle: .ActionSheet)
+        // heading
+        let dialog = ZAlertView(title: "Device Actions", message: nil, alertType: .MultipleChoice)
+        
+        
+        dialog.addButton("Refresh data", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            dialog.dismiss()
             
-            
-            // 1
-            let refreshAction = UIAlertAction(title: "Refresh data", style: .Default, handler: {[unowned self]
-                (alert: UIAlertAction!) -> Void in
-                self.device?.refresh({[unowned self] (err: NSError?) in
+            self.device?.refresh({[unowned self] (err: NSError?) in
+                
+                
+                // test what happens when device goes offline and refresh is triggered
+                if (err == nil) {
+                    print("data updated")
                     
+                    self.viewWillAppear(false)
                     
-                    // test what happens when device goes offline and refresh is triggered
-                    if (err == nil) {
-                        self.viewWillAppear(false)
-                        
-                        if let info = self.infoVC {
-                            info.device = self.device
-                            info.updateDeviceInfoDisplay()
-                        }
-                        
-                        if let data = self.dataVC {
-                            data.device = self.device
-                            data.refreshVariableList()
-                        }
-
-                        if let events = self.eventsVC {
-                            events.unsubscribeFromDeviceEvents()
-                            events.device = self.device
-                            if !events.paused {
-                                events.subscribeToDeviceEvents()
-                            }
-                            
-                        }
+                    if let info = self.infoVC {
+                        info.device = self.device
+                        info.updateDeviceInfoDisplay()
                     }
-                })
-                
-            })
-//            refreshAction.setValue(UIImage(named: "imgLoop"), forKey: "image")
-        
-            // 2
-            let signalAction = UIAlertAction(title: "Signal for 10sec", style: .Default, handler: {[unowned self]
-                (alert: UIAlertAction!) -> Void in
-                
-                self.device?.signal(true, completion: nil)
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.device?.signal(false, completion: nil)
-                }
-                
-                
-            })
-//            signalAction.setValue(UIImage(named: "imgLedSignal"), forKey: "image")
-        
-            // 3
-            let reflashAction = UIAlertAction(title: "Reflash Tinker", style: .Default, handler: {[unowned self]
-                (alert: UIAlertAction!) -> Void in
-                
-                /// WIP
-                self.reflashTinker()
-            })
-//            reflashAction.setValue(UIImage(named: "imgReflash"), forKey: "image")
-        
-            
-            let editNameAction = UIAlertAction(title: "Edit Name", style: .Default, handler: {[unowned self]
-                (alert: UIAlertAction!) -> Void in
-                
-                let renameDialog = UIAlertController(title: "Rename device", message: nil, preferredStyle: .Alert)
-                
-                renameDialog.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-                    textField.placeholder = "New device name"
-                    textField.text = self.device?.name
-                    textField.secureTextEntry = false
-                })
-                
-                
-                renameDialog.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-                
-                
-                renameDialog.addAction(UIAlertAction(title: "Rename", style: .Default, handler: {[unowned renameDialog, unowned self] (alert :UIAlertAction!) in
-                    /*
-                    // this shit cause crashes
-                    let tf = renameDialog.textFields![0] as UITextField
-                    self.device?.rename(tf.text!, completion: {[unowned self, unowned tf] (error :NSError?) in
-                        //
-                            if error != nil {
-                                self.deviceNameLabel.text = tf.text
-                            }
-                        
-                        })
-                     */
-                    }))
-                
                     
-                self.presentViewController(renameDialog, animated: true, completion: nil)
-                
-            })
-//            editNameAction.setValue(UIImage(named: "imgPencil"), forKey: "image")
+                    if let data = self.dataVC {
+                        data.device = self.device
+                        data.refreshVariableList()
+                    }
+                    
+                    if let events = self.eventsVC {
+                        events.unsubscribeFromDeviceEvents()
+                        events.device = self.device
+                        if !events.paused {
+                            events.subscribeToDeviceEvents()
+                        }
+                        
+                    }
+                }
+                })
+        }
         
-            let docsAction = UIAlertAction(title: "Support/Documentation", style: .Default, handler: {[unowned self]
-                (alert: UIAlertAction!) -> Void in
-
-                // WIP
-                
-            })
-//            docsAction.setValue(UIImage(named: "imgQuestion"), forKey: "image")
         
+        dialog.addButton("Signal for 10sec", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            dialog.dismiss()
+            
+            self.device?.signal(true, completion: nil)
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.device?.signal(false, completion: nil)
+            }
             
             
-            // cancel
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                (alert: UIAlertAction!) -> Void in
-            })
+        }
+        
+        dialog.addButton("Reflash Tinker", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
+            dialog.dismiss()
+            self.reflashTinker()
             
-            // 4
-            actionMenu.addAction(refreshAction)
-            actionMenu.addAction(signalAction)
-            actionMenu.addAction(reflashAction)
-            actionMenu.addAction(editNameAction)
-            actionMenu.addAction(docsAction)
-            actionMenu.addAction(cancelAction)
+        }
+        
+        
+        dialog.addButton("Rename device", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
-            // 5
-            self.presentViewController(actionMenu, animated: true, completion: nil)
-            
+            dialog.dismiss()
+            let dialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
+                                    okButtonHandler: { [unowned self] alertView in
+                                        
+                                        
+                                        let tf = alertView.getTextFieldWithIdentifier("name")
+                                        self.device?.rename(tf!.text!, completion: {[unowned self, weak tf] (error : NSError?) in
+                                            //
+                                            if error == nil {
+                                                dispatch_async(dispatch_get_main_queue()) {
+                                                    self.deviceNameLabel.text = tf!.text
+                                                    self.deviceNameLabel.setNeedsLayout()
+                                                }
+                                                
+                                            }
+                                        })
+                                        
+                                        alertView.dismiss()
+                },
+                                    cancelButtonHandler: { alertView in
+                                        alertView.dismiss()
+                }
+            )
+            dialog.addTextField("name", placeHolder: self.device!.name!)
+            let tf = dialog.getTextFieldWithIdentifier("name")
+            tf?.text = self.device?.name
 
+            dialog.show()
+            tf?.becomeFirstResponder()
+        }
+        
+        dialog.addButton("Support/Documentation", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            
+            dialog.dismiss()
+            //            self.helpScreen()
+            
+        }
+        
+        
+        dialog.addButton("Cancel", font: DeviceUtils.particleRegularFont, color: DeviceUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
+            dialog.dismiss()
+        }
+        
+        
+        dialog.show()
+        
+        
+        
+        
+        
     }
     
     @IBOutlet weak var deviceOnlineIndicatorImageView: UIImageView!
@@ -216,21 +202,25 @@ class DeviceInspectorViewController : UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // if its either the info data or events VC then set the device to what we are inspecting
-        if let vc = segue.destinationViewController as? DeviceInspectorChildViewController {
-            vc.device = self.device
-            
-            if let i = vc as? DeviceInspectorInfoViewController {
-                self.infoVC = i
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            // do some task
+            if let vc = segue.destinationViewController as? DeviceInspectorChildViewController {
+                vc.device = self.device
+                
+                if let i = vc as? DeviceInspectorInfoViewController {
+                    self.infoVC = i
+                }
+                
+                if let d = vc as? DeviceInspectorDataViewController {
+                    self.dataVC = d
+                }
+                
+                if let e = vc as? DeviceInspectorEventsViewController {
+                    self.eventsVC = e
+                }
+                
             }
-            
-            if let d = vc as? DeviceInspectorDataViewController {
-                self.dataVC = d
-            }
-
-            if let e = vc as? DeviceInspectorEventsViewController {
-                self.eventsVC = e
-            }
-
         }
         
     }

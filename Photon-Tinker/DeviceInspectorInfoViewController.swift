@@ -70,14 +70,23 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
         self.deviceTypeLabel.layer.cornerRadius = 4
         self.deviceTypeLabel.layer.masksToBounds = true
         
-        self.device?.getCurrentDataUsage({ (dataUsed: Float, err: NSError?) in
-            if let _ = err {
-                self.dataUsageValueLabel.text = "No data"
-            } else {
-                let ud = NSString(format: "%.3f", dataUsed)
-                self.dataUsageValueLabel.text = "\(ud) MBs"
-            }
-        })
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            
+            self.device?.getCurrentDataUsage({ (dataUsed: Float, err: NSError?) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    // update some UI
+                    
+                    if let _ = err {
+                        self.dataUsageValueLabel.text = "No data"
+                    } else {
+                        let ud = NSString(format: "%.3f", dataUsed)
+                        self.dataUsageValueLabel.text = "\(ud) MBs"
+                    }
+                }
+            })
+            
+        }
         
     }
     

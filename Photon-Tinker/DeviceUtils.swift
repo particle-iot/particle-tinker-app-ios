@@ -10,8 +10,16 @@ import Foundation
 
 class DeviceUtils: NSObject {
 
-    static var particleCyanColor : UIColor = UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
-    
+    static var particleCyanColor = UIColor.color("#00ADEF")!
+    static var particleAlmostWhiteColor = UIColor.color("#F7F7F7")!
+    static var particleDarkGrayColor = UIColor.color("#333333")!
+    static var particleGrayColor = UIColor.color("#777777")!
+    static var particleLightColor = UIColor.color("#C7C7C7")!
+    static var particlePomegranateColor = UIColor.color("#C0392B")!
+    static var particleEmeraldColor = UIColor.color("#2ECC71")!
+    static var particleRegularFont = UIFont(name: "Gotham-book", size: 16.0)!
+    static var particleBoldFont = UIFont(name: "Gotham-medium", size: 16.0)!
+
     class func getDeviceTypeAndImage(device : SparkDevice?) -> (deviceType: String, deviceImage: UIImage) {
         
         var image : UIImage?

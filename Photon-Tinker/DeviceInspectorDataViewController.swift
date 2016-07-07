@@ -13,15 +13,12 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     @IBOutlet weak var deviceDataTableView: UITableView!
     
     // Standard colors
-    let sparkLightGrayColor = UIColor(white: 0.968, alpha: 1.0)
-    let sparkDarkGrayColor = UIColor(white: 0.466, alpha: 1.0)
-    let sparkCyanColor = UIColor(red: 0, green: 0.654, blue: 0.901, alpha: 1.0)
     
     
     var variablesList : [String]?
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = sparkLightGrayColor
+        view.tintColor = DeviceUtils.particleAlmostWhiteColor
         let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.darkGrayColor()// sparkDarkGrayColor
     }
@@ -30,25 +27,31 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     override func viewDidAppear(animated: Bool) {
         
-        // auto read all variables
-        var index : NSIndexPath
-        
-        
-        IQKeyboardManager.sharedManager().shouldHidePreviousNext = true
-        
-        
-        for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
-            index = NSIndexPath(forRow: i, inSection: 1)
-            let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRowAtIndexPath(index) as? DeviceVariableTableViewCell
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            // do some task
+            // auto read all variables
+            var index : NSIndexPath
             
-            if let c = cell {
-                if c.device == nil {
-                    return
+            
+            IQKeyboardManager.sharedManager().shouldHidePreviousNext = true
+            
+            
+            for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
+                index = NSIndexPath(forRow: i, inSection: 1)
+                let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRowAtIndexPath(index) as? DeviceVariableTableViewCell
+                
+                if let c = cell {
+                    if c.device == nil {
+                        return
+                    }
+                } else {
+                    cell?.readButtonTapped(self)
                 }
-            } else {
-                cell?.readButtonTapped(self)
             }
+            
         }
+        
     }
     
     override func viewWillDisappear(animated: Bool) {

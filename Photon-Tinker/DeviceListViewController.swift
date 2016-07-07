@@ -23,8 +23,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        TSMessageView.appearance().setTitleFont(UIFont(name: "Gotham-book", size: 13.0))
-        
+        //        TSMessageView.appearance().setTitleFont(UIFont(name: "Gotham-book", size: 13.0)var       
         
         
         if !SparkCloud.sharedInstance().isAuthenticated
@@ -36,8 +35,23 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         
-        
+        ZAlertView.positiveColor            = DeviceUtils.particleCyanColor
+        ZAlertView.negativeColor            = DeviceUtils.particlePomegranateColor
+        ZAlertView.blurredBackground        = true
+        ZAlertView.showAnimation            = .BounceBottom
+        ZAlertView.hideAnimation            = .BounceBottom
+//        ZAlertView.initialSpringVelocity    = 0.5
+        ZAlertView.duration                 = 0.9
+        ZAlertView.cornerRadius             = 4.0
+        ZAlertView.textFieldTextColor       = DeviceUtils.particleDarkGrayColor
+        ZAlertView.textFieldBackgroundColor = UIColor.whiteColor()
+        ZAlertView.textFieldBorderColor     = UIColor.color("#777777")
+        ZAlertView.buttonFont               = UIFont(name: "Gotham-medium", size: 15.0)
+        ZAlertView.messageFont              = UIFont(name: "Gotham-book", size: 15.0)
     }
+    
+        
+    
     @IBOutlet weak var setupNewDeviceButton: UIButton!
     
     func appDidBecomeActive(sender : AnyObject) {
@@ -81,44 +95,44 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         // heading
         // TODO: format with Particle cyan and Gotham font!
         
-        let optionMenu = UIAlertController(title: nil, message: "Setup a New Device", preferredStyle: .ActionSheet)
         
         
-        // 1
-        let setupPhotonAction = UIAlertAction(title: "Photon", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
+        let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .MultipleChoice)
+        
+        
+        dialog.addButton("Photon", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            dialog.dismiss()
+            
             self.invokePhotonDeviceSetup()
-        })
-        
-        // 2
-        let setupElectronAction = UIAlertAction(title: "Electron/SIM", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
+            
+        }
+        dialog.addButton("Electron/SIM", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            dialog.dismiss()
             
             if SparkCloud.sharedInstance().loggedInUsername != nil {
                 self.invokeElectronSetup()
             } else {
                 TSMessage.showNotificationWithTitle("Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .Error)
             }
-        })
+            
+            
+        }
         
-        // 3
-        let setupCoreAction = UIAlertAction(title: "Core", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
+        dialog.addButton("Core", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            
+            dialog.dismiss()
             self.showSparkCoreAppPopUp()
-        })
+            
+        }
+
+        dialog.addButton("Cancel", font: DeviceUtils.particleRegularFont, color: DeviceUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
+            dialog.dismiss()
+        }
+
+
+        dialog.show()
+
         
-        // cancel
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        
-        // 4
-        optionMenu.addAction(setupPhotonAction)
-        optionMenu.addAction(setupElectronAction)
-        optionMenu.addAction(setupCoreAction)
-        optionMenu.addAction(cancelAction)
-        
-        // 5
-        self.presentViewController(optionMenu, animated: true, completion: nil)
         
     }
     
@@ -568,25 +582,43 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     {
         Mixpanel.sharedInstance().track("Tinker: User wants to setup a Core")
         
-        let popup = Popup(title: "Core setup", subTitle: "Setting up a Core requires the legacy Spark Core app. Do you want to install/open it now?", cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
-            let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
-            Mixpanel.sharedInstance().track("Tinker: Send user to old Spark Core app")
-            UIApplication.sharedApplication().openURL(NSURL(string: sparkCoreAppStoreLink)!)
-        })
-        popup.incomingTransition = .SlideFromBottom
-        popup.outgoingTransition = .FallWithGravity
-        popup.backgroundBlurType = .Dark
-        popup.roundedCorners = true
-        popup.tapBackgroundToDismiss = true
-        popup.backgroundColor = UIColor.clearColor()// UIColor(red: 0, green: 123.0/255.0, blue: 181.0/255.0, alpha: 1.0) //UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
-        popup.titleColor = UIColor.whiteColor()
-        popup.subTitleColor = UIColor.whiteColor()
-        popup.successBtnColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0)
-        popup.successTitleColor = UIColor.whiteColor()
-        popup.cancelBtnColor = UIColor.clearColor()
-        popup.cancelTitleColor = UIColor.whiteColor()
-        popup.borderColor = UIColor.clearColor()
-        popup.showPopup()
+//        let popup = Popup(title: "Core setup", subTitle: , cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
+//        })
+//        popup.incomingTransition = .SlideFromBottom
+//        popup.outgoingTransition = .FallWithGravity
+//        popup.backgroundBlurType = .Dark
+//        popup.roundedCorners = true
+//        popup.tapBackgroundToDismiss = true
+//        popup.backgroundColor = UIColor.clearColor()// UIColor(red: 0, green: 123.0/255.0, blue: 181.0/255.0, alpha: 1.0) //UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+//        popup.titleColor = UIColor.whiteColor()
+//        popup.subTitleColor = UIColor.whiteColor()
+//        popup.successBtnColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0)
+//        popup.successTitleColor = UIColor.whiteColor()
+//        popup.cancelBtnColor = UIColor.clearColor()
+//        popup.cancelTitleColor = UIColor.whiteColor()
+//        popup.borderColor = UIColor.clearColor()
+//        popup.showPopup()
+//        
+        
+//        let dialog = ZAlertView(title: , message: , alertType: .MultipleChoice)
+        
+        let dialog = ZAlertView(title: "Core setup", message: "Setting up a Core requires the legacy Spark Core app. Do you want to install/open it now?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
+                                okButtonHandler: { alertView in
+                                    alertView.dismiss()
+                                    let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
+                                    Mixpanel.sharedInstance().track("Tinker: Send user to old Spark Core app")
+                                    UIApplication.sharedApplication().openURL(NSURL(string: sparkCoreAppStoreLink)!)
+                                    
+            },
+                                cancelButtonHandler: { alertView in
+                                    alertView.dismiss()
+            }
+        )
+
+        
+        
+        dialog.show()
+
         
     }
     
