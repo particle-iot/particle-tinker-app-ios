@@ -48,6 +48,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         ZAlertView.textFieldBorderColor     = UIColor.color("#777777")
         ZAlertView.buttonFont               = UIFont(name: "Gotham-medium", size: 15.0)
         ZAlertView.messageFont              = UIFont(name: "Gotham-book", size: 15.0)
+        ZAlertView.buttonHeight             = 48.0
     }
     
         

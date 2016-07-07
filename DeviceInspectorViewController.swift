@@ -18,55 +18,9 @@ class DeviceInspectorViewController : UIViewController {
     
     @IBAction func actionButtonTapped(sender: UIButton) {
         // heading
-        let dialog = ZAlertView(title: "Device Actions", message: nil, alertType: .MultipleChoice)
+        let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .MultipleChoice)
         
-        
-        dialog.addButton("Refresh data", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            dialog.dismiss()
-            
-            self.device?.refresh({[unowned self] (err: NSError?) in
-                
-                
-                // test what happens when device goes offline and refresh is triggered
-                if (err == nil) {
-                    print("data updated")
-                    
-                    self.viewWillAppear(false)
-                    
-                    if let info = self.infoVC {
-                        info.device = self.device
-                        info.updateDeviceInfoDisplay()
-                    }
-                    
-                    if let data = self.dataVC {
-                        data.device = self.device
-                        data.refreshVariableList()
-                    }
-                    
-                    if let events = self.eventsVC {
-                        events.unsubscribeFromDeviceEvents()
-                        events.device = self.device
-                        if !events.paused {
-                            events.subscribeToDeviceEvents()
-                        }
-                        
-                    }
-                }
-                })
-        }
-        
-        
-        dialog.addButton("Signal for 10sec", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            dialog.dismiss()
-            
-            self.device?.signal(true, completion: nil)
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self.device?.signal(false, completion: nil)
-            }
-            
-            
-        }
+
         
         dialog.addButton("Reflash Tinker", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
@@ -117,6 +71,61 @@ class DeviceInspectorViewController : UIViewController {
         }
         
         
+        dialog.addButton("Refresh data", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            dialog.dismiss()
+            
+            self.device?.refresh({[unowned self] (err: NSError?) in
+                
+                
+                // test what happens when device goes offline and refresh is triggered
+                if (err == nil) {
+                    print("data updated")
+                    
+                    self.viewWillAppear(false)
+                    
+                    if let info = self.infoVC {
+                        info.device = self.device
+                        info.updateDeviceInfoDisplay()
+                    }
+                    
+                    if let data = self.dataVC {
+                        data.device = self.device
+                        data.refreshVariableList()
+                    }
+                    
+                    if let events = self.eventsVC {
+                        events.unsubscribeFromDeviceEvents()
+                        events.device = self.device
+                        if !events.paused {
+                            events.subscribeToDeviceEvents()
+                        }
+                        
+                    }
+                }
+                })
+        }
+        
+        
+        dialog.addButton("Signal for 10sec", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            dialog.dismiss()
+            
+            self.device?.signal(true, completion: nil)
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.device?.signal(false, completion: nil)
+            }
+            
+            
+        }
+        
+        dialog.addButton("Support/Documentation", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleEmeraldColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            
+            dialog.dismiss()
+            //            self.helpScreen()
+            
+        }
+        
+
         dialog.addButton("Cancel", font: DeviceUtils.particleRegularFont, color: DeviceUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
             dialog.dismiss()
         }
