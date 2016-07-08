@@ -63,13 +63,7 @@ class DeviceInspectorViewController : UIViewController {
             tf?.becomeFirstResponder()
         }
         
-        dialog.addButton("Support/Documentation", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            
-            dialog.dismiss()
-            //            self.helpScreen()
-            
-        }
-        
+       
         
         dialog.addButton("Refresh data", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
@@ -121,8 +115,7 @@ class DeviceInspectorViewController : UIViewController {
         dialog.addButton("Support/Documentation", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleEmeraldColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             dialog.dismiss()
-            //            self.helpScreen()
-            
+            self.popDocumentationViewController()
         }
         
 
@@ -343,5 +336,15 @@ class DeviceInspectorViewController : UIViewController {
         }
         
     }
+    
+    
+    func popDocumentationViewController() {
+
+        self.performSegueWithIdentifier("help", sender: self)
+//        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc : UIViewController = storyboard.instantiateViewControllerWithIdentifier("help")
+//        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
 
 }

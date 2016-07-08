@@ -9,24 +9,24 @@
 import UIKit
 
 class WebViewController: UIViewController, UIWebViewDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navBar.topItem?.title = self.linkTitle
-        self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!]//,  NSForegroundColorAttributeName: UIColor.blackColor()]
-
+        self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!, NSForegroundColorAttributeName: DeviceUtils.particleGrayColor]
+        
         
         let request = NSURLRequest(URL: self.link!, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 15.0)
         self.webView.loadRequest(request)
-
+        
         self.webView.scalesPageToFit = true
         self.webView.delegate = self;
-
+        
         
         // Do any additional setup after loading the view.
     }
-
+    
     @IBOutlet weak var navBar: UINavigationBar!
     
     override func didReceiveMemoryWarning() {
@@ -38,14 +38,14 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     var link : NSURL? = nil
     var linkTitle : String? = nil
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -54,14 +54,24 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         ParticleSpinner.hide(self.view)
+        self.loading = false
     }
     
+    var loadFramesCount : Int = 0
+    var loading : Bool = false
+    
     func webViewDidStartLoad(webView: UIWebView) {
-        ParticleSpinner.show(self.view)
+        if !self.loading {
+            self.loading = true
+            ParticleSpinner.show(self.view)
+        }
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
+        
         ParticleSpinner.hide(self.view)
+        self.loading = false
+        
         
         let contentSize = self.webView.scrollView.contentSize;
         let viewSize = self.view.bounds.size;
@@ -71,8 +81,10 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         self.webView.scrollView.minimumZoomScale = rw;
         self.webView.scrollView.maximumZoomScale = rw;
         self.webView.scrollView.zoomScale = rw;
-
+        
         
     }
+    
+    
     
 }
