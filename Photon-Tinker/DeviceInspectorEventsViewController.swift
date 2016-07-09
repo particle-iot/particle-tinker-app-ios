@@ -93,8 +93,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        
+
         self.filtering = (searchText != "")
         
         dispatch_async(dispatch_get_main_queue()) {
@@ -143,18 +142,18 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     
     @IBAction func clearButtonTapped(sender: AnyObject) {
         
-        let dialog = ZAlertView(title: "Clear all events", message: "All events data will be deleted. Are you sure?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
+        let dialog = ZAlertView(title: "Clear all events", message: "All events data will be deleted. Are you sure?", isOkButtonLeft: true, okButtonText: "No", cancelButtonText: "Yes",
                                 okButtonHandler: { alertView in
                                     alertView.dismiss()
-
-                                    self.events = nil
-                                    self.filteredEvents = nil
-                                    self.deviceEventsTableView.reloadData()
-                                    self.noEventsLabel.hidden = false
                                     
             },
                                 cancelButtonHandler: { alertView in
                                     alertView.dismiss()
+                                    self.events = nil
+                                    self.filteredEvents = nil
+                                    self.deviceEventsTableView.reloadData()
+                                    self.noEventsLabel.hidden = false
+
             }
         )
         
