@@ -203,6 +203,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func showTutorial() {
+        return //debug temp
+        
+        
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
 

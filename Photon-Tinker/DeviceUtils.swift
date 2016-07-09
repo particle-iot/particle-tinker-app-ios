@@ -14,7 +14,7 @@ class DeviceUtils: NSObject {
     static var particleAlmostWhiteColor = UIColor.color("#F7F7F7")!
     static var particleDarkGrayColor = UIColor.color("#333333")!
     static var particleGrayColor = UIColor.color("#777777")!
-    static var particleLightColor = UIColor.color("#C7C7C7")!
+    static var particleLightGrayColor = UIColor.color("#C7C7C7")!
     static var particlePomegranateColor = UIColor.color("#C0392B")!
     static var particleEmeraldColor = UIColor.color("#2ECC71")!
     static var particleRegularFont = UIFont(name: "Gotham-book", size: 16.0)!

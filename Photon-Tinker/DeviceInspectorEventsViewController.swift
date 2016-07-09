@@ -8,13 +8,14 @@
 
 
 
-class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
+class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate {
 
     @IBOutlet weak var deviceEventsTableView: UITableView!
     
     @IBOutlet weak var noEventsLabel: UILabel!
     
     var events : [SparkEvent]?
+    var filteredEvents : [SparkEvent]?
     
     var subscribeId : AnyObject?
     
@@ -23,6 +24,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
 //        return nil
 //    }
     
+    @IBOutlet weak var eventFilterSearchBar: UISearchBar!
     
     func subscribeToDeviceEvents() {
         self.subscribeId = SparkCloud.sharedInstance().subscribeToDeviceEventsWithPrefix(nil, deviceID: self.device!.id, handler: {[unowned self] (event:SparkEvent?, error:NSError?) in
@@ -32,20 +34,28 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
                 if let e = event {
                     if self.events == nil {
                         self.events = [SparkEvent]()
+                        self.filteredEvents = [SparkEvent]()
                         dispatch_async(dispatch_get_main_queue(),{
                             self.noEventsLabel.hidden = true
                         })
                     }
                     // insert new event to datasource
                     self.events?.insert(e, atIndex: 0)
-                    
-                    dispatch_async(dispatch_get_main_queue(),{
-                        // add new event row on top
-                        self.deviceEventsTableView.beginUpdates()
-                        self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
-                        self.deviceEventsTableView.endUpdates()
+                    if self.filtering {
+                        self.filterEvents()
+                        dispatch_async(dispatch_get_main_queue(),{
+                            self.deviceEventsTableView.reloadData()
+                        })
+                    } else {
                         
-                    })
+                        dispatch_async(dispatch_get_main_queue(),{
+                            // add new event row on top
+                            self.deviceEventsTableView.beginUpdates()
+                            self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
+                            self.deviceEventsTableView.endUpdates()
+                            
+                        })
+                    }
                 }
             }
             })
@@ -61,8 +71,65 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
     }
     
     var paused : Bool = false
+    var filtering : Bool = false
     
-    @IBAction func playPauseButtonTapped(sender: AnyObject) {
+    
+    @IBOutlet weak var backgroundView: UIView!
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        
+        
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.eventFilterSearchBar.text = ""
+        self.eventFilterSearchBar.showsCancelButton = false
+        self.backgroundView.backgroundColor = UIColor.whiteColor()
+        self.filtering = false
+        self.deviceEventsTableView.reloadData()
+    }
+    
+    var filterText : String?
+    
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        
+        self.filtering = (searchText != "")
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            
+            UIView.animateWithDuration(0.25, animations: {
+                if self.filtering {
+                    self.eventFilterSearchBar.showsCancelButton = true
+                    self.backgroundView.backgroundColor = UIColor.color("#D5D5D5")
+                    self.filtering = true
+                } else {
+                    self.searchBarCancelButtonClicked(searchBar)
+                }
+            })
+            // ANIMATE TABLE
+        }
+        
+        self.filterText = searchText
+        self.filterEvents()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.deviceEventsTableView.reloadData()
+        }
+
+    }
+
+    func filterEvents() {
+        if self.filtering {
+            if let eventsArr = self.events {
+                self.filteredEvents = eventsArr.filter({$0.event.containsString(self.filterText!)})
+            }
+        }
+    }
+    
+
+
+@IBAction func playPauseButtonTapped(sender: AnyObject) {
         if paused {
             paused = false
             playPauseButton.setImage(UIImage(named: "imgPause"), forState: .Normal)
@@ -75,21 +142,26 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
     }
     
     @IBAction func clearButtonTapped(sender: AnyObject) {
-        let deleteEventsAlert = UIAlertController(title: "Clear all events", message: "All events data will be lost. Are you sure?", preferredStyle: UIAlertControllerStyle.Alert)
         
-        deleteEventsAlert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {[unowned self] (action: UIAlertAction!) in
-            
-            self.events = nil
-            self.deviceEventsTableView.reloadData()
-            self.noEventsLabel.hidden = false
-            
-        }))
+        let dialog = ZAlertView(title: "Clear all events", message: "All events data will be deleted. Are you sure?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
+                                okButtonHandler: { alertView in
+                                    alertView.dismiss()
+
+                                    self.events = nil
+                                    self.filteredEvents = nil
+                                    self.deviceEventsTableView.reloadData()
+                                    self.noEventsLabel.hidden = false
+                                    
+            },
+                                cancelButtonHandler: { alertView in
+                                    alertView.dismiss()
+            }
+        )
         
-        deleteEventsAlert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (action: UIAlertAction!) in
-//            print("Handle Cancel Logic here")
-        }))
         
-        presentViewController(deleteEventsAlert, animated: true, completion: nil)
+        
+        dialog.show()
+
     }
     
     
@@ -104,10 +176,19 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let e = self.events {
-            return e.count
+
+        if filtering {
+            if let e = self.filteredEvents {
+                return e.count
+            } else {
+                return 0
+            }
         } else {
-            return 0
+            if let e = self.events {
+                return e.count
+            } else {
+                return 0
+            }
         }
     }
     
@@ -126,9 +207,16 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController {
         
         let cell : DeviceEventTableViewCell? = self.deviceEventsTableView.dequeueReusableCellWithIdentifier("eventCell") as? DeviceEventTableViewCell
         
-        if let eventsArr = self.events {
-            cell?.event = eventsArr[indexPath.row]
+        if filtering {
+            if let eventsArr = self.filteredEvents {
+                cell?.event = eventsArr[indexPath.row]
+            }
+        } else {
+            if let eventsArr = self.events {
+                cell?.event = eventsArr[indexPath.row]
+            }
         }
+
         
         return cell!
         
