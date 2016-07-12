@@ -18,6 +18,7 @@ class DeviceInspectorViewController : UIViewController {
     
     @IBAction func actionButtonTapped(sender: UIButton) {
         // heading
+        view.endEditing(true)
         let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .MultipleChoice)
         
 
@@ -241,6 +242,29 @@ class DeviceInspectorViewController : UIViewController {
     
     // 2
     func reflashTinker() {
+
+        if !self.device!.connected {
+            TSMessage.showNotificationWithTitle("Device offline", subtitle: "Device must be online to be flashed", type: .Error)
+            return
+        }
+        
+        func flashTinkerBinary(binaryFilename : String?)
+        {
+            let bundle = NSBundle.mainBundle()
+            let path = bundle.pathForResource(binaryFilename, ofType: "bin")
+            let binary = NSData(contentsOfURL: NSURL(fileURLWithPath: path!))
+            let filesDict = ["tinker.bin" : binary!]
+            self.device!.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
+                if let e=error
+                {
+                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
+                }
+                else
+                {
+                    TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+                }
+            })
+        }
         
         
         switch (self.device!.type)
@@ -257,85 +281,34 @@ class DeviceInspectorViewController : UIViewController {
                 else
                 {
                     TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
-                    //                                                self.deviceIDsBeingFlashed[device.id] = defaultFlashingTime
-                    //                                                self.flashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "flashingTimerFunc:", userInfo: nil, repeats: true)
-                    //                        device.isFlashing = true
-                    //                        self.deviceIDflashingDict[device.id] = kDefaultCoreFlashingTime
-                    //                        self.photonSelectionTableView.reloadData()
-                    
                 }
             })
             
         case .Photon:
             Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Photon"])
+            flashTinkerBinary("photon-tinker")
             
-            let bundle = NSBundle.mainBundle()
-            let path = bundle.pathForResource("photon-tinker", ofType: "bin")
-            //                                        var error:NSError?
-            if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // fix deprecation
-            {
-                let filesDict = ["tinker.bin" : binary!]
-                self.device!.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
-                    if let e=error
-                    {
-                        TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                    }
-                    else
-                    {
-                        TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
-                        //                            device.isFlashing = true
-                        //                            self.deviceIDflashingDict[device.id] = kDefaultPhotonFlashingTime
-                        //                            self.photonSelectionTableView.reloadData()
-                        
-                    }
-                })
-                
-            }
         case .Electron:
             Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
-            // TODO: support flashing tinker to Electron
-            //                                TSMessage.showNotificationWithTitle("Not supported", subtitle: "Operation not supported yet, coming soon.", type: .Warning)
             
-            
-            // heading
-            let areYouSureAlert = UIAlertController(title: "Flashing Tinker to Electron", message: "Flashing Tinker to Electron will consume X KB of data from your data plan, are you sure you want to continue?", preferredStyle: .Alert)
-            
-            let noAction = UIAlertAction(title: "No", style: .Cancel, handler: {
-                (alert: UIAlertAction!) -> Void in
-            })
-            
-            let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: {
-                (alert: UIAlertAction!) -> Void in
-                // check if this works otherwise put binary
-                let bundle = NSBundle.mainBundle()
-                let path = bundle.pathForResource("electron-tinker", ofType: "bin")
-                //                                        var error:NSError?
-                if let binary: NSData? = NSData.dataWithContentsOfMappedFile(path!) as? NSData // fix deprecation
-                {
-                    let filesDict = ["tinker.bin" : binary!]
-                    self.device!.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
-                        if let e=error
-                        {
-                            TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                        }
-                        else
-                        {
-                            TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while Electron is being flashed with Tinker firmware...", type: .Success)
-                            //                                device.isFlashing = true
-                            //                                self.deviceIDflashingDict[device.id] = kDefaultPhotonFlashingTime
-                            //                                self.photonSelectionTableView.reloadData()
-                            
-                        }
-                    })
-                    
+            let dialog = ZAlertView(title: "Flashing Electron", message: "Flashing Tinker to Electron via cellular will consume data from your data plan, are you sure you want to continue?", isOkButtonLeft: true, okButtonText: "No", cancelButtonText: "Yes",
+                                    okButtonHandler: { alertView in
+                                        alertView.dismiss()
+                                        
+                },
+                                    cancelButtonHandler: { alertView in
+                                        alertView.dismiss()
+                                        flashTinkerBinary("electron-tinker")
+                                        
                 }
-            })
-            areYouSureAlert.addAction(yesAction)
-            areYouSureAlert.addAction(noAction)
-            self.presentViewController(areYouSureAlert, animated: true, completion: nil)
+            )
+            
+            
+            
+            dialog.show()
             
         default:
-            TSMessage.showNotificationWithTitle("Reflash Tinker", subtitle: "Cannot reflash Tinker to a non-Particle device", type: .Warning)
+            TSMessage.showNotificationWithTitle("Reflash Tinker", subtitle: "Cannot flash Tinker to a non-Particle device", type: .Warning)
             
             
         }
