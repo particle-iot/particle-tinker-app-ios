@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceInspectorViewController : UIViewController {
+class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
     
     
     @IBAction func backButtonTapped(sender: AnyObject) {
@@ -34,33 +34,24 @@ class DeviceInspectorViewController : UIViewController {
         dialog.addButton("Rename device", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             dialog.dismiss()
-            let dialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
+            self.renameDialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
                                     okButtonHandler: { [unowned self] alertView in
                                         
-                                        
                                         let tf = alertView.getTextFieldWithIdentifier("name")
-                                        self.device?.rename(tf!.text!, completion: {[unowned self, weak tf] (error : NSError?) in
-                                            //
-                                            if error == nil {
-                                                dispatch_async(dispatch_get_main_queue()) {
-                                                    self.deviceNameLabel.text = tf!.text
-                                                    self.deviceNameLabel.setNeedsLayout()
-                                                }
-                                                
-                                            }
-                                        })
-                                        
+                                        self.renameDevice(tf!.text)
                                         alertView.dismiss()
                 },
                                     cancelButtonHandler: { alertView in
                                         alertView.dismiss()
                 }
             )
-            dialog.addTextField("name", placeHolder: self.device!.name!)
-            let tf = dialog.getTextFieldWithIdentifier("name")
+            self.renameDialog!.addTextField("name", placeHolder: self.device!.name!)
+            let tf = self.renameDialog!.getTextFieldWithIdentifier("name")
             tf?.text = self.device?.name
+            tf?.delegate = self
+            tf?.tag = 100
 
-            dialog.show()
+            self.renameDialog!.show()
             tf?.becomeFirstResponder()
         }
         
@@ -137,6 +128,31 @@ class DeviceInspectorViewController : UIViewController {
     
     @IBOutlet weak var deviceNameLabel: UILabel!
     
+    var renameDialog : ZAlertView?
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField.tag == 100 {
+            self.renameDevice(textField.text)
+            renameDialog?.dismiss()
+            
+        }
+        
+        return true
+    }
+    
+
+    func renameDevice(newName : String?) {
+        self.device?.rename(newName!, completion: {[unowned self] (error : NSError?) in
+            
+            if error == nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.deviceNameLabel.text = newName!.stringByReplacingOccurrencesOfString(" ", withString: "_")
+                    self.deviceNameLabel.setNeedsLayout()
+                }
+                
+            }
+        })
+    }
     
     @IBAction func segmentControlChanged(sender: UISegmentedControl) {
         
