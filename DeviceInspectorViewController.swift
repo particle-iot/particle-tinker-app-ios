@@ -166,6 +166,11 @@ class DeviceInspectorViewController : UIViewController {
             }
             
         }
+        
+        if (sender.selectedSegmentIndex == 2) // events
+        {
+            self.eventsVC!.viewDidAppearFirstTime()
+        }
  
         
     }

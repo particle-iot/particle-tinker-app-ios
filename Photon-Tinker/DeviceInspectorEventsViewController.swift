@@ -27,6 +27,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     @IBOutlet weak var eventFilterSearchBar: UISearchBar!
     
     func subscribeToDeviceEvents() {
+        
         self.subscribeId = SparkCloud.sharedInstance().subscribeToDeviceEventsWithPrefix(nil, deviceID: self.device!.id, handler: {[unowned self] (event:SparkEvent?, error:NSError?) in
             if let _ = error {
                 print ("could not subscribe to events to show in events inspector...")
@@ -62,17 +63,22 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     }
     
     func unsubscribeFromDeviceEvents() {
-        SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.subscribeId!)
+        if let sid = self.subscribeId {
+            SparkCloud.sharedInstance().unsubscribeFromEventWithID(sid)
+        }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        subscribeToDeviceEvents()
-        
-    }
-    
+ 
     var paused : Bool = false
     var filtering : Bool = false
+    var firstTime : Bool = true
     
+    func viewDidAppearFirstTime() {
+        if firstTime {
+            subscribeToDeviceEvents()
+            firstTime = false
+        }
+    }
     
     @IBOutlet weak var backgroundView: UIView!
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
