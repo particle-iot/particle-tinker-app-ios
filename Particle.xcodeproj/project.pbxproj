@@ -26,7 +26,7 @@
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
 		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
 		507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */; };
-		507A84BA1D247FFD0050B3B6 /* DeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B91D247FFD0050B3B6 /* DeviceUtils.swift */; };
+		507A84BA1D247FFD0050B3B6 /* ParticleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */; };
 		507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */; };
 		508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508311451C0E907E009C0161 /* JavaScriptCore.framework */; };
 		508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */; };
@@ -70,14 +70,14 @@
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = SOURCE_ROOT; };
 		5067A0CE1B30EBB500A87D71 /* photon_wifi-old.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "photon_wifi-old.mp4"; sourceTree = "<group>"; };
-		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Medium.ttf"; sourceTree = "<group>"; };
-		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Regular.ttf"; sourceTree = "<group>"; };
+		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Medium.ttf"; path = "../../FiraMono-Medium.ttf"; sourceTree = "<group>"; };
+		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Regular.ttf"; path = "../../FiraMono-Regular.ttf"; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
 		5073D4C81AFB14DE00068C2A /* PinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinFunctionView.m; sourceTree = "<group>"; };
 		5073D4CA1AFB2E3000068C2A /* PinValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinValueView.h; sourceTree = "<group>"; };
 		5073D4CB1AFB2E3000068C2A /* PinValueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinValueView.m; sourceTree = "<group>"; };
 		507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoViewController.swift; sourceTree = "<group>"; };
-		507A84B91D247FFD0050B3B6 /* DeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceUtils.swift; sourceTree = "<group>"; };
+		507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleUtils.swift; sourceTree = "<group>"; };
 		507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorChildViewController.swift; sourceTree = "<group>"; };
 		508311451C0E907E009C0161 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		508311471C0EAF98009C0161 /* ScanBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanBarcodeViewController.h; sourceTree = "<group>"; };
@@ -157,8 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				50F62D721AE071AF00109F33 /* Assets */,
-				50B125451AE06CF4003C29DC /* Photon-Tinker */,
-				50B1255B1AE06CF4003C29DC /* Photon-TinkerTests */,
+				50B125451AE06CF4003C29DC /* Particle-Tinker */,
+				50B1255B1AE06CF4003C29DC /* Particle-Tinker-Tests */,
 				50B125441AE06CF4003C29DC /* Products */,
 				9F8A6834C76C6E158FE8EE72 /* Frameworks */,
 				B2DA7D15439FDDE60E442D6F /* Pods */,
@@ -173,7 +173,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		50B125451AE06CF4003C29DC /* Photon-Tinker */ = {
+		50B125451AE06CF4003C29DC /* Particle-Tinker */ = {
 			isa = PBXGroup;
 			children = (
 				5014D1EE1AE87B7000725BA8 /* ViewControllers */,
@@ -184,6 +184,7 @@
 				50E5EF141D2DDCA80087C7B6 /* 3rd Party */,
 				50B125461AE06CF4003C29DC /* Supporting Files */,
 			);
+			name = "Particle-Tinker";
 			path = "Photon-Tinker";
 			sourceTree = "<group>";
 		};
@@ -196,12 +197,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		50B1255B1AE06CF4003C29DC /* Photon-TinkerTests */ = {
+		50B1255B1AE06CF4003C29DC /* Particle-Tinker-Tests */ = {
 			isa = PBXGroup;
 			children = (
 				50B1255E1AE06CF4003C29DC /* Photon_TinkerTests.swift */,
 				50B1255C1AE06CF4003C29DC /* Supporting Files */,
 			);
+			name = "Particle-Tinker-Tests";
 			path = "Photon-TinkerTests";
 			sourceTree = "<group>";
 		};
@@ -235,7 +237,7 @@
 		50EB76101AE6EE9C00C925A9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				507A84B91D247FFD0050B3B6 /* DeviceUtils.swift */,
+				507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */,
 				50EB76191AE6F03600C925A9 /* SparkDevice+pins.h */,
 				50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */,
 				50EB76131AE6EF2900C925A9 /* DevicePin.h */,
@@ -269,8 +271,6 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */,
-				507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */,
 				502B6B1A1CF0446E00A09F9E /* electron-tinker.bin */,
 				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
@@ -285,6 +285,8 @@
 		50F62D941AE0721200109F33 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */,
+				507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */,
 				50F62D951AE0721200109F33 /* Gotham-Book.otf */,
 				50F62D961AE0721200109F33 /* Gotham-Medium.otf */,
 				50F62D971AE0721200109F33 /* Gotham-XLight.otf */,
@@ -472,7 +474,7 @@
 				5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */,
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,
-				507A84BA1D247FFD0050B3B6 /* DeviceUtils.swift in Sources */,
+				507A84BA1D247FFD0050B3B6 /* ParticleUtils.swift in Sources */,
 				505062D51CE19F920060FEE7 /* Keys.swift in Sources */,
 				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
 				50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */,

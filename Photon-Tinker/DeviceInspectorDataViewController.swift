@@ -18,7 +18,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     var variablesList : [String]?
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = DeviceUtils.particleAlmostWhiteColor
+        view.tintColor = ParticleUtils.particleAlmostWhiteColor
         let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.darkGrayColor()// sparkDarkGrayColor
     }

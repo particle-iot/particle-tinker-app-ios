@@ -23,7 +23,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
         
 
         
-        dialog.addButton("Reflash Tinker", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Reflash Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             dialog.dismiss()
             self.reflashTinker()
@@ -31,7 +31,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
         }
         
         
-        dialog.addButton("Rename device", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Rename device", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             dialog.dismiss()
             self.renameDialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
@@ -57,7 +57,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
         
        
         
-        dialog.addButton("Refresh data", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Refresh data", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
             self.device?.refresh({[unowned self] (err: NSError?) in
@@ -92,7 +92,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
         }
         
         
-        dialog.addButton("Signal for 10sec", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Signal for 10sec", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
             self.device?.signal(true, completion: nil)
@@ -104,14 +104,14 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
             
         }
         
-        dialog.addButton("Support/Documentation", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleEmeraldColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Support/Documentation", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleEmeraldColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             dialog.dismiss()
             self.popDocumentationViewController()
         }
         
 
-        dialog.addButton("Cancel", font: DeviceUtils.particleRegularFont, color: DeviceUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
+        dialog.addButton("Cancel", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
             dialog.dismiss()
         }
         
@@ -251,7 +251,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         self.deviceNameLabel.text = self.device?.name
-        DeviceUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected)
+        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected)
     }
     
     

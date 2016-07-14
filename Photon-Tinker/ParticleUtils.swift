@@ -1,5 +1,5 @@
 //
-//  DeviceUtils.swift
+//  ParticleUtils.swift
 //  Particle
 //
 //  Created by Ido Kleinman on 6/29/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceUtils: NSObject {
+class ParticleUtils: NSObject {
 
     static var particleCyanColor = UIColor.color("#00ADEF")!
     static var particleAlmostWhiteColor = UIColor.color("#F7F7F7")!

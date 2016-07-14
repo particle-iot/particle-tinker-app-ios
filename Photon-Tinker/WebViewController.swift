@@ -14,7 +14,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         
         self.navBar.topItem?.title = self.linkTitle
-        self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!, NSForegroundColorAttributeName: DeviceUtils.particleGrayColor]
+        self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!, NSForegroundColorAttributeName: ParticleUtils.particleGrayColor]
         
         
         let request = NSURLRequest(URL: self.link!, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 15.0)

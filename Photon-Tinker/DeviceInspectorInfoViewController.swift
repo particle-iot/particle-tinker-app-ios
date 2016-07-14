@@ -58,13 +58,13 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
         
         self.deviceIdValueLabel.text = self.device?.id
         
-        let deviceTypeColor = DeviceUtils.particleCyanColor
+        let deviceTypeColor = ParticleUtils.particleCyanColor
         
         
-        let deviceInfo = DeviceUtils.getDeviceTypeAndImage(self.device)
+        let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.device)
         self.deviceImageView.image = deviceInfo.deviceImage
         self.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
-        self.deviceTypeLabel.layer.borderColor = DeviceUtils.particleCyanColor.CGColor
+        self.deviceTypeLabel.layer.borderColor = ParticleUtils.particleCyanColor.CGColor
         self.deviceTypeLabel.layer.borderWidth = 1.0
         self.deviceTypeLabel.textColor = deviceTypeColor
         self.deviceTypeLabel.layer.cornerRadius = 4

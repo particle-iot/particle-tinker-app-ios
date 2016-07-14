@@ -35,15 +35,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         
-        ZAlertView.positiveColor            = DeviceUtils.particleCyanColor
-        ZAlertView.negativeColor            = DeviceUtils.particlePomegranateColor
+        ZAlertView.positiveColor            = ParticleUtils.particleCyanColor
+        ZAlertView.negativeColor            = ParticleUtils.particlePomegranateColor
         ZAlertView.blurredBackground        = true
         ZAlertView.showAnimation            = .BounceBottom
         ZAlertView.hideAnimation            = .BounceBottom
 //        ZAlertView.initialSpringVelocity    = 0.5
         ZAlertView.duration                 = 0.9
         ZAlertView.cornerRadius             = 4.0
-        ZAlertView.textFieldTextColor       = DeviceUtils.particleDarkGrayColor
+        ZAlertView.textFieldTextColor       = ParticleUtils.particleDarkGrayColor
         ZAlertView.textFieldBackgroundColor = UIColor.whiteColor()
         ZAlertView.textFieldBorderColor     = UIColor.color("#777777")
         ZAlertView.buttonFont               = UIFont(name: "Gotham-medium", size: 15.0)
@@ -101,13 +101,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .MultipleChoice)
         
         
-        dialog.addButton("Photon", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Photon", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
             self.invokePhotonDeviceSetup()
             
         }
-        dialog.addButton("Electron/SIM", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Electron/SIM", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
             if SparkCloud.sharedInstance().loggedInUsername != nil {
@@ -119,14 +119,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
         }
         
-        dialog.addButton("Core", font: DeviceUtils.particleBoldFont, color: DeviceUtils.particleCyanColor, titleColor: DeviceUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Core", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             dialog.dismiss()
             self.showSparkCoreAppPopUp()
             
         }
 
-        dialog.addButton("Cancel", font: DeviceUtils.particleRegularFont, color: DeviceUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
+        dialog.addButton("Cancel", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
             dialog.dismiss()
         }
 
@@ -150,7 +150,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.lastTappedNonTinkerDevice = nil
         
         
-        let deviceInfo = DeviceUtils.getDeviceTypeAndImage(self.selectedDevice)
+        let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.selectedDevice)
         
         if segue.identifier == "tinker" {
             if let vc = segue.destinationViewController as? SPKTinkerViewController {
@@ -429,13 +429,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell.deviceNameLabel.text = "<no name>"
             }
             
-            let deviceInfo = DeviceUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
+            let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
 
             cell.deviceImageView.image = deviceInfo.deviceImage
             cell.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
 //            cell.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
             
-            let deviceTypeColor = DeviceUtils.particleCyanColor// UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
+            let deviceTypeColor = ParticleUtils.particleCyanColor// UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
             cell.deviceTypeLabel.layer.borderColor = deviceTypeColor.CGColor
             cell.deviceTypeLabel.textColor = deviceTypeColor
             
@@ -452,7 +452,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             
             
-            DeviceUtils.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected)
+            ParticleUtils.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected)
             
 
             // override everything else
