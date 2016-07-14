@@ -59,6 +59,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 //        print("appDidBecomeActive observer triggered")
         //        self.animateOnlineIndicators()
         self.photonSelectionTableView.reloadData()
+        
     }
     
     @IBOutlet weak var logoutButton: UIButton!
@@ -155,22 +156,31 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
 
-//    var statusEventID : AnyObject?
+    var statusEventID : AnyObject? // TODO: remove
     
     override func viewWillAppear(animated: Bool) {
+        
+        if let d = self.selectedDevice {
+            d.delegate = self // reassign Device delegate to this VC to receive system events (in case some other VC down the line reassigned it)
+        }
+        
         if SparkCloud.sharedInstance().isAuthenticated
         {
             
             self.loadDevices()
+            
             /*
-            print("! subscribing to status event")
-            self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark/status", handler: { (event: SparkEvent?, error: NSError?) in
+            print("! subscribing to status event") // TODO: remove
+            self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark", handler: { (event: SparkEvent?, error: NSError?) in
                 // if we received a status event so probably one of the device came online or offline - update the device list
-                self.loadDevices()
+                if error == nil {
+                    self.loadDevices()
 //                self.animateOnlineIndicators()
-                print("! got status event: "+event!.description)
+                    print("! got status event: "+event!.description)
+                }
             })
             */
+            
         }
         Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
 //        animateOnlineIndicators()
@@ -210,9 +220,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     override func viewWillDisappear(animated: Bool) {
-//        SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.statusEventID!)
+        if let sid = self.statusEventID {
+            SparkCloud.sharedInstance().unsubscribeFromEventWithID(sid) // TODO : remove
+            print("! unsubscribing from status event")
+        }
+        
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        print("! unsubscribing from status event")
         Mixpanel.sharedInstance().track("Tinker: Device list screen activity")
     }
     
@@ -222,6 +235,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func loadDevices()
     {
+        print("* started loadDevices")
         // do a HUD only for first time load
         if self.refreshControlAdded == false
         {
@@ -236,7 +250,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 // do anyway:
                 dispatch_async(dispatch_get_main_queue()) {[unowned self] () -> () in
-                    ParticleSpinner.hide(self.view) // TODO weak self
+                    ParticleSpinner.hide(self.view)
                     // first time add the custom pull to refresh control to the tableview
                     if self.refreshControlAdded == false
                     {
@@ -305,14 +319,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     return firstDevice.isRunningTinker() && !secondDevice.isRunningTinker()
                 })
                 
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.photonSelectionTableView.reloadData()
+                    print("* finished loadDevices")
+                }
+
                 
             } else {
                 self.noDevicesLabel.hidden = false
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
-                self.photonSelectionTableView.reloadData()
-            }
         }
     }
     
@@ -419,7 +435,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             
             
-            ParticleUtils.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected)
+            ParticleUtils.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[indexPath.row].connected, flashing:self.devices[indexPath.row].isFlashing)
             
 
             // override everything else
@@ -438,6 +454,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
+    func sparkDevice(device: SparkDevice, receivedSystemEvent event: SparkDeviceSystemEvent) {
+        print("--> Received system event "+String(event.rawValue)+" from device "+device.name!)
+        self.loadDevices()
+    }
     
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -553,26 +573,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     {
         Mixpanel.sharedInstance().track("Tinker: User wants to setup a Core")
         
-//        let popup = Popup(title: "Core setup", subTitle: , cancelTitle: "No", successTitle: "Yes", cancelBlock: {()->() in }, successBlock: {()->() in
-//        })
-//        popup.incomingTransition = .SlideFromBottom
-//        popup.outgoingTransition = .FallWithGravity
-//        popup.backgroundBlurType = .Dark
-//        popup.roundedCorners = true
-//        popup.tapBackgroundToDismiss = true
-//        popup.backgroundColor = UIColor.clearColor()// UIColor(red: 0, green: 123.0/255.0, blue: 181.0/255.0, alpha: 1.0) //UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
-//        popup.titleColor = UIColor.whiteColor()
-//        popup.subTitleColor = UIColor.whiteColor()
-//        popup.successBtnColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0)
-//        popup.successTitleColor = UIColor.whiteColor()
-//        popup.cancelBtnColor = UIColor.clearColor()
-//        popup.cancelTitleColor = UIColor.whiteColor()
-//        popup.borderColor = UIColor.clearColor()
-//        popup.showPopup()
-//        
-        
-//        let dialog = ZAlertView(title: , message: , alertType: .MultipleChoice)
-        
         let dialog = ZAlertView(title: "Core setup", message: "Setting up a Core requires the legacy Spark Core app. Do you want to install/open it now?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
                                 okButtonHandler: { alertView in
                                     alertView.dismiss()
@@ -593,28 +593,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    /*
-     // keep track of devices being flashed with [device_id : seconds_left_to_flashing] dictionary
-     func flashingTimerFunc(timer : NSTimer)
-     {
-     if self.deviceIDsBeingFlashed.count > 0
-     {
-     println(self.deviceIDsBeingFlashed)
-     for id in deviceIDsBeingFlashed.keys
-     {
-     self.deviceIDsBeingFlashed[id] = self.deviceIDsBeingFlashed[id]! - 1
-     if self.deviceIDsBeingFlashed[id]! < 1
-     {
-     self.deviceIDsBeingFlashed.removeValueForKey(id)
-     }
-     }
-     }
-     else
-     {
-     self.flashingTimer?.invalidate()
-     }
-     }
-     */
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         TSMessage.dismissActiveNotification()

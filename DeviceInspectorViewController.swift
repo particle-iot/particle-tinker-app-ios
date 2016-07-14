@@ -251,7 +251,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         self.deviceNameLabel.text = self.device?.name
-        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected)
+        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
     }
     
     
