@@ -17,7 +17,7 @@ let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
 let kDefaultElectronFlashingTime : Int = 15
 
-class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate {
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate, SparkDeviceDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
@@ -64,30 +64,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var logoutButton: UIButton!
     
     var devices : [SparkDevice] = []
-    var deviceIDflashingDict : Dictionary<String,Int> = Dictionary()
-    var deviceIDflashingTimer : NSTimer? = nil
-    
     var selectedDevice : SparkDevice? = nil
-    var lastTappedNonTinkerDevice : SparkDevice? = nil
     var refreshControlAdded : Bool = false
     
-    //    var deviceIDsBeingFlashed : Dictionary<String, Int> = Dictionary()
-    //    var flashingTimer : NSTimer? = nil
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    //    @IBOutlet weak var setFlashingTestButton: UIButton!
-    //
-    //    @IBAction func setFlashingButtonTapped(sender: AnyObject) {
-    //        self.devices[0].isFlashing = true
-    //        self.deviceIDflashingDict[self.devices[0].id] = kDefaultPhotonFlashingTime
-    //
-    //        self.photonSelectionTableView.reloadData()
-    //
-    //    }
     
     @IBOutlet weak var photonSelectionTableView: UITableView!
     
@@ -146,16 +131,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.deviceIDflashingTimer!.invalidate()
-        self.lastTappedNonTinkerDevice = nil
-        
         
         let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.selectedDevice)
         
         if segue.identifier == "tinker" {
             if let vc = segue.destinationViewController as? SPKTinkerViewController {
                 vc.device = self.selectedDevice
-                vc.deviceListViewController = self
                 
                 Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 
@@ -172,14 +153,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
+    
 
-    var statusEventID : AnyObject?
+//    var statusEventID : AnyObject?
     
     override func viewWillAppear(animated: Bool) {
         if SparkCloud.sharedInstance().isAuthenticated
         {
             
             self.loadDevices()
+            /*
             print("! subscribing to status event")
             self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark/status", handler: { (event: SparkEvent?, error: NSError?) in
                 // if we received a status event so probably one of the device came online or offline - update the device list
@@ -187,10 +170,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 //                self.animateOnlineIndicators()
                 print("! got status event: "+event!.description)
             })
-            
-            
-            
-            self.deviceIDflashingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(DeviceListViewController.flashingTimerFunc(_:)), userInfo: nil, repeats: true)
+            */
         }
         Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
 //        animateOnlineIndicators()
@@ -230,29 +210,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     override func viewWillDisappear(animated: Bool) {
-        SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.statusEventID!)
+//        SparkCloud.sharedInstance().unsubscribeFromEventWithID(self.statusEventID!)
         NSNotificationCenter.defaultCenter().removeObserver(self)
         print("! unsubscribing from status event")
         Mixpanel.sharedInstance().track("Tinker: Device list screen activity")
     }
     
-    
-    func flashingTimerFunc(timer : NSTimer)
-    {
-        for (deviceid, timeleft) in self.deviceIDflashingDict
-        {
-            if timeleft > 0
-            {
-                self.deviceIDflashingDict[deviceid]=timeleft-1
-            }
-            else
-            {
-                self.deviceIDflashingDict.removeValueForKey(deviceid)
-                //self.photonSelectionTableView.reloadData()
-                self.loadDevices()
-            }
-        }
-    }
     
     
 
@@ -307,6 +270,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             if let d = devices
             {
                 self.devices = d as! [SparkDevice]
+                
+                for device in self.devices {
+                    device.delegate = self
+                }
                 
                 self.noDevicesLabel.hidden = self.devices.count == 0 ? false : true
                 
@@ -456,9 +423,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
 
             // override everything else
-            if devices[indexPath.row].isFlashing || self.deviceIDflashingDict.keys.contains(devices[indexPath.row].id)
+            if devices[indexPath.row].isFlashing
             {
-                cell.deviceStateLabel.text = "Flashing"
+//                cell.deviceStateLabel.text = "Flashing"
                 cell.deviceStateImageView.image = UIImage(named: "imgCircle") // TDO blink this -
             }
             
@@ -657,7 +624,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
         //                println("Tapped on \(self.devices[indexPath.row].description)")
-        if devices[indexPath.row].isFlashing || self.deviceIDflashingDict.keys.contains(devices[indexPath.row].id)
+        if devices[indexPath.row].isFlashing
         {
             TSMessage.showNotificationWithTitle("Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .Warning)
             

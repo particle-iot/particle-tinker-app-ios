@@ -19,6 +19,5 @@
 @interface SPKTinkerViewController : UIViewController 
 
 @property (nonatomic, strong) SparkDevice *device;
-@property (nonatomic, strong) DeviceListViewController *deviceListViewController;
 
 @end

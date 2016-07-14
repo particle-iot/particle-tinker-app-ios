@@ -135,6 +135,10 @@
 		5014D1EE1AE87B7000725BA8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */,
+				5048CD221AE09AD00097150A /* DeviceListViewController.swift */,
+				50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */,
+				50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */,
 				50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */,
 				507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */,
 				507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */,
@@ -143,10 +147,6 @@
 				5022204A1B1E7F8400387B24 /* WebViewController.swift */,
 				500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */,
 				502E9BBF1B194DF800D2C45B /* HelpViewController.swift */,
-				50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */,
-				50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */,
-				50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */,
-				5048CD221AE09AD00097150A /* DeviceListViewController.swift */,
 				508311471C0EAF98009C0161 /* ScanBarcodeViewController.h */,
 				508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */,
 			);
