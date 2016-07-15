@@ -128,6 +128,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewControllerWithIdentifier("electronSetup") as! ElectronSetupViewController
         self.presentViewController(esVC, animated: true, completion: nil)
         
+        
     }
     
     
@@ -454,9 +455,23 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    func sparkDevice(device: SparkDevice, receivedSystemEvent event: SparkDeviceSystemEvent) {
+    func sparkDevice(device: SparkDevice, didReceiveSystemEvent event: SparkDeviceSystemEvent) {
         print("--> Received system event "+String(event.rawValue)+" from device "+device.name!)
-        self.loadDevices()
+        
+        if (event == .FlashStarted) {
+            for cell in self.photonSelectionTableView.visibleCells {
+                let deviceCell = cell as! DeviceTableViewCell
+                if deviceCell.deviceNameLabel.text == device.name {
+//                    deviceCell.awakeFromNib()
+                    dispatch_async(dispatch_get_main_queue()) {
+                        deviceCell.deviceStateLabel.text = "(Flashing)"
+                    }
+                    ParticleUtils.animateOnlineIndicatorImageView(deviceCell.deviceStateImageView, online: true, flashing: true)
+                }
+            }
+        } else {
+            self.loadDevices()
+        }
     }
     
     

@@ -22,6 +22,7 @@ class ParticleUtils: NSObject {
 
     class func getDeviceTypeAndImage(device : SparkDevice?) -> (deviceType: String, deviceImage: UIImage) {
         
+        
         var image : UIImage?
         var text : String?
         
@@ -70,15 +71,15 @@ class ParticleUtils: NSObject {
     class func animateOnlineIndicatorImageView(imageView: UIImageView, online: Bool, flashing: Bool) {
         dispatch_async(dispatch_get_main_queue(), {
             imageView.image = UIImage(named: "imgCircle")
-            //            imageView.alpha = 1
+            //
             
             imageView.image = imageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             
             if flashing {
                 imageView.tintColor = UIColor(red: 239.0/255.0, green: 13.0/255.0, blue: 209.0/255.0, alpha: 1.0) // Flashing purple
-                
+                imageView.alpha = 1
                 UIView.animateWithDuration(0.12, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
-                    imageView.tintColor = UIColor(white: 0.466, alpha: 1.0) // ParticleGray
+                    imageView.alpha = 0
                     }, completion: nil)
 
             } else if online {
