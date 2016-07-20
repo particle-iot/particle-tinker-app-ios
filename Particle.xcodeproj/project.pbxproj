@@ -11,7 +11,6 @@
 		5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */; };
 		501DA8E41D24A5D0003CE43F /* DeviceInspectorDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */; };
 		5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022204A1B1E7F8400387B24 /* WebViewController.swift */; };
-		502B6B1B1CF0446E00A09F9E /* electron-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 502B6B1A1CF0446E00A09F9E /* electron-tinker.bin */; };
 		502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */; };
 		502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */; };
 		502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 502E9BBB1B15773D00D2C45B /* photon-tinker.bin */; };
@@ -30,6 +29,7 @@
 		507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */; };
 		508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508311451C0E907E009C0161 /* JavaScriptCore.framework */; };
 		508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */; };
+		509749A91D3EF9C300C5DF0B /* electron-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 509749A81D3EF9C300C5DF0B /* electron-tinker.bin */; };
 		5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */; };
 		50A11F2A1D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A11F291D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift */; };
 		50B0F9BA1D261149007DB6D1 /* DeviceEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B0F9B91D261149007DB6D1 /* DeviceEventTableViewCell.swift */; };
@@ -61,7 +61,6 @@
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorDataViewController.swift; sourceTree = "<group>"; };
 		5022204A1B1E7F8400387B24 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		502B6B1A1CF0446E00A09F9E /* electron-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "electron-tinker.bin"; sourceTree = "<group>"; };
 		502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceFunctionTableViewCell.swift; path = ../DeviceFunctionTableViewCell.swift; sourceTree = "<group>"; };
 		502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceVariableTableViewCell.swift; path = ../DeviceVariableTableViewCell.swift; sourceTree = "<group>"; };
 		502E9BBB1B15773D00D2C45B /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "photon-tinker.bin"; sourceTree = "<group>"; };
@@ -82,6 +81,7 @@
 		508311451C0E907E009C0161 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		508311471C0EAF98009C0161 /* ScanBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanBarcodeViewController.h; sourceTree = "<group>"; };
 		508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanBarcodeViewController.m; sourceTree = "<group>"; };
+		509749A81D3EF9C300C5DF0B /* electron-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "electron-tinker.bin"; sourceTree = "<group>"; };
 		5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDataTableViewCell.swift; sourceTree = "<group>"; };
 		50A11F291D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorEventsViewController.swift; sourceTree = "<group>"; };
 		50B0F9B91D261149007DB6D1 /* DeviceEventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceEventTableViewCell.swift; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				502B6B1A1CF0446E00A09F9E /* electron-tinker.bin */,
+				509749A81D3EF9C300C5DF0B /* electron-tinker.bin */,
 				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
 				5067A0CE1B30EBB500A87D71 /* photon_wifi-old.mp4 */,
@@ -383,10 +383,10 @@
 				5067A0CF1B30EBB500A87D71 /* photon_wifi-old.mp4 in Resources */,
 				507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */,
 				507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */,
-				502B6B1B1CF0446E00A09F9E /* electron-tinker.bin in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
+				509749A91D3EF9C300C5DF0B /* electron-tinker.bin in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				50B0F9BC1D2C21C3007DB6D1 /* photon_wifi.mp4 in Resources */,
 				50B125501AE06CF4003C29DC /* Images.xcassets in Resources */,
