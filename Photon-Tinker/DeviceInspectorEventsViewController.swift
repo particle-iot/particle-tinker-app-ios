@@ -48,14 +48,15 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                             self.deviceEventsTableView.reloadData()
                         })
                     } else {
-                        
-                        dispatch_async(dispatch_get_main_queue(),{
-                            // add new event row on top
-                            self.deviceEventsTableView.beginUpdates()
-                            self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
-                            self.deviceEventsTableView.endUpdates()
-                            
-                        })
+                        if !self.view.hidden {
+                            dispatch_async(dispatch_get_main_queue(),{
+                                // add new event row on top
+                                self.deviceEventsTableView.beginUpdates()
+                                self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
+                                self.deviceEventsTableView.endUpdates()
+                                
+                            })
+                        }
                     }
                 }
             }

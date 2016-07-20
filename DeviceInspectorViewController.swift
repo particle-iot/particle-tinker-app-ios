@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
+class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, SparkDeviceDelegate {
     
     
     @IBAction func backButtonTapped(sender: AnyObject) {
@@ -60,35 +60,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
         dialog.addButton("Refresh data", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
-            self.device?.refresh({[unowned self] (err: NSError?) in
-                
-                
-                // test what happens when device goes offline and refresh is triggered
-                if (err == nil) {
-                    print("data updated")
-                    
-                    self.viewWillAppear(false)
-                    
-                    if let info = self.infoVC {
-                        info.device = self.device
-                        info.updateDeviceInfoDisplay()
-                    }
-                    
-                    if let data = self.dataVC {
-                        data.device = self.device
-                        data.refreshVariableList()
-                    }
-                    
-                    if let events = self.eventsVC {
-                        events.unsubscribeFromDeviceEvents()
-                        events.device = self.device
-                        if !events.paused {
-                            events.subscribeToDeviceEvents()
-                        }
-                        
-                    }
-                }
-                })
+            self.refreshData()
         }
         
         
@@ -251,18 +223,67 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         self.deviceNameLabel.text = self.device?.name
+        self.device!.delegate = self
         ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
     }
     
+    var flashedTinker : Bool = false
+    
+    func sparkDevice(device: SparkDevice, didReceiveSystemEvent event: SparkDeviceSystemEvent) {
+        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
+        if self.flashedTinker && event == .FlashSucceeded {
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .Success)
+            }
+            self.flashedTinker = false
+//            self.refreshData()
+            
+        }
+    }
+    
+    
+    
+    
+    func refreshData() {
+        self.device?.refresh({[unowned self] (err: NSError?) in
+            
+            
+            // test what happens when device goes offline and refresh is triggered
+            if (err == nil) {
+                
+                self.viewWillAppear(false)
+                
+                if let info = self.infoVC {
+                    info.device = self.device
+                    info.updateDeviceInfoDisplay()
+                }
+                
+                if let data = self.dataVC {
+                    data.device = self.device
+                    data.refreshVariableList()
+                }
+                
+                if let events = self.eventsVC {
+                    events.unsubscribeFromDeviceEvents()
+                    events.device = self.device
+                    if !events.paused {
+                        events.subscribeToDeviceEvents()
+                    }
+                    
+                }
+            }
+        })
+    }
     
     
     // 2
     func reflashTinker() {
 
-        if !self.device!.connected {
-            TSMessage.showNotificationWithTitle("Device offline", subtitle: "Device must be online to be flashed", type: .Error)
-            return
-        }
+//        if !self.device!.connected {
+//            TSMessage.showNotificationWithTitle("Device offline", subtitle: "Device must be online to be flashed", type: .Error)
+//            return
+//        }
         
         func flashTinkerBinary(binaryFilename : String?)
         {
@@ -270,14 +291,13 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
             let path = bundle.pathForResource(binaryFilename, ofType: "bin")
             let binary = NSData(contentsOfURL: NSURL(fileURLWithPath: path!))
             let filesDict = ["tinker.bin" : binary!]
-            self.device!.flashFiles(filesDict, completion: { (error:NSError?) -> Void in
+            self.flashedTinker = true
+            self.device!.flashFiles(filesDict, completion: { [unowned self] (error:NSError?) -> Void in
                 if let e=error
                 {
-                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                }
-                else
-                {
-                    TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
+                    self.flashedTinker = false
+                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device. Are you sure it's online? \(e.localizedDescription)", type: .Error)
+                    
                 }
             })
         }
@@ -288,15 +308,11 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate {
         case .Core:
             //                                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker",
             Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
-            
+            self.flashedTinker = true
             self.device!.flashKnownApp("tinker", completion: { (error:NSError?) -> Void in
                 if let e=error
                 {
                     TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .Error)
-                }
-                else
-                {
-                    TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Please wait while your device is being flashed with Tinker firmware...", type: .Success)
                 }
             })
             

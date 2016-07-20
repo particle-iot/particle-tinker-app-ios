@@ -12,14 +12,13 @@
 #import "PinView.h"
 #import "TSMessage.h"
 #import "PinValueView.h"
-#import "Particle-Swift.h" // thats for SettingsTableViewControllerDelegate which is in Swift file
 #import "Mixpanel.h"
 #import "Particle-Swift.h"
 
 
 #define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate>
+@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SparkDeviceDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -43,6 +42,7 @@
 @property (nonatomic, strong) PinView *pinViewShowingSlider;
 @property (nonatomic) BOOL chipIsShowing;
 @property (nonatomic) CGRect originalPinFunctionFrame;
+@property (weak, nonatomic) IBOutlet UIImageView *deviceStateIndicatorImageView;
 
 @end
 
@@ -72,29 +72,10 @@
     self.deviceView.alpha = 0.2;
     self.firstTimeView.hidden = NO;
     
-    // first time view
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *userDefaults = [defaults objectForKey:[SparkCloud sharedInstance].loggedInUsername];
-    if (userDefaults)
-    {
-        if ([userDefaults[SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY] isEqualToNumber:@1])
-        {
-            [self dismissFirstTime];
-        }
-    }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissFirstTime)];
     [self.firstTimeView addGestureRecognizer:tap];
 
-    // fill in device name
-    if ((self.device.name) && (![self.device.name isEqualToString:@""]))
-    {
-        self.deviceNameLabel.text = self.device.name;
-    }
-    else
-    {
-        self.deviceNameLabel.text = @"<no name>";
-    }
 
     // inititalize pins
     [self.device configurePins:self.device.type];
@@ -107,9 +88,41 @@
 //    [self.view addGestureRecognizer:_tap];
 }
 
+-(void)sparkDevice:(SparkDevice *)device didReceiveSystemEvent:(SparkDeviceSystemEvent)event
+{
+    [ParticleUtils animateOnlineIndicatorImageView:self.deviceStateIndicatorImageView online:self.device.connected flashing:self.device.isFlashing];
+
+}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    // fill in device name
+    self.device.delegate = self;
+    
+    if ((self.device.name) && (![self.device.name isEqualToString:@""]))
+    {
+        self.deviceNameLabel.text = self.device.name;
+    }
+    else
+    {
+        self.deviceNameLabel.text = @"<no name>";
+    }
+    
+    // animate the deviceStateIndicatorImageView
+    [ParticleUtils animateOnlineIndicatorImageView:self.deviceStateIndicatorImageView online:self.device.connected flashing:self.device.isFlashing];
+    
+    // first time tutorial view
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *userDefaults = [defaults objectForKey:[SparkCloud sharedInstance].loggedInUsername];
+    if (userDefaults)
+    {
+        if ([userDefaults[SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY] isEqualToNumber:@1])
+        {
+            [self dismissFirstTime];
+        }
+    }
+
     [[Mixpanel sharedInstance] timeEvent:@"Tinker: Tinker screen activity"];
     if (self.chipView.alpha == 0)
         [ParticleSpinner show:self.view];
@@ -166,11 +179,6 @@
     // TODO: find a way to do it after layoutSubviews has been called for everything
     
 }
-
-- (IBAction)deviceInfoButtonTapped:(id)sender {
-}
-
-
 
 
 - (void)viewDidAppear:(BOOL)animated

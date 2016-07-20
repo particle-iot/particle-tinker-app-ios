@@ -236,7 +236,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func loadDevices()
     {
-        print("* started loadDevices")
         // do a HUD only for first time load
         if self.refreshControlAdded == false
         {
@@ -322,7 +321,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 dispatch_async(dispatch_get_main_queue()) {
                     self.photonSelectionTableView.reloadData()
-                    print("* finished loadDevices")
                 }
 
                 
