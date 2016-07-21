@@ -128,7 +128,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     func filterEvents() {
         if self.filtering {
             if let eventsArr = self.events {
-                self.filteredEvents = eventsArr.filter({$0.event.containsString(self.filterText!)})
+                self.filteredEvents = eventsArr.filter({$0.event.containsString(self.filterText!) || $0.data!.containsString(self.filterText!)}) // filter for both name and data
             }
         }
     }

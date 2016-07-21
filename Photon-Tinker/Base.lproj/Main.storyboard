@@ -1486,7 +1486,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awF-Zs-E6z">
                                 <rect key="frame" x="20" y="0.0" width="560" height="44"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Event name filter " translatesAutoresizingMaskIntoConstraints="NO" id="vRp-Sf-BPF">
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Event filter " translatesAutoresizingMaskIntoConstraints="NO" id="vRp-Sf-BPF">
                                         <rect key="frame" x="72" y="0.0" width="488" height="44"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="search"/>
                                         <connections>
@@ -2052,7 +2052,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="helpCell" rowHeight="44" id="HDe-8x-xux" customClass="HelpTableViewCell" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="592" height="44"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="592" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="HDe-8x-xux" id="5Bs-OM-TUs">
                                             <rect key="frame" x="0.0" y="0.0" width="592" height="44"/>
@@ -2071,7 +2071,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                                     <color key="tintColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" image="imgRightChevron"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Particle App" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8w-6I-DJw" userLabel="Help Name Label">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Particle App" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8w-6I-DJw" userLabel="Help Name Label">
                                                     <rect key="frame" x="16" y="14" width="105" height="17"/>
                                                     <color key="tintColor" red="0.87843137250000003" green="0.41568627450000001" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
