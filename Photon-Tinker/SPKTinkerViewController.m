@@ -18,7 +18,7 @@
 
 #define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
 
-@interface SPKTinkerViewController () <UITextFieldDelegate, PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SparkDeviceDelegate>
+@interface SPKTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SparkDeviceDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -30,15 +30,12 @@
 @property (nonatomic, weak) IBOutlet PinFunctionView *pinFunctionView;
 @property (nonatomic, weak) IBOutlet UIView *firstTimeView;
 @property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
-@property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 //@property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
 @property (weak, nonatomic) IBOutlet UIView *chipView;
 @property (strong, nonatomic) UIImageView *chipShadowImageView;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (weak, nonatomic) IBOutlet UIView *deviceView;
-@property (nonatomic) BOOL editingDeviceName;
-@property (weak, nonatomic) IBOutlet UIButton *editDeviceNameButton;
 @property (nonatomic, strong) PinView *pinViewShowingSlider;
 @property (nonatomic) BOOL chipIsShowing;
 @property (nonatomic) CGRect originalPinFunctionFrame;
@@ -134,35 +131,7 @@
 }
 
 
-- (IBAction)editDeviceNameButtonTapped:(id)sender
-{
-    if (!self.editingDeviceName)
-    {
-        self.deviceNameLabel.hidden = YES;
-        self.deviceNameTextField.hidden = NO;
-        self.editDeviceNameButton.hidden = YES;
-        self.deviceNameTextField.text = self.deviceNameLabel.text;
-        self.deviceNameTextField.delegate = self;
-        self.editingDeviceName = YES;
-        [self.deviceNameTextField becomeFirstResponder];
-    }
-}
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField;
-{
-    if (textField==self.deviceNameTextField)
-    {
-        [self.deviceNameTextField resignFirstResponder];
-        self.editingDeviceName = NO;
-        self.device.name = self.deviceNameTextField.text; // TODO: verify correctness
-        self.editDeviceNameButton.hidden = NO;
-        self.deviceNameLabel.text = self.deviceNameTextField.text;
-        self.deviceNameLabel.hidden = NO;
-        self.deviceNameTextField.hidden = YES;
-
-    }
-    return YES;
-}
 
 
 - (IBAction)backButtonTapped:(id)sender {
@@ -329,7 +298,7 @@
                              [self.chipView setNeedsLayout];
                          }
                          completion:^(BOOL finished){
-//                             NSLog(@"Done!");
+                             [self showTutorial];
                              
                          }];
         self.chipIsShowing = YES;
@@ -338,6 +307,35 @@
     
 }
 
+
+-(void)showTutorial {
+    
+    if ([ParticleUtils shouldDisplayTutorialForViewController:self]) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            
+            if (self.navigationController.visibleViewController == self) {
+                // viewController is visible
+                
+                // 3
+                YCTutorialBox* tutorial = [[YCTutorialBox alloc] initWithHeadline:@"1" withHelpText:@"1"];
+                [tutorial showAndFocusView:self.pinViews[@"D7"]];
+                
+                // 2
+                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"2" withHelpText:@"2"];
+                [tutorial showAndFocusView:self.pinViews[@"D7"]];
+                
+                
+                // 1
+                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"3" withHelpText:@"3"];
+                [tutorial showAndFocusView:self.pinViews[@"D7"]];
+                
+                [ParticleUtils setTutorialWasDisplayedForViewController:self];
+            }
+            
+        });
+    }
+}
 
 
 

@@ -47,11 +47,11 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
   
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3 // for both sections
+        return (section==2) ? 1 : 3;
     }
     
     
@@ -99,8 +99,11 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             default:
                 cell.helpItemLabel.text = "Contact Us"
                 
-                
             }
+            
+        case 2:
+            cell.helpItemLabel.text = "Reset App Tutorials";
+            
         default:
             print()
         
@@ -121,14 +124,18 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch section {
             case 0 :
                 return "Documentation"
-            default :
+            case 1 :
                 return "Support"
+            default :
+                return "Settings"
+            
         }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.helpTableView.deselectRowAtIndexPath(indexPath, animated: true)
         var url : NSURL?
+        var openWebView : Bool = true
         
         switch indexPath.section
         {
@@ -170,21 +177,27 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             
         default:
-            print()
+            ParticleUtils.resetTutorialWasDisplayed()
+            dispatch_async(dispatch_get_main_queue()) {
+                TSMessage.showNotificationWithTitle("Tutorials", subtitle: "Tutorials were reset and will be displayed ", type: .Success)
+            }
 
+            openWebView = false
             
             
         }
         
-        let webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
-        webVC.link = url
-        let cell : HelpTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! HelpTableViewCell
+        if openWebView {
+            let webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
+            webVC.link = url
+            let cell : HelpTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! HelpTableViewCell
+            
+            
+            webVC.linkTitle = cell.helpItemLabel.text
+            self.presentViewController(webVC, animated: true, completion: nil)
+        }
         
         
-        webVC.linkTitle = cell.helpItemLabel.text
-        self.presentViewController(webVC, animated: true, completion: nil)
-
-    
     
     }
 
