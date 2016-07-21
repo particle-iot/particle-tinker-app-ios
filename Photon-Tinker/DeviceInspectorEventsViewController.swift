@@ -49,12 +49,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                             self.deviceEventsTableView.reloadData()
                         } else {
                             if !self.view.hidden {
-                                    // add new event row on top
+                                // add new event row on top
                                 
-                                    self.deviceEventsTableView.beginUpdates()
-                                    self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
-                                    self.deviceEventsTableView.endUpdates()
-                                    
+                                self.deviceEventsTableView.beginUpdates()
+                                self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
+                                self.deviceEventsTableView.endUpdates()
+                                
                             }
                         }
                     }

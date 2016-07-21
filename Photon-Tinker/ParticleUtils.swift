@@ -68,6 +68,49 @@ class ParticleUtils: NSObject {
     }
 
     
+    class func shouldDisplayTutorialForViewController(vc : UIViewController) -> Bool {
+    
+        let prefs = NSUserDefaults.standardUserDefaults()
+        let defaultsKeyName = "Tutorial"
+        let dictKeyName = String(vc.dynamicType)
+        print ("shouldDisplayTutorialForViewController "+dictKeyName)
+        
+        if let onceDict = prefs.dictionaryForKey(defaultsKeyName) {
+            let keyExists = onceDict[dictKeyName] != nil
+            if keyExists {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+    }
+    
+    
+    class func setTutorialWasDisplayedForViewController(vc : UIViewController) {
+        
+        let prefs = NSUserDefaults.standardUserDefaults()
+        let defaultsKeyName = "Tutorial"
+        let dictKeyName = String(vc.dynamicType)
+        
+        if var onceDict = prefs.dictionaryForKey(defaultsKeyName) {
+            onceDict[dictKeyName] = true
+            prefs.setObject(onceDict, forKey: defaultsKeyName)
+        } else {
+            prefs.setObject([dictKeyName : true], forKey: defaultsKeyName)
+        }
+    }
+    
+    class func resetTutorialWasDisplayed() {
+        
+        let prefs = NSUserDefaults.standardUserDefaults()
+        let keyName = "Tutorial"
+        prefs.removeObjectForKey(keyName)
+        
+    }
+
+    
     class func animateOnlineIndicatorImageView(imageView: UIImageView, online: Bool, flashing: Bool) {
         dispatch_async(dispatch_get_main_queue(), {
             imageView.image = UIImage(named: "imgCircle")

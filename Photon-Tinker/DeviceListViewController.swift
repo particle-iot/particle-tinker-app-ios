@@ -194,26 +194,35 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func showTutorial() {
-        return //debug temp
         
-        
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-
-            var tutorial = YCTutorialBox(headline: "Logout", withHelpText: "Tap to logout from your account and switch to a different user.")
-            
-            tutorial.showAndFocusView(self.logoutButton)
-
-            tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to start setting up a new Particle-powered device you wish to add to your account")
-            
-            tutorial.showAndFocusView(self.setupNewDeviceButton)
-            
-            
-            let firstDeviceCell = self.photonSelectionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) // TODO: what is theres not cell
-            tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "Here you can see and manage the devices you currently have under your account. Online devices have their indicator 'breathing' cyan, offline ones will be gray. Tapping a device will go to Tinker or Device Inspector mode - Device must be running the Tinker firmware to enter Tinker mode.  Swipe left if you wish to remove a device from your account. Swipe down to refresh your list.")
-            
-            tutorial.showAndFocusView(firstDeviceCell)
-            
+       if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+    
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                
+                if self.navigationController?.visibleViewController == self {
+                    // viewController is visible
+                    
+                    // 3
+                    var tutorial = YCTutorialBox(headline: "Logout", withHelpText: "Tap to logout from your account and switch to a different user.")
+                    tutorial.showAndFocusView(self.logoutButton)
+                    
+                    // 2
+                    tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to start setting up a new Particle device you wish to add to your account")
+                    
+                    tutorial.showAndFocusView(self.setupNewDeviceButton)
+                    
+                    
+                    // 1
+                    let firstDeviceCell = self.photonSelectionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) // TODO: what is theres not cell
+                    tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "See and manage your devices. Online devices have their indicator 'breathing' cyan, offline ones are gray. Tap a device to go enter Tinker or Device Inspector mode - Device must run Tinker firmware to enter Tinker mode.  Swipe left if you wish to remove a device from your account. Swipe down to refresh your list.")
+                    
+                    tutorial.showAndFocusView(firstDeviceCell)
+                    
+                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                }
+                
+            }
         }
     }
     
