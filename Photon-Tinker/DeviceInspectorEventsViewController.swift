@@ -32,33 +32,33 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             if let _ = error {
                 print ("could not subscribe to events to show in events inspector...")
             } else {
-                if let e = event {
-                    if self.events == nil {
-                        self.events = [SparkEvent]()
-                        self.filteredEvents = [SparkEvent]()
-                        dispatch_async(dispatch_get_main_queue(),{
+                
+                dispatch_async(dispatch_get_main_queue(),{
+                    // sequence must be all on the same thread otherwise we get NSInternalInconsistency exception on insertRowsAtIndexPaths
+                    
+                    if let e = event {
+                        if self.events == nil {
+                            self.events = [SparkEvent]()
+                            self.filteredEvents = [SparkEvent]()
                             self.noEventsLabel.hidden = true
-                        })
-                    }
-                    // insert new event to datasource
-                    self.events?.insert(e, atIndex: 0)
-                    if self.filtering {
-                        self.filterEvents()
-                        dispatch_async(dispatch_get_main_queue(),{
+                        }
+                        // insert new event to datasource
+                        self.events?.insert(e, atIndex: 0)
+                        if self.filtering {
+                            self.filterEvents()
                             self.deviceEventsTableView.reloadData()
-                        })
-                    } else {
-                        if !self.view.hidden {
-                            dispatch_async(dispatch_get_main_queue(),{
-                                // add new event row on top
-                                self.deviceEventsTableView.beginUpdates()
-                                self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
-                                self.deviceEventsTableView.endUpdates()
+                        } else {
+                            if !self.view.hidden {
+                                    // add new event row on top
                                 
-                            })
+                                    self.deviceEventsTableView.beginUpdates()
+                                    self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
+                                    self.deviceEventsTableView.endUpdates()
+                                    
+                            }
                         }
                     }
-                }
+                })
             }
             })
     }
