@@ -16,7 +16,7 @@
 #import "Particle-Swift.h"
 
 
-#define SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY   @"seenFirstTimeView"
+
 
 @interface SPKTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SparkDeviceDelegate>
 
@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pinFunctionViewCenterY;
 
 @property (nonatomic, weak) IBOutlet PinFunctionView *pinFunctionView;
-@property (nonatomic, weak) IBOutlet UIView *firstTimeView;
+
 @property (nonatomic, weak) IBOutlet UIImageView *tinkerLogoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 //@property (weak, nonatomic) IBOutlet UILabel *deviceIDLabel;
@@ -40,6 +40,7 @@
 @property (nonatomic) BOOL chipIsShowing;
 @property (nonatomic) CGRect originalPinFunctionFrame;
 @property (weak, nonatomic) IBOutlet UIImageView *deviceStateIndicatorImageView;
+@property (weak, nonatomic) IBOutlet UIButton *inspectButton;
 
 @end
 
@@ -66,14 +67,9 @@
     [self.view sendSubviewToBack:backgroundImage];
     */
     
-    self.deviceView.alpha = 0.2;
-    self.firstTimeView.hidden = NO;
+    self.deviceView.alpha = 1;
     
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissFirstTime)];
-    [self.firstTimeView addGestureRecognizer:tap];
-
-
     // inititalize pins
     [self.device configurePins:self.device.type];
     
@@ -109,17 +105,6 @@
     // animate the deviceStateIndicatorImageView
     [ParticleUtils animateOnlineIndicatorImageView:self.deviceStateIndicatorImageView online:self.device.connected flashing:self.device.isFlashing];
     
-    // first time tutorial view
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *userDefaults = [defaults objectForKey:[SparkCloud sharedInstance].loggedInUsername];
-    if (userDefaults)
-    {
-        if ([userDefaults[SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY] isEqualToNumber:@1])
-        {
-            [self dismissFirstTime];
-        }
-    }
-
     [[Mixpanel sharedInstance] timeEvent:@"Tinker: Tinker screen activity"];
     if (self.chipView.alpha == 0)
         [ParticleSpinner show:self.view];
@@ -132,13 +117,8 @@
 
 
 
-
-
 - (IBAction)backButtonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)helpButtonTapped:(id)sender {
 }
 
 
@@ -318,17 +298,18 @@
                 // viewController is visible
                 
                 // 3
-                YCTutorialBox* tutorial = [[YCTutorialBox alloc] initWithHeadline:@"1" withHelpText:@"1"];
-                [tutorial showAndFocusView:self.pinViews[@"D7"]];
+                YCTutorialBox* tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Device Inspector" withHelpText:@"Tap Inspect to dig deeper into your device and go to Device Inspector"];
+                [tutorial showAndFocusView:self.inspectButton];
                 
                 // 2
-                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"2" withHelpText:@"2"];
+                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Blink the onboard LED" withHelpText:@"Tap any pin to get started, select a pin function and tinker with the value. Hold a pin for 1 second to reset its function. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens."];
                 [tutorial showAndFocusView:self.pinViews[@"D7"]];
-                
+
                 
                 // 1
-                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"3" withHelpText:@"3"];
-                [tutorial showAndFocusView:self.pinViews[@"D7"]];
+                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Welcome to Tinker!" withHelpText:@"Tinker is the fastest and easiest way to prototype and play with your Particle device. You can access the basic input/output functions of the device pins without writing a line of code. Pins can be configured to act as Input or Output, Digital or Analog."];
+                [tutorial showAndFocusView:self.chipView];
+
                 
                 [ParticleUtils setTutorialWasDisplayedForViewController:self];
             }
@@ -406,7 +387,6 @@
 
 -(void)pinViewTapped:(PinView *)pinView
 {
-    NSLog(@"Pin %@ tapped",pinView.pin.label);
     // if a slider is showing remove it 
     if ((self.pinViewShowingSlider) && (self.pinViewShowingSlider != pinView))
     {
@@ -492,15 +472,7 @@
 
 #pragma mark - Private Methods
 
-- (void)dismissFirstTime
-{
-    self.deviceView.alpha = 1;
-    self.firstTimeView.hidden = YES;
-    // first time view
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *userDefaults = @{SEEN_FIRST_TIME_VIEW_USERDEFAULTS_KEY : @1};
-    [defaults setObject:userDefaults forKey:[SparkCloud sharedInstance].loggedInUsername];
-}
+
 
 - (void)showFunctionView:(PinView *)pinView
 {

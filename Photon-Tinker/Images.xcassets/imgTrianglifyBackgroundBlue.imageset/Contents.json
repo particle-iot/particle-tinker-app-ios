@@ -6,13 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "trianglifyBackground_iphone6.png"
+      "filename" : "trianglifyBackground_iphone6.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "trianglifyBackground_iphone6plus.png"
+      "filename" : "trianglifyBackground_iphone6plus.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -41,7 +41,6 @@
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
             <string>Gotham-Book</string>
-            <string>Gotham-Book</string>
         </mutableArray>
         <mutableArray key="Gotham-Light.otf">
             <string>Gotham-Light</string>
@@ -64,9 +63,6 @@
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
             <string>Gotham-Medium</string>
-        </mutableArray>
-        <mutableArray key="Gotham-XLight.otf">
-            <string>Gotham-ExtraLight</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -493,52 +489,6 @@
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" userLabel="chipView">
                                         <rect key="frame" x="0.0" y="32" width="560" height="488"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3P4-zn-2e7" userLabel="firstTimeView">
-                                                <rect key="frame" x="0.0" y="-28" width="560" height="516"/>
-                                                <subviews>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-AA-GQf">
-                                                        <rect key="frame" x="4" y="4" width="552" height="480"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <mutableString key="text">Welcome To Tinker!
-
-Tinker is the fastest and easiest way to prototype and play with your Particle device.
-
-You can access the basic input/output functions of the device without writing a line of code.
-
-Tap any pin to get started, select a pin function and tinker with the value. Hold a pin to reset its function. Start with pin D7 - select digitalWrite - blink the attached LED.  For more information visit: docs.particle.io/photon/tinker/
- Enjoy!</mutableString>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    </textView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-The Particle Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5z-Hi-GOP">
-                                                        <rect key="frame" x="189" y="492" width="142" height="16"/>
-                                                        <fontDescription key="fontDescription" name="Gotham-ExtraLight" family="Gotham" pointSize="16"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="imgPointAtD7" translatesAutoresizingMaskIntoConstraints="NO" id="SrP-yY-bWI">
-                                                        <rect key="frame" x="-20" y="-68" width="37" height="288"/>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.55000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="t5z-Hi-GOP" firstAttribute="top" secondItem="fnz-AA-GQf" secondAttribute="bottom" constant="8" id="1hy-0W-JJs"/>
-                                                    <constraint firstAttribute="width" constant="300" id="645-0e-TnH"/>
-                                                    <constraint firstItem="fnz-AA-GQf" firstAttribute="leading" secondItem="3P4-zn-2e7" secondAttribute="leading" constant="4" id="BAw-RH-oFz"/>
-                                                    <constraint firstItem="fnz-AA-GQf" firstAttribute="top" secondItem="3P4-zn-2e7" secondAttribute="top" constant="4" id="BIz-R1-XX7"/>
-                                                    <constraint firstAttribute="centerX" secondItem="t5z-Hi-GOP" secondAttribute="centerX" constant="20" id="REk-Q1-3Lg"/>
-                                                    <constraint firstAttribute="trailing" secondItem="fnz-AA-GQf" secondAttribute="trailing" constant="4" id="iyT-gF-R4I"/>
-                                                    <constraint firstAttribute="height" constant="400" id="yr0-TL-TTD"/>
-                                                    <constraint firstAttribute="bottom" secondItem="t5z-Hi-GOP" secondAttribute="bottom" constant="8" id="zZH-Fm-Fpe"/>
-                                                </constraints>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="645-0e-TnH"/>
-                                                        <exclude reference="yr0-TL-TTD"/>
-                                                    </mask>
-                                                </variation>
-                                            </view>
                                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="PinFunctionView">
                                                 <rect key="frame" x="178" y="182" width="204" height="124"/>
                                                 <subviews>
@@ -703,12 +653,8 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="3P4-zn-2e7" firstAttribute="top" secondItem="HPv-oK-mru" secondAttribute="top" constant="-28" id="3Wf-jw-GKF"/>
-                                            <constraint firstAttribute="bottom" secondItem="3P4-zn-2e7" secondAttribute="bottom" id="Bdf-nL-iOH"/>
                                             <constraint firstItem="cp9-M3-Ao7" firstAttribute="centerX" secondItem="HPv-oK-mru" secondAttribute="centerX" id="Hoo-UL-L46"/>
                                             <constraint firstItem="cp9-M3-Ao7" firstAttribute="centerY" secondItem="HPv-oK-mru" secondAttribute="centerY" id="Ms8-ZE-rak"/>
-                                            <constraint firstItem="3P4-zn-2e7" firstAttribute="leading" secondItem="HPv-oK-mru" secondAttribute="leading" id="XEw-Jl-nOx"/>
-                                            <constraint firstAttribute="trailing" secondItem="3P4-zn-2e7" secondAttribute="trailing" id="jSE-xG-OyZ"/>
                                         </constraints>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="7hz-fq-iNb">
@@ -781,7 +727,7 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
                         <outlet property="deviceNameLabel" destination="9rh-mq-4bk" id="ynf-M8-EkI"/>
                         <outlet property="deviceStateIndicatorImageView" destination="7hz-fq-iNb" id="9BL-cb-AvB"/>
                         <outlet property="deviceView" destination="9tl-K2-82X" id="hD8-Em-bdH"/>
-                        <outlet property="firstTimeView" destination="3P4-zn-2e7" id="9iQ-i4-Ut4"/>
+                        <outlet property="inspectButton" destination="hGx-VV-XEo" id="TLj-H6-JXt"/>
                         <outlet property="pinFunctionView" destination="cp9-M3-Ao7" id="ue2-CL-pyP"/>
                         <outlet property="pinFunctionViewCenterX" destination="Hoo-UL-L46" id="RRv-84-XWU"/>
                         <outlet property="pinFunctionViewCenterY" destination="Ms8-ZE-rak" id="QKR-Vd-Vfa"/>
@@ -2159,7 +2105,6 @@ Tap any pin to get started, select a pin function and tinker with the value. Hol
         <image name="imgDeviceUnknown" width="200" height="376"/>
         <image name="imgPause" width="256" height="256"/>
         <image name="imgPlus" width="256" height="256"/>
-        <image name="imgPointAtD7" width="37" height="288"/>
         <image name="imgRightChevron" width="64" height="64"/>
         <image name="imgThreeDots" width="600" height="600"/>
         <image name="imgTinkerLogo" width="131" height="138"/>

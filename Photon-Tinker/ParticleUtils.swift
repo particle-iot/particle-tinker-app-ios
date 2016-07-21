@@ -70,6 +70,9 @@ class ParticleUtils: NSObject {
     
     class func shouldDisplayTutorialForViewController(vc : UIViewController) -> Bool {
     
+        return true
+        /// debug
+        
         let prefs = NSUserDefaults.standardUserDefaults()
         let defaultsKeyName = "Tutorial"
         let dictKeyName = String(vc.dynamicType)
@@ -130,13 +133,13 @@ class ParticleUtils: NSObject {
                 
                 if imageView.alpha == 1 {
                     //                    print ("1-->0")
-                    UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
-                        imageView.alpha = 0
+                    UIView.animateWithDuration(2.5, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
+                        imageView.alpha = 0.15
                         }, completion: nil)
                 } else {
                     //                    print ("0-->1")
-                    imageView.alpha = 0
-                    UIView.animateWithDuration(3.0, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
+                    imageView.alpha = 0.15
+                    UIView.animateWithDuration(2.5, delay: 0, options: [.CurveEaseInOut, .Autoreverse, .Repeat, ], animations: {
                         imageView.alpha = 1
                         }, completion: nil)
                     
