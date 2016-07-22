@@ -70,7 +70,7 @@ class ParticleUtils: NSObject {
     
     class func shouldDisplayTutorialForViewController(vc : UIViewController) -> Bool {
     
-        return true
+//        return true
         /// debug
         
         let prefs = NSUserDefaults.standardUserDefaults()
