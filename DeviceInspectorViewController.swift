@@ -207,6 +207,8 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
 //        self.deviceEventsContainerView.hidden = false
         self.infoContainerView.alpha = 1
         self.infoVC!.view.hidden = false
+        self.view.bringSubviewToFront(infoContainerView)
+        
 
         showTutorial()
     }
