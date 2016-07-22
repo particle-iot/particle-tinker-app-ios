@@ -51,12 +51,43 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             }
             
         }
-        
     }
+    
+    
     
     override func viewWillDisappear(animated: Bool) {
         IQKeyboardManager.sharedManager().shouldHidePreviousNext = false
     }
+    
+    
+    
+    func showTutorial() {
+        
+        print ("data showTutorial");
+        
+        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+            
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                
+                if !self.view.hidden {
+                    // viewController is visible
+                    
+         
+                    let firstCell = self.deviceDataTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) //
+                    
+                    // 1
+                    let tutorial = YCTutorialBox(headline: "Device Data", withHelpText: "Tap a function row or down arrow to roll down the arguments box - type in the function arguments, tap the function name to invoke it. Result will appear on right side. Simply tap variable name to read it.")
+                    
+                    tutorial.showAndFocusView(firstCell)
+                    
+                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                }
+                
+            }
+        }
+    }
+
     
     
     func refreshVariableList() {
@@ -83,8 +114,11 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         // move to refresh function
         
         self.refreshVariableList()
+        showTutorial()
         
     }
+    
+    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2

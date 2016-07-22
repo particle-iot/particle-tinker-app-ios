@@ -70,17 +70,60 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     }
     
  
+    @IBOutlet weak var clearEventsButton: UIButton!
     var paused : Bool = false
     var filtering : Bool = false
     var firstTime : Bool = true
     
-    func viewDidAppearFirstTime() {
+    
+    override func viewWillAppear(animated: Bool) {
         if firstTime {
             subscribeToDeviceEvents()
             firstTime = false
         }
+        showTutorial()
     }
     
+    
+    func showTutorial() {
+        
+        print ("events showTutorial");
+        
+        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+            
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                
+                if !self.view.hidden {
+                    // viewController is visible
+                   
+                    var tutorial = YCTutorialBox(headline: "Clear events", withHelpText: "Tap the trash can icon to remove all the events from the list.")
+                    tutorial.showAndFocusView(self.clearEventsButton)
+                    
+                    // 3
+                    tutorial = YCTutorialBox(headline: "Play and pause", withHelpText: "Tap play/pause button to pause the events stream momentarily. Events published while stream is paused will not be added.")
+                    tutorial.showAndFocusView(self.playPauseButton)
+                    
+                    // 2
+                    tutorial = YCTutorialBox(headline: "Search events", withHelpText: "Tap the filter text field and type text to filter the events list to show only events containing the search text. Filtering is done on both event name and data.")
+                    
+                    tutorial.showAndFocusView(self.eventFilterSearchBar)
+                    
+                    
+                    // 1
+                    tutorial = YCTutorialBox(headline: "Device Events", withHelpText: "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your phone clipboard.")
+                    
+                    tutorial.showAndFocusView(self.deviceEventsTableView)
+                    
+                    
+                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                    self.deviceEventsTableView.reloadData()
+                }
+                
+            }
+        }
+    }
+
     @IBOutlet weak var backgroundView: UIView!
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         

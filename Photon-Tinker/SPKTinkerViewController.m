@@ -387,7 +387,7 @@
 
 -(void)pinViewTapped:(PinView *)pinView
 {
-    // if a slider is showing remove it 
+    // if a slider is showing remove it
     if ((self.pinViewShowingSlider) && (self.pinViewShowingSlider != pinView))
     {
         [self.pinViewShowingSlider.valueView hideSlider];

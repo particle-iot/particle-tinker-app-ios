@@ -137,7 +137,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         view.endEditing(true)
         
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveLinear, animations: {
-            self.deviceInfoContainerView.alpha = (sender.selectedSegmentIndex == 0 ? 1.0 : 0.0)
+            self.infoContainerView.alpha = (sender.selectedSegmentIndex == 0 ? 1.0 : 0.0)
             self.deviceDataContainerView.alpha = (sender.selectedSegmentIndex == 1 ? 1.0 : 0.0)
             self.deviceEventsContainerView.alpha = (sender.selectedSegmentIndex == 2 ? 1.0 : 0.0)
             
@@ -146,19 +146,31 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
             
             var delayTime = dispatch_time(DISPATCH_TIME_NOW,0)
             if !finished {
-                delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
+                delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.25 * Double(NSEC_PER_SEC)))
             }
             dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self.deviceInfoContainerView.hidden = (sender.selectedSegmentIndex == 0 ? false : true)
-                self.deviceDataContainerView.hidden = (sender.selectedSegmentIndex == 1 ? false : true)
-                self.deviceEventsContainerView.hidden = (sender.selectedSegmentIndex == 2 ? false : true)
+                self.infoVC!.view.hidden = (sender.selectedSegmentIndex == 0 ? false : true)
+                self.dataVC!.view.hidden = (sender.selectedSegmentIndex == 1 ? false : true)
+                self.eventsVC!.view.hidden = (sender.selectedSegmentIndex == 2 ? false : true)
             }
             
         }
         
+        // since the embed segue already triggers the VC lifecycle functions - this is an override to re-call them on change of segmented view to trigger relevant inits or tutorial boxes
+        
+        if (sender.selectedSegmentIndex == 0)
+        {
+            self.infoVC!.viewWillAppear(false)
+        }
+        
+        if (sender.selectedSegmentIndex == 1)
+        {
+            self.dataVC!.viewWillAppear(false)
+        }
+        
         if (sender.selectedSegmentIndex == 2) // events
         {
-            self.eventsVC!.viewDidAppearFirstTime()
+            self.eventsVC!.viewWillAppear(false)
         }
  
         
@@ -175,9 +187,6 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     
     override func viewDidLoad() {
 
-        self.deviceInfoContainerView.hidden = false
-        self.deviceDataContainerView.hidden = true
-        self.deviceEventsContainerView.hidden = true
 
        
         let font = UIFont(name: "Gotham-book", size: 15.0)
@@ -190,6 +199,16 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         
         
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+//        self.deviceInfoContainerView.hidden = false
+//        self.deviceDataContainerView.hidden = false
+//        self.deviceEventsContainerView.hidden = false
+        self.infoContainerView.alpha = 1
+        self.infoVC!.view.hidden = false
+
+        showTutorial()
     }
     
     var infoVC : DeviceInspectorInfoViewController?
@@ -206,14 +225,23 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
                 
                 if let i = vc as? DeviceInspectorInfoViewController {
                     self.infoVC = i
+                    dispatch_async(dispatch_get_main_queue()) {
+                        i.view.hidden = false
+                    }
                 }
                 
                 if let d = vc as? DeviceInspectorDataViewController {
                     self.dataVC = d
+                    dispatch_async(dispatch_get_main_queue()) {
+                        d.view.hidden = true
+                    }
                 }
                 
                 if let e = vc as? DeviceInspectorEventsViewController {
                     self.eventsVC = e
+                    dispatch_async(dispatch_get_main_queue()) {
+                        e.view.hidden = true
+                    }
                 }
                 
             }
@@ -357,4 +385,60 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     }
 
 
+    @IBOutlet weak var infoContainerView: UIView!
+    
+    @IBOutlet weak var moreActionsButton: UIButton!
+    
+    func showTutorial() {
+        
+        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+            
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                
+                if self.navigationController?.visibleViewController == self {
+                    // viewController is visible
+                    
+                    // 3
+//                    var tutorial = YCTutorialBox(headline: "Additional actions", withHelpText: "Tap the three dots button for more actions such as reflashing the Tinker firmware, force refreshing the device info/data, signal the device (LED shouting rainbows), changing device name and easily accessing Particle documentation and support portal.")
+//                    tutorial.showAndFocusView(self.moreActionsButton)
+//                    
+//                    // 2
+//                    tutorial = YCTutorialBox(headline: "Modes", withHelpText: "Device inspector has 3 modes - tap 'Info' to see your device network parameters, tap 'data' to interact with your device exposed functions and variables, tap 'events' to view a searchable list of the device published events.")
+//                    
+//                    tutorial.showAndFocusView(self.modeSegmentedControl)
+                    
+                    
+                    // 1
+                    let tutorial = YCTutorialBox(headline: "Welcome to Device Inspector", withHelpText: "Here you can see advanced information on your device and interact with it further than Tinker. Tap the blue clipboard icon to copy the corresponding field to the clipboard.", withCompletionBlock: {
+                        // 2
+                        let tutorial = YCTutorialBox(headline: "Modes", withHelpText: "Device inspector has 3 modes - tap 'Info' to see your device network parameters, tap 'data' to interact with your device exposed functions and variables, tap 'events' to view a searchable list of the device published events.", withCompletionBlock:  {
+                            let tutorial = YCTutorialBox(headline: "Additional actions", withHelpText: "Tap the three dots button for more actions such as reflashing the Tinker firmware, force refreshing the device info/data, signal the device (LED shouting rainbows), changing device name and easily accessing Particle documentation and support portal.")
+                            
+                            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
+                            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                                tutorial.showAndFocusView(self.moreActionsButton)
+                            }
+                            
+
+                        })
+                        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
+                        dispatch_after(delayTime, dispatch_get_main_queue()) {
+                        
+                            tutorial.showAndFocusView(self.modeSegmentedControl)
+                        }
+
+                    })
+                    
+                    tutorial.showAndFocusView(self.infoContainerView)
+                    
+                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                }
+                
+            }
+        }
+    }
+    
+    
+    
 }

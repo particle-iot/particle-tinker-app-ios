@@ -208,10 +208,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cw-AT-ACb" userLabel="Setup new device">
-                                        <rect key="frame" x="568" y="26" width="32" height="32"/>
+                                        <rect key="frame" x="566" y="25" width="34" height="34"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="GCQ-hE-4hR"/>
-                                            <constraint firstAttribute="height" constant="32" id="PV4-cO-TWo"/>
+                                            <constraint firstAttribute="width" constant="34" id="GCQ-hE-4hR"/>
+                                            <constraint firstAttribute="height" constant="34" id="PV4-cO-TWo"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="imgPlus"/>
@@ -759,12 +759,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vy-mA-gxb" userLabel="actionsButton">
-                                        <rect key="frame" x="564" y="32" width="24" height="24"/>
+                                        <rect key="frame" x="556" y="32" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="1hq-mO-2Fe"/>
-                                            <constraint firstAttribute="width" constant="24" id="V5P-la-5QP"/>
+                                            <constraint firstAttribute="height" constant="32" id="1hq-mO-2Fe"/>
+                                            <constraint firstAttribute="width" constant="32" id="V5P-la-5QP"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="8"/>
                                         <state key="normal" image="imgThreeDots"/>
                                         <connections>
                                             <action selector="actionButtonTapped:" destination="XC3-E0-ieD" eventType="touchUpInside" id="Ex7-Mg-6wP"/>
@@ -962,7 +963,9 @@
                         <outlet property="deviceInfoContainerView" destination="j53-yb-22l" id="u0V-v9-cfa"/>
                         <outlet property="deviceNameLabel" destination="0k8-O3-CxC" id="FKx-7P-GrH"/>
                         <outlet property="deviceOnlineIndicatorImageView" destination="aop-XH-BTl" id="oUd-ij-ZiL"/>
+                        <outlet property="infoContainerView" destination="j53-yb-22l" id="yP2-JH-KUc"/>
                         <outlet property="modeSegmentedControl" destination="2FK-PL-EJc" id="lut-eU-8m8"/>
+                        <outlet property="moreActionsButton" destination="8vy-mA-gxb" id="lag-RO-t3f"/>
                         <segue destination="zq2-10-iO0" kind="presentation" identifier="help" id="cNZ-tA-DeX"/>
                     </connections>
                 </viewController>
@@ -1649,6 +1652,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundView" destination="v2v-vy-LHY" id="QVi-pL-6QR"/>
+                        <outlet property="clearEventsButton" destination="QCf-JS-MRu" id="BV7-eg-ShQ"/>
                         <outlet property="deviceEventsTableView" destination="iee-Fl-d7y" id="aYY-co-0fd"/>
                         <outlet property="eventFilterSearchBar" destination="vRp-Sf-BPF" id="ijB-el-F6W"/>
                         <outlet property="noEventsLabel" destination="F6e-1K-ahG" id="igB-YR-qLV"/>
@@ -2115,6 +2119,6 @@
         <image name="v" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tNr-Sb-zVv"/>
+        <segue reference="Gcf-aV-58w"/>
     </inferredMetricsTieBreakers>
 </document>
