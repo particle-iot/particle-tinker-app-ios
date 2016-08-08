@@ -9,9 +9,6 @@
 #import "DevicePin.h"
 #import <objc/runtime.h>
 
-static const char * const CORE_NAMES[] = { "aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "cracker", "cranky", "crazy", "dentist", "doctor", "dozen", "easter", "ferret", "gerbil", "hacker", "hamster", "hindu", "hobo", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "scrapple", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie" };
-
-static NSUInteger CORE_NAMES_COUNT = 55;
 
 #define ALL_FUNCTIONS (DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead|DevicePinFunctionAnalogWrite)
 
@@ -91,16 +88,6 @@ static NSUInteger CORE_NAMES_COUNT = 55;
     }
 
     self.pins = @[a0, a1, a2, a3, a4, a5, a6, a7, d0, d1, d2, d3, d4, d5, d6, d7];
-}
-
-- (NSString *)generateName
-{
-    NSUInteger a = arc4random() % CORE_NAMES_COUNT;
-    NSUInteger b = arc4random() % CORE_NAMES_COUNT;
-    const char *first = CORE_NAMES[a];
-    const char *last = CORE_NAMES[b];
-
-    return [NSString stringWithFormat:@"%s_%s", first, last];
 }
 
 
