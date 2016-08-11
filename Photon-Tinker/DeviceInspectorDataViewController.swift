@@ -62,8 +62,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     
     override func showTutorial() {
-        
-        print ("data showTutorial");
+    
         
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
             
@@ -114,8 +113,6 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         // move to refresh function
         
         self.refreshVariableList()
-        showTutorial()
-        
     }
     
     
@@ -203,7 +200,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
-        print ("select "+indexPath.description)
+        
         if cell.device == nil || indexPath.section > 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             tableView.deselectRowAtIndexPath(indexPath, animated: false)
         } else {
@@ -225,7 +222,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
-        print ("deselect "+indexPath.description)
+        
         if cell.device != nil && indexPath.section == 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             
             let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell

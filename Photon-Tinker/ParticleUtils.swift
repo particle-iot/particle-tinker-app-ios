@@ -76,7 +76,6 @@ class ParticleUtils: NSObject {
         let prefs = NSUserDefaults.standardUserDefaults()
         let defaultsKeyName = "Tutorial"
         let dictKeyName = String(vc.dynamicType)
-        print ("shouldDisplayTutorialForViewController "+dictKeyName)
         
         if let onceDict = prefs.dictionaryForKey(defaultsKeyName) {
             let keyExists = onceDict[dictKeyName] != nil

@@ -98,8 +98,8 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     @IBOutlet weak var copyDeviceIdButton: UIButton!
     override func showTutorial() {
         
-        print ("info showTutorial");
-        
+        // no need for tutorial here as info already provided by parent VC tutorial
+        /*
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
             
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.7 * Double(NSEC_PER_SEC)))
@@ -118,6 +118,8 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
                 
             }
         }
+         */
+        
     }
     
     

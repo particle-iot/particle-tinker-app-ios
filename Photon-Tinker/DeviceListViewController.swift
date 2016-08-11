@@ -215,7 +215,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     
                     // 1
                     let firstDeviceCell = self.photonSelectionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) // TODO: what is theres not cell
-                    tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "See and manage your devices. Online devices have their indicator 'breathing' cyan, offline ones are gray. Tap a device to go enter Tinker or Device Inspector mode - Device must run Tinker firmware to enter Tinker mode.  Swipe left if you wish to remove a device from your account. Swipe down to refresh your list.")
+                    tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "See and manage your devices. Online devices have their indicator 'breathing' cyan, offline ones are gray. Tap a device to enter Tinker mode or Device Inspector mode - Device must run Tinker firmware to enter Tinker mode.\nSwipe left if you wish to remove a device from your account.\nSwipe down to refresh your list.")
                     
                     tutorial.showAndFocusView(firstDeviceCell)
                     
@@ -230,13 +230,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     override func viewWillDisappear(animated: Bool) {
-        if let sid = self.statusEventID {
-            SparkCloud.sharedInstance().unsubscribeFromEventWithID(sid) // TODO : remove
-            print("! unsubscribing from status event")
-        }
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        Mixpanel.sharedInstance().track("Tinker: Device list screen activity")
+        
     }
     
     

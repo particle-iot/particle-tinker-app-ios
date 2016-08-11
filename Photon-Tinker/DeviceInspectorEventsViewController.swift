@@ -55,6 +55,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                                 self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
                                 self.deviceEventsTableView.endUpdates()
                                 
+                            } else {
+                                self.deviceEventsTableView.reloadData()
                             }
                         }
                     }
@@ -73,21 +75,14 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     @IBOutlet weak var clearEventsButton: UIButton!
     var paused : Bool = false
     var filtering : Bool = false
-    var firstTime : Bool = true
     
     
     override func viewWillAppear(animated: Bool) {
-        if firstTime {
             subscribeToDeviceEvents()
-            firstTime = false
-        }
-        showTutorial()
     }
     
     
     override func showTutorial() {
-        
-        print ("events showTutorial");
         
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
             

@@ -160,17 +160,17 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         
         if (sender.selectedSegmentIndex == 0)
         {
-            self.infoVC!.viewWillAppear(false)
+            self.infoVC!.showTutorial()
         }
         
         if (sender.selectedSegmentIndex == 1)
         {
-            self.dataVC!.viewWillAppear(false)
+            self.dataVC!.showTutorial()
         }
         
         if (sender.selectedSegmentIndex == 2) // events
         {
-            self.eventsVC!.viewWillAppear(false)
+            self.eventsVC!.showTutorial()
         }
  
         
@@ -217,6 +217,8 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     var dataVC : DeviceInspectorDataViewController?
     var eventsVC : DeviceInspectorEventsViewController?
     
+    
+    // happens right as Device Inspector is displayed as all VCs are in an embed segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // if its either the info data or events VC then set the device to what we are inspecting
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
