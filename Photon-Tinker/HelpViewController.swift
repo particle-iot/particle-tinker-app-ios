@@ -179,7 +179,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         default:
             ParticleUtils.resetTutorialWasDisplayed()
             dispatch_async(dispatch_get_main_queue()) {
-                TSMessage.showNotificationWithTitle("Tutorials", subtitle: "Tutorials were reset and will be displayed ", type: .Success)
+                TSMessage.showNotificationInViewController(self, title: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .Success)
             }
 
             openWebView = false

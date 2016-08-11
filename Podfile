@@ -10,7 +10,6 @@ target 'Particle' do
     pod 'Mixpanel'
     pod 'DateTools'
     pod 'IQKeyboardManager'
-    pod 'MXSegmentedPager'
     pod 'YCTutorialBox'
     pod 'Crashlytics'
 end

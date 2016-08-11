@@ -85,7 +85,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     }
     
     
-    func showTutorial() {
+    override func showTutorial() {
         
         print ("events showTutorial");
         

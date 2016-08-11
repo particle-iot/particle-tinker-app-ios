@@ -1281,7 +1281,7 @@
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/09/2016 03:02:01AM - do time ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeY-0U-LTa">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeY-0U-LTa">
                                         <rect key="frame" x="120" y="65" width="464" height="18"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1403,6 +1403,7 @@
                     </view>
                     <connections>
                         <outlet property="copyDeviceIccidButton" destination="GHE-qn-8qb" id="SsK-Gu-I4Q"/>
+                        <outlet property="copyDeviceIdButton" destination="ECO-4v-GVj" id="zOj-7I-GWn"/>
                         <outlet property="dataUsageLabel" destination="DFI-76-2zX" id="szz-Ux-EKe"/>
                         <outlet property="dataUsageValueLabel" destination="QNd-PV-bTT" id="P4n-WO-OMz"/>
                         <outlet property="deviceIccidLabel" destination="4k9-e3-U7x" id="RYi-Bk-LSj"/>
@@ -1698,11 +1699,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dm-jH-4Zo">
-                                                    <rect key="frame" x="16" y="8" width="156" height="28"/>
+                                                    <rect key="frame" x="16" y="8" width="149" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="eVw-tm-1iS"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                                     <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" title="functionName " image="f"/>
                                                     <connections>
@@ -1710,7 +1711,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bgr-gq-vsH">
-                                                    <rect key="frame" x="172" y="10" width="28" height="28"/>
+                                                    <rect key="frame" x="165" y="10" width="28" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="28" id="VI2-e2-NnE"/>
                                                         <constraint firstAttribute="height" constant="28" id="rkg-C1-vYT"/>
@@ -1813,21 +1814,15 @@
                                                     <rect key="frame" x="8" y="8" width="544" height="74"/>
                                                     <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xc-9B-osm">
-                                                    <rect key="frame" x="519" y="12" width="29" height="20"/>
-                                                    <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="16"/>
-                                                    <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6xt-Y7-Eqb">
                                                     <rect key="frame" x="528" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APd-T7-hO9">
-                                                    <rect key="frame" x="16" y="8" width="158" height="28"/>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APd-T7-hO9">
+                                                    <rect key="frame" x="16" y="8" width="151" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="qnU-7J-ckT"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                                     <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" title=" variableName " image="v"/>
                                                     <connections>
@@ -1840,18 +1835,24 @@
                                                     <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCR-Dz-gD2">
-                                                    <rect key="frame" x="174" y="8" width="66" height="28"/>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCR-Dz-gD2">
+                                                    <rect key="frame" x="167" y="8" width="62" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="wAG-io-VZ9"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                     <color key="tintColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" title="(Integer)"/>
                                                     <connections>
                                                         <action selector="readButtonTapped:" destination="ciA-TH-yFq" eventType="touchUpInside" id="XSI-In-8nO"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xc-9B-osm">
+                                                    <rect key="frame" x="233" y="12" width="315" height="20"/>
+                                                    <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="16"/>
+                                                    <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -1870,6 +1871,7 @@
                                                 <constraint firstItem="6xt-Y7-Eqb" firstAttribute="centerY" secondItem="5xc-9B-osm" secondAttribute="centerY" id="fHC-hJ-B0k"/>
                                                 <constraint firstItem="6xt-Y7-Eqb" firstAttribute="centerY" secondItem="APd-T7-hO9" secondAttribute="centerY" id="g1H-ZU-nnE"/>
                                                 <constraint firstItem="rFK-m3-Djo" firstAttribute="top" secondItem="TFC-gO-p5o" secondAttribute="topMargin" constant="4" id="hLE-5J-mNH"/>
+                                                <constraint firstItem="5xc-9B-osm" firstAttribute="leading" secondItem="xCR-Dz-gD2" secondAttribute="trailing" constant="4" id="lbZ-K3-zdT"/>
                                                 <constraint firstItem="5xc-9B-osm" firstAttribute="leading" secondItem="xCR-Dz-gD2" secondAttribute="trailing" constant="8" id="mW2-0v-Zpj"/>
                                                 <constraint firstItem="XEd-mN-6tB" firstAttribute="leading" secondItem="xCR-Dz-gD2" secondAttribute="trailing" constant="-221" id="s43-4Y-D9U"/>
                                                 <constraint firstItem="APd-T7-hO9" firstAttribute="leading" secondItem="TFC-gO-p5o" secondAttribute="leadingMargin" constant="8" id="sVI-np-9pm"/>
@@ -2006,7 +2008,7 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="helpCell" rowHeight="44" id="HDe-8x-xux" customClass="HelpTableViewCell" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="592" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="592" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="HDe-8x-xux" id="5Bs-OM-TUs">
                                             <rect key="frame" x="0.0" y="0.0" width="592" height="44"/>

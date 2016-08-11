@@ -95,4 +95,30 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     }
     
     
+    @IBOutlet weak var copyDeviceIdButton: UIButton!
+    override func showTutorial() {
+        
+        print ("info showTutorial");
+        
+        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+            
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.7 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                
+                if !self.view.hidden {
+                    // viewController is visible
+                    // 1
+                    let tutorial = YCTutorialBox(headline: "Device detailed information", withHelpText: "This page displays the cloud  information about your selected device. Tap the blue clipboard button to copy info field to your clipboard.")
+                    
+                    tutorial.showAndFocusView(self.copyDeviceIdButton)
+                    
+                    
+                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                }
+                
+            }
+        }
+    }
+    
+    
 }
