@@ -65,8 +65,9 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextField
     
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+//        textField.resignFirstResponder()
         self.callButtonTapped(textField)
+        textField.selectAll(nil)
         return true
     }
 
