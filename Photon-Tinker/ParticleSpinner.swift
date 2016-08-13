@@ -20,6 +20,11 @@ import Foundation
         hud.minShowTime = 0.5
         hud.color = UIColor.clearColor()
         
+        // MBProgressHUD 1.0.0 tries:
+//        hud.backgroundView.color = UIColor.clearColor()
+//        hud.backgroundView.style = .SolidColor
+//        hud.bezelView.backgroundColor = UIColor.clearColor()
+        
         // prepare spinner view for first time populating of devices into table
         let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
         spinnerView.frame = CGRectMake(0, 0, 64, 64);

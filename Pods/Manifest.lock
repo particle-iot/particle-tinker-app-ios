@@ -23,7 +23,7 @@ PODS:
   - FXBlurView (1.6.4)
   - HexColors (2.2.1)
   - IQKeyboardManager (4.0.4)
-  - MBProgressHUD (1.0.0)
+  - MBProgressHUD (0.9.2)
   - Mixpanel (3.0.2):
     - Mixpanel/Mixpanel (= 3.0.2)
   - Mixpanel/Mixpanel (3.0.2)
@@ -53,7 +53,7 @@ DEPENDENCIES:
   - Crashlytics
   - DateTools
   - IQKeyboardManager
-  - MBProgressHUD
+  - MBProgressHUD (~> 0.9)
   - Mixpanel
   - PullToRefreshCoreText (~> 0.1)
   - Spark-SDK (from `../spark-sdk-ios`)
@@ -77,7 +77,7 @@ SPEC CHECKSUMS:
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
-  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   Mixpanel: 0e4f1f9a2ac612b589b2894830038418c2587428
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   Spark-SDK: 609a9c51057410b5373e9a9fc32736d185298b70
@@ -85,6 +85,6 @@ SPEC CHECKSUMS:
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
 
-PODFILE CHECKSUM: 59ed86bef2fd76f0efa845c48cdb4435e594638d
+PODFILE CHECKSUM: c383f99c33a2da3d10ae2566f76255cf6db1dc5e
 
 COCOAPODS: 1.0.1

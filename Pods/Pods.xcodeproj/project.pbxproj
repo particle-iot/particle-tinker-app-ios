@@ -27,7 +27,6 @@
 		086644171CF51DB691A1928B6E7C6FF8 /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 211630AF11942BCA0A9713371326A2B8 /* IQBarButtonItem.m */; };
 		08DDB39F398641BB7B5DE3E676A8170F /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E53B72B1F392E8C9737B7FF278282C /* DTTimePeriodCollection.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0935B622B95557A1C4C2D25FEAD6B6E3 /* SparkSetupConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E476C032C1096AB362FA157A2E22C7 /* SparkSetupConnection.m */; };
-		0951ECB79A8DDBA8DC3077FA1CC84E6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92135CDC796B85C25DAFCCF5B183DEA2 /* CoreGraphics.framework */; };
 		0A08FC71C4E3B8E0F8734BCDA7CCA7CB /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = F002B9D8C2B0F85D72015AF6CA392123 /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A5091FC2C4EC295E92A9E29455AA200 /* MPObjectSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 912F97594EF9E2281505C35B4981BCD6 /* MPObjectSerializer.m */; };
 		0C118EA84A58649A57D7BDE7CF5BC9A7 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2391201467DD7CB63BA3B97BE26DA361 /* NSDate+DateTools.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -58,7 +57,6 @@
 		1B5F9EF8BB589E0205DAF5F181BB165C /* ASValueTrackingSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 5641BFF9B212292730525EA55AD3CAC5 /* ASValueTrackingSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B989CCC43D217AAEE5C1477B4FE09E9 /* SparkUserLoginViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 683166F2AAE4DFB070757DAD45EF0C1E /* SparkUserLoginViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BC6815C6435B1E6BBC419A0B51F736D /* MPNetworkPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = CEF2495828AB0337AAC8D6E55CEFC3F0 /* MPNetworkPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1C289876A4849D6798FC7F154214C5F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642082CB761F14EB21E1B3DDA0D96F8E /* Foundation.framework */; };
 		1CD7E245A5840BF91C834E899B4A92BE /* IQUIScrollView+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 362289FBC4515DD4A62545C0CDC35C5D /* IQUIScrollView+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E072877858F3CD7AE10F74C72E708E8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A23B02AFE6005C5BFABB60AAFAD9A476 /* CoreText.framework */; };
 		1F43517BA1AA9826527946647D482DF3 /* OnePasswordExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AB789D1251DFBDF6E9070B1C0D4573DE /* OnePasswordExtension.m */; };
@@ -73,7 +71,6 @@
 		27B3012816A78F6A5ADA0186D4C57963 /* UIColor+MPColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3531769DF801D9229B7A7290E1EA2AAE /* UIColor+MPColor.m */; };
 		2917295C033528E29015BC64A59251CA /* MPDesignerEventBindingResponseMesssage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A326E35DC18659503B531BA92D0A91 /* MPDesignerEventBindingResponseMesssage.m */; };
 		2B0DDD5370285CC54598A1E6E2CF74FE /* MPSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 46745A4CB6E298D337BA8DAC9F9FA01A /* MPSwizzle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B342A1143B39C7E396A50C6540E2639 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 397E60FBFDF9B2FACC9CDE661A576F71 /* QuartzCore.framework */; };
 		2C7192D6A5656FF24A1639A41996645D /* setup.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E745B59C189CDD69F0B7237E6D1BF2A /* setup.xcassets */; };
 		2D941DF18D347D8CDB3E4489A186CCA9 /* SparkSetupWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FDF6003B70D1F8E5A8F0B166813D7D /* SparkSetupWebViewController.m */; };
 		2DC4F595F940893CE57F85B3B0A232AC /* PullToRefreshCoreTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 382797E06945FB8C8D69ABBDE89ABD70 /* PullToRefreshCoreTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -151,6 +148,7 @@
 		5D52DB6DF2E6C24CECB0015A9177A2E1 /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = FBBB907467BC9BC796FB607EB7547776 /* UIProgressView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E2A763BBE5E72D33A97E25067C7936B /* MPUIControlBinding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E99B18BB0C9EAD25F8CBF6BE5CB55 /* MPUIControlBinding.m */; };
 		5E89B526F8A05157DF693E0F693E5E38 /* MPABTestDesignerSnapshotRequestMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F677F9CDC3B6C56AD8D47BD96205EC /* MPABTestDesignerSnapshotRequestMessage.m */; };
+		5EB4F27B76513AE918BA5AE0868E87C8 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = E8743F026399255E1E71773D9623F1BF /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5F27D5C9FA93870917B0779A9D11557A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642082CB761F14EB21E1B3DDA0D96F8E /* Foundation.framework */; };
 		60D493DEE9CAD9AE37B024FB62B93AEC /* SparkSelectNetworkViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B973D34C717BFA47AE2D71430D31E43 /* SparkSelectNetworkViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		615D57F2D5026472A990CBDA9BF1AB72 /* HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C4965A6C9AC7D254A50A459A70B88B /* HexColor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -158,12 +156,10 @@
 		62F742E29E102974446C4B6AD532466F /* IQTitleBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A406F250F130821EAA38A8D0FDDCE08 /* IQTitleBarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		637CD86407C2A9F261FC6A996F6C7583 /* MPPropertyDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F7A495508C0D73FD04204B21053EE8 /* MPPropertyDescription.m */; };
 		63B9D67A0E4367DA9819234F90E3190C /* IQUIViewController+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = C8E89F8C8E7C5D613FD54878FD979EB1 /* IQUIViewController+Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		648E7F45D6E4DCE98EED9D4E2F003C1E /* MBProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B9561FC0E7C2BC26E0E4EFDB286C47 /* MBProgressHUD-dummy.m */; };
 		650FFDAF60A6C37D824BC6364B09A3E5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E079DE780C77DD92DD7EE0339D5414F /* SystemConfiguration.framework */; };
 		65A6E9DB684A49242077E10DB08CCE98 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642082CB761F14EB21E1B3DDA0D96F8E /* Foundation.framework */; };
 		6649CCBBE3C9EE52492CFE712790AA11 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF2DC38DBEE5AEDCC7F530A1B8F4C4 /* IQToolbar.m */; };
 		6917B8193A16214E0F8E759BA9060811 /* ASValuePopUpView.h in Headers */ = {isa = PBXBuildFile; fileRef = D3116561B25D71DA428F5FE0B97F1E96 /* ASValuePopUpView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		695A3FA15E903AE48EB0B3BE336F2467 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = E8743F026399255E1E71773D9623F1BF /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6975F25CFD50F6BB816BB206DD245331 /* MPTweak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A22FE22DE53500490F7A99CB897DD7F /* MPTweak.m */; };
 		69AB19FFD85256F1A6CADA6CD72F0974 /* MPApplicationStateSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF6BAD7BE5CB41CF44DAB65EE985517 /* MPApplicationStateSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		69CDE1464C9ED628514C4CD4AB7E34EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92135CDC796B85C25DAFCCF5B183DEA2 /* CoreGraphics.framework */; };
@@ -203,6 +199,7 @@
 		7F0578A0258E02384F6229C678E60D31 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E89AC27161DFB5B80698CD656BC69E8 /* UIRefreshControl+AFNetworking.m */; };
 		80A3034A11D2C1C9684F31EB2B756EE6 /* MPDesignerTrackMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4425919C517F89545D3C2FE788B99 /* MPDesignerTrackMessage.m */; };
 		82220B3908BB7C0193A12C02423C1463 /* UIScrollView+PullToRefreshCoreText.h in Headers */ = {isa = PBXBuildFile; fileRef = 690A9FB018F674B9E3B02BC3DF6B029E /* UIScrollView+PullToRefreshCoreText.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82FC12F67E83874B93592218E9FB4CA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FC627647B85F8635B0DC899B18E3CC00 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		830050886B18F54E17F117FD8EFC717B /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B4EAAF922C18EC32C4BE13774BE30C5 /* UIActivityIndicatorView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83567F6D5778EA6427BE44ED7BC83775 /* MPNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D9484952A472C980D12C232076CD09D /* MPNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83C9CCA1A849650F5FAE602A2CBD88B1 /* NSInvocation+MPHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E28DE033287C1D9A4D28D24AFB9F60 /* NSInvocation+MPHelpers.m */; };
@@ -233,6 +230,7 @@
 		92B85395D42B073E4DD734AE06DD6BDE /* Mixpanel.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D7ED270809C326CF9FF4E365EB9432 /* Mixpanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		935195C07E145C4D973E97569C081524 /* SparkManualNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B387018989E583EE92CA4E5A8C86D872 /* SparkManualNetworkViewController.m */; };
 		937D59D69279B1F9D543C18F6882B09B /* EventSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9772A14A5798E854CFCD7FFC2043C2FB /* EventSource.m */; };
+		94FC4AE35C0F90BD510E491C20A2F830 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642082CB761F14EB21E1B3DDA0D96F8E /* Foundation.framework */; };
 		95E0881A4F8A703620F87103262155B3 /* MPUIControlBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = B638011482DAC07BEE2F4BBB00500951 /* MPUIControlBinding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96973D4A26F865D759E659760E3294BE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4FEF36CE5CE387DDAFF325BDB17A5A /* MobileCoreServices.framework */; };
 		96BD7FE153F1054780C6878AC74A505E /* MPABTestDesignerTweakRequestMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C450C002C3073376D60C842D22FBAE /* MPABTestDesignerTweakRequestMessage.m */; };
@@ -272,6 +270,7 @@
 		B56BE9E5FAA96E117B7553C852BC33DA /* SparkSelectNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 853C809FCD2470C368D9970C064B8B03 /* SparkSelectNetworkViewController.m */; };
 		B5CF67F7870BAB70A76E57479B706B42 /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 02084F5E58E0866AC9D147770B126E97 /* UIWebView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B72B45639A03903EB1E0BF7A023A4524 /* MPObjectSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BB541F6C509C59D721C40C61AAEBBB /* MPObjectSelector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B79D1B6F33E6229F2C9C4E039A2C3D4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92135CDC796B85C25DAFCCF5B183DEA2 /* CoreGraphics.framework */; };
 		B87F6FCBD17B06EAE98DA08EEECB7AEF /* MPABTestDesignerMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = E1A2699DD5D14CA26F0FFF7225056AED /* MPABTestDesignerMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA9045EE2ABF51EC0A81F0D9883565DC /* MPABTestDesignerClearRequestMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCBFB96D2E71BBC2A73CF477C21C693 /* MPABTestDesignerClearRequestMessage.m */; };
 		BB6B91C846F1F012AE71794E5EC75688 /* SparkSetupResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3ACE00B06B4C95F9658535BA79676E /* SparkSetupResultViewController.m */; };
@@ -302,7 +301,6 @@
 		CA7BA0F6C9D4E40064058740C48531E9 /* MPDesignerEventBindingMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = CB5C61FAB29F35C177963C6D40420481 /* MPDesignerEventBindingMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CAA0FA880FDFE7ED42CC9DA9B0BCA7EB /* PullToRefreshCoreText-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B46CFB8EBE61005FC9D32DF81F70867 /* PullToRefreshCoreText-dummy.m */; };
 		CB96CBB0495C74A6911B2E7365591DFD /* SparkSetupUISpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = C856992C96C852909ECD43E24D15CE89 /* SparkSetupUISpinner.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CCA9C08C9CBDE367B7BB38B6C0547B94 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FC627647B85F8635B0DC899B18E3CC00 /* MBProgressHUD.m */; };
 		CDCDA3DBC3C13EBB3CA76C7F0C17D427 /* IQKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0D86C5B69560D0624BCAE0869888B2 /* IQKeyboardManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CF6A0025B947F85931A7DA5943746276 /* IQUIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C6E59E9AFBB141E48F2E28EA948E31 /* IQUIViewController+Additions.m */; };
 		CFA07E346C8FBD697FA52054167ECED7 /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E99720D14B1FD03C02A2B5C2E536599B /* TSMessage.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -365,6 +363,7 @@
 		FAA9E3B821161AC5B52EF7C4B1ED6782 /* IQUIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E6DE7B3DF8244BDAA10596704CE25 /* IQUIView+Hierarchy.m */; };
 		FAE0040557C6C4AA9370D43AB8663228 /* MPDesignerSessionCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 285B30B91686B608F8E43BC8AEFD4353 /* MPDesignerSessionCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB49C5345AB2EAB9E5FBD0C0EA2AEF98 /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7189C6AFA237C52B484D6797B2E78F1B /* TSBlurView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		FC214077677D4F02E03C6C85F774E028 /* MBProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B9561FC0E7C2BC26E0E4EFDB286C47 /* MBProgressHUD-dummy.m */; };
 		FCDDD3BC67EA205C87238A2A87D5C36C /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E83721FA5F8D7D64F88DA0EF23F625 /* AFURLSessionManager.m */; };
 		FD4B3F4BD410FC530038F676815966B4 /* MPABTestDesignerTweakRequestMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C270688AFC480CC029AF62123EC0FC /* MPABTestDesignerTweakRequestMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FFC8C5BF955DF2C3A4ECED43DECFF94B /* SparkSetupUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CAFF8ECB91833C7B84D51581C23986 /* SparkSetupUIButton.m */; };
@@ -389,7 +388,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D058B89EB3B3DF45457A2DCD3971AFFE;
+			remoteGlobalIDString = FE2F1D7B9D9FCEA148517E4657B243F4;
 			remoteInfo = MBProgressHUD;
 		};
 		4642FB477BE9C0CD15BA3E73F49305CE /* PBXContainerItemProxy */ = {
@@ -1057,16 +1056,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		988FA15379A4032C312C2049FB88101A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0951ECB79A8DDBA8DC3077FA1CC84E6B /* CoreGraphics.framework in Frameworks */,
-				1C289876A4849D6798FC7F154214C5F8 /* Foundation.framework in Frameworks */,
-				2B342A1143B39C7E396A50C6540E2639 /* QuartzCore.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AF0AE86534C8829539E0ABDE81DA96A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1104,6 +1093,15 @@
 				4127F6071DF08696A964383FB000582E /* QuartzCore.framework in Frameworks */,
 				D98E487B3816D34DD374F0645966AD06 /* SystemConfiguration.framework in Frameworks */,
 				CA0922C5E85271F1100EDCF74227D477 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E81C08F5CCC0A5FBFF4559E2173164C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B79D1B6F33E6229F2C9C4E039A2C3D4A /* CoreGraphics.framework in Frameworks */,
+				94FC4AE35C0F90BD510E491C20A2F830 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2310,14 +2308,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D70C2B60AD15BF12091026A33774F9F7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				695A3FA15E903AE48EB0B3BE336F2467 /* MBProgressHUD.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E1FF1281ED23B218E66B0EEA6EA2D49C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2397,6 +2387,14 @@
 				62AE78AEFDFF61A90193ECDA4F83E3E3 /* UIImage+MPImageEffects.h in Headers */,
 				084001FD805BB18DDE1B767117E5BD33 /* UIView+MPHelpers.h in Headers */,
 				49937BA5164C5AD2309E19D992B944AE /* UIViewController+AutomaticEvents.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF1C003613925663F17E023C73AF519C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EB4F27B76513AE918BA5AE0868E87C8 /* MBProgressHUD.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2659,23 +2657,6 @@
 			productReference = D1FD6B27297B80C3A652C70742A87EEC /* OnePasswordExtensionResources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D058B89EB3B3DF45457A2DCD3971AFFE /* MBProgressHUD */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1F97048AF18C3EFEDE731BDEECCD58A8 /* Build configuration list for PBXNativeTarget "MBProgressHUD" */;
-			buildPhases = (
-				E9001FCA1D7F025E918399909B4942DA /* Sources */,
-				988FA15379A4032C312C2049FB88101A /* Frameworks */,
-				D70C2B60AD15BF12091026A33774F9F7 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MBProgressHUD;
-			productName = MBProgressHUD;
-			productReference = DB9A350744FDC3AD2D4B7A12B9490220 /* libMBProgressHUD.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		D0D0C9D20C43FA94D4C88FBFE2601B8E /* IQKeyboardManager */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F640212A56B1085DEA4FE11E32E5020D /* Build configuration list for PBXNativeTarget "IQKeyboardManager" */;
@@ -2730,6 +2711,23 @@
 			productReference = 4BB51F8647455FD4C3FF982D65CC7B50 /* libSparkSetup.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		FE2F1D7B9D9FCEA148517E4657B243F4 /* MBProgressHUD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2F5671C4613023EE94A2E62DA06031D /* Build configuration list for PBXNativeTarget "MBProgressHUD" */;
+			buildPhases = (
+				098439AB598DDF1AF51146A2E3E2E562 /* Sources */,
+				E81C08F5CCC0A5FBFF4559E2173164C7 /* Frameworks */,
+				EF1C003613925663F17E023C73AF519C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MBProgressHUD;
+			productName = MBProgressHUD;
+			productReference = DB9A350744FDC3AD2D4B7A12B9490220 /* libMBProgressHUD.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2759,7 +2757,7 @@
 				17392667E38E4938ACA525E988BB433B /* FXBlurView */,
 				E9EF397B95762DDB254C71DDCB4B1381 /* HexColors */,
 				D0D0C9D20C43FA94D4C88FBFE2601B8E /* IQKeyboardManager */,
-				D058B89EB3B3DF45457A2DCD3971AFFE /* MBProgressHUD */,
+				FE2F1D7B9D9FCEA148517E4657B243F4 /* MBProgressHUD */,
 				B27C18131A04D2F367DC3F923114C89D /* Mixpanel */,
 				C504187CAA3383B1AC6A896105187AC0 /* Pods-Particle */,
 				3228F167571079BCD78E443517829CB4 /* PullToRefreshCoreText */,
@@ -2793,6 +2791,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		098439AB598DDF1AF51146A2E3E2E562 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC214077677D4F02E03C6C85F774E028 /* MBProgressHUD-dummy.m in Sources */,
+				82FC12F67E83874B93592218E9FB4CA0 /* MBProgressHUD.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0C0DAE4BAA1B0C3C8646C132C7F82766 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3051,15 +3058,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9001FCA1D7F025E918399909B4942DA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				648E7F45D6E4DCE98EED9D4E2F003C1E /* MBProgressHUD-dummy.m in Sources */,
-				CCA9C08C9CBDE367B7BB38B6C0547B94 /* MBProgressHUD.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FC84E49AF5EB77684956C7174E767AD4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3142,7 +3140,7 @@
 		8CD86B54BDFB2FE0E2C57894C24BB62A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MBProgressHUD;
-			target = D058B89EB3B3DF45457A2DCD3971AFFE /* MBProgressHUD */;
+			target = FE2F1D7B9D9FCEA148517E4657B243F4 /* MBProgressHUD */;
 			targetProxy = 407C1C83F9A82B6C85AB42BF30446284 /* PBXContainerItemProxy */;
 		};
 		95BEC772988CC943D4368A1533CD15D5 /* PBXTargetDependency */ = {
@@ -3292,27 +3290,6 @@
 			};
 			name = Debug;
 		};
-		1AFA89153325A09AD73AD0F15FE4EC4E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C7D8310C5A2C9C64516741428F21F4E /* MBProgressHUD.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		1C52665101C159A7F0380FA4B6002DE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17510003AE5752188309D1F6CF8FFC18 /* Mixpanel.xcconfig */;
@@ -3350,6 +3327,27 @@
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1F1DCE74980303898CB8238C0E8709EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C7D8310C5A2C9C64516741428F21F4E /* MBProgressHUD.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -3700,27 +3698,6 @@
 			};
 			name = Release;
 		};
-		9413B669A6203AD71A048A8F824ECDD9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C7D8310C5A2C9C64516741428F21F4E /* MBProgressHUD.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
 		9BBCEB1D129AA9B074362BB224DD3B72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 69B628ED004FAE74BA3F9355CA377989 /* IQKeyboardManager.xcconfig */;
@@ -3832,6 +3809,27 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/YCTutorialBox/YCTutorialBox-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C14E31B42496EF5C34C9BF2D27E11E2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C7D8310C5A2C9C64516741428F21F4E /* MBProgressHUD.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MBProgressHUD/MBProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -4007,15 +4005,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F97048AF18C3EFEDE731BDEECCD58A8 /* Build configuration list for PBXNativeTarget "MBProgressHUD" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9413B669A6203AD71A048A8F824ECDD9 /* Debug */,
-				1AFA89153325A09AD73AD0F15FE4EC4E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		23A1A355A9C24E52F06F4F3BAF8C62FC /* Build configuration list for PBXNativeTarget "TSMessages" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -4129,6 +4118,15 @@
 			buildConfigurations = (
 				66C87C2350398DC4FE37847C5D62D94B /* Debug */,
 				8AC31B295F6C02555089B2ABB72B2AB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2F5671C4613023EE94A2E62DA06031D /* Build configuration list for PBXNativeTarget "MBProgressHUD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C14E31B42496EF5C34C9BF2D27E11E2C /* Debug */,
+				1F1DCE74980303898CB8238C0E8709EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
