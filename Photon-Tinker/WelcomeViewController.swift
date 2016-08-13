@@ -80,21 +80,22 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         
         c.allowSkipAuthentication = true
         c.skipAuthenticationMessage = "Skipping authentication will run the app in limited functionality mode - you would only be able to setup Wi-Fi credentials to devices but not claim them nor use Tinker. Are you sure you want to continue?"
-        c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
+//        c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
+        c.pageBackgroundColor = ParticleUtils.particleAlmostWhiteColor
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"
         c.headerTextFontName = "Gotham-Light" // new
         //c.fontSizeOffset = 1;
-        c.normalTextColor = UIColor.whiteColor()
-        c.linkTextColor = UIColor.whiteColor()
-        c.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
+        c.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
+        c.linkTextColor = UIColor.blueColor()
+        c.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+        // UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
 
-        c.linkTextColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
-        c.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
-        c.elementBackgroundColor = UIColor.whiteColor()
+        c.elementTextColor = UIColor.whiteColor()//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c.elementBackgroundColor = ParticleUtils.particleCyanColor
         c.brandImage = UIImage(named: "particle-horizontal-head")
 //        c.deviceImage = UIImage(named: "imgPhoton")
-        c.tintSetupImages = true
+        c.tintSetupImages = false
         c.instructionalVideoFilename = "photon_wifi.mp4"
         c.allowPasswordManager = true
         
