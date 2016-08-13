@@ -39,7 +39,10 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
             if let _ = error  {
                 self.resultLabel.text = "Error"
             } else {
-                self.resultLabel.text = resultObj?.stringValue
+                if let r = resultObj {
+                    self.resultLabel.text = r.description
+                }
+                
             }
         })
         
