@@ -195,21 +195,14 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         
         self.modeSegmentedControl.setTitleTextAttributes(attrib, forState: .Normal)
         
-//        self.frameView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
-        
-        
+        self.infoContainerView.alpha = 1
+        self.infoVC!.view.hidden = false
+        self.view.bringSubviewToFront(infoContainerView)
+
 
     }
     
     override func viewDidAppear(animated: Bool) {
-//        self.deviceInfoContainerView.hidden = false
-//        self.deviceDataContainerView.hidden = false
-//        self.deviceEventsContainerView.hidden = false
-        self.infoContainerView.alpha = 1
-        self.infoVC!.view.hidden = false
-        self.view.bringSubviewToFront(infoContainerView)
-        
-
         showTutorial()
     }
     

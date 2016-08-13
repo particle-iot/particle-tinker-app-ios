@@ -23,6 +23,7 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
                 self.variableTypeButton.hidden = true
                 self.variableNameButton.hidden = true
                 self.resultLabel.hidden = true
+                self.bkgView.backgroundColor = UIColor.whiteColor()
             } else {
                 self.variableNameButton.setTitle(" "+variableName!, forState: .Normal)
             }

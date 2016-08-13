@@ -16,6 +16,7 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextField
                 self.noFunctionsLabel.hidden = false
                 self.functionNameButton.hidden = true
                 self.argumentsButton.hidden = true
+                self.bkgView.backgroundColor = UIColor.whiteColor()
             } else {
                 self.functionNameButton.setTitle(self.functionName!+"  ", forState: .Normal)
             }

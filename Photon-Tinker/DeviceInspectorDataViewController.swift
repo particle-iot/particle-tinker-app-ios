@@ -155,6 +155,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             if (self.device!.functions.count == 0) {
                 // something else
                 cell!.functionName = ""
+                cell!.device = nil
             } else {
                 cell!.functionName = self.device?.functions[indexPath.row]
                 cell!.device = self.device
