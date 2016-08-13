@@ -428,7 +428,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             cell.deviceTypeLabel.layer.borderWidth = 1.0
 //            cell.deviceTypeLabel.textColor = UIColor(white: 0.96, alpha: 1.0)
-            cell.deviceTypeLabel.layer.cornerRadius = 4
+            cell.deviceTypeLabel.layer.cornerRadius = 4.0
             cell.deviceTypeLabel.layer.masksToBounds = true
 
 //            cell.deviceIDLabel.text = ""//devices[indexPath.row].id.uppercaseString
@@ -459,7 +459,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func sparkDevice(device: SparkDevice, didReceiveSystemEvent event: SparkDeviceSystemEvent) {
-        print("--> Received system event "+String(event.rawValue)+" from device "+device.name!)
+//        print("--> Received system event "+String(event.rawValue)+" from device "+device.name!)
         
         if (event == .FlashStarted) {
             for cell in self.photonSelectionTableView.visibleCells {

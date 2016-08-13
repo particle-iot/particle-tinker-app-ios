@@ -14,7 +14,7 @@ internal class DeviceTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.deviceCellBackgroundView.layer.cornerRadius = 4.0
+        self.deviceCellBackgroundView.layer.cornerRadius = 6.0
         self.deviceCellBackgroundView.layer.masksToBounds = true
 
     }
