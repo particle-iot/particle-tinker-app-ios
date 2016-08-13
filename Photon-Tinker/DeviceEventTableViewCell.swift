@@ -47,7 +47,7 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.bkgView.layer.cornerRadius = 4
+        self.bkgView.layer.cornerRadius = 6
         self.bkgView.layer.masksToBounds = true
     
     }
