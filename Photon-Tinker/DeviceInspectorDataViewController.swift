@@ -115,7 +115,25 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         self.refreshVariableList()
     }
     
-    
+    internal var readVarsOnce : Bool = false
+    func readAllVariablesOnce() {
+        
+        if (!readVarsOnce) {
+            
+            for j in 0...deviceDataTableView.numberOfRowsInSection(1)
+            {
+                if let cell = deviceDataTableView.cellForRowAtIndexPath(NSIndexPath(forRow: j, inSection: 1)) {
+                    
+                    let varCell = cell as! DeviceVariableTableViewCell
+                    if varCell.variableName != "" {
+                        varCell.readButtonTapped(self)
+                    }
+                }
+                
+            }
+            readVarsOnce = true
+        }
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2

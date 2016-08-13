@@ -177,6 +177,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             
         default:
+            Mixpanel.sharedInstance().track("Tinker: Tutorials reset")
             ParticleUtils.resetTutorialWasDisplayed()
             dispatch_async(dispatch_get_main_queue()) {
                 TSMessage.showNotificationInViewController(self, title: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .Success)

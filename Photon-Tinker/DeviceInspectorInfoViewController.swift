@@ -27,11 +27,13 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     @IBAction func copyDeviceIdButtonTapped(sender: AnyObject) {
         UIPasteboard.generalPasteboard().string = self.device?.id
         TSMessage.showNotificationWithTitle("Copied", subtitle: "Device ID was copied to the clipboard", type: .Success)
+        Mixpanel.sharedInstance().track("Device Inspector: device ID copied")
     }
     
     @IBAction func copyDeviceIccidButtonTapped(sender: UIButton) {
         UIPasteboard.generalPasteboard().string = self.device?.lastIccid
         TSMessage.showNotificationWithTitle("Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .Success)
+        Mixpanel.sharedInstance().track("Device Inspector: device ICCID copied")
     }
     
     

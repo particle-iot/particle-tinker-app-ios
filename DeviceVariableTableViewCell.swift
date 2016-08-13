@@ -31,7 +31,9 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
     }
     @IBAction func readButtonTapped(sender: AnyObject) {
 
+        
         self.activityIndicator.startAnimating()
+        Mixpanel.sharedInstance().track("Device Inspector: variable read")
         self.resultLabel.hidden = true
         self.device?.getVariable(variableName!, completion: { (resultObj:AnyObject?, error:NSError?) in
             

@@ -157,6 +157,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         
         self.filterText = searchText
         self.filterEvents()
+        Mixpanel.sharedInstance().track("Device Inspector: event filter typing")
         dispatch_async(dispatch_get_main_queue()) {
             self.deviceEventsTableView.reloadData()
         }
@@ -176,10 +177,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 @IBAction func playPauseButtonTapped(sender: AnyObject) {
         if paused {
             paused = false
+            Mixpanel.sharedInstance().track("Device Inspector: event stream play")
             playPauseButton.setImage(UIImage(named: "imgPause"), forState: .Normal)
             subscribeToDeviceEvents()
         } else {
             paused = true
+            Mixpanel.sharedInstance().track("Device Inspector: event stream pause")
             playPauseButton.setImage(UIImage(named: "imgPlay"), forState: .Normal)
             unsubscribeFromDeviceEvents()
         }
@@ -198,6 +201,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                                     self.filteredEvents = nil
                                     self.deviceEventsTableView.reloadData()
                                     self.noEventsLabel.hidden = false
+                                    Mixpanel.sharedInstance().track("Device Inspector: events cleared")
 
             }
         )
