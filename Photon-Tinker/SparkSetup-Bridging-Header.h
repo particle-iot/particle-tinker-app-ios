@@ -7,6 +7,7 @@
 
 // Spark DeviceSetup library integration
 #include "SparkSetup.h"
+#include "SparkSetupVideoViewController.h"
 
 // Other Obj-C project files
 #include "SparkDevice+pins.h"
