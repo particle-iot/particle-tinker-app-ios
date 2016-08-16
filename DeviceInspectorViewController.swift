@@ -10,6 +10,9 @@ import Foundation
 
 class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, SparkDeviceDelegate {
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
     
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)

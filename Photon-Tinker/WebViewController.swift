@@ -27,6 +27,10 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         // Do any additional setup after loading the view.
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.Default
+    }
+    
     @IBOutlet weak var navBar: UINavigationBar!
     
     override func didReceiveMemoryWarning() {

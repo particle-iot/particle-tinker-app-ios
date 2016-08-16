@@ -108,6 +108,14 @@
     
 }
 
+
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+
 -(void)toggleTorchButton:(id)sender
 {
     if ([_device hasTorch]) {

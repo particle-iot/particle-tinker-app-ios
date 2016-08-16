@@ -35,6 +35,11 @@ extension String {
 
 class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarcodeViewControllerDelegate {
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.Default
+    }
+    
+    
     func printTimestamp() -> String {
 //        let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .ShortStyle, timeStyle: .FullStyle)
         let t = (NSDate().timeIntervalSince1970 - self.startTime);

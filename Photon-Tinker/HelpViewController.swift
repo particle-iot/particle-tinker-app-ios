@@ -18,6 +18,10 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
 
 //    @objc var device : SparkDevice? = nil
 //    var delegate : SettingsTableViewControllerDelegate? = nil
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
