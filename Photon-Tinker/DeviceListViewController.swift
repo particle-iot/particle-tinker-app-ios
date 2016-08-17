@@ -577,11 +577,37 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    
+    func customizeSetupForSetupFlow()
+    {
+        let c = SparkSetupCustomization.sharedInstance()
+        
+        c.pageBackgroundColor = ParticleUtils.particleAlmostWhiteColor
+        c.pageBackgroundImage = nil
+        
+        c.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
+        c.linkTextColor = UIColor.blueColor()
+        c.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+        
+        c.elementTextColor = UIColor.whiteColor()//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c.elementBackgroundColor = ParticleUtils.particleCyanColor
+        c.brandImage = UIImage(named: "particle-horizontal-head")
+        
+        c.tintSetupImages = false
+        c.instructionalVideoFilename = "photon_wifi.mp4"
+        c.allowPasswordManager = true
+        c.lightStatusAndNavBar = true
+        
+        
+    }
+
+    
     func invokePhotonDeviceSetup()
     {
 //        let dsc = SparkSetupCustomization.sharedInstance()
 //        dsc.brandImage = UIImage(named: "setup-device-header")
         
+        self.customizeSetupForSetupFlow()
         if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isAuthenticated)
         {
             Mixpanel.sharedInstance().timeEvent("Tinker: Device setup activity")

@@ -30,7 +30,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         let verStr = "V"+(NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String)
         self.versionLabel.text = verStr
         
-        self.customizeSetup()
+        self.customizeSetupForLoginFlow()
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,7 +58,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         
         if result == .LoggedIn
         {
-            self.performSegueWithIdentifier("select", sender: self)
+            self.performSegueWithIdentifier("start", sender: self)
             
             let email = SparkCloud.sharedInstance().loggedInUsername
             Mixpanel.sharedInstance().identify(email!)
@@ -66,7 +66,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         
         if result == .SkippedAuth
         {
-            self.performSegueWithIdentifier("select", sender: self)
+            self.performSegueWithIdentifier("start", sender: self)
         }
     }
     
@@ -76,7 +76,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         return true
     }
     
-    func customizeSetupForLogin()
+    func customizeSetupForLoginFlow()
     {
 //        self.checkFontNames()
         // Do customization for Spark Setup wizard UI
@@ -84,23 +84,22 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         
         c.allowSkipAuthentication = true
         c.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to devices but not claim them nor use Tinker. Are you sure you want to continue?"
-//        c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
-        c.pageBackgroundColor = ParticleUtils.particleAlmostWhiteColor
+        c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
         c.normalTextFontName = "Gotham-Book"
         c.boldTextFontName = "Gotham-Medium"
         c.headerTextFontName = "Gotham-Light" // new
         //c.fontSizeOffset = 1;
-        c.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
-        c.linkTextColor = UIColor.blueColor()
-        c.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+        c.normalTextColor = UIColor.whiteColor()
+        c.linkTextColor = UIColor.whiteColor()
+        c.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
         // UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
 
-        c.elementTextColor = UIColor.whiteColor()//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
-        c.elementBackgroundColor = ParticleUtils.particleCyanColor
+        c.linkTextColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
+        c.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c.elementBackgroundColor = UIColor.whiteColor()
         c.brandImage = UIImage(named: "particle-horizontal-head")
 //        c.deviceImage = UIImage(named: "imgPhoton")
-        c.tintSetupImages = false
-        c.instructionalVideoFilename = "photon_wifi.mp4"
+        c.tintSetupImages = true
         c.allowPasswordManager = true
         c.lightStatusAndNavBar = true
         
@@ -122,43 +121,14 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
        
     }
     
-    func customizeSetupForSetup()
-    {
-        //        self.checkFontNames()
-        // Do customization for Spark Setup wizard UI
-        let c = SparkSetupCustomization.sharedInstance()
-        
-        c.allowSkipAuthentication = true
-        c.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to devices but not claim them nor use Tinker. Are you sure you want to continue?"
-        //        c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
-        c.pageBackgroundColor = ParticleUtils.particleAlmostWhiteColor
-        c.normalTextFontName = "Gotham-Book"
-        c.boldTextFontName = "Gotham-Medium"
-        c.headerTextFontName = "Gotham-Light" // new
-        //c.fontSizeOffset = 1;
-        c.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
-        c.linkTextColor = UIColor.blueColor()
-        c.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
-        // UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
-        
-        c.elementTextColor = UIColor.whiteColor()//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
-        c.elementBackgroundColor = ParticleUtils.particleCyanColor
-        c.brandImage = UIImage(named: "particle-horizontal-head")
-        //        c.deviceImage = UIImage(named: "imgPhoton")
-        c.tintSetupImages = false
-        c.instructionalVideoFilename = "photon_wifi.mp4"
-        c.allowPasswordManager = true
-        c.lightStatusAndNavBar = true
-        
-        
-    }
-    
+      
     @IBOutlet weak var versionLabel: UILabel!
     @IBAction func startButtonTapped(sender: UIButton)
     {
         if let _ = SparkCloud.sharedInstance().loggedInUsername
         {
-            self.performSegueWithIdentifier("select", sender: self)
+//            self.customizeSetupForSetupFlow()
+            self.performSegueWithIdentifier("start", sender: self)
         }
         else
         {

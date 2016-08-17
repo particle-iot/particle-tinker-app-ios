@@ -146,7 +146,7 @@
                     <connections>
                         <outlet property="getStartedButton" destination="cQK-Nl-VbT" id="ukx-jF-Ckb"/>
                         <outlet property="versionLabel" destination="UFP-vH-xVN" id="IF9-oj-X4d"/>
-                        <segue destination="Kib-3X-Zyf" kind="show" identifier="select" id="3ox-ek-eEM"/>
+                        <segue destination="Kib-3X-Zyf" kind="show" identifier="start" id="3ox-ek-eEM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
