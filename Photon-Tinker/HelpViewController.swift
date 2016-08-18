@@ -45,7 +45,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(animated: Bool) {
    
-        Mixpanel.sharedInstance().timeEvent("Tinker: Support/Documentation screen activity")
+//        SEGAnalytics.sharedAnalytics().timeEvent("Tinker: Support/Documentation screen activity")
     }
     
   
@@ -144,7 +144,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch indexPath.section
         {
         case 0: // docs
-            Mixpanel.sharedInstance().track("Tinker: Go to documentation")
+            SEGAnalytics.sharedAnalytics().track("Tinker: Go to documentation")
 
             
             switch indexPath.row
@@ -165,7 +165,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         
             
         case 1: // Support
-            Mixpanel.sharedInstance().track("Tinker: Go to support")
+            SEGAnalytics.sharedAnalytics().track("Tinker: Go to support")
 
             switch indexPath.row
             {
@@ -181,7 +181,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             
         default:
-            Mixpanel.sharedInstance().track("Tinker: Tutorials reset")
+            SEGAnalytics.sharedAnalytics().track("Tinker: Tutorials reset")
             ParticleUtils.resetTutorialWasDisplayed()
             dispatch_async(dispatch_get_main_queue()) {
                 TSMessage.showNotificationInViewController(self, title: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .Success)

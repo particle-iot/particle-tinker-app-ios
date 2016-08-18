@@ -20,8 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Fabric.with([Crashlytics.self])
 
-//        SEGAnalytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: ParticleKeys().segmentAnalyticsWriteKey()))
-        Mixpanel.sharedInstanceWithToken(mixpanelToken)
+        let SegmentConfiguration = SEGAnalyticsConfiguration(writeKey: segmentAnalyticsWriteKey)
+        SegmentConfiguration.trackApplicationLifecycleEvents = true
+        SegmentConfiguration.recordScreenViews = false
+        SEGAnalytics.setupWithConfiguration(SegmentConfiguration)
+        
+//        Mixpanel.sharedInstanceWithToken(mixpanelToken)
         
         SparkCloud.sharedInstance().OAuthClientId = oAuthClientId
         SparkCloud.sharedInstance().OAuthClientSecret = oAuthSecret

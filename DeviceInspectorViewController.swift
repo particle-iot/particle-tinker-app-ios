@@ -164,20 +164,20 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         if (sender.selectedSegmentIndex == 0) // info
         {
             self.infoVC!.showTutorial()
-            Mixpanel.sharedInstance().track("Device Inspector: info view")
+            SEGAnalytics.sharedAnalytics().track("Device Inspector: info view")
         }
         
         if (sender.selectedSegmentIndex == 1) // functions and variables
         {
             self.dataVC!.showTutorial()
             self.dataVC!.readAllVariablesOnce()
-            Mixpanel.sharedInstance().track("Device Inspector: data view")
+            SEGAnalytics.sharedAnalytics().track("Device Inspector: data view")
         }
         
         if (sender.selectedSegmentIndex == 2) // events
         {
             self.eventsVC!.showTutorial()
-            Mixpanel.sharedInstance().track("Device Inspector: events view")
+            SEGAnalytics.sharedAnalytics().track("Device Inspector: events view")
         }
  
         
@@ -194,7 +194,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     
     override func viewDidLoad() {
 
-        Mixpanel.sharedInstance().track("Device Inspector: started")
+        SEGAnalytics.sharedAnalytics().track("Device Inspector: started")
        
         let font = UIFont(name: "Gotham-book", size: 15.0)
         
@@ -265,7 +265,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
         if self.flashedTinker && event == .FlashSucceeded {
             
-            Mixpanel.sharedInstance().track("Device Inspector: reflash Tinker success")
+            SEGAnalytics.sharedAnalytics().track("Device Inspector: reflash Tinker success")
             dispatch_async(dispatch_get_main_queue()) {
                 TSMessage.showNotificationWithTitle("Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .Success)
             }
@@ -281,7 +281,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     func refreshData() {
         self.device?.refresh({[unowned self] (err: NSError?) in
             
-            Mixpanel.sharedInstance().track("Device Inspector: refreshed data")
+            SEGAnalytics.sharedAnalytics().track("Device Inspector: refreshed data")
             // test what happens when device goes offline and refresh is triggered
             if (err == nil) {
                 
@@ -317,7 +317,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
 //            TSMessage.showNotificationWithTitle("Device offline", subtitle: "Device must be online to be flashed", type: .Error)
 //            return
 //        }
-        Mixpanel.sharedInstance().track("Device Inspector: reflash Tinker start")
+        SEGAnalytics.sharedAnalytics().track("Device Inspector: reflash Tinker start")
         
         func flashTinkerBinary(binaryFilename : String?)
         {
@@ -340,8 +340,8 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         switch (self.device!.type)
         {
         case .Core:
-            //                                        Mixpanel.sharedInstance().track("Tinker: Reflash Tinker",
-            Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
+            //                                        SEGAnalytics.sharedAnalytics().track("Tinker: Reflash Tinker",
+            SEGAnalytics.sharedAnalytics().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
             self.flashedTinker = true
             self.device!.flashKnownApp("tinker", completion: { (error:NSError?) -> Void in
                 if let e=error
@@ -351,11 +351,11 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
             })
             
         case .Photon:
-            Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Photon"])
+            SEGAnalytics.sharedAnalytics().track("Tinker: Reflash Tinker", properties: ["device":"Photon"])
             flashTinkerBinary("photon-tinker")
             
         case .Electron:
-            Mixpanel.sharedInstance().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
+            SEGAnalytics.sharedAnalytics().track("Tinker: Reflash Tinker", properties: ["device":"Electron"])
             
             let dialog = ZAlertView(title: "Flashing Electron", message: "Flashing Tinker to Electron via cellular will consume data from your data plan, are you sure you want to continue?", isOkButtonLeft: true, okButtonText: "No", cancelButtonText: "Yes",
                                     okButtonHandler: { alertView in
@@ -384,7 +384,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     
     func popDocumentationViewController() {
 
-        Mixpanel.sharedInstance().track("Device Inspector: documentation")
+        SEGAnalytics.sharedAnalytics().track("Device Inspector: documentation")
         self.performSegueWithIdentifier("help", sender: self)
 //        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //        let vc : UIViewController = storyboard.instantiateViewControllerWithIdentifier("help")

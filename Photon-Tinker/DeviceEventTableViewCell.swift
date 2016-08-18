@@ -57,7 +57,7 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
         if let e = event {
             UIPasteboard.generalPasteboard().string = e.description
             TSMessage.showNotificationWithTitle("Copied", subtitle: "Event payload was copied to the clipboard", type: .Success)
-            Mixpanel.sharedInstance().track("Device Inspector: event copied")
+            SEGAnalytics.sharedAnalytics().track("Device Inspector: event copied")
         }
     }
 }

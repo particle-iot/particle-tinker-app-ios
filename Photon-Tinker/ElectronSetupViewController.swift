@@ -130,7 +130,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
-        Mixpanel.sharedInstance().track("Tinker: Electron setup activity", properties: ["result":"cancelled"])
+        SEGAnalytics.sharedAnalytics().track("Tinker: Electron setup ended", properties: ["result":"cancelled"])
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -230,12 +230,12 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         let actionType = request.URL?.host;
 //        let jsonDictString = request.URL?.fragment?.stringByReplacingPercentEscapesUsingEncoding(NSASCIIStringEncoding)
         if actionType == "scanIccid" {
-            Mixpanel.sharedInstance().track("Tinker: Electron setup scan ICCID")
+            SEGAnalytics.sharedAnalytics().track("Tinker: Electron setup scan ICCID")
             self.performSegueWithIdentifier("scan", sender: self)
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
         } else if actionType == "done" {
-            Mixpanel.sharedInstance().track("Tinker: Electron setup activity", properties: ["result":"success"])
+            SEGAnalytics.sharedAnalytics().track("Tinker: Electron setup ended", properties: ["result":"success"])
             self.dismissViewControllerAnimated(true, completion: nil)
         } else if actionType == "notification" {
 //            print("\(request.URL)")

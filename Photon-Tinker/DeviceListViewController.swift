@@ -129,7 +129,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func invokeElectronSetup() {
-        Mixpanel.sharedInstance().timeEvent("Tinker: Electron setup activity")
+        SEGAnalytics.sharedAnalytics().track("Tinker: Electron setup invoked")
         let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewControllerWithIdentifier("electronSetup") as! ElectronSetupViewController
         self.presentViewController(esVC, animated: true, completion: nil)
         
@@ -145,7 +145,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             if let vc = segue.destinationViewController as? SPKTinkerViewController {
                 vc.device = self.selectedDevice
                 
-                Mixpanel.sharedInstance().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
+                SEGAnalytics.sharedAnalytics().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 
             }
         }
@@ -154,7 +154,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             if let vc = segue.destinationViewController as? DeviceInspectorViewController {
                 vc.device = self.selectedDevice
                 
-                Mixpanel.sharedInstance().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
+                SEGAnalytics.sharedAnalytics().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
                 
             }
         }
@@ -188,7 +188,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             */
             
         }
-        Mixpanel.sharedInstance().timeEvent("Tinker: Device list screen activity")
+        SEGAnalytics.sharedAnalytics().track("Tinker: Device list screen activity")
 //        animateOnlineIndicators()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -529,7 +529,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
         if result == .Success
         {
-            Mixpanel.sharedInstance().track("Tinker: Device setup activity", properties: ["result":"success"])
+            SEGAnalytics.sharedAnalytics().track("Tinker: Photon setup ended", properties: ["result":"success"])
             
             if let deviceAdded = device
             {
@@ -572,7 +572,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         else
         {
-            Mixpanel.sharedInstance().track("Device setup process", properties: ["result":"cancelled or failed"])
+            SEGAnalytics.sharedAnalytics().track("Photon setup ended", properties: ["result":"cancelled or failed"])
             TSMessage.showNotificationWithTitle("Warning", subtitle: "Device setup did not complete.", type: .Warning)
         }
     }
@@ -610,7 +610,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.customizeSetupForSetupFlow()
         if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isAuthenticated)
         {
-            Mixpanel.sharedInstance().timeEvent("Tinker: Device setup activity")
+            SEGAnalytics.sharedAnalytics().track("Tinker: Photon setup invoked")
             vc.delegate = self
             self.presentViewController(vc, animated: true, completion: nil)
         }
@@ -620,13 +620,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func showSparkCoreAppPopUp()
     {
-        Mixpanel.sharedInstance().track("Tinker: User wants to setup a Core")
+        SEGAnalytics.sharedAnalytics().track("Tinker: User wants to setup a Core")
         
         let dialog = ZAlertView(title: "Core setup", message: "Setting up a Core requires the legacy Spark Core app. Do you want to install/open it now?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
                                 okButtonHandler: { alertView in
                                     alertView.dismiss()
                                     let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
-                                    Mixpanel.sharedInstance().track("Tinker: Send user to old Spark Core app")
+                                    SEGAnalytics.sharedAnalytics().track("Tinker: Send user to old Spark Core app")
                                     UIApplication.sharedApplication().openURL(NSURL(string: sparkCoreAppStoreLink)!)
                                     
             },

@@ -12,6 +12,7 @@ target 'Particle' do
     pod 'IQKeyboardManager'
     pod 'YCTutorialBox'
     pod 'Crashlytics'
+    pod 'Analytics'
 end
 
 

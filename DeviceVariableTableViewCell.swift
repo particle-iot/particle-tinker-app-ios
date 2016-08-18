@@ -33,7 +33,7 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
         
         self.activityIndicator.startAnimating()
-        Mixpanel.sharedInstance().track("Device Inspector: variable read")
+        SEGAnalytics.sharedAnalytics().track("Device Inspector: variable read")
         self.resultLabel.hidden = true
         self.device?.getVariable(variableName!, completion: { (resultObj:AnyObject?, error:NSError?) in
             

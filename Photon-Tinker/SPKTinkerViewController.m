@@ -335,7 +335,7 @@
 {
     [self hideFunctionView:self];
     DevicePin *pin = self.pinFunctionView.pin;
-    NSLog(@"function selection for pin %@ is %d",pin.logicalName, function);
+//    NSLog(@"function selection for pin %@ is %d",pin.logicalName, function);
     PinView *pinView = self.pinViews[pin.label];
 
     

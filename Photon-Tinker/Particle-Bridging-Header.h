@@ -1,5 +1,5 @@
 //
-//  SparkSetup-Bridging-Header.h
+//  Particle-Bridging-Header.h
 //
 
 #ifndef _SparkSetup_Bridging_Header_h
@@ -22,7 +22,7 @@
 #include "YCTutorialBox.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
 #include "DateTools.h"
-
+#include "SEGAnalytics.h"
 #include "Mixpanel.h"
 //#include "ParticleKeys.h"
 #endif

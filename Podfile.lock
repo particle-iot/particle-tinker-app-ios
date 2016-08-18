@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - Analytics (3.3.0)
   - ASValueTrackingSlider (0.11.2)
   - Crashlytics (3.7.3):
     - Fabric (~> 1.6.3)
@@ -49,6 +50,7 @@ PODS:
     - FXBlurView
 
 DEPENDENCIES:
+  - Analytics
   - ASValueTrackingSlider
   - Crashlytics
   - DateTools
@@ -70,6 +72,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   1PasswordExtension: 8757dc3302353731dd3e678e63b5023a708783cb
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Analytics: be3d952b8b0f21679e25af3b9dfbbab89597e897
   ASValueTrackingSlider: 45c9f78252da60de01d8f2afe869aaf90dd978d9
   Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
@@ -85,6 +88,6 @@ SPEC CHECKSUMS:
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
 
-PODFILE CHECKSUM: c383f99c33a2da3d10ae2566f76255cf6db1dc5e
+PODFILE CHECKSUM: 87e375a69bd6d5c83cf8344bf83604f1bf5a67f2
 
 COCOAPODS: 1.0.1
