@@ -145,6 +145,7 @@ class ParticleUtils: NSObject {
                 }
             } else {
                 imageView.tintColor = UIColor(white: 0.466, alpha: 1.0) // ParticleGray
+                imageView.alpha = 1
             }
         })
     }
