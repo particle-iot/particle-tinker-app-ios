@@ -10,6 +10,8 @@ import UIKit
 import Fabric
 import Crashlytics
 
+let ANALYTICS = 1
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

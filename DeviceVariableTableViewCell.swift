@@ -26,6 +26,12 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
                 self.bkgView.backgroundColor = UIColor.whiteColor()
             } else {
                 self.variableNameButton.setTitle(" "+variableName!, forState: .Normal)
+                self.noVarsLabel.hidden = true
+                self.variableTypeButton.hidden = false
+                self.variableNameButton.hidden = false
+                self.resultLabel.hidden = false
+                self.bkgView.backgroundColor = ParticleUtils.particleAlmostWhiteColor
+
             }
         }
     }
