@@ -49,6 +49,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     self.chipIsShowing = NO;
     self.chipView.alpha = 0;
     self.pinViews = [NSMutableDictionary dictionaryWithCapacity:16];
@@ -90,6 +92,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     // fill in device name
     self.device.delegate = self;
     
@@ -112,6 +115,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [[Mixpanel sharedInstance] track:@"Tinker: Tinker screen activity"];
 }
 

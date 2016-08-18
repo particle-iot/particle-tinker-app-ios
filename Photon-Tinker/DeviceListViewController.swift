@@ -582,7 +582,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     {
         let c = SparkSetupCustomization.sharedInstance()
         
-        c.pageBackgroundColor = ParticleUtils.particleAlmostWhiteColor
+        c.pageBackgroundColor = UIColor.color("#F0F0F0")!//ParticleUtils.particleAlmostWhiteColor
         c.pageBackgroundImage = nil
         
         c.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
