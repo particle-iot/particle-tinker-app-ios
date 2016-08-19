@@ -76,7 +76,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
                     let firstCell = self.deviceDataTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) //
                     
                     // 1
-                    let tutorial = YCTutorialBox(headline: "Device Data", withHelpText: "Tap a function row or down arrow to roll down the arguments box - type in the function arguments, tap the function name to invoke it. Result will appear on right side. Simply tap variable name to read it.")
+                    let tutorial = YCTutorialBox(headline: "Device Data", withHelpText: "Tap the function cell to access the arguments box. Type in function arguments (comma separated if more than one) and tap send or the function name to call it.\n\nSimply tap a variable name to read its current value.")
                     
                     tutorial.showAndFocusView(firstCell)
                     

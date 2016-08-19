@@ -209,11 +209,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     // viewController is visible
                     
                     // 3
-                    var tutorial = YCTutorialBox(headline: "Logout", withHelpText: "Tap to logout from your account and switch to a different user.")
-                    tutorial.showAndFocusView(self.logoutButton)
+//                    var tutorial = YCTutorialBox(headline: "Logout", withHelpText: "Tap to logout from your account and switch to a different user.")
+//                    tutorial.showAndFocusView(self.logoutButton)
                     
                     // 2
-                    tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to start setting up a new Particle device you wish to add to your account")
+                    var tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to set up a new Photon or Electron device you wish to add to your account")
                     
                     tutorial.showAndFocusView(self.setupNewDeviceButton)
                     

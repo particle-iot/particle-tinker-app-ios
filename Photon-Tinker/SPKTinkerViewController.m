@@ -302,16 +302,16 @@
                 // viewController is visible
                 
                 // 3
-                YCTutorialBox* tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Device Inspector" withHelpText:@"Tap Inspect to dig deeper into your device and go to Device Inspector"];
+                YCTutorialBox* tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Device Inspector" withHelpText:@"Tap Inspect to go to Device Inspector."];
                 [tutorial showAndFocusView:self.inspectButton];
                 
                 // 2
-                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Blink the onboard LED" withHelpText:@"Tap any pin to get started, select a pin function and tinker with the value. Hold a pin for 1 second to reset its function. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens."];
+                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Blink the onboard LED" withHelpText:@"Tap any pin to get started. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens on your device. You've just flashed an LED over the internet! Reset any pin function by long-pressing it."];
                 [tutorial showAndFocusView:self.pinViews[@"D7"]];
 
                 
                 // 1
-                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Welcome to Tinker!" withHelpText:@"Tinker is the fastest and easiest way to prototype and play with your Particle device. You can access the basic input/output functions of the device pins without writing a line of code. Pins can be configured to act as Input or Output, Digital or Analog."];
+                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Welcome to Tinker!" withHelpText:@"Tinker is the fastest and easiest way to prototype and play with your Particle device. Access the basic input/output functions of the device pins without writing a line of code."];
                 [tutorial showAndFocusView:self.chipView];
 
                 
