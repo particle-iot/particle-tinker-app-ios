@@ -597,7 +597,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         c.instructionalVideoFilename = "photon_wifi.mp4"
         c.allowPasswordManager = true
         c.lightStatusAndNavBar = true
-        
+        c.disableLogOutOption = true
         
     }
 
