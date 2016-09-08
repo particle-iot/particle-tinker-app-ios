@@ -169,6 +169,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         
         if (sender.selectedSegmentIndex == 1) // functions and variables
         {
+            self.dataVC!.refreshVariableList()
             self.dataVC!.showTutorial()
             self.dataVC!.readAllVariablesOnce()
             SEGAnalytics.sharedAnalytics().track("Device Inspector: data view")
@@ -273,6 +274,8 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
 //            self.refreshData()
             
         }
+        
+        self.refreshData()
     }
     
     

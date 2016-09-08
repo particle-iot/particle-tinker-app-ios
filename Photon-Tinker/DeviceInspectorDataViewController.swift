@@ -109,11 +109,6 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         self.deviceDataTableView.reloadData()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        // move to refresh function
-        
-        self.refreshVariableList()
-    }
     
     internal var readVarsOnce : Bool = false
     func readAllVariablesOnce() {
