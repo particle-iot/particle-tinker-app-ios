@@ -329,11 +329,13 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
             let binary = NSData(contentsOfURL: NSURL(fileURLWithPath: path!))
             let filesDict = ["tinker.bin" : binary!]
             self.flashedTinker = true
-            self.device!.flashFiles(filesDict, completion: { [unowned self] (error:NSError?) -> Void in
+            self.device!.flashFiles(filesDict, completion: { [weak self] (error:NSError?) -> Void in
                 if let e=error
                 {
-                    self.flashedTinker = false
-                    TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device. Are you sure it's online? \(e.localizedDescription)", type: .Error)
+                    if let s = self {
+                        s.flashedTinker = false
+                        TSMessage.showNotificationWithTitle("Flashing error", subtitle: "Error flashing device. Are you sure it's online? \(e.localizedDescription)", type: .Error)
+                    }
                     
                 }
             })

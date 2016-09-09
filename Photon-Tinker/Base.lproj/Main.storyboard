@@ -1851,8 +1851,8 @@
                                             <action selector="closeButtonTapped:" destination="zq2-10-iO0" eventType="touchUpInside" id="XdB-dN-1nI"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support / Documentation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbn-fO-gLF">
-                                        <rect key="frame" x="170" y="32" width="260" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbn-fO-gLF">
+                                        <rect key="frame" x="259" y="32" width="82" height="20"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
