@@ -28,35 +28,35 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     
     func subscribeToDeviceEvents() {
         
-        self.subscribeId = SparkCloud.sharedInstance().subscribeToDeviceEventsWithPrefix(nil, deviceID: self.device!.id, handler: {[unowned self] (event:SparkEvent?, error:NSError?) in
+        self.subscribeId = SparkCloud.sharedInstance().subscribeToDeviceEventsWithPrefix(nil, deviceID: self.device!.id, handler: {[weak self] (event:SparkEvent?, error:NSError?) in
             if let _ = error {
                 print ("could not subscribe to events to show in events inspector...")
             } else {
                 
                 dispatch_async(dispatch_get_main_queue(),{
                     // sequence must be all on the same thread otherwise we get NSInternalInconsistency exception on insertRowsAtIndexPaths
-                    
-                    if let e = event {
-                        if self.events == nil {
-                            self.events = [SparkEvent]()
-                            self.filteredEvents = [SparkEvent]()
-                            self.noEventsLabel.hidden = true
-                        }
-                        // insert new event to datasource
-                        self.events?.insert(e, atIndex: 0)
-                        if self.filtering {
-                            self.filterEvents()
-                            self.deviceEventsTableView.reloadData()
-                        } else {
-                            if !self.view.hidden {
-                                // add new event row on top
-                                
-                                self.deviceEventsTableView.beginUpdates()
-                                self.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
-                                self.deviceEventsTableView.endUpdates()
-                                
+                    if let s = self {
+                        if let e = event {
+                            if s.events == nil {
+                                s.events = [SparkEvent]()
+                                s.filteredEvents = [SparkEvent]()
+                                s.noEventsLabel.hidden = true
+                            }
+                            // insert new event to datasource
+                            s.events?.insert(e, atIndex: 0)
+                            if s.filtering {
+                                s.filterEvents()
+                                s.deviceEventsTableView.reloadData()
                             } else {
-                                self.deviceEventsTableView.reloadData()
+                                if !s.view.hidden {
+                                    // add new event row on top
+                                    
+                                    s.deviceEventsTableView.beginUpdates()
+                                    s.deviceEventsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Top)
+                                    s.deviceEventsTableView.endUpdates()
+                                } else {
+                                    s.deviceEventsTableView.reloadData()
+                                }
                             }
                         }
                     }

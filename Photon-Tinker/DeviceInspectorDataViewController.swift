@@ -184,11 +184,13 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             if (self.device!.variables.count == 0) {
                 cell!.variableName = ""
             } else {
-                let varArr =  self.variablesList![indexPath.row].characters.split{$0 == ","}.map(String.init)
-                //
-                cell!.variableType = varArr[1]
-                cell!.variableName = varArr[0]
-                cell!.device = self.device
+                if let vl = self.variablesList {
+                    let varArr =  vl[indexPath.row].characters.split{$0 == ","}.map(String.init)
+                    //
+                    cell!.variableType = varArr[1]
+                    cell!.variableName = varArr[0]
+                    cell!.device = self.device
+                }
             }
             //            cell?.variableNameCenterLayoutConstraint.constant = selected ? 0 : -20
             

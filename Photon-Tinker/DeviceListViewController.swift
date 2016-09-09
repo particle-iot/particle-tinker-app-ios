@@ -259,15 +259,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.handleGetDevicesResponse(devices, error: error)
                 
                 // do anyway:
-                dispatch_async(dispatch_get_main_queue()) {[unowned self] () -> () in
-                    ParticleSpinner.hide(self.view)
-                    // first time add the custom pull to refresh control to the tableview
-                    if self.refreshControlAdded == false
-                    {
-                        self.addRefreshControl()
-                        self.refreshControlAdded = true
+                dispatch_async(dispatch_get_main_queue()) {[weak self] () -> () in
+                    if let s = self {
+                        ParticleSpinner.hide(s.view)
+                        // first time add the custom pull to refresh control to the tableview
+                        if s.refreshControlAdded == false
+                        {
+                            s.addRefreshControl()
+                            s.refreshControlAdded = true
+                        }
+                        s.showTutorial()
                     }
-                    self.showTutorial()
                 }
             })
         }
@@ -588,7 +590,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         c.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
         c.linkTextColor = UIColor.blueColor()
         c.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
-        c.modeButtonName = "Setup button"
+        c.modeButtonName = "SETUP button"
         
         c.elementTextColor = UIColor.whiteColor()//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c.elementBackgroundColor = ParticleUtils.particleCyanColor

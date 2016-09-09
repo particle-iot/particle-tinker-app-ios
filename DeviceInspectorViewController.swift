@@ -117,12 +117,14 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     
 
     func renameDevice(newName : String?) {
-        self.device?.rename(newName!, completion: {[unowned self] (error : NSError?) in
+        self.device?.rename(newName!, completion: {[weak self] (error : NSError?) in
             
             if error == nil {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.deviceNameLabel.text = newName!.stringByReplacingOccurrencesOfString(" ", withString: "_")
-                    self.deviceNameLabel.setNeedsLayout()
+                if let s = self {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        s.deviceNameLabel.text = newName!.stringByReplacingOccurrencesOfString(" ", withString: "_")
+                        s.deviceNameLabel.setNeedsLayout()
+                    }
                 }
                 
             }
@@ -204,7 +206,10 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         self.modeSegmentedControl.setTitleTextAttributes(attrib, forState: .Normal)
         
         self.infoContainerView.alpha = 1
-        self.infoVC!.view.hidden = false
+        
+        if let ivc = self.infoVC {
+            ivc.view.hidden = false
+        }
         self.view.bringSubviewToFront(infoContainerView)
 
 
@@ -282,34 +287,36 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     
     
     func refreshData() {
-        self.device?.refresh({[unowned self] (err: NSError?) in
+        self.device?.refresh({[weak self] (err: NSError?) in
             
             SEGAnalytics.sharedAnalytics().track("Device Inspector: refreshed data")
             // test what happens when device goes offline and refresh is triggered
             if (err == nil) {
                 
-                self.viewWillAppear(false)
-                
-                if let info = self.infoVC {
-                    info.device = self.device
-                    info.updateDeviceInfoDisplay()
-                }
-                
-                if let data = self.dataVC {
-                    data.device = self.device
-                    data.refreshVariableList()
-                }
-                
-                if let events = self.eventsVC {
-                    events.unsubscribeFromDeviceEvents()
-                    events.device = self.device
-                    if !events.paused {
-                        events.subscribeToDeviceEvents()
+                if let s = self {
+                    s.viewWillAppear(false)
+                    
+                    if let info = s.infoVC {
+                        info.device = s.device
+                        info.updateDeviceInfoDisplay()
                     }
                     
+                    if let data = s.dataVC {
+                        data.device = s.device
+                        data.refreshVariableList()
+                    }
+                    
+                    if let events = s.eventsVC {
+                        events.unsubscribeFromDeviceEvents()
+                        events.device = s.device
+                        if !events.paused {
+                            events.subscribeToDeviceEvents()
+                        }
+                        
+                    }
                 }
             }
-        })
+            })
     }
     
     
