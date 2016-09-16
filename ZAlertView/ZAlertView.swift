@@ -72,6 +72,7 @@ public class ZAlertView: UIViewController {
     public static var alertTitleFont: UIFont?
     public static var messageFont: UIFont?
     public static var buttonFont: UIFont?
+    public static var messageTextAlignment : NSTextAlignment?
     
     // Color
     public static var positiveColor: UIColor?            = UIColor(red:0.09, green:0.47, blue:0.24, alpha:1.0)
@@ -269,7 +270,7 @@ public class ZAlertView: UIViewController {
         
         // Setup message
         self.lbMessage               = UILabel()
-        self.lbMessage.textAlignment = NSTextAlignment.Center
+        self.lbMessage.textAlignment = ZAlertView.messageTextAlignment != nil ? ZAlertView.messageTextAlignment! : NSTextAlignment.Center
         self.lbMessage.numberOfLines = 0
         self.lbMessage.textColor     = ZAlertView.messageColor
         self.lbMessage.font          = ZAlertView.messageFont ?? UIFont.systemFontOfSize(14)

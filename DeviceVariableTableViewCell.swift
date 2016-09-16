@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol DeviceVariableTableViewCellDelegate  {
+    func tappedOnVariable(sender : DeviceVariableTableViewCell, name : String, value : String)
+}
+
 internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
     var variableType : String? {
@@ -16,6 +20,10 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
         }
     }
     
+    var delegate : DeviceVariableTableViewCellDelegate?
+    
+    var tap : UITapGestureRecognizer?
+    var variableValue : String?
     var variableName : String? {
         didSet {
             if variableName == "" {
@@ -24,13 +32,23 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
                 self.variableNameButton.hidden = true
                 self.resultLabel.hidden = true
                 self.bkgView.backgroundColor = UIColor.whiteColor()
+                if let t = tap {
+                    self.resultLabel.removeGestureRecognizer(t)
+                }
+                self.tap = nil
+                
             } else {
                 self.variableNameButton.setTitle(" "+variableName!, forState: .Normal)
                 self.noVarsLabel.hidden = true
                 self.variableTypeButton.hidden = false
                 self.variableNameButton.hidden = false
                 self.resultLabel.hidden = false
+                self.resultLabel.userInteractionEnabled = true
                 self.bkgView.backgroundColor = ParticleUtils.particleAlmostWhiteColor
+
+                self.tap = UITapGestureRecognizer(target: self, action: #selector(DeviceVariableTableViewCell.variableLabelAction(_:)))
+                tap!.delegate = self
+
 
             }
         }
@@ -47,15 +65,34 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
             self.activityIndicator.stopAnimating()
             if let _ = error  {
                 self.resultLabel.text = "Error"
+                if let t = self.tap {
+                    self.resultLabel.removeGestureRecognizer(t)
+                }
+                
+                
             } else {
                 if let r = resultObj {
-                    self.resultLabel.text = r.description
+                    
+                    self.variableValue = r.description
+                    self.resultLabel.text = self.variableValue
+                    self.resultLabel.addGestureRecognizer(self.tap!)
+                    
+                    // Receive action
                 }
                 
             }
         })
         
     }
+    
+    
+    func variableLabelAction(sender : UITapGestureRecognizer)
+    {
+        self.delegate?.tappedOnVariable(self, name: self.variableName!, value: self.variableValue!)
+    }
+
+    
+    
     @IBOutlet weak var resultLabel: UILabel!
     
     @IBOutlet weak var noVarsLabel: UILabel!

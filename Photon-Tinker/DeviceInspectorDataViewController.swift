@@ -8,7 +8,7 @@
 
 
 
-class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DeviceVariableTableViewCellDelegate {
     
     @IBOutlet weak var deviceDataTableView: UITableView!
     
@@ -76,7 +76,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
                     let firstCell = self.deviceDataTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) //
                     
                     // 1
-                    let tutorial = YCTutorialBox(headline: "Device Data", withHelpText: "Tap the function cell to access the arguments box. Type in function arguments (comma separated if more than one) and tap send or the function name to call it.\n\nSimply tap a variable name to read its current value.")
+                    let tutorial = YCTutorialBox(headline: "Device Data", withHelpText: "Tap the function cell to access the arguments box. Type in function arguments (comma separated if more than one) and tap send or the function name to call it.\n\nSimply tap a variable name to read its current value. Tap any long variable value to show a popup with the full string value in case it has been truncated.")
                     
                     tutorial.showAndFocusView(firstCell)
                     
@@ -190,6 +190,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
                     cell!.variableType = varArr[1]
                     cell!.variableName = varArr[0]
                     cell!.device = self.device
+                    cell!.delegate = self
                 }
             }
             //            cell?.variableNameCenterLayoutConstraint.constant = selected ? 0 : -20
@@ -205,6 +206,28 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     }
     
     
+    func tappedOnVariable(sender: DeviceVariableTableViewCell, name: String, value: String) {
+        ZAlertView.messageFont = UIFont(name: "FiraMono-Regular", size: 13.0)
+        ZAlertView.messageTextAlignment = NSTextAlignment.Left
+        
+        let dialog = ZAlertView(title: name, message: value, alertType: .MultipleChoice)
+        
+        dialog.addButton("Copy to clipboard", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            
+            UIPasteboard.generalPasteboard().string = value
+            TSMessage.showNotificationWithTitle("Copied", subtitle: "Variable value was copied to the clipboard", type: .Success)
+            SEGAnalytics.sharedAnalytics().track("Device Inspector: variable copied")
+        }
+        
+        
+        dialog.addButton("Close", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
+            dialog.dismiss()
+//            ZAlertView.messageTextAlignment = NSTextAlignment.Center
+        }
+        
+        dialog.show()
+}
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
             return 96.0 // Expanded height
