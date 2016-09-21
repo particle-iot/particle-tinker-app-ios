@@ -26,18 +26,18 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
                 self.eventDataValueLabel.text = e.data
                 
                 // convert weird UTC stamp to human readable local time
-                let utcDateStr = e.time.description.stringByReplacingOccurrencesOfString("+0000", withString: "")
+                let utcDateStr = e.time.description.replacingOccurrences(of: "+0000", with: "")
                 
                 // create dateFormatter with UTC time format
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                dateFormatter.timeZone = NSTimeZone(name: "UTC")
-                let date = dateFormatter.dateFromString(utcDateStr)
+                dateFormatter.timeZone = TimeZone(identifier: "UTC")
+                let date = dateFormatter.date(from: utcDateStr)
                 
                 // change to a readable time format and change to local time zone
                 dateFormatter.dateFormat = "MMM d, yyyy h:mm:ss a"
-                dateFormatter.timeZone = NSTimeZone.localTimeZone()
-                let timeStamp = dateFormatter.stringFromDate(date!)
+                dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+                let timeStamp = dateFormatter.string(from: date!)
                 
                 self.eventTimeValueLabel.text = timeStamp
             }
@@ -53,11 +53,11 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
     }
     
     
-    @IBAction func copyEventButtonTapped(sender: UIButton) {
+    @IBAction func copyEventButtonTapped(_ sender: UIButton) {
         if let e = event {
-            UIPasteboard.generalPasteboard().string = e.description
-            TSMessage.showNotificationWithTitle("Copied", subtitle: "Event payload was copied to the clipboard", type: .Success)
-            SEGAnalytics.sharedAnalytics().track("Device Inspector: event copied")
+            UIPasteboard.general.string = e.description
+            TSMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success)
+            SEGAnalytics.shared().track("Device Inspector: event copied")
         }
     }
 }

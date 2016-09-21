@@ -18,13 +18,13 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
 
 //    @objc var device : SparkDevice? = nil
 //    var delegate : SettingsTableViewControllerDelegate? = nil
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     
-    @IBAction func closeButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+    @IBAction func closeButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: { () -> Void in
             //
         })
     }
@@ -43,46 +43,46 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     */
     @IBOutlet weak var helpTableView: UITableView!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
    
 //        SEGAnalytics.sharedAnalytics().timeEvent("Tinker: Support/Documentation screen activity")
     }
     
   
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (section==2) ? 1 : 3;
     }
     
     
-    func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 2 { //1?
-            let infoDictionary = NSBundle.mainBundle().infoDictionary as [String : AnyObject]?
+            let infoDictionary = Bundle.main.infoDictionary as [String : AnyObject]?
             let version = infoDictionary!["CFBundleShortVersionString"] as! String
             let build = infoDictionary!["CFBundleVersion"] as! String
             let label = UILabel()
             label.text = NSLocalizedString("Particle Tinker V\(version) (\(build))", comment: "")
-            label.textColor = UIColor.grayColor()
+            label.textColor = UIColor.gray
             label.font = UIFont(name: "Gotham-Book", size: 13)!
-            label.textAlignment = .Center
+            label.textAlignment = .center
             return label.text
         } else {
             return nil
         }
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell : HelpTableViewCell = self.helpTableView.dequeueReusableCellWithIdentifier("helpCell") as! HelpTableViewCell
+        let cell : HelpTableViewCell = self.helpTableView.dequeueReusableCell(withIdentifier: "helpCell") as! HelpTableViewCell
         
-        switch indexPath.section
+        switch (indexPath as NSIndexPath).section
         {
         case 0: // docs
-            switch indexPath.row
+            switch (indexPath as NSIndexPath).row
             {
             case 0:
                 cell.helpItemLabel.text = "Particle App"
@@ -94,7 +94,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             }
         case 1: // support
-            switch indexPath.row
+            switch (indexPath as NSIndexPath).row
             {
             case 0:
                 cell.helpItemLabel.text = "Particle Community"
@@ -120,11 +120,11 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var closeButton: UIButton!
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             case 0 :
                 return "Documentation"
@@ -136,55 +136,55 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.helpTableView.deselectRowAtIndexPath(indexPath, animated: true)
-        var url : NSURL?
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.helpTableView.deselectRow(at: indexPath, animated: true)
+        var url : URL?
         var openWebView : Bool = true
         
-        switch indexPath.section
+        switch (indexPath as NSIndexPath).section
         {
         case 0: // docs
-            SEGAnalytics.sharedAnalytics().track("Tinker: Go to documentation")
+            SEGAnalytics.shared().track("Tinker: Go to documentation")
 
             
-            switch indexPath.row
+            switch (indexPath as NSIndexPath).row
             {
             case 0:
 //                print("documentation: app")
-                url = NSURL(string: "https://docs.particle.io/guide/getting-started/tinker/")
+                url = URL(string: "https://docs.particle.io/guide/getting-started/tinker/")
             case 1:
 //                print("documentation: setup your device")
-                url = NSURL(string: "https://docs.particle.io/guide/getting-started/start/photon/#connect-your-photon")
+                url = URL(string: "https://docs.particle.io/guide/getting-started/start/photon/#connect-your-photon")
 
             default:
 //                print("documentation: make your mobile app")
-                url = NSURL(string: "https://docs.particle.io/guide/how-to-build-a-product/mobile-app/")
+                url = URL(string: "https://docs.particle.io/guide/how-to-build-a-product/mobile-app/")
                 
                 
             }
         
             
         case 1: // Support
-            SEGAnalytics.sharedAnalytics().track("Tinker: Go to support")
+            SEGAnalytics.shared().track("Tinker: Go to support")
 
-            switch indexPath.row
+            switch (indexPath as NSIndexPath).row
             {
                 case 0:
-                    url = NSURL(string: "https://community.particle.io/")
+                    url = URL(string: "https://community.particle.io/")
 
                 case 1:
-                    url = NSURL(string: "https://docs.particle.io/support/troubleshooting/common-issues/photon/")
+                    url = URL(string: "https://docs.particle.io/support/troubleshooting/common-issues/photon/")
 
                 default:
-                    url = NSURL(string: "https://docs.particle.io/support/support-and-fulfillment/menu-base/")
+                    url = URL(string: "https://docs.particle.io/support/support-and-fulfillment/menu-base/")
                 
             }
             
         default:
-            SEGAnalytics.sharedAnalytics().track("Tinker: Tutorials reset")
+            SEGAnalytics.shared().track("Tinker: Tutorials reset")
             ParticleUtils.resetTutorialWasDisplayed()
-            dispatch_async(dispatch_get_main_queue()) {
-                TSMessage.showNotificationInViewController(self, title: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .Success)
+            DispatchQueue.main.async {
+                TSMessage.showNotification(in: self, title: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .success)
             }
 
             openWebView = false
@@ -193,13 +193,13 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         if openWebView {
-            let webVC : WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("webview") as! WebViewController
+            let webVC : WebViewController = self.storyboard!.instantiateViewController(withIdentifier: "webview") as! WebViewController
             webVC.link = url
-            let cell : HelpTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! HelpTableViewCell
+            let cell : HelpTableViewCell = tableView.cellForRow(at: indexPath) as! HelpTableViewCell
             
             
             webVC.linkTitle = cell.helpItemLabel.text
-            self.presentViewController(webVC, animated: true, completion: nil)
+            self.present(webVC, animated: true, completion: nil)
         }
         
         

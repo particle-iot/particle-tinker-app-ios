@@ -26,7 +26,7 @@ extension String {
         ]
         
         for (name,value) in entities {
-            newStr = newStr.stringByReplacingOccurrencesOfString(name, withString: value)
+            newStr = newStr.replacingOccurrences(of: name, with: value)
         }
         return newStr
     }
@@ -35,14 +35,14 @@ extension String {
 
 class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarcodeViewControllerDelegate {
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.Default
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.default
     }
     
     
     func printTimestamp() -> String {
 //        let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .ShortStyle, timeStyle: .FullStyle)
-        let t = (NSDate().timeIntervalSince1970 - self.startTime);
+        let t = (Date().timeIntervalSince1970 - self.startTime);
         return String(format:"%f", t)
     }
     
@@ -51,14 +51,14 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.startTime = NSDate().timeIntervalSince1970
+        self.startTime = Date().timeIntervalSince1970
         
         print("start:"+self.printTimestamp())
         
-        self.setupWebAddress = NSURL(string: "https://setup.particle.io/") //://localhost:8080") //
+        self.setupWebAddress = URL(string: "https://setup.particle.io/") //://localhost:8080") //
 //        let url =
         
-        self.request = NSURLRequest(URL: self.setupWebAddress!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 30.0)
+        self.request = URLRequest(url: self.setupWebAddress!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30.0)
         
 //        self.webView.scalesPageToFit = true
         self.webView.delegate = self
@@ -67,25 +67,25 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 //        print("after load request:"+self.printTimestamp())
 
         self.webView.scrollView.bounces = false
-        self.closeButton.hidden = false//true
+        self.closeButton.isHidden = false//true
         
         // Slick hack to get the JS console.logs() to XCode debugger!
         
-        self.context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
+        self.context = self.webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
         
         let logFunction : @convention(block) (String) -> Void =
         {
             (msg: String) in
 //            NSLog("JS Console: %@", msg)
         }
-        context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, AnyObject.self), forKeyedSubscript: "log")
+        context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, to: AnyObject.self), forKeyedSubscript: "log" as (NSCopying & NSObjectProtocol)!)
 //        print("after tapping into console logs:"+self.printTimestamp())
         
         
         // force inject the access token and current username into the JS context global 'window' object
-        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken")
-        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername")
-        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient")  
+        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken" as (NSCopying & NSObjectProtocol)!)
+        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername" as (NSCopying & NSObjectProtocol)!)
+        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient" as (NSCopying & NSObjectProtocol)!)  
 
 //        print("after setting mobileClient:"+self.printTimestamp())
         // Do any additional setup after loading the view.
@@ -99,10 +99,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     @IBOutlet weak var closeButton: UIButton!
 
     var context : JSContext? = nil
-    var setupWebAddress : NSURL? = nil
+    var setupWebAddress : URL? = nil
     
     @IBOutlet weak var webView: UIWebView!
-    var request : NSURLRequest? = nil
+    var request : URLRequest? = nil
     var loading : Bool = false
     var loadFramesCount : Int = 0
     /*
@@ -115,23 +115,23 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     */
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.sharedApplication().statusBarStyle = .Default
+        UIApplication.shared.statusBarStyle = .default
        
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
     }
     
-    @IBAction func closeButtonTapped(sender: AnyObject) {
-        SEGAnalytics.sharedAnalytics().track("Tinker: Electron setup ended", properties: ["result":"cancelled"])
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeButtonTapped(_ sender: AnyObject) {
+        SEGAnalytics.shared().track("Tinker: Electron setup ended", properties: ["result":"cancelled"])
+        self.dismiss(animated: true, completion: nil)
     }
     
 
@@ -150,19 +150,19 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.loading = false
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         self.stopSpinner()
 //        print("failed loading")
-        self.closeButton.hidden = false
+        self.closeButton.isHidden = false
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
+    func webViewDidStartLoad(_ webView: UIWebView) {
 //        print("DidStartLoad")
         self.loadFramesCount += 1
 //        self.startSpinner()
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         
         print("webViewDidFinishLoad:"+self.printTimestamp())
 //        print("DidFinishLoad")
@@ -170,7 +170,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.loadFramesCount-=1
         if self.loadFramesCount <= 0 {
             self.stopSpinner()
-            self.closeButton.hidden = false
+            self.closeButton.isHidden = false
         }
         
 //        let contentSize = self.webView.scrollView.contentSize;
@@ -204,10 +204,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 //        print("shouldStartLoadWithRequest \(request.description)");
         
-        if let rurl = request.URL {
+        if let rurl = request.url {
             print("shouldStartLoadWithRequest: "+rurl.description+" : "+self.printTimestamp())
         } else {
             print("shouldStartLoadWithRequest: "+self.printTimestamp())
@@ -216,9 +216,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
         let myAppScheme = "particle"
         
-        if request.URL?.scheme != myAppScheme { //&& request.URL?.host != self.setupWebAddress?.host {
-            if navigationType == UIWebViewNavigationType.LinkClicked {
-                UIApplication.sharedApplication().openURL(request.URL!)
+        if request.url?.scheme != myAppScheme { //&& request.URL?.host != self.setupWebAddress?.host {
+            if navigationType == UIWebViewNavigationType.linkClicked {
+                UIApplication.shared.openURL(request.url!)
                 return false
             } else {
                 
@@ -227,36 +227,36 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             }
         }
         
-        let actionType = request.URL?.host;
+        let actionType = request.url?.host;
 //        let jsonDictString = request.URL?.fragment?.stringByReplacingPercentEscapesUsingEncoding(NSASCIIStringEncoding)
         if actionType == "scanIccid" {
-            SEGAnalytics.sharedAnalytics().track("Tinker: Electron setup scan ICCID")
-            self.performSegueWithIdentifier("scan", sender: self)
+            SEGAnalytics.shared().track("Tinker: Electron setup scan ICCID")
+            self.performSegue(withIdentifier: "scan", sender: self)
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
         } else if actionType == "done" {
-            SEGAnalytics.sharedAnalytics().track("Tinker: Electron setup ended", properties: ["result":"success"])
-            self.dismissViewControllerAnimated(true, completion: nil)
+            SEGAnalytics.shared().track("Tinker: Electron setup ended", properties: ["result":"success"])
+            self.dismiss(animated: true, completion: nil)
         } else if actionType == "notification" {
 //            print("\(request.URL)")
             //            print("fragment: \(request.URL?.fragment?.unescape())")
             
             let JSONDictionary : NSDictionary?
-            if let JSONData = request.URL?.fragment?.unescape().dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+            if let JSONData = request.url?.fragment?.unescape().data(using: String.Encoding.utf8, allowLossyConversion: false) {
                 do {
                     
-                    JSONDictionary = try NSJSONSerialization.JSONObjectWithData(JSONData, options: .AllowFragments) as? NSDictionary
+                    JSONDictionary = try JSONSerialization.jsonObject(with: JSONData, options: .allowFragments) as? NSDictionary
                 } catch _ {
                     print("could not deserialize request");
                     JSONDictionary = nil
                 }
                 //print (JSONDictionary?.description)
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     if JSONDictionary != nil {
                         if JSONDictionary!["level"] as! String == "info" {
-                            TSMessage.showNotificationInViewController(self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .Success)
+                            TSMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .success)
                         } else {
-                            TSMessage.showNotificationInViewController(self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .Error)
+                            TSMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .error)
                         }
                     }
                 }
@@ -270,11 +270,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     // MARK: ScanBarcodeViewControllerDelegate functions
     
-    func didFinishScanningBarcodeWithResult(scanBarcodeViewController: ScanBarcodeViewController!, barcodeValue: String!) {
+    func didFinishScanningBarcode(withResult scanBarcodeViewController: ScanBarcodeViewController!, barcodeValue: String!) {
 //        self.startSpinner()
         self.stopSpinner()
-        scanBarcodeViewController.dismissViewControllerAnimated(true, completion: {
-            dispatch_async(dispatch_get_main_queue()) {
+        scanBarcodeViewController.dismiss(animated: true, completion: {
+            DispatchQueue.main.async {
             
                 var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
                 jsCode+="inputElement.value = '\(barcodeValue)';\n"
@@ -282,7 +282,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                 jsCode+="e.target = inputElement;\n"
                 jsCode+="inputElement.dispatchEvent(e);\n"
             
-                self.webView.stringByEvaluatingJavaScriptFromString(jsCode)
+                self.webView.stringByEvaluatingJavaScript(from: jsCode)
 //            self.context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
 //            self.context!.evaluateScript(jsCode)  // this causes a crash for some strange reason
             
@@ -292,14 +292,14 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
     }
     
-    func didCancelScanningBarcode(scanBarcodeViewController: ScanBarcodeViewController!) {
-        scanBarcodeViewController .dismissViewControllerAnimated(true, completion: nil)
+    func didCancelScanningBarcode(_ scanBarcodeViewController: ScanBarcodeViewController!) {
+        scanBarcodeViewController .dismiss(animated: true, completion: nil)
 //        print("ICCID barcode scanning cancelled by user")
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "scan" {
-            let sbcvc = segue.destinationViewController as? ScanBarcodeViewController
+            let sbcvc = segue.destination as? ScanBarcodeViewController
             sbcvc!.delegate = self
         }
     }

@@ -10,9 +10,9 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "18BCEA12-8C52-40DC-A99D-8F4ACDC844FD",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "4F6AF957846CE2D6AA716E4578638F181BC5B887" : "spark-setup-ios",
-    "226FF4761DA7BAF60B81B099A12E6DC7C7A42DD7" : "photon-tinker-ios",
-    "50E2A12528FDBE3D8A2B4575487E8A6E0DEFCEB0" : "spark-sdk-ios"
+    "4F6AF957846CE2D6AA716E4578638F181BC5B887" : "spark-setup-ios\/",
+    "226FF4761DA7BAF60B81B099A12E6DC7C7A42DD7" : "photon-tinker-ios\/",
+    "50E2A12528FDBE3D8A2B4575487E8A6E0DEFCEB0" : "spark-sdk-ios\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Particle",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

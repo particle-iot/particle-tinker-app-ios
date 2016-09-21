@@ -8,17 +8,17 @@
 
 import Foundation
 
-@objc public class ParticleSpinner : NSObject {
+@objc open class ParticleSpinner : NSObject {
     
-    class func show(view : UIView) {
+    class func show(_ view : UIView) {
         var hud : MBProgressHUD
         
-        hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        hud.mode = .CustomView//.Indeterminate
-        hud.animationType = .ZoomIn
+        hud = MBProgressHUD.showAdded(to: view, animated: true)
+        hud.mode = .customView//.Indeterminate
+        hud.animationType = .zoomIn
         //            hud.labelText = "Loading"
         hud.minShowTime = 0.5
-        hud.color = UIColor.clearColor()
+        hud.color = UIColor.clear
         
         // MBProgressHUD 1.0.0 tries:
 //        hud.backgroundView.color = UIColor.clearColor()
@@ -27,8 +27,8 @@ import Foundation
         
         // prepare spinner view for first time populating of devices into table
         let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
-        spinnerView.frame = CGRectMake(0, 0, 64, 64);
-        spinnerView.contentMode = .ScaleToFill
+        spinnerView.frame = CGRect(x: 0, y: 0, width: 64, height: 64);
+        spinnerView.contentMode = .scaleToFill
         
         //            spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         //            spinnerView.tintColor = UIColor.whiteColor()
@@ -43,15 +43,15 @@ import Foundation
         rotation.toValue = 2*M_PI;
         rotation.duration = 1;
         rotation.repeatCount = 1000; // Repeat
-        spinnerView.layer.addAnimation(rotation,forKey:"Spin")
+        spinnerView.layer.add(rotation,forKey:"Spin")
         
         hud.customView = spinnerView
         
     }
     
     
-    class func hide(view : UIView) {
-        MBProgressHUD.hideHUDForView(view, animated: true)
+    class func hide(_ view : UIView) {
+        MBProgressHUD.hide(for: view, animated: true)
     }
     
 }

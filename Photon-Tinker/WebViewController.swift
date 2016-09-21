@@ -17,7 +17,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         self.navBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Gotham-Book", size: 17)!, NSForegroundColorAttributeName: ParticleUtils.particleGrayColor]
         
         
-        let request = NSURLRequest(URL: self.link!, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 15.0)
+        let request = URLRequest(url: self.link!, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 15.0)
         self.webView.loadRequest(request)
         
         self.webView.scalesPageToFit = true
@@ -27,8 +27,8 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.Default
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.default
     }
     
     @IBOutlet weak var navBar: UINavigationBar!
@@ -39,7 +39,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     }
     
     @IBOutlet weak var webView: UIWebView!
-    var link : NSURL? = nil
+    var link : URL? = nil
     var linkTitle : String? = nil
     /*
      // MARK: - Navigation
@@ -51,12 +51,12 @@ class WebViewController: UIViewController, UIWebViewDelegate {
      }
      */
     
-    @IBAction func closeButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         ParticleSpinner.hide(self.view)
         self.loading = false
     }
@@ -64,14 +64,14 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     var loadFramesCount : Int = 0
     var loading : Bool = false
     
-    func webViewDidStartLoad(webView: UIWebView) {
+    func webViewDidStartLoad(_ webView: UIWebView) {
         if !self.loading {
             self.loading = true
             ParticleSpinner.show(self.view)
         }
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         
         ParticleSpinner.hide(self.view)
         self.loading = false
