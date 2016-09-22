@@ -97,7 +97,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             switch value {
             case "int32" :
                 varType = "Integer"
-            case "float" :
+            case "double" :
                 varType = "Float"
             default:
                 varType = "String"

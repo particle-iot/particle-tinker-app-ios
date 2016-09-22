@@ -73,7 +73,12 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
             } else {
                 if let r = resultObj {
                     
-                    self.variableValue = r as? String
+                    if let resultValue = r as? String {
+                        self.variableValue = resultValue
+                    } else if let resultValue = r as? NSNumber {
+                        self.variableValue = resultValue.stringValue
+                    }
+                    
                     self.resultLabel.text = self.variableValue
                     self.resultLabel.addGestureRecognizer(self.tap!)
                     
