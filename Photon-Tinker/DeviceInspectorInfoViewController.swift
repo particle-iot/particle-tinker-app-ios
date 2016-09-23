@@ -72,8 +72,8 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
         self.deviceTypeLabel.layer.cornerRadius = 4
         self.deviceTypeLabel.layer.masksToBounds = true
         
-        let priority = DispatchQueue.GlobalQueuePriority.default
-        DispatchQueue.global(priority: priority).async {
+        
+        DispatchQueue.global().async {
             
             self.device?.getCurrentDataUsage({ (dataUsed: Float, err: Error?) in
                 DispatchQueue.main.async {

@@ -15,7 +15,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     }
     
     @IBAction func backButtonTapped(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -227,8 +227,8 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     // happens right as Device Inspector is displayed as all VCs are in an embed segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // if its either the info data or events VC then set the device to what we are inspecting
-        let priority = DispatchQueue.GlobalQueuePriority.default
-        DispatchQueue.global(priority: priority).async {
+        
+        DispatchQueue.global().async {
             // do some task
             if let vc = segue.destination as? DeviceInspectorChildViewController {
                 vc.device = self.device

@@ -27,8 +27,8 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     override func viewDidAppear(_ animated: Bool) {
         
-        let priority = DispatchQueue.GlobalQueuePriority.default
-        DispatchQueue.global(priority: priority).async {
+        
+        DispatchQueue.global().async {
             // do some task
             // auto read all variables
             var index : IndexPath

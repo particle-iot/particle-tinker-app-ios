@@ -252,7 +252,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             ParticleSpinner.show(self.view)
         }
         
-        DispatchQueue.global( priority: DispatchQueue.GlobalQueuePriority.default).async {
+        DispatchQueue.global().async {
             
             SparkCloud.sharedInstance().getDevices({ (devices:[SparkDevice]?, error:Error?) -> Void in
                 
