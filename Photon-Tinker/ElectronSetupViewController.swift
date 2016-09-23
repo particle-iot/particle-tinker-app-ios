@@ -55,7 +55,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
         print("start:"+self.printTimestamp())
         
-        self.setupWebAddress = URL(string: "https://setup.particle.io/") //://localhost:8080") //
+        if kSparkAPIBaseURL.contains("staging") {
+            self.setupWebAddress = URL(string: "https://setup.staging.particle.io/")
+        } else {
+            self.setupWebAddress = URL(string: "https://setup.particle.io/")
+        }
 //        let url =
         
         self.request = URLRequest(url: self.setupWebAddress!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30.0)
@@ -76,7 +80,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         let logFunction : @convention(block) (String) -> Void =
         {
             (msg: String) in
-//            NSLog("JS Console: %@", msg)
+            NSLog("JS Console: %@", msg)
         }
         context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, to: AnyObject.self), forKeyedSubscript: "log" as (NSCopying & NSObjectProtocol)!)
 //        print("after tapping into console logs:"+self.printTimestamp())
