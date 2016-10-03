@@ -535,8 +535,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if let deviceAdded = device
             {
-                if (deviceAdded.name == nil)
+                if (deviceAdded.name == nil) // might be the setup naminh BUG here
                 {
+                    print("! null name device detected"); //@@@
+                    
                     let deviceName = self.generateDeviceName()
                     deviceAdded.rename(deviceName, completion: { (error : Error?) -> Void in
                         if let _=error
