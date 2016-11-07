@@ -43,6 +43,10 @@ class ParticleUtils: NSObject {
         case .P1:
             image = UIImage(named: "imgDeviceP1")
             text = "P1"
+ 
+        case .raspberryPi:
+            image = UIImage(named: "imgDeviceRaspberryPi")
+            text = "Raspberry Pi"
             
         case .redBearDuo:
             image = UIImage(named: "imgDeviceRedBearDuo")
