@@ -256,6 +256,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             SparkCloud.sharedInstance().getDevices({ (devices:[SparkDevice]?, error:Error?) -> Void in
                 
+                // if no devices offer user to setup a new one
+                if ((devices == nil) || (devices?.count == 0)) {
+                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
+                }
+                
                 self.handleGetDevicesResponse(devices, error: error)
                 
                 // do anyway:
