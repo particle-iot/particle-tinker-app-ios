@@ -98,8 +98,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="gz7-cC-c4Z"/>
                                 <exclude reference="3ID-m0-xRl"/>
+                                <exclude reference="gz7-cC-c4Z"/>
                             </mask>
                         </variation>
                     </view>
@@ -128,7 +128,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No devices)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSb-Q2-MhK">
-                                <rect key="frame" x="112" y="351" width="152" height="26"/>
+                                <rect key="frame" x="112.5" y="351" width="151.5" height="26"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="24"/>
                                 <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -182,7 +182,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR DEVICES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7w-cb-MbB">
-                                        <rect key="frame" x="117" y="33" width="142" height="18"/>
+                                        <rect key="frame" x="117.5" y="33" width="141.5" height="18"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -238,7 +238,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device state" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-4O-nM0">
-                                                    <rect key="frame" x="271" y="24" width="74" height="12"/>
+                                                    <rect key="frame" x="271.5" y="24" width="73.5" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="146" id="Q0c-RX-7tl"/>
                                                     </constraints>
@@ -294,15 +294,15 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="D7Q-nu-Zwq"/>
                                                     <exclude reference="9K7-Np-0vX"/>
-                                                    <exclude reference="P8d-Jg-HwM"/>
-                                                    <exclude reference="seS-0a-JJf"/>
                                                     <exclude reference="2zw-W8-DqI"/>
                                                     <exclude reference="LIi-eA-B4l"/>
                                                     <exclude reference="RcD-EB-dgy"/>
                                                     <exclude reference="Rdd-eU-tD5"/>
                                                     <exclude reference="kMw-cJ-mNC"/>
+                                                    <exclude reference="P8d-Jg-HwM"/>
+                                                    <exclude reference="seS-0a-JJf"/>
+                                                    <exclude reference="D7Q-nu-Zwq"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -356,7 +356,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="N4k-nE-dcU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Y0-SB-VNa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Y0-SB-VNa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -486,7 +486,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emerald" translatesAutoresizingMaskIntoConstraints="NO" id="mDh-xo-YvB">
-                                                        <rect key="frame" x="0.0" y="41" width="6" height="37"/>
+                                                        <rect key="frame" x="0.0" y="42" width="6" height="37"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="6" id="VaG-zl-xez"/>
                                                             <constraint firstAttribute="height" constant="37" id="aWg-Bl-KSa"/>
@@ -858,10 +858,10 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="GMB-cy-hXO"/>
-                                        <exclude reference="mVb-Jl-UAO"/>
                                         <exclude reference="lXH-WS-QRx"/>
                                         <exclude reference="szi-Yd-MUQ"/>
+                                        <exclude reference="GMB-cy-hXO"/>
+                                        <exclude reference="mVb-Jl-UAO"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -1051,15 +1051,6 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vr9-fe-eOc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-J6-Hm8" userLabel="copyDeviceIccidButton">
-                    <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="5Kq-Tb-J8S"/>
-                        <constraint firstAttribute="width" constant="20" id="AuD-7Y-yxr"/>
-                    </constraints>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" image="imgCopyClipboard"/>
-                </button>
             </objects>
             <point key="canvasLocation" x="5515" y="611"/>
         </scene>
@@ -1611,11 +1602,11 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="DHr-On-ho7"/>
                                                     <exclude reference="u66-z7-ON5"/>
                                                     <exclude reference="RvC-g7-GdZ"/>
                                                     <exclude reference="i3l-An-giO"/>
                                                     <exclude reference="ntq-1q-b8K"/>
+                                                    <exclude reference="DHr-On-ho7"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1927,7 +1918,6 @@
         <image name="imgChevronLeft" width="64" height="64"/>
         <image name="imgCircle" width="128" height="128"/>
         <image name="imgCloseIcon" width="256" height="256"/>
-        <image name="imgCopyClipboard" width="128" height="128"/>
         <image name="imgCopyToClipboard" width="600" height="600"/>
         <image name="imgDeviceFamily" width="424" height="383"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
