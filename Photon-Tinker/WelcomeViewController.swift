@@ -31,18 +31,12 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         self.versionLabel.text = verStr
         
         self.customizeSetupForLoginFlow()
-        
-        if let _ = SparkCloud.sharedInstance().loggedInUsername
-        {
-            self.performSegue(withIdentifier: "start_no_animation", sender: self)
-        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     
     func checkFontNames()
