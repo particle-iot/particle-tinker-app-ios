@@ -242,7 +242,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     
-    var deviceListEmpty : Bool = false
+    
     
     func loadDevices()
     {
@@ -256,13 +256,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             SparkCloud.sharedInstance().getDevices({ (devices:[SparkDevice]?, error:Error?) -> Void in
                 
-                // if no devices offer user to setup a new one
-                if ((devices == nil) || (devices?.count == 0)) {
-                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
-                    self.deviceListEmpty = true
-                } else {
-                    self.deviceListEmpty = false
-                }
                 
                 self.handleGetDevicesResponse(devices, error: error)
                 
@@ -303,7 +296,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             if let d = devices
             {
-                self.devices = d 
+                // if no devices offer user to setup a new one
+                if (d.count == 0) {
+                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
+                }
+
+                self.devices = d
                 
                 for device in self.devices {
                     device.delegate = self
@@ -346,6 +344,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 
             } else {
                 self.noDevicesLabel.isHidden = false
+                self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
             }
             
         }
@@ -537,7 +536,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func showSetupSuccessMessageAndReload() {
-        if (self.deviceListEmpty) {
+        if (self.devices.count <= 1) {
             TSMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success)
         } else {
             TSMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success)
