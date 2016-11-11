@@ -30,8 +30,6 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         let verStr = "V"+(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
         self.versionLabel.text = verStr
         
-        self.customizeSetupForLoginFlow()
-        
         if let _ = SparkCloud.sharedInstance().loggedInUsername
         {
             self.performSegue(withIdentifier: "start_no_animation", sender: self)
@@ -91,7 +89,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         let c = SparkSetupCustomization.sharedInstance()
         
         c?.allowSkipAuthentication = true
-        c?.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to devices but not claim them nor use Tinker. Are you sure you want to continue?"
+        c?.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to Photon based devices but not claim them to your account nor use Tinker or device inspector. Are you sure you want to continue?"
         c?.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
         c?.normalTextFontName = "Gotham-Book"
         c?.boldTextFontName = "Gotham-Medium"
@@ -140,6 +138,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         }
         else
         {
+            self.customizeSetupForLoginFlow()
             // lines required for invoking the Spark Setup wizard
             if let vc = SparkSetupMainController(authenticationOnly: true)
             {
