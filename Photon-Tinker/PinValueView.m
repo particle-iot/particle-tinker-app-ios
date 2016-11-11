@@ -115,8 +115,6 @@
 
 -(void)sliderSetValue:(id)sender
 {
-    NSLog(@"sliderSetValue");
-
     ASValueTrackingSlider *slider = (ASValueTrackingSlider*)sender;
     if (self.delegate)
     {
