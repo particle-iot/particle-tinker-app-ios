@@ -13,31 +13,31 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextField
     var functionName : String? {
         didSet {
             if self.functionName == "" {
-                self.noFunctionsLabel.hidden = false
-                self.functionNameButton.hidden = true
-                self.argumentsButton.hidden = true
-                self.bkgView.backgroundColor = UIColor.whiteColor()
-                self.resultLabel.hidden = true
+                self.noFunctionsLabel.isHidden = false
+                self.functionNameButton.isHidden = true
+                self.argumentsButton.isHidden = true
+                self.bkgView.backgroundColor = UIColor.white
+                self.resultLabel.isHidden = true
             } else {
-                self.functionNameButton.setTitle(self.functionName!+"  ", forState: .Normal)
-                self.noFunctionsLabel.hidden = true
-                self.functionNameButton.hidden = false
-                self.argumentsButton.hidden = false
-                self.resultLabel.hidden = false
+                self.functionNameButton.setTitle(self.functionName!+"  ", for: UIControlState())
+                self.noFunctionsLabel.isHidden = true
+                self.functionNameButton.isHidden = false
+                self.argumentsButton.isHidden = false
+                self.resultLabel.isHidden = false
                 self.bkgView.backgroundColor = ParticleUtils.particleAlmostWhiteColor
             }
         }
     }
 
     @IBOutlet weak var noFunctionsLabel: UILabel!
-    @IBAction func callButtonTapped(sender: AnyObject) {
+    @IBAction func callButtonTapped(_ sender: AnyObject) {
         var args = [String]()
-        SEGAnalytics.sharedAnalytics().track("Device Inspector: function called")
+        SEGAnalytics.shared().track("Device Inspector: function called")
         args.append(self.argumentsTextField.text!)
-        self.resultLabel.hidden = true
+        self.resultLabel.isHidden = true
         self.activityIndicator.startAnimating()
-        self.device?.callFunction(self.functionName!, withArguments: args, completion: { (resultValue :NSNumber?, error: NSError?) in
-            self.resultLabel.hidden = false
+        self.device?.callFunction(self.functionName!, withArguments: args, completion: { (resultValue :NSNumber?, error: Error?) in
+            self.resultLabel.isHidden = false
             self.activityIndicator.stopAnimating()
             if let _ = error  {
                 self.resultLabel.text = "Error"
@@ -66,20 +66,20 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextField
         // Initialization code
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.setSelected(true, animated: true)
         return true
     }
     
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 //        textField.resignFirstResponder()
         self.callButtonTapped(textField)
         textField.selectAll(nil)
         return true
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
 //        self.argumentsTextField.hidden = !selected
@@ -92,8 +92,8 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextField
     @IBOutlet weak var bkgView: UIView!
     
     
-    @IBAction func argumentsButtonTapped(sender: AnyObject) {
-        self.setSelected(!self.selected, animated: true)
+    @IBAction func argumentsButtonTapped(_ sender: AnyObject) {
+        self.setSelected(!self.isSelected, animated: true)
     }
     
 }

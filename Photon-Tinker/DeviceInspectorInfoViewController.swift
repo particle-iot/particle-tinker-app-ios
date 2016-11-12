@@ -24,31 +24,31 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     
     @IBOutlet weak var copyDeviceIccidButton: UIButton!
     
-    @IBAction func copyDeviceIdButtonTapped(sender: AnyObject) {
-        UIPasteboard.generalPasteboard().string = self.device?.id
-        TSMessage.showNotificationWithTitle("Copied", subtitle: "Device ID was copied to the clipboard", type: .Success)
-        SEGAnalytics.sharedAnalytics().track("Device Inspector: device ID copied")
+    @IBAction func copyDeviceIdButtonTapped(_ sender: AnyObject) {
+        UIPasteboard.general.string = self.device?.id
+        TSMessage.showNotification(withTitle: "Copied", subtitle: "Device ID was copied to the clipboard", type: .success)
+        SEGAnalytics.shared().track("Device Inspector: device ID copied")
     }
     
-    @IBAction func copyDeviceIccidButtonTapped(sender: UIButton) {
-        UIPasteboard.generalPasteboard().string = self.device?.lastIccid
-        TSMessage.showNotificationWithTitle("Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .Success)
-        SEGAnalytics.sharedAnalytics().track("Device Inspector: device ICCID copied")
+    @IBAction func copyDeviceIccidButtonTapped(_ sender: UIButton) {
+        UIPasteboard.general.string = self.device?.lastIccid
+        TSMessage.showNotification(withTitle: "Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .success)
+        SEGAnalytics.shared().track("Device Inspector: device ICCID copied")
     }
     
     
     func updateDeviceInfoDisplay() {
-        if self.device!.type != .Electron {
-            self.deviceIccidLabel.hidden = true
-            self.deviceIccidValueLabel.hidden = true
+        if self.device!.type != .electron {
+            self.deviceIccidLabel.isHidden = true
+            self.deviceIccidValueLabel.isHidden = true
             
-            self.deviceImeiLabel.hidden = true
-            self.deviceImeiValueLabel.hidden = true
+            self.deviceImeiLabel.isHidden = true
+            self.deviceImeiValueLabel.isHidden = true
             
-            self.dataUsageLabel.hidden = true
-            self.dataUsageValueLabel.hidden = true
+            self.dataUsageLabel.isHidden = true
+            self.dataUsageValueLabel.isHidden = true
             
-            self.copyDeviceIccidButton.hidden = true
+            self.copyDeviceIccidButton.isHidden = true
             
         } else {
             self.deviceImeiValueLabel.text = self.device?.imei
@@ -56,7 +56,7 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
         }
         
         self.deviceIpAddressValueLabel.text = self.device?.lastIPAdress
-        self.deviceLastHeardValueLabel.text = self.device?.lastHeard?.timeAgoSinceNow()
+        self.deviceLastHeardValueLabel.text = (self.device?.lastHeard as NSDate?)?.timeAgoSinceNow()
         
         self.deviceIdValueLabel.text = self.device?.id
         
@@ -66,17 +66,17 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
         let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.device)
         self.deviceImageView.image = deviceInfo.deviceImage
         self.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
-        self.deviceTypeLabel.layer.borderColor = ParticleUtils.particleCyanColor.CGColor
+        self.deviceTypeLabel.layer.borderColor = ParticleUtils.particleCyanColor.cgColor
         self.deviceTypeLabel.layer.borderWidth = 1.0
         self.deviceTypeLabel.textColor = deviceTypeColor
         self.deviceTypeLabel.layer.cornerRadius = 4
         self.deviceTypeLabel.layer.masksToBounds = true
         
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        
+        DispatchQueue.global().async {
             
-            self.device?.getCurrentDataUsage({ (dataUsed: Float, err: NSError?) in
-                dispatch_async(dispatch_get_main_queue()) {
+            self.device?.getCurrentDataUsage({ (dataUsed: Float, err: Error?) in
+                DispatchQueue.main.async {
                     // update some UI
                     
                     if let _ = err {
@@ -92,7 +92,7 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         updateDeviceInfoDisplay()
     }
     

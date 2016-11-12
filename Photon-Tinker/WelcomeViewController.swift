@@ -14,23 +14,26 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         
         let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue"))
-        backgroundImage.frame = UIScreen.mainScreen().bounds
-        backgroundImage.contentMode = .ScaleToFill;
+        backgroundImage.frame = UIScreen.main.bounds
+        backgroundImage.contentMode = .scaleToFill;
 //        backgroundImage.alpha = 0.85
         self.view.addSubview(backgroundImage)
-        self.view.sendSubviewToBack(backgroundImage)
+        self.view.sendSubview(toBack: backgroundImage)
         let layer = self.getStartedButton.layer
-        layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.borderColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clear.cgColor
+        layer.borderColor = UIColor.white.cgColor
         layer.cornerRadius = 3.0
         layer.borderWidth = 2.0
-        let verStr = "V"+(NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String)
+        let verStr = "V"+(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
         self.versionLabel.text = verStr
         
-        self.customizeSetupForLoginFlow()
+        if let _ = SparkCloud.sharedInstance().loggedInUsername
+        {
+            self.performSegue(withIdentifier: "start_no_animation", sender: self)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,12 +42,13 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     }
     
     
+    
     func checkFontNames()
     {
-        for family in UIFont.familyNames()
+        for family in UIFont.familyNames
         {
             print("\(family)\n", terminator: "")
-            for name in UIFont.fontNamesForFamilyName(family )
+            for name in UIFont.fontNames(forFamilyName: family )
             {
                 print("   \(name)\n", terminator: "")
             }
@@ -54,27 +58,27 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     
 
     // Function will be called when setup finishes
-    func sparkSetupViewController(controller: SparkSetupMainController!, didFinishWithResult result: SparkSetupMainControllerResult, device: SparkDevice!) {
+    func sparkSetupViewController(_ controller: SparkSetupMainController!, didFinishWith result: SparkSetupMainControllerResult, device: SparkDevice!) {
         
-        if result == .LoggedIn
+        if result == .loggedIn
         {
-            self.performSegueWithIdentifier("start", sender: self)
+            self.performSegue(withIdentifier: "start", sender: self)
             
             let email = SparkCloud.sharedInstance().loggedInUsername
-            SEGAnalytics.sharedAnalytics().identify(email!)
+            SEGAnalytics.shared().identify(email!)
             
             
         }
         
-        if result == .SkippedAuth
+        if result == .skippedAuth
         {
-            self.performSegueWithIdentifier("start", sender: self)
+            self.performSegue(withIdentifier: "start", sender: self)
         }
     }
     
     @IBOutlet weak var getStartedButton: UIButton!
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
@@ -84,26 +88,26 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         // Do customization for Spark Setup wizard UI
         let c = SparkSetupCustomization.sharedInstance()
         
-        c.allowSkipAuthentication = true
-        c.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to devices but not claim them nor use Tinker. Are you sure you want to continue?"
-        c.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
-        c.normalTextFontName = "Gotham-Book"
-        c.boldTextFontName = "Gotham-Medium"
-        c.headerTextFontName = "Gotham-Light" // new
+        c?.allowSkipAuthentication = true
+        c?.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to Photon based devices but not claim them to your account nor use Tinker or device inspector. Are you sure you want to continue?"
+        c?.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
+        c?.normalTextFontName = "Gotham-Book"
+        c?.boldTextFontName = "Gotham-Medium"
+        c?.headerTextFontName = "Gotham-Light" // new
         //c.fontSizeOffset = 1;
-        c.normalTextColor = UIColor.whiteColor()
-        c.linkTextColor = UIColor.whiteColor()
-        c.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
+        c?.normalTextColor = UIColor.white
+        c?.linkTextColor = UIColor.white
+        c?.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
         // UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
 
-        c.linkTextColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
-        c.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
-        c.elementBackgroundColor = UIColor.whiteColor()
-        c.brandImage = UIImage(named: "particle-horizontal-head")
+        c?.linkTextColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
+        c?.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c?.elementBackgroundColor = UIColor.white
+        c?.brandImage = UIImage(named: "particle-horizontal-head")
 //        c.deviceImage = UIImage(named: "imgPhoton")
-        c.tintSetupImages = true
-        c.allowPasswordManager = true
-        c.lightStatusAndNavBar = true
+        c?.tintSetupImages = true
+        c?.allowPasswordManager = true
+        c?.lightStatusAndNavBar = true
         
         #if ORG_TEST_MODE
             
@@ -125,22 +129,23 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     
       
     @IBOutlet weak var versionLabel: UILabel!
-    @IBAction func startButtonTapped(sender: UIButton)
+    @IBAction func startButtonTapped(_ sender: UIButton)
     {
         if let _ = SparkCloud.sharedInstance().loggedInUsername
         {
 //            self.customizeSetupForSetupFlow()
-            self.performSegueWithIdentifier("start", sender: self)
+            self.performSegue(withIdentifier: "start", sender: self)
         }
         else
         {
+            self.customizeSetupForLoginFlow()
             // lines required for invoking the Spark Setup wizard
             if let vc = SparkSetupMainController(authenticationOnly: true)
             {
                 
                 
                 vc.delegate = self
-                self.presentViewController(vc, animated: true, completion: nil)
+                self.present(vc, animated: true, completion: nil)
             }
         }
     }

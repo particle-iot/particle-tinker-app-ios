@@ -9,14 +9,14 @@
 import Foundation
 
 protocol DeviceVariableTableViewCellDelegate  {
-    func tappedOnVariable(sender : DeviceVariableTableViewCell, name : String, value : String)
+    func tappedOnVariable(_ sender : DeviceVariableTableViewCell, name : String, value : String)
 }
 
 internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
     var variableType : String? {
         didSet {
-            self.variableTypeButton.setTitle(" ("+self.variableType!+")", forState: .Normal)
+            self.variableTypeButton.setTitle(" ("+self.variableType!+")", for: UIControlState())
         }
     }
     
@@ -27,23 +27,23 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
     var variableName : String? {
         didSet {
             if variableName == "" {
-                self.noVarsLabel.hidden = false
-                self.variableTypeButton.hidden = true
-                self.variableNameButton.hidden = true
-                self.resultLabel.hidden = true
-                self.bkgView.backgroundColor = UIColor.whiteColor()
+                self.noVarsLabel.isHidden = false
+                self.variableTypeButton.isHidden = true
+                self.variableNameButton.isHidden = true
+                self.resultLabel.isHidden = true
+                self.bkgView.backgroundColor = UIColor.white
                 if let t = tap {
                     self.resultLabel.removeGestureRecognizer(t)
                 }
                 self.tap = nil
                 
             } else {
-                self.variableNameButton.setTitle(" "+variableName!, forState: .Normal)
-                self.noVarsLabel.hidden = true
-                self.variableTypeButton.hidden = false
-                self.variableNameButton.hidden = false
-                self.resultLabel.hidden = false
-                self.resultLabel.userInteractionEnabled = true
+                self.variableNameButton.setTitle(" "+variableName!, for: UIControlState())
+                self.noVarsLabel.isHidden = true
+                self.variableTypeButton.isHidden = false
+                self.variableNameButton.isHidden = false
+                self.resultLabel.isHidden = false
+                self.resultLabel.isUserInteractionEnabled = true
                 self.bkgView.backgroundColor = ParticleUtils.particleAlmostWhiteColor
 
                 self.tap = UITapGestureRecognizer(target: self, action: #selector(DeviceVariableTableViewCell.variableLabelAction(_:)))
@@ -53,15 +53,15 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
             }
         }
     }
-    @IBAction func readButtonTapped(sender: AnyObject) {
+    @IBAction func readButtonTapped(_ sender: AnyObject) {
 
         
         self.activityIndicator.startAnimating()
-        SEGAnalytics.sharedAnalytics().track("Device Inspector: variable read")
-        self.resultLabel.hidden = true
-        self.device?.getVariable(variableName!, completion: { (resultObj:AnyObject?, error:NSError?) in
+        SEGAnalytics.shared().track("Device Inspector: variable read")
+        self.resultLabel.isHidden = true
+        self.device?.getVariable(variableName!, completion: { (resultObj:Any?, error:Error?) in
             
-            self.resultLabel.hidden = false
+            self.resultLabel.isHidden = false
             self.activityIndicator.stopAnimating()
             if let _ = error  {
                 self.resultLabel.text = "Error"
@@ -73,7 +73,12 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
             } else {
                 if let r = resultObj {
                     
-                    self.variableValue = r.description
+                    if let resultValue = r as? String {
+                        self.variableValue = resultValue
+                    } else if let resultValue = r as? NSNumber {
+                        self.variableValue = resultValue.stringValue
+                    }
+                    
                     self.resultLabel.text = self.variableValue
                     self.resultLabel.addGestureRecognizer(self.tap!)
                     
@@ -86,7 +91,7 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
     }
     
     
-    func variableLabelAction(sender : UITapGestureRecognizer)
+    func variableLabelAction(_ sender : UITapGestureRecognizer)
     {
         self.delegate?.tappedOnVariable(self, name: self.variableName!, value: self.variableValue!)
     }

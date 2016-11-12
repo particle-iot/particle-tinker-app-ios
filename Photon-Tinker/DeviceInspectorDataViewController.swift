@@ -17,29 +17,29 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     var variablesList : [String]?
     
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.whiteColor()//ParticleUtils.particleAlmostWhiteColor
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.white//ParticleUtils.particleAlmostWhiteColor
         let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.darkGrayColor()// sparkDarkGrayColor
+        header.textLabel?.textColor = UIColor.darkGray// sparkDarkGrayColor
     }
     
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        
+        DispatchQueue.global().async {
             // do some task
             // auto read all variables
-            var index : NSIndexPath
+            var index : IndexPath
             
             
-            IQKeyboardManager.sharedManager().shouldHidePreviousNext = true
+            IQKeyboardManager.shared().shouldHidePreviousNext = true
             
             
             for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
-                index = NSIndexPath(forRow: i, inSection: 1)
-                let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRowAtIndexPath(index) as? DeviceVariableTableViewCell
+                index = IndexPath(row: i, section: 1)
+                let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRow(at: index) as? DeviceVariableTableViewCell
                 
                 if let c = cell {
                     if c.device == nil {
@@ -55,8 +55,8 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     
     
-    override func viewWillDisappear(animated: Bool) {
-        IQKeyboardManager.sharedManager().shouldHidePreviousNext = false
+    override func viewWillDisappear(_ animated: Bool) {
+        IQKeyboardManager.shared().shouldHidePreviousNext = false
     }
     
     
@@ -66,19 +66,19 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
             
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
+            let delayTime = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: delayTime) {
                 
-                if !self.view.hidden {
+                if !self.view.isHidden {
                     // viewController is visible
                     
          
-                    let firstCell = self.deviceDataTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) //
+                    let firstCell = self.deviceDataTableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
                     
                     // 1
                     let tutorial = YCTutorialBox(headline: "Device Data", withHelpText: "Tap the function cell to access the arguments box. Type in function arguments (comma separated if more than one) and tap send or the function name to call it.\n\nSimply tap a variable name to read its current value. Tap any long variable value to show a popup with the full string value in case it has been truncated.")
                     
-                    tutorial.showAndFocusView(firstCell)
+                    tutorial?.showAndFocus(firstCell)
                     
                     ParticleUtils.setTutorialWasDisplayedForViewController(self)
                 }
@@ -97,7 +97,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             switch value {
             case "int32" :
                 varType = "Integer"
-            case "float" :
+            case "double" :
                 varType = "Float"
             default:
                 varType = "String"
@@ -115,9 +115,9 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         
         if (!readVarsOnce) {
             
-            for j in 0...deviceDataTableView.numberOfRowsInSection(1)
+            for j in 0...deviceDataTableView.numberOfRows(inSection: 1)
             {
-                if let cell = deviceDataTableView.cellForRowAtIndexPath(NSIndexPath(forRow: j, inSection: 1)) {
+                if let cell = deviceDataTableView.cellForRow(at: IndexPath(row: j, section: 1)) {
                     
                     let varCell = cell as! DeviceVariableTableViewCell
                     if varCell.variableName != "" {
@@ -130,11 +130,11 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var title : String?
         switch section {
         case 0 : title = "Particle.function()"
@@ -143,14 +143,14 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         return title
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0 : return max(self.device!.functions.count,1)
         default : return max(self.device!.variables.count,1)
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //        var masterCell : UITableViewCell?
         var masterCell : UITableViewCell?
@@ -162,15 +162,15 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         //
         
         
-        switch indexPath.section {
+        switch (indexPath as NSIndexPath).section {
         case 0 : // Functions
-            let cell : DeviceFunctionTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("functionCell") as? DeviceFunctionTableViewCell
+            let cell : DeviceFunctionTableViewCell? = self.deviceDataTableView.dequeueReusableCell(withIdentifier: "functionCell") as? DeviceFunctionTableViewCell
             if (self.device!.functions.count == 0) {
                 // something else
                 cell!.functionName = ""
                 cell!.device = nil
             } else {
-                cell!.functionName = self.device?.functions[indexPath.row]
+                cell!.functionName = self.device?.functions[(indexPath as NSIndexPath).row]
                 cell!.device = self.device
             }
             
@@ -179,13 +179,13 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             masterCell = cell
             
         default :
-            let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.dequeueReusableCellWithIdentifier("variableCell") as? DeviceVariableTableViewCell
+            let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.dequeueReusableCell(withIdentifier: "variableCell") as? DeviceVariableTableViewCell
             
             if (self.device!.variables.count == 0) {
                 cell!.variableName = ""
             } else {
                 if let vl = self.variablesList {
-                    let varArr =  vl[indexPath.row].characters.split{$0 == ","}.map(String.init)
+                    let varArr =  vl[(indexPath as NSIndexPath).row].characters.split{$0 == ","}.map(String.init)
                     //
                     cell!.variableType = varArr[1]
                     cell!.variableName = varArr[0]
@@ -199,28 +199,28 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             
         }
         
-        masterCell?.selectionStyle = .None
+        masterCell?.selectionStyle = .none
         
         
         return masterCell!
     }
     
     
-    func tappedOnVariable(sender: DeviceVariableTableViewCell, name: String, value: String) {
+    func tappedOnVariable(_ sender: DeviceVariableTableViewCell, name: String, value: String) {
         ZAlertView.messageFont = UIFont(name: "FiraMono-Regular", size: 13.0)
-        ZAlertView.messageTextAlignment = NSTextAlignment.Left
+        ZAlertView.messageTextAlignment = NSTextAlignment.left
         
-        let dialog = ZAlertView(title: name, message: value, alertType: .MultipleChoice)
+        let dialog = ZAlertView(title: name, message: value, alertType: .multipleChoice)
         
         dialog.addButton("Copy to clipboard", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
-            UIPasteboard.generalPasteboard().string = value
-            TSMessage.showNotificationWithTitle("Copied", subtitle: "Variable value was copied to the clipboard", type: .Success)
-            SEGAnalytics.sharedAnalytics().track("Device Inspector: variable copied")
+            UIPasteboard.general.string = value
+            TSMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success)
+            SEGAnalytics.shared().track("Device Inspector: variable copied")
         }
         
         
-        dialog.addButton("Close", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.whiteColor()) { (dialog : ZAlertView) in
+        dialog.addButton("Close", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.white) { (dialog : ZAlertView) in
             dialog.dismiss()
 //            ZAlertView.messageTextAlignment = NSTextAlignment.Center
         }
@@ -228,8 +228,8 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         dialog.show()
 }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows , selectedIndexPaths.contains(indexPath) {
             return 96.0 // Expanded height
         }
         
@@ -237,18 +237,18 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell : DeviceDataTableViewCell = tableView.cellForRow(at: indexPath) as! DeviceDataTableViewCell
         
-        if cell.device == nil || indexPath.section > 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
-            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        if cell.device == nil || (indexPath as NSIndexPath).section > 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
+            tableView.deselectRow(at: indexPath, animated: false)
         } else {
             
-            let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell
+            let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRow(at: indexPath) as! DeviceFunctionTableViewCell
             let halfRotation = CGFloat(M_PI)
             
-            UIView.animateWithDuration(0.3, animations: {
-                cellAnim.argumentsButton.transform = CGAffineTransformMakeRotation(halfRotation)
+            UIView.animate(withDuration: 0.3, animations: {
+                cellAnim.argumentsButton.transform = CGAffineTransform(rotationAngle: halfRotation)
                 }, completion: { (done: Bool) in
                 cellAnim.argumentsTextField.becomeFirstResponder()
             })
@@ -259,17 +259,17 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         view.endEditing(true)
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell : DeviceDataTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceDataTableViewCell
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell : DeviceDataTableViewCell = tableView.cellForRow(at: indexPath) as! DeviceDataTableViewCell
         
-        if cell.device != nil && indexPath.section == 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
+        if cell.device != nil && (indexPath as NSIndexPath).section == 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             
-            let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! DeviceFunctionTableViewCell
+            let cellAnim : DeviceFunctionTableViewCell = tableView.cellForRow(at: indexPath) as! DeviceFunctionTableViewCell
             
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 // animating `transform` allows us to change 2D geometry of the object
                 // like `scale`, `rotation` or `translate`
-                cellAnim.argumentsButton.transform = CGAffineTransformIdentity//CGAffineTransformMakeRotation(halfRotation)
+                cellAnim.argumentsButton.transform = CGAffineTransform.identity//CGAffineTransformMakeRotation(halfRotation)
             })
             
             
@@ -278,7 +278,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         view.endEditing(true)
     }
     
-    private func updateTableView() {
+    fileprivate func updateTableView() {
         self.deviceDataTableView.beginUpdates()
         self.deviceDataTableView.endUpdates()
     }

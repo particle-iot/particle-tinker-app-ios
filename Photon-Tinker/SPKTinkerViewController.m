@@ -380,7 +380,6 @@
 
 - (void)pinViewHeld:(PinView *)pinView
 {
-    NSLog(@"Pin %@ held",pinView.pin.label);
     if (pinView.valueView.sliderShowing)
         self.pinViewShowingSlider = nil;
     [pinView.valueView hideSlider];
