@@ -17,10 +17,10 @@ PODS:
     - AFNetworking/NSURLSession
   - Analytics (3.5.0)
   - ASValueTrackingSlider (0.12.1)
-  - Crashlytics (3.8.2):
+  - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
   - DateTools (1.7.0)
-  - Fabric (1.6.8)
+  - Fabric (1.6.11)
   - FXBlurView (1.6.4)
   - HexColors (2.2.1)
   - IQKeyboardManager (4.0.6)
@@ -29,11 +29,11 @@ PODS:
     - Mixpanel/Mixpanel (= 3.0.3)
   - Mixpanel/Mixpanel (3.0.3)
   - PullToRefreshCoreText (0.2)
-  - Spark-SDK (0.5.1):
-    - Spark-SDK/Helpers (= 0.5.1)
-    - Spark-SDK/SDK (= 0.5.1)
-  - Spark-SDK/Helpers (0.5.1)
-  - Spark-SDK/SDK (0.5.1):
+  - Spark-SDK (0.6.0):
+    - Spark-SDK/Helpers (= 0.6.0)
+    - Spark-SDK/SDK (= 0.6.0)
+  - Spark-SDK/Helpers (0.6.0)
+  - Spark-SDK/SDK (0.6.0):
     - AFNetworking (~> 3.0)
     - Spark-SDK/Helpers
   - SparkSetup (0.6.1):
@@ -74,20 +74,20 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Analytics: 79046b34f62a861622fbb6d1af5b0e705d6aba2e
   ASValueTrackingSlider: 5261de3fcf00adb339efc93885e8f0bc99e703cd
-  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
+  Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
-  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   IQKeyboardManager: c52debb1967799ae7addb98eab0cf328083a874f
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   Mixpanel: 45867daeaa3c60f88072a3cb1b44e0b6c5cec009
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
-  Spark-SDK: 361c1d3aabc88f7c1eada27427cc8997f5a79ac1
+  Spark-SDK: abb1436245a3e43cbc00cfdaddcad66e047666ef
   SparkSetup: 0e63d1cce0c16278b798f383f1ece034032df6a7
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
 
 PODFILE CHECKSUM: 87e375a69bd6d5c83cf8344bf83604f1bf5a67f2
 
-COCOAPODS: 1.1.0.rc.1
+COCOAPODS: 1.2.0.beta.1

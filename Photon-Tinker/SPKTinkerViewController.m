@@ -569,14 +569,14 @@
 {
     [pinView beginUpdating];
     
-    [self.device updatePin:pinView.pin.logicalName function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSUInteger result) {
+    [self.device updatePin:pinView.pin.logicalName function:pinView.pin.selectedFunction value:pinView.pin.value success:^(NSInteger result) {
         ///
         dispatch_async(dispatch_get_main_queue(), ^{
             [pinView endUpdating];
 
             self.tinkerLogoImageView.hidden = NO;
             if (pinView.pin.selectedFunction == DevicePinFunctionDigitalWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWriteDAC) {
-                if (result == -1) {
+                if (result < 0) {
 
                     [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"pin write"}];
 
@@ -596,7 +596,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [pinView endUpdating];
             
-            NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device - %@",errorMessage];
+            NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device (%@)",errorMessage];
             [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
 
             [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
