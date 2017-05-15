@@ -56,9 +56,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         print("start:"+self.printTimestamp())
         
         if kSparkAPIBaseURL.contains("staging") {
-            self.setupWebAddress = URL(string: "https://setup.staging.particle.io/")
+            self.setupWebAddress = URL(string: "https://setup.staging.particle.io?mobile=true")
         } else {
-            self.setupWebAddress = URL(string: "https://setup.particle.io/")
+            self.setupWebAddress = URL(string: "https://setup.particle.io?mobile=true")
         }
 //        let url =
         
@@ -82,7 +82,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             (msg: String) in
             NSLog("JS Console: %@", msg)
         }
-        context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, to: AnyObject.self), forKeyedSubscript: "log" as (NSCopying & NSObjectProtocol)!)
+//        context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, to: AnyObject.self), forKeyedSubscript: "log" as (NSCopying & NSObjectProtocol)!)
 //        print("after tapping into console logs:"+self.printTimestamp())
         
         
@@ -210,12 +210,14 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 //        print("shouldStartLoadWithRequest \(request.description)");
-        
+
+        /*
         if let rurl = request.url {
             print("shouldStartLoadWithRequest: "+rurl.description+" : "+self.printTimestamp())
         } else {
             print("shouldStartLoadWithRequest: "+self.printTimestamp())
         }
+        */
         
         
         let myAppScheme = "particle"
