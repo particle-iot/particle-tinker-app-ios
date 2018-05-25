@@ -1,14 +1,14 @@
 //
 //  SPKTinkerViewController.m
-//  Spark IOS
+//  Particle IOS
 //
-//  Copyright (c) 2013 Spark Devices. All rights reserved.
+//  Copyright (c) 2013 Particle Devices. All rights reserved.
 //
 
 #import "SPKTinkerViewController.h"
-#import "Spark-SDK.h"
+#import "Particle-SDK.h"
 #import "DevicePin.h"
-#import "SparkDevice+pins.h"
+#import "ParticleDevice+pins.h"
 #import "PinView.h"
 #import "TSMessage.h"
 #import "PinValueView.h"
@@ -18,7 +18,7 @@
 
 
 
-@interface SPKTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SparkDeviceDelegate>
+@interface SPKTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, ParticleDeviceDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -83,7 +83,7 @@
 //    [self.view addGestureRecognizer:_tap];
 }
 
--(void)sparkDevice:(SparkDevice *)device didReceiveSystemEvent:(SparkDeviceSystemEvent)event
+-(void)particleDevice:(ParticleDevice *)device didReceiveSystemEvent:(ParticleDeviceSystemEvent)event
 {
     [ParticleUtils animateOnlineIndicatorImageView:self.deviceStateIndicatorImageView online:self.device.connected flashing:self.device.isFlashing];
 

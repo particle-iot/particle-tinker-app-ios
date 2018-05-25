@@ -10,7 +10,7 @@
 
 class DeviceInspectorChildViewController: UIViewController {
 
-    var device : SparkDevice?
+    var device : ParticleDevice?
     
     func showTutorial() {
         assert(false, "This method must be overriden by the DeviceInspectorChildViewController subclass")

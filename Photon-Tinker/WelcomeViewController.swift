@@ -3,12 +3,12 @@
 //  Photon-Tikner
 //
 //  Created by Ido on 4/7/15.
-//  Copyright (c) 2015 spark. All rights reserved.
+//  Copyright (c) 2015 particle. All rights reserved.
 //
 
 import UIKit
 
-class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate {
+class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         let verStr = "V"+(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
         self.versionLabel.text = verStr
         
-        if let _ = SparkCloud.sharedInstance().loggedInUsername
+        if let _ = ParticleCloud.sharedInstance().loggedInUsername
         {
             self.performSegue(withIdentifier: "start_no_animation", sender: self)
         }
@@ -58,13 +58,13 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     
 
     // Function will be called when setup finishes
-    func sparkSetupViewController(_ controller: SparkSetupMainController!, didFinishWith result: SparkSetupMainControllerResult, device: SparkDevice!) {
+    func particleSetupViewController(_ controller: ParticleSetupMainController!, didFinishWith result: ParticleSetupMainControllerResult, device: ParticleDevice!) {
         
         if result == .loggedIn
         {
             self.performSegue(withIdentifier: "start", sender: self)
             
-            let email = SparkCloud.sharedInstance().loggedInUsername
+            let email = ParticleCloud.sharedInstance().loggedInUsername
             SEGAnalytics.shared().identify(email!)
             
             
@@ -85,8 +85,8 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     func customizeSetupForLoginFlow()
     {
 //        self.checkFontNames()
-        // Do customization for Spark Setup wizard UI
-        let c = SparkSetupCustomization.sharedInstance()
+        // Do customization for Particle Setup wizard UI
+        let c = ParticleSetupCustomization.sharedInstance()
         
         c?.allowSkipAuthentication = true
         c?.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to Photon based devices but not claim them to your account nor use Tinker or device inspector. Are you sure you want to continue?"
@@ -111,13 +111,13 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         
         #if ORG_TEST_MODE
             
-            SparkSetupCustomization.sharedInstance().organization = true
-            SparkSetupCustomization.sharedInstance().organizationSlug = "dinobots"
-            SparkSetupCustomization.sharedInstance().productSlug = "ido-test-product-1"
+            ParticleSetupCustomization.sharedInstance().organization = true
+            ParticleSetupCustomization.sharedInstance().organizationSlug = "dinobots"
+            ParticleSetupCustomization.sharedInstance().productSlug = "ido-test-product-1"
             
             // for creating customers (signup) to work you need:
-            SparkCloud.sharedInstance().OAuthClientId = orgTestClientId
-            SparkCloud.sharedInstance().OAuthClientSecret = orgTestSecret
+            ParticleCloud.sharedInstance().OAuthClientId = orgTestClientId
+            ParticleCloud.sharedInstance().OAuthClientSecret = orgTestSecret
 
             
             print("Tinker app in ORG_TEST_MODE")
@@ -131,7 +131,7 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
     @IBOutlet weak var versionLabel: UILabel!
     @IBAction func startButtonTapped(_ sender: UIButton)
     {
-        if let _ = SparkCloud.sharedInstance().loggedInUsername
+        if let _ = ParticleCloud.sharedInstance().loggedInUsername
         {
 //            self.customizeSetupForSetupFlow()
             self.performSegue(withIdentifier: "start", sender: self)
@@ -139,8 +139,8 @@ class WelcomeViewController: UIViewController, SparkSetupMainControllerDelegate 
         else
         {
             self.customizeSetupForLoginFlow()
-            // lines required for invoking the Spark Setup wizard
-            if let vc = SparkSetupMainController(authenticationOnly: true)
+            // lines required for invoking the Particle Setup wizard
+            if let vc = ParticleSetupMainController(authenticationOnly: true)
             {
                 
                 

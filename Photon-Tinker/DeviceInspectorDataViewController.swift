@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/29/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 
@@ -20,7 +20,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.white//ParticleUtils.particleAlmostWhiteColor
         let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.darkGray// sparkDarkGrayColor
+        header.textLabel?.textColor = UIColor.darkGray// particleDarkGrayColor
     }
     
     

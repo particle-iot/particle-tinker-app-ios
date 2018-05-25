@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido on 5/6/15.
-//  Copyright (c) 2015 spark. All rights reserved.
+//  Copyright (c) 2015 particle. All rights reserved.
 //
 
 #import "PinView.h"
