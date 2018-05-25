@@ -1,20 +1,20 @@
 //
 //  SPKCore.h
-//  Spark IOS
+//  Particle IOS
 //
-//  Copyright (c) 2013 Spark Devices. All rights reserved.
+//  Copyright (c) 2013 Particle Devices. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <Spark-SDK.h>
+#import <Particle-SDK.h>
 #import "DevicePin.h"
 
-@interface SparkDevice(pins)
+@interface ParticleDevice(pins)
 
 @property (nonatomic, strong) NSArray *pins;
 
 - (void)resetPins;
-- (void)configurePins:(SparkDeviceType)deviceType;
+- (void)configurePins:(ParticleDeviceType)deviceType;
 - (void)updatePin:(NSString *)pin function:(DevicePinFunction)function value:(NSUInteger)value success:(void (^)(NSInteger value))success failure:(void (^)(NSString *error))failure;
 -(BOOL)isRunningTinker;
 

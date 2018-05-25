@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/24/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 import Foundation

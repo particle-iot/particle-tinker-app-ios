@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/30/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 
@@ -14,8 +14,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     
     @IBOutlet weak var noEventsLabel: UILabel!
     
-    var events : [SparkEvent]?
-    var filteredEvents : [SparkEvent]?
+    var events : [ParticleEvent]?
+    var filteredEvents : [ParticleEvent]?
     
     var subscribeId : Any?
     
@@ -28,7 +28,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     
     func subscribeToDeviceEvents() {
         
-        self.subscribeId = SparkCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: nil, deviceID: self.device!.id, handler: {[weak self] (event:SparkEvent?, error:Error?) in
+        self.subscribeId = ParticleCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: nil, deviceID: self.device!.id, handler: {[weak self] (event:ParticleEvent?, error:Error?) in
             if let _ = error {
                 print ("could not subscribe to events to show in events inspector...")
             } else {
@@ -38,8 +38,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                     if let s = self {
                         if let e = event {
                             if s.events == nil {
-                                s.events = [SparkEvent]()
-                                s.filteredEvents = [SparkEvent]()
+                                s.events = [ParticleEvent]()
+                                s.filteredEvents = [ParticleEvent]()
                                 s.noEventsLabel.isHidden = true
                             }
                             // insert new event to datasource
@@ -67,7 +67,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     
     func unsubscribeFromDeviceEvents() {
         if let sid = self.subscribeId {
-            SparkCloud.sharedInstance().unsubscribeFromEvent(withID: sid)
+            ParticleCloud.sharedInstance().unsubscribeFromEvent(withID: sid)
         }
     }
     

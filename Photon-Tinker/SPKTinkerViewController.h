@@ -1,14 +1,14 @@
 //
 //  SPKTinkerViewController.h
-//  Spark Photon Tinker for iOS
+//  Particle Photon Tinker for iOS
 //
-//  Copyright (c) 2015 Spark Devices. All rights reserved.
+//  Copyright (c) 2015 Particle Devices. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "PinView.h"
 #import "PinFunctionView.h"
-#import "SparkDevice+pins.h"
+#import "ParticleDevice+pins.h"
 
 @class DeviceListViewController;
 
@@ -18,6 +18,6 @@
  */
 @interface SPKTinkerViewController : UIViewController 
 
-@property (nonatomic, strong) SparkDevice *device;
+@property (nonatomic, strong) ParticleDevice *device;
 
 @end

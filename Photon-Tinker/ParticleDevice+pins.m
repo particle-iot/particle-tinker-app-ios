@@ -1,11 +1,11 @@
 //
 //  Device.m
-//  Spark IOS
+//  Particle IOS
 //
-//  Copyright (c) 2013 Spark Devices. All rights reserved.
+//  Copyright (c) 2013 Particle Devices. All rights reserved.
 //
 
-#import "SparkDevice+pins.h"
+#import "ParticleDevice+pins.h"
 #import "DevicePin.h"
 #import <objc/runtime.h>
 
@@ -13,7 +13,7 @@
 #define ALL_FUNCTIONS (DevicePinFunctionDigitalRead|DevicePinFunctionDigitalWrite|DevicePinFunctionAnalogRead|DevicePinFunctionAnalogWrite)
 
 
-@implementation SparkDevice(pins)
+@implementation ParticleDevice(pins)
 
 
 - (void)resetPins
@@ -38,13 +38,13 @@
 }
 
 
-- (void)configurePins:(SparkDeviceType)deviceType
+- (void)configurePins:(ParticleDeviceType)deviceType
 {
     DevicePin *a0, *a1, *a2, *a3, *a4, *a5, *a6, *a7;
     DevicePin *d0, *d1, *d2, *d3, *d4, *d5, *d6, *d7;
     
     switch (deviceType) {
-        case SparkDeviceTypeCore:
+        case ParticleDeviceTypeCore:
             a0 = [[DevicePin alloc] initWithLabel:@"A0" logicalName:@"A0" side:DevicePinSideLeft row:7 availableFunctions:ALL_FUNCTIONS];
             a1 = [[DevicePin alloc] initWithLabel:@"A1" logicalName:@"A1" side:DevicePinSideLeft row:6 availableFunctions:ALL_FUNCTIONS];
             a2 = [[DevicePin alloc] initWithLabel:@"A2" logicalName:@"A2" side:DevicePinSideLeft row:5 availableFunctions:ALL_FUNCTIONS];

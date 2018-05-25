@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/29/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 import Foundation
@@ -20,7 +20,7 @@ class ParticleUtils: NSObject {
     static var particleRegularFont = UIFont(name: "Gotham-book", size: 16.0)!
     static var particleBoldFont = UIFont(name: "Gotham-medium", size: 16.0)!
 
-    class func getDeviceTypeAndImage(_ device : SparkDevice?) -> (deviceType: String, deviceImage: UIImage) {
+    class func getDeviceTypeAndImage(_ device : ParticleDevice?) -> (deviceType: String, deviceImage: UIImage) {
         
         
         var image : UIImage?

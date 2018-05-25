@@ -3,12 +3,12 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/27/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 import Foundation
 
-class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, SparkDeviceDelegate {
+class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, ParticleDeviceDelegate {
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -191,7 +191,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     @IBOutlet weak var deviceDataContainerView: UIView!
     @IBOutlet weak var deviceInfoContainerView: UIView!
     
-    var device : SparkDevice?
+    var device : ParticleDevice?
     
 //    var frameView: UIView!
     
@@ -267,7 +267,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     
     var flashedTinker : Bool = false
     
-    func sparkDevice(_ device: SparkDevice, didReceive event: SparkDeviceSystemEvent) {
+    func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
         ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
         if self.flashedTinker && event == .flashSucceeded {
             

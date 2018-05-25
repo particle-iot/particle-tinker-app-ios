@@ -1,8 +1,8 @@
 //
 //  DevicePin.m
-//  Spark IOS
+//  Particle IOS
 //
-//  Copyright (c) 2013 Spark Devices. All rights reserved.
+//  Copyright (c) 2013 Particle Devices. All rights reserved.
 //
 
 #import "DevicePin.h"
