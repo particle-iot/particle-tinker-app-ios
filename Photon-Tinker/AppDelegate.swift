@@ -3,7 +3,7 @@
 //  Photon-Tinker
 //
 //  Created by Ido on 4/16/15.
-//  Copyright (c) 2015 spark. All rights reserved.
+//  Copyright (c) 2015 particle. All rights reserved.
 //
 
 import UIKit
@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        Mixpanel.sharedInstanceWithToken(mixpanelToken)
         
-        SparkCloud.sharedInstance().oAuthClientId = oAuthClientId
-        SparkCloud.sharedInstance().oAuthClientSecret = oAuthSecret
+        ParticleCloud.sharedInstance().oAuthClientId = oAuthClientId
+        ParticleCloud.sharedInstance().oAuthClientSecret = oAuthSecret
         
 //        [[TSMessageView appearance] setTitleFont:[UIFont boldSystemFontOfSize:6]];
         //        [[TSMessageView appearance] setTitleTextColor:[UIColor redColor]];
