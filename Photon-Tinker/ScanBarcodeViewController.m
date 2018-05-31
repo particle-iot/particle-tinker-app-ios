@@ -19,6 +19,10 @@
 
     UIView *_highlightView;
     UILabel *_label;
+    UIImageView *_overlayImageView;
+    UIButton *_overlayButton;
+    UIButton *_cancelButton;
+    UIView *_circleView;
 }
 @end
 
@@ -29,45 +33,45 @@
     [super viewDidLoad];
 
     _highlightView = [[UIView alloc] init];
-    _highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
+    //_highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
     _highlightView.layer.borderColor = [UIColor greenColor].CGColor;
     _highlightView.layer.borderWidth = 3;
     [self.view addSubview:_highlightView];
 
     _label = [[UILabel alloc] init];
     _label.frame = CGRectMake(0, self.view.bounds.size.height - 40, self.view.bounds.size.width, 40);
-    _label.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    //_label.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     _label.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _label.textColor = [UIColor whiteColor];
     _label.textAlignment = NSTextAlignmentCenter;
     _label.text = @"Point at SIM ICCID barcode";
     [self.view addSubview:_label];
 
-    UIImageView *overlayImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"overlaygraphic"]];
-    [overlayImageView setFrame:CGRectMake(30, 150, self.view.bounds.size.width-60, self.view.bounds.size.height-300)];
-    overlayImageView.image = [overlayImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [overlayImageView setTintColor:[UIColor whiteColor]];
-    [[self view] addSubview:overlayImageView];
+    _overlayImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"overlaygraphic"]];
+    [_overlayImageView setFrame:CGRectMake(30, 150, self.view.bounds.size.width-60, self.view.bounds.size.height-300)];
+    _overlayImageView.image = [_overlayImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [_overlayImageView setTintColor:[UIColor whiteColor]];
+    [self.view addSubview:_overlayImageView];
     
-    UIButton *overlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [overlayButton setImage:[UIImage imageNamed:@"flashlight"] forState:UIControlStateNormal];
-    [overlayButton setFrame:CGRectMake(30, 30, 48, 48)];
-    [overlayButton setTintColor:[UIColor whiteColor]];
-    [overlayButton addTarget:self action:@selector(toggleTorchButton:) forControlEvents:UIControlEventTouchUpInside];
-    [[self view] addSubview:overlayButton];
+    _overlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_overlayButton setImage:[UIImage imageNamed:@"flashlight"] forState:UIControlStateNormal];
+    [_overlayButton setFrame:CGRectMake(30, 30, 48, 48)];
+    [_overlayButton setTintColor:[UIColor whiteColor]];
+    [_overlayButton addTarget:self action:@selector(toggleTorchButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_overlayButton];
 
-    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [cancelButton setFrame:CGRectMake(self.view.bounds.size.width-60, self.view.bounds.size.height-44, 60, 48)];
-    [cancelButton addTarget:self action:@selector(cancelScan:) forControlEvents:UIControlEventTouchUpInside];
-    [[self view] addSubview:cancelButton];
+    _cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [_cancelButton setFrame:CGRectMake(self.view.bounds.size.width-60, self.view.bounds.size.height-44, 60, 48)];
+    [_cancelButton addTarget:self action:@selector(cancelScan:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_cancelButton];
 
     
-    UIView *circleView = [[UIView alloc] initWithFrame:CGRectMake(22, 24, 64, 64)];
-    circleView.alpha = 0.5;
-    circleView.layer.cornerRadius = 32;
-    circleView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:circleView];
+    _circleView = [[UIView alloc] initWithFrame:CGRectMake(22, 24, 64, 64)];
+    _circleView.alpha = 0.5;
+    _circleView.layer.cornerRadius = 32;
+    _circleView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:_circleView];
     
     _session = [[AVCaptureSession alloc] init];
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -100,14 +104,31 @@
 
     [self.view bringSubviewToFront:_highlightView];
     [self.view bringSubviewToFront:_label];
-    [self.view bringSubviewToFront:circleView];
-    [self.view bringSubviewToFront:overlayButton];
-    [self.view bringSubviewToFront:overlayImageView];
-    [self.view bringSubviewToFront:cancelButton];
+    [self.view bringSubviewToFront:_circleView];
+    [self.view bringSubviewToFront:_overlayButton];
+    [self.view bringSubviewToFront:_overlayImageView];
+    [self.view bringSubviewToFront:_cancelButton];
 
     
 }
 
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets insets = self.view.safeAreaInsets;
+
+
+        _label.frame = CGRectMake(0, self.view.bounds.size.height - 40 - insets.bottom, self.view.bounds.size.width, 40);
+        _cancelButton.frame = CGRectMake(self.view.bounds.size.width-60, self.view.bounds.size.height - 44 - insets.bottom, 60, 48);
+
+        _overlayButton.frame = CGRectMake(30, 30 + insets.top, 48, 48);
+        _circleView.frame = CGRectMake(22, 24 + insets.top, 64, 64);
+
+        _overlayImageView.frame = CGRectMake(30, 150 + insets.top, self.view.bounds.size.width-60, self.view.bounds.size.height - 300 - insets.top - insets.bottom);
+    }
+}
 
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -128,6 +149,8 @@
     }
 
 }
+
+
 
 
 -(void)cancelScan:(id)sender
