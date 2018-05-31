@@ -283,7 +283,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             DispatchQueue.main.async {
             
                 var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
-                jsCode+="inputElement.value = '\(barcodeValue)';\n"
+                jsCode+="inputElement.value = '\(barcodeValue!)';\n"
                 jsCode+="var e = new Event('change');\n"
                 jsCode+="e.target = inputElement;\n"
                 jsCode+="inputElement.dispatchEvent(e);\n"
