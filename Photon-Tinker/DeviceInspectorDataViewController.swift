@@ -215,7 +215,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         dialog.addButton("Copy to clipboard", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             UIPasteboard.general.string = value
-            TSMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success)
+            RMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
             SEGAnalytics.shared().track("Device Inspector: variable copied")
         }
         

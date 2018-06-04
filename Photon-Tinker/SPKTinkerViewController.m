@@ -10,7 +10,6 @@
 #import "DevicePin.h"
 #import "ParticleDevice+pins.h"
 #import "PinView.h"
-#import "TSMessage.h"
 #import "PinValueView.h"
 #import "Mixpanel.h"
 #import "Particle-Swift.h"
@@ -580,7 +579,7 @@
 
                     [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"pin write"}];
 
-                    [TSMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:TSMessageNotificationTypeError];
+                    [RMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:RMessageTypeError customTypeName:nil callback:nil];
                     [pinView.pin resetValue];
                     pinView.active = NO;
                 }
@@ -599,7 +598,7 @@
             NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device (%@)",errorMessage];
             [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
 
-            [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
+            [RMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:RMessageTypeError customTypeName:nil callback:nil];
 
             [pinView.pin resetValue];
             self.tinkerLogoImageView.hidden = NO;

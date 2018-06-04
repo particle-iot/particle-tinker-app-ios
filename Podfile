@@ -4,7 +4,7 @@ target 'Particle' do
     pod 'Particle-SDK'
     pod 'ParticleSetup'
     pod 'MBProgressHUD', '~> 0.9'
-    pod 'TSMessages'
+    pod 'RMessage'
     pod 'PullToRefreshCoreText', '~> 0.1'
     pod 'ASValueTrackingSlider'
     pod 'Mixpanel'

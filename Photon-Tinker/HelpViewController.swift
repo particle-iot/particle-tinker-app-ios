@@ -184,7 +184,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             SEGAnalytics.shared().track("Tinker: Tutorials reset")
             ParticleUtils.resetTutorialWasDisplayed()
             DispatchQueue.main.async {
-                TSMessage.showNotification(in: self, title: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .success)
+                RMessage.showNotification(withTitle: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .success, customTypeName: nil, callback: nil)
             }
 
             openWebView = false

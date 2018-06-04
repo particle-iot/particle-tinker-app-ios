@@ -273,7 +273,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
             
             SEGAnalytics.shared().track("Device Inspector: reflash Tinker success")
             DispatchQueue.main.async {
-                TSMessage.showNotification(withTitle: "Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .success)
+                RMessage.showNotification(withTitle: "Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .success, customTypeName: nil, callback: nil)
             }
             self.flashedTinker = false
 //            self.refreshData()
@@ -341,7 +341,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
                 {
                     if let s = self {
                         s.flashedTinker = false
-                        TSMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device. Are you sure it's online? \(e.localizedDescription)", type: .error)
+                        RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device. Are you sure it's online? \(e.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
                     }
                     
                 }
@@ -358,7 +358,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
             self.device!.flashKnownApp("tinker", completion: { (error:Error?) -> Void in
                 if let e=error
                 {
-                    TSMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error)
+                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
                 }
             })
             
@@ -386,9 +386,9 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
             dialog.show()
             
         default:
-            TSMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "Cannot flash Tinker to a non-Particle device", type: .warning)
             
             
+            RMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "Cannot flash Tinker to a non-Particle device", type: .warning, customTypeName: nil, callback: nil)
         }
         
     }
