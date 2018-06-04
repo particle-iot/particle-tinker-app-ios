@@ -56,7 +56,7 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
     @IBAction func copyEventButtonTapped(_ sender: UIButton) {
         if let e = event {
             UIPasteboard.general.string = e.description
-            TSMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success)
+            RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
             SEGAnalytics.shared().track("Device Inspector: event copied")
         }
     }

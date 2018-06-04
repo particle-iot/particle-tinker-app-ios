@@ -104,7 +104,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             if ParticleCloud.sharedInstance().loggedInUsername != nil {
                 self.invokeElectronSetup()
             } else {
-                TSMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error)
+                RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, callback: nil)
             }
             
             
@@ -288,7 +288,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 //                print("invalid access token - logging out")
                 self.logoutButtonTapped(self.logoutButton)
             } else {
-                TSMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error)
+                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
             }
             self.noDevicesLabel.isHidden = false
         }
@@ -496,27 +496,34 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         // user swiped left
         if editingStyle == .delete
         {
-            TSMessage.showNotification(in: self, title: "Unclaim confirmation", subtitle: "Are you sure you want to remove this device from your account?", image: UIImage(named: "imgQuestionWhite"), type: .error, duration: -1, callback: { () -> Void in
-                // callback for user dismiss by touching inside notification
-                TSMessage.dismissActiveNotification()
-                tableView.isEditing = false
-                } , buttonTitle: " Yes ", buttonCallback: { () -> Void in
-                    // callback for user tapping YES button - need to delete row and update table (TODO: actually unclaim device)
-                    self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
-                        if let err = error
-                        {
-                            TSMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error)
-                            self.photonSelectionTableView.reloadData()
+
+            RMessage.showNotification(in: self, title: "Unclaim confirmation", subtitle: "Are you sure you want to remove this device from your account?",
+                    iconImage: UIImage(named: "imgQuestionWhite"), type: .error, customTypeName: nil, duration: -1,
+                    callback:
+                    { () -> Void in
+                        // callback for user dismiss by touching inside notification
+                        RMessage.dismissActiveNotification()
+                        tableView.isEditing = false
+                    }, presentingCompletion: nil, dismissCompletion: nil, buttonTitle: " Yes ",
+                    buttonCallback:
+                    { () -> Void in
+                        // callback for user tapping YES button - need to delete row and update table (TODO: actually unclaim device)
+                        self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
+                            if let err = error
+                            {
+                                RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, callback: nil)
+                                self.photonSelectionTableView.reloadData()
+                            }
                         }
-                    }
-                    
-                    self.devices.remove(at: (indexPath as NSIndexPath).row)
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                    let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                    // update table view display to show dark/light cells with delay so that delete animation can complete nicely
-                    DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                        tableView.reloadData()
-                    }}, at: .top, canBeDismissedByUser: true)
+
+                        self.devices.remove(at: (indexPath as NSIndexPath).row)
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                        let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                        // update table view display to show dark/light cells with delay so that delete animation can complete nicely
+                        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                            tableView.reloadData()
+                        }
+                    }, at: .top, canBeDismissedByUser: true)
         }
     }
     
@@ -526,7 +533,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
         // user touches elsewhere
-        TSMessage.dismissActiveNotification()
+        RMessage.dismissActiveNotification()
     }
     
     // prevent "Setup new photon" row from being edited/deleted
@@ -537,9 +544,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func showSetupSuccessMessageAndReload() {
         if (self.devices.count <= 1) {
-            TSMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success)
+            RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
         } else {
-            TSMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success)
+            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
         }
         self.photonSelectionTableView.reloadData()
 
@@ -560,7 +567,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     deviceAdded.rename(deviceName, completion: { (error : Error?) -> Void in
                         if let _=error
                         {
-                            TSMessage.showNotification(withTitle: "Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .warning)
+                            RMessage.showNotification(withTitle: "Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .warning, customTypeName: nil, callback: nil)
                         }
                         else
                         {
@@ -579,19 +586,19 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             else // Device is nil so we treat it as not claimed
             {
-                TSMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success)
+                RMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success, customTypeName: nil, callback: nil)
                 self.photonSelectionTableView.reloadData()
             }
         }
         else if result == .successNotClaimed
         {
-            TSMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success)
+            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success, customTypeName: nil, callback: nil)
             self.photonSelectionTableView.reloadData()
         }
         else
         {
             SEGAnalytics.shared().track("Photon setup ended", properties: ["result":"cancelled or failed"])
-            TSMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning)
+            RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
         }
     }
     
@@ -663,7 +670,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        TSMessage.dismissActiveNotification()
+        RMessage.dismissActiveNotification()
         tableView.deselectRow(at: indexPath, animated: true)
         let device = self.devices[(indexPath as NSIndexPath).row]
         
@@ -672,8 +679,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         //                println("Tapped on \(self.devices[indexPath.row].description)")
         if devices[(indexPath as NSIndexPath).row].isFlashing
         {
-            TSMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning)
-            
+            RMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning, customTypeName: nil, callback: nil)
         } else if device.connected && device.isRunningTinker() {
             self.selectedDevice = self.devices[(indexPath as NSIndexPath).row]
             self.performSegue(withIdentifier: "tinker", sender: self)
