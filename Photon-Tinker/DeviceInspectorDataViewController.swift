@@ -34,7 +34,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             var index : IndexPath
             
             
-            IQKeyboardManager.shared().shouldHidePreviousNext = true
+//            IQKeyboardManager.shared().shouldHidePreviousNext = true
             
             
             for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
@@ -56,7 +56,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        IQKeyboardManager.shared().shouldHidePreviousNext = false
+//        IQKeyboardManager.shared().shouldHidePreviousNext = false
     }
     
     
