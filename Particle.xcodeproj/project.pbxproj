@@ -350,7 +350,7 @@
 				TargetAttributes = {
 					50B125421AE06CF4003C29DC = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 2UTD9WU3UT;
+						DevelopmentTeam = TNJ67X9MQD;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -673,7 +673,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2UTD9WU3UT;
+				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -701,7 +701,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2UTD9WU3UT;
+				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
