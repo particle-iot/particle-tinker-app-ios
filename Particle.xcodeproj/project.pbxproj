@@ -162,7 +162,6 @@
 		5014D1EE1AE87B7000725BA8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				505D2A7B20D9ACCD005389DF /* MeshSetup */,
 				50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */,
 				5048CD221AE09AD00097150A /* DeviceListViewController.swift */,
 				50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */,
@@ -240,6 +239,7 @@
 		50B125451AE06CF4003C29DC /* Particle-Tinker */ = {
 			isa = PBXGroup;
 			children = (
+				505D2A7B20D9ACCD005389DF /* MeshSetup */,
 				505D2A8D20D9ADB0005389DF /* BLE */,
 				5014D1EE1AE87B7000725BA8 /* ViewControllers */,
 				50EB761D1AE70AE700C925A9 /* Views */,
