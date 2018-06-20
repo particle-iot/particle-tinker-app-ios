@@ -30,6 +30,28 @@ enum ParticleDeviceType : String {
     
 }
  */
+class MeshSetupParameters {
+    
+    // MARK: - Properties
+    
+    static let shared = MeshSetupParameters(deviceType: .xenon)
+    
+    
+    // Initialization
+    let deviceType : ParticleDeviceType
+    var networkName : String?
+    var deviceName : String?
+    
+    private init(deviceType: ParticleDeviceType) {
+        if deviceType != .xenon && deviceType != .argon && deviceType != .boron && deviceType != .ESP32 {
+            print("Error initializing MeshSetupParameters with non-mesh/BLE device")
+        }
+        
+        self.deviceType = deviceType
+    }
+    
+}
+
 extension ParticleDeviceType : CustomStringConvertible {
     public var description: String {
         switch self {
@@ -51,8 +73,7 @@ extension ParticleDeviceType : CustomStringConvertible {
 }
 
 
-func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceType?, networkName : String?, deviceName : String?) {
-    
+func replaceMeshSetupStringTemplates(view: UIView) {
     
     let subviews = view.subviews
     
@@ -60,15 +81,15 @@ func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceTy
         if subview is UILabel {
             let label = subview as! UILabel
             var newLabelString = label.text
-            if let t = deviceType {
+            if let t = MeshSetupParameters.shared.deviceType {
                 newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.description)
             }
             
-            if let n = networkName {
+            if let n = MeshSetupParameters.shared.networkName {
                 newLabelString = newLabelString!.replacingOccurrences(of: "{{network}}", with: n)
             }
             
-            if let d = deviceName {
+            if let d = MeshSetupParameters.shared.deviceName {
                 newLabelString = newLabelString!.replacingOccurrences(of: "{{deviceName}}", with: d)
             }
 

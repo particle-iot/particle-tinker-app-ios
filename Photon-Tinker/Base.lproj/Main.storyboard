@@ -2114,6 +2114,9 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="0.0" green="0.67843137249999996" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="PuD-gT-jwj" eventType="touchUpInside" id="99G-LF-lSB"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwQ-2D-csK">
                                 <rect key="frame" x="20" y="241.66666666666663" width="339" height="339"/>
@@ -2145,6 +2148,9 @@
                         <viewLayoutGuide key="safeArea" id="RiO-94-5DJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pair Device" id="0T2-DR-Bc3"/>
+                    <connections>
+                        <outlet property="cameraView" destination="SwQ-2D-csK" id="PpL-Hf-Sai"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i53-xj-mNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2223,14 +2229,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Nucleus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uJX-cq-bLL">
-                                                    <rect key="frame" x="15.000000000000004" y="5" width="58.333333333333336" height="18.666666666666668"/>
+                                                    <rect key="frame" x="15.000000000000004" y="6" width="58.333333333333336" height="18.666666666666668"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="4 devices on network" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SdB-DI-bdI">
-                                                    <rect key="frame" x="15" y="23.666666666666668" width="124" height="15.333333333333334"/>
+                                                    <rect key="frame" x="15" y="24.666666666666668" width="138.33333333333334" height="13"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                     <nil key="textColor"/>

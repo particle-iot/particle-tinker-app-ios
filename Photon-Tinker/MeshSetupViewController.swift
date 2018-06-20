@@ -12,14 +12,14 @@ class MeshSetupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.setupDeviceType, networkName: self.setupNetworkName, deviceName: self.setupDeviceName)
+        replaceMeshSetupStringTemplates(view: self.view)
 
         // Do any additional setup after loading the view.
     }
 
-    var setupDeviceType : ParticleDeviceType?
-    var setupNetworkName : String?
-    var setupDeviceName : String?
+//    var setupDeviceType : ParticleDeviceType?
+//    var setupNetworkName : String?
+//    var setupDeviceName : String?
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
