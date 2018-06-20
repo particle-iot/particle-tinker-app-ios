@@ -16,7 +16,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController {
         super.viewDidLoad()
         
         // Todo: remove hard coding
-        self.setupDeviceType = .Xenon
+        self.setupDeviceType = .xenon
         
         // Todo: get claim code
         

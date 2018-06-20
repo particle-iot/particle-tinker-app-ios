@@ -12,7 +12,7 @@ class MeshSetupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.setupDeviceType!, networkName: setupNetworkName, deviceName: setupDeviceName)
+        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.setupDeviceType, networkName: self.setupNetworkName, deviceName: self.setupDeviceName)
 
         // Do any additional setup after loading the view.
     }

@@ -92,6 +92,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .multipleChoice)
         
         
+        dialog.addButton("Mesh", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+            dialog.dismiss()
+            
+            self.invokeMeshDeviceSetup()
+            
+        }
+        
+        
         dialog.addButton("Photon", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
@@ -627,6 +635,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
 
+    func invokeMeshDeviceSetup() {
+        // TODO: add analytics for mesh / sub menu for mesh devices from here
+        self.performSegue(withIdentifier: "meshSetup", sender: self)
+        
+    }
+    
     
     func invokePhotonDeviceSetup()
     {

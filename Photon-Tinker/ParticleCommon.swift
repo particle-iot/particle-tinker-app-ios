@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/*
 enum ParticleDeviceType : String {
     case Xenon
     case Argon
@@ -28,6 +29,27 @@ enum ParticleDeviceType : String {
     
     
 }
+ */
+extension ParticleDeviceType : CustomStringConvertible {
+    public var description: String {
+        switch self {
+            case .unknown : return "Unknown"
+            case .core : return "Core"
+            case .photon : return "Photon"
+            case .P1 : return "P1"
+            case .electron : return "Electron"
+            case .raspberryPi : return "RaspberryPi"
+            case .redBearDuo : return "RedBearDuo"
+            case .bluz : return "Bluz"
+            case .digistumpOak : return "DigistumpOak"
+            case .ESP32 : return "ESP32"
+            case .argon : return "Argon"
+            case .boron : return "Boron"
+            case .xenon : return "Xenon"
+        }
+    }
+}
+
 
 func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceType?, networkName : String?, deviceName : String?) {
     
@@ -39,7 +61,7 @@ func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceTy
             let label = subview as! UILabel
             var newLabelString = label.text
             if let t = deviceType {
-                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.name())
+                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.description)
             }
             
             if let n = networkName {

@@ -58,8 +58,8 @@ DEPENDENCIES:
   - IQKeyboardManager
   - MBProgressHUD (~> 0.9)
   - Mixpanel
-  - Particle-SDK
-  - ParticleSetup
+  - Particle-SDK (from `../particle-sdk-ios`)
+  - ParticleSetup (from `../particle-setup-ios`)
   - PullToRefreshCoreText (~> 0.1)
   - RMessage
   - SwiftProtobuf (~> 1.0)
@@ -79,13 +79,17 @@ SPEC REPOS:
     - IQKeyboardManager
     - MBProgressHUD
     - Mixpanel
-    - Particle-SDK
-    - ParticleSetup
     - PPTopMostController
     - PullToRefreshCoreText
     - RMessage
     - SwiftProtobuf
     - YCTutorialBox
+
+EXTERNAL SOURCES:
+  Particle-SDK:
+    :path: "../particle-sdk-ios"
+  ParticleSetup:
+    :path: "../particle-setup-ios"
 
 SPEC CHECKSUMS:
   1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
@@ -100,14 +104,14 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 29514134ef0334a6fa33cf4eee11c36c064baeaf
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   Mixpanel: 3c3925c27f7a321d5978319a72f53f8f0885afc5
-  Particle-SDK: d08e4a9e42c927bd997cd4817e5a01894ace4187
-  ParticleSetup: 2a4dca977d9355f5401ca5a3ae817af43254725e
+  Particle-SDK: c1090c99baa677b5b3b48ece390ae149e13a9e9a
+  ParticleSetup: 0fbb5e3b63a1fb3e81e3e847ac00bbe8eb82edcf
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   RMessage: 27f860ca6712e0926a5fc63f362fd09667d9d02b
   SwiftProtobuf: 5ccc0e4054e37c75800e5744acb2aa80bb72b39c
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
 
-PODFILE CHECKSUM: 40e2001002ee88fdb11bff0a2d06bc4fc43520f9
+PODFILE CHECKSUM: 9e07090cd461ccd9fd7a779092ee4f17a2865fe2
 
 COCOAPODS: 1.5.0
