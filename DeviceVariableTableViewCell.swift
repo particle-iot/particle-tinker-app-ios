@@ -91,7 +91,7 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
     }
     
     
-    func variableLabelAction(_ sender : UITapGestureRecognizer)
+    @objc func variableLabelAction(_ sender : UITapGestureRecognizer)
     {
         self.delegate?.tappedOnVariable(self, name: self.variableName!, value: self.variableValue!)
     }

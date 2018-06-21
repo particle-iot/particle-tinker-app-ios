@@ -114,10 +114,10 @@ open class ZAlertView: UIViewController {
     open var allowTouchOutsideToDismiss: Bool = true {
         didSet {
             if allowTouchOutsideToDismiss == false {
-                self.tapOutsideTouchGestureRecognizer.removeTarget(self, action: #selector(dismiss as (Void) -> Void))
+                self.tapOutsideTouchGestureRecognizer.removeTarget(self, action: #selector(dismiss as () -> Void) as Selector)
             }
             else {
-                self.tapOutsideTouchGestureRecognizer.addTarget(self, action: #selector(dismiss as (Void) -> Void))
+                self.tapOutsideTouchGestureRecognizer.addTarget(self, action: #selector(dismiss as () -> Void))
             }
         }
     }
@@ -250,7 +250,7 @@ open class ZAlertView: UIViewController {
         }
         // Gesture for background
         if allowTouchOutsideToDismiss == true {
-            self.tapOutsideTouchGestureRecognizer.addTarget(self, action: #selector(dismiss as (Void) -> Void))
+            self.tapOutsideTouchGestureRecognizer.addTarget(self, action: #selector(dismiss as () -> Void))
         }
         backgroundView.addGestureRecognizer(self.tapOutsideTouchGestureRecognizer)
         self.view.addSubview(backgroundView)
@@ -530,7 +530,7 @@ open class ZAlertView: UIViewController {
         }).first
     }
     
-    func buttonDidTouch(_ sender: ZButton) {
+    @objc func buttonDidTouch(_ sender: ZButton) {
         if let listener = sender.touchHandler {
             listener(self)
         }
@@ -544,7 +544,7 @@ open class ZAlertView: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(ZAlertView.keyboardDidHide(_:)), name:NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
-    func keyboardDidShow(_ notification: Notification) {
+    @objc func keyboardDidShow(_ notification: Notification) {
         let info = (notification as NSNotification).userInfo
         let keyboardSize = ((info![UIKeyboardFrameBeginUserInfoKey] as AnyObject).cgRectValue.size)
         self.oldFrame = self.alertView.frame
@@ -556,7 +556,7 @@ open class ZAlertView: UIViewController {
         }
     }
     
-    func keyboardDidHide(_ notification: Notification) {
+    @objc func keyboardDidHide(_ notification: Notification) {
         if self.oldFrame == nil {
             return
         }

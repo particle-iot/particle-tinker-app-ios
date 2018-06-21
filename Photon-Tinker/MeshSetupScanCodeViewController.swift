@@ -21,7 +21,7 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         self.cameraView.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
-        guard let videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: "video") else { return }
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video) else { return }
         let videoInput: AVCaptureDeviceInput
         
         do {
@@ -43,7 +43,7 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
             captureSession.addOutput(metadataOutput)
             
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeDataMatrixCode]
+            metadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.dataMatrix]
         } else {
             failed()
             return
@@ -51,7 +51,7 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = self.cameraView.layer.bounds
-        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill//".resizeAspectFill"//.resizeAspectFill
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill//".resizeAspectFill"//.resizeAspectFill
         view.layer.addSublayer(previewLayer)
         
         captureSession.startRunning()
