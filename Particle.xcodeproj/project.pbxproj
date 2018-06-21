@@ -15,6 +15,7 @@
 		502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */; };
 		502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 502E9BBB1B15773D00D2C45B /* photon-tinker.bin */; };
 		502E9BC01B194DF800D2C45B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E9BBF1B194DF800D2C45B /* HelpViewController.swift */; };
+		502F497E20DB42A20072490E /* MeshSetupTypeCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F497D20DB42A20072490E /* MeshSetupTypeCodeViewController.swift */; };
 		5039EE9620D9BC81005B1E87 /* NORServiceIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039EE9520D9BC81005B1E87 /* NORServiceIdentifiers.swift */; };
 		5039EE9820D9BCB8005B1E87 /* NORLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039EE9720D9BCB7005B1E87 /* NORLogger.swift */; };
 		5039EE9A20D9BD08005B1E87 /* NORData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039EE9920D9BD08005B1E87 /* NORData.swift */; };
@@ -79,6 +80,7 @@
 		502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceVariableTableViewCell.swift; path = ../DeviceVariableTableViewCell.swift; sourceTree = "<group>"; };
 		502E9BBB1B15773D00D2C45B /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "photon-tinker.bin"; sourceTree = "<group>"; };
 		502E9BBF1B194DF800D2C45B /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		502F497D20DB42A20072490E /* MeshSetupTypeCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MeshSetupTypeCodeViewController.swift; path = "Photon-Tinker/MeshSetupTypeCodeViewController.swift"; sourceTree = "<group>"; };
 		5039EE9520D9BC81005B1E87 /* NORServiceIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORServiceIdentifiers.swift; sourceTree = "<group>"; };
 		5039EE9720D9BCB7005B1E87 /* NORLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORLogger.swift; sourceTree = "<group>"; };
 		5039EE9920D9BD08005B1E87 /* NORData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORData.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				509749A81D3EF9C300C5DF0B /* electron-tinker.bin */,
 				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
+				502F497D20DB42A20072490E /* MeshSetupTypeCodeViewController.swift */,
 				50B0F9BB1D2C21C3007DB6D1 /* photon_wifi.mp4 */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				50F62D941AE0721200109F33 /* Fonts */,
@@ -623,6 +626,7 @@
 				50A11F2A1D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift in Sources */,
 				50E5EF1F1D2F2CD60087C7B6 /* HelpTableViewCell.swift in Sources */,
 				5039EE9C20D9F2B6005B1E87 /* MeshSetupScanCodeViewController.swift in Sources */,
+				502F497E20DB42A20072490E /* MeshSetupTypeCodeViewController.swift in Sources */,
 				505D2A8020D9AD36005389DF /* NORBluetoothManager.swift in Sources */,
 				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,

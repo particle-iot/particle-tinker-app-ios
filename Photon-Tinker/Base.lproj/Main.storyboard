@@ -2026,13 +2026,29 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Having trouble scanning?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIm-nr-BZy">
-                                <rect key="frame" x="113.33333333333333" y="554" width="188.66666666666669" height="15"/>
+                                <rect key="frame" x="112.99999999999999" y="561" width="188.66666666666663" height="15"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWX-bX-KWG">
+                                <rect key="frame" x="106.66666666666669" y="580" width="201" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Tee-Z0-Naz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                <state key="normal" title="Type serial number instead">
+                                    <color key="titleColor" red="0.0" green="0.67843137249999996" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Fno-ax-s8y" kind="presentation" identifier="typeCode" id="zd3-Wx-6fb"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="zOl-e4-hqE">
+                                <rect key="frame" x="20" y="125" width="374" height="366"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lR-UB-Lhy">
-                                <rect key="frame" x="20" y="504" width="374" height="40"/>
+                                <rect key="frame" x="20" y="511" width="374" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="7md-2P-tsF"/>
@@ -2046,19 +2062,6 @@
                                     <segue destination="PuD-gT-jwj" kind="presentation" identifier="scanCode" id="SHQ-um-Uq0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWX-bX-KWG">
-                                <rect key="frame" x="106.66666666666669" y="573" width="201" height="27"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
-                                <state key="normal" title="Type serial number instead">
-                                    <color key="titleColor" red="0.0" green="0.67843137249999996" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Fno-ax-s8y" kind="presentation" identifier="typeCode" id="zd3-Wx-6fb"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zOl-e4-hqE">
-                                <rect key="frame" x="20" y="125" width="374" height="359"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -2088,7 +2091,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddm-g4-iuH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4799.1999999999998" y="4203.694581280788"/>
+            <point key="canvasLocation" x="4798.5507246376819" y="4203.2608695652179"/>
         </scene>
         <!--Scan code-->
         <scene sceneID="uyf-Gw-OjV">
@@ -2164,7 +2167,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuC-qn-tRb">
-                                <rect key="frame" x="128.66666666666666" y="350" width="156.99999999999997" height="17"/>
+                                <rect key="frame" x="128.66666666666697" y="350" width="158" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2294,11 +2297,14 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="bmn-Nz-ocb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Pair with device">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="pairButtonTapped:" destination="Fno-ax-s8y" eventType="touchUpInside" id="ePy-NU-wAr"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJf-4K-DpK">
                                 <rect key="frame" x="20" y="77" width="374" height="40"/>
@@ -2329,6 +2335,9 @@
                                 </constraints>
                                 <color key="tintColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="imgCloseIcon"/>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="Fno-ax-s8y" eventType="touchUpInside" id="tSi-vb-SMb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -2353,6 +2362,9 @@
                         <viewLayoutGuide key="safeArea" id="WG4-a1-ZOH"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pair Device" id="Reo-sz-6t5"/>
+                    <connections>
+                        <outlet property="codeTextField" destination="MJf-4K-DpK" id="5oL-8o-VKe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35z-o7-O82" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2763,6 +2775,7 @@
         <image name="L" width="32" height="32"/>
         <image name="alizarin" width="1" height="12"/>
         <image name="cyan" width="1" height="12"/>
+        <image name="datamatrix-sticker_nl" width="205" height="147"/>
         <image name="emerald" width="1" height="12"/>
         <image name="f" width="24" height="24"/>
         <image name="imgArrowDown" width="64" height="64"/>
