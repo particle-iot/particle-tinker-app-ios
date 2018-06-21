@@ -50,9 +50,11 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         }
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+//        previewLayer.bounds = self.cameraView.layer.bounds
         previewLayer.frame = self.cameraView.layer.bounds
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill//".resizeAspectFill"//.resizeAspectFill
-        view.layer.addSublayer(previewLayer)
+        previewLayer.videoGravity = .resizeAspectFill
+//             AVLayerVideoGravity.resizeAspectFill//".resizeAspectFill"//.resizeAspectFill
+        self.cameraView.layer.addSublayer(previewLayer)
         
         captureSession.startRunning()
     }
