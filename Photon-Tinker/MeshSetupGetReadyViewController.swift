@@ -15,10 +15,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Todo: remove hard coding
-        self.setupDeviceType = .xenon
-        
-        // Todo: get claim code
+        // Generate claim code and store it for later
+        ParticleCloud.sharedInstance().generateClaimCode { (claimCode : String?, _, error: Error?) in
+            if error == nil {
+                MeshSetupParameters.shared.claimCode = claimCode
+            }
+        }
         
     
     }

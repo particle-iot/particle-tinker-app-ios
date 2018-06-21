@@ -26,7 +26,7 @@
 		505D2A7E20D9AD1D005389DF /* MeshSetupFraming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A7D20D9AD1D005389DF /* MeshSetupFraming.swift */; };
 		505D2A8020D9AD36005389DF /* NORBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A7F20D9AD36005389DF /* NORBluetoothManager.swift */; };
 		505D2A8220D9AD44005389DF /* Protobufs in Resources */ = {isa = PBXBuildFile; fileRef = 505D2A8120D9AD44005389DF /* Protobufs */; };
-		505D2A8820D9AD84005389DF /* MeshSetupCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8320D9AD84005389DF /* MeshSetupCommon.swift */; };
+		505D2A8820D9AD84005389DF /* MeshSetupShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8320D9AD84005389DF /* MeshSetupShared.swift */; };
 		505D2A8920D9AD84005389DF /* MeshSetupPairDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8420D9AD84005389DF /* MeshSetupPairDeviceViewController.swift */; };
 		505D2A8A20D9AD84005389DF /* MeshSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8520D9AD84005389DF /* MeshSetupViewController.swift */; };
 		505D2A8B20D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8620D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift */; };
@@ -89,7 +89,7 @@
 		505D2A7D20D9AD1D005389DF /* MeshSetupFraming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFraming.swift; sourceTree = "<group>"; };
 		505D2A7F20D9AD36005389DF /* NORBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORBluetoothManager.swift; sourceTree = "<group>"; };
 		505D2A8120D9AD44005389DF /* Protobufs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Protobufs; sourceTree = "<group>"; };
-		505D2A8320D9AD84005389DF /* MeshSetupCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCommon.swift; sourceTree = "<group>"; };
+		505D2A8320D9AD84005389DF /* MeshSetupShared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupShared.swift; sourceTree = "<group>"; };
 		505D2A8420D9AD84005389DF /* MeshSetupPairDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupPairDeviceViewController.swift; sourceTree = "<group>"; };
 		505D2A8520D9AD84005389DF /* MeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupViewController.swift; sourceTree = "<group>"; };
 		505D2A8620D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectDeviceViewController.swift; sourceTree = "<group>"; };
@@ -185,11 +185,11 @@
 		505D2A7B20D9ACCD005389DF /* MeshSetup */ = {
 			isa = PBXGroup;
 			children = (
+				505D2A8620D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift */,
 				505D2A8720D9AD84005389DF /* MeshSetupGetReadyViewController.swift */,
 				505D2A8420D9AD84005389DF /* MeshSetupPairDeviceViewController.swift */,
-				505D2A8620D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift */,
 				505D2A8520D9AD84005389DF /* MeshSetupViewController.swift */,
-				505D2A8320D9AD84005389DF /* MeshSetupCommon.swift */,
+				505D2A8320D9AD84005389DF /* MeshSetupShared.swift */,
 				5039EE9B20D9F2B6005B1E87 /* MeshSetupScanCodeViewController.swift */,
 			);
 			name = MeshSetup;
@@ -599,7 +599,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				505D2A8820D9AD84005389DF /* MeshSetupCommon.swift in Sources */,
+				505D2A8820D9AD84005389DF /* MeshSetupShared.swift in Sources */,
 				507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */,
 				505D2A9320D9ADCB005389DF /* NORScannerViewController.swift in Sources */,
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
@@ -709,7 +709,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -758,7 +758,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "158e6e37-8e30-41ec-ad98-c4e4879a5770";
 				SDKROOT = iphoneos;
@@ -785,7 +785,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle2;
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -813,7 +813,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle2;
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

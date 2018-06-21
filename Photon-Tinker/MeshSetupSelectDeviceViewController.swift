@@ -42,9 +42,13 @@ class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableView
         return cell!
     }
     
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == deviceTypes.index(of: "Xenon") {
-                performSegue(withIdentifier: "getReady", sender: self)
+            MeshSetupParameters.shared.deviceType = .xenon
+            performSegue(withIdentifier: "getReady", sender: self)
         }
     }
     

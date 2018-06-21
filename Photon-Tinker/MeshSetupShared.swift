@@ -32,22 +32,17 @@ enum ParticleDeviceType : String {
  */
 class MeshSetupParameters {
     
-    // MARK: - Properties
+    // TODO: remove hard coding
+    static let shared = MeshSetupParameters()
     
-    static let shared = MeshSetupParameters(deviceType: .xenon)
-    
-    
-    // Initialization
-    let deviceType : ParticleDeviceType
+        // Initialization
+    var deviceType : ParticleDeviceType?
     var networkName : String?
     var deviceName : String?
+    var claimCode : String?
     
-    private init(deviceType: ParticleDeviceType) {
-        if deviceType != .xenon && deviceType != .argon && deviceType != .boron && deviceType != .ESP32 {
-            print("Error initializing MeshSetupParameters with non-mesh/BLE device")
-        }
+    private init() {
         
-        self.deviceType = deviceType
     }
     
 }
