@@ -8,8 +8,13 @@
 
 import UIKit
 
-class MeshSetupTypeCodeViewController: MeshSetupViewController {
+protocol MeshSetupTypeCodeDelegate {
+    func didTypeCode(code : String)
+}
 
+class MeshSetupTypeCodeViewController: MeshSetupViewController {
+    var delegate : MeshSetupTypeCodeDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,7 +28,10 @@ class MeshSetupTypeCodeViewController: MeshSetupViewController {
     
     @IBOutlet weak var codeTextField: UITextField!
     @IBAction func pairButtonTapped(_ sender: Any) {
+        self.delegate?.didTypeCode(code: self.codeTextField.text!)
+        self.dismiss(animated: true, completion: nil)
     }
+    
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

@@ -9,12 +9,17 @@
 import UIKit
 import AVFoundation
 
+protocol MeshSetupScanCodeDelegate {
+    func didScanCode(code : String)
+}
+
 class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    var delegate : MeshSetupScanCodeDelegate?
     
     @IBOutlet weak var cameraView: UIView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,10 +65,6 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         captureSession.startRunning()
     }
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     func failed() {
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
@@ -100,8 +101,19 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         dismiss(animated: true)
     }
     
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     func found(code: String) {
+        // TODO: separate code to SN / ID and look up mobile secret
         print(code)
+        
+        self.delegate?.didScanCode(code: code)
+        self.dismiss(animated: true, completion: nil)
+        
+        
     }
     
     override var prefersStatusBarHidden: Bool {

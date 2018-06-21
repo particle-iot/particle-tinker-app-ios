@@ -2130,7 +2130,7 @@
                                 <color key="tintColor" red="0.0" green="0.61176470589999998" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="imgCloseIcon"/>
                                 <connections>
-                                    <action selector="cancelButtonTapped:" destination="PuD-gT-jwj" eventType="touchUpInside" id="iRV-ND-t2h"/>
+                                    <action selector="cancelButtonTapped:" destination="PuD-gT-jwj" eventType="touchUpInside" id="yLB-Gf-pzX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2161,13 +2161,13 @@
         <!--Pairing-->
         <scene sceneID="AVD-Nj-tcj">
             <objects>
-                <viewController id="CZM-vZ-Aqi" sceneMemberID="viewController">
+                <viewController id="CZM-vZ-Aqi" customClass="MeshSetupPairingProcessViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ras-9D-hSd" customClass="MeshSetupPairingViewController">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuC-qn-tRb">
-                                <rect key="frame" x="128.66666666666697" y="350" width="158" height="17"/>
+                                <rect key="frame" x="128.66666666666666" y="350" width="157.99999999999997" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2285,29 +2285,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1l-5J-qdb">
-                                <rect key="frame" x="162.66666666666666" y="40" width="90" height="17"/>
+                                <rect key="frame" x="162" y="40" width="90" height="17"/>
                                 <viewLayoutGuide key="safeArea" id="1RS-8V-NwC"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNl-nI-wbl">
-                                <rect key="frame" x="20" y="676" width="374" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="bmn-Nz-ocb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Pair with device">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pairButtonTapped:" destination="Fno-ax-s8y" eventType="touchUpInside" id="ePy-NU-wAr"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJf-4K-DpK">
-                                <rect key="frame" x="20" y="77" width="374" height="40"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJf-4K-DpK">
+                                <rect key="frame" x="20" y="77" width="330" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="8cT-FM-mHL"/>
                                 </constraints>
@@ -2316,13 +2301,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the serial number printed on the back of the box your device was packaged in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJQ-oD-qDy">
-                                <rect key="frame" x="20" y="131" width="374" height="32"/>
+                                <rect key="frame" x="20" y="133" width="374" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xz1-F5-Siq">
-                                <rect key="frame" x="20" y="203" width="374" height="374"/>
+                                <rect key="frame" x="20" y="181" width="374" height="374"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xz1-F5-Siq" secondAttribute="height" multiplier="1:1" id="yrv-kH-Oi4"/>
                                 </constraints>
@@ -2339,36 +2324,51 @@
                                     <action selector="cancelButtonTapped:" destination="Fno-ax-s8y" eventType="touchUpInside" id="tSi-vb-SMb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNl-nI-wbl">
+                                <rect key="frame" x="358" y="77" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="KU6-Wg-uYo"/>
+                                    <constraint firstAttribute="height" constant="40" id="bmn-Nz-ocb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" image="imgCheckmark">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pairButtonTapped:" destination="Fno-ax-s8y" eventType="touchUpInside" id="ePy-NU-wAr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="RNl-nI-wbl" firstAttribute="centerY" secondItem="MJf-4K-DpK" secondAttribute="centerY" id="0LT-SO-hEL"/>
                             <constraint firstItem="WG4-a1-ZOH" firstAttribute="trailing" secondItem="K66-XZ-yc9" secondAttribute="trailing" constant="16" id="95Q-Pg-0rJ"/>
                             <constraint firstItem="WG4-a1-ZOH" firstAttribute="leading" secondItem="XJQ-oD-qDy" secondAttribute="leading" constant="-20" id="DIr-qT-ip4"/>
-                            <constraint firstItem="XJQ-oD-qDy" firstAttribute="top" secondItem="MJf-4K-DpK" secondAttribute="bottom" constant="14" id="EO2-WP-zSJ"/>
+                            <constraint firstItem="XJQ-oD-qDy" firstAttribute="top" secondItem="MJf-4K-DpK" secondAttribute="bottom" constant="16" id="EO2-WP-zSJ"/>
                             <constraint firstItem="j1l-5J-qdb" firstAttribute="top" secondItem="WG4-a1-ZOH" secondAttribute="top" constant="20" id="Eph-FX-4Mw"/>
                             <constraint firstItem="xz1-F5-Siq" firstAttribute="leading" secondItem="WG4-a1-ZOH" secondAttribute="leading" constant="20" id="HSP-XP-9so"/>
+                            <constraint firstItem="RNl-nI-wbl" firstAttribute="leading" secondItem="MJf-4K-DpK" secondAttribute="trailing" constant="8" id="I0h-JA-XSg"/>
                             <constraint firstItem="j1l-5J-qdb" firstAttribute="centerX" secondItem="WG4-a1-ZOH" secondAttribute="centerX" id="KPZ-HP-k4j"/>
-                            <constraint firstItem="WG4-a1-ZOH" firstAttribute="bottom" secondItem="RNl-nI-wbl" secondAttribute="bottom" constant="20" id="Mo0-bd-Etj"/>
+                            <constraint firstItem="WG4-a1-ZOH" firstAttribute="trailing" secondItem="RNl-nI-wbl" secondAttribute="trailing" constant="16" id="OXT-vp-iqY"/>
                             <constraint firstItem="XJQ-oD-qDy" firstAttribute="trailing" secondItem="WG4-a1-ZOH" secondAttribute="trailing" constant="-20" id="UYY-pS-Zcw"/>
-                            <constraint firstItem="WG4-a1-ZOH" firstAttribute="trailing" secondItem="MJf-4K-DpK" secondAttribute="trailing" constant="20" id="Yg1-tA-4ds"/>
-                            <constraint firstItem="WG4-a1-ZOH" firstAttribute="trailing" secondItem="RNl-nI-wbl" secondAttribute="trailing" constant="20" id="aeO-xn-oRx"/>
                             <constraint firstItem="MJf-4K-DpK" firstAttribute="leading" secondItem="WG4-a1-ZOH" secondAttribute="leading" constant="20" id="bht-VD-p40"/>
                             <constraint firstItem="WG4-a1-ZOH" firstAttribute="trailing" secondItem="xz1-F5-Siq" secondAttribute="trailing" constant="20" id="hPR-BC-9Xj"/>
-                            <constraint firstItem="RNl-nI-wbl" firstAttribute="leading" secondItem="WG4-a1-ZOH" secondAttribute="leading" constant="20" id="vpd-qG-yw4"/>
                             <constraint firstItem="K66-XZ-yc9" firstAttribute="top" secondItem="WG4-a1-ZOH" secondAttribute="top" constant="16" id="y95-oG-SyC"/>
-                            <constraint firstItem="xz1-F5-Siq" firstAttribute="top" secondItem="XJQ-oD-qDy" secondAttribute="bottom" constant="40" id="zLG-60-67o"/>
+                            <constraint firstItem="xz1-F5-Siq" firstAttribute="top" secondItem="XJQ-oD-qDy" secondAttribute="bottom" constant="16" id="zLG-60-67o"/>
                             <constraint firstItem="MJf-4K-DpK" firstAttribute="top" secondItem="j1l-5J-qdb" secondAttribute="bottom" constant="20" id="zht-UE-5dP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WG4-a1-ZOH"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pair Device" id="Reo-sz-6t5"/>
                     <connections>
-                        <outlet property="codeTextField" destination="MJf-4K-DpK" id="5oL-8o-VKe"/>
+                        <outlet property="codeTextField" destination="MJf-4K-DpK" id="hhS-cv-kh0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35z-o7-O82" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5852" y="4602.7093596059112"/>
+            <point key="canvasLocation" x="5850.7246376811599" y="4601.902173913044"/>
         </scene>
         <!--Add Device-->
         <scene sceneID="a2P-Ga-2jx">
@@ -2780,6 +2780,7 @@
         <image name="f" width="24" height="24"/>
         <image name="imgArrowDown" width="64" height="64"/>
         <image name="imgCamera" width="21" height="21"/>
+        <image name="imgCheckmark" width="32" height="32"/>
         <image name="imgChevronLeft" width="64" height="64"/>
         <image name="imgCircle" width="85" height="85"/>
         <image name="imgCloseIcon" width="170" height="170"/>

@@ -47,6 +47,7 @@ class MeshSetupParameters {
     
 }
 
+// TODO: should be globally reference not just for mesh
 extension ParticleDeviceType : CustomStringConvertible {
     public var description: String {
         switch self {
