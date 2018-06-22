@@ -17,7 +17,6 @@
 		502E9BC01B194DF800D2C45B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E9BBF1B194DF800D2C45B /* HelpViewController.swift */; };
 		502F497E20DB42A20072490E /* MeshSetupTypeCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F497D20DB42A20072490E /* MeshSetupTypeCodeViewController.swift */; };
 		502F498020DC68DF0072490E /* MeshSetupPairingProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F497F20DC68DF0072490E /* MeshSetupPairingProcessViewController.swift */; };
-		5039EE9620D9BC81005B1E87 /* NORServiceIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039EE9520D9BC81005B1E87 /* NORServiceIdentifiers.swift */; };
 		5039EE9820D9BCB8005B1E87 /* NORLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039EE9720D9BCB7005B1E87 /* NORLogger.swift */; };
 		5039EE9A20D9BD08005B1E87 /* NORData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039EE9920D9BD08005B1E87 /* NORData.swift */; };
 		5039EE9C20D9F2B6005B1E87 /* MeshSetupScanCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039EE9B20D9F2B6005B1E87 /* MeshSetupScanCodeViewController.swift */; };
@@ -34,8 +33,7 @@
 		505D2A8B20D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8620D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift */; };
 		505D2A8C20D9AD84005389DF /* MeshSetupGetReadyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8720D9AD84005389DF /* MeshSetupGetReadyViewController.swift */; };
 		505D2A9120D9ADCB005389DF /* NORScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8E20D9ADCB005389DF /* NORScannerDelegate.swift */; };
-		505D2A9220D9ADCB005389DF /* NORScannedPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8F20D9ADCB005389DF /* NORScannedPeripheral.swift */; };
-		505D2A9320D9ADCB005389DF /* NORScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A9020D9ADCB005389DF /* NORScannerViewController.swift */; };
+		505D2A9220D9ADCB005389DF /* MeshSetupScannedPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8F20D9ADCB005389DF /* MeshSetupScannedPeripheral.swift */; };
 		507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */; };
 		507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */; };
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
@@ -83,7 +81,6 @@
 		502E9BBF1B194DF800D2C45B /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		502F497D20DB42A20072490E /* MeshSetupTypeCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupTypeCodeViewController.swift; sourceTree = "<group>"; };
 		502F497F20DC68DF0072490E /* MeshSetupPairingProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupPairingProcessViewController.swift; sourceTree = "<group>"; };
-		5039EE9520D9BC81005B1E87 /* NORServiceIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORServiceIdentifiers.swift; sourceTree = "<group>"; };
 		5039EE9720D9BCB7005B1E87 /* NORLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORLogger.swift; sourceTree = "<group>"; };
 		5039EE9920D9BD08005B1E87 /* NORData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORData.swift; sourceTree = "<group>"; };
 		5039EE9B20D9F2B6005B1E87 /* MeshSetupScanCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupScanCodeViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +96,7 @@
 		505D2A8620D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectDeviceViewController.swift; sourceTree = "<group>"; };
 		505D2A8720D9AD84005389DF /* MeshSetupGetReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetReadyViewController.swift; sourceTree = "<group>"; };
 		505D2A8E20D9ADCB005389DF /* NORScannerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORScannerDelegate.swift; sourceTree = "<group>"; };
-		505D2A8F20D9ADCB005389DF /* NORScannedPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORScannedPeripheral.swift; sourceTree = "<group>"; };
+		505D2A8F20D9ADCB005389DF /* MeshSetupScannedPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupScannedPeripheral.swift; sourceTree = "<group>"; };
 		505D2A9020D9ADCB005389DF /* NORScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORScannerViewController.swift; sourceTree = "<group>"; };
 		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Medium.ttf"; path = "../../FiraMono-Medium.ttf"; sourceTree = "<group>"; };
 		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Regular.ttf"; path = "../../FiraMono-Regular.ttf"; sourceTree = "<group>"; };
@@ -214,10 +211,9 @@
 			isa = PBXGroup;
 			children = (
 				505D2A7F20D9AD36005389DF /* NORBluetoothManager.swift */,
-				505D2A8F20D9ADCB005389DF /* NORScannedPeripheral.swift */,
+				505D2A8F20D9ADCB005389DF /* MeshSetupScannedPeripheral.swift */,
 				505D2A8E20D9ADCB005389DF /* NORScannerDelegate.swift */,
 				505D2A9020D9ADCB005389DF /* NORScannerViewController.swift */,
-				5039EE9520D9BC81005B1E87 /* NORServiceIdentifiers.swift */,
 				5039EE9720D9BCB7005B1E87 /* NORLogger.swift */,
 				5039EE9920D9BD08005B1E87 /* NORData.swift */,
 			);
@@ -607,7 +603,6 @@
 			files = (
 				505D2A8820D9AD84005389DF /* MeshSetupShared.swift in Sources */,
 				507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */,
-				505D2A9320D9ADCB005389DF /* NORScannerViewController.swift in Sources */,
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
 				502E9BC01B194DF800D2C45B /* HelpViewController.swift in Sources */,
 				5039EE9A20D9BD08005B1E87 /* NORData.swift in Sources */,
@@ -638,9 +633,8 @@
 				502F498020DC68DF0072490E /* MeshSetupPairingProcessViewController.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50E5EF1C1D2DDCBF0087C7B6 /* UIImage.swift in Sources */,
-				5039EE9620D9BC81005B1E87 /* NORServiceIdentifiers.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* ParticleDevice+pins.m in Sources */,
-				505D2A9220D9ADCB005389DF /* NORScannedPeripheral.swift in Sources */,
+				505D2A9220D9ADCB005389DF /* MeshSetupScannedPeripheral.swift in Sources */,
 				507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */,
 				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,

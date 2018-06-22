@@ -41,7 +41,7 @@ class NORScannerViewController: UIViewController, CBCentralManagerDelegate, UITa
     var bluetoothManager : CBCentralManager?
     var delegate         : NORScannerDelegate?
     var filterUUID       : CBUUID?
-    var peripherals      : [NORScannedPeripheral]
+    var peripherals      : [MeshSetupScannedPeripheral]
     var timer            : Timer?
     
     @IBOutlet weak var devicesTable: UITableView!
