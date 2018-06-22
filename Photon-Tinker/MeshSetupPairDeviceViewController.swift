@@ -35,6 +35,8 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
         // TODO:
         // ParticleCloud.sharedInstance().getDeviceIDfromSN(code)...
         self.setupCode = String(code.suffix(6))
+        let deviceID = "12345678abcdefg"
+        getMobileSecretAndSegue(deviceID: deviceID)
         
     }
     
@@ -59,13 +61,12 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "pairing" {
-            var vc: MeshSetupPairingProcessViewController = (segue.destination as! MeshSetupPairingProcessViewController) {
-                vc.mobileSecret = self.mobileSecret!
-                let peripheralNameString = (MeshSetupParameters.shared.deviceType?.description)!+"-"+self.setupCode!
-                vc.peripheralName = peripheralNameString
-            }
+        guard let vc = segue.destination as? MeshSetupPairingProcessViewController else {
+            return
         }
+        vc.mobileSecret = self.mobileSecret!
+        let peripheralNameString = (MeshSetupParameters.shared.deviceType?.description)!+"-"+self.setupCode!
+        vc.peripheralName = peripheralNameString
     }
     
 
