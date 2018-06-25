@@ -688,13 +688,19 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
+
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Log out", message: "Are you sure you want to log out?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Log out", style: .default) { action in
-            self.logout()
-        })
-        self.present(alert, animated: true)
+        //this method is can be triggered by Log In button therefore we have to have else clause
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
+            let alert = UIAlertController(title: "Log out", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Log out", style: .default) { action in
+                self.logout()
+            })
+            self.present(alert, animated: true)
+        } else if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
     }
 
 
