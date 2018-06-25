@@ -13,6 +13,8 @@ target 'Particle' do
     pod 'YCTutorialBox'
     pod 'Crashlytics'
     pod 'Analytics'
+    pod 'Segment-Firebase'
+
 end
 
 

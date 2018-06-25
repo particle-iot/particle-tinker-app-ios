@@ -38,6 +38,7 @@ playground.xcworkspace
 
 #Sensitive keys
 Photon-Tinker/Keys.swift
+Photon-Tinker/GoogleService-Info.plist
 
 # CocoaPods
 Pods/

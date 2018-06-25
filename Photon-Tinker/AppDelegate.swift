@@ -23,8 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
 
         let SegmentConfiguration = SEGAnalyticsConfiguration(writeKey: segmentAnalyticsWriteKey)
-        SegmentConfiguration?.trackApplicationLifecycleEvents = true
-        SegmentConfiguration?.recordScreenViews = false
+        SegmentConfiguration.trackApplicationLifecycleEvents = true
+        SegmentConfiguration.recordScreenViews = false
+        SegmentConfiguration.use(SEGFirebaseIntegrationFactory.instance())
         SEGAnalytics.setup(with: SegmentConfiguration)
         
 //        Mixpanel.sharedInstanceWithToken(mixpanelToken)
