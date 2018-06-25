@@ -36,6 +36,7 @@
 		505D2A9220D9ADCB005389DF /* MeshSetupScannedPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D2A8F20D9ADCB005389DF /* MeshSetupScannedPeripheral.swift */; };
 		507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */; };
 		507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */; };
+		50738AC120E17E6500348131 /* MeshSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50738AC020E17E6500348131 /* MeshSetup.storyboard */; };
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
 		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
 		507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */; };
@@ -100,6 +101,7 @@
 		505D2A9020D9ADCB005389DF /* NORScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NORScannerViewController.swift; sourceTree = "<group>"; };
 		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Medium.ttf"; path = "../../FiraMono-Medium.ttf"; sourceTree = "<group>"; };
 		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Regular.ttf"; path = "../../FiraMono-Regular.ttf"; sourceTree = "<group>"; };
+		50738AC020E17E6500348131 /* MeshSetup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = MeshSetup.storyboard; path = "Photon-Tinker/MeshSetup.storyboard"; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
 		5073D4C81AFB14DE00068C2A /* PinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinFunctionView.m; sourceTree = "<group>"; };
 		5073D4CA1AFB2E3000068C2A /* PinValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinValueView.h; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
 				50B0F9BB1D2C21C3007DB6D1 /* photon_wifi.mp4 */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
+				50738AC020E17E6500348131 /* MeshSetup.storyboard */,
 				50F62D941AE0721200109F33 /* Fonts */,
 			);
 			name = Assets;
@@ -458,6 +461,7 @@
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */,
 				507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */,
+				50738AC120E17E6500348131 /* MeshSetup.storyboard in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,

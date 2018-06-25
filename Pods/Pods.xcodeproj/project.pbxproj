@@ -24,7 +24,6 @@
 		046B55D00CF973765BD3D76C8E238152 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264F97E8E4181331F8C4116594145437 /* Enum.swift */; };
 		056626E5EB3A5BB6C094A820C6295382 /* ParticleSetupConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B513DB0D4848D80888A6991422C209 /* ParticleSetupConnection.m */; };
 		05B8BDD871A9994DA619C05B56ECF7FF /* MPDesignerEventBindingRequestMesssage.m in Sources */ = {isa = PBXBuildFile; fileRef = 580153E9895516181342319BFDA04B1A /* MPDesignerEventBindingRequestMesssage.m */; };
-		06B2C9354440A5B233F57E3FF9ADF2C4 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F454C3E35D26FC34B08F2328C7728E9 /* KeychainItemWrapper.m */; };
 		0743F87A3E49A69568452184F4119E80 /* MPSwizzler.m in Sources */ = {isa = PBXBuildFile; fileRef = 523384477E3B3B58A0646FEE5279A40D /* MPSwizzler.m */; };
 		0782D177898401A5415CD63B04A226FD /* MPNSNumberToCGFloatValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = F7BA4ED3AA0C2CE5424021D8BE85EDA4 /* MPNSNumberToCGFloatValueTransformer.m */; };
 		07B1690D3127F9F6D3134A1C6EBEDBA7 /* UIApplication+AutomaticTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = DBAFDDA4BFC13ED4D0484BBAF8343DDA /* UIApplication+AutomaticTracks.m */; };
@@ -180,6 +179,8 @@
 		4E10445613F56E22A5FA83EEC40214B4 /* ParticleSetupUISpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C8E558E664FD44F0D95B0FEEAF6C3 /* ParticleSetupUISpinner.m */; };
 		4E2FA1E8B102519460BCEE5010269E2F /* 1Password.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57C7F2FDF9AB57E7D720A27ED9130BA8 /* 1Password.xcassets */; };
 		4E446AF686191153D62EAC9C3ABEF7A0 /* AFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7189F1FC0E295C304ACB970E5C5C3069 /* AFSecurityPolicy.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		50738AC420E195D900348131 /* KeychainHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50738AC220E195D800348131 /* KeychainHelper.m */; };
+		50738AC520E195D900348131 /* KeychainHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 50738AC320E195D900348131 /* KeychainHelper.h */; };
 		509D8F10DC7BD0265790C450C94228E3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BDCDE44D280E75A623C0656FF11D7 /* CoreGraphics.framework */; };
 		51CDE55F716E3794903B40346349BD2E /* MPApplicationStateSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC18E56760E92C8F1FE426BAB411C1E /* MPApplicationStateSerializer.m */; };
 		52330F575A557D0EB6542313404BAD52 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5963084666B77802481109B9DD38B188 /* MobileCoreServices.framework */; };
@@ -310,7 +311,6 @@
 		95FB52CD3656F2EBEE3DFC3D585B9DA2 /* 1PasswordExtension-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F504035309FDC598435CF4C503C768 /* 1PasswordExtension-dummy.m */; };
 		960D592A12BCE116F3E2AA60B6D7E715 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E6305115731C974E78EC26DCF0FA28 /* Foundation.framework */; };
 		967B8ED8492255E7F4A0AE66F4DFB323 /* SEGReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9CC734ACBAF01D710FBB618C69BAF9 /* SEGReachability.m */; };
-		9798E0897BCD26B8A5D8FC31904AAEDC /* KeychainItemWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = AFF14A713A64AEE2FC390FBF8F737F69 /* KeychainItemWrapper.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		97B460567CD7F9D403E83A6F8E09ED6D /* ParticleSetupUISpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = 0742BDF82CC7296F2312C250761959C9 /* ParticleSetupUISpinner.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		97B95C264C704E7979EE02D4EC5AEC67 /* UnknownStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACAA5B6CF5EEC65342DFDF66B0D8FAC /* UnknownStorage.swift */; };
 		994E09D610A6F6B548F485A7486C9AC8 /* Google_Protobuf_Timestamp+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ECD3026E4A0EC7E9A08F670080B09 /* Google_Protobuf_Timestamp+Extensions.swift */; };
@@ -867,6 +867,8 @@
 		4DEA6D0E8688B4B161BD5BCE95861F07 /* HexColors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HexColors.m; path = Classes/HexColors.m; sourceTree = "<group>"; };
 		4EDA489418F0696C75E55483FD99767F /* ParticleSetupSecurityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ParticleSetupSecurityManager.m; path = Classes/Comm/ParticleSetupSecurityManager.m; sourceTree = "<group>"; };
 		4FFD5877BC83E541B56965D3A6F3B77E /* Google_Protobuf_Duration+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Duration+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Duration+Extensions.swift"; sourceTree = "<group>"; };
+		50738AC220E195D800348131 /* KeychainHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainHelper.m; path = Pod/Classes/Helpers/KeychainHelper.m; sourceTree = "<group>"; };
+		50738AC320E195D900348131 /* KeychainHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainHelper.h; path = Pod/Classes/Helpers/KeychainHelper.h; sourceTree = "<group>"; };
 		50AA7930A2C8A6F21BD8C94285A1351A /* Google_Protobuf_Struct+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Struct+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Struct+Extensions.swift"; sourceTree = "<group>"; };
 		516A6F9E07200AC46B2795080A6B9B47 /* ParticleManualNetworkViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ParticleManualNetworkViewController.m; sourceTree = "<group>"; };
 		5187E26D3FF00D3973A73038529E1B0E /* DTTimePeriodCollection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodCollection.m; path = DateTools/DateTools/DTTimePeriodCollection.m; sourceTree = "<group>"; };
@@ -985,7 +987,6 @@
 		7D853134959A91C6ED5A0C967008792E /* MPEventBinding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPEventBinding.m; path = Mixpanel/MPEventBinding.m; sourceTree = "<group>"; };
 		7EECC3B7EF84D983C74C38EA2333857D /* setup.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = setup.storyboard; path = Resources/setup.storyboard; sourceTree = "<group>"; };
 		7F4378177265703DD2B16536998264DC /* ParticleSetupCustomization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ParticleSetupCustomization.h; sourceTree = "<group>"; };
-		7F454C3E35D26FC34B08F2328C7728E9 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = Pod/Classes/Helpers/KeychainItemWrapper.m; sourceTree = "<group>"; };
 		801777000D649FC230F1BF5976EB3D58 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = RMessageDefaultDesign.json; path = RMessage/Assets/RMessageDefaultDesign.json; sourceTree = "<group>"; };
 		801E16C776A5F0BFD400B67D2BAFF276 /* PPTopMostControllerProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PPTopMostControllerProtocol.h; path = "PPTopMostController-Files/PPTopMostControllerProtocol.h"; sourceTree = "<group>"; };
 		801E77A294C677C284547F95A4E6D4E4 /* lib1PasswordExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = lib1PasswordExtension.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1108,7 +1109,6 @@
 		AEAA04A66C13F5BBE039FD22B74AAC78 /* SEGIdentifyPayload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SEGIdentifyPayload.m; path = Analytics/Classes/Integrations/SEGIdentifyPayload.m; sourceTree = "<group>"; };
 		AECE7129680922A94181A0968B935754 /* source_context.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = source_context.pb.swift; path = Sources/SwiftProtobuf/source_context.pb.swift; sourceTree = "<group>"; };
 		AEFC11363FE62A3731F34D1A7B51E03B /* SEGSegmentIntegrationFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SEGSegmentIntegrationFactory.m; path = Analytics/Classes/Internal/SEGSegmentIntegrationFactory.m; sourceTree = "<group>"; };
-		AFF14A713A64AEE2FC390FBF8F737F69 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = Pod/Classes/Helpers/KeychainItemWrapper.h; sourceTree = "<group>"; };
 		B03A4FABCA2D637AF23FC5C3480D5157 /* TextFormatEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatEncodingVisitor.swift; path = Sources/SwiftProtobuf/TextFormatEncodingVisitor.swift; sourceTree = "<group>"; };
 		B03CE759960FB182B5E9837B4464AF87 /* MPABTestDesignerDeviceInfoRequestMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPABTestDesignerDeviceInfoRequestMessage.m; path = Mixpanel/MPABTestDesignerDeviceInfoRequestMessage.m; sourceTree = "<group>"; };
 		B0626A6BF7D2F5C1BFE06A9063899CC0 /* MBProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-prefix.pch"; sourceTree = "<group>"; };
@@ -1587,10 +1587,10 @@
 		26EEB0A47596898E4C85914C65AD1C72 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				50738AC320E195D900348131 /* KeychainHelper.h */,
+				50738AC220E195D800348131 /* KeychainHelper.m */,
 				38295D134E19F57282D16F8445195DC0 /* EventSource.h */,
 				702ED70AB63C44839EA6C6803FE407B8 /* EventSource.m */,
-				AFF14A713A64AEE2FC390FBF8F737F69 /* KeychainItemWrapper.h */,
-				7F454C3E35D26FC34B08F2328C7728E9 /* KeychainItemWrapper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2775,8 +2775,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D57C562AAEFC584D8521B56EBC9D39B9 /* EventSource.h in Headers */,
-				9798E0897BCD26B8A5D8FC31904AAEDC /* KeychainItemWrapper.h in Headers */,
 				0D460B21F55D46BC1BA4434903568E95 /* Particle-SDK-Bridging-Header.h in Headers */,
+				50738AC520E195D900348131 /* KeychainHelper.h in Headers */,
 				BEDBC808CFC49136E0628A80830CF4CF /* Particle-SDK.h in Headers */,
 				113186FC3F82421DB1F3CB623567B0C9 /* ParticleCloud.h in Headers */,
 				E4C6B1673C4CB1BE434F36CF29B719B8 /* ParticleDevice.h in Headers */,
@@ -3745,10 +3745,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A200CB614EAF5F742C1817D5D0B15F4F /* EventSource.m in Sources */,
-				06B2C9354440A5B233F57E3FF9ADF2C4 /* KeychainItemWrapper.m in Sources */,
 				801B4672351CE5ED7C4311630F8C2BE0 /* Particle-SDK-dummy.m in Sources */,
 				D61D7BE42966CBB17DC42C110ECE39E7 /* ParticleCloud.m in Sources */,
 				298E0BDAC6AF556D8002B42A6E9B482D /* ParticleDevice.m in Sources */,
+				50738AC420E195D900348131 /* KeychainHelper.m in Sources */,
 				9B99337B4AC2DB401FD27C7D8B014B3D /* ParticleEvent.m in Sources */,
 				F1D5365F1ABEC98559C57DD93F4B6696 /* ParticleSession.m in Sources */,
 			);
