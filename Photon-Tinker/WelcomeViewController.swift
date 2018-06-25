@@ -97,13 +97,14 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         //c.fontSizeOffset = 1;
         c?.normalTextColor = UIColor.white
         c?.linkTextColor = UIColor.white
-        c?.brandImageBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
+
         // UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.25)
 
         c?.linkTextColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
         c?.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c?.elementBackgroundColor = UIColor.white
         c?.brandImage = UIImage(named: "particle-horizontal-head")
+        c?.brandImageBackgroundColor = .clear
 //        c.deviceImage = UIImage(named: "imgPhoton")
         c?.tintSetupImages = true
         c?.allowPasswordManager = true

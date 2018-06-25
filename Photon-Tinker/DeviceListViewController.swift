@@ -601,13 +601,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         c?.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
         c?.linkTextColor = UIColor.blue
-        c?.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+
         c?.modeButtonName = "SETUP button"
         
         c?.elementTextColor = UIColor.white//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c?.elementBackgroundColor = ParticleUtils.particleCyanColor
         c?.brandImage = UIImage(named: "particle-horizontal-head")
-        
+        c?.brandImageBackgroundColor = .clear
+        c?.brandImageBackgroundImage = UIImage(named: "imgTrianglifyHeader")
+
         c?.tintSetupImages = false
         c?.instructionalVideoFilename = "photon_wifi.mp4"
         c?.allowPasswordManager = true
