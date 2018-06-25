@@ -219,11 +219,11 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         unsubscribeFromDeviceEvents()
     }
     
-    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int {
+    @objc func numberOfSectionsInTableView(_ tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if filtering {
             if let e = self.filteredEvents {
@@ -241,7 +241,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     }
     
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // kill section
         return 0.0
     }
