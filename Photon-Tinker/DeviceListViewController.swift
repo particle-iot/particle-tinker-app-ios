@@ -43,10 +43,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         ZAlertView.positiveColor            = ParticleUtils.particleCyanColor
         ZAlertView.negativeColor            = ParticleUtils.particlePomegranateColor
         ZAlertView.blurredBackground        = true
-        ZAlertView.showAnimation            = .bounceBottom
-        ZAlertView.hideAnimation            = .bounceBottom
-//        ZAlertView.initialSpringVelocity    = 0.5
-        ZAlertView.duration                 = 0.9
+        ZAlertView.showAnimation            = .fadeIn
+        ZAlertView.hideAnimation            = .fadeOut
+        ZAlertView.duration                 = 0.25
         ZAlertView.cornerRadius             = 4.0
         ZAlertView.textFieldTextColor       = ParticleUtils.particleDarkGrayColor
         ZAlertView.textFieldBackgroundColor = UIColor.white
