@@ -286,7 +286,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             //            print(e.description)
             if (e as NSError).code == 401 {
                 //                print("invalid access token - logging out")
-                self.logoutButtonTapped(self.logoutButton)
+                self.logout()
             } else {
                 RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
             }
@@ -497,44 +497,33 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if editingStyle == .delete
         {
 
-            RMessage.showNotification(in: self, title: "Unclaim confirmation", subtitle: "Are you sure you want to remove this device from your account?",
-                    iconImage: UIImage(named: "imgQuestionWhite"), type: .error, customTypeName: nil, duration: -1,
-                    callback:
-                    { () -> Void in
-                        // callback for user dismiss by touching inside notification
-                        RMessage.dismissActiveNotification()
-                        tableView.isEditing = false
-                    }, presentingCompletion: nil, dismissCompletion: nil, buttonTitle: " Yes ",
-                    buttonCallback:
-                    { () -> Void in
-                        // callback for user tapping YES button - need to delete row and update table (TODO: actually unclaim device)
-                        self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
-                            if let err = error
-                            {
-                                RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, callback: nil)
-                                self.photonSelectionTableView.reloadData()
-                            }
-                        }
+            let alert = UIAlertController(title: "Unclaim confirmation", message: "Are you sure you want to remove this device from your account?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Unclaim", style: .default) { action in
+                self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
+                    if let err = error
+                    {
+                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, callback: nil)
+                        self.photonSelectionTableView.reloadData()
+                    }
+                }
 
-                        self.devices.remove(at: (indexPath as NSIndexPath).row)
-                        tableView.deleteRows(at: [indexPath], with: .automatic)
-                        let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                        // update table view display to show dark/light cells with delay so that delete animation can complete nicely
-                        DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                            tableView.reloadData()
-                        }
-                    }, at: .top, canBeDismissedByUser: true)
+                self.devices.remove(at: (indexPath as NSIndexPath).row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                // update table view display to show dark/light cells with delay so that delete animation can complete nicely
+                DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                    tableView.reloadData()
+                }
+            })
+            self.present(alert, animated: true)
         }
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Remove"
     }
-    
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        // user touches elsewhere
-        RMessage.dismissActiveNotification()
-    }
+
     
     // prevent "Setup new photon" row from being edited/deleted
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -697,15 +686,24 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
-    func logoutButtonTapped(_ sender: UIButton) {
+    @IBAction func logoutButtonTapped(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Log out", message: "Are you sure you want to log out?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Log out", style: .default) { action in
+            self.logout()
+        })
+        self.present(alert, animated: true)
+    }
+
+
+    private func logout() {
         ParticleCloud.sharedInstance().logout()
+
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
-
     }
-    
-    
+
     func generateDeviceName() -> String
     {
         let name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + "_" + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]
