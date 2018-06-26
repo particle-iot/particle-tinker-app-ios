@@ -10,7 +10,7 @@ import Foundation
 
 @objc open class ParticleSpinner : NSObject {
     
-    class func show(_ view : UIView) {
+    @objc class func show(_ view : UIView) {
         var hud : MBProgressHUD
         
         hud = MBProgressHUD.showAdded(to: view, animated: true)
@@ -48,9 +48,9 @@ import Foundation
         hud.customView = spinnerView
         
     }
-    
-    
-    class func hide(_ view : UIView) {
+
+
+    @objc class func hide(_ view : UIView) {
         MBProgressHUD.hide(for: view, animated: true)
     }
     

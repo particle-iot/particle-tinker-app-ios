@@ -59,9 +59,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var setupNewDeviceButton: UIButton!
     
-    func appDidBecomeActive(_ sender : AnyObject) {
-//        print("appDidBecomeActive observer triggered")
-        //        self.animateOnlineIndicators()
+    @objc func appDidBecomeActive(_ sender : AnyObject) {
         self.photonSelectionTableView.reloadData()
         
     }

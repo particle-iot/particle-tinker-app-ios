@@ -191,7 +191,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     @IBOutlet weak var deviceDataContainerView: UIView!
     @IBOutlet weak var deviceInfoContainerView: UIView!
     
-    var device : ParticleDevice?
+    @objc var device : ParticleDevice?
     
 //    var frameView: UIView!
     
@@ -201,7 +201,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
        
         let font = UIFont(name: "Gotham-book", size: 15.0)
         
-        let attrib = [NSFontAttributeName : font!]
+        let attrib = [NSAttributedStringKey.font : font!]
         
         self.modeSegmentedControl.setTitleTextAttributes(attrib, for: UIControlState())
         
