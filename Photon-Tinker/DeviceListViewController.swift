@@ -108,10 +108,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         dialog.addButton("Core", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            
-            dialog.dismiss()
-            self.showParticleCoreAppPopUp()
-            
+            dialog.dismissWithDuration(0.01)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
+                self.showParticleCoreAppPopUp()
+            }
         }
 
         dialog.addButton("Cancel", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.white) { (dialog : ZAlertView) in

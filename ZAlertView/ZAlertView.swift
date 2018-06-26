@@ -163,8 +163,12 @@ open class ZAlertView: UIViewController {
     
     // Old frame
     var oldFrame: CGRect!
-    
-    
+
+
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+
     // MARK: - Initializers
     
     init() {
