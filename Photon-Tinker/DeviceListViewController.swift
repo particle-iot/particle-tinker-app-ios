@@ -305,33 +305,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
-                
-                // Sort alphabetically
+
                 self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    if let n1 = firstDevice.name
-                    {
-                        if let n2 = secondDevice.name
-                        {
-                            return n1 < n2 //firstDevice.name < secondDevice.name
-                        }
+                    if (firstDevice.connected != secondDevice.connected) {
+                        return firstDevice.connected == true
+                    } else {
+                        var nameA = firstDevice.name ?? " "
+                        var nameB = secondDevice.name ?? " "
+                        return nameA.lowercased() < nameB.lowercased()
                     }
-                    return false;
-                    
-                })
-                
-                // then sort by device type
-                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    return firstDevice.type.rawValue > secondDevice.type.rawValue
-                })
-                
-                // and then by online/offline
-                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    return firstDevice.connected && !secondDevice.connected
-                })
-                
-                // and then by running tinker or not
-                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    return firstDevice.isRunningTinker() && !secondDevice.isRunningTinker()
                 })
                 
                 DispatchQueue.main.async {
