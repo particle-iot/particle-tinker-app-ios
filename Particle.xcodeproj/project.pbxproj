@@ -328,8 +328,9 @@
 				50B1253F1AE06CF4003C29DC /* Sources */,
 				50B125401AE06CF4003C29DC /* Frameworks */,
 				50B125411AE06CF4003C29DC /* Resources */,
-				D03200CD9B5C0B699799D26B /* [CP] Copy Pods Resources */,
 				50E5EF201D349D450087C7B6 /* Run Script */,
+				2EC80B6EBE6027169D7F4597 /* [CP] Embed Pods Frameworks */,
+				DE24BB328149AD302A9042D9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -353,8 +354,8 @@
 				TargetAttributes = {
 					50B125421AE06CF4003C29DC = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 2UTD9WU3UT;
-						LastSwiftMigration = 0800;
+						DevelopmentTeam = TNJ67X9MQD;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -387,6 +388,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */,
 				507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */,
@@ -405,6 +407,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2EC80B6EBE6027169D7F4597 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-15/iOS/RevealServer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		50E5EF201D349D450087C7B6 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -437,7 +457,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D03200CD9B5C0B699799D26B /* [CP] Copy Pods Resources */ = {
+		DE24BB328149AD302A9042D9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -445,7 +465,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/1PasswordExtension/OnePasswordExtensionResources.bundle",
-				"${PODS_ROOT}/DateTools/DateTools/DateTools.bundle",
+				"${PODS_ROOT}/DateTools/DateTools/DateTools/DateTools.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/Mixpanel/Mixpanel/Images/MPArrowLeft.png",
 				"${PODS_ROOT}/Mixpanel/Mixpanel/Images/MPArrowLeft@2x.png",
@@ -460,21 +480,26 @@
 				"${PODS_ROOT}/Mixpanel/Mixpanel/Images/MPDismissKeyboard@2x.png",
 				"${PODS_ROOT}/Mixpanel/Mixpanel/Images/MPLogo.png",
 				"${PODS_ROOT}/Mixpanel/Mixpanel/Images/MPLogo@2x.png",
-				"${PODS_ROOT}/Mixpanel/Mixpanel/MPNotification~ipad.storyboard",
-				"${PODS_ROOT}/Mixpanel/Mixpanel/MPNotification~iphonelandscape.storyboard",
-				"${PODS_ROOT}/Mixpanel/Mixpanel/MPNotification~iphoneportrait.storyboard",
-				"${PODS_ROOT}/Mixpanel/Mixpanel/MPSurvey.storyboard",
+				"${PODS_ROOT}/Mixpanel/Mixpanel/Images/placeholder-image.png",
+				"${PODS_ROOT}/Mixpanel/Mixpanel/MPTakeoverNotificationViewController~ipad.xib",
+				"${PODS_ROOT}/Mixpanel/Mixpanel/MPTakeoverNotificationViewController~iphonelandscape.xib",
+				"${PODS_ROOT}/Mixpanel/Mixpanel/MPTakeoverNotificationViewController~iphoneportrait.xib",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ParticleSetup/ParticleSetup.bundle",
 				"${PODS_ROOT}/PullToRefreshCoreText/PullToRefreshCoreText/PullToRefreshCoreText/Mask.png",
 				"${PODS_ROOT}/RMessage/RMessage/Resources/RMessageView.xib",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationBackgroundErrorIcon.png",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationBackgroundErrorIcon@2x.png",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationBackgroundSuccessIcon.png",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationBackgroundSuccessIcon@2x.png",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationBackgroundWarningIcon.png",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationBackgroundWarningIcon@2x.png",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationButtonBackground.png",
-				"${PODS_ROOT}/RMessage/RMessage/Assets/NotificationButtonBackground@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundErrorIcon.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundErrorIcon.imageset/NotificationBackgroundErrorIcon.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundErrorIcon.imageset/NotificationBackgroundErrorIcon@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundSuccessIcon.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundSuccessIcon.imageset/NotificationBackgroundSuccessIcon.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundSuccessIcon.imageset/NotificationBackgroundSuccessIcon@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundWarningIcon.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundWarningIcon.imageset/NotificationBackgroundWarningIcon.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundWarningIcon.imageset/NotificationBackgroundWarningIcon@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground@2x.png",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/RMessageDefaultDesign.json",
 				"${PODS_ROOT}/YCTutorialBox/YCTutorialBox.xib",
 			);
@@ -496,13 +521,14 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPDismissKeyboard@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPLogo.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPLogo@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPNotification~ipad.storyboardc",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPNotification~iphonelandscape.storyboardc",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPNotification~iphoneportrait.storyboardc",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPSurvey.storyboardc",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/placeholder-image.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPTakeoverNotificationViewController~ipad.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPTakeoverNotificationViewController~iphonelandscape.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPTakeoverNotificationViewController~iphoneportrait.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ParticleSetup.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Mask.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RMessageView.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Contents.json",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundErrorIcon.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundErrorIcon@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundSuccessIcon.png",
@@ -594,6 +620,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -642,7 +669,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -676,7 +704,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2UTD9WU3UT;
+				CURRENT_PROJECT_VERSION = 20;
+				DEVELOPMENT_TEAM = TNJ67X9MQD;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -687,9 +717,11 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -702,9 +734,11 @@
 				BUILD_VARIANTS = normal;
 				CODE_SIGN_ENTITLEMENTS = Particle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2UTD9WU3UT;
+				CURRENT_PROJECT_VERSION = 20;
+				DEVELOPMENT_TEAM = TNJ67X9MQD;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -715,9 +749,11 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
