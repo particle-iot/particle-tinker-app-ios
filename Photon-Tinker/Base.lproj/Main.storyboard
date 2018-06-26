@@ -132,7 +132,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-Ur-rz3" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-Uz-IIB">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-Uz-IIB">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5g-NQ-f2Y" userLabel="Border">
@@ -338,7 +338,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt1-dF-1aV" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Xh4-Ow-FEu">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Xh4-Ow-FEu">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSw-TQ-wYp" userLabel="Border">
@@ -378,7 +378,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Xh4-Ow-FEu" secondAttribute="bottom" id="23T-nV-cqf"/>
                                     <constraint firstItem="OVF-DI-xeM" firstAttribute="trailing" secondItem="hGx-VV-XEo" secondAttribute="trailing" constant="16" id="6OB-Z7-lL7"/>
@@ -662,7 +661,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbY-Lg-bFc" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="tYT-bH-jfk">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="tYT-bH-jfk">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vy-mA-gxb" userLabel="actionsButton">
@@ -1661,7 +1660,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-qL-BPm" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="edQ-ku-Q9B">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="edQ-ku-Q9B">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEw-sC-GoB" userLabel="Border">
@@ -1815,7 +1814,7 @@
         <image name="v" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Gcf-aV-58w"/>
+        <segue reference="tNr-Sb-zVv"/>
         <segue reference="3ox-ek-eEM"/>
     </inferredMetricsTieBreakers>
 </document>
