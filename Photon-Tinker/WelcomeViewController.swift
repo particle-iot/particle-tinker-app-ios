@@ -105,6 +105,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         c?.elementBackgroundColor = UIColor.white
         c?.brandImage = UIImage(named: "particle-horizontal-head")
         c?.brandImageBackgroundColor = .clear
+        c?.brandImageBackgroundImage = nil
 //        c.deviceImage = UIImage(named: "imgPhoton")
         c?.tintSetupImages = true
         c?.allowPasswordManager = true
