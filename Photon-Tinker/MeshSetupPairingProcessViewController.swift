@@ -20,7 +20,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralM
     var particleMeshServiceUUID : CBUUID?
     
         // TODO:
-//        Performs BLE scan filtering out only Xenon service UUID devices
+//        - Performs BLE scan filtering out only Xenon service UUID devices
 //        Automatically tries to BLE pair to the device by comparing the scan list result to peripheral name (Xenon-<setupCode>)
 //        [Golden firmware - Initiates a secure session key by JPAKE with the device over BLE]
 //        Encrypts and sends the first command request  - GetDeviceIdRequest, phone receives device ID
@@ -49,11 +49,15 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralM
         
         return true
     }
+    
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     //MARK: - ViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // we don't need a back button while trying to pair/start setup
+        self.navigationItem.hidesBackButton = true
         
         activityIndicatorView.startAnimating()
         
@@ -98,6 +102,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralM
                 peripheral = self.peripherals[self.peripherals.index(of: peripheral)!]
                 peripheral.RSSI = RSSI.int32Value
             }
+            print(self.peripherals)
         })
     }
     

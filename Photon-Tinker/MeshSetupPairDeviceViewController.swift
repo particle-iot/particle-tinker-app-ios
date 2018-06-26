@@ -34,7 +34,15 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
     func didTypeCode(code: String) {
         // TODO:
         // ParticleCloud.sharedInstance().getDeviceIDfromSN(code)...
-        self.setupCode = String(code.suffix(6))
+        
+        // temporary hack to segue to next screen:
+        if code.isEmpty {
+            self.setupCode = "123456"
+        } else {
+            // regular code
+            self.setupCode = String(code.suffix(6))
+        }
+
         let deviceID = "12345678abcdefg"
         getMobileSecretAndSegue(deviceID: deviceID)
         
@@ -59,14 +67,37 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
          
         }
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let vc = segue.destination as? MeshSetupPairingProcessViewController else {
-            return
+        
+        if segue.identifier == "typeCode" {
+            guard let vc = segue.destination as? MeshSetupTypeCodeViewController  else {
+                return
+            }
+            
+            vc.delegate = self
         }
-        vc.mobileSecret = self.mobileSecret!
-        let peripheralNameString = (MeshSetupParameters.shared.deviceType?.description)!+"-"+self.setupCode!
-        vc.peripheralName = peripheralNameString
+        
+        if segue.identifier == "scanCode" {
+            guard let vc = segue.destination as? MeshSetupScanCodeViewController  else {
+                return
+            }
+            
+            vc.delegate = self
+        }
+        
+        if segue.identifier == "pairing" {
+            guard let vc = segue.destination as? MeshSetupPairingProcessViewController  else {
+                return
+            }
+            
+            vc.mobileSecret = self.mobileSecret!
+            let peripheralNameString = (MeshSetupParameters.shared.deviceType?.description)!+"-"+self.setupCode!
+            vc.peripheralName = peripheralNameString
+
+        }
+            
+            
     }
     
 

@@ -396,34 +396,44 @@
         <!--Pairing-->
         <scene sceneID="RFR-rC-f1z">
             <objects>
-                <viewController id="RJE-2G-Cct" customClass="MeshSetupPairingProcessViewController" sceneMemberID="viewController">
+                <viewController id="RJE-2G-Cct" customClass="MeshSetupPairingProcessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FWK-IH-8xU" customClass="MeshSetupPairingViewController">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yI-7D-DKR">
-                                <rect key="frame" x="109" y="315" width="157" height="17"/>
+                                <rect key="frame" x="116" y="197" width="142" height="20"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="JgT-IK-Ghi">
-                                <rect key="frame" x="169" y="257" width="37" height="37"/>
+                                <rect key="frame" x="169" y="237" width="37" height="37"/>
                                 <color key="color" red="0.0" green="0.61176470589999998" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait for operation to complete, do not press the home button or switch apps" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caG-OM-kxb">
+                                <rect key="frame" x="20" y="496" width="335" height="35"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8yI-7D-DKR" firstAttribute="centerX" secondItem="OmJ-yY-ecH" secondAttribute="centerX" id="3s0-sR-jfW"/>
-                            <constraint firstItem="8yI-7D-DKR" firstAttribute="top" secondItem="JgT-IK-Ghi" secondAttribute="bottom" constant="21" id="Wvx-x4-N8A"/>
-                            <constraint firstItem="JgT-IK-Ghi" firstAttribute="centerY" secondItem="OmJ-yY-ecH" secondAttribute="centerY" id="awY-Xp-1u8"/>
+                            <constraint firstItem="OmJ-yY-ecH" firstAttribute="leading" secondItem="caG-OM-kxb" secondAttribute="leading" constant="-20" id="C8y-Hi-STo"/>
+                            <constraint firstItem="caG-OM-kxb" firstAttribute="trailing" secondItem="OmJ-yY-ecH" secondAttribute="trailing" constant="-20" id="Ktr-ML-pXa"/>
+                            <constraint firstItem="OmJ-yY-ecH" firstAttribute="bottom" secondItem="caG-OM-kxb" secondAttribute="bottom" constant="20" id="QR9-0x-wYK"/>
+                            <constraint firstItem="JgT-IK-Ghi" firstAttribute="top" secondItem="8yI-7D-DKR" secondAttribute="bottom" constant="20" id="SRy-6a-vOv"/>
+                            <constraint firstItem="JgT-IK-Ghi" firstAttribute="centerY" secondItem="OmJ-yY-ecH" secondAttribute="centerY" constant="-20" id="awY-Xp-1u8"/>
                             <constraint firstItem="JgT-IK-Ghi" firstAttribute="centerX" secondItem="OmJ-yY-ecH" secondAttribute="centerX" id="dfy-ej-EFg"/>
+                            <constraint firstItem="caG-OM-kxb" firstAttribute="centerX" secondItem="OmJ-yY-ecH" secondAttribute="centerX" id="rDc-AD-Uu1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OmJ-yY-ecH"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pairing" id="ake-Lc-QxC"/>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="JgT-IK-Ghi" id="UWj-7p-GkP"/>
+                        <outlet property="activityIndicatorView" destination="JgT-IK-Ghi" id="3Ye-yv-zOv"/>
                         <segue destination="Xfq-Ab-khI" kind="show" identifier="selectNetwork" id="uJf-N0-ZVD"/>
                     </connections>
                 </viewController>
