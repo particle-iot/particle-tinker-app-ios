@@ -597,7 +597,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         c?.pageBackgroundImage = nil
         
         c?.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
-        c?.linkTextColor = UIColor.blue
+        c?.linkTextColor = ParticleUtils.particleDarkGrayColor
 
         c?.modeButtonName = "SETUP button"
         
