@@ -9,27 +9,25 @@
 import UIKit
 import CoreBluetooth
 
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
+
+class MeshSetupServiceIdentifiers: NSObject {
+    //MARK: - Particle mesh Identifiers
+    static let particleMeshServiceUUIDString                        = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
+    static let particleMeshTXCharacteristicUUIDString               = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+    static let particleMeshRXCharacteristicUUIDString               = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l > r
-    default:
-        return rhs < lhs
-    }
+enum BLELogLevel {
+    case debugLogLevel
+    case verboseLogLevel
+    case infoLogLevel
+    case appLogLevel
+    case warningLogLevel
+    case errorLogLevel
 }
 
-protocol NORBluetoothManagerDelegate {
+protocol MeshSetupBluetoothManagerDelegate {
+    func didUpdateState(state : CBCentralManager.state)
     func didConnectPeripheral(deviceName aName : String?)
     func didDisconnectPeripheral()
     func peripheralReady()
@@ -37,35 +35,39 @@ protocol NORBluetoothManagerDelegate {
     func didReceiveData(data buffer : Data)
 }
 
-class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
+
+
+class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate {
     
     //MARK: - Delegate Properties
-    var delegate : NORBluetoothManagerDelegate?
-    var logger   : NORLogger?
+    var delegate : MeshSetupBluetoothManagerDelegate?
+    
     
     //MARK: - Class Properties
     fileprivate let MTU = 20
-    fileprivate let UARTServiceUUID             : CBUUID
-    fileprivate let UARTRXCharacteristicUUID    : CBUUID
-    fileprivate let UARTTXCharacteristicUUID    : CBUUID
-    
-    fileprivate var centralManager              : CBCentralManager
-    fileprivate var bluetoothPeripheral         : CBPeripheral?
-    fileprivate var uartRXCharacteristic        : CBCharacteristic?
-    fileprivate var uartTXCharacteristic        : CBCharacteristic?
+    fileprivate var centralManager                       : CBCentralManager
+    fileprivate var bluetoothPeripheral                  : CBPeripheral?
+    fileprivate let particleMeshServiceUUID              : CBUUID
+    fileprivate let particleMeshRXCharacterisiticUUID    : CBUUID
+    fileprivate let particleMeshTXCharacterisiticUUID    : CBUUID
+    fileprivate var particleMeshRXCharacterisitic        : CBCharacteristic?
+    fileprivate var particleMeshTXCharacterisitic        : CBCharacteristic?
     
     fileprivate var connected = false
     
     //MARK: - BluetoothManager API
     
-    required init(withManager aManager : CBCentralManager) {
-        centralManager = aManager
-        UARTServiceUUID          = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshServiceUUIDString)
-        UARTTXCharacteristicUUID = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshTXCharacteristicUUIDString)
-        UARTRXCharacteristicUUID = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshRXCharacteristicUUIDString)
+    required init() {
+        
         super.init()
         
-        centralManager.delegate = self
+        let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
+        self.centralManager = CBCentralManager(delegate: self, queue: centralQueue)
+        
+        particleMeshServiceUUID          = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshServiceUUIDString)
+        particleMeshTXCharacterisiticUUID = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshTXCharacteristicUUIDString)
+        particleMeshRXCharacterisiticUUID = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshRXCharacteristicUUIDString)
+
     }
     
     /**
@@ -127,7 +129,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
      * - parameter aText: text to be sent to the peripheral using Nordic UART Service
      */
     func send(text aText : String) {
-        guard self.uartRXCharacteristic != nil else {
+        guard self.particleMeshRXCharacterisitic != nil else {
             log(withLevel: .warningLogLevel, andMessage: "UART RX Characteristic not found")
             return
         }
@@ -135,7 +137,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         // Check what kind of Write Type is supported. By default it will try Without Response.
         // If the RX charactereisrtic have Write property the Write Request type will be used.
         var type = CBCharacteristicWriteType.withoutResponse
-        if (self.uartRXCharacteristic!.properties.rawValue & CBCharacteristicProperties.write.rawValue) > 0 {
+        if (self.particleMeshRXCharacterisitic!.properties.rawValue & CBCharacteristicProperties.write.rawValue) > 0 {
             type = CBCharacteristicWriteType.withResponse
         }
         
@@ -180,7 +182,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
     }
     
     func send(data aData : Data) {
-        guard self.uartRXCharacteristic != nil else {
+        guard self.particleMeshRXCharacterisitic != nil else {
             log(withLevel: .warningLogLevel, andMessage: "UART RX Characteristic not found")
             return
         }
@@ -188,7 +190,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         // Check what kind of Write Type is supported. By default it will try Without Response.
         // If the RX charactereisrtic have Write property the Write Request type will be used.
         var type = CBCharacteristicWriteType.withoutResponse
-        if (self.uartRXCharacteristic!.properties.rawValue & CBCharacteristicProperties.write.rawValue) > 0 {
+        if (self.particleMeshRXCharacterisitic!.properties.rawValue & CBCharacteristicProperties.write.rawValue) > 0 {
             type = CBCharacteristicWriteType.withResponse
         }
         
@@ -234,7 +236,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
      *     - aType: write type to be used
      */
     func send(text aText : String, withType aType : CBCharacteristicWriteType) {
-        guard self.uartRXCharacteristic != nil else {
+        guard self.particleMeshRXCharacterisitic != nil else {
             log(withLevel: .warningLogLevel, andMessage: "UART RX Characteristic not found")
             return
         }
@@ -243,9 +245,9 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         let data = aText.data(using: String.Encoding.utf8)!
         
         //do some logging
-        log(withLevel: .verboseLogLevel, andMessage: "Writing to characteristic: \(uartRXCharacteristic!.uuid.uuidString)")
-        log(withLevel: .debugLogLevel, andMessage: "peripheral.writeValue(0x\(data.hexString), for: \(uartRXCharacteristic!.uuid.uuidString), type: \(typeAsString))")
-        self.bluetoothPeripheral!.writeValue(data, for: self.uartRXCharacteristic!, type: aType)
+        log(withLevel: .verboseLogLevel, andMessage: "Writing to characteristic: \(particleMeshRXCharacterisitic!.uuid.uuidString)")
+        log(withLevel: .debugLogLevel, andMessage: "peripheral.writeValue(0x\(data.hexString), for: \(particleMeshRXCharacterisitic!.uuid.uuidString), type: \(typeAsString))")
+        self.bluetoothPeripheral!.writeValue(data, for: self.particleMeshRXCharacterisitic!, type: aType)
         // The transmitted data is not available after the method returns. We have to log the text here.
         // The callback peripheral:didWriteValueForCharacteristic:error: is called only when the Write Request type was used,
         // but even if, the data is not available there.
@@ -254,7 +256,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
     
     
     func send(data aData : Data, withType aType : CBCharacteristicWriteType) {
-        guard self.uartRXCharacteristic != nil else {
+        guard self.particleMeshRXCharacterisitic != nil else {
             log(withLevel: .warningLogLevel, andMessage: "UART RX Characteristic not found")
             return
         }
@@ -262,9 +264,9 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         let typeAsString = aType == .withoutResponse ? ".withoutResponse" : ".withResponse"
         
         //do some logging
-        log(withLevel: .verboseLogLevel, andMessage: "Writing to characteristic: \(uartRXCharacteristic!.uuid.uuidString)")
-        log(withLevel: .debugLogLevel, andMessage: "peripheral.writeValue(0x\(aData.hexString), for: \(uartRXCharacteristic!.uuid.uuidString), type: \(typeAsString))")
-        self.bluetoothPeripheral!.writeValue(aData, for: self.uartRXCharacteristic!, type: aType)
+        log(withLevel: .verboseLogLevel, andMessage: "Writing to characteristic: \(particleMeshRXCharacterisitic!.uuid.uuidString)")
+        log(withLevel: .debugLogLevel, andMessage: "peripheral.writeValue(0x\(aData.hexString), for: \(particleMeshRXCharacterisitic!.uuid.uuidString), type: \(typeAsString))")
+        self.bluetoothPeripheral!.writeValue(aData, for: self.particleMeshRXCharacterisitic!, type: aType)
         // The transmitted data is not available after the method returns. We have to log the text here.
         // The callback peripheral:didWriteValueForCharacteristic:error: is called only when the Write Request type was used,
         // but even if, the data is not available there.
@@ -273,8 +275,9 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
     
     //MARK: - Logger API
     
-    func log(withLevel aLevel : NORLOGLevel, andMessage aMessage : String) {
-        logger?.log(level: aLevel,message: aMessage)
+    func log(withLevel aLevel : BLELogLevel, andMessage aMessage : String) {
+//        logger?.log(level: aLevel, message: aMessage)
+        print("[\(aLevel.rawValue)]: \(aMessage)")
     }
     
     func logError(error anError : Error) {
@@ -310,8 +313,12 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
             break
         }
         
+        self.delegate.didUpdateState(central.state)
+        
         log(withLevel: .debugLogLevel, andMessage: "[Callback] Central Manager did update state to: \(state)")
     }
+    
+    
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         log(withLevel: .debugLogLevel, andMessage: "[Callback] Central Manager did connect peripheral")
@@ -326,8 +333,8 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         bluetoothPeripheral!.delegate = self
         delegate?.didConnectPeripheral(deviceName: peripheral.name)
         log(withLevel: .verboseLogLevel, andMessage: "Discovering services...")
-        log(withLevel: .debugLogLevel, andMessage: "peripheral.discoverServices([\(UARTServiceUUID.uuidString)])")
-        peripheral.discoverServices([UARTServiceUUID])
+        log(withLevel: .debugLogLevel, andMessage: "peripheral.discoverServices([\(particleMeshServiceUUID.uuidString)])")
+        peripheral.discoverServices([particleMeshServiceUUID])
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -360,6 +367,45 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         bluetoothPeripheral = nil
     }
     
+    ///#
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        
+        print("centralManager didDiscover")
+        print (advertisementData)
+        // Scanner uses other queue to send events
+        
+        if peripheral.name == self.peripheralName {
+            if RSSI.int32Value < -90  {
+                // TODO: message to user to come closer to device
+                print ("Device is too far from phone, come closer")
+            } else if peripheral.state == .connected {
+                self.centralManager?.cancelPeripheralConnection(peripheral)
+            } else {
+                self.centralManager?.stopScan()
+                print ("Pairing to \(peripheral.name ?? "device")...")
+                self.centralManager?.connect(peripheral, options: nil)
+            }
+            
+        }
+        
+    }
+    
+    func scanForPeripherals() -> Bool {
+        guard self.bluetoothManager?.state == .poweredOn else {
+            return false
+        }
+        
+        print ("scanForPeripherals")
+        DispatchQueue.main.async {
+            let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
+            
+            self.centralManager?.scanForPeripherals(withServices: [self.particleMeshServiceUUID!], options: options as? [String : AnyObject])
+        }
+        
+        return true
+    }
+    
+    
     //MARK: - CBPeripheralDelegate
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -373,7 +419,7 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         log(withLevel: .infoLogLevel, andMessage: "Services discovered")
         
         for aService: CBService in peripheral.services! {
-            if aService.uuid.isEqual(UARTServiceUUID) {
+            if aService.uuid.isEqual(particleMeshServiceUUID) {
                 log(withLevel: .verboseLogLevel, andMessage: "Particle Mesh commissioning Service found")
                 log(withLevel: .verboseLogLevel, andMessage: "Discovering characteristics...")
                 log(withLevel: .debugLogLevel, andMessage: "peripheral.discoverCharacteristics(nil, for: \(aService.uuid.uuidString))")
@@ -396,21 +442,21 @@ class NORBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManagerDeleg
         }
         log(withLevel: .infoLogLevel, andMessage: "Characteristics discovered")
         
-        if service.uuid.isEqual(UARTServiceUUID) {
+        if service.uuid.isEqual(particleMeshServiceUUID) {
             for aCharacteristic : CBCharacteristic in service.characteristics! {
-                if aCharacteristic.uuid.isEqual(UARTTXCharacteristicUUID) {
+                if aCharacteristic.uuid.isEqual(particleMeshTXCharacterisiticUUID) {
                     log(withLevel: .verboseLogLevel, andMessage: "Particle mesh TX Characteristic found")
-                    uartTXCharacteristic = aCharacteristic
-                } else if aCharacteristic.uuid.isEqual(UARTRXCharacteristicUUID) {
+                    particleMeshTXCharacterisitic = aCharacteristic
+                } else if aCharacteristic.uuid.isEqual(particleMeshRXCharacterisiticUUID) {
                     log(withLevel: .verboseLogLevel, andMessage: "Particle mesh RX Characteristic found")
-                    uartRXCharacteristic = aCharacteristic
+                    particleMeshRXCharacterisitic = aCharacteristic
                 }
             }
             //Enable notifications on TX Characteristic
-            if (uartTXCharacteristic != nil && uartRXCharacteristic != nil) {
-                log(withLevel: .verboseLogLevel, andMessage: "Enabling notifications for \(uartTXCharacteristic!.uuid.uuidString)")
-                log(withLevel: .debugLogLevel, andMessage: "peripheral.setNotifyValue(true, for: \(uartTXCharacteristic!.uuid.uuidString))")
-                bluetoothPeripheral!.setNotifyValue(true, for: uartTXCharacteristic!)
+            if (particleMeshTXCharacterisitic != nil && particleMeshRXCharacterisitic != nil) {
+                log(withLevel: .verboseLogLevel, andMessage: "Enabling notifications for \(particleMeshTXCharacterisitic!.uuid.uuidString)")
+                log(withLevel: .debugLogLevel, andMessage: "peripheral.setNotifyValue(true, for: \(particleMeshTXCharacterisitic!.uuid.uuidString))")
+                bluetoothPeripheral!.setNotifyValue(true, for: particleMeshTXCharacterisitic!)
             } else {
                 log(withLevel: .warningLogLevel, andMessage: "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache.")
                 delegate?.peripheralNotSupported()

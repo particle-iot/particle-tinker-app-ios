@@ -9,15 +9,16 @@
 import UIKit
 import CoreBluetooth
 
-class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralManagerDelegate {
+class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupBluetoothManagerDelegate {
 
     var mobileSecret : String?
     var peripheralName : String?
     
     //MARK: - ViewController Properties
-    var bluetoothManager : CBCentralManager?
-    var peripherals      : [MeshSetupScannedPeripheral] = []
+    var bluetoothManager : MeshSetupBluetoothManager?
+//    var peripherals      : [MeshSetupScannedPeripheral] = []
     var particleMeshServiceUUID : CBUUID?
+    var connectedPeripheral : CBPeripheral?
     
         // TODO:
 //        - Performs BLE scan filtering out only Xenon service UUID devices
@@ -36,21 +37,9 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralM
      * - parameter enable: If YES, this method will enable scanning for bridge devices, if NO it will stop scanning
      * - returns: true if success, false if Bluetooth Manager is not in CBCentralManagerStatePoweredOn state.
      */
-    func scanForPeripherals() -> Bool {
-        guard bluetoothManager?.state == .poweredOn else {
-            return false
-        }
-        
-        DispatchQueue.main.async {
-                let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
-            
-            self.bluetoothManager?.scanForPeripherals(withServices: [self.particleMeshServiceUUID!], options: options as? [String : AnyObject])
-        }
-        
-        return true
-    }
+   
     
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+//    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     //MARK: - ViewController Methods
     override func viewDidLoad() {
@@ -59,11 +48,15 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralM
         // we don't need a back button while trying to pair/start setup
         self.navigationItem.hidesBackButton = true
         
-        activityIndicatorView.startAnimating()
+        ParticleSpinner.show(self.view)
         
-        let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
-        self.bluetoothManager = CBCentralManager(delegate: self, queue: centralQueue)
-        self.particleMeshServiceUUID = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshServiceUUIDString)
+        self.bluetoothManager = MeshSetupBluetoothManager.init()
+        
+//        activityIndicatorView.startAnimating()
+//        ParticleSpinner.hide(self.view)
+        
+        
+       
         let success = self.scanForPeripherals()
         if !success {
             // TODO: display something to user
@@ -78,6 +71,9 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralM
             return
         }
         
+        print("centralManagerDidUpdateState")
+        
+        /*
         let connectedPeripherals = self.getConnectedPeripherals()
         var newScannedPeripherals: [MeshSetupScannedPeripheral] = []
         connectedPeripherals.forEach { (connectedPeripheral: CBPeripheral) in
@@ -86,24 +82,24 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, CBCentralM
             newScannedPeripherals.append(scannedPeripheral)
         }
         peripherals = newScannedPeripherals
+         */
         let success = self.scanForPeripherals()
         if !success {
             print("Bluetooth is powered off!")
         }
     }
     
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        // Scanner uses other queue to send events
-        DispatchQueue.main.async(execute: {
-            var peripheral = MeshSetupScannedPeripheral(withPeripheral: peripheral, andRSSI: RSSI.int32Value, andIsConnected: false)
-            if ((self.peripherals.contains(peripheral)) == false) {
-                self.peripherals.append(peripheral)
-            } else {
-                peripheral = self.peripherals[self.peripherals.index(of: peripheral)!]
-                peripheral.RSSI = RSSI.int32Value
-            }
-            print(self.peripherals)
-        })
+   
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        self.connectedPeripheral = peripheral
+        self.getPairedDeviceID()
+        
+    }
+    
+    
+    func getPairedDeviceID() {
+        
     }
     
     
