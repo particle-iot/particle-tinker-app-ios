@@ -27,14 +27,28 @@ enum BLELogLevel : String {
     case errorLogLevel = "error"
 }
 
+enum BluetoothManagerState {
+    case Disabled
+    case Disconnected
+    case Scanning
+    case DiscoveredPeripheral
+    case Connected
+    case DiscoveredServices
+    case DiscoveredCharacteristics
+    case ReadyForData
+}
+
 protocol MeshSetupBluetoothManagerDelegate {
-    func didUpdateState(state : CBCentralManagerState)
-    func didConnectPeripheral(deviceName aName : String?)
+//    func didUpdateState(state : CBCentralManagerState)
+//    func didConnectPeripheral(deviceName aName : String?)
+    func bluetoothDisabled()
+    func messageToUser(level : RMessageType, message : String)
     func didDisconnectPeripheral()
-    func peripheralReady()
+    func peripheralReadyForData()
     func peripheralNotSupported()
     func didReceiveData(data buffer : Data)
 }
+
 
 
 
@@ -42,6 +56,7 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
     
     //MARK: - Delegate Properties
     var delegate : MeshSetupBluetoothManagerDelegate?
+    fileprivate var state : BluetoothManagerState = .Disabled
     
     fileprivate let particleMeshServiceUUID              : CBUUID = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshServiceUUIDString)
     fileprivate let particleMeshRXCharacterisiticUUID    : CBUUID = CBUUID(string: MeshSetupServiceIdentifiers.particleMeshRXCharacteristicUUIDString)
@@ -56,24 +71,19 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
     fileprivate var particleMeshTXCharacterisitic        : CBCharacteristic?
     fileprivate var peripheralNameToConnect              : String?
     
-    
     fileprivate var connected = false
     
     //MARK: - BluetoothManager API
     
-    required override init() {
+    required init(peripheralName : String, delegate : MeshSetupBluetoothManagerDelegate) {
         
         super.init()
         
+        self.delegate = delegate
+        self.peripheralNameToConnect = peripheralName
+        
         let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
         self.centralManager = CBCentralManager(delegate: self, queue: centralQueue)
-        
-////        particleMeshServiceUUID
-//        particleMeshTXCharacterisiticUUID =
-//        particleMeshRXCharacterisiticUUID =
-        
-        
-
     }
     
     /**
@@ -297,31 +307,43 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
     //MARK: - CBCentralManagerDelegate
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        var state : String
+        var textState : String
         switch(central.state){
         case .poweredOn:
-            state = "Powered ON"
+            textState = "Powered ON"
+            self.state = .Disconnected
             break
         case .poweredOff:
-            state = "Powered OFF"
+            textState = "Powered OFF"
+            self.state = .Disabled
             break
         case .resetting:
-            state = "Resetting"
+            textState = "Resetting"
+            self.state = .Disabled
             break
         case .unauthorized:
-            state = "Unautthorized"
+            textState = "Unauthorized"
+            self.state = .Disabled
             break
         case .unsupported:
-            state = "Unsupported"
+            textState = "Unsupported"
+            self.state = .Disabled
             break
         case .unknown:
-            state = "Unknown"
+            textState = "Unknown"
+            self.state = .Disabled
             break
         }
         
 //        self.delegate?.didUpdateState(state: central.state)
+        log(level: .debugLogLevel, message: "[Callback] Central Manager did update state to: \(textState)")
         
-        log(level: .debugLogLevel, message: "[Callback] Central Manager did update state to: \(state)")
+        
+        if (self.state == .Disconnected) {
+            _ = self.scanForPeripherals()
+        } else {
+            self.delegate?.bluetoothDisabled()
+        }
     }
     
     
@@ -334,10 +356,11 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
             log(level: .infoLogLevel, message: "Connected to device")
         }
         
+        self.state = .Connected
         connected = true
         bluetoothPeripheral = peripheral
         bluetoothPeripheral!.delegate = self
-        delegate?.didConnectPeripheral(deviceName: peripheral.name)
+        
         log(level: .verboseLogLevel, message: "Discovering services...")
         log(level: .debugLogLevel, message: "peripheral.discoverServices([\(particleMeshServiceUUID.uuidString)])")
         peripheral.discoverServices([particleMeshServiceUUID])
@@ -383,10 +406,13 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
         if peripheral.name == self.peripheralNameToConnect {
             if RSSI.int32Value < -90  {
                 // TODO: message to user to come closer to device
-                print ("Device is too far from phone, come closer")
+                self.delegate?.messageToUser(level: .normal, message: "Device is too far from phone, get closer with your phone to the setup device")
+//                self.delegate.message(...)
             } else if peripheral.state == .connected {
                 self.centralManager?.cancelPeripheralConnection(peripheral)
+                  self.delegate?.messageToUser(level: .normal, message: "Reinitializing connecting to device")
             } else {
+                self.state = .DiscoveredPeripheral
                 self.centralManager?.stopScan()
                 print ("Pairing to \(peripheral.name ?? "device")...")
                 self.centralManager?.connect(peripheral, options: nil)
@@ -401,12 +427,14 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
             return false
         }
         
+        self.state = .Scanning
+        
         print ("scanForPeripherals")
-        DispatchQueue.main.async {
-            let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
-            
-            self.centralManager?.scanForPeripherals(withServices: [self.particleMeshServiceUUID], options: options as? [String : AnyObject])
-        }
+//        DispatchQueue.main.async {
+        let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
+        
+        self.centralManager?.scanForPeripherals(withServices: [self.particleMeshServiceUUID], options: options as? [String : AnyObject])
+//        }
         
         return true
     }
@@ -429,6 +457,8 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
                 log(level: .verboseLogLevel, message: "Particle Mesh commissioning Service found")
                 log(level: .verboseLogLevel, message: "Discovering characteristics...")
                 log(level: .debugLogLevel, message: "peripheral.discoverCharacteristics(nil, for: \(aService.uuid.uuidString))")
+                self.state = .DiscoveredServices
+                
                 bluetoothPeripheral!.discoverCharacteristics(nil, for: aService)
                 return
             }
@@ -463,9 +493,12 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
                 log(level: .verboseLogLevel, message: "Enabling notifications for \(particleMeshTXCharacterisitic!.uuid.uuidString)")
                 log(level: .debugLogLevel, message: "peripheral.setNotifyValue(true, for: \(particleMeshTXCharacterisitic!.uuid.uuidString))")
                 bluetoothPeripheral!.setNotifyValue(true, for: particleMeshTXCharacterisitic!)
+                self.state = .DiscoveredCharacteristics
             } else {
+               
                 log(level: .warningLogLevel, message: "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache.")
                 delegate?.peripheralNotSupported()
+                self.state = .Disconnected
                 cancelPeripheralConnection()
             }
         }
@@ -477,6 +510,9 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
             logError(error: error!)
             return
         }
+        
+        self.state = .ReadyForData
+        self.delegate?.peripheralReadyForData()
         
         if characteristic.isNotifying {
             log(level: .infoLogLevel, message: "Notifications enabled for characteristic: \(characteristic.uuid.uuidString)")

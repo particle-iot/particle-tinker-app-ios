@@ -10,36 +10,13 @@ import UIKit
 import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupBluetoothManagerDelegate {
-    func didUpdateState(state: CBCentralManagerState) {
-        //
-    }
-    
-    func didConnectPeripheral(deviceName aName: String?) {
-        //
-    }
-    
-    func didDisconnectPeripheral() {
-        //
-    }
-    
-    func peripheralReady() {
-        //
-    }
-    
-    func peripheralNotSupported() {
-        //
-    }
-    
-    func didReceiveData(data buffer: Data) {
-        //
-    }
-    
 
     var mobileSecret : String?
     var peripheralName : String?
+    var connectRetries : Int = 0
     
     //MARK: - ViewController Properties
-    var bluetoothManager : MeshSetupBluetoothManager?
+    
 //    var peripherals      : [MeshSetupScannedPeripheral] = []
     var particleMeshServiceUUID : CBUUID?
     var connectedPeripheral : CBPeripheral?
@@ -71,62 +48,60 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupB
         
         // we don't need a back button while trying to pair/start setup
         self.navigationItem.hidesBackButton = true
-        
         ParticleSpinner.show(self.view)
+        self.connectRetries = 0
         
-        self.bluetoothManager = MeshSetupBluetoothManager.init()
+        MeshSetupParameters.shared.bluetoothManager = MeshSetupBluetoothManager.init(peripheralName: self.peripheralName!, delegate : self)
         
-//        activityIndicatorView.startAnimating()
-//        ParticleSpinner.hide(self.view)
-        
-        
-       
-//        let success = self.bluetoothManager.scanForPeripherals()
-//        if !success {
-//            // TODO: display something to user
-//        }
-    }
-    
-    
-    //MARK: - CBCentralManagerDelgate
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        guard central.state == .poweredOn else {
-            print("Bluetooth is powered off")
-            return
-        }
-        
-        print("centralManagerDidUpdateState")
-        
-        /*
-        let connectedPeripherals = self.getConnectedPeripherals()
-        var newScannedPeripherals: [MeshSetupScannedPeripheral] = []
-        connectedPeripherals.forEach { (connectedPeripheral: CBPeripheral) in
-            let connected = connectedPeripheral.state == .connected
-            let scannedPeripheral = MeshSetupScannedPeripheral(withPeripheral: connectedPeripheral, andIsConnected: connected )
-            newScannedPeripherals.append(scannedPeripheral)
-        }
-        peripherals = newScannedPeripherals
-//         */
-//        let success = self.scanForPeripherals()
-//        if !success {
-//            print("Bluetooth is powered off!")
-//        }
     }
     
    
-    
-    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        self.connectedPeripheral = peripheral
-        self.getPairedDeviceID()
-        
+    func messageToUser(level: RMessageType, message: String) {
+          RMessage.showNotification(withTitle: "Pairing", subtitle: message, type: level, customTypeName: nil, callback: nil)
     }
     
+    func didDisconnectPeripheral() {
+         RMessage.showNotification(withTitle: "Pairing", subtitle: "Device disconnected, retrying...", type: .error, customTypeName: nil, callback: nil)
+        
+        connectRetries += 1
+        if connectRetries >= 5 {
+            self.abort()
+        }
+        
+        if MeshSetupParameters.shared.bluetoothManager?.scanForPeripherals() == false {
+            self.abort()
+        }
+    }
+    
+    func peripheralReadyForData() {
+        // start mesh setup
+        self.getPairedDeviceID()
+    }
+    
+    func abort() {
+        MeshSetupParameters.shared.bluetoothManager = nil
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func peripheralNotSupported() {
+          RMessage.showNotification(withTitle: "Pairing", subtitle: "This device device does not seem to be a Particle device, please try again", type: .error, customTypeName: nil, callback: nil)
+        
+        self.abort()
+    }
+    
+    func bluetoothDisabled() {
+        RMessage.showNotification(withTitle: "Bluetooth", subtitle: "Bluetooth must be enabled for setup to complete, please turn on Bluetooth on your phone", type: .error, customTypeName: nil, callback: nil)
+        
+        self.abort()
+    }
+    
+    func didReceiveData(data buffer: Data) {
+        // setup step...
+        print("didReceiveData")
+    }
     
     func getPairedDeviceID() {
-        
+        print ("starting setup")
     }
-    
 
-    
-    
 }
