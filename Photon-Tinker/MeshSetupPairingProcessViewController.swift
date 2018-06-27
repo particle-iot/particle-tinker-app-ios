@@ -10,6 +10,30 @@ import UIKit
 import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupBluetoothManagerDelegate {
+    func didUpdateState(state: CBCentralManagerState) {
+        //
+    }
+    
+    func didConnectPeripheral(deviceName aName: String?) {
+        //
+    }
+    
+    func didDisconnectPeripheral() {
+        //
+    }
+    
+    func peripheralReady() {
+        //
+    }
+    
+    func peripheralNotSupported() {
+        //
+    }
+    
+    func didReceiveData(data buffer: Data) {
+        //
+    }
+    
 
     var mobileSecret : String?
     var peripheralName : String?
@@ -57,10 +81,10 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupB
         
         
        
-        let success = self.scanForPeripherals()
-        if !success {
-            // TODO: display something to user
-        }
+//        let success = self.bluetoothManager.scanForPeripherals()
+//        if !success {
+//            // TODO: display something to user
+//        }
     }
     
     
@@ -82,11 +106,11 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupB
             newScannedPeripherals.append(scannedPeripheral)
         }
         peripherals = newScannedPeripherals
-         */
-        let success = self.scanForPeripherals()
-        if !success {
-            print("Bluetooth is powered off!")
-        }
+//         */
+//        let success = self.scanForPeripherals()
+//        if !success {
+//            print("Bluetooth is powered off!")
+//        }
     }
     
    
@@ -102,19 +126,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupB
         
     }
     
-    
-    func getConnectedPeripherals() -> [CBPeripheral] {
-        guard let bluetoothManager = bluetoothManager else {
-            return []
-        }
-        
-        var retreivedPeripherals : [CBPeripheral]
-        
-        retreivedPeripherals = bluetoothManager.retrieveConnectedPeripherals(withServices: [self.particleMeshServiceUUID!])
-        
-        return retreivedPeripherals
-    }
-    
+
     
     
 }
