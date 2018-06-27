@@ -55,7 +55,7 @@ class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableView
             cell?.detailTextLabel?.textColor = UIColor.lightGray
         }
         
-        cell?.imageView?.image = UIImage.init(named: "img"+deviceTypes[indexPath.row])
+        cell?.imageView?.image = UIImage.init(named: "imgDevice"+deviceTypes[indexPath.row])
         
         let itemSize = CGSize(width: 30, height: 64);
         UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);

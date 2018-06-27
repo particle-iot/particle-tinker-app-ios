@@ -40,7 +40,7 @@ open class ParticleSpinner : NSObject {
         let rotation = CABasicAnimation(keyPath:"transform.rotation")
         rotation.fromValue = 0
         rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        rotation.toValue = 2*M_PI;
+        rotation.toValue = 2*Double.pi;
         rotation.duration = 1;
         rotation.repeatCount = 1000; // Repeat
         spinnerView.layer.add(rotation,forKey:"Spin")
