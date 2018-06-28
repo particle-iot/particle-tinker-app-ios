@@ -3,6 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'Particle' do
     pod 'Particle-SDK', :path => '../particle-sdk-ios'
     pod 'ParticleSetup', :path => '../particle-setup-ios'
+    pod 'SwiftProtobuf'
     pod 'MBProgressHUD', '~> 0.9'
     pod 'RMessage'
     pod 'PullToRefreshCoreText', '~> 0.1'
@@ -13,7 +14,6 @@ target 'Particle' do
     pod 'YCTutorialBox'
     pod 'Crashlytics'
     pod 'Analytics'
-#    pod 'SwiftProtobuf', '~> 1.0'
 end
 
 

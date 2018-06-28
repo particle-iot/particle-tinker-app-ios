@@ -36,11 +36,10 @@
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
 		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
 		5075456620E467C3009B7A55 /* MeshSetupScannedPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456120E1DC8F009B7A55 /* MeshSetupScannedPeripheral.swift */; };
-		5075456C20E468AD009B7A55 /* config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456820E468AC009B7A55 /* config.pb.swift */; };
-		5075456D20E468AD009B7A55 /* cloud.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456920E468AC009B7A55 /* cloud.pb.swift */; };
-		5075456E20E468AD009B7A55 /* mesh.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456A20E468AD009B7A55 /* mesh.pb.swift */; };
-		5075456F20E468AD009B7A55 /* storage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456B20E468AD009B7A55 /* storage.pb.swift */; };
-		5075457520E46EEB009B7A55 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5075457420E46EEA009B7A55 /* SwiftProtobuf.framework */; };
+		5075457620E47CF5009B7A55 /* mesh.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456A20E468AD009B7A55 /* mesh.pb.swift */; };
+		5075457720E47D06009B7A55 /* cloud.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456920E468AC009B7A55 /* cloud.pb.swift */; };
+		5075457820E47D08009B7A55 /* config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456820E468AC009B7A55 /* config.pb.swift */; };
+		5075457920E47D0B009B7A55 /* storage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456B20E468AD009B7A55 /* storage.pb.swift */; };
 		507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */; };
 		507A84BA1D247FFD0050B3B6 /* ParticleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */; };
 		507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */; };
@@ -108,7 +107,6 @@
 		5075456920E468AC009B7A55 /* cloud.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cloud.pb.swift; sourceTree = "<group>"; };
 		5075456A20E468AD009B7A55 /* mesh.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mesh.pb.swift; sourceTree = "<group>"; };
 		5075456B20E468AD009B7A55 /* storage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storage.pb.swift; sourceTree = "<group>"; };
-		5075457420E46EEA009B7A55 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/iOS/SwiftProtobuf.framework; sourceTree = SOURCE_ROOT; };
 		507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoViewController.swift; sourceTree = "<group>"; };
 		507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleUtils.swift; sourceTree = "<group>"; };
 		507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorChildViewController.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */,
-				5075457520E46EEB009B7A55 /* SwiftProtobuf.framework in Frameworks */,
 				8FC578B363E63722BD7BDC2F /* libPods-Particle.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,7 +225,6 @@
 		5075456520E46779009B7A55 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				5075457420E46EEA009B7A55 /* SwiftProtobuf.framework */,
 				505D2A7D20D9AD1D005389DF /* MeshSetupFraming.swift */,
 				5075456920E468AC009B7A55 /* cloud.pb.swift */,
 				5075456820E468AC009B7A55 /* config.pb.swift */,
@@ -641,7 +637,7 @@
 				501DA8E41D24A5D0003CE43F /* DeviceInspectorDataViewController.swift in Sources */,
 				50E5EF1B1D2DDCBF0087C7B6 /* UIColor.swift in Sources */,
 				505D2A8C20D9AD84005389DF /* MeshSetupGetReadyViewController.swift in Sources */,
-				5075456F20E468AD009B7A55 /* storage.pb.swift in Sources */,
+				5075457920E47D0B009B7A55 /* storage.pb.swift in Sources */,
 				5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */,
 				5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */,
 				5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */,
@@ -660,20 +656,20 @@
 				505D2A8020D9AD36005389DF /* MeshSetupBluetoothManager.swift in Sources */,
 				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,
+				5075457820E47D08009B7A55 /* config.pb.swift in Sources */,
 				505D2A7E20D9AD1D005389DF /* MeshSetupFraming.swift in Sources */,
-				5075456D20E468AD009B7A55 /* cloud.pb.swift in Sources */,
+				5075457720E47D06009B7A55 /* cloud.pb.swift in Sources */,
 				508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */,
 				502F498020DC68DF0072490E /* MeshSetupPairingProcessViewController.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50E5EF1C1D2DDCBF0087C7B6 /* UIImage.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* ParticleDevice+pins.m in Sources */,
-				5075456E20E468AD009B7A55 /* mesh.pb.swift in Sources */,
 				5075456620E467C3009B7A55 /* MeshSetupScannedPeripheral.swift in Sources */,
 				507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */,
 				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
-				5075456C20E468AD009B7A55 /* config.pb.swift in Sources */,
 				505D2A8920D9AD84005389DF /* MeshSetupPairDeviceViewController.swift in Sources */,
+				5075457620E47CF5009B7A55 /* mesh.pb.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50B0F9BA1D261149007DB6D1 /* DeviceEventTableViewCell.swift in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
