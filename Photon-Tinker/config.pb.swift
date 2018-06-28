@@ -95,6 +95,53 @@ enum Particle_Ctrl_ServerProtocolType: SwiftProtobuf.Enum {
 
 }
 
+/// Get the device ID
+struct Particle_Ctrl_GetDeviceIdRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetDeviceIdReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Device ID (hex-encoded)
+  var id: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Get the device's serial number
+struct Particle_Ctrl_GetSerialNumberRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetSerialNumberReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var serial: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 /// CTRL_REQUEST_SET_CLAIM_CODE: 200
 struct Particle_Ctrl_SetClaimCodeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -351,6 +398,102 @@ extension Particle_Ctrl_ServerProtocolType: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "TCP_PROTOCOL"),
     2: .same(proto: "UDP_PROTOCOL"),
   ]
+}
+
+extension Particle_Ctrl_GetDeviceIdRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetDeviceIdRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetDeviceIdRequest) -> Bool {
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetDeviceIdReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetDeviceIdReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.id)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetDeviceIdReply) -> Bool {
+    if self.id != other.id {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetSerialNumberRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSerialNumberRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSerialNumberRequest) -> Bool {
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetSerialNumberReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSerialNumberReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "serial"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.serial)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.serial.isEmpty {
+      try visitor.visitSingularStringField(value: self.serial, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSerialNumberReply) -> Bool {
+    if self.serial != other.serial {return false}
+    if unknownFields != other.unknownFields {return false}
+    return true
+  }
 }
 
 extension Particle_Ctrl_SetClaimCodeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

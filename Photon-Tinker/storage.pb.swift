@@ -21,9 +21,10 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 enum Particle_Ctrl_StorageType: SwiftProtobuf.Enum {
   typealias RawValue = Int
-
-  ///  INTERNAL = 1; // Internal flash
   case invalidStorage // = 0
+
+  /// Internal flash
+  case `internal` // = 1
   case UNRECOGNIZED(Int)
 
   init() {
@@ -33,6 +34,7 @@ enum Particle_Ctrl_StorageType: SwiftProtobuf.Enum {
   init?(rawValue: Int) {
     switch rawValue {
     case 0: self = .invalidStorage
+    case 1: self = .internal
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -40,6 +42,7 @@ enum Particle_Ctrl_StorageType: SwiftProtobuf.Enum {
   var rawValue: Int {
     switch self {
     case .invalidStorage: return 0
+    case .internal: return 1
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -501,6 +504,7 @@ fileprivate let _protobuf_package = "particle.ctrl"
 extension Particle_Ctrl_StorageType: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "INVALID_STORAGE"),
+    1: .same(proto: "INTERNAL"),
   ]
 }
 

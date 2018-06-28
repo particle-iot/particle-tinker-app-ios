@@ -46,7 +46,6 @@ PODS:
   - RMessage (2.3.0):
     - HexColors (~> 4.0)
     - PPTopMostController
-  - SwiftProtobuf (1.0.3)
   - YCTutorialBox (1.0.9):
     - FXBlurView
 
@@ -62,7 +61,6 @@ DEPENDENCIES:
   - ParticleSetup (from `../particle-setup-ios`)
   - PullToRefreshCoreText (~> 0.1)
   - RMessage
-  - SwiftProtobuf (~> 1.0)
   - YCTutorialBox
 
 SPEC REPOS:
@@ -82,7 +80,6 @@ SPEC REPOS:
     - PPTopMostController
     - PullToRefreshCoreText
     - RMessage
-    - SwiftProtobuf
     - YCTutorialBox
 
 EXTERNAL SOURCES:
@@ -109,9 +106,8 @@ SPEC CHECKSUMS:
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   RMessage: 27f860ca6712e0926a5fc63f362fd09667d9d02b
-  SwiftProtobuf: 5ccc0e4054e37c75800e5744acb2aa80bb72b39c
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
 
-PODFILE CHECKSUM: 9e07090cd461ccd9fd7a779092ee4f17a2865fe2
+PODFILE CHECKSUM: 72d2e2f1c06a0ed1c73a5afb950247cf9756142e
 
 COCOAPODS: 1.5.0

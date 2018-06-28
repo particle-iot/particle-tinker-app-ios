@@ -29,13 +29,13 @@ struct Particle_Ctrl_Mesh_NetworkInfo {
   var name: String = String()
 
   /// Extended PAN ID
-  var extPan: String = String()
+  var extPanID: String = String()
 
   /// PAN ID
-  var pan: String = String()
+  var panID: UInt32 = 0
 
-  /// Channel
-  var channel: Int32 = 0
+  /// Channel number
+  var channel: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -80,6 +80,9 @@ struct Particle_Ctrl_Mesh_CreateNetworkRequest {
 
   /// Commissioning credential for this network
   var password: String = String()
+
+  /// Channel number
+  var channel: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -372,8 +375,8 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
   static let protoMessageName: String = _protobuf_package + ".NetworkInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
-    2: .standard(proto: "ext_pan"),
-    3: .same(proto: "pan"),
+    2: .standard(proto: "ext_pan_id"),
+    3: .standard(proto: "pan_id"),
     4: .same(proto: "channel"),
   ]
 
@@ -381,9 +384,9 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.name)
-      case 2: try decoder.decodeSingularStringField(value: &self.extPan)
-      case 3: try decoder.decodeSingularStringField(value: &self.pan)
-      case 4: try decoder.decodeSingularInt32Field(value: &self.channel)
+      case 2: try decoder.decodeSingularStringField(value: &self.extPanID)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.panID)
+      case 4: try decoder.decodeSingularUInt32Field(value: &self.channel)
       default: break
       }
     }
@@ -393,22 +396,22 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
     }
-    if !self.extPan.isEmpty {
-      try visitor.visitSingularStringField(value: self.extPan, fieldNumber: 2)
+    if !self.extPanID.isEmpty {
+      try visitor.visitSingularStringField(value: self.extPanID, fieldNumber: 2)
     }
-    if !self.pan.isEmpty {
-      try visitor.visitSingularStringField(value: self.pan, fieldNumber: 3)
+    if self.panID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.panID, fieldNumber: 3)
     }
     if self.channel != 0 {
-      try visitor.visitSingularInt32Field(value: self.channel, fieldNumber: 4)
+      try visitor.visitSingularUInt32Field(value: self.channel, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_NetworkInfo) -> Bool {
     if self.name != other.name {return false}
-    if self.extPan != other.extPan {return false}
-    if self.pan != other.pan {return false}
+    if self.extPanID != other.extPanID {return false}
+    if self.panID != other.panID {return false}
     if self.channel != other.channel {return false}
     if unknownFields != other.unknownFields {return false}
     return true
@@ -468,6 +471,7 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "password"),
+    3: .same(proto: "channel"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -475,6 +479,7 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.name)
       case 2: try decoder.decodeSingularStringField(value: &self.password)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.channel)
       default: break
       }
     }
@@ -487,12 +492,16 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
     if !self.password.isEmpty {
       try visitor.visitSingularStringField(value: self.password, fieldNumber: 2)
     }
+    if self.channel != 0 {
+      try visitor.visitSingularUInt32Field(value: self.channel, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_CreateNetworkRequest) -> Bool {
     if self.name != other.name {return false}
     if self.password != other.password {return false}
+    if self.channel != other.channel {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }

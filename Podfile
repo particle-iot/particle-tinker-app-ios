@@ -13,7 +13,7 @@ target 'Particle' do
     pod 'YCTutorialBox'
     pod 'Crashlytics'
     pod 'Analytics'
-    pod 'SwiftProtobuf', '~> 1.0'
+#    pod 'SwiftProtobuf', '~> 1.0'
 end
 
 
