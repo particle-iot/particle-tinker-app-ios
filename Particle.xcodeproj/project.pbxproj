@@ -69,11 +69,11 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
-		8FC578B363E63722BD7BDC2F /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */; };
+		EA99D60C264524A77883671A /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA6D1CD882109AFC45E4D4B /* libPods-Particle.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EA6D1CD882109AFC45E4D4B /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElectronSetupViewController.swift; sourceTree = "<group>"; };
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorDataViewController.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */,
-				8FC578B363E63722BD7BDC2F /* libPods-Particle.a in Frameworks */,
+				EA99D60C264524A77883671A /* libPods-Particle.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,11 +228,11 @@
 			isa = PBXGroup;
 			children = (
 				505D2A7D20D9AD1D005389DF /* MeshSetupFraming.swift */,
+				5075457A20E47E50009B7A55 /* MeshSetupProtocolManager.swift */,
 				5075456920E468AC009B7A55 /* cloud.pb.swift */,
 				5075456820E468AC009B7A55 /* config.pb.swift */,
 				5075456A20E468AD009B7A55 /* mesh.pb.swift */,
 				5075456B20E468AD009B7A55 /* storage.pb.swift */,
-				5075457A20E47E50009B7A55 /* MeshSetupProtocolManager.swift */,
 			);
 			name = Protocol;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				508311451C0E907E009C0161 /* JavaScriptCore.framework */,
-				47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */,
+				3EA6D1CD882109AFC45E4D4B /* libPods-Particle.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -427,8 +427,8 @@
 				50B1253F1AE06CF4003C29DC /* Sources */,
 				50B125401AE06CF4003C29DC /* Frameworks */,
 				50B125411AE06CF4003C29DC /* Resources */,
-				D03200CD9B5C0B699799D26B /* [CP] Copy Pods Resources */,
 				50E5EF201D349D450087C7B6 /* Run Script */,
+				8B415DAEB7707DDEE4D1CC38 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -537,7 +537,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D03200CD9B5C0B699799D26B /* [CP] Copy Pods Resources */ = {
+		8B415DAEB7707DDEE4D1CC38 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -823,8 +823,6 @@
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "";
-				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
@@ -856,8 +854,6 @@
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "";
-				"OTHER_SWIFT_FLAGS[arch=*]" = "-D RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";

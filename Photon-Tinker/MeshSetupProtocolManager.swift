@@ -8,9 +8,58 @@
 
 import UIKit
 
+
+class MeshSetupNetworkInfo { // a clean reflection of "Particle_Ctrl_Mesh_NetworkInfo"
+    /// Network name
+    var name: String?
+    /// Extended PAN ID
+    var extPanID: String?
+    /// PAN ID
+    var panID: UInt32?
+    /// Channel number
+    var channel: UInt32?
+    
+    init(name : String, extPanID : String, panID : UInt32, channel : UInt32) {
+        self.name = name
+        self.extPanID = extPanID
+        self.panID = panID
+        self.channel = channel
+    }
+}
+
+enum CloudConnectionStatus : UInt16 { // a clean reflection of "Particle_Ctrl_Cloud_ConnectionStatus"
+    case disconnected = 0
+    case connecting = 1
+    case connected = 2
+    case disconnecting = 3
+}
+
+
+
+protocol MeshSetupProtocolManagerDelegate {
+    func didReceiveDeviceIdReply(deviceId : String)
+    func didReceiveClaimCodeReply()
+    func didReceiveAuthReply()
+    func didReceiveCreateNetworkReply(networkInfo : MeshSetupNetworkInfo)
+    func didReceiveStartCommissionerReply()
+    func didReceiveStopCommissionerReply()
+    func didReceivePrepareJoinerRequest(eui64 : String, password : String)
+    func didReceiveAddJoinerReply()
+    func didReceiveRemoveJoinerReply()
+    func didReceiveJoinNetworkReply()
+    func didReceiveLeaveNetworkReply()
+    func didReceiveGetNetworkInfoReply(networkInfo : MeshSetupNetworkInfo)
+    func didReceiveScanNetworksReply(networks : [MeshSetupNetworkInfo])
+    func didReceiveGetSerialNumberReply(serialNumber : String)
+    func didReceiveGetConnectionStatusReply(connectionStatus : CloudConnectionStatus)
+    
+}
+
+
 class MeshSetupProtocolManager: NSObject {
     //MARK: - View Properties
     var bluetoothManager    : MeshSetupBluetoothManager?
+//    var securityManager     : MeshSetupSecurityManager?
     
     // Commissioning process data
     var requestMessageId    : UInt16 = 0
@@ -27,14 +76,15 @@ class MeshSetupProtocolManager: NSObject {
     func sendRequestMessage(type : ControlRequestMessageType, payload : Data) {
         
         func showErrorDialog(message : String) {
-            let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (_) in }
-            alertController.addAction(cancelAction)
-            self.present(alertController, animated: true, completion: nil)
+            print(message)
+//            let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+//            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (_) in }
+//            alertController.addAction(cancelAction)
+//            self.present(alertController, animated: true, completion: nil)
         }
         
         if let ble = self.bluetoothManager {
-            if !ble.isConnected() {
+            if !ble.isConnected {
                 showErrorDialog(message: "BLE is not paired to mesh device")
                 return
             }
@@ -56,12 +106,13 @@ class MeshSetupProtocolManager: NSObject {
             }
             
             DispatchQueue.main.async { // Correct
-                self.activityIndicator.startAnimating()
+//                self.activityIndicator.startAnimating()
                 self.waitingForReply = true
             }
             self.requestMessageId = self.requestMessageId + 1
             let sendBuffer = RequestMessage.serialize(requestMessage: requestMsg)
-            self.send(data: sendBuffer)
+            self.bluetoothManager?.send(data: sendBuffer)
+            
         } else {
             showErrorDialog(message: "BLE is not paired to mesh device")
         }

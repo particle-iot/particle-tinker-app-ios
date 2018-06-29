@@ -71,7 +71,7 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
     fileprivate var particleMeshTXCharacterisitic        : CBCharacteristic?
     fileprivate var peripheralNameToConnect              : String?
     
-    fileprivate var connected = false
+    var isConnected : Bool = false
     
     //MARK: - BluetoothManager API
     
@@ -113,7 +113,7 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
             log(level: .warningLogLevel, message: "Peripheral not set")
             return
         }
-        if connected {
+        if isConnected {
             log(level: .verboseLogLevel, message: "Disconnecting...")
         } else {
             log(level: .verboseLogLevel, message: "Cancelling connection...")
@@ -122,19 +122,13 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
         centralManager?.cancelPeripheralConnection(bluetoothPeripheral!)
         
         // In case the previous connection attempt failed before establishing a connection
-        if !connected {
+        if !isConnected {
             bluetoothPeripheral = nil
             delegate?.didDisconnectPeripheral()
         }
     }
     
-    /**
-     * Returns true if the peripheral device is connected, false otherwise
-     * - returns: true if device is connected
-     */
-    func isConnected() -> Bool {
-        return connected
-    }
+ 
     
     /**
      * This method sends the given test to the UART RX characteristic.
@@ -357,7 +351,8 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
         }
         
         self.state = .Connected
-        connected = true
+        self.isConnected = true
+    
         bluetoothPeripheral = peripheral
         bluetoothPeripheral!.delegate = self
         
@@ -375,7 +370,7 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
         log(level: .debugLogLevel, message: "[Callback] Central Manager did disconnect peripheral successfully")
         log(level: .infoLogLevel, message: "Disconnected")
         
-        connected = false
+        self.isConnected = false
         delegate?.didDisconnectPeripheral()
         bluetoothPeripheral!.delegate = nil
         bluetoothPeripheral = nil
@@ -390,7 +385,7 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
         log(level: .debugLogLevel, message: "[Callback] Central Manager did fail to connect to peripheral without errors")
         log(level: .infoLogLevel, message: "Failed to connect")
         
-        connected = false
+        self.isConnected = false
         delegate?.didDisconnectPeripheral()
         bluetoothPeripheral!.delegate = nil
         bluetoothPeripheral = nil
@@ -512,6 +507,7 @@ class MeshSetupBluetoothManager: NSObject, CBPeripheralDelegate, CBCentralManage
         }
         
         self.state = .ReadyForData
+        self.isConnected = true
         self.delegate?.peripheralReadyForData()
         
         if characteristic.isNotifying {
