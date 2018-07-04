@@ -41,6 +41,7 @@
 		5075457820E47D08009B7A55 /* config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456820E468AC009B7A55 /* config.pb.swift */; };
 		5075457920E47D0B009B7A55 /* storage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456B20E468AD009B7A55 /* storage.pb.swift */; };
 		5075457B20E47E50009B7A55 /* MeshSetupProtocolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075457A20E47E50009B7A55 /* MeshSetupProtocolManager.swift */; };
+		5075457D20EC81EA009B7A55 /* MeshSetupFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075457C20EC81EA009B7A55 /* MeshSetupFlowManager.swift */; };
 		507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */; };
 		507A84BA1D247FFD0050B3B6 /* ParticleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */; };
 		507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */; };
@@ -109,6 +110,7 @@
 		5075456A20E468AD009B7A55 /* mesh.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mesh.pb.swift; sourceTree = "<group>"; };
 		5075456B20E468AD009B7A55 /* storage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storage.pb.swift; sourceTree = "<group>"; };
 		5075457A20E47E50009B7A55 /* MeshSetupProtocolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupProtocolManager.swift; sourceTree = "<group>"; };
+		5075457C20EC81EA009B7A55 /* MeshSetupFlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowManager.swift; sourceTree = "<group>"; };
 		507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoViewController.swift; sourceTree = "<group>"; };
 		507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleUtils.swift; sourceTree = "<group>"; };
 		507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorChildViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			children = (
 				505D2A7D20D9AD1D005389DF /* MeshSetupFraming.swift */,
 				5075457A20E47E50009B7A55 /* MeshSetupProtocolManager.swift */,
+				5075457C20EC81EA009B7A55 /* MeshSetupFlowManager.swift */,
 				5075456920E468AC009B7A55 /* cloud.pb.swift */,
 				5075456820E468AC009B7A55 /* config.pb.swift */,
 				5075456A20E468AD009B7A55 /* mesh.pb.swift */,
@@ -668,6 +671,7 @@
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50E5EF1C1D2DDCBF0087C7B6 /* UIImage.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* ParticleDevice+pins.m in Sources */,
+				5075457D20EC81EA009B7A55 /* MeshSetupFlowManager.swift in Sources */,
 				5075456620E467C3009B7A55 /* MeshSetupScannedPeripheral.swift in Sources */,
 				507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */,
 				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,

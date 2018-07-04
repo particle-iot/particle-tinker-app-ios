@@ -8,28 +8,6 @@
 
 import UIKit
 
-
-
-/*
-struct MeshSetupNetworkInfo { // a clean reflection of "Particle_Ctrl_Mesh_NetworkInfo"
-    /// Network name
-    var name: String?
-    /// Extended PAN ID
-    var extPanID: String?
-    /// PAN ID
-    var panID: UInt32?
-    /// Channel number
-    var channel: UInt32?
-    
-    init(name : String, extPanID : String, panID : UInt32, channel : UInt32) {
-        self.name = name
-        self.extPanID = extPanID
-        self.panID = panID
-        self.channel = channel
-    }
-}
-*/
-
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
 
@@ -54,7 +32,7 @@ protocol MeshSetupProtocolManagerDelegate {
     func didReceiveJoinNetworkReply()
     func didReceiveSetClaimCodeReply()
     func didReceiveLeaveNetworkReply()
-    func didReceiveGetNetworkInfoReply(networkInfo : MeshSetupNetworkInfo)
+    func didReceiveGetNetworkInfoReply(networkInfo : MeshSetupNetworkInfo?)
     func didReceiveScanNetworksReply(networks : [MeshSetupNetworkInfo])
     func didReceiveGetSerialNumberReply(serialNumber : String)
     func didReceiveGetConnectionStatusReply(connectionStatus : CloudConnectionStatus)
@@ -148,6 +126,26 @@ class MeshSetupProtocolManager: NSObject {
         self.sendRequestMessage(type: ControlRequestMessageType.CreateNetwork, payload: requestMsgPayloadData)
     }
     
+    func sendSetClaimCode(claimCode : String) {
+        var requestMsgPayload = Particle_Ctrl_SetClaimCodeRequest()
+        requestMsgPayload.code = claimCode
+        
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_SetClaimCodeRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .SetClaimCode, payload : requestMsgPayloadData)
+    }
+
+    func sendGetNetworkInfo() {
+        let requestMsgPayload = Particle_Ctrl_Mesh_GetNetworkInfoRequest()
+        
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_Mesh_GetNetworkInfoRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .GetNetworkInfo, payload : requestMsgPayloadData)
+    }
     
     func sendAuth(password : String) {
         var requestMsgPayload = Particle_Ctrl_Mesh_AuthRequest()
@@ -158,6 +156,17 @@ class MeshSetupProtocolManager: NSObject {
             return
         }
         self.sendRequestMessage(type: .Auth, payload : requestMsgPayloadData)
+    }
+    
+    
+    func sendScanNetworks() {
+        let requestMsgPayload = Particle_Ctrl_Mesh_ScanNetworksRequest()
+        
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_Mesh_ScanNetworksRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .ScanNetworks, payload : requestMsgPayloadData)
     }
     
     func sendStartCommissioner() {
@@ -273,7 +282,12 @@ class MeshSetupProtocolManager: NSObject {
                     if replyRequestType! == .CreateNetwork {
                         self.delegate?.didReceiveCreateNetworkReply(networkInfo: networkInfo)
                     } else {
-                        self.delegate?.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
+                        // TODO: check if this is how an empty reply behaves?
+                        if networkInfo.name.isEmpty {
+                            self.delegate?.didReceiveGetNetworkInfoReply(networkInfo: nil)
+                        } else {
+                            self.delegate?.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
+                        }
                     }
                     
                     
