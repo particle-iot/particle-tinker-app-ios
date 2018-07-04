@@ -56,6 +56,20 @@ public enum ControlRequestErrorType : Int16 {
     
     case INVALID_UNKNOWN = -9999
     
+    func description() -> String {
+        switch self {
+            case .NONE : return "OK"
+            case .INVALID_ARGUMENT : return "Invalid parameter"
+            case .TIMEOUT : return "Time out"
+            case .NOT_FOUND : return "Not found"
+            case .ALREADY_EXISTS : return "Already exists"
+            case .INVALID_STATE : return "Invalid state"
+            case .NO_MEMORY : return "No memory"
+            case .NOT_ALLOWED : return "Not allowed"
+            default : return "Unknown error"
+        }
+    }
+    
 }
 
 

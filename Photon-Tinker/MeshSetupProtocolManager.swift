@@ -31,7 +31,7 @@ struct MeshSetupNetworkInfo { // a clean reflection of "Particle_Ctrl_Mesh_Netwo
 */
 
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
-typealias CloudConnectionStatus  = Particle_Ctrl_Cloud_ConnectionStatus
+typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
 
 /*
 enum MeshSetupDeviceRole {
@@ -59,6 +59,7 @@ protocol MeshSetupProtocolManagerDelegate {
     func didReceiveGetSerialNumberReply(serialNumber : String)
     func didReceiveGetConnectionStatusReply(connectionStatus : CloudConnectionStatus)
     func didReceiveTestReply()
+    func didReceiveErrorReply(error: ControlRequestErrorType)
     
 }
 
@@ -70,11 +71,11 @@ class MeshSetupProtocolManager: NSObject {
 //    var securityManager     : MeshSetupSecurityManager?
     
     // Commissioning process data
-    var requestMessageId    : UInt16 = 0
+    var requestMessageId     : UInt16 = 0
     var replyRequestTypeDict : [UInt16: ControlRequestMessageType]?
-    var waitingForReply     : Bool = false
+    var waitingForReply      : Bool = false
 //    var deviceRole          : MeshSetupDeviceRole?
-    var delegate : MeshSetupProtocolManagerDelegate?
+    var delegate             : MeshSetupProtocolManagerDelegate?
     
     init(bluetoothManager : MeshSetupBluetoothManager) {
         self.bluetoothManager = bluetoothManager
@@ -223,28 +224,10 @@ class MeshSetupProtocolManager: NSObject {
     }
     
     
-    //MARK: MeshSetupBluetoothManagerDelegate
-// V   func didReceiveDeviceIdReply(deviceId : String)
-//    func didReceiveClaimCodeReply()
-//    func didReceiveAuthReply()
-// V   func didReceiveCreateNetworkReply(networkInfo : MeshSetupNetworkInfo)
-//    func didReceiveStartCommissionerReply()
-//    func didReceiveStopCommissionerReply()
-//    func didReceivePrepareJoinerRequest(eui64 : String, password : String)
-//    func didReceiveAddJoinerReply()
-//    func didReceiveRemoveJoinerReply()
-//    func didReceiveJoinNetworkReply()
-//    func didReceiveLeaveNetworkReply()
-// V   func didReceiveGetNetworkInfoReply(networkInfo : MeshSetupNetworkInfo)
-// V   func didReceiveScanNetworksReply(networks : [MeshSetupNetworkInfo])
-//    func didReceiveGetSerialNumberReply(serialNumber : String)
-//    func didReceiveGetConnectionStatusReply(connectionStatus : CloudConnectionStatus)
-//
-    
     func didReceiveData(data buffer: Data) {
-        print("Received data from BLE: \(buffer.hexString)")
+//        print("Received data from BLE: \(buffer.hexString)")
 
-        // TODO: error handle
+        // TODO: error handler
         let rm = ReplyMessage.deserialize(buffer: buffer)
         
         self.waitingForReply = false
@@ -302,11 +285,6 @@ class MeshSetupProtocolManager: NSObject {
                         return
                     }
                     let prepareJoinerReply = (decodedReply as! Particle_Ctrl_Mesh_PrepareJoinerReply)
-//                    print("PrepareJoinerReply")
-//                    print("EUI-64: \(prepareJoinerReply.eui64)")
-//                    print("Password: \(prepareJoinerReply.password)")
-//                    self.eui64 = prepareJoinerReply.eui64
-//                    self.joiningDeviceCred = prepareJoinerReply.password
                     self.delegate?.didReceivePrepareJoinerReply(eui64: prepareJoinerReply.eui64, password: prepareJoinerReply.password)
                     
                     
@@ -390,11 +368,10 @@ class MeshSetupProtocolManager: NSObject {
                 
                 
             } else {
+                // TODO: decode reply error type into english via raw values 
                 print("Reply Error: \(rm.result)")
+                self.delegate?.didReceiveErrorReply(error: rm.result)
                 
-                //Creating UIAlertController and
-                //Setting title and message for the alert dialog
-//                self.showMeshSetupDialog(message: "Error: "+String(describing: rm.result))
             }
         }
     }
