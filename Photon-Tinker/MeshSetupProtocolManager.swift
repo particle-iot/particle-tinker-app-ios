@@ -34,6 +34,10 @@ enum CloudConnectionStatus : UInt16 { // a clean reflection of "Particle_Ctrl_Cl
     case disconnecting = 3
 }
 
+enum MeshSetupDeviceRole {
+    case joiner
+    case commissioner
+}
 
 
 protocol MeshSetupProtocolManagerDelegate {
@@ -56,7 +60,29 @@ protocol MeshSetupProtocolManagerDelegate {
 }
 
 
-class MeshSetupProtocolManager: NSObject {
+class MeshSetupProtocolManager: NSObject, MeshSetupBluetoothManagerDelegate {
+    func bluetoothDisabled() {
+        <#code#>
+    }
+    
+    func messageToUser(level: RMessageType, message: String) {
+        <#code#>
+    }
+    
+    func didDisconnectPeripheral() {
+        <#code#>
+    }
+    
+    func peripheralReadyForData() {
+        <#code#>
+    }
+    
+    func peripheralNotSupported() {
+        <#code#>
+    }
+    
+  
+    
     //MARK: - View Properties
     var bluetoothManager    : MeshSetupBluetoothManager?
 //    var securityManager     : MeshSetupSecurityManager?
@@ -65,13 +91,20 @@ class MeshSetupProtocolManager: NSObject {
     var requestMessageId    : UInt16 = 0
     var replyRequestTypeDict : [UInt16: ControlRequestMessageType]?
     var waitingForReply     : Bool?
+    var deviceRole : MeshSetupDeviceRole?
     
     // Commissioning data points
-    var networkInfo                     : Particle_Ctrl_Mesh_NetworkInfo?
+    var networkInfo                     : MeshSetupNetworkInfo?
     var eui64                           : String?
     var commissioningCredPassword       : String?
     var commissioningCredPasswordTry    : String?
     var joiningDeviceCred               : String?
+    
+    init(bluetoothManager : MeshSetupBluetoothManager, deviceRole : MeshSetupDeviceRole) {
+        self.bluetoothManager = bluetoothManager
+        self.deviceRole = deviceRole
+        self.bluetoothManager?.delegate = self
+    }
     
     func sendRequestMessage(type : ControlRequestMessageType, payload : Data) {
         
@@ -105,10 +138,7 @@ class MeshSetupProtocolManager: NSObject {
                 self.replyRequestTypeDict![requestMsg.id] = requestMsg.type
             }
             
-            DispatchQueue.main.async { // Correct
-//                self.activityIndicator.startAnimating()
-                self.waitingForReply = true
-            }
+            self.waitingForReply = true
             self.requestMessageId = self.requestMessageId + 1
             let sendBuffer = RequestMessage.serialize(requestMessage: requestMsg)
             self.bluetoothManager?.send(data: sendBuffer)
@@ -118,6 +148,18 @@ class MeshSetupProtocolManager: NSObject {
         }
         
     }
+    
+    func sendGetDeviceId() {
+        let requestMsgPayload = Particle_Ctrl_GetDeviceIdRequest()
+        
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_GetDeviceIdRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .GetDeviceId, payload: requestMsgPayloadData)
+    }
+    
+    
     
     func sendCreateNetwork(name : String, password : String) {
         var requestMsgPayload = Particle_Ctrl_Mesh_CreateNetworkRequest()
@@ -206,6 +248,99 @@ class MeshSetupProtocolManager: NSObject {
         }
         self.sendRequestMessage(type: .LeaveNetwork, payload: requestMsgPayloadData)
     }
+    
+    
+    //MARK: MeshSetupBluetoothManagerDelegate
+    
+    func didReceiveData(data buffer: Data) {
+        print("Received data from BLE: \(buffer.hexString)")
+
+        // TODO: error handle
+        let rm = ReplyMessage.deserialize(buffer: buffer)
+        
+        self.waitingForReply = false
+
+        if let data = rm.data {
+            if rm.result == .NONE {
+                print("Packet id \(rm.id) --> Payload: \(data.hexString)")
+                //                let replyMessageContents
+                var decodedReply : Any?
+                let replyRequestType = self.replyRequestTypeDict![rm.id]
+                switch replyRequestType! {
+                    
+                case .GetNetworkInfo:
+                    fallthrough
+                // GetNetworkInfoReply and CreateNetworkReply are the same!
+                case .CreateNetwork:
+                    do {
+                        decodedReply = try Particle_Ctrl_Mesh_GetNetworkInfoReply(serializedData: data)
+                    } catch {
+                        print("Could not deserialize reply GetNetworkInfoReply")
+                        return
+                    }
+                    
+                    let rawNetworkInfo : Particle_Ctrl_Mesh_NetworkInfo = (decodedReply as! Particle_Ctrl_Mesh_GetNetworkInfoReply).network
+                    self.networkInfo = MeshSetupNetworkInfo.init(name: rawNetworkInfo.name, extPanID: rawNetworkInfo.extPanID, panID: rawNetworkInfo.panID, channel: rawNetworkInfo.channel)
+                    
+                    print("networkInfo reply:")
+                    let msg = "Name: \(self.networkInfo.name)\nXPAN ID: \(self.networkInfo.extPan)\nPAN ID: \(self.networkInfo.pan)\nChannel: \(self.networkInfo.channel)"
+
+                    print(msg)
+                    
+                    
+//                    self.commissioningCredPassword = self.commissioningCredPasswordTry
+//                    print("Commissioning credential set: \(self.commissioningCredPassword)")
+                    
+//                    let alertController = UIAlertController(title: "Network Info", message: msg, preferredStyle: .alert)
+//                    let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (_) in }
+//                    alertController.addAction(cancelAction)
+//                    self.present(alertController, animated: true, completion: nil)
+                    
+                case .PrepareJoiner:
+                    do {
+                        decodedReply = try Particle_Ctrl_Mesh_PrepareJoinerReply(serializedData: data)
+                    } catch {
+                        print("Could not deserialize reply PrepareJoinerReply")
+                        return
+                    }
+                    let prepareJoinerReply = (decodedReply as! Particle_Ctrl_Mesh_PrepareJoinerReply)
+                    print("PrepareJoinerReply")
+                    print("EUI-64: \(prepareJoinerReply.eui64)")
+                    print("Password: \(prepareJoinerReply.password)")
+                    self.eui64 = prepareJoinerReply.eui64
+                    self.joiningDeviceCred = prepareJoinerReply.password
+                    
+                    self.showMeshSetupDialog(message: "Success!\nEUI64: \(self.eui64!)\nJoining device credential: \(self.joiningDeviceCred!)")
+                    
+                    
+                case .ScanNetworks:
+                    do {
+                        decodedReply = try Particle_Ctrl_Mesh_ScanNetworksReply(serializedData: data)
+                    } catch {
+                        print("Could not deserialize reply ScanNetworksReply")
+                        return
+                    }
+                    print("ScanNetworksReply")
+                    print("\(String(describing: decodedReply))") // TODO: process repeated ???
+                    
+                default:
+                    // Valid zero length reply payload
+                    print("Reply OK - zero length")
+                    decodedReply = nil
+                    self.showMeshSetupDialog(message: "Success")
+                }
+                
+                
+            } else{
+                print("Reply Error: \(rm.result)")
+                
+                //Creating UIAlertController and
+                //Setting title and message for the alert dialog
+                self.showMeshSetupDialog(message: "Error: "+String(describing: rm.result))
+            }
+        }
+        
+    
     
     
 }
