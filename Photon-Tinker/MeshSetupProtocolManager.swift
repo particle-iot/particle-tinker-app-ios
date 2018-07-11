@@ -179,6 +179,17 @@ class MeshSetupProtocolManager: NSObject {
         self.sendRequestMessage(type: .StartCommissioner, payload: requestMsgPayloadData)
     }
     
+    func sendIsClaimed() {
+        let requestMsgPayload = Particle_Ctrl_IsClaimedRequest()
+        
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_IsClaimedRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .IsClaimed, payload: requestMsgPayloadData)
+
+    }
+    
     func sendPrepareJoiner(networkInfo : Particle_Ctrl_Mesh_NetworkInfo) {
         var requestMsgPayload = Particle_Ctrl_Mesh_PrepareJoinerRequest()
         requestMsgPayload.network = networkInfo

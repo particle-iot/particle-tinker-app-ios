@@ -6,160 +6,178 @@
 //  Copyright © 2018 spark. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 // TODO: define flows
 enum MeshSetupFlowType {
-    case none
-    case initialSetupXenon
-    case initialSetupArgon
-    case initialSetupBoron
-    case setupXenon
-    case setupArgon
-    case setupBoron
+    case None
+    case Detecting
+    case InitialXenon
+    case InitialArgon
+    case InitialBoron
+    case InitialESP32 // future
+    case ModifyXenon // future
+    case ModifyArgon // future
+    case ModifyBoron // future
+    case ModifyESP32 // future
+    case Diagnostics // future
+    
+}
+
+
+enum flowErrorSeverity {
+    case Info
+    case Warning
+    case Error
+    case Fatal
+}
+
+// future
+enum flowErrorAction {
+    case Dialog
+    case Pop
+    case Fail
 }
 
 protocol MeshSetupFlowManagerDelegate {
-    func errorFlow(error : String) //
+    //    required
+    func errorFlow(error : String, severity : flowErrorSeverity, action : flowErrorAction) //
     func errorPeripheralNotSupported()
     func errorBluetoothDisabled()
     func errorPeripheralDisconnected()
-    
+    //    optional
     func scannedNetworks(networkNames: [String]?)
-    
 }
 
-class MeshSetupFlowManager: NSObject, MeshSetupProtocolManagerDelegate, MeshSetupBluetoothManagerDelegate {
-    
+
+
+
+class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSetupProtocolManagerDelegate {
+
     var bluetoothManager : MeshSetupBluetoothManager?
     var protocolManager  : MeshSetupProtocolManager?
-    var flowType : MeshSetupFlowType = .none
+    var flowType : MeshSetupFlowType = .None
+//    var delegate : MeshSetupFlowManagerDelegate?
+    var currentFlow : MeshSetupFlow?
+    var deviceType : ParticleDeviceType?
     var delegate : MeshSetupFlowManagerDelegate?
     
+    var mobileSecret : String?
     var claimCode : String?
-//    var flowState : ...
+
     
-    override init() {
+    
+   
+    
+//    var claimCode : String?
+    //    var flowState : ...
+    
+    // meant to be initialized after choosing device type + scanning sticker
+    init?(deviceType : ParticleDeviceType, serialNumber : String, mobileSecret : String, claimCode : String) {
+        super.init()
         
+        self.deviceType = deviceType
+        self.mobileSecret = mobileSecret
+        self.claimCode = claimCode
+        
+        var peripheralName : String
+        switch deviceType {
+            case .argon :
+                peripheralName = "Argon-"+serialNumber.suffix(6)
+            case .xenon :
+                peripheralName = "Xenon-"+serialNumber.suffix(6)
+            case .boron :
+                peripheralName = "Boron-"+serialNumber.suffix(6)
+            case .ESP32 :
+                peripheralName = "ESP32-"+serialNumber.suffix(6)
+            default:
+                return nil
+        }
+        
+        self.flowType = .Detecting
+        self.bluetoothManager = MeshSetupBluetoothManager(peripheralName : peripheralName, delegate : self)
     }
+
+    // init?(...modify...)
     
     
     // MARK: MeshSetupProtocolManagerDelegate
     func didReceiveDeviceIdReply(deviceId: String) {
-        switch self.flowType {
-        case .initialSetupXenon:
-            ParticleCloud.sharedInstance().getDevices { (userDevices : [ParticleDevice]?, error: Error?) in
-                if error == nil {
-                    if userDevices!.count > 0 {
-                        for device in userDevices! {
-                            if device.id == deviceId {
-                                // device already claimed to user --
-                                // seld.delegate.initialSetupAlreadyClaimed()
-                            } else {
-                                self.protocolManager?.sendSetClaimCode(self.claimCode!)
-                            }
-                        }
-                    }
-                }
-            }
-            
-        default:
-            print("other flow")
-        }
-        
+        self.currentFlow!.didReceiveDeviceIdReply(deviceId: deviceId)
     }
     
     func didReceiveClaimCodeReply() {
-        <#code#>
+        //..
     }
     
     func didReceiveAuthReply() {
-        <#code#>
+        //..
     }
     
     func didReceiveIsClaimedReply(isClaimed: Bool) {
-        <#code#>
+        // first action that happens before flow class instance is determined (TBD: commissioner password request in future for already setup devices)
+        if (isClaimed == false) {
+            switch self.deviceType! {
+            case .xenon :
+                self.currentFlow = MeshSetupInitialXenonFlow(flowManager: self)
+                self.flowType = .InitialXenon
+            default:
+                self.delegate?.errorFlow(error: "Device not supported yet", severity: .Fatal, action: .Fail)
+                return
+            }
+        } else {
+            switch self.deviceType {
+                default:
+                    self.delegate?.errorFlow(error: "Device already claimed - flow not supported yet", severity: .Fatal, action: .Fail)
+                    return
+            }
+        }
+        
+        self.currentFlow!.start()
     }
     
     func didReceiveCreateNetworkReply(networkInfo: MeshSetupNetworkInfo) {
-        <#code#>
+        //..
     }
     
     func didReceiveStartCommissionerReply() {
-        <#code#>
+        //..
     }
     
     func didReceiveStopCommissionerReply() {
-        <#code#>
+        //..
     }
     
     func didReceivePrepareJoinerReply(eui64: String, password: String) {
-        <#code#>
+        //..
     }
     
     func didReceiveAddJoinerReply() {
-        <#code#>
+        //..
     }
     
     func didReceiveRemoveJoinerReply() {
-        <#code#>
+        //..
     }
     
     func didReceiveJoinNetworkReply() {
-        <#code#>
+        //..
     }
     
     func didReceiveSetClaimCodeReply() {
-        switch self.flowType {
-        case .initialSetupXenon:
-                self.protocolManager?.sendGetNetworkInfo()
-        default:
-            print("other flow")
-        }
+        self.currentFlow?.didReceiveSetClaimCodeReply()
     }
     
     func didReceiveLeaveNetworkReply() {
-        switch self.flowType {
-        case .initialSetupXenon:
-            self.protocolManager?.sendScanNetworks()
-        default:
-            print("other flow")
-        }
+        self.currentFlow!.didReceiveLeaveNetworkReply()
     }
     
     func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
-        switch self.flowType {
-        case .initialSetupXenon:
-            if networkInfo == nil {
-                self.protocolManager?.sendScanNetworks()
-            } else {
-                // TODO: add delegate function to inform user Xenon is already part of a network (change flow/prompt user)
-                self.protocolManager?.sendLeaveNetwork()
-            }
-            self.protocolManager?.sendGetNetworkInfo()
-        default:
-            print("other flow")
-        }
+        self.currentFlow!.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
     }
     
     func didReceiveScanNetworksReply(networks: [MeshSetupNetworkInfo]) {
-        switch self.flowType {
-        case .initialSetupXenon:
-            if networks.count > 0 {
-                var networkNames = [String]()
-                for network in networks {
-                    networkNames.append(network.name)
-                }
-                // TODO: add call to ParticleCloud.shared().getNetworks() and compare user owned networks to device reples and make intersection between the two
-                // networkNames INTERSECT WITH ParticleCloud reply
-                self.delegate?.scannedNetworks(networkNames: networkNames)
-            } else {
-                self.delegate?.scannedNetworks(networkNames: nil)
-            }
-            self.protocolManager?.sendGetNetworkInfo()
-        default:
-            print("other flow")
-        }
+        self.currentFlow!.didReceiveScanNetworksReply(networks: networks)
     }
     
     func didReceiveGetSerialNumberReply(serialNumber: String) {
@@ -176,13 +194,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupProtocolManagerDelegate, MeshSetu
     }
     
     func didReceiveErrorReply(error: ControlRequestErrorType) {
-        self.delegate?.errorFlow(error: "Device returned control message reply error \(error.description())")
+        self.delegate?.errorFlow(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
     }
     
     
     // MARK: MeshSetupBluetoothManaherDelegate
     func bluetoothDisabled() {
-        self.flowType = .none
+        self.flowType = .None
         self.delegate?.errorBluetoothDisabled()
     }
     
@@ -191,23 +209,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupProtocolManagerDelegate, MeshSetu
     }
     
     func didDisconnectPeripheral() {
-        self.flowType = .none
+        self.flowType = .None
         self.delegate?.errorPeripheralDisconnected()
     }
     
-    func peripheralReadyForData() {
-        switch self.flowType {
-        case .initialSetupXenon:
-            self.protocolManager?.sendGetDeviceId()
-            
-        default:
-            print("x")
-        }
-        
+    func peripheralReadyForData()
+    {
+        // first action for all flows is checking if device is claimed - to determine whether its initial setup process or not (update SDD)
+        // TODO: add timeout timer after each send
+        self.protocolManager?.sendIsClaimed()
     }
     
     func peripheralNotSupported() {
-        self.flowType = .none
+        self.flowType = .None
         self.delegate?.errorPeripheralNotSupported()
         
     }
@@ -217,22 +231,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupProtocolManagerDelegate, MeshSetu
     }
     
   
-//    func pair(to deviceName: String) {
-//        self.bluetoothManager = MeshSetupBluetoothManager(peripheralName: deviceName, delegate: self)
-//    }
-    
-    func initialSetupXenon(deviceName: String, claimCode : String) {
-        self.flowType = .initialSetupXenon
-        self.claimCode = claimCode
-        self.bluetoothManager = MeshSetupBluetoothManager(peripheralName: deviceName, delegate: self)
-        self.protocolManager = MeshSetupProtocolManager(bluetoothManager: self.bluetoothManager!)
-        
-        
-        
-    }
-    
-    // MARK:
-    
     
 
 }
