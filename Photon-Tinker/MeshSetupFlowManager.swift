@@ -64,7 +64,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     
     var mobileSecret : String?
     var claimCode : String?
-
+//    var serialNumber : String?
+    
     
     
    
@@ -73,12 +74,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     //    var flowState : ...
     
     // meant to be initialized after choosing device type + scanning sticker
-    init?(deviceType : ParticleDeviceType, serialNumber : String, mobileSecret : String, claimCode : String) {
+    init?(deviceType : ParticleDeviceType, stickerData : String, claimCode : String) {
         super.init()
         
         self.deviceType = deviceType
-        self.mobileSecret = mobileSecret
         self.claimCode = claimCode
+        
+        let arr = stickerData.split(separator: "_")
+        let serialNumber = String(arr[0])//"12345678abcdefg"
+        self.mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
         
         var peripheralName : String
         switch deviceType {

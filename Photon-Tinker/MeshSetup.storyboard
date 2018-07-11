@@ -260,30 +260,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Having trouble scanning?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2E-uZ-j0o">
-                                <rect key="frame" x="93" y="492" width="189" height="15"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NgP-ba-pyC">
-                                <rect key="frame" x="87" y="511" width="201" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="bcM-eX-nbs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
-                                <state key="normal" title="Type serial number instead">
-                                    <color key="titleColor" red="0.0" green="0.67843137249999996" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="sSc-xL-7tL" kind="presentation" identifier="typeCode" id="Dy7-zF-gA2"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="rG1-YO-8Ay">
-                                <rect key="frame" x="20" y="125" width="335" height="297"/>
+                                <rect key="frame" x="20" y="125" width="335" height="346"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQv-PR-P0D">
-                                <rect key="frame" x="20" y="442" width="335" height="40"/>
+                                <rect key="frame" x="20" y="491" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="pPC-RC-Uem"/>
@@ -301,21 +282,17 @@
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="vfP-6E-Fm5" firstAttribute="centerX" secondItem="LlQ-V1-vxd" secondAttribute="centerX" id="4f7-fs-g0Z"/>
-                            <constraint firstItem="NgP-ba-pyC" firstAttribute="centerX" secondItem="LlQ-V1-vxd" secondAttribute="centerX" id="5ff-wB-Ccq"/>
                             <constraint firstItem="x7n-AO-iqw" firstAttribute="top" secondItem="vfP-6E-Fm5" secondAttribute="bottom" constant="20" id="Kxm-Vd-ZcZ"/>
                             <constraint firstItem="vfP-6E-Fm5" firstAttribute="top" secondItem="LlQ-V1-vxd" secondAttribute="top" constant="20" id="LJJ-fb-w9A"/>
+                            <constraint firstItem="LlQ-V1-vxd" firstAttribute="bottom" secondItem="vQv-PR-P0D" secondAttribute="bottom" constant="20" id="MmY-tC-YbO"/>
                             <constraint firstItem="rG1-YO-8Ay" firstAttribute="top" secondItem="x7n-AO-iqw" secondAttribute="bottom" constant="20" id="SFN-Uq-y8u"/>
                             <constraint firstItem="LlQ-V1-vxd" firstAttribute="trailing" secondItem="rG1-YO-8Ay" secondAttribute="trailing" constant="20" id="Uw1-t9-Ntx"/>
                             <constraint firstItem="x7n-AO-iqw" firstAttribute="trailing" secondItem="LlQ-V1-vxd" secondAttribute="trailing" constant="-20" id="bfv-gg-dsV"/>
                             <constraint firstItem="LlQ-V1-vxd" firstAttribute="trailing" secondItem="vQv-PR-P0D" secondAttribute="trailing" constant="20" id="fn5-aL-Iav"/>
                             <constraint firstItem="LlQ-V1-vxd" firstAttribute="leading" secondItem="x7n-AO-iqw" secondAttribute="leading" constant="-20" id="iyI-LF-g0c"/>
-                            <constraint firstItem="LlQ-V1-vxd" firstAttribute="bottom" secondItem="NgP-ba-pyC" secondAttribute="bottom" constant="20" id="jAW-xO-jgs"/>
                             <constraint firstItem="vQv-PR-P0D" firstAttribute="top" secondItem="rG1-YO-8Ay" secondAttribute="bottom" constant="20" id="kGc-A4-1sb"/>
                             <constraint firstItem="rG1-YO-8Ay" firstAttribute="leading" secondItem="LlQ-V1-vxd" secondAttribute="leading" constant="20" id="mJh-jx-FXQ"/>
-                            <constraint firstItem="h2E-uZ-j0o" firstAttribute="centerX" secondItem="LlQ-V1-vxd" secondAttribute="centerX" id="pCb-Rr-LNE"/>
-                            <constraint firstItem="h2E-uZ-j0o" firstAttribute="top" secondItem="vQv-PR-P0D" secondAttribute="bottom" constant="10" id="scv-Cp-phG"/>
                             <constraint firstItem="vQv-PR-P0D" firstAttribute="leading" secondItem="LlQ-V1-vxd" secondAttribute="leading" constant="20" id="xAH-mm-VA1"/>
-                            <constraint firstItem="NgP-ba-pyC" firstAttribute="top" secondItem="h2E-uZ-j0o" secondAttribute="bottom" constant="4" id="ydT-4a-ccO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LlQ-V1-vxd"/>
                     </view>
@@ -511,100 +488,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oGY-wD-Wma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8063.1999999999998" y="4246.5517241379312"/>
-        </scene>
-        <!--Type code-->
-        <scene sceneID="Exk-aI-ufo">
-            <objects>
-                <viewController id="sSc-xL-7tL" userLabel="Type code" customClass="MeshSetupTypeCodeViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ArP-fB-gNV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W28-9I-2ny">
-                                <rect key="frame" x="143" y="40" width="89" height="17"/>
-                                <viewLayoutGuide key="safeArea" id="0x1-IR-YpY"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCe-mM-pkP">
-                                <rect key="frame" x="20" y="77" width="291" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="nOH-Ts-R9M"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the serial number printed on the back of the box your device was packaged in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAN-KU-CXn">
-                                <rect key="frame" x="20" y="133" width="335" height="48"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0oT-4w-zPw">
-                                <rect key="frame" x="20" y="197" width="335" height="335"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="0oT-4w-zPw" secondAttribute="height" multiplier="1:1" id="eBs-CP-UuE"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPt-In-gNO">
-                                <rect key="frame" x="339" y="36" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="Gvo-XZ-gWf"/>
-                                    <constraint firstAttribute="height" constant="20" id="Wyy-6l-Epn"/>
-                                </constraints>
-                                <color key="tintColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="imgCloseIcon"/>
-                                <connections>
-                                    <action selector="cancelButtonTapped:" destination="sSc-xL-7tL" eventType="touchUpInside" id="KPm-hx-POj"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFi-nV-2gv">
-                                <rect key="frame" x="319" y="77" width="40" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="3gf-Bk-j42"/>
-                                    <constraint firstAttribute="width" constant="40" id="fCu-qP-akM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                <state key="normal" image="imgCheckmark">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pairButtonTapped:" destination="sSc-xL-7tL" eventType="touchUpInside" id="GXH-B0-hbE"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="0oT-4w-zPw" firstAttribute="top" secondItem="pAN-KU-CXn" secondAttribute="bottom" constant="16" id="6nB-uW-aUo"/>
-                            <constraint firstItem="W28-9I-2ny" firstAttribute="centerX" secondItem="itI-Df-dKV" secondAttribute="centerX" id="Aav-FK-Hrc"/>
-                            <constraint firstItem="itI-Df-dKV" firstAttribute="trailing" secondItem="0oT-4w-zPw" secondAttribute="trailing" constant="20" id="Eyt-gB-xGF"/>
-                            <constraint firstItem="bCe-mM-pkP" firstAttribute="leading" secondItem="itI-Df-dKV" secondAttribute="leading" constant="20" id="HbK-kU-sNb"/>
-                            <constraint firstItem="itI-Df-dKV" firstAttribute="leading" secondItem="pAN-KU-CXn" secondAttribute="leading" constant="-20" id="JPq-dQ-tVn"/>
-                            <constraint firstItem="pAN-KU-CXn" firstAttribute="top" secondItem="bCe-mM-pkP" secondAttribute="bottom" constant="16" id="L9u-rL-EJQ"/>
-                            <constraint firstItem="itI-Df-dKV" firstAttribute="trailing" secondItem="SFi-nV-2gv" secondAttribute="trailing" constant="16" id="LUT-VV-kO6"/>
-                            <constraint firstItem="0oT-4w-zPw" firstAttribute="leading" secondItem="itI-Df-dKV" secondAttribute="leading" constant="20" id="Pu7-ef-vmR"/>
-                            <constraint firstItem="SFi-nV-2gv" firstAttribute="leading" secondItem="bCe-mM-pkP" secondAttribute="trailing" constant="8" id="cMv-ni-d39"/>
-                            <constraint firstItem="bCe-mM-pkP" firstAttribute="top" secondItem="W28-9I-2ny" secondAttribute="bottom" constant="20" id="lfM-pJ-VJh"/>
-                            <constraint firstItem="W28-9I-2ny" firstAttribute="top" secondItem="itI-Df-dKV" secondAttribute="top" constant="20" id="mPX-0a-hlW"/>
-                            <constraint firstItem="SFi-nV-2gv" firstAttribute="centerY" secondItem="bCe-mM-pkP" secondAttribute="centerY" id="rFR-2v-ezP"/>
-                            <constraint firstItem="wPt-In-gNO" firstAttribute="top" secondItem="itI-Df-dKV" secondAttribute="top" constant="16" id="sOD-SN-UDI"/>
-                            <constraint firstItem="pAN-KU-CXn" firstAttribute="trailing" secondItem="itI-Df-dKV" secondAttribute="trailing" constant="-20" id="uFp-V2-Lwt"/>
-                            <constraint firstItem="itI-Df-dKV" firstAttribute="trailing" secondItem="wPt-In-gNO" secondAttribute="trailing" constant="16" id="uf8-9Z-G7L"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="itI-Df-dKV"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Pair Device" id="g19-bT-SCa"/>
-                    <connections>
-                        <outlet property="codeTextField" destination="bCe-mM-pkP" id="5gA-pl-EZM"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8kt-44-24f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5850.7246376811599" y="4601.902173913044"/>
         </scene>
         <!--Add Device-->
         <scene sceneID="JZd-oL-H44">
@@ -1010,7 +893,6 @@
     <resources>
         <image name="datamatrix-sticker_nl" width="205" height="147"/>
         <image name="imgCamera" width="21" height="21"/>
-        <image name="imgCheckmark" width="32" height="32"/>
         <image name="imgCloseIcon" width="256" height="256"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
         <image name="particle-mark" width="200" height="200"/>

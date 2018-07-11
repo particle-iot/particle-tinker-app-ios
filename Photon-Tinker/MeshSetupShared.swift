@@ -41,7 +41,8 @@ class MeshSetupParameters {
     var deviceName : String?
     var claimCode : String?
     
-    var bluetoothManager : MeshSetupBluetoothManager?
+//    var bluetoothManager : MeshSetupBluetoothManager?
+    var flowManager : MeshSetupFlowManager?
     
     private init() {
         
