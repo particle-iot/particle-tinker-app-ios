@@ -61,7 +61,7 @@ class MeshSetupProtocolManager: NSObject {
 //        self.bluetoothManager?.delegate = self
     }
     
-    func sendRequestMessage(type : ControlRequestMessageType, payload : Data) {
+    private func sendRequestMessage(type : ControlRequestMessageType, payload : Data) {
         
         func showErrorDialog(message : String) {
             print(message)

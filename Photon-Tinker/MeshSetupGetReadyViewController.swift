@@ -16,11 +16,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController {
         super.viewDidLoad()
         
         // Generate claim code and store it for later
-        ParticleCloud.sharedInstance().generateClaimCode { (claimCode : String?, _, error: Error?) in
-            if error == nil {
-                MeshSetupParameters.shared.claimCode = claimCode
-            }
-        }
+
         
     
     }

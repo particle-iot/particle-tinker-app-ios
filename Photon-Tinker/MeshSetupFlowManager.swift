@@ -54,7 +54,8 @@ protocol MeshSetupFlowManagerDelegate {
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSetupProtocolManagerDelegate {
 
-    var bluetoothManager : MeshSetupBluetoothManager?
+    var joinerBluetoothManager : MeshSetupBluetoothManager?
+    var commissionerBluetoothManager : MeshSetupBluetoothManager?
     var protocolManager  : MeshSetupProtocolManager?
     var flowType : MeshSetupFlowType = .None
 //    var delegate : MeshSetupFlowManagerDelegate?
@@ -63,43 +64,37 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     var delegate : MeshSetupFlowManagerDelegate?
     
     var mobileSecret : String?
-    var claimCode : String?
 //    var serialNumber : String?
-    
-    
-    
-   
     
 //    var claimCode : String?
     //    var flowState : ...
     
     // meant to be initialized after choosing device type + scanning sticker
-    init?(deviceType : ParticleDeviceType, stickerData : String, claimCode : String) {
+    init?(deviceType : ParticleDeviceType, stickerData : String) {
         super.init()
         
         self.deviceType = deviceType
-        self.claimCode = claimCode
         
         let arr = stickerData.split(separator: "_")
         let serialNumber = String(arr[0])//"12345678abcdefg"
         self.mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
         
-        var peripheralName : String
+        var joinerPeripheralName : String
         switch deviceType {
             case .argon :
-                peripheralName = "Argon-"+serialNumber.suffix(6)
+                joinerPeripheralName = "Argon-"+serialNumber.suffix(6)
             case .xenon :
-                peripheralName = "Xenon-"+serialNumber.suffix(6)
+                joinerPeripheralName = "Xenon-"+serialNumber.suffix(6)
             case .boron :
-                peripheralName = "Boron-"+serialNumber.suffix(6)
+                joinerPeripheralName = "Boron-"+serialNumber.suffix(6)
             case .ESP32 :
-                peripheralName = "ESP32-"+serialNumber.suffix(6)
+                joinerPeripheralName = "ESP32-"+serialNumber.suffix(6)
             default:
                 return nil
         }
         
         self.flowType = .Detecting
-        self.bluetoothManager = MeshSetupBluetoothManager(peripheralName : peripheralName, delegate : self)
+        self.joinerBluetoothManager = MeshSetupBluetoothManager(peripheralName : joinerPeripheralName, delegate : self)
     }
 
     // init?(...modify...)
@@ -111,7 +106,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     }
     
     func didReceiveClaimCodeReply() {
-        //..
+        self.currentFlow!.didReceiveClaimCodeReply()
     }
     
     func didReceiveAuthReply() {
@@ -119,7 +114,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     }
     
     func didReceiveIsClaimedReply(isClaimed: Bool) {
-        // first action that happens before flow class instance is determined (TBD: commissioner password request in future for already setup devices)
+        // first action that happens before flow class instance is determined (TBD: commissioner password request in future for already setup devices or getNetworkInfo - to see if device already on mesh or any other future commands)
         if (isClaimed == false) {
             switch self.deviceType! {
             case .xenon :
