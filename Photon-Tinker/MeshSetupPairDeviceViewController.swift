@@ -16,21 +16,17 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    var mobileSecret : String?
-    var setupCode : String?
+    var deviceType : ParticleDeviceType?
+    var flowManager : MeshSetupFlowManager?
+    
     
     func didScanCode(code: String) {
         if !code.isEmpty {
             // TODO: initialize flow manager here
             // Split code into deviceID and SN
-
-            MeshSetupParameters.shared.flowManager = MeshSetupFlowManager(deviceType : MeshSetupParameters.shared.deviceType, stickerData: code, claimCode: MeshSetupParameters.shared.claimCode)
-            
+        
+            self.flowManager = MeshSetupFlowManager(deviceType : self.deviceType!, stickerData: code)
             self.performSegue(withIdentifier: "pairing", sender: self)
          
         }
@@ -52,10 +48,7 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
                 return
             }
             
-            vc.mobileSecret = self.mobileSecret!
-            let peripheralNameString = (MeshSetupParameters.shared.deviceType?.description)!+"-"+self.setupCode!
-            vc.peripheralName = peripheralNameString
-
+            vc.flowManager = self.flowManager
         }
             
             

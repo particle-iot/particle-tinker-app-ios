@@ -63,7 +63,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     var deviceType : ParticleDeviceType?
     var delegate : MeshSetupFlowManagerDelegate?
     
-    var mobileSecret : String?
+//    var mobileSecret : String?
 //    var serialNumber : String?
     
 //    var claimCode : String?
@@ -75,9 +75,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
         
         self.deviceType = deviceType
         
-        let arr = stickerData.split(separator: "_")
-        let serialNumber = String(arr[0])//"12345678abcdefg"
-        self.mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
+        let (serialNumber, mobileSecret) = self.getStickerParameters(stickerData: stickerData)
+//        let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
         
         var joinerPeripheralName : String
         switch deviceType {
@@ -98,6 +97,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     }
 
     // init?(...modify...)
+    private func getStickerParameters(stickerData : String) -> (serialNumer : String, mobileSecret : String) {
+        let arr = stickerData.split(separator: "_")
+        let serialNumber = String(arr[0])//"12345678abcdefg"
+        let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
+        return (serialNumber, mobileSecret)
+    }
     
     
     // MARK: MeshSetupProtocolManagerDelegate

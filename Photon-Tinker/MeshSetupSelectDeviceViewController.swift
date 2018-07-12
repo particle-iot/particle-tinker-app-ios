@@ -17,8 +17,9 @@ class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableView
         self.navigationItem.rightBarButtonItem = self.cancelButton
     }
     
-    var deviceTypes = [ "Xenon", "Argon", "Boron" ]
+    let deviceTypes = [ "Xenon", "Argon", "Boron" ]
     var deviceDescriptionTypes = [ "Mesh only", "Mesh and Wi-Fi gateway", "Mesh and Cellular gateway" ]
+    var deviceType : ParticleDeviceType?
     
     let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped(_:)))
 
@@ -74,9 +75,17 @@ class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == deviceTypes.index(of: "Xenon") {
-            MeshSetupParameters.shared.deviceType = .xenon
+            self.deviceType = .xenon
             performSegue(withIdentifier: "getReady", sender: self)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            guard let vc = segue.destination as? MeshSetupGetReadyViewController else {
+                return
+            }
+        
+            vc.deviceType = self.deviceType
     }
     
 }

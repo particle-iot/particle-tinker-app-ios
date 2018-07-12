@@ -25,16 +25,15 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                             if device.id == deviceId {
                                 // device already claimed to user --
                                 // seld.delegate.initialSetupAlreadyClaimed()
+                                 self.delegate?.errorFlow(error: "Device already claimed to user, flow not supported in this app version", severity: .Error, action: .Pop)
                             } else {
                                 ParticleCloud.sharedInstance().generateClaimCode { (claimCode : String?, _, error: Error?) in
                                     if error == nil {
                                         self.protocolManager?.sendSetClaimCode(claimCode: claimCode!)
+                                    } else {
+                                        self.delegate?.errorFlow(error: "Error communicating with Particle cloud to generate claim code", severity: .Error, action: .Pop)
                                     }
-                                } else {
-                                    self.delegate?.errorFlow(error: "Error communicating with Particle cloud to generate claim code", severity: .Error, action: .Pop)
                                 }
-                                
-                                
                             }
                         }
                     }

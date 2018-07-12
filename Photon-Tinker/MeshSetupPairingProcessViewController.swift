@@ -9,13 +9,30 @@
 import UIKit
 import CoreBluetooth
 
-class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupBluetoothManagerDelegate {
-
-    var mobileSecret : String?
-    var peripheralName : String?
-    var connectRetries : Int = 0
+class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupFlowManagerDelegate {
+   
+    func errorFlow(error: String, severity: flowErrorSeverity, action: flowErrorAction) {
+        //..
+    }
     
-    //MARK: - ViewController Properties
+    func errorPeripheralNotSupported() {
+        //..
+    }
+    
+    func errorBluetoothDisabled() {
+        //..
+    }
+    
+    func errorPeripheralDisconnected() {
+        //..
+    }
+    
+    func scannedNetworks(networkNames: [String]?) {
+        //..
+    }
+    
+
+    var flowManager : MeshSetupFlowManager?
     
 //    var peripherals      : [MeshSetupScannedPeripheral] = []
     var particleMeshServiceUUID : CBUUID?
@@ -49,17 +66,26 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupB
         // we don't need a back button while trying to pair/start setup
         self.navigationItem.hidesBackButton = true
         ParticleSpinner.show(self.view)
-        self.connectRetries = 0
+//        self.connectRetries = 0
         
-        MeshSetupParameters.shared.bluetoothManager = MeshSetupBluetoothManager.init(peripheralName: self.peripheralName!, delegate : self)
+        
+        self.flowManager?.delegate = self
         
     }
     
    
+    func abort() {
+//        MeshSetupParameters.shared.bluetoothManager = nil
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    
     func messageToUser(level: RMessageType, message: String) {
           RMessage.showNotification(withTitle: "Pairing", subtitle: message, type: level, customTypeName: nil, callback: nil)
     }
     
+    // move this retries code to BLE manager
+    /*
     func didDisconnectPeripheral() {
          RMessage.showNotification(withTitle: "Pairing", subtitle: "Device disconnected, retrying...", type: .error, customTypeName: nil, callback: nil)
         
@@ -78,10 +104,6 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupB
         self.getPairedDeviceID()
     }
     
-    func abort() {
-        MeshSetupParameters.shared.bluetoothManager = nil
-        self.navigationController?.popViewController(animated: true)
-    }
     
     func peripheralNotSupported() {
           RMessage.showNotification(withTitle: "Pairing", subtitle: "This device device does not seem to be a Particle device, please try again", type: .error, customTypeName: nil, callback: nil)
@@ -103,5 +125,6 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupB
     func getPairedDeviceID() {
         print ("starting setup")
     }
-
+    */
+ 
 }

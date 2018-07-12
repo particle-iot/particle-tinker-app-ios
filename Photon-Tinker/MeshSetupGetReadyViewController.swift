@@ -14,23 +14,23 @@ class MeshSetupGetReadyViewController: MeshSetupViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Generate claim code and store it for later
-
-        
     
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
-    
+    var deviceType : ParticleDeviceType?
 
     @IBOutlet weak var videoView: UIView!
     @IBAction func nextButtonTapped(_ sender: Any) {
         performSegue(withIdentifier: "pairDevice", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? MeshSetupPairDeviceViewController  else {
+            return
+        }
+        
+        vc.deviceType = self.deviceType
+        
     }
 }
