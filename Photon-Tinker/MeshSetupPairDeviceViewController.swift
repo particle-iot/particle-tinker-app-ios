@@ -15,11 +15,8 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
 
         // Do any additional setup after loading the view.
     }
-
     
     var deviceType : ParticleDeviceType?
-    var flowManager : MeshSetupFlowManager?
-    
     
     func didScanCode(code: String) {
         if !code.isEmpty {
@@ -44,7 +41,7 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
         }
         
         if segue.identifier == "pairing" {
-            guard let vc = segue.destination as? MeshSetupPairingProcessViewController  else {
+            guard let vc = segue.destination as? MeshSetupViewController else {
                 return
             }
             

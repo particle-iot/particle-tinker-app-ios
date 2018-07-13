@@ -9,6 +9,8 @@ import UIKit
 
 class MeshSetupViewController: UIViewController {
 
+    var flowManager : MeshSetupFlowManager?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

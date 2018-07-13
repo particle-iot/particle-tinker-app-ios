@@ -41,11 +41,11 @@ enum flowErrorAction {
 
 protocol MeshSetupFlowManagerDelegate {
     //    required
-    func errorFlow(error : String, severity : flowErrorSeverity, action : flowErrorAction) //
-    func errorPeripheralNotSupported()
-    func errorBluetoothDisabled()
-    func errorPeripheralDisconnected()
-    //    optional
+    func flowError(error : String, severity : flowErrorSeverity, action : flowErrorAction) //
+//    func peripheralNotSupportedError()
+//    func bluetoothDisabledError()
+//    func peripheralDisconnectedError()
+//    //    optional
     func scannedNetworks(networkNames: [String]?)
 }
 
@@ -126,13 +126,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
                 self.currentFlow = MeshSetupInitialXenonFlow(flowManager: self)
                 self.flowType = .InitialXenon
             default:
-                self.delegate?.errorFlow(error: "Device not supported yet", severity: .Fatal, action: .Fail)
+                self.delegate?.flowError(error: "Device not supported yet", severity: .Fatal, action: .Fail)
                 return
             }
         } else {
             switch self.deviceType {
                 default:
-                    self.delegate?.errorFlow(error: "Device already claimed - flow not supported yet", severity: .Fatal, action: .Fail)
+                    self.delegate?.flowError(error: "Device already claimed - flow not supported yet", severity: .Fatal, action: .Fail)
                     return
             }
         }
@@ -205,7 +205,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     // MARK: MeshSetupBluetoothManaherDelegate
     func bluetoothDisabled() {
         self.flowType = .None
-        self.delegate?.errorBluetoothDisabled()
+        self.delegate?.flowError(error: "Bluetooth is disabled, please enable bluetooth on your phone to setup your device", severity: .Fatal, action: .Fail)
+//        self.delegate?.errorBluetoothDisabled()
     }
     
     func messageToUser(level: RMessageType, message: String) {
@@ -214,7 +215,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     
     func didDisconnectPeripheral() {
         self.flowType = .None
-        self.delegate?.errorPeripheralDisconnected()
+        self.delegate?.flowError(error: "Device disconnected from phone", severity: .Fatal, action: .Fail)
+//        self.delegate?.errorPeripheralDisconnected()
     }
     
     func peripheralReadyForData()
@@ -226,7 +228,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     
     func peripheralNotSupported() {
         self.flowType = .None
-        self.delegate?.errorPeripheralNotSupported()
+        self.delegate?.flowError(error: "Device does not seems to be a Particle device", severity: .Fatal, action: .Fail)
+//        self.delegate?.errorPeripheralNotSupported()
         
     }
     

@@ -29,7 +29,7 @@ enum ParticleDeviceType : String {
     
     
 }
- */
+
 class MeshSetupParameters {
     
     // TODO: remove hard coding
@@ -49,6 +49,7 @@ class MeshSetupParameters {
     }
     
 }
+ */
 
 // TODO: should be globally reference not just for mesh
 extension ParticleDeviceType : CustomStringConvertible {
@@ -80,17 +81,18 @@ func replaceMeshSetupStringTemplates(view: UIView) {
         if subview is UILabel {
             let label = subview as! UILabel
             var newLabelString = label.text
-            if let t = MeshSetupParameters.shared.deviceType {
-                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.description)
-            }
-            
-            if let n = MeshSetupParameters.shared.networkName {
-                newLabelString = newLabelString!.replacingOccurrences(of: "{{network}}", with: n)
-            }
-            
-            if let d = MeshSetupParameters.shared.deviceName {
-                newLabelString = newLabelString!.replacingOccurrences(of: "{{deviceName}}", with: d)
-            }
+            // TODO: retrieve info diffrently
+//            if let t = MeshSetupParameters.shared.deviceType {
+//                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.description)
+//            }
+//
+//            if let n = MeshSetupParameters.shared.networkName {
+//                newLabelString = newLabelString!.replacingOccurrences(of: "{{network}}", with: n)
+//            }
+//
+//            if let d = MeshSetupParameters.shared.deviceName {
+//                newLabelString = newLabelString!.replacingOccurrences(of: "{{deviceName}}", with: d)
+//            }
 
             label.text = newLabelString
         }

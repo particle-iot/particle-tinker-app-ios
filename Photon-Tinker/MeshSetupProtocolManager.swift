@@ -37,6 +37,7 @@ protocol MeshSetupProtocolManagerDelegate {
     func didReceiveGetSerialNumberReply(serialNumber : String)
     func didReceiveGetConnectionStatusReply(connectionStatus : CloudConnectionStatus)
     func didReceiveTestReply()
+    
     func didReceiveErrorReply(error: ControlRequestErrorType)
     
 }
