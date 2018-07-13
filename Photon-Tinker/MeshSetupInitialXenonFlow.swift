@@ -25,13 +25,13 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                             if device.id == deviceId {
                                 // device already claimed to user --
                                 // seld.delegate.initialSetupAlreadyClaimed()
-                                 self.delegate?.errorFlow(error: "Device already claimed to user, flow not supported in this app version", severity: .Error, action: .Pop)
+                                 self.delegate?.flowError(error: "Device already claimed to user, flow not supported in this app version", severity: .Error, action: .Pop)
                             } else {
                                 ParticleCloud.sharedInstance().generateClaimCode { (claimCode : String?, _, error: Error?) in
                                     if error == nil {
                                         self.protocolManager?.sendSetClaimCode(claimCode: claimCode!)
                                     } else {
-                                        self.delegate?.errorFlow(error: "Error communicating with Particle cloud to generate claim code", severity: .Error, action: .Pop)
+                                        self.delegate?.flowError(error: "Error communicating with Particle cloud to generate claim code", severity: .Error, action: .Pop)
                                     }
                                 }
                             }
@@ -51,7 +51,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         } else {
             // TODO: add delegate function to inform user Xenon is already part of a network (change flow/prompt user)
             self.protocolManager?.sendLeaveNetwork()
-            self.delegate?.errorFlow(error: "Device is already part of mesh network - instructing it to leave the current network", severity: .Warning, action: .Dialog)
+            self.delegate?.flowError(error: "Device is already part of mesh network - instructing it to leave the current network", severity: .Warning, action: .Dialog)
         }
     }
     

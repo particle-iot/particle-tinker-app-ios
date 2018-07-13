@@ -12,7 +12,7 @@ import Foundation
 public enum ControlRequestMessageType: UInt16 {
     case Auth = 1001
     case GetDeviceId = 20
-    case SetClaimCode = 9999 // TODO: fill
+    case SetClaimCode = 200
     case GetSerialNumber = 21
     case GetConnectionStatus = 300
     case IsClaimed = 201

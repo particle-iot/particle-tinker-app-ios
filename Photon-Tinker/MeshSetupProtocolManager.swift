@@ -46,7 +46,7 @@ protocol MeshSetupProtocolManagerDelegate {
 class MeshSetupProtocolManager: NSObject {
     
     //MARK: - View Properties
-    var bluetoothManager    : MeshSetupBluetoothManager?
+    var bluetoothConnection    : MeshSetupBluetoothConnection?
 //    var securityManager     : MeshSetupSecurityManager?
     
     // Commissioning process data
@@ -56,8 +56,8 @@ class MeshSetupProtocolManager: NSObject {
 //    var deviceRole          : MeshSetupDeviceRole?
     var delegate             : MeshSetupProtocolManagerDelegate?
     
-    init(bluetoothManager : MeshSetupBluetoothManager) {
-        self.bluetoothManager = bluetoothManager
+    init(connection : MeshSetupBluetoothConnection) {
+        self.bluetoothConnection = connection
 //        self.deviceRole = deviceRole
 //        self.bluetoothManager?.delegate = self
     }
@@ -72,8 +72,8 @@ class MeshSetupProtocolManager: NSObject {
 //            self.present(alertController, animated: true, completion: nil)
         }
         
-        if let ble = self.bluetoothManager {
-            if !ble.isConnected {
+        if let ble = self.bluetoothConnection {
+            if !ble.isReady {
                 showErrorDialog(message: "BLE is not paired to mesh device")
                 return
             }
@@ -95,7 +95,7 @@ class MeshSetupProtocolManager: NSObject {
             self.waitingForReply = true
             self.requestMessageId = self.requestMessageId + 1
             let sendBuffer = RequestMessage.serialize(requestMessage: requestMsg)
-            self.bluetoothManager?.send(data: sendBuffer)
+            self.bluetoothConnection!.send(data: sendBuffer)
             
         } else {
             showErrorDialog(message: "BLE is not paired to mesh device")

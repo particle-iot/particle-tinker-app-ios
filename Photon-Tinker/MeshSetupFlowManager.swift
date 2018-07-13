@@ -25,7 +25,7 @@ enum MeshSetupFlowType {
 }
 
 
-enum flowErrorSeverity {
+enum MeshSetupErrorSeverity {
     case Info
     case Warning
     case Error
@@ -41,21 +41,29 @@ enum flowErrorAction {
 
 protocol MeshSetupFlowManagerDelegate {
     //    required
-    func flowError(error : String, severity : flowErrorSeverity, action : flowErrorAction) //
-//    func peripheralNotSupportedError()
-//    func bluetoothDisabledError()
-//    func peripheralDisconnectedError()
-//    //    optional
+    func flowError(error : String, severity : MeshSetupErrorSeverity, action : flowErrorAction) //
     func scannedNetworks(networkNames: [String]?)
 }
 
 
 
 
-class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSetupProtocolManagerDelegate {
+class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionFactoryDelegate, MeshSetupProtocolManagerDelegate {
+    func bluetoothConnectionFactoryError(error: String, severity: MeshSetupErrorSeverity) {
+        //..
+    }
+    
+    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
+        //..
+    }
+    
+    func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection) {
+        //..
+    }
+    
 
-    var joinerBluetoothManager : MeshSetupBluetoothManager?
-    var commissionerBluetoothManager : MeshSetupBluetoothManager?
+    var bluetoothConnectionFactory : MeshSetupBluetoothConnectionFactory?
+    var commissionerBluetoothManager : MeshSetupBluetoothConnectionFactory?
     var protocolManager  : MeshSetupProtocolManager?
     var flowType : MeshSetupFlowType = .None
 //    var delegate : MeshSetupFlowManagerDelegate?
@@ -93,7 +101,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
         }
         
         self.flowType = .Detecting
-        self.joinerBluetoothManager = MeshSetupBluetoothManager(peripheralName : joinerPeripheralName, delegate : self)
+        self.bluetoothConnectionFactory = MeshSetupBluetoothConnectionFactory(delegate : self)
+        self.bluetoothConnectionFactory?.scanAndConnect(to: joinerPeripheralName)
+        
+        
+        
     }
 
     // init?(...modify...)
@@ -198,7 +210,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothManagerDelegate, MeshSet
     }
     
     func didReceiveErrorReply(error: ControlRequestErrorType) {
-        self.delegate?.errorFlow(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
+        self.delegate?.flowError(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
     }
     
     

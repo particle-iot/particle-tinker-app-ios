@@ -11,32 +11,15 @@ import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupFlowManagerDelegate {
    
-    func errorFlow(error: String, severity: flowErrorSeverity, action: flowErrorAction) {
+    func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
         //..
     }
     
-    func errorPeripheralNotSupported() {
-        //..
-    }
-    
-    func errorBluetoothDisabled() {
-        //..
-    }
-    
-    func errorPeripheralDisconnected() {
-        //..
-    }
     
     func scannedNetworks(networkNames: [String]?) {
         //..
     }
     
-
-    var flowManager : MeshSetupFlowManager?
-    
-//    var peripherals      : [MeshSetupScannedPeripheral] = []
-    var particleMeshServiceUUID : CBUUID?
-    var connectedPeripheral : CBPeripheral?
     
         // TODO:
 //        - Performs BLE scan filtering out only Xenon service UUID devices
@@ -50,15 +33,6 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
 //        If any of the steps fail - display a descriptive message to the user and back out. Otherwise display the “Successful” icon for 2 seconds and progress to next screen
 
     
-    /**
-     * Starts scanning for peripherals with rscServiceUUID.
-     * - parameter enable: If YES, this method will enable scanning for bridge devices, if NO it will stop scanning
-     * - returns: true if success, false if Bluetooth Manager is not in CBCentralManagerStatePoweredOn state.
-     */
-   
-    
-//    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
     //MARK: - ViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +41,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
         self.navigationItem.hidesBackButton = true
         ParticleSpinner.show(self.view)
 //        self.connectRetries = 0
-        
-        
-        self.flowManager?.delegate = self
+
         
     }
     
