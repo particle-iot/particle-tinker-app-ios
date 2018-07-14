@@ -53,64 +53,85 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //..
     }
     
-    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
-        //..
-    }
-    
-    func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection) {
-        //..
-    }
-    
+  
 
-    var bluetoothConnectionManager : MeshSetupBluetoothConnectionManager?
-    var commissionerBluetoothManager : MeshSetupBluetoothConnectionManager?
-    var protocolManager  : MeshSetupProtocolTransceiver?
-    var flowType : MeshSetupFlowType = .None
-//    var delegate : MeshSetupFlowManagerDelegate?
-    var currentFlow : MeshSetupFlow?
+
+    var joinerProtocol : MeshSetupProtocolTransceiver?
+    var commissionerProtocol : MeshSetupProtocolTransceiver?
+    private var bluetoothManager : MeshSetupBluetoothConnectionManager?
+    private var flowType : MeshSetupFlowType = .None
+    private var currentFlow : MeshSetupFlow?
     var deviceType : ParticleDeviceType?
     var delegate : MeshSetupFlowManagerDelegate?
     
-//    var mobileSecret : String?
-//    var serialNumber : String?
-    
-//    var claimCode : String?
-    //    var flowState : ...
+    var joinerPeripheralName : String?
+    var commissionerPeripheralName : String? {
+        didSet {
+            self.createBluetoothConnection(with: commissionerPeripheralName!)
+        }
+    }
     
     // meant to be initialized after choosing device type + scanning sticker
-    init?(deviceType : ParticleDeviceType, stickerData : String) {
+    init?(deviceType : ParticleDeviceType, dataMatrix : String) {
         super.init()
         
         self.deviceType = deviceType
-        
-        let (serialNumber, mobileSecret) = self.getStickerParameters(stickerData: stickerData)
-//        let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
-        
-        var joinerPeripheralName : String
-        switch deviceType {
-            case .argon :
-                joinerPeripheralName = "Argon-"+serialNumber.suffix(6)
-            case .xenon :
-                joinerPeripheralName = "Xenon-"+serialNumber.suffix(6)
-            case .boron :
-                joinerPeripheralName = "Boron-"+serialNumber.suffix(6)
-            case .ESP32 :
-                joinerPeripheralName = "ESP32-"+serialNumber.suffix(6)
-            default:
-                return nil
+        let (serialNumber, mobileSecret) = self.processDataMatrix(dataMatrix: dataMatrix)
+        joinerPeripheralName = deviceType.description+"-"+serialNumber.suffix(6)
+        self.flowType = .Detecting
+        self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate : self)
+    }
+    
+    func bluetoothConnectionManagerReady() {
+        print("bluetoothConnectionManagerReady - trying to pair with \(self.joinerPeripheralName!)")
+        self.createBluetoothConnection(with: self.joinerPeripheralName!)
+    }
+    
+    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
+        if let joiner = joinerPeripheralName {
+            if connection.peripheralName! == joiner {
+                self.joinerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
+            }
         }
         
-        self.flowType = .Detecting
-        self.bluetoothConnectionManager = MeshSetupBluetoothConnectionManager(delegate : self)
-        self.bluetoothConnectionManager?.createConnection(with: joinerPeripheralName)
-        
-        
-        
-    }
+        if let comm = commissionerPeripheralName {
+            if connection.peripheralName! == comm {
+                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
+            }
+        }
 
-    // init?(...modify...)
-    private func getStickerParameters(stickerData : String) -> (serialNumer : String, mobileSecret : String) {
-        let arr = stickerData.split(separator: "_")
+    }
+    
+    func createBluetoothConnection(with peripheralName : String) {
+        let bleReady = self.bluetoothManager?.createConnection(with: peripheralName)
+        if bleReady == false {
+            // TODO: handle flow
+            self.delegate?.flowError(error: "BLE is not ready to create connection with \(peripheralName)", severity: .Error, action: .Pop)
+        }
+    }
+    
+    
+    func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection) {
+        //..
+        // TODO: check if it was intentional or not via flow - if it wasn't then report an error
+        print("Connection to \(connection.peripheralName) was dropped")
+        if let joiner = joinerPeripheralName {
+            if connection.peripheralName! == joiner {
+                self.joinerProtocol = nil
+            }
+        }
+        
+        if let comm = commissionerPeripheralName {
+            if connection.peripheralName! == comm {
+                self.commissionerProtocol = nil
+            }
+        }
+
+    }
+    
+
+    private func processDataMatrix(dataMatrix : String) -> (serialNumer : String, mobileSecret : String) {
+        let arr = dataMatrix.split(separator: "_")
         let serialNumber = String(arr[0])//"12345678abcdefg"
         let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
         return (serialNumber, mobileSecret)
@@ -230,6 +251,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate?.flowError(error: "Device disconnected from phone", severity: .Fatal, action: .Fail)
 //        self.delegate?.errorPeripheralDisconnected()
     }
+    
     
     func peripheralReadyForData()
     {

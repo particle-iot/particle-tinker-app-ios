@@ -47,14 +47,14 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
     private var particleMeshRXCharacterisitic        : CBCharacteristic?
     private var particleMeshTXCharacterisitic        : CBCharacteristic?
     fileprivate let MTU = 20
-    var y : Int?
+    var peripheralName : String?
     
     required init(bluetoothConnectionManager : MeshSetupBluetoothConnectionManager, connectedPeripheral : CBPeripheral) {
         super.init()
         self.connectionManager = bluetoothConnectionManager
         self.peripheral = connectedPeripheral
         self.peripheral?.delegate = self
-        
+        self.peripheralName = peripheral?.name
         
     }
     

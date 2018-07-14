@@ -34,11 +34,28 @@ protocol MeshSetupProtocolTransceiverDelegate {
     func didReceiveTestReply()
     
     func didReceiveErrorReply(error: ControlRequestErrorType)
+//    func bluetoothConnectionError(
     
 }
 
 
-class MeshSetupProtocolTransceiver: NSObject {
+class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDelegate {
+    func bluetoothConnectionError(sender: MeshSetupBluetoothConnection, error: String, severity: MeshSetupErrorSeverity) {
+        //..
+    }
+    
+    
+    func bluetoothConnectionReady(sender: MeshSetupBluetoothConnection) {
+        //..
+        
+    }
+    
+    // TODO: seperate into data and errors delegate? 
+    func bluetoothConnectionReceivedData(sender: MeshSetupBluetoothConnection, data: Data) {
+        // ..
+    }
+
+    
     
     //MARK: - View Properties
     private var bluetoothConnection    : MeshSetupBluetoothConnection?

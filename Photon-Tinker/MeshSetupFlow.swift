@@ -16,13 +16,12 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
    
 //    var bluetoothManager : MeshSetupBluetoothManager?
     var flowManager : MeshSetupFlowManager?
-    var protocolManager : MeshSetupProtocolTransceiver?
+//    var protocolManager : MeshSetupProtocolTransceiver?
     var delegate : MeshSetupFlowManagerDelegate?
     
     
     required init(flowManager : MeshSetupFlowManager) {
         self.flowManager = flowManager
-        self.protocolManager = flowManager.protocolManager
         self.delegate = flowManager.delegate
     }
     

@@ -13,7 +13,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     var deviceID : String?
     
     override func start() {
-        self.protocolManager?.sendGetDeviceId()
+        self.flowManager?.joinerProtocol?.sendGetDeviceId()
     }
    
     override func didReceiveDeviceIdReply(deviceId: String) {
@@ -29,7 +29,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                             } else {
                                 ParticleCloud.sharedInstance().generateClaimCode { (claimCode : String?, _, error: Error?) in
                                     if error == nil {
-                                        self.protocolManager?.sendSetClaimCode(claimCode: claimCode!)
+                                        self.flowManager?.joinerProtocol?.sendSetClaimCode(claimCode: claimCode!)
                                     } else {
                                         self.delegate?.flowError(error: "Error communicating with Particle cloud to generate claim code", severity: .Error, action: .Pop)
                                     }
@@ -42,15 +42,15 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
     
     override func didReceiveSetClaimCodeReply() {
-        self.protocolManager?.sendGetNetworkInfo()
+        self.flowManager?.joinerProtocol?.sendGetNetworkInfo()
     }
     
     override func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
         if networkInfo == nil {
-            self.protocolManager?.sendScanNetworks()
+            self.flowManager?.joinerProtocol?.sendScanNetworks()
         } else {
             // TODO: add delegate function to inform user Xenon is already part of a network (change flow/prompt user)
-            self.protocolManager?.sendLeaveNetwork()
+            self.flowManager?.joinerProtocol?.sendLeaveNetwork()
             self.delegate?.flowError(error: "Device is already part of mesh network - instructing it to leave the current network", severity: .Warning, action: .Dialog)
         }
     }
@@ -74,7 +74,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     
     override func didReceiveLeaveNetworkReply() {
-        self.protocolManager?.sendScanNetworks()
+        self.flowManager?.joinerProtocol?.sendScanNetworks()
     }
     
     
