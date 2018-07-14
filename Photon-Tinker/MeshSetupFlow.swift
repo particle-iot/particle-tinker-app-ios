@@ -12,11 +12,11 @@ protocol MeshSetupUserInteractionProtocol {
     func userDidTypeNetworkPassword(password : String)
 }
 
-class MeshSetupFlow: NSObject, MeshSetupProtocolManagerDelegate {
+class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
    
 //    var bluetoothManager : MeshSetupBluetoothManager?
     var flowManager : MeshSetupFlowManager?
-    var protocolManager : MeshSetupProtocolManager?
+    var protocolManager : MeshSetupProtocolTransceiver?
     var delegate : MeshSetupFlowManagerDelegate?
     
     
@@ -32,7 +32,7 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolManagerDelegate {
     }
     
     
-    // MARK: MeshSetupProtocolManagerDelegate functions - must be overriden in subclass
+    // MARK: MeshSetupProtocolTransceiverDelegate functions - must be overriden in subclass
     func didReceiveDeviceIdReply(deviceId: String) {
         fatalError("Must Override in subclass")
     }

@@ -18,34 +18,54 @@ protocol MeshSetupBluetoothConnectionDelegate {
 
 
 
+extension Data {
+    
+    internal var hexString: String {
+        let pointer = self.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
+            return bytes
+        }
+        let array = getByteArray(pointer)
+        
+        return array.reduce("") { (result, byte) -> String in
+            result + String(format: "%02x", byte)
+        }
+    }
+    
+    fileprivate func getByteArray(_ pointer: UnsafePointer<UInt8>) -> [UInt8] {
+        let buffer = UnsafeBufferPointer<UInt8>(start: pointer, count: count)
+        return [UInt8](buffer)
+    }
+}
+
 class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
     
     var delegate : MeshSetupBluetoothConnectionDelegate?
-    var peripheral : CBPeripheral?
-    private var connectionFactory : MeshSetupBluetoothConnectionFactory?
-    private var particleMeshServiceUUID : CBUUID?
     var isReady : Bool = false
-    
 
-    let particleMeshRXCharacterisiticUUID   : CBUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-    let particleMeshTXCharacterisiticUUID   : CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    private var peripheral : CBPeripheral?
+    private var connectionManager : MeshSetupBluetoothConnectionManager?
     private var particleMeshRXCharacterisitic        : CBCharacteristic?
     private var particleMeshTXCharacterisitic        : CBCharacteristic?
     fileprivate let MTU = 20
+    var y : Int?
     
-    required init(bluetoothConnectionFactory : MeshSetupBluetoothConnectionFactory, connectedPeripheral : CBPeripheral) {
+    required init(bluetoothConnectionManager : MeshSetupBluetoothConnectionManager, connectedPeripheral : CBPeripheral) {
         super.init()
-        self.connectionFactory = bluetoothConnectionFactory
+        self.connectionManager = bluetoothConnectionManager
         self.peripheral = connectedPeripheral
         self.peripheral?.delegate = self
-        self.particleMeshServiceUUID = bluetoothConnectionFactory.particleMeshServiceUUID
         
+        
+    }
+    
+    func _getPeripheral() -> CBPeripheral? {
+        return self.peripheral
     }
     
     
     func disconnect() {
         // TODO: memory management / releasing
-        self.connectionFactory?.drop(connection : self)
+        self.connectionManager?.dropConnection(with: self)
     }
     
     // TODO: scrap this
@@ -63,7 +83,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
     }
     
     func discoverServices() {
-        self.peripheral?.discoverServices([particleMeshServiceUUID!])
+        self.peripheral?.discoverServices([particleMeshServiceUUID])
     }
     
     //MARK: - CBPeripheralDelegate
@@ -92,7 +112,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
         //No UART service discovered
         log(level: .warningLogLevel, message: "Particle Mesh commissioning Service not found. Try to turn bluetooth Off and On again to clear the cache.")
         delegate?.bluetoothConnectionError(sender : self, error : "Device unsupported - services mismatch", severity: .Error)
-        self.connectionFactory?.drop(connection: self)
+        self.connectionManager?.dropConnection(with: self)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -122,7 +142,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
                 
                 log(level: .warningLogLevel, message: "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache.")
                 delegate?.bluetoothConnectionError(sender: self, error: "Device unsupported - characteristics mismatch", severity: .Error)
-                self.connectionFactory?.drop(connection: self)
+                self.connectionManager?.dropConnection(with: self)
             }
         }
     }

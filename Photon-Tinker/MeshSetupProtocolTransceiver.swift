@@ -1,5 +1,5 @@
 //
-//  MeshSetupProtocolManager.swift
+//  MeshSetupProtocolTransceiver.swift
 //  Particle
 //
 //  Created by Ido Kleinman on 6/27/18.
@@ -11,14 +11,9 @@ import UIKit
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
 
-/*
-enum MeshSetupDeviceRole {
-    case joiner
-    case commissioner
-}
-*/
 
-protocol MeshSetupProtocolManagerDelegate {
+
+protocol MeshSetupProtocolTransceiverDelegate {
     func didReceiveDeviceIdReply(deviceId : String)
     func didReceiveClaimCodeReply()
     func didReceiveAuthReply()
@@ -43,33 +38,27 @@ protocol MeshSetupProtocolManagerDelegate {
 }
 
 
-class MeshSetupProtocolManager: NSObject {
+class MeshSetupProtocolTransceiver: NSObject {
     
     //MARK: - View Properties
-    var bluetoothConnection    : MeshSetupBluetoothConnection?
+    private var bluetoothConnection    : MeshSetupBluetoothConnection?
 //    var securityManager     : MeshSetupSecurityManager?
     
     // Commissioning process data
-    var requestMessageId     : UInt16 = 0
-    var replyRequestTypeDict : [UInt16: ControlRequestMessageType]?
-    var waitingForReply      : Bool = false
+    private var requestMessageId     : UInt16 = 0
+    private var replyRequestTypeDict : [UInt16: ControlRequestMessageType]?
+    private var waitingForReply      : Bool = false
 //    var deviceRole          : MeshSetupDeviceRole?
-    var delegate             : MeshSetupProtocolManagerDelegate?
+    var delegate             : MeshSetupProtocolTransceiverDelegate?
     
-    init(connection : MeshSetupBluetoothConnection) {
+    required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection) {
         self.bluetoothConnection = connection
-//        self.deviceRole = deviceRole
-//        self.bluetoothManager?.delegate = self
     }
     
     private func sendRequestMessage(type : ControlRequestMessageType, payload : Data) {
         
         func showErrorDialog(message : String) {
             print(message)
-//            let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-//            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (_) in }
-//            alertController.addAction(cancelAction)
-//            self.present(alertController, animated: true, completion: nil)
         }
         
         if let ble = self.bluetoothConnection {
@@ -401,8 +390,4 @@ class MeshSetupProtocolManager: NSObject {
             }
         }
     }
-        
-    
-    
-    
 }

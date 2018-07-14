@@ -48,8 +48,8 @@ protocol MeshSetupFlowManagerDelegate {
 
 
 
-class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionFactoryDelegate, MeshSetupProtocolManagerDelegate {
-    func bluetoothConnectionFactoryError(error: String, severity: MeshSetupErrorSeverity) {
+class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupProtocolTransceiverDelegate {
+    func bluetoothConnectionManagerError(error: String, severity: MeshSetupErrorSeverity) {
         //..
     }
     
@@ -62,9 +62,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionFactoryDelegat
     }
     
 
-    var bluetoothConnectionFactory : MeshSetupBluetoothConnectionFactory?
-    var commissionerBluetoothManager : MeshSetupBluetoothConnectionFactory?
-    var protocolManager  : MeshSetupProtocolManager?
+    var bluetoothConnectionManager : MeshSetupBluetoothConnectionManager?
+    var commissionerBluetoothManager : MeshSetupBluetoothConnectionManager?
+    var protocolManager  : MeshSetupProtocolTransceiver?
     var flowType : MeshSetupFlowType = .None
 //    var delegate : MeshSetupFlowManagerDelegate?
     var currentFlow : MeshSetupFlow?
@@ -101,8 +101,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionFactoryDelegat
         }
         
         self.flowType = .Detecting
-        self.bluetoothConnectionFactory = MeshSetupBluetoothConnectionFactory(delegate : self)
-        self.bluetoothConnectionFactory?.scanAndConnect(to: joinerPeripheralName)
+        self.bluetoothConnectionManager = MeshSetupBluetoothConnectionManager(delegate : self)
+        self.bluetoothConnectionManager?.createConnection(with: joinerPeripheralName)
         
         
         
@@ -117,7 +117,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionFactoryDelegat
     }
     
     
-    // MARK: MeshSetupProtocolManagerDelegate
+    // MARK: MeshSetupProtocolTransceiverDelegate
     func didReceiveDeviceIdReply(deviceId: String) {
         self.currentFlow!.didReceiveDeviceIdReply(deviceId: deviceId)
     }
