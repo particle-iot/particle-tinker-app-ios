@@ -9,14 +9,10 @@
 import UIKit
 import CoreBluetooth
 
-protocol MeshSetupBluetoothConnectionDelegate {
-    func bluetoothConnectionError(sender : MeshSetupBluetoothConnection, error: String, severity : MeshSetupErrorSeverity)
-    func bluetoothConnectionReceivedData(sender : MeshSetupBluetoothConnection,  data : Data)
-//    func didDisconnect(sender : MeshSetupBluetoothConnection)
-    func bluetoothConnectionReady(sender : MeshSetupBluetoothConnection)
+
+protocol MeshSetupBluetoothConnectionDataDelegate {
+    func bluetoothConnectionDidReceiveData(sender : MeshSetupBluetoothConnection,  data : Data)
 }
-
-
 
 extension Data {
     
@@ -39,7 +35,7 @@ extension Data {
 
 class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
     
-    var delegate : MeshSetupBluetoothConnectionDelegate?
+    var delegate : MeshSetupBluetoothConnectionDataDelegate?
     var isReady : Bool = false
 
     private var peripheral : CBPeripheral?
@@ -111,7 +107,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
         
         //No UART service discovered
         log(level: .warningLogLevel, message: "Particle Mesh commissioning Service not found. Try to turn bluetooth Off and On again to clear the cache.")
-        delegate?.bluetoothConnectionError(sender : self, error : "Device unsupported - services mismatch", severity: .Error)
+        self.connectionManager?.delegate?.bluetoothConnectionError(connection : self, error : "Device unsupported - services mismatch", severity: .Error)
         self.connectionManager?.dropConnection(with: self)
     }
     
@@ -141,7 +137,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
             } else {
                 
                 log(level: .warningLogLevel, message: "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache.")
-                delegate?.bluetoothConnectionError(sender: self, error: "Device unsupported - characteristics mismatch", severity: .Error)
+                self.connectionManager?.delegate?.bluetoothConnectionError(connection: self, error: "Device unsupported - characteristics mismatch", severity: .Error)
                 self.connectionManager?.dropConnection(with: self)
             }
         }
@@ -155,7 +151,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
         }
         
         self.isReady = true
-        self.delegate?.bluetoothConnectionReady(sender: self)
+        self.connectionManager?.delegate?.bluetoothConnectionReady(connection: self)
         
         if characteristic.isNotifying {
             log(level: .infoLogLevel, message: "Notifications enabled for characteristic: \(characteristic.uuid.uuidString)")
@@ -209,7 +205,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
             }
         }
         
-        self.delegate?.bluetoothConnectionReceivedData(sender: self, data: bytesReceived as Data)
+        self.delegate?.bluetoothConnectionDidReceiveData(sender: self, data: bytesReceived as Data)
     }
     
     

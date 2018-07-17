@@ -39,23 +39,7 @@ protocol MeshSetupProtocolTransceiverDelegate {
 }
 
 
-class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDelegate {
-    func bluetoothConnectionError(sender: MeshSetupBluetoothConnection, error: String, severity: MeshSetupErrorSeverity) {
-        //..
-    }
-    
-    
-    func bluetoothConnectionReady(sender: MeshSetupBluetoothConnection) {
-        //..
-        
-    }
-    
-    // TODO: seperate into data and errors delegate? 
-    func bluetoothConnectionReceivedData(sender: MeshSetupBluetoothConnection, data: Data) {
-        // ..
-    }
-
-    
+class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
     
     //MARK: - View Properties
     private var bluetoothConnection    : MeshSetupBluetoothConnection?
@@ -69,7 +53,9 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDelega
     var delegate             : MeshSetupProtocolTransceiverDelegate?
     
     required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection) {
+        super.init()
         self.bluetoothConnection = connection
+        self.bluetoothConnection?.delegate = self // take over didReceiveData delegate
     }
     
     private func sendRequestMessage(type : ControlRequestMessageType, payload : Data) {
@@ -251,11 +237,9 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDelega
     }
     
     
-    func didReceiveData(data buffer: Data) {
-//        print("Received data from BLE: \(buffer.hexString)")
-
+    func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection, data: Data) {
         // TODO: error handler
-        let rm = ReplyMessage.deserialize(buffer: buffer)
+        let rm = ReplyMessage.deserialize(buffer: data)
         
         self.waitingForReply = false
 

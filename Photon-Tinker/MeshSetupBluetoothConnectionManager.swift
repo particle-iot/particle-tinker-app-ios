@@ -29,10 +29,15 @@ enum MeshSetupBluetoothConnectionManagerState {
 
 
 protocol MeshSetupBluetoothConnectionManagerDelegate {
+    // Manager
+    func bluetoothConnectionManagerReady()
     func bluetoothConnectionManagerError(error : String, severity : MeshSetupErrorSeverity)
+
+    // Connections
+    func bluetoothConnectionReady(connection : MeshSetupBluetoothConnection)
     func bluetoothConnectionCreated(connection : MeshSetupBluetoothConnection)
     func bluetoothConnectionDropped(connection : MeshSetupBluetoothConnection)
-    func bluetoothConnectionManagerReady()
+    func bluetoothConnectionError(connection : MeshSetupBluetoothConnection, error: String, severity : MeshSetupErrorSeverity)
 }
 
 

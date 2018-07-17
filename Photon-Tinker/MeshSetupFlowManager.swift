@@ -49,13 +49,7 @@ protocol MeshSetupFlowManagerDelegate {
 
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupProtocolTransceiverDelegate {
-    func bluetoothConnectionManagerError(error: String, severity: MeshSetupErrorSeverity) {
-        //..
-    }
     
-  
-
-
     var joinerProtocol : MeshSetupProtocolTransceiver?
     var commissionerProtocol : MeshSetupProtocolTransceiver?
     private var bluetoothManager : MeshSetupBluetoothConnectionManager?
@@ -64,7 +58,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     var deviceType : ParticleDeviceType?
     var delegate : MeshSetupFlowManagerDelegate?
     
-    var joinerPeripheralName : String?
+    var joinerPeripheralName : String? {
+        didSet {
+            self.createBluetoothConnection(with: joinerPeripheralName!)
+        }
+    }
+    
     var commissionerPeripheralName : String? {
         didSet {
             self.createBluetoothConnection(with: commissionerPeripheralName!)
@@ -87,10 +86,28 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.createBluetoothConnection(with: self.joinerPeripheralName!)
     }
     
+    
+    func bluetoothConnectionError(connection: MeshSetupBluetoothConnection, error: String, severity: MeshSetupErrorSeverity) {
+        print("bluetoothConnectionError [\(connection.peripheralName)] \(severity): \(error)")
+        self.delegate?.flowError(error: error, severity: severity, action: .Dialog) // TODO: figure out action per error
+    }
+    
+    func bluetoothConnectionManagerError(error: String, severity: MeshSetupErrorSeverity) {
+        print("bluetoothConnectionManagerError -- \(severity): \(error)")
+        self.delegate?.flowError(error: error, severity: severity, action: .Dialog) // TODO: figure out action per error
+
+    }
+    
     func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
+        print("BLE connection with \(connection.peripheralName!) created")
+        // waiting for connection ready
+    }
+//    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
+    func bluetoothConnectionReady(connection: MeshSetupBluetoothConnection) {
         if let joiner = joinerPeripheralName {
             if connection.peripheralName! == joiner {
                 self.joinerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
+                self.joinerProtocol?.sendIsClaimed()
             }
         }
         
@@ -112,9 +129,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     
     
     func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection) {
-        //..
-        // TODO: check if it was intentional or not via flow - if it wasn't then report an error
-        print("Connection to \(connection.peripheralName) was dropped")
+
+        print("Connection to \(connection.peripheralName!) was dropped")
         if let joiner = joinerPeripheralName {
             if connection.peripheralName! == joiner {
                 self.joinerProtocol = nil
@@ -126,6 +142,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerProtocol = nil
             }
         }
+
+        // TODO: check if it was intentional or not via flow - if it wasn't then report an error
+        self.delegate?.flowError(error: "BLE connection to \(connection.peripheralName!) was dropped", severity: .Error, action: .Fail) // TODO: figure out action per error
+
 
     }
     
@@ -170,7 +190,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         }
         
+        // pass on all future replies to the current Flow
+        self.joinerProtocol?.delegate = self.currentFlow
+        // Start the flow
         self.currentFlow!.start()
+        
     }
     
     func didReceiveCreateNetworkReply(networkInfo: MeshSetupNetworkInfo) {
@@ -202,19 +226,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
     
     func didReceiveSetClaimCodeReply() {
-        self.currentFlow?.didReceiveSetClaimCodeReply()
+//        self.currentFlow?.didReceiveSetClaimCodeReply()
     }
     
     func didReceiveLeaveNetworkReply() {
-        self.currentFlow!.didReceiveLeaveNetworkReply()
+//        self.currentFlow!.didReceiveLeaveNetworkReply()
     }
     
     func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
-        self.currentFlow!.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
+//        self.currentFlow!.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
     }
     
     func didReceiveScanNetworksReply(networks: [MeshSetupNetworkInfo]) {
-        self.currentFlow!.didReceiveScanNetworksReply(networks: networks)
+//        self.currentFlow!.didReceiveScanNetworksReply(networks: networks)
     }
     
     func didReceiveGetSerialNumberReply(serialNumber: String) {
@@ -246,31 +270,21 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         // TODO: do we need this? maybe refactor
     }
     
+    /*
     func didDisconnectPeripheral() {
         self.flowType = .None
         self.delegate?.flowError(error: "Device disconnected from phone", severity: .Fatal, action: .Fail)
-//        self.delegate?.errorPeripheralDisconnected()
     }
     
+
     
-    func peripheralReadyForData()
-    {
-        // first action for all flows is checking if device is claimed - to determine whether its initial setup process or not (update SDD)
-        // TODO: add timeout timer after each send
-        self.protocolManager?.sendIsClaimed()
-    }
     
     func peripheralNotSupported() {
         self.flowType = .None
         self.delegate?.flowError(error: "Device does not seems to be a Particle device", severity: .Fatal, action: .Fail)
-//        self.delegate?.errorPeripheralNotSupported()
-        
     }
-    
-    func didReceiveData(data buffer: Data) {
-        self.protocolManager?.didReceiveData(data: buffer)
-    }
-    
+ 
+ */
   
     
 

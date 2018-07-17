@@ -23,7 +23,7 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
             // TODO: initialize flow manager here
             // Split code into deviceID and SN
         
-            self.flowManager = MeshSetupFlowManager(deviceType : self.deviceType!, stickerData: code)
+            self.flowManager = MeshSetupFlowManager(deviceType : self.deviceType!, dataMatrix: code)
             self.performSegue(withIdentifier: "pairing", sender: self)
          
         }
