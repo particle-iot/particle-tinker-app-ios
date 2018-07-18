@@ -41,7 +41,8 @@ protocol MeshSetupBluetoothConnectionManagerDelegate {
 }
 
 
-let particleMeshServiceUUID : CBUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
+let particleMeshServiceUUID : CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
+
 let particleMeshRXCharacterisiticUUID   : CBUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
 let particleMeshTXCharacterisiticUUID   : CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
 
@@ -55,6 +56,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     private var centralManager          : CBCentralManager?
     private var peripheralNameToConnect : String?
     private var connections             : [MeshSetupBluetoothConnection]?
+    private var connectingPeripheral    : CBPeripheral?
     
     //MARK: - BluetoothManager API
     
@@ -76,22 +78,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
             return false
         }
     }
-    
-    /**
-     * Connects to the given peripheral.
-     * 
-     * - parameter aPeripheral: target peripheral to connect to
-     */
-    private func connectPeripheral(peripheral aPeripheral : CBPeripheral) {
-        // we assign the bluetoothPeripheral property after we establish a connection, in the callback
-        if let name = aPeripheral.name {
-            log(level: .verboseLogLevel, message: "Connecting to: \(name)...")
-        } else {
-            log(level: .verboseLogLevel, message: "Connecting to device...")
-        }
-        log(level: .debugLogLevel, message: "centralManager.connect(peripheral, options:nil)")
-        centralManager?.connect(aPeripheral, options: nil)
-    }
+
     
     /**
      * Disconnects or cancels pending connection.
@@ -111,10 +98,10 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         
         self.state = .Scanning
         
-        print ("scanForPeripherals")
+        print ("BluetoothConnectionManager -- scanForPeripherals with services \(particleMeshServiceUUID)")
         let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
         
-        self.centralManager?.scanForPeripherals(withServices: [particleMeshServiceUUID], options: options as? [String : AnyObject])
+        self.centralManager!.scanForPeripherals(withServices: [particleMeshServiceUUID], options: options as? [String : AnyObject]) // []
         
         
         return true
@@ -139,43 +126,44 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         var textState : String
+        
+        var newState : MeshSetupBluetoothConnectionManagerState = .Disabled
         switch(central.state){
         case .poweredOn:
             textState = "Powered ON"
-            if (self.state != .Ready) {
-                self.state = .Ready
-                self.delegate?.bluetoothConnectionManagerReady()
-            }
-            break
+            newState = .Ready
         case .poweredOff:
             textState = "Powered OFF"
-            self.state = .Disabled
-            break
+            newState = .Disabled
         case .resetting:
             textState = "Resetting"
-            self.state = .Disabled
-            break
+            newState = .Disabled
         case .unauthorized:
             textState = "Unauthorized"
-            self.state = .Disabled
-            break
+            newState = .Disabled
         case .unsupported:
             textState = "Unsupported"
-            self.state = .Disabled
-            break
+            newState = .Disabled
         case .unknown:
             textState = "Unknown"
-            self.state = .Disabled
-            break
+            newState = .Disabled
         }
         
-//        self.delegate?.didUpdateState(state: central.state)
-        log(level: .debugLogLevel, message: "[Callback] Central Manager did update state to: \(textState)")
+        // TODO: remove debug
+        print("centralManagerDidUpdateState: \(textState)")
         
-        
-        if (self.state != .Ready) {
+        if (newState == .Disabled) && (self.state != .Disabled) {
+            self.state = newState
             self.delegate?.bluetoothConnectionManagerError(error: "Bluetooth is disabled", severity: .Warning)
         }
+        
+        if (newState == .Ready) && (self.state != .Ready) {
+            self.state = newState
+            self.delegate?.bluetoothConnectionManagerReady()
+        }
+        
+        self.state = newState
+        
     }
     
     
@@ -183,14 +171,17 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         log(level: .debugLogLevel, message: "[Callback] Central Manager did connect peripheral")
         if let name = peripheral.name {
-            log(level: .infoLogLevel, message: "Connected to: \(name)")
+            log(level: .infoLogLevel, message: "Paired to: \(name)")
         } else {
-            log(level: .infoLogLevel, message: "Connected to device")
+            log(level: .infoLogLevel, message: "Paired to device")
         }
         
+        // no need to retain periphral if it is connected since it is being passed to the Connection class instance
+        if (self.connectingPeripheral == peripheral) {
+            self.connectingPeripheral = nil
+        }
 
-//        log(level: .verboseLogLevel, message: "Discovering services...")
-//        log(level: .debugLogLevel, message: "peripheral.discoverServices([\(particleMeshServiceUUID.uuidString)])")
+        // retain connections in array - create if does not exist yet
         if self.connections == nil {
             self.connections = [MeshSetupBluetoothConnection]()
         }
@@ -242,7 +233,11 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     ///#
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        print("centralManager didDiscover")
+        if let n = peripheral.name {
+            print("centralManager didDiscover peripheral \(n)")
+        } else {
+            print("centralManager didDiscover peripheral")
+        }
         print (advertisementData)
         // Scanner uses other queue to send events
         
@@ -260,9 +255,10 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
 
             } else {
                 self.state = .DiscoveredPeripheral
-                self.centralManager?.stopScan()
+                self.centralManager!.stopScan()
                 print ("Pairing to \(peripheral.name ?? "device")...")
-                self.centralManager?.connect(peripheral, options: nil)
+                self.connectingPeripheral = peripheral
+                self.centralManager!.connect(peripheral, options: nil)
             }
             
         }

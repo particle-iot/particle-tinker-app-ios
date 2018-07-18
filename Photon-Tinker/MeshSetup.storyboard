@@ -374,7 +374,7 @@
         <scene sceneID="RFR-rC-f1z">
             <objects>
                 <viewController id="RJE-2G-Cct" customClass="MeshSetupPairingProcessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="FWK-IH-8xU" customClass="MeshSetupPairingViewController">
+                    <view key="view" contentMode="scaleToFill" id="FWK-IH-8xU" customClass="Mesh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

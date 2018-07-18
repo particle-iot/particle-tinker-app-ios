@@ -11,8 +11,17 @@ import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupFlowManagerDelegate {
    
+  
+    
     func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
-        //..
+        var messageType : RMessageType
+        switch severity {
+            case .Info: messageType = .normal
+            case .Warning: messageType = .warning
+            case .Error: messageType = .error
+            case .Fatal: messageType = .error
+        }
+        RMessage.showNotification(withTitle: "Pairing", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
     }
     
     
@@ -53,7 +62,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
 
     
     func messageToUser(level: RMessageType, message: String) {
-          RMessage.showNotification(withTitle: "Pairing", subtitle: message, type: level, customTypeName: nil, callback: nil)
+        
     }
     
     // move this retries code to BLE manager

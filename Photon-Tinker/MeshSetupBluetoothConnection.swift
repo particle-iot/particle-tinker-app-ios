@@ -121,6 +121,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
         
         if service.uuid.isEqual(particleMeshServiceUUID) {
             for aCharacteristic : CBCharacteristic in service.characteristics! {
+                print("CBCharacteristic: \(aCharacteristic)")
                 if aCharacteristic.uuid.isEqual(particleMeshTXCharacterisiticUUID) {
                     log(level: .verboseLogLevel, message: "Particle mesh TX Characteristic found")
                     particleMeshTXCharacterisitic = aCharacteristic

@@ -83,12 +83,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     
     func bluetoothConnectionManagerReady() {
         print("bluetoothConnectionManagerReady - trying to pair with \(self.joinerPeripheralName!)")
+        
         self.createBluetoothConnection(with: self.joinerPeripheralName!)
     }
     
     
     func bluetoothConnectionError(connection: MeshSetupBluetoothConnection, error: String, severity: MeshSetupErrorSeverity) {
-        print("bluetoothConnectionError [\(connection.peripheralName)] \(severity): \(error)")
+        print("bluetoothConnectionError [\(connection.peripheralName ?? "peripheral")] \(severity): \(error)")
         self.delegate?.flowError(error: error, severity: severity, action: .Dialog) // TODO: figure out action per error
     }
     
@@ -116,14 +117,17 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
             }
         }
+        
+        print("BLE connection with \(connection.peripheralName!) ready")
 
     }
     
     func createBluetoothConnection(with peripheralName : String) {
-        let bleReady = self.bluetoothManager?.createConnection(with: peripheralName)
+        let bleReady = self.bluetoothManager!.createConnection(with: peripheralName)
         if bleReady == false {
             // TODO: handle flow
             self.delegate?.flowError(error: "BLE is not ready to create connection with \(peripheralName)", severity: .Error, action: .Pop)
+            print ("BLE is not ready to create connection with \(peripheralName)")
         }
     }
     
@@ -151,7 +155,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     
 
     private func processDataMatrix(dataMatrix : String) -> (serialNumer : String, mobileSecret : String) {
-        let arr = dataMatrix.split(separator: "_")
+        let arr = dataMatrix.split(separator: " ")
         let serialNumber = String(arr[0])//"12345678abcdefg"
         let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
         return (serialNumber, mobileSecret)
