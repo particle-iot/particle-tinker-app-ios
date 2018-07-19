@@ -402,7 +402,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OmJ-yY-ecH"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pairing" id="ake-Lc-QxC"/>
+                    <navigationItem key="navigationItem" title="Pairing" id="ake-Lc-QxC">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="OKo-Nx-dld">
+                            <connections>
+                                <action selector="cancelTapped:" destination="RJE-2G-Cct" id="k3n-hc-Kjd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="Xfq-Ab-khI" kind="show" identifier="selectNetwork" id="uJf-N0-ZVD"/>
                     </connections>

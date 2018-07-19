@@ -46,7 +46,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 //    var securityManager     : MeshSetupSecurityManager?
     
     // Commissioning process data
-    private var requestMessageId     : UInt16 = 0
+    private var requestMessageId     : UInt16 = 1
     private var replyRequestTypeDict : [UInt16: ControlRequestMessageType]?
     private var waitingForReply      : Bool = false
 //    var deviceRole          : MeshSetupDeviceRole?
@@ -54,6 +54,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     
     required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection) {
         super.init()
+        self.delegate = delegate
         self.bluetoothConnection = connection
         self.bluetoothConnection?.delegate = self // take over didReceiveData delegate
     }
@@ -102,6 +103,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             print("Could not serialize protobuf Particle_Ctrl_GetDeviceIdRequest message")
             return
         }
+        print("sending getDeviceId")
         self.sendRequestMessage(type: .GetDeviceId, payload: requestMsgPayloadData)
     }
     
@@ -179,6 +181,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             print("Could not serialize protobuf Particle_Ctrl_IsClaimedRequest message")
             return
         }
+        print("sending isClaimed")
         self.sendRequestMessage(type: .IsClaimed, payload: requestMsgPayloadData)
 
     }
@@ -253,6 +256,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                 switch replyRequestType! {
                     
                 case .GetDeviceId:
+                    print("GetDeviceId reply");
                     do {
                         decodedReply = try Particle_Ctrl_GetDeviceIdReply(serializedData: data)
                     } catch {
@@ -260,12 +264,15 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                         return
                     }
                     let deviceId = (decodedReply as! Particle_Ctrl_GetDeviceIdReply).id
+                    print("device id is \(deviceId)")
                     self.delegate?.didReceiveDeviceIdReply(deviceId: deviceId)
                     
                 case .GetNetworkInfo:
+                    print("GetNetworkInfo reply");
                     fallthrough
                 // GetNetworkInfoReply and CreateNetworkReply are the same!
                 case .CreateNetwork:
+                    print("CreateNetwork reply");
                     do {
                         decodedReply = try Particle_Ctrl_Mesh_GetNetworkInfoReply(serializedData: data)
                     } catch {
@@ -277,7 +284,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 //                    self.networkInfo = MeshSetupNetworkInfo.init(name: rawNetworkInfo.name, extPanID: rawNetworkInfo.extPanID, panID: rawNetworkInfo.panID, channel: rawNetworkInfo.channel)
                     
                     // TODO: remove debug print
-                    print("networkInfo reply:")
+                    print("networkInfo:")
                     let msg = "Name: \(networkInfo.name)\nXPAN ID: \(networkInfo.extPanID)\nPAN ID: \(networkInfo.panID)\nChannel: \(networkInfo.channel)"
                     print(msg)
 
@@ -294,6 +301,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                     
                     
                 case .PrepareJoiner:
+                    print("PrepareJoiner reply");
                     do {
                         decodedReply = try Particle_Ctrl_Mesh_PrepareJoinerReply(serializedData: data)
                     } catch {
@@ -338,6 +346,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                     self.delegate?.didReceiveGetSerialNumberReply(serialNumber: sn)
 
                 case .IsClaimed:
+                    print("IsClaimed reply");
                     do {
                         decodedReply = try Particle_Ctrl_IsClaimedReply(serializedData: data)
                     } catch {

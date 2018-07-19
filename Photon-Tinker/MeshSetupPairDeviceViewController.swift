@@ -17,14 +17,16 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
     }
     
     var deviceType : ParticleDeviceType?
+    var dataMatrix : String?
     
     func didScanCode(code: String) {
         if !code.isEmpty {
             // TODO: initialize flow manager here
             // Split code into deviceID and SN
-        
-            self.flowManager = MeshSetupFlowManager(deviceType : self.deviceType!, dataMatrix: code)
-            self.performSegue(withIdentifier: "pairing", sender: self)
+            self.dataMatrix = code
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "pairing", sender: self)
+            }
          
         }
     }
@@ -41,11 +43,12 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
         }
         
         if segue.identifier == "pairing" {
-            guard let vc = segue.destination as? MeshSetupViewController else {
+            guard let vc = segue.destination as? MeshSetupPairingProcessViewController else {
                 return
             }
             
-            vc.flowManager = self.flowManager
+            vc.deviceType = self.deviceType
+            vc.dataMatrix = self.dataMatrix
         }
             
             

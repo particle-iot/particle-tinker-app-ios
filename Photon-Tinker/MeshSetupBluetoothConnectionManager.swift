@@ -32,6 +32,7 @@ protocol MeshSetupBluetoothConnectionManagerDelegate {
     // Manager
     func bluetoothConnectionManagerReady()
     func bluetoothConnectionManagerError(error : String, severity : MeshSetupErrorSeverity)
+    
 
     // Connections
     func bluetoothConnectionReady(connection : MeshSetupBluetoothConnection)
@@ -43,8 +44,8 @@ protocol MeshSetupBluetoothConnectionManagerDelegate {
 
 let particleMeshServiceUUID : CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
 
-let particleMeshRXCharacterisiticUUID   : CBUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-let particleMeshTXCharacterisiticUUID   : CBUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+let particleMeshRXCharacterisiticUUID   : CBUUID = CBUUID(string: "6FA90004-5C4E-48A8-94F4-8030546F36FC")
+let particleMeshTXCharacterisiticUUID   : CBUUID = CBUUID(string: "6FA90003-5C4E-48A8-94F4-8030546F36FC")
 
 
 
@@ -57,6 +58,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     private var peripheralNameToConnect : String?
     private var connections             : [MeshSetupBluetoothConnection]?
     private var connectingPeripheral    : CBPeripheral?
+    private var scanTimer               : Timer?
     
     //MARK: - BluetoothManager API
     
@@ -66,6 +68,19 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
         self.centralManager = CBCentralManager(delegate: self, queue: centralQueue)
         
+    }
+    
+    deinit {
+        self.dropAllConnections()
+        self.centralManager = nil
+    }
+
+    
+    func dropAllConnections() {
+        print("Dropping all BLE connections...")
+        for conn in self.connections! {
+            self.dropConnection(with: conn)
+        }
     }
     
     func createConnection(with peripheralName : String) -> Bool {
@@ -103,6 +118,13 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         
         self.centralManager!.scanForPeripherals(withServices: [particleMeshServiceUUID], options: options as? [String : AnyObject]) // []
         
+        if #available(iOS 10.0, *) {
+            self.scanTimer = Timer.init(timeInterval: 5.0, repeats: false) { (timer : Timer) in
+                self.delegate!.bluetoothConnectionManagerError(error: "BLE scan timeout", severity: .Error)
+            }
+        } else {
+            // TODO: Fallback on earlier versions
+        }
         
         return true
     }
@@ -242,6 +264,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         // Scanner uses other queue to send events
         
         if peripheral.name == self.peripheralNameToConnect {
+            scanTimer?.invalidate()
             if RSSI.int32Value < -90  {
                 // TODO: message to user to come closer to device
                 self.delegate?.bluetoothConnectionManagerError(error: "Device is too far from phone, get closer with your phone to the setup device", severity: .Warning)

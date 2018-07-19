@@ -10,10 +10,16 @@ import UIKit
 import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupFlowManagerDelegate {
+  
    
   
+    var deviceType : ParticleDeviceType?
+    var dataMatrix : String?
+    
     
     func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
+        print("flowError: \(error)")
+        
         var messageType : RMessageType
         switch severity {
             case .Info: messageType = .normal
@@ -50,14 +56,33 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
         self.navigationItem.hidesBackButton = true
         ParticleSpinner.show(self.view)
 //        self.connectRetries = 0
-
+        
+        self.flowManager = MeshSetupFlowManager(delegate : self)
+        print("flowManager initialized")
         
     }
     
-   
+    func flowManagerReady() {
+        print("Starting flow with a \(self.deviceType!.description) as Joiner ")
+        let ok = self.flowManager!.startFlow(with: self.deviceType!, as: .Joiner, dataMatrix: self.dataMatrix!)
+        
+        if !ok {
+            print("ERROR: Cannot start flow!")
+            self.abort()
+        }
+    }
+    
+    
+    @IBAction func cancelTapped(_ sender: Any) {
+        self.flowManager?.dropAll()
+        self.abort()
+    }
+    
     func abort() {
 //        MeshSetupParameters.shared.bluetoothManager = nil
-        self.navigationController?.popViewController(animated: true)
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     
