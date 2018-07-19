@@ -74,7 +74,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
     
     
     @IBAction func cancelTapped(_ sender: Any) {
-        self.flowManager?.dropAll()
+        self.flowManager?.abortFlow()
         self.abort()
     }
     

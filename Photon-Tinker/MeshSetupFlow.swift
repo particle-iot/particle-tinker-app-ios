@@ -106,7 +106,12 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     }
     
     func didReceiveErrorReply(error: ControlRequestErrorType) {
-        fatalError("Must Override in subclass")
+//        fatalError("Must Override in subclass")
+        print("Control message reply error: \(error.description()) - Flow halted")
+        // TODO: something smarter
+        self.flowManager?.delegate?.flowError(error: error, severity: .Error, action: .Pop)
+        
+        
     }
     
     

@@ -87,6 +87,9 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             
             self.waitingForReply = true
             self.requestMessageId = self.requestMessageId + 1
+            if (requestMessageId >= 0xff00) {
+                self.requestMessageId = 1
+            }
             let sendBuffer = RequestMessage.serialize(requestMessage: requestMsg)
             self.bluetoothConnection!.send(data: sendBuffer)
             

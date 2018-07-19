@@ -59,10 +59,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     
     var joinerProtocol : MeshSetupProtocolTransceiver?
     var commissionerProtocol : MeshSetupProtocolTransceiver?
+    var joinerDeviceType : ParticleDeviceType?
+    var commissionerDeviceType : ParticleDeviceType?
     private var bluetoothManager : MeshSetupBluetoothConnectionManager?
     private var flowType : MeshSetupFlowType = .None
     private var currentFlow : MeshSetupFlow?
-    var deviceType : ParticleDeviceType?
+    
     var delegate : MeshSetupFlowManagerDelegate?
     var bluetoothManagerReady = false
     
@@ -93,10 +95,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         let (serialNumber, mobileSecret) = self.processDataMatrix(dataMatrix: dataMatrix)
         switch deviceRole {
         case .Joiner :
-            joinerPeripheralName = deviceType.description+"-"+serialNumber.suffix(6)
+            self.joinerPeripheralName = deviceType.description+"-"+serialNumber.suffix(6)
+            self.joinerDeviceType = deviceType
             self.flowType = .Detecting
         case .Commissioner :
-            commissionerPeripheralName = deviceType.description+"-"+serialNumber.suffix(6)
+            self.commissionerPeripheralName = deviceType.description+"-"+serialNumber.suffix(6)
+            self.commissionerDeviceType = deviceType
 //            self.flowType = ...
         }
         
@@ -134,11 +138,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         if let joiner = joinerPeripheralName {
             if connection.peripheralName! == joiner {
                 self.joinerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
-                print("Joiner BLE connection with \(connection.peripheralName!) ready - sending getDeviceId X isClaimed")
+                print("Joiner BLE connection with \(connection.peripheralName!) ready - sending isClaimed")
                 
                 // TODO: the right thing
-//                self.joinerProtocol?.sendIsClaimed()
-                self.joinerProtocol!.sendGetDeviceId()
+                self.joinerProtocol?.sendIsClaimed()
+//                self.joinerProtocol!.sendGetDeviceId()
             }
         }
         
@@ -192,10 +196,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return (serialNumber, mobileSecret)
     }
     
-    func dropAll() {
+    func abortFlow() {
         self.bluetoothManager?.dropAllConnections()
-        self.joinerProtocol = nil
-        self.commissionerProtocol = nil
+//        self.joinerProtocol = nil
+//        self.commissionerProtocol = nil
     }
     
     // MARK: MeshSetupProtocolTransceiverDelegate
@@ -215,7 +219,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     func didReceiveIsClaimedReply(isClaimed: Bool) {
         // first action that happens before flow class instance is determined (TBD: commissioner password request in future for already setup devices or getNetworkInfo - to see if device already on mesh or any other future commands)
         if (isClaimed == false) {
-            switch self.deviceType! {
+            switch self.joinerDeviceType! {
             case .xenon :
                 self.currentFlow = MeshSetupInitialXenonFlow(flowManager: self)
                 self.flowType = .InitialXenon
@@ -224,7 +228,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
         } else {
-            switch self.deviceType {
+            switch self.joinerDeviceType! {
                 default:
                     self.delegate?.flowError(error: "Device already claimed - flow not supported yet", severity: .Fatal, action: .Fail)
                     return
