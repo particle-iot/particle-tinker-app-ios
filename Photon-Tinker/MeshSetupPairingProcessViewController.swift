@@ -26,22 +26,32 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
             case .Error: messageType = .error
             case .Fatal: messageType = .error
         }
-        RMessage.showNotification(withTitle: "Pairing", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
+        DispatchQueue.main.async {
+            RMessage.showNotification(withTitle: "Pairing", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
+        }
     }
     
     
     func scannedNetworks(networks: [String]?) {
-        
-        self.scannedNetworks = networks
-        performSegue(withIdentifier: "selectNetwork", sender: self)
+        print("--> scannedNetworks \(networks ?? [String]())")
+        if networks != nil {
+            DispatchQueue.main.async {
+                self.scannedNetworks = networks!
+                self.performSegue(withIdentifier: "selectNetwork", sender: self)
+            }
+        } else {
+            self.flowError(error: "No mesh networks detected", severity: .Error, action: .Dialog)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare for segue")
         guard let vc = segue.destination as? MeshSetupSelectNetworkViewController else {
+            print("guard failed")
             return
         }
         
-        vc.networks = self.scannedNetworks
+        vc.networks = self.scannedNetworks!
         vc.flowManager = self.flowManager
     }
     
@@ -65,6 +75,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
     }
     
     func flowManagerReady() {
+        print("flowManagerReady")
         print("Starting flow with a \(self.deviceType!.description) as Joiner ")
         let ok = self.flowManager!.startFlow(with: self.deviceType!, as: .Joiner, dataMatrix: self.dataMatrix!)
         

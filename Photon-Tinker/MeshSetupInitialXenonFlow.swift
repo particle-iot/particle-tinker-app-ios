@@ -14,7 +14,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     var talkingTo : MeshSetupDeviceRole?
     
     override func start() {
-        print("Starting flow...")
+        print("Starting MeshSetupInitialXenonFlow...")
         print("sendGetDeviceId")
         self.talkingTo = .Joiner
         self.flowManager?.joinerProtocol?.sendGetDeviceId()

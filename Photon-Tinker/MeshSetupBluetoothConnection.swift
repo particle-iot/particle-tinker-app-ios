@@ -167,7 +167,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
             logError(error: error!)
             return
         }
-        log(level: .infoLogLevel, message: "Data written to characteristic: \(characteristic.uuid.uuidString)")
+//        log(level: .infoLogLevel, message: "Data written to characteristic: \(characteristic.uuid.uuidString)")
     }
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {

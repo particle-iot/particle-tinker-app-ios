@@ -13,7 +13,7 @@ class MeshSetupAddToNetworkViewController: MeshSetupViewController, MeshSetupSca
     func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
         print(error)
     }
-    
+    /*
     func scannedNetworks(networks: [String]?) {
         // ..
     }
@@ -21,6 +21,7 @@ class MeshSetupAddToNetworkViewController: MeshSetupViewController, MeshSetupSca
     func flowManagerReady() {
         // ..
     }
+ */
     
     func networkMatch() {
         // commissioner scanned is on the network user has chosen on previous screen - can advance

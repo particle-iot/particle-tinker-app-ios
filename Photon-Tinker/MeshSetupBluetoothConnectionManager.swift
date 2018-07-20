@@ -108,6 +108,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     
     
     private func scanForPeripherals() -> Bool {
+        print ("scanForPeripherals called")
         guard self.centralManager?.state == .poweredOn else {
             return false
         }
@@ -266,11 +267,12 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         } else {
             print("centralManager didDiscover peripheral")
         }
-        print (advertisementData)
+//        print (advertisementData)
         // Scanner uses other queue to send events
         
         if peripheral.name == self.peripheralNameToConnect {
-            self.centralManager!.stopScan()
+            central.stopScan()
+            print("stop scan")
             scanTimer?.invalidate()
             if RSSI.int32Value < -90  {
                 // TODO: message to user to come closer to device

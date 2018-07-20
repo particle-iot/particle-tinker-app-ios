@@ -12,7 +12,7 @@ typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
 
 
-
+// TODO: refactor to include sender to be able to determine delegate call from joiner or commssioner
 protocol MeshSetupProtocolTransceiverDelegate {
     func didReceiveDeviceIdReply(deviceId : String)
     func didReceiveClaimCodeReply()

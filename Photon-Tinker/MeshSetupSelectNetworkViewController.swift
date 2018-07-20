@@ -14,6 +14,8 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.networksTableView.delegate = self
+        self.networksTableView.dataSource = self
 
         // Do any additional setup after loading the view.
     }
@@ -36,19 +38,32 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "networkCell")
         
-        cell?.textLabel?.text = self.networks![indexPath.row]
-        cell?.detailTextLabel?.textColor = UIColor.darkGray
-        cell?.detailTextLabel?.text = "? devices on network"
-      
+        cell!.textLabel!.text = self.networks![indexPath.row]
+        cell!.detailTextLabel!.textColor = UIColor.darkGray
+        cell!.detailTextLabel!.text = "? devices on network"
+        
+        cell?.imageView?.image = UIImage.init(named: "imgMeshBlue")
+        
+        let itemSize = CGSize(width: 48, height: 48);
+        UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
+        let imageRect = CGRect(x: 0.0, y: 0.0, width: itemSize.width, height: itemSize.height);
+        cell?.imageView?.image!.draw(in: imageRect)
+        cell?.imageView?.image! = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext();
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedNetwork = networks![indexPath.row]
         self.flowManager?.selectedNetwork = self.selectedNetwork
-        performSegue(withIdentifier: "addDevice", sender: self)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "addToNetwork", sender: self)
+        }
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64.0
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let vc = segue.destination as? MeshSetupAddToNetworkViewController else {
