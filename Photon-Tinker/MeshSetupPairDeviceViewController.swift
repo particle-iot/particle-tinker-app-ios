@@ -34,7 +34,7 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
 
-        if segue.identifier == "scanCode" {
+        if segue.identifier == "scanJoinerSticker" {
             guard let vc = segue.destination as? MeshSetupScanCodeViewController  else {
                 return
             }
