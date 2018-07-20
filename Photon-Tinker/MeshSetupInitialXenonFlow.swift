@@ -19,6 +19,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
    
     override func didReceiveDeviceIdReply(deviceId: String) {
+        print("GetDeviceId reply - device ID: \(deviceId)");
         self.deviceID = deviceId
         var deviceIsNew = true
         ParticleCloud.sharedInstance().getDevices { (userDevices : [ParticleDevice]?, error: Error?) in
@@ -58,7 +59,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     override func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
         print("didReceiveGetNetworkInfoReply")
-        if networkInfo == nil {
+        if networkInfo == nil { // TODO: this option doesn't happen - reply will be NOT_FOUND response code
             print("No network")
             self.flowManager?.joinerProtocol?.sendScanNetworks()
         } else {
@@ -70,7 +71,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
     
     override func didReceiveScanNetworksReply(networks: [MeshSetupNetworkInfo]) {
-        print("didReceiveGetNetworkInfoReply - networks:")
+        print("didReceiveScanNetworksReply - networks:")
         if networks.count > 0 {
             var networkNames = [String]()
             for network in networks {
@@ -90,13 +91,41 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     
     override func didReceiveLeaveNetworkReply() {
-        print("didReceiveGetNetworkInfoReply")
+        print("didReceiveLeaveNetworkReply")
         self.flowManager?.joinerProtocol?.sendScanNetworks()
     }
     
     
+    // TODO: consider using callbacks instead of delegation for FlowManager...
+    override func didReceiveErrorReply(error: ControlRequestErrorType) {
+        func unexpectedFlowError() {
+             self.flowManager?.delegate?.flowError(error: "Unexpected flow error", severity: .Fatal, action: .Fail)
+        }
+        let lastRequestMessageSent : ControlRequestMessageType? = self.flowManager?.joinerProtocol?.getLastRequestMessageSent()
+        
+        if let lastReq = lastRequestMessageSent {
+        
+            switch error {
+                case .NOT_FOUND :
+                switch lastReq {
+                    case .GetNetworkInfo :
+                        print("OK - device is not part of a network")
+                        self.flowManager?.joinerProtocol?.sendScanNetworks()
+                    case .LeaveNetwork :
+                        print("Device is not part of a network - nothing to leave")
+                        self.flowManager?.joinerProtocol?.sendScanNetworks()
+                    default :
+                            unexpectedFlowError()
+                }
+                default :
+                    unexpectedFlowError()
+                
+            }
+        } else {
+               unexpectedFlowError()
+        }
+            
+    }
     
     
-    
-
 }

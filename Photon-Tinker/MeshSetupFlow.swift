@@ -106,12 +106,18 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     }
     
     func didReceiveErrorReply(error: ControlRequestErrorType) {
+        // TODO: Set to a generic error handling once Sergey removes error -270 NOT FOUND reply for GetNetworkInfo as valid response
+        
+        fatalError("Must Override in subclass")
+        
 //        fatalError("Must Override in subclass")
-        print("Control message reply error: \(error.description()) - Flow halted")
-        // TODO: something smarter
-        self.flowManager?.delegate?.flowError(error: error, severity: .Error, action: .Pop)
+//        print("Control message reply error: \(error.description()) - Flow halted")
         
-        
+//        self.flowManager?.delegate?.flowError(error: error.description(), severity: .Error, action: .Pop)
+    }
+    
+    func didTimeout() {
+        self.flowManager?.delegate?.flowError(error: "Timeout receiving response from device", severity: .Error, action: .Pop)
     }
     
     

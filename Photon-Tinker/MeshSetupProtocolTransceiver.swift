@@ -34,6 +34,7 @@ protocol MeshSetupProtocolTransceiverDelegate {
     func didReceiveTestReply()
     
     func didReceiveErrorReply(error: ControlRequestErrorType)
+    func didTimeout()
 //    func bluetoothConnectionError(
     
 }
@@ -50,7 +51,10 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private var replyRequestTypeDict : [UInt16: ControlRequestMessageType]?
     private var waitingForReply      : Bool = false
 //    var deviceRole          : MeshSetupDeviceRole?
-    var delegate             : MeshSetupProtocolTransceiverDelegate?
+    var delegate                     : MeshSetupProtocolTransceiverDelegate?
+    
+    private var requestTimer        : Timer?
+    var timeoutValue                : TimeInterval = 5.0 // seconds
     
     required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection) {
         super.init()
@@ -93,10 +97,31 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             let sendBuffer = RequestMessage.serialize(requestMessage: requestMsg)
             self.bluetoothConnection!.send(data: sendBuffer)
             
+            
+            self.requestTimer = Timer.scheduledTimer(timeInterval: self.timeoutValue,
+                                 target: self,
+                                 selector: #selector(self.requestTimeout),
+                                 userInfo: nil,
+                                 repeats: false)
+            
         } else {
             showErrorDialog(message: "BLE is not paired to mesh device")
         }
         
+    }
+    
+    @objc func requestTimeout() {
+        print("Request Timeout")
+        self.delegate?.didTimeout()
+        self.requestTimer = nil
+    }
+    
+    func getLastRequestMessageSent() -> ControlRequestMessageType? {
+        if (self.replyRequestTypeDict != nil) {
+            return replyRequestTypeDict![requestMessageId-1]
+        } else {
+            return nil
+        }
     }
     
     func sendGetDeviceId() {
@@ -248,10 +273,11 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         let rm = ReplyMessage.deserialize(buffer: data)
         
         self.waitingForReply = false
+        self.requestTimer?.invalidate()
 
         if let data = rm.data {
             if rm.result == .NONE {
-                print("Packet id \(rm.id) --> Payload: \(data.hexString)")
+                print("Received reply message id \(rm.id) --> Payload: \(data.hexString)")
                 //                let replyMessageContents
                 var decodedReply : Any?
                 let replyRequestType = self.replyRequestTypeDict![rm.id]
@@ -259,7 +285,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                 switch replyRequestType! {
                     
                 case .GetDeviceId:
-                    print("GetDeviceId reply");
+                    
                     do {
                         decodedReply = try Particle_Ctrl_GetDeviceIdReply(serializedData: data)
                     } catch {
@@ -267,15 +293,12 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                         return
                     }
                     let deviceId = (decodedReply as! Particle_Ctrl_GetDeviceIdReply).id
-                    print("device id is \(deviceId)")
                     self.delegate?.didReceiveDeviceIdReply(deviceId: deviceId)
                     
                 case .GetNetworkInfo:
-                    print("GetNetworkInfo reply");
                     fallthrough
                 // GetNetworkInfoReply and CreateNetworkReply are the same!
                 case .CreateNetwork:
-                    print("CreateNetwork reply");
                     do {
                         decodedReply = try Particle_Ctrl_Mesh_GetNetworkInfoReply(serializedData: data)
                     } catch {

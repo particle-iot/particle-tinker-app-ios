@@ -1,0 +1,175 @@
+// For reference:
+
+syntax = "proto3";
+package particle.ctrl.mesh;
+
+import "extensions.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl.mesh";
+
+// Common fields:
+//
+// Network name: up to 16 characters, UTF-8 encoded
+// Commissioning credential: 6 to 255 characters, UTF-8 encoded
+// PAN ID: 16-bit unsigned integer
+// Extended PAN ID: 16 characters, hex-encoded
+// EUI-64: 16 characters, hex-encoded
+// Joining device credential: 6 to 32 characters, base32-thread encoded
+
+// Network info
+message NetworkInfo {
+  // Network name
+  string name = 1;
+  // Extended PAN ID
+  string ext_pan_id = 2;
+  // PAN ID
+  uint32 pan_id = 3;
+  // Channel number
+  uint32 channel = 4;
+}
+
+// Authenticate the client as a commissioner
+message AuthRequest {
+  option (type_id) = 1001;
+  // Commissioning credential
+  string password = 1;
+}
+
+// Result codes:
+// NOT_FOUND: The device is not a member of a network
+// NOT_ALLOWED: Invalid commissioning credential
+message AuthReply {
+}
+
+// Create a new network
+message CreateNetworkRequest {
+  option (type_id) = 1002;
+
+  // Network name
+  string name = 1;
+  // Commissioning credential for this network
+  string password = 2;
+  // Channel number
+  uint32 channel = 3;
+}
+
+// Result codes:
+// ALREADY_EXIST: The device is already a member of a network
+// NOT_ALLOWED: The client is not authenticated
+message CreateNetworkReply {
+  // Network info
+  NetworkInfo network = 1;
+}
+
+// Start the commissioner role
+message StartCommissionerRequest {
+  option (type_id) = 1003;
+}
+
+// Result codes:
+// NOT_ALLOWED: The client is not authenticated
+message StartCommissionerReply {
+}
+
+// Stop the commissioner role
+message StopCommissionerRequest {
+  option (type_id) = 1004;
+}
+
+// Result codes:
+// NOT_ALLOWED: The client is not authenticated
+message StopCommissionerReply {
+}
+
+// Prepare the device to join a network
+message PrepareJoinerRequest {
+  option (type_id) = 1005;
+
+  NetworkInfo network = 1;
+}
+
+// Result codes:
+// ALREADY_EXIST: The device is already a member of a network
+// NOT_ALLOWED: The client is not authenticated
+message PrepareJoinerReply {
+  // EUI-64
+  string eui64 = 1;
+  // Newly generated joining device credential
+  string password = 2;
+}
+
+// Add a joiner device
+message AddJoinerRequest {
+  option (type_id) = 1006;
+
+  // EUI-64 of the joiner device
+  string eui64 = 1;
+  // Joining device credential
+  string password = 2;
+}
+
+// Result codes:
+// NO_MEMORY: No memory available to add the joiner
+// INVALID_STATE: The commissioner role is not started
+// NOT_ALLOWED: The client is not authenticated
+message AddJoinerReply {
+}
+
+// Remove the joiner device
+message RemoveJoinerRequest {
+  option (type_id) = 1007;
+
+  // EUI-64 of the joiner device
+  string eui64 = 1;
+}
+
+// Result codes:
+// NOT_FOUND: The joiner was not found
+// INVALID_STATE: The commissioner role is not started
+// NOT_ALLOWED: The client is not authenticated
+message RemoveJoinerReply {
+}
+
+// Join the network
+message JoinNetworkRequest {
+  option (type_id) = 1008;
+}
+
+// Result codes:
+// NOT_FOUND: No joinable network was found
+// TIMEOUT: The join process timed out
+// NOT_ALLOWED: Invalid security credentials
+message JoinNetworkReply {
+}
+
+// Leave the network
+message LeaveNetworkRequest {
+  option (type_id) = 1009;
+}
+
+// Result codes:
+// NOT_FOUND: The device is not a member of a network
+// NOT_ALLOWED: The client is not authenticated
+message LeaveNetworkReply {
+}
+
+// Get the info about current network
+message GetNetworkInfoRequest {
+  option (type_id) = 1010;
+}
+
+// Result codes:
+// NOT_FOUND: The device is not a member of a network
+message GetNetworkInfoReply {
+  // Network info
+  NetworkInfo network = 1;
+}
+
+// Scan networks
+message ScanNetworksRequest {
+  option (type_id) = 1011;
+}
+
+message ScanNetworksReply {
+  repeated NetworkInfo networks = 1;
+}

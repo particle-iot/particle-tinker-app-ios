@@ -59,6 +59,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     private var connections             : [MeshSetupBluetoothConnection]?
     private var connectingPeripheral    : CBPeripheral?
     private var scanTimer               : Timer?
+    var scanTimeoutValue                : TimeInterval = 20.0
     
     //MARK: - BluetoothManager API
     
@@ -118,13 +119,13 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         
         self.centralManager!.scanForPeripherals(withServices: [particleMeshServiceUUID], options: options as? [String : AnyObject]) // []
         
-        if #available(iOS 10.0, *) {
-            self.scanTimer = Timer.init(timeInterval: 5.0, repeats: false) { (timer : Timer) in
-                self.delegate!.bluetoothConnectionManagerError(error: "BLE scan timeout", severity: .Error)
-            }
-        } else {
-            // TODO: Fallback on earlier versions
-        }
+        self.scanTimer = Timer.scheduledTimer(timeInterval: self.scanTimeoutValue,
+                                                 target: self,
+                                                 selector: #selector(self.scanTimeout),
+                                                 userInfo: nil,
+                                                 repeats: false)
+
+        
         
         return true
     }
@@ -134,6 +135,11 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     private func log(level : BLELogLevel, message : String) {
 //        logger?.log(level: aLevel, message: aMessage)
         print("[\(level.rawValue)]: \(message)")
+    }
+    
+    @objc private func scanTimeout() {
+        self.centralManager!.stopScan()
+        self.delegate!.bluetoothConnectionManagerError(error: "BLE scan timeout", severity: .Error)
     }
     
     private func logError(error anError : Error) {
@@ -264,6 +270,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         // Scanner uses other queue to send events
         
         if peripheral.name == self.peripheralNameToConnect {
+            self.centralManager!.stopScan()
             scanTimer?.invalidate()
             if RSSI.int32Value < -90  {
                 // TODO: message to user to come closer to device
@@ -278,7 +285,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
 
             } else {
                 self.state = .DiscoveredPeripheral
-                self.centralManager!.stopScan()
+                
                 print ("Pairing to \(peripheral.name ?? "device")...")
                 self.connectingPeripheral = peripheral
                 self.centralManager!.connect(peripheral, options: nil)

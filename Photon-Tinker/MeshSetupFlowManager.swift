@@ -303,6 +303,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate?.flowError(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
     }
     
+    func didTimeout() {
+          self.delegate?.flowError(error: "Timeout receiving response from device", severity: .Error, action: .Pop)
+    }
     
     // MARK: MeshSetupBluetoothManaherDelegate
     func bluetoothDisabled() {
