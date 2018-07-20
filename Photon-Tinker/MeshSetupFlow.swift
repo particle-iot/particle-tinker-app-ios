@@ -18,7 +18,7 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     var flowManager : MeshSetupFlowManager?
 //    var protocolManager : MeshSetupProtocolTransceiver?
     var delegate : MeshSetupFlowManagerDelegate?
-    
+    var selectedNetwork : String?
     
     required init(flowManager : MeshSetupFlowManager) {
         self.flowManager = flowManager
@@ -28,6 +28,10 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     // must override in subclass
     func start() {
          fatalError("Must Override in subclass")
+    }
+    
+    func startCommissioner() {
+        fatalError("Must Override in subclass")
     }
     
     

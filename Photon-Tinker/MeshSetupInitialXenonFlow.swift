@@ -11,13 +11,20 @@ import UIKit
 class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     var deviceID : String?
+    var talkingTo : MeshSetupDeviceRole?
     
     override func start() {
         print("Starting flow...")
         print("sendGetDeviceId")
+        self.talkingTo = .Joiner
         self.flowManager?.joinerProtocol?.sendGetDeviceId()
     }
    
+    override func startCommissioner() {
+        self.talkingTo = .Commissioner
+        self.flowManager?.commissionerProtocol?.sendGetNetworkInfo()
+    }
+    
     override func didReceiveDeviceIdReply(deviceId: String) {
         print("GetDeviceId reply - device ID: \(deviceId)");
         self.deviceID = deviceId
@@ -58,15 +65,26 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
     
     override func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
-        print("didReceiveGetNetworkInfoReply")
-        if networkInfo == nil { // TODO: this option doesn't happen - reply will be NOT_FOUND response code
-            print("No network")
-            self.flowManager?.joinerProtocol?.sendScanNetworks()
+        if self.talkingTo == .Joiner {
+            print("didReceiveGetNetworkInfoReply")
+            if networkInfo == nil { // TODO: this option doesn't happen - reply will be NOT_FOUND response code
+                print("No network")
+                self.flowManager?.joinerProtocol?.sendScanNetworks()
+            } else {
+                // TODO: add delegate function to inform user Xenon is already part of a network (change flow/prompt user)
+                self.flowManager?.joinerProtocol?.sendLeaveNetwork()
+                print("Device is already part of mesh network \(networkInfo!.name)")
+                self.delegate?.flowError(error: "Device is already part of mesh network - instructing it to leave the current network", severity: .Warning, action: .Dialog)
+            }
         } else {
-            // TODO: add delegate function to inform user Xenon is already part of a network (change flow/prompt user)
-            self.flowManager?.joinerProtocol?.sendLeaveNetwork()
-            print("Device is already part of mesh network \(networkInfo?.name)")
-            self.delegate?.flowError(error: "Device is already part of mesh network - instructing it to leave the current network", severity: .Warning, action: .Dialog)
+            // talking to commissioner
+            if networkInfo?.name != self.selectedNetwork! {
+                self.delegate?.flowError(error: "The device you just scanned is not on the mesh network you selected", severity: .Warning, action: .Pop)
+            } else {
+                self.flowManager?.delegate?.networkMatch()
+            }
+            
+            
         }
     }
     
@@ -80,9 +98,9 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
             }
             // TODO: add call to ParticleCloud.shared().getNetworks() and compare user owned networks to device reples and make intersection between the two
             // networkNames INTERSECT WITH ParticleCloud reply
-            self.delegate?.scannedNetworks(networkNames: networkNames)
+            self.delegate?.scannedNetworks(networks: networkNames)
         } else {
-            self.delegate?.scannedNetworks(networkNames: nil)
+            self.delegate?.scannedNetworks(networks: nil)
         }
         
 //        self.protocolManager?.sendGetNetworkInfo()

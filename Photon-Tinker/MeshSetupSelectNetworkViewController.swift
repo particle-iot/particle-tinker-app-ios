@@ -10,7 +10,7 @@ import UIKit
 
 class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableViewDelegate, UITableViewDataSource {
     var networks : [String]?
-    var selectedNetworkName : String?
+    var selectedNetwork : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +44,18 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedNetworkName = networks![indexPath.row]
+        self.selectedNetwork = networks![indexPath.row]
+        self.flowManager?.selectedNetwork = self.selectedNetwork
         performSegue(withIdentifier: "addDevice", sender: self)
     }
-}
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let vc = segue.destination as? MeshSetupAddDeviceViewController else {
+        guard let vc = segue.destination as? MeshSetupAddToNetworkViewController else {
             return
         }
         
-        vc.selectedNetwork = self.selectedNetwork
+        vc.flowManager = self.flowManager
     }
 
     

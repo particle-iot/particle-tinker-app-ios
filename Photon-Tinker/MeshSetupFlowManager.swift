@@ -32,6 +32,24 @@ enum MeshSetupErrorSeverity {
     case Fatal
 }
 
+// TODO: aggregate all possible errors and attach string as data type
+enum MeshSetupFlowErrorType {
+    case CommissionerNetworksMismatch
+    case BluetoothConnectionError
+    case BluetoothConnectionManagerError
+    case BluetoothNotReady
+    case BluetoothDisabled
+    case DeviceNotSupported
+    case FlowNotSupported // (device already claimed)
+    case MessageTimeout
+    case ParticleCloudClaimCodeFailed
+    case ParticleCloudDeviceListFailed
+    case JoinerAlreadyOnMeshNetwork
+    case UnknownFlowError
+    
+    
+}
+
 // future
 enum flowErrorAction {
     case Dialog
@@ -48,8 +66,10 @@ enum MeshSetupDeviceRole {
 protocol MeshSetupFlowManagerDelegate {
     //    required
     func flowError(error : String, severity : MeshSetupErrorSeverity, action : flowErrorAction) //
-    func scannedNetworks(networkNames: [String]?)
-    func flowManagerReady()
+    // TODO: make these optional
+    func scannedNetworks(networks: [String]?) // joiner returned detected mesh networks
+    func flowManagerReady() // flow manager ready to start the flow
+    func networkMatch() // commissioner network matches the user selection - can proceed to ask for password + commissioning
 }
 
 
@@ -64,6 +84,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var bluetoothManager : MeshSetupBluetoothConnectionManager?
     private var flowType : MeshSetupFlowType = .None
     private var currentFlow : MeshSetupFlow?
+    var selectedNetwork : String? {
+        didSet {
+            self.currentFlow?.selectedNetwork = selectedNetwork
+        }
+    }
     
     var delegate : MeshSetupFlowManagerDelegate?
     var bluetoothManagerReady = false
@@ -92,6 +117,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         if !bluetoothManagerReady {
             return false
         }
+        // TODO: add support for "any" device type by scanning and pairing to SN suffix wildcard only (for commissioner) - TBD - break out to a seperate function
         let (serialNumber, mobileSecret) = self.processDataMatrix(dataMatrix: dataMatrix)
         switch deviceRole {
         case .Joiner :
@@ -140,7 +166,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.joinerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
                 print("Joiner BLE connection with \(connection.peripheralName!) ready - sending isClaimed")
                 
-                // TODO: the right thing
+                // TODO: the right thing - pass the decision to current flow
                 self.joinerProtocol?.sendIsClaimed()
 //                self.joinerProtocol!.sendGetDeviceId()
             }
@@ -149,7 +175,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         if let comm = commissionerPeripheralName {
             if connection.peripheralName! == comm {
                 self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
-                print("Commissioner BLE connection with \(connection.peripheralName!) ready - sending TBD...")
+                print("Commissioner BLE connection with \(connection.peripheralName!) ready")
+                self.currentFlow!.startCommissioner()
+                
+                
 
             }
         }

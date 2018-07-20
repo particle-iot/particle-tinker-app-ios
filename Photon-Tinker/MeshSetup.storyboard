@@ -432,7 +432,7 @@
         <!--Add To Network-->
         <scene sceneID="JZd-oL-H44">
             <objects>
-                <viewController id="AJB-CI-ERq" sceneMemberID="viewController">
+                <viewController id="AJB-CI-ERq" customClass="MeshSetupAddToNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PBt-7m-Ldr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -517,7 +517,7 @@
         <!--Network Password-->
         <scene sceneID="J5v-bc-Rcn">
             <objects>
-                <viewController id="r46-ON-ILg" sceneMemberID="viewController">
+                <viewController id="r46-ON-ILg" customClass="MeshSetupNetworkPasswordViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9VX-6b-J7J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -581,7 +581,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjC-rG-nO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9535" y="4245"/>
+            <point key="canvasLocation" x="9726" y="4245"/>
         </scene>
         <!--Joining Network-->
         <scene sceneID="Cqu-Xm-urO">
@@ -666,7 +666,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dk7-1p-Yl7">
-                                <rect key="frame" x="20" y="511" width="335" height="40"/>
+                                <rect key="frame" x="20" y="491" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="7pM-Kf-MDo"/>
@@ -704,7 +704,7 @@
                             <constraint firstItem="9sW-0R-cxg" firstAttribute="trailing" secondItem="Dk7-1p-Yl7" secondAttribute="trailing" constant="20" id="Vcy-gW-rAo"/>
                             <constraint firstItem="9sW-0R-cxg" firstAttribute="trailing" secondItem="uOg-zm-RMQ" secondAttribute="trailing" constant="20" id="WHX-y7-4k7"/>
                             <constraint firstItem="RCA-6u-v2X" firstAttribute="leading" secondItem="9sW-0R-cxg" secondAttribute="leading" constant="20" id="Yhl-Qp-jio"/>
-                            <constraint firstItem="9sW-0R-cxg" firstAttribute="bottom" secondItem="Dk7-1p-Yl7" secondAttribute="bottom" id="ksu-1G-OEF"/>
+                            <constraint firstItem="9sW-0R-cxg" firstAttribute="bottom" secondItem="Dk7-1p-Yl7" secondAttribute="bottom" constant="20" id="ksu-1G-OEF"/>
                             <constraint firstItem="9sW-0R-cxg" firstAttribute="leading" secondItem="QWF-uD-1Rb" secondAttribute="leading" constant="-20" id="lhL-jC-BIU"/>
                             <constraint firstItem="QWF-uD-1Rb" firstAttribute="top" secondItem="RCA-6u-v2X" secondAttribute="bottom" constant="14" id="mZx-Ep-xFL"/>
                             <constraint firstItem="uOg-zm-RMQ" firstAttribute="top" secondItem="9sW-0R-cxg" secondAttribute="top" constant="20" id="ph5-6P-g3A"/>

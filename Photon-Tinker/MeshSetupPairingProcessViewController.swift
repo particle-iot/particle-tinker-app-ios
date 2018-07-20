@@ -11,10 +11,9 @@ import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupFlowManagerDelegate {
   
-   
-  
     var deviceType : ParticleDeviceType?
     var dataMatrix : String?
+    var scannedNetworks   : [String]?
     
     
     func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
@@ -31,21 +30,24 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
     }
     
     
-    func scannedNetworks(networkNames: [String]?) {
-        //..
+    func scannedNetworks(networks: [String]?) {
+        
+        self.scannedNetworks = networks
+        performSegue(withIdentifier: "selectNetwork", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? MeshSetupSelectNetworkViewController else {
+            return
+        }
+        
+        vc.networks = self.scannedNetworks
+        vc.flowManager = self.flowManager
+    }
     
-        // TODO:
-//        - Performs BLE scan filtering out only Xenon service UUID devices
-//        Automatically tries to BLE pair to the device by comparing the scan list result to peripheral name (Xenon-<setupCode>)
-//        [Golden firmware - Initiates a secure session key by JPAKE with the device over BLE]
-//        Encrypts and sends the first command request  - GetDeviceIdRequest, phone receives device ID
-//        Phone hits API endpoint
-//        GET /v1/devices to verify device is not already claimed to user (is device ID already in the retrieved list?) if so, prompts users on action
-//        Phone sends SetClaimCodeRequest to the device using the  [Golden firmware - negotiated JPAKE session key] mobile_secret using AES-128-CCM-8 cipher, waits for a valid reply.
-//
-//        If any of the steps fail - display a descriptive message to the user and back out. Otherwise display the “Successful” icon for 2 seconds and progress to next screen
+    func networkMatch() {
+        // ..
+    }
 
     
     //MARK: - ViewController Methods
@@ -86,51 +88,4 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
     }
 
     
-    func messageToUser(level: RMessageType, message: String) {
-        
-    }
-    
-    // move this retries code to BLE manager
-    /*
-    func didDisconnectPeripheral() {
-         RMessage.showNotification(withTitle: "Pairing", subtitle: "Device disconnected, retrying...", type: .error, customTypeName: nil, callback: nil)
-        
-        connectRetries += 1
-        if connectRetries >= 5 {
-            self.abort()
-        }
-        
-        if MeshSetupParameters.shared.bluetoothManager?.scanForPeripherals() == false {
-            self.abort()
-        }
-    }
-    
-    func peripheralReadyForData() {
-        // start mesh setup
-        self.getPairedDeviceID()
-    }
-    
-    
-    func peripheralNotSupported() {
-          RMessage.showNotification(withTitle: "Pairing", subtitle: "This device device does not seem to be a Particle device, please try again", type: .error, customTypeName: nil, callback: nil)
-        
-        self.abort()
-    }
-    
-    func bluetoothDisabled() {
-        RMessage.showNotification(withTitle: "Bluetooth", subtitle: "Bluetooth must be enabled for setup to complete, please turn on Bluetooth on your phone", type: .error, customTypeName: nil, callback: nil)
-        
-        self.abort()
-    }
-    
-    func didReceiveData(data buffer: Data) {
-        // setup step...
-        print("didReceiveData")
-    }
-    
-    func getPairedDeviceID() {
-        print ("starting setup")
-    }
-    */
- 
 }
