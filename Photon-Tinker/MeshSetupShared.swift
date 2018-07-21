@@ -73,7 +73,7 @@ extension ParticleDeviceType : CustomStringConvertible {
 }
 
 
-func replaceMeshSetupStringTemplates(view: UIView) {
+func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceType?, networkName : String?, deviceName : String?) {
     
     let subviews = view.subviews
     
@@ -82,17 +82,17 @@ func replaceMeshSetupStringTemplates(view: UIView) {
             let label = subview as! UILabel
             var newLabelString = label.text
             // TODO: retrieve info diffrently
-//            if let t = MeshSetupParameters.shared.deviceType {
-//                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.description)
-//            }
-//
-//            if let n = MeshSetupParameters.shared.networkName {
-//                newLabelString = newLabelString!.replacingOccurrences(of: "{{network}}", with: n)
-//            }
-//
-//            if let d = MeshSetupParameters.shared.deviceName {
-//                newLabelString = newLabelString!.replacingOccurrences(of: "{{deviceName}}", with: d)
-//            }
+            if let t = deviceType {
+                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.description)
+            }
+
+            if let n = networkName {
+                newLabelString = newLabelString!.replacingOccurrences(of: "{{network}}", with: n)
+            }
+
+            if let d = deviceName {
+                newLabelString = newLabelString!.replacingOccurrences(of: "{{deviceName}}", with: d)
+            }
 
             label.text = newLabelString
         }

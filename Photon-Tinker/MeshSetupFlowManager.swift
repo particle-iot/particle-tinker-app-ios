@@ -73,13 +73,14 @@ protocol MeshSetupFlowManagerDelegate {
 }
 
 // Extension to protocol to create hack for optionals
+/*
 extension MeshSetupFlowManagerDelegate {
     func scannedNetworks(networks: [String]?) {}
     func flowManagerReady() {}
     func networkMatch() {}
 }
 
-
+*/
 
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupProtocolTransceiverDelegate {
@@ -88,33 +89,31 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     var commissionerProtocol : MeshSetupProtocolTransceiver?
     var joinerDeviceType : ParticleDeviceType?
     var commissionerDeviceType : ParticleDeviceType?
-    private var bluetoothManager : MeshSetupBluetoothConnectionManager?
-    private var flowType : MeshSetupFlowType = .None
-    private var currentFlow : MeshSetupFlow?
-    private var isReady : Bool = false
-    
     var selectedNetwork : String? {
         didSet {
             self.currentFlow?.selectedNetwork = selectedNetwork
         }
     }
-    
+    var deviceName : String?
     var delegate : MeshSetupFlowManagerDelegate?
     var bluetoothManagerReady = false
-    
     var joinerPeripheralName : String? {
         didSet {
             print("joinerPeripheralName didSet")
             self.createBluetoothConnection(with: joinerPeripheralName!)
         }
     }
-    
     var commissionerPeripheralName : String? {
         didSet {
             print("commissionerPeripheralName didSet")
             self.createBluetoothConnection(with: commissionerPeripheralName!)
         }
     }
+    
+    private var bluetoothManager : MeshSetupBluetoothConnectionManager?
+    private var flowType : MeshSetupFlowType = .None // TODO: do we even need this?
+    private var currentFlow : MeshSetupFlow?
+    private var isReady : Bool = false
     
     // meant to be initialized after choosing device type + scanning sticker
     required init(delegate : MeshSetupFlowManagerDelegate) {
@@ -191,7 +190,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         
         if let comm = commissionerPeripheralName {
             if connection.peripheralName! == comm {
-                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
+                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection)
                 print("Commissioner BLE connection with \(connection.peripheralName!) ready")
                 self.currentFlow!.startCommissioner()
             }
@@ -260,6 +259,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //..
     }
     
+    // TODO: put this in sub flow and remove protocol delegation all together from master flow 
     func didReceiveIsClaimedReply(isClaimed: Bool) {
         // first action that happens before flow class instance is determined (TBD: commissioner password request in future for already setup devices or getNetworkInfo - to see if device already on mesh or any other future commands)
         if (isClaimed == false) {

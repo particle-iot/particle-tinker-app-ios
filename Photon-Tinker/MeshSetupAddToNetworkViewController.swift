@@ -8,67 +8,51 @@
 
 import UIKit
 
-class MeshSetupAddToNetworkViewController: MeshSetupViewController, MeshSetupScanCodeDelegate, MeshSetupFlowManagerDelegate {
+class MeshSetupAddToNetworkViewController: MeshSetupViewController, MeshSetupScanCodeDelegate {
     
-    func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
-        print(error)
-    }
-    /*
-    func scannedNetworks(networks: [String]?) {
-        // ..
-    }
-    
-    func flowManagerReady() {
-        // ..
-    }
- */
-    
-    func networkMatch() {
-        // commissioner scanned is on the network user has chosen on previous screen - can advance
-        performSegue(withIdentifier: "networkPassword", sender: self)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-    }
-    
+   
     var commissionerDataMatrix : String?
+    
+    override func networkMatch() {
+        print("networkMatch - commissioner is on user selected mesh network")
+        // commissioner scanned is on the network user has chosen on previous screen - can advance
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "networkPassword", sender: self)
+        }
+    }
+    
+   
+    
     
     func didScanCode(code: String) {
         if !code.isEmpty {
             // TODO: initialize flow manager here
             // Split code into deviceID and SN
             self.commissionerDataMatrix = code
-            self.flowManager?.startFlow(with: .xenon, as: .Commissioner, dataMatrix: code)
+            // TODO: specift wildcard for with: (commissioner can be any type of device)
+            self.flowManager!.startFlow(with: .xenon, as: .Commissioner, dataMatrix: code)
             
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        
-        if segue.identifier == "networkPassword" {
+        switch segue.identifier! {
+        case "networkPassword" :
             guard let vc = segue.destination as? MeshSetupNetworkPasswordViewController  else {
                 return
             }
-            
             vc.flowManager = self.flowManager
             
-        }
-        
-        if segue.identifier == "scanJoinerSticker" {
+        case "scanCommissionerSticker" :
             guard let vc = segue.destination as? MeshSetupScanCodeViewController  else {
                 return
             }
-            
             vc.delegate = self
+            
+        default:
+            print("Error segue")
+        
         }
-        
-        
-        
     }
-    
-
 }

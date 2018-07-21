@@ -9,34 +9,17 @@
 import UIKit
 import CoreBluetooth
 
-class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupFlowManagerDelegate {
+class MeshSetupPairingProcessViewController: MeshSetupViewController {
   
-    var deviceType : ParticleDeviceType?
     var dataMatrix : String?
     var scannedNetworks   : [String]?
     
-    
-    func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
-        print("flowError: \(error)")
-        
-        var messageType : RMessageType
-        switch severity {
-            case .Info: messageType = .normal
-            case .Warning: messageType = .warning
-            case .Error: messageType = .error
-            case .Fatal: messageType = .error
-        }
-        DispatchQueue.main.async {
-            RMessage.showNotification(withTitle: "Pairing", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
-        }
-    }
-    
-    
-    func scannedNetworks(networks: [String]?) {
+  
+    override func scannedNetworks(networks: [String]?) {
         print("--> scannedNetworks \(networks ?? [String]())")
         if networks != nil {
+            self.scannedNetworks = networks!
             DispatchQueue.main.async {
-                self.scannedNetworks = networks!
                 self.performSegue(withIdentifier: "selectNetwork", sender: self)
             }
         } else {
@@ -55,10 +38,6 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
         vc.flowManager = self.flowManager
     }
     
-    func networkMatch() {
-        // ..
-    }
-
     
     //MARK: - ViewController Methods
     override func viewDidLoad() {
@@ -74,7 +53,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, MeshSetupF
         
     }
     
-    func flowManagerReady() {
+    override func flowManagerReady() {
         print("flowManagerReady")
         print("Starting flow with a \(self.deviceType!.description) as Joiner ")
         let ok = self.flowManager!.startFlow(with: self.deviceType!, as: .Joiner, dataMatrix: self.dataMatrix!)

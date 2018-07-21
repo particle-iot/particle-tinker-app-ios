@@ -85,6 +85,12 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     }
     
     func createConnection(with peripheralName : String) -> Bool {
+        if self.state == .Scanning {
+            self.centralManager?.stopScan()
+            self.state = .Ready
+            sleep(10) // TODO: something nicer
+        }
+        
         if self.state == .Ready {
             self.peripheralNameToConnect = peripheralName
             return self.scanForPeripherals()
@@ -94,6 +100,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
             return false
         }
     }
+    
 
     
     /**

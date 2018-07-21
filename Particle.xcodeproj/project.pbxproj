@@ -252,15 +252,15 @@
 		5075456720E467D6009B7A55 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				50508E1821017F8400D91DAB /* MeshSetupNetworkPasswordViewController.swift */,
+				50508E1621017D9F00D91DAB /* MeshSetupAddToNetworkViewController.swift */,
 				50508E1421016CD200D91DAB /* MeshSetupSelectNetworkViewController.swift */,
 				502F497F20DC68DF0072490E /* MeshSetupPairingProcessViewController.swift */,
 				505D2A8620D9AD84005389DF /* MeshSetupSelectDeviceViewController.swift */,
 				5039EE9B20D9F2B6005B1E87 /* MeshSetupScanCodeViewController.swift */,
 				505D2A8720D9AD84005389DF /* MeshSetupGetReadyViewController.swift */,
 				505D2A8420D9AD84005389DF /* MeshSetupPairDeviceViewController.swift */,
-				50508E1621017D9F00D91DAB /* MeshSetupAddToNetworkViewController.swift */,
 				505D2A8520D9AD84005389DF /* MeshSetupViewController.swift */,
-				50508E1821017F8400D91DAB /* MeshSetupNetworkPasswordViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

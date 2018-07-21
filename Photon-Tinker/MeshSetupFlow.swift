@@ -18,7 +18,11 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     var flowManager : MeshSetupFlowManager?
 //    var protocolManager : MeshSetupProtocolTransceiver?
     var delegate : MeshSetupFlowManagerDelegate?
-    var selectedNetwork : String?
+    var selectedNetwork : String? {
+        didSet {
+            print("user selected network \(selectedNetwork)")
+        }
+    }
     
     required init(flowManager : MeshSetupFlowManager) {
         self.flowManager = flowManager

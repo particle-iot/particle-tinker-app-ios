@@ -14,11 +14,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType, networkName: nil, deviceName: nil)
+        
     }
-
-
-    var deviceType : ParticleDeviceType?
 
     @IBOutlet weak var videoView: UIView!
     @IBAction func nextButtonTapped(_ sender: Any) {

@@ -16,7 +16,7 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
         // Do any additional setup after loading the view.
     }
     
-    var deviceType : ParticleDeviceType?
+    
     var dataMatrix : String?
     
     func didScanCode(code: String) {

@@ -17,12 +17,12 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         print("Starting MeshSetupInitialXenonFlow...")
         print("sendGetDeviceId")
         self.talkingTo = .Joiner
-        self.flowManager?.joinerProtocol?.sendGetDeviceId()
+        self.flowManager!.joinerProtocol?.sendGetDeviceId()
     }
    
     override func startCommissioner() {
         self.talkingTo = .Commissioner
-        self.flowManager?.commissionerProtocol?.sendGetNetworkInfo()
+        self.flowManager!.commissionerProtocol!.sendGetNetworkInfo()
     }
     
     override func didReceiveDeviceIdReply(deviceId: String) {
@@ -54,7 +54,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                 }
 
             } else {
-                self.flowManager?.delegate?.flowError(error: "Could not retrieve user device list from the Particle cloud", severity: .Error, action: .Pop)
+                self.flowManager!.delegate?.flowError(error: "Could not retrieve user device list from the Particle cloud", severity: .Error, action: .Pop)
             }
         }
     }
@@ -69,19 +69,20 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
             print("didReceiveGetNetworkInfoReply")
             if networkInfo == nil { // TODO: this option doesn't happen - reply will be NOT_FOUND response code
                 print("No network")
-                self.flowManager?.joinerProtocol?.sendScanNetworks()
+                self.flowManager!.joinerProtocol?.sendScanNetworks()
             } else {
                 // TODO: add delegate function to inform user Xenon is already part of a network (change flow/prompt user)
-                self.flowManager?.joinerProtocol?.sendLeaveNetwork()
+                self.flowManager!.joinerProtocol?.sendLeaveNetwork()
                 print("Device is already part of mesh network \(networkInfo!.name)")
                 self.delegate?.flowError(error: "Device is already part of mesh network - instructing it to leave the current network", severity: .Warning, action: .Dialog)
             }
         } else {
             // talking to commissioner
-            if networkInfo?.name != self.selectedNetwork! {
+            print("didReceiveGetNetworkInfoReply from commissioner")
+            if networkInfo!.name != self.selectedNetwork! {
                 self.delegate?.flowError(error: "The device you just scanned is not on the mesh network you selected", severity: .Warning, action: .Pop)
             } else {
-                self.flowManager?.delegate?.networkMatch()
+                self.flowManager!.delegate!.networkMatch()
             }
             
             

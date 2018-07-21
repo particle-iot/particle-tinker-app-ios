@@ -317,11 +317,11 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                     if replyRequestType! == .CreateNetwork {
                         self.delegate?.didReceiveCreateNetworkReply(networkInfo: networkInfo)
                     } else {
-                        // TODO: check if this is how an empty reply behaves?
+                        // TODO: check if this is how an empty reply behaves? IT DOESNT - IT REPORTS -270 NOT_FOUND
                         if networkInfo.name.isEmpty {
-                            self.delegate?.didReceiveGetNetworkInfoReply(networkInfo: nil)
+                            self.delegate!.didReceiveGetNetworkInfoReply(networkInfo: nil)
                         } else {
-                            self.delegate?.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
+                            self.delegate!.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
                         }
                     }
                     
