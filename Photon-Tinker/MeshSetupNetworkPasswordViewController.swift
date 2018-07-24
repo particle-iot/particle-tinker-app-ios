@@ -12,7 +12,7 @@ class MeshSetupNetworkPasswordViewController: MeshSetupViewController, UITextFie
     
     @IBOutlet weak var networkPasswordTextField: UITextField!
     @IBAction func joinNetworkButtonTapped(_ sender: Any) {
-        
+        self.textFieldDidEndEditing(self.networkPasswordTextField)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -23,18 +23,17 @@ class MeshSetupNetworkPasswordViewController: MeshSetupViewController, UITextFie
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
         if let pwd = textField.text {
-            if pwd.count < 8 {
+            if pwd.count < 6 {
                 // TODO: enforce more things ?
                 self.flowError(error: "Network Password must be 6 characters or more", severity: .Warning, action: .Dialog)
             } else {
                 self.flowManager!.networkPassword = pwd
-                self.performSegue(withIdentifier: "joinNetwork", sender: self)
             }
         }
     }
     
     override func authSuccess() {
-        self.performSegue(withIdentifier: "joinNetwork", sender: self)
+        self.performSegue(withIdentifier: "joiningNetwork", sender: self)
     }
     
 

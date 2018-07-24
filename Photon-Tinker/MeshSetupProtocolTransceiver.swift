@@ -54,7 +54,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     var delegate                     : MeshSetupProtocolTransceiverDelegate?
     
     private var requestTimer        : Timer?
-    var timeoutValue                : TimeInterval = 5.0 // seconds
+    var timeoutValue                : TimeInterval = 15.0 // seconds
     
     required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection) {
         super.init()
