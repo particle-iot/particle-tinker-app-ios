@@ -42,7 +42,7 @@ open class ParticleSpinner : NSObject {
         rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         rotation.toValue = 2*Double.pi;
         rotation.duration = 1;
-        rotation.repeatCount = 1000; // Repeat
+        rotation.repeatCount = 10000; // Repeat
         spinnerView.layer.add(rotation,forKey:"Spin")
         
         hud.customView = spinnerView

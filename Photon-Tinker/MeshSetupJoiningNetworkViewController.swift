@@ -25,6 +25,7 @@ class MeshSetupJoiningNetworkViewController: MeshSetupViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         self.flowManager!.commissionDeviceToNetwork()
+        ParticleSpinner.show(self.view)
     }
 
     /*

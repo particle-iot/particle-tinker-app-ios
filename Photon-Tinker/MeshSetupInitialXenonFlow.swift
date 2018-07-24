@@ -149,6 +149,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     override func didReceivePrepareJoinerReply(eui64: String, password: String) {
         print("didReceivePrepareJoinerReply from \(self.talkingTo)")
+        print("eui64: \(eui64), joinerCredential: \(password)")
 //        self.eui64 = eui64
 //        self.joiningDeviceCredential = password
         self.talkingTo = .Commissioner

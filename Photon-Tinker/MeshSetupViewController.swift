@@ -39,56 +39,64 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
         
         var messageType : RMessageType
         switch severity {
-        case .Info: messageType = .normal
-        case .Warning: messageType = .warning
-        case .Error: messageType = .error
-        case .Fatal: messageType = .error
+            case .Info: messageType = .normal
+            case .Warning: messageType = .warning
+            case .Error: messageType = .error
+            case .Fatal: messageType = .error
         }
        
         // TODO: work out the actions
         switch action {
-        case .Fail:
-            fallthrough
-        case .Pop:
-            fallthrough
-        case .Dialog:
-            DispatchQueue.main.async {
-                RMessage.showNotification(withTitle: "Pairing", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
+            case .Fail:
+                fallthrough
+            case .Pop:
+                fallthrough
+            case .Dialog:
+                DispatchQueue.main.async {
+                    RMessage.showNotification(withTitle: "Mesh Setup Error", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
+                }
             }
-        }
     }
     
     // MARK: MeshSetupFlowManagerDelegate functions - some should be overriden in UI subclasses
     func flowManagerReady() {
         // override in subclass if needed
+        print("flowManagerReady")
     }
     
     func scannedNetworks(networks: [String]?) {
         // override in subclass if needed
+        print("scannedNetworks")
     }
     
     func networkMatch() {
         // override in subclass if needed
+        print("networkMatch")
     }
     
     func authSuccess() {
         // override in subclass if needed
+        print("authSuccess")
     }
     
     func joinerPrepared() {
         // override in subclass if needed
+        print("joinerPrepared")
     }
     
     func joinedNetwork() {
         // override in subclass if needed
+        print("joinedNetwork")
     }
     
     func deviceOnlineClaimed() {
         // override in subclass if needed
+        print("deviceOnlineClaimed")
     }
     
     func deviceNamed() {
         // override in subclass if needed
+        print("deviceNamed")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
