@@ -29,6 +29,7 @@ public enum ControlRequestMessageType: UInt16 {
     case GetNetworkInfo = 1010
     case ScanNetworks = 1011
     case Test = 1111
+    
 }
 
 public enum ControlRequestErrorType : Int16 {

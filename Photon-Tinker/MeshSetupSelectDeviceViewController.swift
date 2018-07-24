@@ -77,7 +77,7 @@ class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableView
         if indexPath.row == deviceTypes.index(of: "Xenon") {
             self.deviceType = .xenon
             DispatchQueue.main.async {
-                performSegue(withIdentifier: "getReady", sender: self)
+                self.performSegue(withIdentifier: "getReady", sender: self)
             }
         }
     }

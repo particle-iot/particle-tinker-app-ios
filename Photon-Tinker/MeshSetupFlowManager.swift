@@ -45,6 +45,7 @@ enum MeshSetupFlowErrorType {
     case ParticleCloudClaimCodeFailed
     case ParticleCloudDeviceListFailed
     case JoinerAlreadyOnMeshNetwork
+    case CouldNotClaimDevice
     case UnknownFlowError
     
     
@@ -70,6 +71,11 @@ protocol MeshSetupFlowManagerDelegate {
     func scannedNetworks(networks: [String]?) // joiner returned detected mesh networks (or empty array if none)
     func flowManagerReady() // flow manager ready to start the flow
     func networkMatch() // commissioner network matches the user selection - can proceed to ask for password + commissioning
+    func authSuccess()
+    func joinerPrepared()
+    func joinedNetwork()
+    func deviceOnlineClaimed()
+    func deviceNamed()
 }
 
 // Extension to protocol to create hack for optionals
@@ -89,9 +95,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     var commissionerProtocol : MeshSetupProtocolTransceiver?
     var joinerDeviceType : ParticleDeviceType?
     var commissionerDeviceType : ParticleDeviceType?
-    var selectedNetwork : String? {
+    var networkPassword : String? {
         didSet {
-            self.currentFlow?.selectedNetwork = selectedNetwork
+            self.currentFlow?.networkPassword = networkPassword
+        }
+    }
+    var networkName : String? {
+        didSet {
+            self.currentFlow?.networkName = networkName
         }
     }
     var deviceName : String?
@@ -124,7 +135,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     
     func startFlow(with deviceType : ParticleDeviceType, as deviceRole : MeshSetupDeviceRole, dataMatrix : String) -> Bool {
         
-        print("startFlow called")
+        print("startFlow called - \(deviceRole)")
         if !bluetoothManagerReady {
             return false
         }
@@ -347,8 +358,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate?.flowError(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
     }
     
-    func didTimeout() {
-          self.delegate?.flowError(error: "Timeout receiving response from device", severity: .Error, action: .Pop)
+    func didTimeout(lastCommand: ControlRequestMessageType?) {
+        self.delegate?.flowError(error: "Timeout receiving response from device - Command: \(lastCommand?.rawValue ?? 0)", severity: .Error, action: .Pop)
     }
     
     // MARK: MeshSetupBluetoothManaherDelegate

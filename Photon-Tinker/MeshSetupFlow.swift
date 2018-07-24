@@ -18,9 +18,15 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     var flowManager : MeshSetupFlowManager?
 //    var protocolManager : MeshSetupProtocolTransceiver?
     var delegate : MeshSetupFlowManagerDelegate?
-    var selectedNetwork : String? {
+    var networkName : String? {
         didSet {
-            print("user selected network \(selectedNetwork)")
+            // TODO: remove debug
+            print("user selected network \(networkName!)")
+        }
+    }
+    var networkPassword : String? {
+        didSet {
+            self.userDidSetNetworkPassword(networkPassword : networkPassword!)
         }
     }
     
@@ -124,7 +130,18 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
 //        self.flowManager?.delegate?.flowError(error: error.description(), severity: .Error, action: .Pop)
     }
     
-    func didTimeout() {
+    
+    func userDidSetNetworkPassword(networkPassword : String) {
+        
+        
+    }
+    
+    func userDidSetDeviceName(deviceName : String) {
+        
+    }
+    
+    func didTimeout(lastCommand : ControlRequestMessageType?) {
+        print("Message time out - last command sent: \(lastCommand)")
         self.flowManager?.delegate?.flowError(error: "Timeout receiving response from device", severity: .Error, action: .Pop)
     }
     

@@ -34,7 +34,7 @@ protocol MeshSetupProtocolTransceiverDelegate {
     func didReceiveTestReply()
     
     func didReceiveErrorReply(error: ControlRequestErrorType)
-    func didTimeout()
+    func didTimeout(lastCommand : ControlRequestMessageType?)
 //    func bluetoothConnectionError(
     
 }
@@ -112,7 +112,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     
     @objc func requestTimeout() {
         print("Request Timeout")
-        self.delegate?.didTimeout()
+        self.delegate?.didTimeout(lastCommand : self.getLastRequestMessageSent())
         self.requestTimer = nil
     }
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -27,33 +27,33 @@
             <objects>
                 <viewController id="NeP-gI-M3P" customClass="MeshSetupSelectDeviceViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LAG-ZM-UIk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0m0-HG-mnX">
-                                <rect key="frame" x="0.0" y="57" width="375" height="494"/>
+                                <rect key="frame" x="0.0" y="57" width="375" height="581"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="deviceType" textLabel="77M-BU-7Ob" detailTextLabel="ca2-lm-KbI" imageView="bGl-uF-KHD" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="HqX-4S-y49">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HqX-4S-y49" id="eiv-7V-0qQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="79.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Xenon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="77M-BU-7Ob">
-                                                    <rect key="frame" x="72" y="20" width="49" height="20.5"/>
+                                                    <rect key="frame" x="72" y="20" width="48.666666666666664" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="imgDeviceUnknown" id="bGl-uF-KHD">
-                                                    <rect key="frame" x="15" y="0.0" width="42" height="79.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="42" height="79.666666666666671"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ca2-lm-KbI">
-                                                    <rect key="frame" x="72" y="43.5" width="33" height="14.5"/>
+                                                    <rect key="frame" x="72" y="43.333333333333329" width="32.666666666666664" height="14.333333333333334"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -67,7 +67,7 @@
                                 <sections/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select device type to setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Css-g0-0tJ">
-                                <rect key="frame" x="70.5" y="20" width="234" height="17"/>
+                                <rect key="frame" x="70.666666666666686" y="20" width="234" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -99,11 +99,11 @@
             <objects>
                 <viewController id="Fb0-fk-eVl" customClass="MeshSetupGetReadyViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5n7-5f-PP5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your {{device}} ready for setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVt-91-UeP">
-                                <rect key="frame" x="35.5" y="20" width="304" height="17"/>
+                                <rect key="frame" x="35.666666666666657" y="20" width="304" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -127,7 +127,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rp5-8n-aDe">
-                                <rect key="frame" x="20" y="491" width="335" height="40"/>
+                                <rect key="frame" x="20" y="578" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="wpZ-et-4zW"/>
@@ -142,7 +142,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V94-0p-XH0">
-                                <rect key="frame" x="20" y="273" width="335" height="198"/>
+                                <rect key="frame" x="20" y="273" width="335" height="285"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -184,11 +184,11 @@
             <objects>
                 <viewController id="AGL-lb-ApK" customClass="MeshSetupPairDeviceViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dr0-tS-JdZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair {{device}} with your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfP-6E-Fm5">
-                                <rect key="frame" x="52" y="20" width="271.5" height="17"/>
+                                <rect key="frame" x="52" y="20" width="271.66666666666669" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -200,10 +200,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="rG1-YO-8Ay">
-                                <rect key="frame" x="20" y="125" width="335" height="346"/>
+                                <rect key="frame" x="20" y="125" width="335" height="433"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQv-PR-P0D">
-                                <rect key="frame" x="20" y="491" width="335" height="40"/>
+                                <rect key="frame" x="20" y="578" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="pPC-RC-Uem"/>
@@ -249,31 +249,31 @@
             <objects>
                 <viewController id="90a-zS-wUn" userLabel="Scan code" customClass="MeshSetupScanCodeViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G1x-f5-Fzb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-ul-GY1">
-                                <rect key="frame" x="143" y="40" width="89" height="17"/>
+                                <rect key="frame" x="143" y="64" width="89" height="17"/>
                                 <viewLayoutGuide key="safeArea" id="gh3-Pf-E2L"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nHZ-dK-8wJ">
-                                <rect key="frame" x="20" y="174" width="339" height="339"/>
+                                <rect key="frame" x="20" y="241.66666666666663" width="339" height="339"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nHZ-dK-8wJ" secondAttribute="height" multiplier="1:1" id="u9N-VZ-RGw"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Point camera at code sticker on the device to start pairing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk7-d2-wnP">
-                                <rect key="frame" x="20" y="533" width="335" height="32"/>
+                                <rect key="frame" x="20" y="600.66666666666663" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZ5-oN-aGQ">
-                                <rect key="frame" x="339" y="36" width="20" height="20"/>
+                                <rect key="frame" x="339" y="60" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="lgT-Ip-94r"/>
                                     <constraint firstAttribute="width" constant="20" id="vF7-rT-0hb"/>
@@ -314,17 +314,17 @@
             <objects>
                 <viewController id="RJE-2G-Cct" customClass="MeshSetupPairingProcessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FWK-IH-8xU" customClass="Mesh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yI-7D-DKR">
-                                <rect key="frame" x="107.5" y="217" width="160" height="17"/>
+                                <rect key="frame" x="107.66666666666669" y="260.66666666666669" width="160" height="17"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait for operation to complete, do not press the home button or switch apps" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caG-OM-kxb">
-                                <rect key="frame" x="20" y="501" width="335" height="30"/>
+                                <rect key="frame" x="20" y="588" width="335" height="30"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -361,36 +361,36 @@
             <objects>
                 <viewController id="Xfq-Ab-khI" customClass="MeshSetupSelectNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pev-lz-g8a">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rey-rr-kgw">
-                                <rect key="frame" x="0.0" y="57" width="375" height="494"/>
+                                <rect key="frame" x="0.0" y="57" width="375" height="581"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="networkCell" textLabel="AdA-cL-U9X" detailTextLabel="OOx-xb-ZNX" imageView="B9C-u6-MhS" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="oIp-KG-bSw">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oIp-KG-bSw" id="3sP-gV-IwB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Nucleus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AdA-cL-U9X">
-                                                    <rect key="frame" x="94" y="11" width="62" height="20"/>
+                                                    <rect key="frame" x="94" y="12" width="62" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="4 devices on network" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OOx-xb-ZNX">
-                                                    <rect key="frame" x="94" y="34" width="124" height="15.5"/>
+                                                    <rect key="frame" x="94" y="35" width="124" height="15.333333333333334"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="imgMeshBlue" id="B9C-u6-MhS">
-                                                    <rect key="frame" x="15" y="0.0" width="64" height="63.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="64" height="63.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -438,39 +438,39 @@
             <objects>
                 <viewController id="AJB-CI-ERq" customClass="MeshSetupAddToNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PBt-7m-Ldr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commission your {{device}} to {{network}} mesh nework" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zid-he-83s">
-                                <rect key="frame" x="20" y="20" width="335" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commission your {{device}} to {{network}} mesh nework [split to two screens]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zid-he-83s">
+                                <rect key="frame" x="20" y="19.999999999999996" width="335" height="39.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find any device that is already on the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6q2-He-rAy">
-                                <rect key="frame" x="20" y="80" width="335" height="32"/>
+                                <rect key="frame" x="20" y="79.666666666666657" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press MODE button for 3 seconds to put the on-mesh device in listening mode (LED will blink blue)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faf-kd-hUD">
-                                <rect key="frame" x="20" y="132" width="335" height="48"/>
+                                <rect key="frame" x="20" y="131.66666666666669" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the top of the on-mesh device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pz-zQ-aJc">
-                                <rect key="frame" x="20" y="200" width="335" height="48"/>
+                                <rect key="frame" x="20" y="199.66666666666669" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vPk-gW-13X">
-                                <rect key="frame" x="20" y="268" width="335" height="203"/>
+                                <rect key="frame" x="20" y="267.66666666666674" width="335" height="290.33333333333326"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2S-Oi-Wsw">
-                                <rect key="frame" x="20" y="491" width="335" height="40"/>
+                                <rect key="frame" x="20" y="578" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="yXE-RV-dNV"/>
@@ -523,7 +523,7 @@
             <objects>
                 <viewController id="r46-ON-ILg" customClass="MeshSetupNetworkPasswordViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9VX-6b-J7J">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter network password for {{network}}" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sot-9K-H0R">
@@ -533,7 +533,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ch-PP-TxI">
-                                <rect key="frame" x="20" y="491" width="335" height="40"/>
+                                <rect key="frame" x="20" y="578" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="XbY-02-wDm"/>
@@ -544,6 +544,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="joinNetworkButtonTapped:" destination="r46-ON-ILg" eventType="touchUpInside" id="ZBK-Uu-smH"/>
                                     <segue destination="B7D-UR-7KP" kind="show" identifier="joiningNetwork" id="mCh-42-UOI"/>
                                 </connections>
                             </button>
@@ -554,11 +555,11 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aU6-zF-BDg">
                                 <rect key="frame" x="20" y="114" width="335" height="64"/>
-                                <string key="text">This is the password that was set when the mesh network was first created. Thius password is required to authenticate new devices getting added to this network.</string>
+                                <string key="text">This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.</string>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -582,6 +583,9 @@
                         <viewLayoutGuide key="safeArea" id="pe2-hE-hn9"/>
                     </view>
                     <navigationItem key="navigationItem" title="Network Password" id="Akq-w1-jIj"/>
+                    <connections>
+                        <outlet property="networkPasswordTextField" destination="fDt-1S-MaZ" id="qOQ-r7-135"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjC-rG-nO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -592,35 +596,35 @@
             <objects>
                 <viewController id="B7D-UR-7KP" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ic1-Lf-NBJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{device}} is attempting to join {{network}} network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MB-vp-JO8">
-                                <rect key="frame" x="20" y="20" width="335" height="40"/>
+                                <rect key="frame" x="20" y="19.999999999999996" width="335" height="39.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVz-fo-fWL">
-                                <rect key="frame" x="20" y="130" width="335" height="32"/>
+                                <rect key="frame" x="20" y="129.66666666666669" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFC-d9-8w1">
-                                <rect key="frame" x="20" y="202" width="335" height="16"/>
+                                <rect key="frame" x="20" y="201.66666666666669" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.50428082190000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiY-Sf-LDw">
-                                <rect key="frame" x="20" y="258" width="335" height="32"/>
+                                <rect key="frame" x="20" y="257.66666666666669" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-mark" translatesAutoresizingMaskIntoConstraints="NO" id="ZVr-IZ-sf1">
-                                <rect key="frame" x="172.5" y="80" width="30" height="30"/>
+                                <rect key="frame" x="172.66666666666666" y="79.666666666666657" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="ue7-9s-rdM"/>
                                     <constraint firstAttribute="height" constant="30" id="yyl-FF-t1l"/>
@@ -660,7 +664,7 @@
             <objects>
                 <viewController id="4YT-W2-uZE" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A4f-Db-Rdh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Almost done! Name your {{device}}" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOg-zm-RMQ">
@@ -670,7 +674,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dk7-1p-Yl7">
-                                <rect key="frame" x="20" y="491" width="335" height="40"/>
+                                <rect key="frame" x="20" y="578" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="7pM-Kf-MDo"/>
@@ -728,23 +732,23 @@
             <objects>
                 <viewController id="7IC-KM-4ql" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U9W-ZZ-41v">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats! Your {{device}} {{deviceName}} is set up and was successfully added to {{network}} network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9TT-6y-uQD">
-                                <rect key="frame" x="20" y="20" width="335" height="59.5"/>
+                                <rect key="frame" x="20" y="19.999999999999996" width="335" height="59.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add more devices to {{network}}?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjs-pF-lik">
-                                <rect key="frame" x="20" y="119.5" width="335" height="16"/>
+                                <rect key="frame" x="20" y="119.66666666666669" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWK-pU-1tq">
-                                <rect key="frame" x="20" y="151.5" width="335" height="40"/>
+                                <rect key="frame" x="20" y="151.66666666666669" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="C9k-bq-0s3"/>
@@ -756,20 +760,20 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4h-WP-yLu" userLabel="Seperator">
-                                <rect key="frame" x="20" y="211.5" width="335" height="2"/>
+                                <rect key="frame" x="20" y="211.66666666666669" width="335" height="2"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="Jf8-Kz-UGc"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to start building?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DI0-WK-v4V">
-                                <rect key="frame" x="20" y="233.5" width="335" height="16"/>
+                                <rect key="frame" x="20" y="233.66666666666669" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucE-4X-rnL">
-                                <rect key="frame" x="20" y="269.5" width="335" height="40"/>
+                                <rect key="frame" x="20" y="269.66666666666669" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="J3p-Sc-Pj2"/>
@@ -816,7 +820,7 @@
                 <navigationController storyboardIdentifier="MeshSetupStart" automaticallyAdjustsScrollViewInsets="NO" id="hoP-Bc-JDg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="OtA-wZ-UTe">
-                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -840,7 +844,7 @@
     <resources>
         <image name="datamatrix-sticker_nl" width="205" height="147"/>
         <image name="imgCamera" width="21" height="21"/>
-        <image name="imgCloseIcon" width="256" height="256"/>
+        <image name="imgCloseIcon" width="170" height="170"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
         <image name="imgMeshBlue" width="128" height="128"/>
         <image name="particle-mark" width="200" height="200"/>

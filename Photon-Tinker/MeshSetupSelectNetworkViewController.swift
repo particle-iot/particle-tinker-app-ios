@@ -55,7 +55,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedNetwork = networks![indexPath.row]
-        self.flowManager!.selectedNetwork = self.selectedNetwork
+        self.flowManager!.networkName = self.selectedNetwork
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "addToNetwork", sender: self)
         }

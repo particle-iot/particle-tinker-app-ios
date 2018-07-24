@@ -8,6 +8,8 @@
 import UIKit
 
 class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
+
+    
     
     var flowManager : MeshSetupFlowManager?
     var deviceType : ParticleDeviceType?
@@ -19,7 +21,7 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
         if let d = self.deviceType { // before FlowManager instasiated
             replaceMeshSetupStringTemplates(view: self.view, deviceType: d, networkName: nil, deviceName: nil)
         } else if let fm = self.flowManager { // after
-            replaceMeshSetupStringTemplates(view: self.view, deviceType: fm.joinerDeviceType, networkName: fm.selectedNetwork, deviceName: fm.deviceName)
+            replaceMeshSetupStringTemplates(view: self.view, deviceType: fm.joinerDeviceType, networkName: fm.networkName, deviceName: fm.deviceName)
         }
         
         // Do any additional setup after loading the view.
@@ -69,6 +71,25 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
         // override in subclass if needed
     }
     
+    func authSuccess() {
+        // override in subclass if needed
+    }
+    
+    func joinerPrepared() {
+        // override in subclass if needed
+    }
+    
+    func joinedNetwork() {
+        // override in subclass if needed
+    }
+    
+    func deviceOnlineClaimed() {
+        // override in subclass if needed
+    }
+    
+    func deviceNamed() {
+        // override in subclass if needed
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
