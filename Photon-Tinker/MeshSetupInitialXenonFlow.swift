@@ -128,8 +128,13 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
     
     override func didReceiveAuthReply() {
+        self.flowManager!.delegate?.authSuccess()
+    }
+    
+    override func commissionDeviceToNetwork() {
         self.talkingTo = .Commissioner
         self.flowManager!.commissionerProtocol?.sendStartCommissioner()
+
     }
     
     override func didReceiveStartCommissionerReply() {
@@ -161,6 +166,11 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     override func didReceiveJoinNetworkReply() {
         self.flowManager!.delegate?.joinedNetwork()
         // TODO: do it in non iOS 10 supported only way
+        self.flowManager!.commissionerProtocol!.sendStopCommissioner()
+        
+    }
+    
+    override func didReceiveStopCommissionerReply() {
         // poll cloud for device
         if #available(iOS 10.0, *) {
             self.claimTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer : Timer ) in
@@ -180,7 +190,6 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
             // Fallback on earlier versions
             print("need iOS 10+ for polling device claiming")
         }
-        
     }
     
     override func userDidSetDeviceName(deviceName : String) {
@@ -248,6 +257,13 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                         self.flowManager?.joinerProtocol?.sendScanNetworks()
                     default :
                             unexpectedFlowError()
+                }
+                case .NOT_ALLOWED :
+                if (lastReq == .Auth) {
+                    self.flowManager!.delegate?.flowError(error: "Invalid network password", severity: .Error, action: .Dialog)
+                }
+                if (lastReq == .StartCommissioner) {
+                    self.flowManager!.delegate?.flowError(error: "Did not authenticate with network password", severity: .Error, action: .Dialog)
                 }
                 default :
                     unexpectedFlowError()

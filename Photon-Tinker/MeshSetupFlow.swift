@@ -29,6 +29,12 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
             self.userDidSetNetworkPassword(networkPassword : networkPassword!)
         }
     }
+    var deviceName : String? {
+        didSet {
+            self.userDidSetDeviceName(deviceName: deviceName!)
+        }
+    }
+    
     
     required init(flowManager : MeshSetupFlowManager) {
         self.flowManager = flowManager
@@ -133,10 +139,13 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     
     func userDidSetNetworkPassword(networkPassword : String) {
         
-        
     }
     
     func userDidSetDeviceName(deviceName : String) {
+        
+    }
+    
+    func commissionDeviceToNetwork() {
         
     }
     

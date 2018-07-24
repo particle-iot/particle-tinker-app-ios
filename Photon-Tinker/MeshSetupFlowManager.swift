@@ -40,12 +40,15 @@ enum MeshSetupFlowErrorType {
     case BluetoothNotReady
     case BluetoothDisabled
     case DeviceNotSupported
-    case FlowNotSupported // (device already claimed)
+    case FlowNotSupported // (device already claimed or any other thing)
     case MessageTimeout
     case ParticleCloudClaimCodeFailed
     case ParticleCloudDeviceListFailed
     case JoinerAlreadyOnMeshNetwork
-    case CouldNotClaimDevice
+    case CouldNotClaimDevice // basically == device cloud connection timeout
+    case CouldNotNameDevice
+    case InvalidNetworkPassword
+    case NotAuthenticated // tried StartCommissionerRequest but commissioner password was not provided
     case UnknownFlowError
     
     
@@ -264,6 +267,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     
     func didReceiveClaimCodeReply() {
         self.currentFlow!.didReceiveClaimCodeReply()
+    }
+    
+    func commissionDeviceToNetwork() {
+        self.currentFlow!.commissionDeviceToNetwork()
     }
     
     func didReceiveAuthReply() {

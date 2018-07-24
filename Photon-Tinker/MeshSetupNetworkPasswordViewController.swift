@@ -33,7 +33,11 @@ class MeshSetupNetworkPasswordViewController: MeshSetupViewController, UITextFie
         }
     }
     
+    override func authSuccess() {
+        self.performSegue(withIdentifier: "joinNetwork", sender: self)
+    }
     
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let vc = segue.destination as? MeshSetupAddToNetworkViewController else {
