@@ -270,6 +270,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
     
     func commissionDeviceToNetwork() {
+        print("commissionDeviceToNetwork manager")
         self.currentFlow!.commissionDeviceToNetwork()
     }
     

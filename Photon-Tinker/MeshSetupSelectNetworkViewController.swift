@@ -65,13 +65,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableView
         return 64.0
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let vc = segue.destination as? MeshSetupAddToNetworkViewController else {
-            return
-        }
-        
-        vc.flowManager = self.flowManager
-    }
+   
 
     
 }

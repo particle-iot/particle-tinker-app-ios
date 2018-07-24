@@ -28,6 +28,8 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if let fm = self.flowManager {
             fm.delegate = self
         }
@@ -102,6 +104,21 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        print("motherclass - prepare, setting flowmanager")
+        guard let vc = segue.destination as? MeshSetupViewController else {
+            print("guard failed")
+            return
+        }
+        
+        if let fm = self.flowManager {
+            vc.flowManager = fm
+        }
+    }
+    
 
  
 

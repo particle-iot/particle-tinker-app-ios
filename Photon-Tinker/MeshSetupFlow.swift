@@ -146,6 +146,7 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     }
     
     func commissionDeviceToNetwork() {
+        print("commissionDeviceToNetwork")
         
     }
     
