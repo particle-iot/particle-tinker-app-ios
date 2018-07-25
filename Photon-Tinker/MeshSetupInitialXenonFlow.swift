@@ -11,24 +11,32 @@ import UIKit
 class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     var deviceID : String?
-    private var talkingTo : MeshSetupDeviceRole = .Joiner
+    //    private var talkingTo : MeshSetupDeviceRole = .Joiner // TODO: detect by sender!
     private var networkInfo : MeshSetupNetworkInfo?
     private var claimTimer : Timer?
     private var claimTryCounter : Int = 0
-    
+   
     override func start() {
         print("Starting MeshSetupInitialXenonFlow...")
-        print("sendGetDeviceId")
-        self.talkingTo = .Joiner
-        self.flowManager!.joinerProtocol?.sendGetDeviceId()
+        print("sendIsClaimed")
+        
+        self.flowManager!.joinerProtocol?.sendIsClaimed()
+    }
+    
+    override func didReceiveIsClaimedReply(sender: MeshSetupProtocolTransceiver, isClaimed: Bool) {
+        // if device claimed then error - other flow needed
+        if (isClaimed) {
+            self.flowManager!.delegate?.flowError(error: "Device already claimed to user, flow not supported in this app version", severity: .Fatal, action: .Fail)
+        } else {
+            self.flowManager!.joinerProtocol?.sendGetDeviceId()
+        }
     }
    
     override func startCommissioner() {
-        self.talkingTo = .Commissioner
         self.flowManager!.commissionerProtocol!.sendGetNetworkInfo()
     }
     
-    override func didReceiveDeviceIdReply(deviceId: String) {
+    override func didReceiveDeviceIdReply(sender: MeshSetupProtocolTransceiver, deviceId: String) {
         print("GetDeviceId reply - device ID: \(deviceId)");
         self.deviceID = deviceId
         var deviceIsNew = true
@@ -39,7 +47,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                         if device.id == deviceId {
                             // device already claimed to user --
                             // seld.delegate.initialSetupAlreadyClaimed()
-                             self.delegate?.flowError(error: "Device already claimed to user, flow not supported in this app version", severity: .Error, action: .Pop)
+                             self.flowManager!.delegate?.flowError(error: "Device already claimed to user, flow not supported in this app version", severity: .Error, action: .Pop)
                             deviceIsNew = false
                         }
                     }
@@ -62,13 +70,15 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         }
     }
     
-    override func didReceiveSetClaimCodeReply() {
+    override func didReceiveSetClaimCodeReply(sender: MeshSetupProtocolTransceiver) {
         print("didReceiveSetClaimCodeReply")
         self.flowManager?.joinerProtocol?.sendGetNetworkInfo()
     }
     
-    override func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
-        if self.talkingTo == .Joiner {
+    
+    
+    override func didReceiveGetNetworkInfoReply(sender: MeshSetupProtocolTransceiver, networkInfo: MeshSetupNetworkInfo?) {
+        if sender.role == .Joiner {
             print("didReceiveGetNetworkInfoReply")
             if networkInfo == nil { // TODO: this option doesn't happen - reply will be NOT_FOUND response code
                 print("No network")
@@ -95,7 +105,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         }
     }
     
-    override func didReceiveScanNetworksReply(networks: [MeshSetupNetworkInfo]) {
+    override func didReceiveScanNetworksReply(sender: MeshSetupProtocolTransceiver, networks: [MeshSetupNetworkInfo]) {
         print("didReceiveScanNetworksReply - networks:")
         if networks.count > 0 {
             var networkNames = [String]()
@@ -115,7 +125,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
     
     
-    override func didReceiveLeaveNetworkReply() {
+    override func didReceiveLeaveNetworkReply(sender: MeshSetupProtocolTransceiver) {
         print("didReceiveLeaveNetworkReply")
         self.flowManager?.joinerProtocol?.sendScanNetworks()
     }
@@ -124,44 +134,33 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     override func userDidSetNetworkPassword(networkPassword : String) {
         print("network password set to: \(networkPassword)")
-        self.talkingTo = .Commissioner
         self.flowManager!.commissionerProtocol?.sendAuth(password: networkPassword)
     }
     
-    override func didReceiveAuthReply() {
+    override func didReceiveAuthReply(sender: MeshSetupProtocolTransceiver) {
         print("network password correct")
         self.flowManager!.delegate?.authSuccess()
     }
     
-    override func commissionDeviceToNetwork() {
-        print("user ready to start commissionDeviceToNetwork")
-        self.talkingTo = .Commissioner
-        self.flowManager!.commissionerProtocol?.sendStartCommissioner()
-
-    }
     
-    override func didReceiveStartCommissionerReply() {
-        print("didReceiveStartCommissionerReply from \(self.talkingTo)")
-        self.talkingTo = .Joiner
+    override func didReceiveStartCommissionerReply(sender: MeshSetupProtocolTransceiver) {
+        print("didReceiveStartCommissionerReply from \(sender.role)")
         self.flowManager!.joinerProtocol?.sendPrepareJoiner(networkInfo: self.networkInfo!)
         
     }
     
-    override func didReceivePrepareJoinerReply(eui64: String, password: String) {
-        print("didReceivePrepareJoinerReply from \(self.talkingTo)")
+    override func didReceivePrepareJoinerReply(sender: MeshSetupProtocolTransceiver, eui64: String, password: String) {
+        print("didReceivePrepareJoinerReply from \(sender.role)")
         print("eui64: \(eui64), joinerCredential: \(password)")
 //        self.eui64 = eui64
 //        self.joiningDeviceCredential = password
-        self.talkingTo = .Commissioner
-        
         self.flowManager!.commissionerProtocol?.sendAddJoiner(eui64: eui64, password: password)
         
         
     }
     
-    override func didReceiveAddJoinerReply() {
-        print("didReceiveAddJoinerReply from \(self.talkingTo)")
-        self.talkingTo = .Joiner
+    override func didReceiveAddJoinerReply(sender: MeshSetupProtocolTransceiver) {
+        print("didReceiveAddJoinerReply from \(sender.role)")
         self.flowManager!.delegate?.joinerPrepared()
         self.flowManager!.joinerProtocol!.sendJoinNetwork()
     }
@@ -170,15 +169,14 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     
     
-    override func didReceiveJoinNetworkReply() {
-        print("didReceiveJoinNetworkReply from \(self.talkingTo) -- joined mesh network!")
+    override func didReceiveJoinNetworkReply(sender: MeshSetupProtocolTransceiver) {
+        print("didReceiveJoinNetworkReply from \(sender.role) -- joined mesh network!")
         self.flowManager!.delegate?.joinedNetwork()
-        // TODO: do it in non iOS 10 supported only way
         self.flowManager!.commissionerProtocol!.sendStopCommissioner()
         
     }
     
-    override func didReceiveStopCommissionerReply() {
+    override func didReceiveStopCommissionerReply(sender: MeshSetupProtocolTransceiver) {
         print("didReceiveStopCommissionerReply")
         // poll cloud for device
         if #available(iOS 10.0, *) {
@@ -223,6 +221,13 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
     
     
+    override func commissionDeviceToNetwork() {
+        print("user ready to start commissionDeviceToNetwork")
+        self.flowManager!.commissionerProtocol?.sendStartCommissioner()
+    }
+
+    
+    
     func pollDeviceClaimedByUser() -> Bool {
         var r = false
         ParticleCloud.sharedInstance().getDevices { (userDevices : [ParticleDevice]?, error: Error?) in
@@ -248,23 +253,18 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     
     // TODO: consider using callbacks instead of delegation for FlowManager...
-    override func didReceiveErrorReply(error: ControlRequestErrorType) {
+    override func didReceiveErrorReply(sender: MeshSetupProtocolTransceiver, error: ControlRequestErrorType) {
         func unexpectedFlowError() {
-             self.flowManager?.delegate?.flowError(error: "Unexpected flow error", severity: .Fatal, action: .Fail)
+             self.flowManager!.delegate?.flowError(error: "Unexpected flow error", severity: .Fatal, action: .Fail)
         }
-        var  lastRequestMessageSent : ControlRequestMessageType?
+        var lastRequestMessageSent : ControlRequestMessageType?
         
-//        if (sender == joiner)
-        if (self.talkingTo == .Joiner) {
-            lastRequestMessageSent = self.flowManager!.joinerProtocol?.getLastRequestMessageSent()
-        } else {
-            lastRequestMessageSent = self.flowManager!.commissionerProtocol?.getLastRequestMessageSent()
-        }
+        lastRequestMessageSent = sender.getLastRequestMessageSent()
         
         if let lastReq = lastRequestMessageSent {
         
             switch error {
-                case .NOT_FOUND :
+            case .NOT_FOUND :
                 switch lastReq {
                     case .GetNetworkInfo :
                         print("OK - device is not part of a network")
@@ -275,7 +275,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                     default :
                             unexpectedFlowError()
                 }
-                case .NOT_ALLOWED :
+            case .NOT_ALLOWED :
                 if (lastReq == .Auth) {
                     print("network password incorrect")
                     self.flowManager!.delegate?.flowError(error: "Invalid network password", severity: .Error, action: .Dialog)
@@ -283,17 +283,14 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                 if (lastReq == .StartCommissioner) {
                     self.flowManager!.delegate?.flowError(error: "Did not authenticate with network password", severity: .Error, action: .Dialog)
                 }
-                default :
+            default :
                     unexpectedFlowError()
                 
             }
         } else {
-               unexpectedFlowError()
+            unexpectedFlowError()
         }
             
     }
-    
-    
-    
-    
+  
 }

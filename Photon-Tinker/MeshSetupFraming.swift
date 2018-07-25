@@ -150,7 +150,7 @@ public struct ReplyMessage {
         if let resultEnum = ControlRequestErrorType(rawValue: result) {
             rm.result = resultEnum
         } else {
-            print("Error deserializing ReplyMessage result ControlRequestErrorType")
+            print("Error deserializing ReplyMessage \(result) into ControlRequestErrorType")
             rm.result = .INVALID_UNKNOWN
         }
         

@@ -33,7 +33,6 @@ protocol MeshSetupBluetoothConnectionManagerDelegate {
     func bluetoothConnectionManagerReady()
     func bluetoothConnectionManagerError(error : String, severity : MeshSetupErrorSeverity)
     
-
     // Connections
     func bluetoothConnectionReady(connection : MeshSetupBluetoothConnection)
     func bluetoothConnectionCreated(connection : MeshSetupBluetoothConnection)

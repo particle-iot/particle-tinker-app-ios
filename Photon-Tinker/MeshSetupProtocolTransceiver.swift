@@ -14,33 +14,35 @@ typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
 
 // TODO: refactor to include sender to be able to determine delegate call from joiner or commssioner
 protocol MeshSetupProtocolTransceiverDelegate {
-    func didReceiveDeviceIdReply(deviceId : String)
-    func didReceiveClaimCodeReply()
-    func didReceiveAuthReply()
-    func didReceiveIsClaimedReply(isClaimed : Bool)
-    func didReceiveCreateNetworkReply(networkInfo : MeshSetupNetworkInfo)
-    func didReceiveStartCommissionerReply()
-    func didReceiveStopCommissionerReply()
-    func didReceivePrepareJoinerReply(eui64 : String, password : String)
-    func didReceiveAddJoinerReply()
-    func didReceiveRemoveJoinerReply()
-    func didReceiveJoinNetworkReply()
-    func didReceiveSetClaimCodeReply()
-    func didReceiveLeaveNetworkReply()
-    func didReceiveGetNetworkInfoReply(networkInfo : MeshSetupNetworkInfo?)
-    func didReceiveScanNetworksReply(networks : [MeshSetupNetworkInfo])
-    func didReceiveGetSerialNumberReply(serialNumber : String)
-    func didReceiveGetConnectionStatusReply(connectionStatus : CloudConnectionStatus)
-    func didReceiveTestReply()
+    func didReceiveDeviceIdReply(sender: MeshSetupProtocolTransceiver, deviceId : String)
+    func didReceiveClaimCodeReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveAuthReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveIsClaimedReply(sender : MeshSetupProtocolTransceiver, isClaimed : Bool)
+    func didReceiveCreateNetworkReply(sender : MeshSetupProtocolTransceiver, networkInfo : MeshSetupNetworkInfo)
+    func didReceiveStartCommissionerReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveStopCommissionerReply(sender : MeshSetupProtocolTransceiver)
+    func didReceivePrepareJoinerReply(sender : MeshSetupProtocolTransceiver, eui64 : String, password : String)
+    func didReceiveAddJoinerReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveRemoveJoinerReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveJoinNetworkReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveSetClaimCodeReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveLeaveNetworkReply(sender : MeshSetupProtocolTransceiver)
+    func didReceiveGetNetworkInfoReply(sender : MeshSetupProtocolTransceiver, networkInfo : MeshSetupNetworkInfo?)
+    func didReceiveScanNetworksReply(sender : MeshSetupProtocolTransceiver, networks : [MeshSetupNetworkInfo])
+    func didReceiveGetSerialNumberReply(sender : MeshSetupProtocolTransceiver, serialNumber : String)
+    func didReceiveGetConnectionStatusReply(sender : MeshSetupProtocolTransceiver, connectionStatus : CloudConnectionStatus)
+    func didReceiveTestReply(sender : MeshSetupProtocolTransceiver)
     
-    func didReceiveErrorReply(error: ControlRequestErrorType)
-    func didTimeout(lastCommand : ControlRequestMessageType?)
+    func didReceiveErrorReply(sender : MeshSetupProtocolTransceiver, error: ControlRequestErrorType)
+    func didTimeout(sender : MeshSetupProtocolTransceiver, lastCommand : ControlRequestMessageType?)
 //    func bluetoothConnectionError(
     
 }
 
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
+    
+    var role : MeshSetupDeviceRole = .Joiner
     
     //MARK: - View Properties
     private var bluetoothConnection    : MeshSetupBluetoothConnection?
@@ -56,9 +58,10 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private var requestTimer        : Timer?
     var timeoutValue                : TimeInterval = 15.0 // seconds
     
-    required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection) {
+    required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection, role : MeshSetupDeviceRole) {
         super.init()
         self.delegate = delegate
+        self.role = role
         self.bluetoothConnection = connection
         self.bluetoothConnection?.delegate = self // take over didReceiveData delegate
     }
@@ -112,7 +115,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     
     @objc func requestTimeout() {
         print("Request Timeout")
-        self.delegate?.didTimeout(lastCommand : self.getLastRequestMessageSent())
+        self.delegate?.didTimeout(sender : self, lastCommand : self.getLastRequestMessageSent())
         self.requestTimer = nil
     }
     
@@ -293,7 +296,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                         return
                     }
                     let deviceId = (decodedReply as! Particle_Ctrl_GetDeviceIdReply).id
-                    self.delegate?.didReceiveDeviceIdReply(deviceId: deviceId)
+                    self.delegate?.didReceiveDeviceIdReply(sender : self, deviceId: deviceId)
                     
                 case .GetNetworkInfo:
                     fallthrough
@@ -315,13 +318,13 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                     print(msg)
 
                     if replyRequestType! == .CreateNetwork {
-                        self.delegate?.didReceiveCreateNetworkReply(networkInfo: networkInfo)
+                        self.delegate?.didReceiveCreateNetworkReply(sender : self, networkInfo: networkInfo)
                     } else {
                         // TODO: check if this is how an empty reply behaves? IT DOESNT - IT REPORTS -270 NOT_FOUND
                         if networkInfo.name.isEmpty {
-                            self.delegate!.didReceiveGetNetworkInfoReply(networkInfo: nil)
+                            self.delegate!.didReceiveGetNetworkInfoReply(sender : self, networkInfo: nil)
                         } else {
-                            self.delegate!.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
+                            self.delegate!.didReceiveGetNetworkInfoReply(sender : self, networkInfo: networkInfo)
                         }
                     }
                     
@@ -335,7 +338,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                         return
                     }
                     let prepareJoinerReply = (decodedReply as! Particle_Ctrl_Mesh_PrepareJoinerReply)
-                    self.delegate?.didReceivePrepareJoinerReply(eui64: prepareJoinerReply.eui64, password: prepareJoinerReply.password)
+                    self.delegate?.didReceivePrepareJoinerReply(sender : self, eui64: prepareJoinerReply.eui64, password: prepareJoinerReply.password)
                     
                     
                 case .ScanNetworks:
@@ -348,7 +351,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                     print("ScanNetworksReply")
                     print("\(String(describing: decodedReply))") // TODO: process repeated ???
                     
-                    self.delegate?.didReceiveScanNetworksReply(networks: (decodedReply as! Particle_Ctrl_Mesh_ScanNetworksReply).networks)
+                    self.delegate?.didReceiveScanNetworksReply(sender : self, networks: (decodedReply as! Particle_Ctrl_Mesh_ScanNetworksReply).networks)
                     
 
                 case .GetConnectionStatus:
@@ -359,7 +362,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                         print("Could not deserialize reply GetConnectionStatusReply")
                         return
                     }
-                    self.delegate?.didReceiveGetConnectionStatusReply(connectionStatus: (decodedReply as! Particle_Ctrl_Cloud_GetConnectionStatusReply).status)
+                    self.delegate?.didReceiveGetConnectionStatusReply(sender : self, connectionStatus: (decodedReply as! Particle_Ctrl_Cloud_GetConnectionStatusReply).status)
 
                 case .GetSerialNumber:
                     do {
@@ -369,7 +372,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                         return
                     }
                     let sn = (decodedReply as! Particle_Ctrl_GetSerialNumberReply).serial
-                    self.delegate?.didReceiveGetSerialNumberReply(serialNumber: sn)
+                    self.delegate?.didReceiveGetSerialNumberReply(sender : self, serialNumber: sn)
 
                 case .IsClaimed:
                     print("IsClaimed reply");
@@ -380,28 +383,28 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                         return
                     }
                     let isClaimed = (decodedReply as! Particle_Ctrl_IsClaimedReply).claimed
-                    self.delegate?.didReceiveIsClaimedReply(isClaimed: isClaimed)
+                    self.delegate?.didReceiveIsClaimedReply(sender : self, isClaimed: isClaimed)
 
                 case .AddJoiner:
-                    self.delegate?.didReceiveAddJoinerReply()
+                    self.delegate?.didReceiveAddJoinerReply(sender : self)
                     
                 case .Auth:
-                    self.delegate?.didReceiveAuthReply()
+                    self.delegate?.didReceiveAuthReply(sender : self)
 
                 case .JoinNetwork:
-                    self.delegate?.didReceiveJoinNetworkReply()
+                    self.delegate?.didReceiveJoinNetworkReply(sender : self)
 
                 case .LeaveNetwork:
-                    self.delegate?.didReceiveLeaveNetworkReply()
+                    self.delegate?.didReceiveLeaveNetworkReply(sender : self)
                     
                 case .StartCommissioner:
-                    self.delegate?.didReceiveStartCommissionerReply()
+                    self.delegate?.didReceiveStartCommissionerReply(sender : self)
                     
                 case .StopCommissioner:
-                    self.delegate?.didReceiveStopCommissionerReply()
+                    self.delegate?.didReceiveStopCommissionerReply(sender : self)
 
                 case .SetClaimCode:
-                    self.delegate?.didReceiveSetClaimCodeReply()
+                    self.delegate?.didReceiveSetClaimCodeReply(sender : self)
                     
                 case .GetSecurityKey:
                     fallthrough // ???
@@ -410,18 +413,18 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                     print("what are those for?!")
                     
                 case .RemoveJoiner:
-                    self.delegate?.didReceiveRemoveJoinerReply()
+                    self.delegate?.didReceiveRemoveJoinerReply(sender : self)
                     
                 case .Test:
                     // TODO: remove for production
-                    self.delegate?.didReceiveTestReply()
+                    self.delegate?.didReceiveTestReply(sender : self)
                 }
                 
                 
             } else {
                 // TODO: decode reply error type into english via raw values 
                 print("Reply Error: \(rm.result)")
-                self.delegate?.didReceiveErrorReply(error: rm.result)
+                self.delegate?.didReceiveErrorReply(sender : self, error: rm.result)
                 
             }
         }

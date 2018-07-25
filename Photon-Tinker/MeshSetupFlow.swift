@@ -13,6 +13,7 @@ protocol MeshSetupUserInteractionProtocol {
 }
 
 class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
+
    
 //    var bluetoothManager : MeshSetupBluetoothManager?
     var flowManager : MeshSetupFlowManager?
@@ -52,88 +53,85 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     
     
     // MARK: MeshSetupProtocolTransceiverDelegate functions - must be overriden in subclass
-    func didReceiveDeviceIdReply(deviceId: String) {
+    func didReceiveDeviceIdReply(sender : MeshSetupProtocolTransceiver, deviceId: String) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveAuthReply() {
+    func didReceiveAuthReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveClaimCodeReply() {
+    func didReceiveClaimCodeReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveSetClaimCodeReply() {
+    func didReceiveSetClaimCodeReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveIsClaimedReply(isClaimed: Bool) {
+    func didReceiveIsClaimedReply(sender : MeshSetupProtocolTransceiver, isClaimed: Bool) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveCreateNetworkReply(networkInfo: MeshSetupNetworkInfo) {
+    func didReceiveCreateNetworkReply(sender : MeshSetupProtocolTransceiver, networkInfo: MeshSetupNetworkInfo) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveStartCommissionerReply() {
+    func didReceiveStartCommissionerReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveStopCommissionerReply() {
+    func didReceiveStopCommissionerReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceivePrepareJoinerReply(eui64: String, password: String) {
+    func didReceivePrepareJoinerReply(sender : MeshSetupProtocolTransceiver, eui64: String, password: String) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveAddJoinerReply() {
+    func didReceiveAddJoinerReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveRemoveJoinerReply() {
+    func didReceiveRemoveJoinerReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveJoinNetworkReply() {
+    func didReceiveJoinNetworkReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
     
-    func didReceiveLeaveNetworkReply() {
+    func didReceiveLeaveNetworkReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
+    func didReceiveGetNetworkInfoReply(sender : MeshSetupProtocolTransceiver, networkInfo: MeshSetupNetworkInfo?) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveScanNetworksReply(networks: [MeshSetupNetworkInfo]) {
+    func didReceiveScanNetworksReply(sender : MeshSetupProtocolTransceiver, networks: [MeshSetupNetworkInfo]) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveGetSerialNumberReply(serialNumber: String) {
+    func didReceiveGetSerialNumberReply(sender : MeshSetupProtocolTransceiver, serialNumber: String) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveGetConnectionStatusReply(connectionStatus: CloudConnectionStatus) {
+    func didReceiveGetConnectionStatusReply(sender : MeshSetupProtocolTransceiver, connectionStatus: CloudConnectionStatus) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveTestReply() {
+    func didReceiveTestReply(sender : MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
     
-    func didReceiveErrorReply(error: ControlRequestErrorType) {
+    func didReceiveErrorReply(sender : MeshSetupProtocolTransceiver, error: ControlRequestErrorType) {
         // TODO: Set to a generic error handling once Sergey removes error -270 NOT FOUND reply for GetNetworkInfo as valid response
         
-        fatalError("Must Override in subclass")
-        
+        self.delegate?.flowError(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
 //        fatalError("Must Override in subclass")
-//        print("Control message reply error: \(error.description()) - Flow halted")
         
-//        self.flowManager?.delegate?.flowError(error: error.description(), severity: .Error, action: .Pop)
     }
     
     
@@ -145,14 +143,19 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
         
     }
     
+    func didReceiveErrorReply(error: ControlRequestErrorType) {
+        
+    }
+    
+
     func commissionDeviceToNetwork() {
         print("commissionDeviceToNetwork")
         
     }
     
-    func didTimeout(lastCommand : ControlRequestMessageType?) {
-        print("Message time out - last command sent: \(lastCommand)")
-        self.flowManager?.delegate?.flowError(error: "Timeout receiving response from device", severity: .Error, action: .Pop)
+    func didTimeout(sender: MeshSetupProtocolTransceiver, lastCommand: ControlRequestMessageType?) {
+        print("Message time out on \(sender.role) - last command sent: \(lastCommand)")
+        self.flowManager?.delegate?.flowError(error: "Timeout receiving response from \(sender.role) device", severity: .Error, action: .Pop)
     }
     
     

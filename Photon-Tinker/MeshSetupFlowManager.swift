@@ -92,7 +92,7 @@ extension MeshSetupFlowManagerDelegate {
 */
 
 
-class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupProtocolTransceiverDelegate {
+class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
     
     var joinerProtocol : MeshSetupProtocolTransceiver?
     var commissionerProtocol : MeshSetupProtocolTransceiver?
@@ -193,18 +193,28 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     func bluetoothConnectionReady(connection: MeshSetupBluetoothConnection) {
         if let joiner = joinerPeripheralName {
             if connection.peripheralName! == joiner {
-                self.joinerProtocol = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
-                print("Joiner BLE connection with \(connection.peripheralName!) ready - sending isClaimed")
                 
-                // TODO: the right thing - pass the decision to current flow
-                self.joinerProtocol?.sendIsClaimed()
-//                self.joinerProtocol!.sendGetDeviceId()
+                print("Joiner BLE connection with \(connection.peripheralName!) ready - setting up flow")
+                
+                
+                switch self.joinerDeviceType! {
+                case .xenon :
+                    self.currentFlow = MeshSetupInitialXenonFlow(flowManager: self)
+                    self.joinerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection, role: .Joiner)
+                    self.flowType = .InitialXenon
+                    self.currentFlow!.start()
+                default:
+                    self.delegate?.flowError(error: "Device not supported yet", severity: .Fatal, action: .Fail)
+                    return
+                }
+                // TODO: the right thing - pass the decision to current flow, stop being protocol delegate
+//                self.joinerProtocol?.sendIsClaimed()
             }
         }
         
         if let comm = commissionerPeripheralName {
             if connection.peripheralName! == comm {
-                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection)
+                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection, role : .Commissioner)
                 print("Commissioner BLE connection with \(connection.peripheralName!) ready")
                 self.currentFlow!.startCommissioner()
             }
@@ -259,116 +269,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 //        self.commissionerProtocol = nil
     }
     
-    // MARK: MeshSetupProtocolTransceiverDelegate
-    func didReceiveDeviceIdReply(deviceId: String) {
-        print("didReceiveDeviceIdReply \(deviceId)")
-//        self.currentFlow!.didReceiveDeviceIdReply(deviceId: deviceId)
-    }
-    
-    func didReceiveClaimCodeReply() {
-        self.currentFlow!.didReceiveClaimCodeReply()
-    }
+  
     
     func commissionDeviceToNetwork() {
         print("commissionDeviceToNetwork manager")
         self.currentFlow!.commissionDeviceToNetwork()
     }
-    
-    func didReceiveAuthReply() {
-        //..
-    }
-    
-    // TODO: put this in sub flow and remove protocol delegation all together from master flow 
-    func didReceiveIsClaimedReply(isClaimed: Bool) {
-        // first action that happens before flow class instance is determined (TBD: commissioner password request in future for already setup devices or getNetworkInfo - to see if device already on mesh or any other future commands)
-        if (isClaimed == false) {
-            switch self.joinerDeviceType! {
-            case .xenon :
-                self.currentFlow = MeshSetupInitialXenonFlow(flowManager: self)
-                self.flowType = .InitialXenon
-            default:
-                self.delegate?.flowError(error: "Device not supported yet", severity: .Fatal, action: .Fail)
-                return
-            }
-        } else {
-            switch self.joinerDeviceType! {
-                default:
-                    self.delegate?.flowError(error: "Device already claimed - flow not supported yet", severity: .Fatal, action: .Fail)
-                    return
-            }
-        }
-        
-        // pass on all future replies to the current Flow
-        self.joinerProtocol?.delegate = self.currentFlow
-        // Start the flow
-        self.currentFlow!.start()
-        
-    }
-    
-    func didReceiveCreateNetworkReply(networkInfo: MeshSetupNetworkInfo) {
-        //..
-    }
-    
-    func didReceiveStartCommissionerReply() {
-        //..
-    }
-    
-    func didReceiveStopCommissionerReply() {
-        //..
-    }
-    
-    func didReceivePrepareJoinerReply(eui64: String, password: String) {
-        //..
-    }
-    
-    func didReceiveAddJoinerReply() {
-        //..
-    }
-    
-    func didReceiveRemoveJoinerReply() {
-        //..
-    }
-    
-    func didReceiveJoinNetworkReply() {
-        //..
-    }
-    
-    func didReceiveSetClaimCodeReply() {
-//        self.currentFlow?.didReceiveSetClaimCodeReply()
-    }
-    
-    func didReceiveLeaveNetworkReply() {
-//        self.currentFlow!.didReceiveLeaveNetworkReply()
-    }
-    
-    func didReceiveGetNetworkInfoReply(networkInfo: MeshSetupNetworkInfo?) {
-//        self.currentFlow!.didReceiveGetNetworkInfoReply(networkInfo: networkInfo)
-    }
-    
-    func didReceiveScanNetworksReply(networks: [MeshSetupNetworkInfo]) {
-//        self.currentFlow!.didReceiveScanNetworksReply(networks: networks)
-    }
-    
-    func didReceiveGetSerialNumberReply(serialNumber: String) {
-        //
-    }
-    
-    func didReceiveGetConnectionStatusReply(connectionStatus: CloudConnectionStatus) {
-        //
-    }
-    
-    func didReceiveTestReply() {
-        //
-        print("Test control message to device OK")
-    }
-    
-    func didReceiveErrorReply(error: ControlRequestErrorType) {
-        self.delegate?.flowError(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
-    }
-    
-    func didTimeout(lastCommand: ControlRequestMessageType?) {
-        self.delegate?.flowError(error: "Timeout receiving response from device - Command: \(lastCommand?.rawValue ?? 0)", severity: .Error, action: .Pop)
-    }
+  
     
     // MARK: MeshSetupBluetoothManaherDelegate
     func bluetoothDisabled() {
@@ -377,27 +284,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 //        self.delegate?.errorBluetoothDisabled()
     }
     
-    func messageToUser(level: RMessageType, message: String) {
-        // TODO: do we need this? maybe refactor
-    }
     
-    
-    /*
-    func didDisconnectPeripheral() {
-        self.flowType = .None
-        self.delegate?.flowError(error: "Device disconnected from phone", severity: .Fatal, action: .Fail)
-    }
-    
-
-    
-    
-    func peripheralNotSupported() {
-        self.flowType = .None
-        self.delegate?.flowError(error: "Device does not seems to be a Particle device", severity: .Fatal, action: .Fail)
-    }
- 
- */
-  
     
 
 }

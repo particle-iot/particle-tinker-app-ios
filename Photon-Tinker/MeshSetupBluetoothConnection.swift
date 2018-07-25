@@ -199,11 +199,6 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
             }
             
             log(level: .infoLogLevel, message: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
-            if let validUTF8String = String(utf8String: utf8Bytes) {//  NSMutableString(bytes: utf8Bytes, length: len, encoding: String.Encoding.utf8.rawValue) {
-                log(level: .appLogLevel, message: "\"\(validUTF8String)\" received")
-            } else {
-                log(level: .appLogLevel, message: "\"0x\(bytesReceived.hexString)\" received")
-            }
         }
         
         self.delegate?.bluetoothConnectionDidReceiveData(sender: self, data: bytesReceived as Data)
