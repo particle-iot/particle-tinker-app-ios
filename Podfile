@@ -7,7 +7,6 @@ target 'Particle' do
     pod 'RMessage'
     pod 'PullToRefreshCoreText', '~> 0.1'
     pod 'ASValueTrackingSlider'
-    pod 'Mixpanel'
     pod 'DateTools'
     pod 'IQKeyboardManager'
     pod 'YCTutorialBox'
