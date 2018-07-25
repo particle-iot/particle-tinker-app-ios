@@ -162,7 +162,13 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     override func didReceiveAddJoinerReply(sender: MeshSetupProtocolTransceiver) {
         print("didReceiveAddJoinerReply from \(sender.role)")
         self.flowManager!.delegate?.joinerPrepared()
-        self.flowManager!.joinerProtocol!.sendJoinNetwork()
+        // TODO: try to add delay before sending this -- debug
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            // delay is needed otherwise joiner returns -1 
+            self.flowManager!.joinerProtocol!.sendJoinNetwork()
+            print("sent sendJoinNetwork to joiner")
+        }
+        
     }
     
     
@@ -189,8 +195,12 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                 } else {
                     self.claimTryCounter += 1
                 }
-                if self.claimTryCounter == 6 {
-                    self.flowManager!.delegate?.flowError(error: "Could not claim device to user", severity: .Error, action: .Pop)
+                if self.claimTryCounter == 3 { // TODO >= 6
+                    // TODO: stop mocking success once border routing and claiming works!
+                    self.flowManager!.delegate?.deviceOnlineClaimed()
+                    self.flowManager!.delegate?.flowError(error: "Could not claim device to user", severity: .Warning, action: .Dialog)
+                    
+                    
                 }
             })
         } else {

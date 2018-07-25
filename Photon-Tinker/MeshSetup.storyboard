@@ -31,7 +31,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0m0-HG-mnX">
-                                <rect key="frame" x="0.0" y="57" width="375" height="581"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="582"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="deviceType" textLabel="77M-BU-7Ob" detailTextLabel="ca2-lm-KbI" imageView="bGl-uF-KHD" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="HqX-4S-y49">
@@ -67,8 +67,8 @@
                                 <sections/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select device type to setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Css-g0-0tJ">
-                                <rect key="frame" x="70.666666666666686" y="20" width="234" height="17"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="77.666666666666686" y="20" width="220" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -103,25 +103,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your {{device}} ready for setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVt-91-UeP">
-                                <rect key="frame" x="35.666666666666657" y="20" width="304" height="17"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="44.666666666666657" y="20" width="286" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plug your device into a power source" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pqr-IR-lRV">
-                                <rect key="frame" x="20" y="77" width="335" height="16"/>
+                                <rect key="frame" x="20" y="76" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If your device requires external antenna, connect it to your device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNX-4q-Ii6">
-                                <rect key="frame" x="20" y="133" width="335" height="32"/>
+                                <rect key="frame" x="20" y="132" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your device is blinking blue. Press MODE button for 3 seconds to put device in listening mode if needed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gt-8k-LbJ">
-                                <rect key="frame" x="20" y="205" width="335" height="48"/>
+                                <rect key="frame" x="20" y="204" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -142,7 +142,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V94-0p-XH0">
-                                <rect key="frame" x="20" y="273" width="335" height="285"/>
+                                <rect key="frame" x="20" y="272" width="335" height="286"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -188,19 +188,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair {{device}} with your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfP-6E-Fm5">
-                                <rect key="frame" x="52" y="20" width="271.66666666666669" height="17"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="59.666666666666671" y="20" width="255.66666666666663" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of your device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7n-AO-iqw">
-                                <rect key="frame" x="20" y="57" width="335" height="48"/>
+                                <rect key="frame" x="20" y="56" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="rG1-YO-8Ay">
-                                <rect key="frame" x="20" y="125" width="335" height="433"/>
+                                <rect key="frame" x="20" y="124" width="335" height="434"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQv-PR-P0D">
                                 <rect key="frame" x="20" y="578" width="335" height="40"/>
@@ -210,7 +210,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Scan sticker" image="imgCamera">
+                                <state key="normal" title="Scan device" image="imgCamera">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -242,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fas-n3-Rw2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4798.5507246376819" y="4203.2608695652179"/>
+            <point key="canvasLocation" x="4799" y="4207"/>
         </scene>
         <!--Scan code-->
         <scene sceneID="Idp-Lc-Br2">
@@ -252,8 +252,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-ul-GY1">
-                                <rect key="frame" x="143" y="64" width="89" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-ul-GY1">
+                                <rect key="frame" x="136" y="64" width="103" height="17"/>
                                 <viewLayoutGuide key="safeArea" id="gh3-Pf-E2L"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -307,7 +307,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAR-oW-aPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5943" y="3638"/>
+            <point key="canvasLocation" x="6010" y="3412"/>
         </scene>
         <!--Pairing-->
         <scene sceneID="RFR-rC-f1z">
@@ -329,11 +329,20 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCheckmarkRound" translatesAutoresizingMaskIntoConstraints="NO" id="7AP-J0-uXR">
+                                <rect key="frame" x="155" y="287" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Sr6-tn-Mcg"/>
+                                    <constraint firstAttribute="height" constant="64" id="wA0-ck-wTY"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="7AP-J0-uXR" firstAttribute="centerX" secondItem="OmJ-yY-ecH" secondAttribute="centerX" id="1Uv-2s-5c5"/>
                             <constraint firstItem="8yI-7D-DKR" firstAttribute="centerX" secondItem="OmJ-yY-ecH" secondAttribute="centerX" id="3s0-sR-jfW"/>
                             <constraint firstItem="OmJ-yY-ecH" firstAttribute="leading" secondItem="caG-OM-kxb" secondAttribute="leading" constant="-20" id="C8y-Hi-STo"/>
+                            <constraint firstItem="7AP-J0-uXR" firstAttribute="centerY" secondItem="OmJ-yY-ecH" secondAttribute="centerY" id="Dq5-1U-xIE"/>
                             <constraint firstItem="8yI-7D-DKR" firstAttribute="centerY" secondItem="OmJ-yY-ecH" secondAttribute="centerY" constant="-50" id="GIB-QP-Y9o"/>
                             <constraint firstItem="caG-OM-kxb" firstAttribute="trailing" secondItem="OmJ-yY-ecH" secondAttribute="trailing" constant="-20" id="Ktr-ML-pXa"/>
                             <constraint firstItem="OmJ-yY-ecH" firstAttribute="bottom" secondItem="caG-OM-kxb" secondAttribute="bottom" constant="20" id="QR9-0x-wYK"/>
@@ -349,6 +358,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="pairingLabel" destination="8yI-7D-DKR" id="7Fi-GA-GbL"/>
+                        <outlet property="successImageView" destination="7AP-J0-uXR" id="oNd-gi-Kpg"/>
                         <segue destination="Xfq-Ab-khI" kind="show" identifier="selectNetwork" id="uJf-N0-ZVD"/>
                     </connections>
                 </viewController>
@@ -365,7 +376,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rey-rr-kgw">
-                                <rect key="frame" x="0.0" y="57" width="375" height="581"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="582"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="networkCell" textLabel="AdA-cL-U9X" detailTextLabel="OOx-xb-ZNX" imageView="B9C-u6-MhS" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="oIp-KG-bSw">
@@ -376,14 +387,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Nucleus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AdA-cL-U9X">
-                                                    <rect key="frame" x="94" y="12" width="62" height="20"/>
+                                                    <rect key="frame" x="94" y="13" width="62" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="4 devices on network" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OOx-xb-ZNX">
-                                                    <rect key="frame" x="94" y="35" width="124" height="15.333333333333334"/>
+                                                    <rect key="frame" x="94.000000000000014" y="36" width="138.33333333333334" height="13"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                     <nil key="textColor"/>
@@ -399,8 +410,8 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpZ-2V-AIG">
-                                <rect key="frame" x="68" y="20" width="239" height="17"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="75.333333333333329" y="20" width="224.33333333333337" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -441,32 +452,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commission your {{device}} to {{network}} mesh nework [split to two screens]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zid-he-83s">
-                                <rect key="frame" x="20" y="19.999999999999996" width="335" height="39.666666666666657"/>
-                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add {{device}} to {{network}} mesh network " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zid-he-83s">
+                                <rect key="frame" x="20" y="20" width="335" height="32"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find any device that is already on the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6q2-He-rAy">
-                                <rect key="frame" x="20" y="79.666666666666657" width="335" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find a device that is already on the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6q2-He-rAy">
+                                <rect key="frame" x="20" y="72" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press MODE button for 3 seconds to put the on-mesh device in listening mode (LED will blink blue)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faf-kd-hUD">
-                                <rect key="frame" x="20" y="131.66666666666669" width="335" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press and hold the MODE button for 3 seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faf-kd-hUD">
+                                <rect key="frame" x="20" y="124" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the top of the on-mesh device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pz-zQ-aJc">
-                                <rect key="frame" x="20" y="199.66666666666669" width="335" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm the device is blinking blue and your phone remains physically close to that device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pz-zQ-aJc">
+                                <rect key="frame" x="20" y="176" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vPk-gW-13X">
-                                <rect key="frame" x="20" y="267.66666666666674" width="335" height="290.33333333333326"/>
+                                <rect key="frame" x="20" y="244" width="335" height="314"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2S-Oi-Wsw">
@@ -477,11 +488,11 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Scan on-mesh sticker" image="imgCamera">
+                                <state key="normal" title="Assisting device blinking blue">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="90a-zS-wUn" kind="presentation" identifier="scanCommissionerSticker" id="9Xr-zy-I9E"/>
+                                    <segue destination="t3A-V8-D39" kind="show" id="UYR-iO-hJ4"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -510,9 +521,6 @@
                         <viewLayoutGuide key="safeArea" id="j4n-W6-IF8"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add To Network" id="ifg-Bn-3wP"/>
-                    <connections>
-                        <segue destination="r46-ON-ILg" kind="show" identifier="networkPassword" id="Flp-c5-ahP"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zag-9a-TXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -527,8 +535,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter network password for {{network}}" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sot-9K-H0R">
-                                <rect key="frame" x="20" y="20" width="335" height="20"/>
-                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="20" y="20" width="335" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -548,7 +556,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fDt-1S-MaZ">
-                                <rect key="frame" x="20" y="60" width="335" height="40"/>
+                                <rect key="frame" x="20" y="56" width="335" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="IL4-py-VgF"/>
                                 </constraints>
@@ -557,7 +565,7 @@
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aU6-zF-BDg">
-                                <rect key="frame" x="20" y="114" width="335" height="64"/>
+                                <rect key="frame" x="20" y="110" width="335" height="64"/>
                                 <string key="text">This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.</string>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
@@ -591,7 +599,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjC-rG-nO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9726" y="4245"/>
+            <point key="canvasLocation" x="11207" y="4244"/>
         </scene>
         <!--Joining Network-->
         <scene sceneID="Cqu-Xm-urO">
@@ -602,29 +610,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{device}} is attempting to join {{network}} network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MB-vp-JO8">
-                                <rect key="frame" x="20" y="19.999999999999996" width="335" height="39.666666666666657"/>
-                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="20" y="20" width="335" height="32"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVz-fo-fWL">
-                                <rect key="frame" x="20" y="99.666666666666657" width="335" height="32"/>
+                                <rect key="frame" x="20" y="92" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFC-d9-8w1">
-                                <rect key="frame" x="20" y="151.66666666666669" width="335" height="16"/>
+                                <rect key="frame" x="20" y="144" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.50428082190000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiY-Sf-LDw">
-                                <rect key="frame" x="20" y="187.66666666666669" width="335" height="32"/>
+                                <rect key="frame" x="20" y="180" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCheckmarkRound" translatesAutoresizingMaskIntoConstraints="NO" id="u8m-28-TyG">
+                                <rect key="frame" x="155.66666666666666" y="287" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="VBf-M6-JLo"/>
+                                    <constraint firstAttribute="width" constant="64" id="kyi-14-nYY"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -639,18 +654,24 @@
                             <constraint firstItem="9MB-vp-JO8" firstAttribute="top" secondItem="wnB-6m-jTc" secondAttribute="top" constant="20" id="bDC-th-S2D"/>
                             <constraint firstItem="wnB-6m-jTc" firstAttribute="leading" secondItem="9MB-vp-JO8" secondAttribute="leading" constant="-20" id="fhf-Fe-n9E"/>
                             <constraint firstItem="wnB-6m-jTc" firstAttribute="leading" secondItem="MFC-d9-8w1" secondAttribute="leading" constant="-20" id="nN7-1i-VQ3"/>
+                            <constraint firstItem="u8m-28-TyG" firstAttribute="centerX" secondItem="wnB-6m-jTc" secondAttribute="centerX" id="quR-sK-QKD"/>
+                            <constraint firstItem="u8m-28-TyG" firstAttribute="centerY" secondItem="wnB-6m-jTc" secondAttribute="centerY" id="sta-Dd-r51"/>
                             <constraint firstItem="aVz-fo-fWL" firstAttribute="trailing" secondItem="wnB-6m-jTc" secondAttribute="trailing" constant="-20" id="t1M-2A-nfg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wnB-6m-jTc"/>
                     </view>
                     <navigationItem key="navigationItem" title="Joining Network" id="gOA-2X-tMr"/>
                     <connections>
+                        <outlet property="step1Label" destination="aVz-fo-fWL" id="Eqz-sZ-ede"/>
+                        <outlet property="step2Label" destination="MFC-d9-8w1" id="H4I-qZ-WXH"/>
+                        <outlet property="step3Label" destination="IiY-Sf-LDw" id="iGn-Nl-QOa"/>
+                        <outlet property="successImageView" destination="u8m-28-TyG" id="zON-CT-ecU"/>
                         <segue destination="4YT-W2-uZE" kind="show" identifier="nameDevice" id="3uG-d1-uOh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ejn-kg-bN9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10599" y="4245"/>
+            <point key="canvasLocation" x="12020" y="4246"/>
         </scene>
         <!--Name Device-->
         <scene sceneID="I4q-GS-b9d">
@@ -661,8 +682,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Almost done! Name your {{device}}" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOg-zm-RMQ">
-                                <rect key="frame" x="20" y="20" width="335" height="20"/>
-                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="20" y="20" width="335" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -682,7 +703,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RCA-6u-v2X">
-                                <rect key="frame" x="20" y="60" width="335" height="40"/>
+                                <rect key="frame" x="20" y="56" width="335" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="9rn-J4-A4d"/>
                                 </constraints>
@@ -691,7 +712,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the name that will be used on the Particle Cloud and Console to identify this specific device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWF-uD-1Rb">
-                                <rect key="frame" x="20" y="114" width="335" height="48"/>
+                                <rect key="frame" x="20" y="110" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -718,7 +739,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZSK-yW-arT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11513" y="4245"/>
+            <point key="canvasLocation" x="12817" y="4244"/>
         </scene>
         <!--Success-->
         <scene sceneID="QqM-DZ-ob5">
@@ -729,19 +750,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats! Your {{device}} {{deviceName}} is set up and was successfully added to {{network}} network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9TT-6y-uQD">
-                                <rect key="frame" x="20" y="19.999999999999996" width="335" height="59.666666666666657"/>
-                                <fontDescription key="fontDescription" name="Gotham-Bold" family="Gotham" pointSize="17"/>
+                                <rect key="frame" x="20" y="20" width="335" height="64"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add more devices to {{network}}?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjs-pF-lik">
-                                <rect key="frame" x="20" y="119.66666666666669" width="335" height="16"/>
+                                <rect key="frame" x="20" y="124" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWK-pU-1tq">
-                                <rect key="frame" x="20" y="151.66666666666669" width="335" height="40"/>
+                                <rect key="frame" x="20" y="156" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="C9k-bq-0s3"/>
@@ -753,20 +774,20 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4h-WP-yLu" userLabel="Seperator">
-                                <rect key="frame" x="20" y="211.66666666666669" width="335" height="2"/>
+                                <rect key="frame" x="20" y="216" width="335" height="2"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="Jf8-Kz-UGc"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to start building?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DI0-WK-v4V">
-                                <rect key="frame" x="20" y="233.66666666666669" width="335" height="16"/>
+                                <rect key="frame" x="20" y="238" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucE-4X-rnL">
-                                <rect key="frame" x="20" y="269.66666666666669" width="335" height="40"/>
+                                <rect key="frame" x="20" y="274" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="J3p-Sc-Pj2"/>
@@ -805,7 +826,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Pa-xo-6If" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="12383" y="4245"/>
+            <point key="canvasLocation" x="13609" y="4244"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LIU-GY-A4H">
@@ -833,15 +854,102 @@
             </objects>
             <point key="canvasLocation" x="2007" y="4207"/>
         </scene>
+        <!--Pair Assisting Device-->
+        <scene sceneID="jIT-se-h4u">
+            <objects>
+                <viewController id="t3A-V8-D39" customClass="MeshSetupPairAssistingViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nlh-CU-DkD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVP-9n-gym">
+                                <rect key="frame" x="20" y="130" width="335" height="48"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZo-1d-hZE">
+                                <rect key="frame" x="38.666666666666657" y="20" width="299" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="DCa-JM-Z1H">
+                                <rect key="frame" x="20" y="198" width="335" height="360"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2JE-9e-0eC">
+                                <rect key="frame" x="20" y="578" width="335" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="yz3-bL-Ux4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Scan assisting device" image="imgCamera">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="90a-zS-wUn" kind="presentation" identifier="scanAssistingDevice" id="FEu-Az-sfo"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="epB-91-07g">
+                                <rect key="frame" x="20" y="46" width="335" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow {{device}} to join the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHQ-27-Sbd">
+                                        <rect key="frame" x="0.0" y="11.000000000000004" width="335" height="42.333333333333343"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="pHQ-27-Sbd" secondAttribute="trailing" id="58l-qI-Yq1"/>
+                                    <constraint firstItem="pHQ-27-Sbd" firstAttribute="leading" secondItem="epB-91-07g" secondAttribute="leading" id="X2Z-OB-rfw"/>
+                                    <constraint firstAttribute="height" constant="64" id="i4e-GB-7hu"/>
+                                    <constraint firstItem="pHQ-27-Sbd" firstAttribute="centerY" secondItem="epB-91-07g" secondAttribute="centerY" id="pyg-ny-qew"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="DCa-JM-Z1H" firstAttribute="leading" secondItem="Euy-6A-674" secondAttribute="leading" constant="20" id="4Y6-9g-o2y"/>
+                            <constraint firstItem="sZo-1d-hZE" firstAttribute="top" secondItem="Euy-6A-674" secondAttribute="top" constant="20" id="8bN-hE-nj9"/>
+                            <constraint firstItem="sZo-1d-hZE" firstAttribute="centerX" secondItem="Euy-6A-674" secondAttribute="centerX" id="HWQ-xS-daF"/>
+                            <constraint firstItem="epB-91-07g" firstAttribute="leading" secondItem="Euy-6A-674" secondAttribute="leading" constant="20" id="Ial-kA-KIg"/>
+                            <constraint firstItem="zVP-9n-gym" firstAttribute="leading" secondItem="Euy-6A-674" secondAttribute="leading" constant="20" id="N35-ly-9wg"/>
+                            <constraint firstItem="DCa-JM-Z1H" firstAttribute="top" secondItem="zVP-9n-gym" secondAttribute="bottom" constant="20" id="P4G-Dm-cmr"/>
+                            <constraint firstItem="Euy-6A-674" firstAttribute="trailing" secondItem="2JE-9e-0eC" secondAttribute="trailing" constant="20" id="Srw-0D-xie"/>
+                            <constraint firstItem="2JE-9e-0eC" firstAttribute="top" secondItem="DCa-JM-Z1H" secondAttribute="bottom" constant="20" id="Tbb-9i-6WM"/>
+                            <constraint firstItem="2JE-9e-0eC" firstAttribute="leading" secondItem="Euy-6A-674" secondAttribute="leading" constant="20" id="TdS-UE-6kw"/>
+                            <constraint firstItem="Euy-6A-674" firstAttribute="bottom" secondItem="2JE-9e-0eC" secondAttribute="bottom" constant="20" id="VQi-tY-aJ4"/>
+                            <constraint firstItem="Euy-6A-674" firstAttribute="trailing" secondItem="epB-91-07g" secondAttribute="trailing" constant="20" id="Vos-C0-4Ia"/>
+                            <constraint firstItem="zVP-9n-gym" firstAttribute="top" secondItem="epB-91-07g" secondAttribute="bottom" constant="20" id="qCK-9o-hxA"/>
+                            <constraint firstItem="Euy-6A-674" firstAttribute="trailing" secondItem="zVP-9n-gym" secondAttribute="trailing" constant="20" id="qtb-Dx-pn8"/>
+                            <constraint firstItem="Euy-6A-674" firstAttribute="trailing" secondItem="DCa-JM-Z1H" secondAttribute="trailing" constant="20" id="wgs-Q4-Xd2"/>
+                            <constraint firstItem="epB-91-07g" firstAttribute="top" secondItem="sZo-1d-hZE" secondAttribute="bottom" constant="10" id="xkW-IP-Prr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Euy-6A-674"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pair Assisting Device" id="wGW-ND-2aW"/>
+                    <connections>
+                        <segue destination="r46-ON-ILg" kind="show" identifier="networkPassword" id="Aa9-YQ-ypZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k98-hJ-dld" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9703" y="4244"/>
+        </scene>
     </scenes>
     <resources>
         <image name="datamatrix-sticker_nl" width="205" height="147"/>
         <image name="imgCamera" width="21" height="21"/>
+        <image name="imgCheckmarkRound" width="600" height="600"/>
         <image name="imgCloseIcon" width="170" height="170"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
         <image name="imgMeshBlue" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9Xr-zy-I9E"/>
+        <segue reference="FEu-Az-sfo"/>
     </inferredMetricsTieBreakers>
 </document>

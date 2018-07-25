@@ -78,6 +78,11 @@ func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceTy
     let subviews = view.subviews
     
     for subview in subviews {
+        
+//        if subview is UIView {
+//            // some recursive magic to iterate over child UIViews
+//            replaceMeshSetupStringTemplates(view: subview, deviceType: deviceType, networkName: networkName, deviceName: deviceName)
+//        }
         if subview is UILabel {
             let label = subview as! UILabel
             var newLabelString = label.text

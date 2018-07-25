@@ -14,16 +14,23 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController {
     var dataMatrix : String?
     var scannedNetworks   : [String]?
     
-  
+    @IBOutlet weak var pairingLabel: UILabel!
+    
     override func scannedNetworks(networks: [String]?) {
         print("--> scannedNetworks \(networks ?? [String]())")
+        ParticleSpinner.hide(self.view)
         if networks != nil {
             self.scannedNetworks = networks!
-            DispatchQueue.main.async {
+            self.successImageView.isHidden = false
+            self.pairingLabel.text = "Successfully paired with \(self.flowManager!.joinerPeripheralName!)"
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.performSegue(withIdentifier: "selectNetwork", sender: self)
             }
+            
         } else {
             self.flowError(error: "No mesh networks detected", severity: .Error, action: .Dialog)
+            
         }
     }
     
@@ -38,11 +45,13 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController {
         vc.flowManager = self.flowManager
     }
     
+    @IBOutlet weak var successImageView: UIImageView!
     
     //MARK: - ViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.successImageView.isHidden = true
         // we don't need a back button while trying to pair/start setup
         self.navigationItem.hidesBackButton = true
         ParticleSpinner.show(self.view)
