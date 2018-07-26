@@ -163,7 +163,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         print("didReceiveAddJoinerReply from \(sender.role)")
         self.flowManager!.delegate?.joinerPrepared()
         // TODO: try to add delay before sending this -- debug
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             // delay is needed otherwise joiner returns -1 
             self.flowManager!.joinerProtocol!.sendJoinNetwork()
             print("sent sendJoinNetwork to joiner")
@@ -182,43 +182,55 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         
     }
     
+    
+    @objc func timerDeviceClaimedByUser() {
+        
+        if (self.pollDeviceClaimedByUser()) {
+            self.claimTimer!.invalidate()
+            self.flowManager!.delegate?.deviceOnlineClaimed()
+        } else {
+            self.claimTryCounter += 1
+        }
+        if self.claimTryCounter >= 3 { // TODO >= 6
+            // TODO: stop mocking success once border routing and claiming works!
+            self.flowManager!.delegate?.deviceOnlineClaimed()
+            
+            self.claimTimer!.invalidate()
+            self.flowManager!.delegate?.flowError(error: "Could not claim device to user", severity: .Warning, action: .Dialog)
+            
+            
+        }
+    }
+    
     override func didReceiveStopCommissionerReply(sender: MeshSetupProtocolTransceiver) {
         print("didReceiveStopCommissionerReply")
         // poll cloud for device
-        if #available(iOS 10.0, *) {
-            self.claimTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer : Timer ) in
-                
-                
-                if (self.pollDeviceClaimedByUser()) {
-                    timer.invalidate()
-                    self.flowManager!.delegate?.deviceOnlineClaimed()
-                } else {
-                    self.claimTryCounter += 1
-                }
-                if self.claimTryCounter == 3 { // TODO >= 6
-                    // TODO: stop mocking success once border routing and claiming works!
-                    self.flowManager!.delegate?.deviceOnlineClaimed()
-                    self.flowManager!.delegate?.flowError(error: "Could not claim device to user", severity: .Warning, action: .Dialog)
-                    
-                    
-                }
-            })
-        } else {
-            // Fallback on earlier versions
-            print("need iOS 10+ for polling device claiming")
+        DispatchQueue.main.async {
+            self.claimTimer = Timer.scheduledTimer(timeInterval: 5.0,
+                                                 target: self,
+                                                 selector: #selector(self.timerDeviceClaimedByUser),
+                                                 userInfo: nil,
+                                                 repeats: true)
+
         }
+//        RunLoop.current.add(self.claimTimer!, forMode: .commonModes)
+        
     }
     
     override func userDidSetDeviceName(deviceName : String) {
         print("user set device name to \(deviceName)")
+        self.flowManager!.delegate?.deviceNamed()
+        
+        // TODO: remove the success mock when real cloud connectivity is achived, validate access token existence
         ParticleCloud.sharedInstance().getDevice(self.deviceID!) { (particleDevice : ParticleDevice?, error : Error?) in
             if (error != nil) {
-                self.flowManager!.delegate?.flowError(error: "Could not retrieve device from Particle cloud", severity: .Error, action: .Dialog)
+                self.flowManager!.delegate?.flowError(error: "Could not retrieve device from Particle cloud", severity: .Warning, action: .Dialog)
             } else {
                 if let device = particleDevice {
                     device.rename(deviceName, completion: { (error : Error?) in
                         if (error != nil) {
-                            self.flowManager!.delegate?.flowError(error: "Could not set device name", severity: .Error, action: .Dialog)
+                            self.flowManager!.delegate?.flowError(error: "Could not set device name", severity: .Warning, action: .Dialog)
+                            
                         } else {
                             self.flowManager!.delegate?.deviceNamed()
                         }
@@ -239,6 +251,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     
     func pollDeviceClaimedByUser() -> Bool {
+        print("pollDeviceClaimedByUser")
         var r = false
         ParticleCloud.sharedInstance().getDevices { (userDevices : [ParticleDevice]?, error: Error?) in
             if error == nil {

@@ -17,20 +17,22 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController {
     @IBOutlet weak var pairingLabel: UILabel!
     
     override func scannedNetworks(networks: [String]?) {
-        print("--> scannedNetworks \(networks ?? [String]())")
-        ParticleSpinner.hide(self.view)
-        if networks != nil {
-            self.scannedNetworks = networks!
-            self.successImageView.isHidden = false
-            self.pairingLabel.text = "Successfully paired with \(self.flowManager!.joinerPeripheralName!)"
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.performSegue(withIdentifier: "selectNetwork", sender: self)
+        DispatchQueue.main.async {
+            print("--> scannedNetworks \(networks ?? [String]())")
+            ParticleSpinner.hide(self.view)
+            if networks != nil {
+                self.scannedNetworks = networks!
+                self.successImageView.isHidden = false
+                self.pairingLabel.text = "Successfully paired with \(self.flowManager!.joinerPeripheralName!)"
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.performSegue(withIdentifier: "selectNetwork", sender: self)
+                }
+                
+            } else {
+                self.flowError(error: "No mesh networks detected", severity: .Error, action: .Dialog)
+                
             }
-            
-        } else {
-            self.flowError(error: "No mesh networks detected", severity: .Error, action: .Dialog)
-            
         }
     }
     

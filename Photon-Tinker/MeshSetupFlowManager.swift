@@ -108,7 +108,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.currentFlow?.networkName = networkName
         }
     }
-    var deviceName : String?
+    var deviceName : String? {
+        didSet {
+            self.currentFlow?.deviceName = deviceName
+        }
+    }
     var delegate : MeshSetupFlowManagerDelegate?
     var bluetoothManagerReady = false
     var joinerPeripheralName : String? {

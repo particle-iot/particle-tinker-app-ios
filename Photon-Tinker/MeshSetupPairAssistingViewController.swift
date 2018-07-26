@@ -20,14 +20,24 @@ class MeshSetupPairAssistingViewController : MeshSetupViewController, MeshSetupS
         }
     }
     
+    @IBOutlet weak var hintView: UIView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
     
     func didScanCode(code: String) {
         if !code.isEmpty {
             // TODO: initialize flow manager here
             // Split code into deviceID and SN
             self.commissionerDataMatrix = code
-            // TODO: specift wildcard for with: (commissioner can be any type of device)
-            self.flowManager!.startFlow(with: .xenon, as: .Commissioner, dataMatrix: code)
+            // TODO: specify wildcard for with: (commissioner can be any type of device)
+            let ok = self.flowManager!.startFlow(with: .xenon, as: .Commissioner, dataMatrix: code)
+            
+            if !ok {
+                self.flowError(error: "Error starting flow with assisting device", severity: .Error, action: .Pop)
+            }
             
         }
     }

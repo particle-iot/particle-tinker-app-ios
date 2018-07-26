@@ -24,6 +24,9 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         super.viewDidLoad()
         
         self.cameraView.backgroundColor = UIColor.black
+        self.cameraView.layer.borderWidth = 1.0
+        self.cameraView.layer.borderColor = UIColor.black.cgColor
+        
         captureSession = AVCaptureSession()
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video) else { return }

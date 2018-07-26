@@ -12,21 +12,22 @@ import UIKit
 class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         deviceTypeTableView.delegate = self
         deviceTypeTableView.dataSource = self
-        self.navigationItem.rightBarButtonItem = self.cancelButton
+        let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(MeshSetupSelectDeviceViewController.cancelButtonTapped))
+        self.navigationItem.rightBarButtonItem = cancelButton
     }
     
+    // TODO: Streamline this
     let deviceTypes = [ "Xenon", "Argon", "Boron" ]
     var deviceDescriptionTypes = [ "Mesh only", "Mesh and Wi-Fi gateway", "Mesh and Cellular gateway" ]
 
     
-    let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped(_:)))
-
-    
-    @objc func cancelButtonTapped(_ sender : Any) {
-        print("cancel pressed")
-        self.navigationController?.popViewController(animated: true)
+    @objc func cancelButtonTapped() {
+//        self.dismiss(animated: true)
+        self.navigationController!.dismiss(animated: true)
     }
     
     @IBOutlet weak var deviceTypeTableView : UITableView!

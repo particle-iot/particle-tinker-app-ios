@@ -24,6 +24,8 @@
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
 		504D96FC2106FEE70074544B /* MeshSetupJoiningNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D96FB2106FEE70074544B /* MeshSetupJoiningNetworkViewController.swift */; };
 		504D96FE210936390074544B /* MeshSetupPairAssistingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D96FD210936390074544B /* MeshSetupPairAssistingViewController.swift */; };
+		504D970021093B230074544B /* MeshSetupNameDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D96FF21093B230074544B /* MeshSetupNameDeviceViewController.swift */; };
+		504D970221093ECF0074544B /* MeshSetupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D970121093ECF0074544B /* MeshSetupSuccessViewController.swift */; };
 		505062D51CE19F920060FEE7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505062D41CE19F920060FEE7 /* Keys.swift */; };
 		50508E1521016CD200D91DAB /* MeshSetupSelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50508E1421016CD200D91DAB /* MeshSetupSelectNetworkViewController.swift */; };
 		50508E1721017D9F00D91DAB /* MeshSetupAddToNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50508E1621017D9F00D91DAB /* MeshSetupAddToNetworkViewController.swift */; };
@@ -97,6 +99,8 @@
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		504D96FB2106FEE70074544B /* MeshSetupJoiningNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupJoiningNetworkViewController.swift; sourceTree = "<group>"; };
 		504D96FD210936390074544B /* MeshSetupPairAssistingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupPairAssistingViewController.swift; sourceTree = "<group>"; };
+		504D96FF21093B230074544B /* MeshSetupNameDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupNameDeviceViewController.swift; sourceTree = "<group>"; };
+		504D970121093ECF0074544B /* MeshSetupSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupSuccessViewController.swift; sourceTree = "<group>"; };
 		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Photon-Tinker/Keys.swift"; sourceTree = SOURCE_ROOT; };
 		50508E132101465C00D91DAB /* mesh.proto */ = {isa = PBXFileReference; lastKnownFileType = text; path = mesh.proto; sourceTree = "<group>"; };
 		50508E1421016CD200D91DAB /* MeshSetupSelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectNetworkViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 				505D2A8720D9AD84005389DF /* MeshSetupGetReadyViewController.swift */,
 				505D2A8420D9AD84005389DF /* MeshSetupPairDeviceViewController.swift */,
 				505D2A8520D9AD84005389DF /* MeshSetupViewController.swift */,
+				504D96FF21093B230074544B /* MeshSetupNameDeviceViewController.swift */,
+				504D970121093ECF0074544B /* MeshSetupSuccessViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -661,9 +667,11 @@
 				501DA8E41D24A5D0003CE43F /* DeviceInspectorDataViewController.swift in Sources */,
 				50E5EF1B1D2DDCBF0087C7B6 /* UIColor.swift in Sources */,
 				505D2A8C20D9AD84005389DF /* MeshSetupGetReadyViewController.swift in Sources */,
+				504D970021093B230074544B /* MeshSetupNameDeviceViewController.swift in Sources */,
 				5075457920E47D0B009B7A55 /* storage.pb.swift in Sources */,
 				5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */,
 				5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */,
+				504D970221093ECF0074544B /* MeshSetupSuccessViewController.swift in Sources */,
 				5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */,
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,

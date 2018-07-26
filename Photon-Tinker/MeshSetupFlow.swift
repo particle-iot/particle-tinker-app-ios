@@ -140,7 +140,7 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     }
     
     func userDidSetDeviceName(deviceName : String) {
-        
+       fatalError("Must Override in subclass")
     }
     
     func didReceiveErrorReply(error: ControlRequestErrorType) {
