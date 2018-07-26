@@ -33,7 +33,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     }
    
     override func startCommissioner() {
-        self.flowManager!.commissionerProtocol!.sendGetNetworkInfo()
+        self.flowManager!.commissionerProtocol?.sendGetNetworkInfo()
     }
     
     override func didReceiveDeviceIdReply(sender: MeshSetupProtocolTransceiver, deviceId: String) {
@@ -57,7 +57,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                     ParticleCloud.sharedInstance().generateClaimCode { (claimCode : String?, _, error: Error?) in
                         if error == nil {
                             print("Got claim code from the cloud: \(claimCode!)")
-                            self.flowManager!.joinerProtocol!.sendSetClaimCode(claimCode: claimCode!)
+                            self.flowManager!.joinerProtocol?.sendSetClaimCode(claimCode: claimCode!)
                         } else {
                             self.delegate?.flowError(error: "Error communicating with Particle cloud to generate claim code", severity: .Error, action: .Pop)
                         }
@@ -165,7 +165,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         // TODO: try to add delay before sending this -- debug
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             // delay is needed otherwise joiner returns -1 
-            self.flowManager!.joinerProtocol!.sendJoinNetwork()
+            self.flowManager!.joinerProtocol?.sendJoinNetwork()
             print("sent sendJoinNetwork to joiner")
         }
         
@@ -178,7 +178,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     override func didReceiveJoinNetworkReply(sender: MeshSetupProtocolTransceiver) {
         print("didReceiveJoinNetworkReply from \(sender.role) -- joined mesh network!")
         self.flowManager!.delegate?.joinedNetwork()
-        self.flowManager!.commissionerProtocol!.sendStopCommissioner()
+        self.flowManager!.commissionerProtocol?.sendStopCommissioner()
         
     }
     

@@ -55,7 +55,7 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
                 fallthrough
             case .Dialog:
                 DispatchQueue.main.async {
-                    RMessage.showNotification(withTitle: "Mesh Setup Error", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Mesh Device Setup", subtitle: error, type: messageType, customTypeName: nil, callback: nil)
                 }
             }
     }
