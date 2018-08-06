@@ -14,6 +14,7 @@ target 'Particle' do
     pod 'Analytics'
     pod 'Segment-Firebase'
 
+    pod 'Reveal-SDK', :configurations => ['Debug']
 end
 
 
