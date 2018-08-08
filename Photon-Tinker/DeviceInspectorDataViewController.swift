@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/29/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 
@@ -20,7 +20,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.white//ParticleUtils.particleAlmostWhiteColor
         let header : UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.darkGray// sparkDarkGrayColor
+        header.textLabel?.textColor = UIColor.darkGray// particleDarkGrayColor
     }
     
     
@@ -33,9 +33,8 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             // auto read all variables
             var index : IndexPath
             
-            
-            IQKeyboardManager.shared().shouldHidePreviousNext = true
-            
+
+            IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide;
             
             for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
                 index = IndexPath(row: i, section: 1)
@@ -56,7 +55,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        IQKeyboardManager.shared().shouldHidePreviousNext = false
+        IQKeyboardManager.shared().previousNextDisplayMode = .default
     }
     
     
@@ -215,7 +214,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
         dialog.addButton("Copy to clipboard", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
             UIPasteboard.general.string = value
-            TSMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success)
+            RMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
             SEGAnalytics.shared().track("Device Inspector: variable copied")
         }
         

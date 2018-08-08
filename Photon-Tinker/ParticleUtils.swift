@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/29/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 import Foundation
@@ -20,7 +20,7 @@ class ParticleUtils: NSObject {
     static var particleRegularFont = UIFont(name: "Gotham-book", size: 16.0)!
     static var particleBoldFont = UIFont(name: "Gotham-medium", size: 16.0)!
 
-    class func getDeviceTypeAndImage(_ device : SparkDevice?) -> (deviceType: String, deviceImage: UIImage) {
+    class func getDeviceTypeAndImage(_ device : ParticleDevice?) -> (deviceType: String, deviceImage: UIImage) {
         
         
         var image : UIImage?
@@ -71,8 +71,8 @@ class ParticleUtils: NSObject {
         
     }
 
-    
-    class func shouldDisplayTutorialForViewController(_ vc : UIViewController) -> Bool {
+
+    @objc class func shouldDisplayTutorialForViewController(_ vc : UIViewController) -> Bool {
     
 //        return true
         /// debug
@@ -92,9 +92,8 @@ class ParticleUtils: NSObject {
             return true
         }
     }
-    
-    
-    class func setTutorialWasDisplayedForViewController(_ vc : UIViewController) {
+
+    @objc class func setTutorialWasDisplayedForViewController(_ vc : UIViewController) {
         
         let prefs = UserDefaults.standard
         let defaultsKeyName = "Tutorial"
@@ -116,8 +115,8 @@ class ParticleUtils: NSObject {
         
     }
 
-    
-    class func animateOnlineIndicatorImageView(_ imageView: UIImageView, online: Bool, flashing: Bool) {
+
+    @objc class func animateOnlineIndicatorImageView(_ imageView: UIImageView, online: Bool, flashing: Bool) {
         DispatchQueue.main.async(execute: {
             imageView.image = UIImage(named: "imgCircle")
             //

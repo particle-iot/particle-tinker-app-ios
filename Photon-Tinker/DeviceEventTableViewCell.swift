@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/30/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 
@@ -17,7 +17,7 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
     @IBOutlet weak var eventNameValueLabel: UILabel!
     
     
-    var event : SparkEvent? {
+    var event : ParticleEvent? {
         didSet {
             if let e = event {
                 
@@ -56,7 +56,7 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
     @IBAction func copyEventButtonTapped(_ sender: UIButton) {
         if let e = event {
             UIPasteboard.general.string = e.description
-            TSMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success)
+            RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
             SEGAnalytics.shared().track("Device Inspector: event copied")
         }
     }

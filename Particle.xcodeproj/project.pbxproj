@@ -46,16 +46,16 @@
 		50E5EF1C1D2DDCBF0087C7B6 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E5EF181D2DDCBF0087C7B6 /* UIImage.swift */; };
 		50E5EF1D1D2DDCBF0087C7B6 /* ZAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E5EF191D2DDCBF0087C7B6 /* ZAlertView.swift */; };
 		50E5EF1F1D2F2CD60087C7B6 /* HelpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E5EF1E1D2F2CD60087C7B6 /* HelpTableViewCell.swift */; };
-		50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */; };
+		50EB76151AE6EF2900C925A9 /* ParticleDevice+pins.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76121AE6EF2900C925A9 /* ParticleDevice+pins.m */; };
 		50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EB76141AE6EF2900C925A9 /* DevicePin.m */; };
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
-		8FC578B363E63722BD7BDC2F /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */; };
+		9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9383399820E0FD5F0002B90C /* GoogleService-Info.plist */; };
+		B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElectronSetupViewController.swift; sourceTree = "<group>"; };
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorDataViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		502E9BBF1B194DF800D2C45B /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		5048CD221AE09AD00097150A /* DeviceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
-		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = SOURCE_ROOT; };
+		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Photon-Tinker/Keys.swift"; sourceTree = SOURCE_ROOT; };
 		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Medium.ttf"; path = "../../FiraMono-Medium.ttf"; sourceTree = "<group>"; };
 		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Regular.ttf"; path = "../../FiraMono-Regular.ttf"; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
@@ -105,15 +105,17 @@
 		50E5EF181D2DDCBF0087C7B6 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		50E5EF191D2DDCBF0087C7B6 /* ZAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZAlertView.swift; sourceTree = "<group>"; };
 		50E5EF1E1D2F2CD60087C7B6 /* HelpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewCell.swift; sourceTree = "<group>"; };
-		50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SparkDevice+pins.m"; sourceTree = "<group>"; };
+		50EB76121AE6EF2900C925A9 /* ParticleDevice+pins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ParticleDevice+pins.m"; sourceTree = "<group>"; };
 		50EB76131AE6EF2900C925A9 /* DevicePin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicePin.h; sourceTree = "<group>"; };
 		50EB76141AE6EF2900C925A9 /* DevicePin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicePin.m; sourceTree = "<group>"; };
-		50EB76191AE6F03600C925A9 /* SparkDevice+pins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SparkDevice+pins.h"; sourceTree = "<group>"; };
+		50EB76191AE6F03600C925A9 /* ParticleDevice+pins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParticleDevice+pins.h"; sourceTree = "<group>"; };
 		50F62D951AE0721200109F33 /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
 		50F62D961AE0721200109F33 /* Gotham-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.otf"; sourceTree = "<group>"; };
 		50F62D971AE0721200109F33 /* Gotham-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLight.otf"; sourceTree = "<group>"; };
 		50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightIta.otf"; sourceTree = "<group>"; };
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
+		8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9383399820E0FD5F0002B90C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,7 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */,
-				8FC578B363E63722BD7BDC2F /* libPods-Particle.a in Frameworks */,
+				B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +193,7 @@
 		50B125461AE06CF4003C29DC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9383399820E0FD5F0002B90C /* GoogleService-Info.plist */,
 				50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */,
 				50B125471AE06CF4003C29DC /* Info.plist */,
 			);
@@ -238,8 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */,
-				50EB76191AE6F03600C925A9 /* SparkDevice+pins.h */,
-				50EB76121AE6EF2900C925A9 /* SparkDevice+pins.m */,
+				50EB76191AE6F03600C925A9 /* ParticleDevice+pins.h */,
+				50EB76121AE6EF2900C925A9 /* ParticleDevice+pins.m */,
 				50EB76131AE6EF2900C925A9 /* DevicePin.h */,
 				50EB76141AE6EF2900C925A9 /* DevicePin.m */,
 			);
@@ -300,7 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				508311451C0E907E009C0161 /* JavaScriptCore.framework */,
-				47C9024B2F6C8CBDB1FBE364 /* libPods-Particle.a */,
+				8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -325,9 +328,9 @@
 				50B1253F1AE06CF4003C29DC /* Sources */,
 				50B125401AE06CF4003C29DC /* Frameworks */,
 				50B125411AE06CF4003C29DC /* Resources */,
-				E7D8FDA3B6FE8FDE0627C5CE /* [CP] Embed Pods Frameworks */,
-				D03200CD9B5C0B699799D26B /* [CP] Copy Pods Resources */,
 				50E5EF201D349D450087C7B6 /* Run Script */,
+				2EC80B6EBE6027169D7F4597 /* [CP] Embed Pods Frameworks */,
+				4061BE20097F170B9053B6D9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -352,8 +355,8 @@
 					50B125421AE06CF4003C29DC = {
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = TNJ67X9MQD;
-						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						LastSwiftMigration = 0930;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -385,6 +388,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */,
 				507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */,
@@ -403,6 +407,78 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2EC80B6EBE6027169D7F4597 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-15/iOS/RevealServer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4061BE20097F170B9053B6D9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/1PasswordExtension/OnePasswordExtensionResources.bundle",
+				"${PODS_ROOT}/DateTools/DateTools/DateTools/DateTools.bundle",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ParticleSetup/ParticleSetup.bundle",
+				"${PODS_ROOT}/PullToRefreshCoreText/PullToRefreshCoreText/PullToRefreshCoreText/Mask.png",
+				"${PODS_ROOT}/RMessage/RMessage/Resources/RMessageView.xib",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundErrorIcon.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundErrorIcon.imageset/NotificationBackgroundErrorIcon.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundErrorIcon.imageset/NotificationBackgroundErrorIcon@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundSuccessIcon.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundSuccessIcon.imageset/NotificationBackgroundSuccessIcon.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundSuccessIcon.imageset/NotificationBackgroundSuccessIcon@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundWarningIcon.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundWarningIcon.imageset/NotificationBackgroundWarningIcon.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundWarningIcon.imageset/NotificationBackgroundWarningIcon@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/Contents.json",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground@2x.png",
+				"${PODS_ROOT}/RMessage/RMessage/Assets/RMessageDefaultDesign.json",
+				"${PODS_ROOT}/YCTutorialBox/YCTutorialBox.xib",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/OnePasswordExtensionResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DateTools.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ParticleSetup.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Mask.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RMessageView.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Contents.json",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundErrorIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundErrorIcon@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundSuccessIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundSuccessIcon@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundWarningIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundWarningIcon@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RMessageDefaultDesign.json",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/YCTutorialBox.nib",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		50E5EF201D349D450087C7B6 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -423,43 +499,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Particle-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D03200CD9B5C0B699799D26B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E7D8FDA3B6FE8FDE0627C5CE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -491,7 +540,7 @@
 				508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50E5EF1C1D2DDCBF0087C7B6 /* UIImage.swift in Sources */,
-				50EB76151AE6EF2900C925A9 /* SparkDevice+pins.m in Sources */,
+				50EB76151AE6EF2900C925A9 /* ParticleDevice+pins.m in Sources */,
 				507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */,
 				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
@@ -537,6 +586,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -585,7 +635,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -618,18 +669,25 @@
 				CODE_SIGN_ENTITLEMENTS = Particle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.particle.$(PRODUCT_NAME:rfc1034identifier)";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
-				PROVISIONING_PROFILE = "f48ea76e-7861-40c2-bf0e-45d8eb2fb316";
-				PROVISIONING_PROFILE_SPECIFIER = "Particle app dev";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -642,19 +700,26 @@
 				BUILD_VARIANTS = normal;
 				CODE_SIGN_ENTITLEMENTS = Particle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.particle.$(PRODUCT_NAME:rfc1034identifier)";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D RELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
-				PROVISIONING_PROFILE = "c57e122d-e8a9-4925-8fe9-b12967e084b4";
-				PROVISIONING_PROFILE_SPECIFIER = "XC: io.particle.Particle";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

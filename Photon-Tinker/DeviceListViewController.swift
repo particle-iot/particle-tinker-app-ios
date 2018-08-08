@@ -3,7 +3,7 @@
 //  Photon-Tinker
 //
 //  Created by Ido on 4/16/15.
-//  Copyright (c) 2015 spark. All rights reserved.
+//  Copyright (c) 2015 particle. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +17,7 @@ let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
 let kDefaultElectronFlashingTime : Int = 15
 
-class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SparkSetupMainControllerDelegate, SparkDeviceDelegate {
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate {
     
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -31,7 +31,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         //        TSMessageView.appearance().setTitleFont(UIFont(name: "Gotham-book", size: 13.0)var       
         
         
-        if !SparkCloud.sharedInstance().isAuthenticated
+        if !ParticleCloud.sharedInstance().isAuthenticated
         {
             self.logoutButton.setTitle("Log in", for: UIControlState())
         }
@@ -43,10 +43,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         ZAlertView.positiveColor            = ParticleUtils.particleCyanColor
         ZAlertView.negativeColor            = ParticleUtils.particlePomegranateColor
         ZAlertView.blurredBackground        = true
-        ZAlertView.showAnimation            = .bounceBottom
-        ZAlertView.hideAnimation            = .bounceBottom
-//        ZAlertView.initialSpringVelocity    = 0.5
-        ZAlertView.duration                 = 0.9
+        ZAlertView.showAnimation            = .fadeIn
+        ZAlertView.hideAnimation            = .fadeOut
+        ZAlertView.duration                 = 0.25
         ZAlertView.cornerRadius             = 4.0
         ZAlertView.textFieldTextColor       = ParticleUtils.particleDarkGrayColor
         ZAlertView.textFieldBackgroundColor = UIColor.white
@@ -60,17 +59,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var setupNewDeviceButton: UIButton!
     
-    func appDidBecomeActive(_ sender : AnyObject) {
-//        print("appDidBecomeActive observer triggered")
-        //        self.animateOnlineIndicators()
+    @objc func appDidBecomeActive(_ sender : AnyObject) {
         self.photonSelectionTableView.reloadData()
         
     }
     
     @IBOutlet weak var logoutButton: UIButton!
     
-    var devices : [SparkDevice] = []
-    var selectedDevice : SparkDevice? = nil
+    var devices : [ParticleDevice] = []
+    var selectedDevice : ParticleDevice? = nil
     var refreshControlAdded : Bool = false
     
     
@@ -101,20 +98,20 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         dialog.addButton("Electron/SIM", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
-            if SparkCloud.sharedInstance().loggedInUsername != nil {
+            if ParticleCloud.sharedInstance().loggedInUsername != nil {
                 self.invokeElectronSetup()
             } else {
-                TSMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error)
+                RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, callback: nil)
             }
             
             
         }
         
         dialog.addButton("Core", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            
-            dialog.dismiss()
-            self.showSparkCoreAppPopUp()
-            
+            dialog.dismissWithDuration(0.01)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
+                self.showParticleCoreAppPopUp()
+            }
         }
 
         dialog.addButton("Cancel", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.white) { (dialog : ZAlertView) in
@@ -170,14 +167,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             d.delegate = self // reassign Device delegate to this VC to receive system events (in case some other VC down the line reassigned it)
         }
         
-        if SparkCloud.sharedInstance().isAuthenticated
+        if ParticleCloud.sharedInstance().isAuthenticated
         {
             
             self.loadDevices()
             
             /*
             print("! subscribing to status event") // TODO: remove
-            self.statusEventID = SparkCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("spark", handler: { (event: SparkEvent?, error: NSError?) in
+            self.statusEventID = ParticleCloud.sharedInstance().subscribeToMyDevicesEventsWithPrefix("particle", handler: { (event: ParticleEvent?, error: NSError?) in
                 // if we received a status event so probably one of the device came online or offline - update the device list
                 if error == nil {
                     self.loadDevices()
@@ -254,7 +251,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         DispatchQueue.global().async {
             
-            SparkCloud.sharedInstance().getDevices({ (devices:[SparkDevice]?, error:Error?) -> Void in
+            ParticleCloud.sharedInstance().getDevices({ (devices:[ParticleDevice]?, error:Error?) -> Void in
                 
                 
                 self.handleGetDevicesResponse(devices, error: error)
@@ -278,17 +275,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     
-    func handleGetDevicesResponse(_ devices:[SparkDevice]?, error:Error?)
+    func handleGetDevicesResponse(_ devices:[ParticleDevice]?, error:Error?)
     {
         if let e = error
         {
-            //            print("error listing devices for user \(SparkCloud.sharedInstance().loggedInUsername)")
+            //            print("error listing devices for user \(ParticleCloud.sharedInstance().loggedInUsername)")
             //            print(e.description)
             if (e as NSError).code == 401 {
                 //                print("invalid access token - logging out")
-                self.logoutButtonTapped(self.logoutButton)
+                self.logout()
             } else {
-                TSMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error)
+                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
             }
             self.noDevicesLabel.isHidden = false
         }
@@ -308,33 +305,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
-                
-                // Sort alphabetically
-                self.devices.sort(by: { (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
-                    if let n1 = firstDevice.name
-                    {
-                        if let n2 = secondDevice.name
-                        {
-                            return n1 < n2 //firstDevice.name < secondDevice.name
-                        }
+
+                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
+                    if (firstDevice.connected != secondDevice.connected) {
+                        return firstDevice.connected == true
+                    } else {
+                        var nameA = firstDevice.name ?? " "
+                        var nameB = secondDevice.name ?? " "
+                        return nameA.lowercased() < nameB.lowercased()
                     }
-                    return false;
-                    
-                })
-                
-                // then sort by device type
-                self.devices.sort(by: { (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
-                    return firstDevice.type.rawValue > secondDevice.type.rawValue
-                })
-                
-                // and then by online/offline
-                self.devices.sort(by: { (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
-                    return firstDevice.connected && !secondDevice.connected
-                })
-                
-                // and then by running tinker or not
-                self.devices.sort(by: { (firstDevice:SparkDevice, secondDevice:SparkDevice) -> Bool in
-                    return firstDevice.isRunningTinker() && !secondDevice.isRunningTinker()
                 })
                 
                 DispatchQueue.main.async {
@@ -358,7 +337,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.photonSelectionTableView.addPullToRefresh(withPullText: "Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
             //        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", pullTextColor: UIColor.whiteColor(), pullTextFont: refreshFont, refreshingText: "Refreshing Devices", refreshingTextColor: UIColor.whiteColor(), refreshingTextFont: refreshFont) { () -> Void in
             weak var weakSelf = self
-            SparkCloud.sharedInstance().getDevices() { (devices:[SparkDevice]?, error: Error?) -> Void in
+            ParticleCloud.sharedInstance().getDevices() { (devices:[ParticleDevice]?, error: Error?) -> Void in
                 weakSelf?.handleGetDevicesResponse(devices, error: error)
                 weakSelf?.photonSelectionTableView.finishLoading()
 //                weakSelf?.animateOnlineIndicators()
@@ -374,7 +353,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var noDevicesLabel: UILabel!
     
     
-    internal func getDeviceStateDescription(_ device : SparkDevice?) -> String {
+    internal func getDeviceStateDescription(_ device : ParticleDevice?) -> String {
         let online = device?.connected
         
         switch online!
@@ -472,7 +451,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    func sparkDevice(_ device: SparkDevice, didReceive event: SparkDeviceSystemEvent) {
+    func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
 //        print("--> Received system event "+String(event.rawValue)+" from device "+device.name!)
         
         if (event == .flashStarted) {
@@ -496,38 +475,34 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         // user swiped left
         if editingStyle == .delete
         {
-            TSMessage.showNotification(in: self, title: "Unclaim confirmation", subtitle: "Are you sure you want to remove this device from your account?", image: UIImage(named: "imgQuestionWhite"), type: .error, duration: -1, callback: { () -> Void in
-                // callback for user dismiss by touching inside notification
-                TSMessage.dismissActiveNotification()
-                tableView.isEditing = false
-                } , buttonTitle: " Yes ", buttonCallback: { () -> Void in
-                    // callback for user tapping YES button - need to delete row and update table (TODO: actually unclaim device)
-                    self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
-                        if let err = error
-                        {
-                            TSMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error)
-                            self.photonSelectionTableView.reloadData()
-                        }
+
+            let alert = UIAlertController(title: "Unclaim confirmation", message: "Are you sure you want to remove this device from your account?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Unclaim", style: .default) { action in
+                self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
+                    if let err = error
+                    {
+                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, callback: nil)
+                        self.photonSelectionTableView.reloadData()
                     }
-                    
-                    self.devices.remove(at: (indexPath as NSIndexPath).row)
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                    let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                    // update table view display to show dark/light cells with delay so that delete animation can complete nicely
-                    DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                        tableView.reloadData()
-                    }}, at: .top, canBeDismissedByUser: true)
+                }
+
+                self.devices.remove(at: (indexPath as NSIndexPath).row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                // update table view display to show dark/light cells with delay so that delete animation can complete nicely
+                DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                    tableView.reloadData()
+                }
+            })
+            self.present(alert, animated: true)
         }
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Remove"
     }
-    
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        // user touches elsewhere
-        TSMessage.dismissActiveNotification()
-    }
+
     
     // prevent "Setup new photon" row from being edited/deleted
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -537,15 +512,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func showSetupSuccessMessageAndReload() {
         if (self.devices.count <= 1) {
-            TSMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success)
+            RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
         } else {
-            TSMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success)
+            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
         }
         self.photonSelectionTableView.reloadData()
 
     }
     
-    func sparkSetupViewController(_ controller: SparkSetupMainController!, didFinishWith result: SparkSetupMainControllerResult, device: SparkDevice!) {
+    func particleSetupViewController(_ controller: ParticleSetupMainController!, didFinishWith result: ParticleSetupMainControllerResult, device: ParticleDevice!) {
         if result == .success
         {
             SEGAnalytics.shared().track("Tinker: Photon setup ended", properties: ["result":"success"])
@@ -560,7 +535,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     deviceAdded.rename(deviceName, completion: { (error : Error?) -> Void in
                         if let _=error
                         {
-                            TSMessage.showNotification(withTitle: "Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .warning)
+                            RMessage.showNotification(withTitle: "Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .warning, customTypeName: nil, callback: nil)
                         }
                         else
                         {
@@ -579,39 +554,41 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             else // Device is nil so we treat it as not claimed
             {
-                TSMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success)
+                RMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success, customTypeName: nil, callback: nil)
                 self.photonSelectionTableView.reloadData()
             }
         }
         else if result == .successNotClaimed
         {
-            TSMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success)
+            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success, customTypeName: nil, callback: nil)
             self.photonSelectionTableView.reloadData()
         }
         else
         {
             SEGAnalytics.shared().track("Photon setup ended", properties: ["result":"cancelled or failed"])
-            TSMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning)
+            RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
         }
     }
     
     
     func customizeSetupForSetupFlow()
     {
-        let c = SparkSetupCustomization.sharedInstance()
+        let c = ParticleSetupCustomization.sharedInstance()
         
         c?.pageBackgroundColor = UIColor.color("#F0F0F0")!//ParticleUtils.particleAlmostWhiteColor
         c?.pageBackgroundImage = nil
         
         c?.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
-        c?.linkTextColor = UIColor.blue
-        c?.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+        c?.linkTextColor = ParticleUtils.particleDarkGrayColor
+
         c?.modeButtonName = "SETUP button"
         
         c?.elementTextColor = UIColor.white//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c?.elementBackgroundColor = ParticleUtils.particleCyanColor
         c?.brandImage = UIImage(named: "particle-horizontal-head")
-        
+        c?.brandImageBackgroundColor = .clear
+        c?.brandImageBackgroundImage = UIImage(named: "imgTrianglifyHeader")
+
         c?.tintSetupImages = false
         c?.instructionalVideoFilename = "photon_wifi.mp4"
         c?.allowPasswordManager = true
@@ -623,11 +600,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func invokePhotonDeviceSetup()
     {
-//        let dsc = SparkSetupCustomization.sharedInstance()
+//        let dsc = ParticleSetupCustomization.sharedInstance()
 //        dsc.brandImage = UIImage(named: "setup-device-header")
         
         self.customizeSetupForSetupFlow()
-        if let vc = SparkSetupMainController(setupOnly: !SparkCloud.sharedInstance().isAuthenticated)
+        if let vc = ParticleSetupMainController(setupOnly: !ParticleCloud.sharedInstance().isAuthenticated)
         {
             SEGAnalytics.shared().track("Tinker: Photon setup invoked")
             vc.delegate = self
@@ -637,16 +614,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    func showSparkCoreAppPopUp()
+    func showParticleCoreAppPopUp()
     {
         SEGAnalytics.shared().track("Tinker: User wants to setup a Core")
         
-        let dialog = ZAlertView(title: "Core setup", message: "Setting up a Core requires the legacy Spark Core app. Do you want to install/open it now?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
+        let dialog = ZAlertView(title: "Core setup", message: "Setting up a Core requires the legacy Particle Core app. Do you want to install/open it now?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
                                 okButtonHandler: { alertView in
                                     alertView.dismiss()
-                                    let sparkCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
-                                    SEGAnalytics.shared().track("Tinker: Send user to old Spark Core app")
-                                    UIApplication.shared.openURL(URL(string: sparkCoreAppStoreLink)!)
+                                    let particleCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
+                                    SEGAnalytics.shared().track("Tinker: Send user to old Particle Core app")
+                                    UIApplication.shared.openURL(URL(string: particleCoreAppStoreLink)!)
                                     
             },
                                 cancelButtonHandler: { alertView in
@@ -663,7 +640,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        TSMessage.dismissActiveNotification()
+        RMessage.dismissActiveNotification()
         tableView.deselectRow(at: indexPath, animated: true)
         let device = self.devices[(indexPath as NSIndexPath).row]
         
@@ -672,8 +649,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         //                println("Tapped on \(self.devices[indexPath.row].description)")
         if devices[(indexPath as NSIndexPath).row].isFlashing
         {
-            TSMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning)
-            
+            RMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning, customTypeName: nil, callback: nil)
         } else if device.connected && device.isRunningTinker() {
             self.selectedDevice = self.devices[(indexPath as NSIndexPath).row]
             self.performSegue(withIdentifier: "tinker", sender: self)
@@ -691,15 +667,30 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
-    func logoutButtonTapped(_ sender: UIButton) {
-        SparkCloud.sharedInstance().logout()
+
+    @IBAction func logoutButtonTapped(_ sender: UIButton) {
+        //this method is can be triggered by Log In button therefore we have to have else clause
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
+            let alert = UIAlertController(title: "Log out", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Log out", style: .default) { action in
+                self.logout()
+            })
+            self.present(alert, animated: true)
+        } else if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
+    }
+
+
+    private func logout() {
+        ParticleCloud.sharedInstance().logout()
+
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
-
     }
-    
-    
+
     func generateDeviceName() -> String
     {
         let name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + "_" + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]

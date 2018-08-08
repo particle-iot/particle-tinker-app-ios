@@ -3,12 +3,12 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/27/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 import Foundation
 
-class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, SparkDeviceDelegate {
+class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, ParticleDeviceDelegate {
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -36,26 +36,28 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
         
         dialog.addButton("Rename device", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
-            dialog.dismiss()
-            self.renameDialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
-                                    okButtonHandler: { [unowned self] alertView in
-                                        
-                                        let tf = alertView.getTextFieldWithIdentifier("name")
-                                        self.renameDevice(tf!.text)
-                                        alertView.dismiss()
-                },
-                                    cancelButtonHandler: { alertView in
-                                        alertView.dismiss()
-                }
-            )
-            self.renameDialog!.addTextField("name", placeHolder: self.device!.name!)
-            let tf = self.renameDialog!.getTextFieldWithIdentifier("name")
-            tf?.text = self.device?.name
-            tf?.delegate = self
-            tf?.tag = 100
+            dialog.dismissWithDuration(0.01)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
+                self.renameDialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
+                        okButtonHandler: { [unowned self] alertView in
 
-            self.renameDialog!.show()
-            tf?.becomeFirstResponder()
+                            let tf = alertView.getTextFieldWithIdentifier("name")
+                            self.renameDevice(tf!.text)
+                            alertView.dismiss()
+                        },
+                        cancelButtonHandler: { alertView in
+                            alertView.dismiss()
+                        }
+                )
+                self.renameDialog!.addTextField("name", placeHolder: self.device!.name!)
+                let tf = self.renameDialog!.getTextFieldWithIdentifier("name")
+                tf?.text = self.device?.name
+                tf?.delegate = self
+                tf?.tag = 100
+
+                self.renameDialog!.show()
+                tf?.becomeFirstResponder()
+            }
         }
         
        
@@ -191,7 +193,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     @IBOutlet weak var deviceDataContainerView: UIView!
     @IBOutlet weak var deviceInfoContainerView: UIView!
     
-    var device : SparkDevice?
+    @objc var device : ParticleDevice?
     
 //    var frameView: UIView!
     
@@ -201,7 +203,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
        
         let font = UIFont(name: "Gotham-book", size: 15.0)
         
-        let attrib = [NSFontAttributeName : font!]
+        let attrib = [NSAttributedStringKey.font : font!]
         
         self.modeSegmentedControl.setTitleTextAttributes(attrib, for: UIControlState())
         
@@ -267,13 +269,13 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
     
     var flashedTinker : Bool = false
     
-    func sparkDevice(_ device: SparkDevice, didReceive event: SparkDeviceSystemEvent) {
+    func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
         ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
         if self.flashedTinker && event == .flashSucceeded {
             
             SEGAnalytics.shared().track("Device Inspector: reflash Tinker success")
             DispatchQueue.main.async {
-                TSMessage.showNotification(withTitle: "Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .success)
+                RMessage.showNotification(withTitle: "Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .success, customTypeName: nil, callback: nil)
             }
             self.flashedTinker = false
 //            self.refreshData()
@@ -341,7 +343,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
                 {
                     if let s = self {
                         s.flashedTinker = false
-                        TSMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device. Are you sure it's online? \(e.localizedDescription)", type: .error)
+                        RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device. Are you sure it's online? \(e.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
                     }
                     
                 }
@@ -358,7 +360,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
             self.device!.flashKnownApp("tinker", completion: { (error:Error?) -> Void in
                 if let e=error
                 {
-                    TSMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error)
+                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
                 }
             })
             
@@ -386,9 +388,9 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Spa
             dialog.show()
             
         default:
-            TSMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "Cannot flash Tinker to a non-Particle device", type: .warning)
             
             
+            RMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "Cannot flash Tinker to a non-Particle device", type: .warning, customTypeName: nil, callback: nil)
         }
         
     }

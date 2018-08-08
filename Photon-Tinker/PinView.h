@@ -2,7 +2,7 @@
 #import "DevicePin.h"
 #import "PinValueView.h"
 
-// TODO: move to utils (in SparkSetup lib?)
+// TODO: move to utils (in ParticleSetup lib?)
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)

@@ -1,24 +1,22 @@
 //
 //  SPKTinkerViewController.m
-//  Spark IOS
+//  Particle IOS
 //
-//  Copyright (c) 2013 Spark Devices. All rights reserved.
+//  Copyright (c) 2013 Particle Devices. All rights reserved.
 //
 
 #import "SPKTinkerViewController.h"
-#import "Spark-SDK.h"
+#import "Particle-SDK.h"
 #import "DevicePin.h"
-#import "SparkDevice+pins.h"
+#import "ParticleDevice+pins.h"
 #import "PinView.h"
-#import "TSMessage.h"
 #import "PinValueView.h"
-#import "Mixpanel.h"
 #import "Particle-Swift.h"
 
 
 
 
-@interface SPKTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, SparkDeviceDelegate>
+@interface SPKTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, ParticleDeviceDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -83,7 +81,7 @@
 //    [self.view addGestureRecognizer:_tap];
 }
 
--(void)sparkDevice:(SparkDevice *)device didReceiveSystemEvent:(SparkDeviceSystemEvent)event
+-(void)particleDevice:(ParticleDevice *)device didReceiveSystemEvent:(ParticleDeviceSystemEvent)event
 {
     [ParticleUtils animateOnlineIndicatorImageView:self.deviceStateIndicatorImageView online:self.device.connected flashing:self.device.isFlashing];
 
@@ -108,7 +106,7 @@
     // animate the deviceStateIndicatorImageView
     [ParticleUtils animateOnlineIndicatorImageView:self.deviceStateIndicatorImageView online:self.device.connected flashing:self.device.isFlashing];
     
-    [[Mixpanel sharedInstance] timeEvent:@"Tinker: Tinker screen activity"];
+    [[SEGAnalytics sharedAnalytics] track:@"Tinker: Tinker screen activity"];
     if (self.chipView.alpha == 0)
         [ParticleSpinner show:self.view];
 }
@@ -116,7 +114,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[Mixpanel sharedInstance] track:@"Tinker: Tinker screen activity"];
+    [[SEGAnalytics sharedAnalytics] track:@"Tinker: Tinker screen activity"];
 }
 
 
@@ -578,9 +576,9 @@
             if (pinView.pin.selectedFunction == DevicePinFunctionDigitalWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWriteDAC) {
                 if (result < 0) {
 
-                    [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"pin write"}];
+                    [[SEGAnalytics sharedAnalytics] track:@"Tinker: error" properties:@{@"type":@"pin write"}];
 
-                    [TSMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:TSMessageNotificationTypeError];
+                    [RMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:RMessageTypeError customTypeName:nil callback:nil];
                     [pinView.pin resetValue];
                     pinView.active = NO;
                 }
@@ -597,9 +595,9 @@
             [pinView endUpdating];
             
             NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device (%@)",errorMessage];
-            [[Mixpanel sharedInstance] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
+            [[SEGAnalytics sharedAnalytics] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
 
-            [TSMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:TSMessageNotificationTypeError];
+            [RMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:RMessageTypeError customTypeName:nil callback:nil];
 
             [pinView.pin resetValue];
             self.tinkerLogoImageView.hidden = NO;

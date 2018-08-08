@@ -2,27 +2,26 @@
 //  Particle-Bridging-Header.h
 //
 
-#ifndef _SparkSetup_Bridging_Header_h
-#define _SparkSetup_Bridging_Header_h
+#ifndef _ParticleSetup_Bridging_Header_h
+#define _ParticleSetup_Bridging_Header_h
 
-// Spark DeviceSetup library integration
-#include "SparkSetup.h"
-#include "SparkSetupVideoViewController.h"
+// Particle DeviceSetup library integration
+#include "ParticleSetup.h"
+#include "ParticleSetupVideoViewController.h"
 
 // Other Obj-C project files
-#include "SparkDevice+pins.h"
+#include "ParticleDevice+pins.h"
 #include "SPKTinkerViewController.h"
 #include "ScanBarcodeViewController.h"
 
 // pods
 #include "MBProgressHUD.h"
-#include "TSMessage.h"
-#include "TSMessages/TSMessageView.h"
+#include "RMessage.h"
 #include "IQKeyboardManager.h"
 #include "YCTutorialBox.h"
 #include "UIScrollView+PullToRefreshCoreText.h"
 #include "DateTools.h"
 #include "SEGAnalytics.h"
-#include "Mixpanel.h"
+#include "Segment-Firebase/SEGFirebaseIntegrationFactory.h"
 //#include "ParticleKeys.h"
 #endif

@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 6/28/16.
-//  Copyright © 2016 spark. All rights reserved.
+//  Copyright © 2016 particle. All rights reserved.
 //
 
 import Foundation
@@ -26,13 +26,13 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     
     @IBAction func copyDeviceIdButtonTapped(_ sender: AnyObject) {
         UIPasteboard.general.string = self.device?.id
-        TSMessage.showNotification(withTitle: "Copied", subtitle: "Device ID was copied to the clipboard", type: .success)
+        RMessage.showNotification(withTitle: "Copied", subtitle: "Device ID was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
         SEGAnalytics.shared().track("Device Inspector: device ID copied")
     }
     
     @IBAction func copyDeviceIccidButtonTapped(_ sender: UIButton) {
         UIPasteboard.general.string = self.device?.lastIccid
-        TSMessage.showNotification(withTitle: "Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .success)
+        RMessage.showNotification(withTitle: "Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
         SEGAnalytics.shared().track("Device Inspector: device ICCID copied")
     }
     

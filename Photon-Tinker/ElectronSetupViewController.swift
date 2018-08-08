@@ -55,7 +55,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
         print("start:"+self.printTimestamp())
         
-        if kSparkAPIBaseURL.contains("staging") {
+        if kParticleAPIBaseURL.contains("staging") {
             self.setupWebAddress = URL(string: "https://setup.staging.particle.io?mobile=true")
         } else {
             self.setupWebAddress = URL(string: "https://setup.particle.io?mobile=true")
@@ -87,8 +87,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
         
         // force inject the access token and current username into the JS context global 'window' object
-        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken" as (NSCopying & NSObjectProtocol)!)
-        context!.objectForKeyedSubscript("window").setObject(SparkCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername" as (NSCopying & NSObjectProtocol)!)
+        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken" as (NSCopying & NSObjectProtocol)!)
+        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername" as (NSCopying & NSObjectProtocol)!)
         context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient" as (NSCopying & NSObjectProtocol)!)  
 
 //        print("after setting mobileClient:"+self.printTimestamp())
@@ -193,10 +193,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 
         // old and laggy technique to inject access token to JS code - bye bye
         // set global var
-        var jsFunc = "window.particleAccessToken=\(SparkCloud.sharedInstance().accessToken)"
+        var jsFunc = "window.particleAccessToken=\(ParticleCloud.sharedInstance().accessToken)"
         self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
 
-        jsFunc = "window.particleUsername=\(SparkCloud.sharedInstance().loggedInUsername)"
+        jsFunc = "window.particleUsername=\(ParticleCloud.sharedInstance().loggedInUsername)"
         self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
         
         jsFunc = "window.mobileClient='iOS'"
@@ -260,9 +260,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                 DispatchQueue.main.async {
                     if JSONDictionary != nil {
                         if JSONDictionary!["level"] as! String == "info" {
-                            TSMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .success)
+                            RMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String, subtitle: JSONDictionary!["message"] as! String, type: .success, customTypeName: nil, callback: nil)
                         } else {
-                            TSMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String!, subtitle: JSONDictionary!["message"] as! String!, type: .error)
+                            RMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String, subtitle: JSONDictionary!["message"] as! String, type: .error, customTypeName: nil, callback: nil)
                         }
                     }
                 }

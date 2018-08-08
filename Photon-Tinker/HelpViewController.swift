@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Ido on 5/29/15.
-//  Copyright (c) 2015 spark. All rights reserved.
+//  Copyright (c) 2015 particle. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ import UIKit
 
 class HelpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-//    @objc var device : SparkDevice? = nil
+//    @objc var device : ParticleDevice? = nil
 //    var delegate : SettingsTableViewControllerDelegate? = nil
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -184,7 +184,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             SEGAnalytics.shared().track("Tinker: Tutorials reset")
             ParticleUtils.resetTutorialWasDisplayed()
             DispatchQueue.main.async {
-                TSMessage.showNotification(in: self, title: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .success)
+                RMessage.showNotification(withTitle: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .success, customTypeName: nil, callback: nil)
             }
 
             openWebView = false
