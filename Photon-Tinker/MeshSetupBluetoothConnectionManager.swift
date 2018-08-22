@@ -225,7 +225,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
             self.connections = [MeshSetupBluetoothConnection]()
         }
         
-        let newConnection = MeshSetupBluetoothConnection(bluetoothConnectionManager: self, connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials)
+        let newConnection = MeshSetupBluetoothConnection(bluetoothConnectionManager: self, connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials!)
         self.connections?.append(newConnection)
         self.delegate?.bluetoothConnectionCreated(connection: newConnection)
         newConnection.discoverServices()
