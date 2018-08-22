@@ -23,7 +23,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController {
             if networks != nil {
                 self.scannedNetworks = networks!
                 self.successImageView.isHidden = false
-                self.pairingLabel.text = "Successfully paired with \(self.flowManager!.joinerPeripheralName!)"
+                self.pairingLabel.text = "Successfully paired with \(self.flowManager!.joinerPeripheralCredentials!)"
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.performSegue(withIdentifier: "selectNetwork", sender: self)

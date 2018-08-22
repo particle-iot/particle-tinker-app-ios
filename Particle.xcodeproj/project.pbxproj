@@ -77,8 +77,41 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
+		93C7F2E0212D8E2200800F42 /* mbedTLSWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */; };
+		93C7F2E1212D8E7300800F42 /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C810B65B7E3909B43E122481 /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B1FDAB6A2E98FA95EBD0 /* MeshSetupBluetoothConnectionHandshakeManager.swift */; };
 		EA99D60C264524A77883671A /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA6D1CD882109AFC45E4D4B /* libPods-Particle.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		93C7F2DC212D8E1700800F42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9365493221232D3300E12BC0;
+			remoteInfo = mbedTLSWrapper;
+		};
+		93C7F2DE212D8E1700800F42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9365493B21232D3300E12BC0;
+			remoteInfo = mbedTLSWrapperTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		932C75FD212ACDD500B90523 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				93C7F2E1212D8E7300800F42 /* mbedTLSWrapper.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3EA6D1CD882109AFC45E4D4B /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,7 +200,9 @@
 		50F62D971AE0721200109F33 /* Gotham-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLight.otf"; sourceTree = "<group>"; };
 		50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightIta.otf"; sourceTree = "<group>"; };
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
+		93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
+		C810B1FDAB6A2E98FA95EBD0 /* MeshSetupBluetoothConnectionHandshakeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionHandshakeManager.swift; sourceTree = "<group>"; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93C7F2E0212D8E2200800F42 /* mbedTLSWrapper.framework in Frameworks */,
 				508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */,
 				EA99D60C264524A77883671A /* libPods-Particle.a in Frameworks */,
 			);
@@ -228,6 +264,7 @@
 			children = (
 				505D2A7F20D9AD36005389DF /* MeshSetupBluetoothConnectionManager.swift */,
 				50000D9E20F82F8D00037F4F /* MeshSetupBluetoothConnection.swift */,
+				C810B1FDAB6A2E98FA95EBD0 /* MeshSetupBluetoothConnectionHandshakeManager.swift */,
 			);
 			name = BLE;
 			sourceTree = "<group>";
@@ -280,6 +317,7 @@
 		50B1253A1AE06CF4003C29DC = {
 			isa = PBXGroup;
 			children = (
+				93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */,
 				50CF03C01D93420D0019E3F6 /* Particle.entitlements */,
 				50F62D721AE071AF00109F33 /* Assets */,
 				50B125451AE06CF4003C29DC /* Particle-Tinker */,
@@ -424,6 +462,15 @@
 			path = "Photon-Tinker/Fonts";
 			sourceTree = "<group>";
 		};
+		93C7F2D8212D8E1700800F42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */,
+				93C7F2DF212D8E1700800F42 /* mbedTLSWrapperTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9F8A6834C76C6E158FE8EE72 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,6 +502,7 @@
 				50B125411AE06CF4003C29DC /* Resources */,
 				50E5EF201D349D450087C7B6 /* Run Script */,
 				8B415DAEB7707DDEE4D1CC38 /* [CP] Copy Pods Resources */,
+				932C75FD212ACDD500B90523 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -500,12 +548,35 @@
 			mainGroup = 50B1253A1AE06CF4003C29DC;
 			productRefGroup = 50B125441AE06CF4003C29DC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 93C7F2D8212D8E1700800F42 /* Products */;
+					ProjectRef = 93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				50B125421AE06CF4003C29DC /* Particle */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = mbedTLSWrapper.framework;
+			remoteRef = 93C7F2DC212D8E1700800F42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93C7F2DF212D8E1700800F42 /* mbedTLSWrapperTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = mbedTLSWrapperTests.xctest;
+			remoteRef = 93C7F2DE212D8E1700800F42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		50B125411AE06CF4003C29DC /* Resources */ = {
@@ -714,6 +785,7 @@
 				505D2A8A20D9AD84005389DF /* MeshSetupViewController.swift in Sources */,
 				50E5EF1D1D2DDCBF0087C7B6 /* ZAlertView.swift in Sources */,
 				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
+				C810B65B7E3909B43E122481 /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +921,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -857,6 +930,11 @@
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/bin",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
@@ -880,6 +958,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -888,6 +967,11 @@
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/bin",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
