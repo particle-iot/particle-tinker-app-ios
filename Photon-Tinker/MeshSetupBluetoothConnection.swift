@@ -46,7 +46,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
     fileprivate let MTU = 20
 
     var peripheralName : String?
-    var peripheralSecret: String?
+    var mobileSecret: String?
     var derivedSecret: Data?
 
     private var handshakeManager : MeshSetupBluetoothConnectionHandshakeManager?
@@ -58,7 +58,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         self.peripheral = connectedPeripheral
         self.peripheral?.delegate = self
         self.peripheralName = peripheral?.name
-        self.peripheralSecret = credentials.secret
+        self.mobileSecret = credentials.mobileSecret
     }
     
     func _getPeripheral() -> CBPeripheral? {
@@ -164,9 +164,9 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
             log(level: .infoLogLevel, message: "Notifications disabled for characteristic: \(characteristic.uuid.uuidString)")
         }
 
-        handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, secret: peripheralSecret!)
-        handshakeManager!.delegate = self
-        handshakeManager!.startHandshake()
+        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret!)
+        self.handshakeManager!.delegate = self
+        self.handshakeManager!.startHandshake()
     }
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -209,7 +209,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
             log(level: .infoLogLevel, message: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
         }
 
-        if (self.handshakeManager == nil) {
+        if (self.isReady) {
             self.delegate?.bluetoothConnectionDidReceiveData(sender: self, data: bytesReceived as Data)
         } else {
             self.handshakeManager!.readBytes(bytesReceived as Data)
@@ -218,12 +218,22 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
 
     //MARK: MeshSetupBluetoothConnectionHandshakeManagerDelegate
     func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HanshakeManagerError) {
-        NSLog("Handshake manager error: \(error)")
+        NSLog("Handshake Error: \(error)")
+
+        //retry handshake
+        self.handshakeManager!.delegate = nil
+        self.handshakeManager = nil
+
+        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret!)
+        self.handshakeManager!.delegate = self
+        self.handshakeManager!.startHandshake()
     }
 
-    func handshakeDidSucceed(sender: MeshSetupBluetoothConnectionHandshakeManager, secret: Data) {
+    func handshakeDidSucceed(sender: MeshSetupBluetoothConnectionHandshakeManager, derivedSecret: Data) {
+        self.derivedSecret = derivedSecret
+
+        self.handshakeManager!.delegate = nil
         self.handshakeManager = nil
-        self.derivedSecret = secret
 
         self.isReady = true
         self.connectionManager?.delegate?.bluetoothConnectionReady(connection: self)

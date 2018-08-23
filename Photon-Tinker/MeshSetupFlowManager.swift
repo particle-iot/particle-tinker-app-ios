@@ -93,7 +93,7 @@ extension MeshSetupFlowManagerDelegate {
 
 struct PeripheralCredentials {
     var name: String
-    var secret: String
+    var mobileSecret: String
 }
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
@@ -154,13 +154,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
         // TODO: add support for "any" device type by scanning and pairing to SN suffix wildcard only (for commissioner) - TBD - break out to a seperate function
         let (serialNumber, mobileSecret) = self.processDataMatrix(dataMatrix: dataMatrix)
+
         switch deviceRole {
         case .Joiner :
-            self.joinerPeripheralCredentials = PeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), secret: mobileSecret)
+            self.joinerPeripheralCredentials = PeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), mobileSecret: mobileSecret)
             self.joinerDeviceType = deviceType
             self.flowType = .Detecting
         case .Commissioner :
-            self.commissionerPeripheralCredentials = PeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), secret: mobileSecret)
+            self.commissionerPeripheralCredentials = PeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), mobileSecret: mobileSecret)
             self.commissionerDeviceType = deviceType
 //            self.flowType = ...
         }
