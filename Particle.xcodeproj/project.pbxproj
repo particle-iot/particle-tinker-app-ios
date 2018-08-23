@@ -280,12 +280,12 @@
 		5075456520E46779009B7A55 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				C810BE8585D09D9A9243B5C9 /* ProtoBuffs */,
 				5075457C20EC81EA009B7A55 /* MeshSetupFlowManager.swift */,
 				5075457A20E47E50009B7A55 /* MeshSetupProtocolTransceiver.swift */,
 				505D2A7D20D9AD1D005389DF /* MeshSetupFraming.swift */,
 				50000D9C20F5657900037F4F /* MeshSetupFlow.swift */,
 				50000D9A20F559E000037F4F /* MeshSetupInitialXenonFlow.swift */,
-				C810BE8585D09D9A9243B5C9 /* ProtoBuffs */,
 			);
 			name = Protocol;
 			sourceTree = "<group>";
@@ -494,8 +494,8 @@
 				C810B97E68115739DD664834 /* storage.pb.swift */,
 				C810B2E5194A4FDA3372915E /* mesh.proto */,
 			);
-			path = ProtoBuffs;
-			sourceTree = SOURCE_ROOT;
+			name = ProtoBuffs;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
