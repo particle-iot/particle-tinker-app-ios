@@ -43,10 +43,6 @@
 		50738AC120E17E6500348131 /* MeshSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50738AC020E17E6500348131 /* MeshSetup.storyboard */; };
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
 		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
-		5075457620E47CF5009B7A55 /* mesh.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456A20E468AD009B7A55 /* mesh.pb.swift */; };
-		5075457720E47D06009B7A55 /* cloud.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456920E468AC009B7A55 /* cloud.pb.swift */; };
-		5075457820E47D08009B7A55 /* config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456820E468AC009B7A55 /* config.pb.swift */; };
-		5075457920E47D0B009B7A55 /* storage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075456B20E468AD009B7A55 /* storage.pb.swift */; };
 		5075457B20E47E50009B7A55 /* MeshSetupProtocolTransceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075457A20E47E50009B7A55 /* MeshSetupProtocolTransceiver.swift */; };
 		5075457D20EC81EA009B7A55 /* MeshSetupFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075457C20EC81EA009B7A55 /* MeshSetupFlowManager.swift */; };
 		507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */; };
@@ -77,8 +73,45 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
+		93C7F2E0212D8E2200800F42 /* mbedTLSWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */; };
+		93C7F2E1212D8E7300800F42 /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C810B4445A941E2F32299DE6 /* storage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B97E68115739DD664834 /* storage.pb.swift */; };
+		C810B49B236FB565825AEDD5 /* mesh.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BE73B02B18C5DD08F6AB /* mesh.pb.swift */; };
+		C810B65B7E3909B43E122481 /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B1FDAB6A2E98FA95EBD0 /* MeshSetupBluetoothConnectionHandshakeManager.swift */; };
+		C810BCED5AA797DE4322985F /* config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA119EB5BD65F8015225 /* config.pb.swift */; };
+		C810BDB0B0412D58D3A3A045 /* cloud.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B87279126CEA22EF2293 /* cloud.pb.swift */; };
 		EA99D60C264524A77883671A /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA6D1CD882109AFC45E4D4B /* libPods-Particle.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		93C7F2DC212D8E1700800F42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9365493221232D3300E12BC0;
+			remoteInfo = mbedTLSWrapper;
+		};
+		93C7F2DE212D8E1700800F42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9365493B21232D3300E12BC0;
+			remoteInfo = mbedTLSWrapperTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		932C75FD212ACDD500B90523 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				93C7F2E1212D8E7300800F42 /* mbedTLSWrapper.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3EA6D1CD882109AFC45E4D4B /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +135,6 @@
 		504D96FF21093B230074544B /* MeshSetupNameDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupNameDeviceViewController.swift; sourceTree = "<group>"; };
 		504D970121093ECF0074544B /* MeshSetupSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupSuccessViewController.swift; sourceTree = "<group>"; };
 		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Photon-Tinker/Keys.swift"; sourceTree = SOURCE_ROOT; };
-		50508E132101465C00D91DAB /* mesh.proto */ = {isa = PBXFileReference; lastKnownFileType = text; path = mesh.proto; sourceTree = "<group>"; };
 		50508E1421016CD200D91DAB /* MeshSetupSelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectNetworkViewController.swift; sourceTree = "<group>"; };
 		50508E1621017D9F00D91DAB /* MeshSetupAddToNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupAddToNetworkViewController.swift; sourceTree = "<group>"; };
 		50508E1821017F8400D91DAB /* MeshSetupNetworkPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkPasswordViewController.swift; sourceTree = "<group>"; };
@@ -120,10 +152,6 @@
 		5073D4C81AFB14DE00068C2A /* PinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinFunctionView.m; sourceTree = "<group>"; };
 		5073D4CA1AFB2E3000068C2A /* PinValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinValueView.h; sourceTree = "<group>"; };
 		5073D4CB1AFB2E3000068C2A /* PinValueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinValueView.m; sourceTree = "<group>"; };
-		5075456820E468AC009B7A55 /* config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = config.pb.swift; sourceTree = "<group>"; };
-		5075456920E468AC009B7A55 /* cloud.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cloud.pb.swift; sourceTree = "<group>"; };
-		5075456A20E468AD009B7A55 /* mesh.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mesh.pb.swift; sourceTree = "<group>"; };
-		5075456B20E468AD009B7A55 /* storage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storage.pb.swift; sourceTree = "<group>"; };
 		5075457A20E47E50009B7A55 /* MeshSetupProtocolTransceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupProtocolTransceiver.swift; sourceTree = "<group>"; };
 		5075457C20EC81EA009B7A55 /* MeshSetupFlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowManager.swift; sourceTree = "<group>"; };
 		507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoViewController.swift; sourceTree = "<group>"; };
@@ -167,7 +195,14 @@
 		50F62D971AE0721200109F33 /* Gotham-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLight.otf"; sourceTree = "<group>"; };
 		50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightIta.otf"; sourceTree = "<group>"; };
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
+		93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
+		C810B1FDAB6A2E98FA95EBD0 /* MeshSetupBluetoothConnectionHandshakeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionHandshakeManager.swift; sourceTree = "<group>"; };
+		C810B2E5194A4FDA3372915E /* mesh.proto */ = {isa = PBXFileReference; lastKnownFileType = file.proto; name = mesh.proto; path = "Photon-Tinker/mesh.proto"; sourceTree = SOURCE_ROOT; };
+		C810B87279126CEA22EF2293 /* cloud.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = cloud.pb.swift; path = "Photon-Tinker/cloud.pb.swift"; sourceTree = SOURCE_ROOT; };
+		C810B97E68115739DD664834 /* storage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = storage.pb.swift; path = "Photon-Tinker/storage.pb.swift"; sourceTree = SOURCE_ROOT; };
+		C810BA119EB5BD65F8015225 /* config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = config.pb.swift; path = "Photon-Tinker/config.pb.swift"; sourceTree = SOURCE_ROOT; };
+		C810BE73B02B18C5DD08F6AB /* mesh.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = mesh.pb.swift; path = "Photon-Tinker/mesh.pb.swift"; sourceTree = SOURCE_ROOT; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93C7F2E0212D8E2200800F42 /* mbedTLSWrapper.framework in Frameworks */,
 				508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */,
 				EA99D60C264524A77883671A /* libPods-Particle.a in Frameworks */,
 			);
@@ -228,6 +264,7 @@
 			children = (
 				505D2A7F20D9AD36005389DF /* MeshSetupBluetoothConnectionManager.swift */,
 				50000D9E20F82F8D00037F4F /* MeshSetupBluetoothConnection.swift */,
+				C810B1FDAB6A2E98FA95EBD0 /* MeshSetupBluetoothConnectionHandshakeManager.swift */,
 			);
 			name = BLE;
 			sourceTree = "<group>";
@@ -248,11 +285,7 @@
 				505D2A7D20D9AD1D005389DF /* MeshSetupFraming.swift */,
 				50000D9C20F5657900037F4F /* MeshSetupFlow.swift */,
 				50000D9A20F559E000037F4F /* MeshSetupInitialXenonFlow.swift */,
-				5075456920E468AC009B7A55 /* cloud.pb.swift */,
-				5075456820E468AC009B7A55 /* config.pb.swift */,
-				5075456A20E468AD009B7A55 /* mesh.pb.swift */,
-				50508E132101465C00D91DAB /* mesh.proto */,
-				5075456B20E468AD009B7A55 /* storage.pb.swift */,
+				C810BE8585D09D9A9243B5C9 /* ProtoBuffs */,
 			);
 			name = Protocol;
 			sourceTree = "<group>";
@@ -280,6 +313,7 @@
 		50B1253A1AE06CF4003C29DC = {
 			isa = PBXGroup;
 			children = (
+				93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */,
 				50CF03C01D93420D0019E3F6 /* Particle.entitlements */,
 				50F62D721AE071AF00109F33 /* Assets */,
 				50B125451AE06CF4003C29DC /* Particle-Tinker */,
@@ -424,6 +458,15 @@
 			path = "Photon-Tinker/Fonts";
 			sourceTree = "<group>";
 		};
+		93C7F2D8212D8E1700800F42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */,
+				93C7F2DF212D8E1700800F42 /* mbedTLSWrapperTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9F8A6834C76C6E158FE8EE72 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +485,18 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C810BE8585D09D9A9243B5C9 /* ProtoBuffs */ = {
+			isa = PBXGroup;
+			children = (
+				C810BE73B02B18C5DD08F6AB /* mesh.pb.swift */,
+				C810BA119EB5BD65F8015225 /* config.pb.swift */,
+				C810B87279126CEA22EF2293 /* cloud.pb.swift */,
+				C810B97E68115739DD664834 /* storage.pb.swift */,
+				C810B2E5194A4FDA3372915E /* mesh.proto */,
+			);
+			path = ProtoBuffs;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -455,6 +510,7 @@
 				50B125411AE06CF4003C29DC /* Resources */,
 				50E5EF201D349D450087C7B6 /* Run Script */,
 				8B415DAEB7707DDEE4D1CC38 /* [CP] Copy Pods Resources */,
+				932C75FD212ACDD500B90523 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -500,12 +556,35 @@
 			mainGroup = 50B1253A1AE06CF4003C29DC;
 			productRefGroup = 50B125441AE06CF4003C29DC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 93C7F2D8212D8E1700800F42 /* Products */;
+					ProjectRef = 93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				50B125421AE06CF4003C29DC /* Particle */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = mbedTLSWrapper.framework;
+			remoteRef = 93C7F2DC212D8E1700800F42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		93C7F2DF212D8E1700800F42 /* mbedTLSWrapperTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = mbedTLSWrapperTests.xctest;
+			remoteRef = 93C7F2DE212D8E1700800F42 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		50B125411AE06CF4003C29DC /* Resources */ = {
@@ -668,7 +747,6 @@
 				50E5EF1B1D2DDCBF0087C7B6 /* UIColor.swift in Sources */,
 				505D2A8C20D9AD84005389DF /* MeshSetupGetReadyViewController.swift in Sources */,
 				504D970021093B230074544B /* MeshSetupNameDeviceViewController.swift in Sources */,
-				5075457920E47D0B009B7A55 /* storage.pb.swift in Sources */,
 				5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */,
 				5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */,
 				504D970221093ECF0074544B /* MeshSetupSuccessViewController.swift in Sources */,
@@ -690,9 +768,7 @@
 				505D2A8020D9AD36005389DF /* MeshSetupBluetoothConnectionManager.swift in Sources */,
 				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,
-				5075457820E47D08009B7A55 /* config.pb.swift in Sources */,
 				505D2A7E20D9AD1D005389DF /* MeshSetupFraming.swift in Sources */,
-				5075457720E47D06009B7A55 /* cloud.pb.swift in Sources */,
 				50508E1721017D9F00D91DAB /* MeshSetupAddToNetworkViewController.swift in Sources */,
 				508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */,
 				502F498020DC68DF0072490E /* MeshSetupPairingProcessViewController.swift in Sources */,
@@ -705,7 +781,6 @@
 				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
 				505D2A8920D9AD84005389DF /* MeshSetupPairDeviceViewController.swift in Sources */,
-				5075457620E47CF5009B7A55 /* mesh.pb.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50B0F9BA1D261149007DB6D1 /* DeviceEventTableViewCell.swift in Sources */,
 				50508E1521016CD200D91DAB /* MeshSetupSelectNetworkViewController.swift in Sources */,
@@ -714,6 +789,11 @@
 				505D2A8A20D9AD84005389DF /* MeshSetupViewController.swift in Sources */,
 				50E5EF1D1D2DDCBF0087C7B6 /* ZAlertView.swift in Sources */,
 				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
+				C810B65B7E3909B43E122481 /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */,
+				C810B49B236FB565825AEDD5 /* mesh.pb.swift in Sources */,
+				C810BCED5AA797DE4322985F /* config.pb.swift in Sources */,
+				C810BDB0B0412D58D3A3A045 /* cloud.pb.swift in Sources */,
+				C810B4445A941E2F32299DE6 /* storage.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +929,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -857,6 +938,11 @@
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/bin",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";
@@ -880,6 +966,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -888,6 +975,11 @@
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/bin",
+					"$(PROJECT_DIR)/mbedTLSWrapper/mbedTLS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
 				PROVISIONING_PROFILE = "";

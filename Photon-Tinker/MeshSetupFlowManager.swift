@@ -91,6 +91,10 @@ extension MeshSetupFlowManagerDelegate {
 
 */
 
+struct PeripheralCredentials {
+    var name: String
+    var mobileSecret: String
+}
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
     
@@ -115,16 +119,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
     var delegate : MeshSetupFlowManagerDelegate?
     var bluetoothManagerReady = false
-    var joinerPeripheralName : String? {
+
+
+    var joinerPeripheralCredentials: PeripheralCredentials? {
         didSet {
             print("joinerPeripheralName didSet")
-            self.createBluetoothConnection(with: joinerPeripheralName!)
+            self.createBluetoothConnection(with: joinerPeripheralCredentials!)
         }
     }
-    var commissionerPeripheralName : String? {
+    var commissionerPeripheralCredentials: PeripheralCredentials? {
         didSet {
             print("commissionerPeripheralName didSet")
-            self.createBluetoothConnection(with: commissionerPeripheralName!)
+            self.createBluetoothConnection(with: commissionerPeripheralCredentials!)
         }
     }
     
@@ -148,13 +154,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
         // TODO: add support for "any" device type by scanning and pairing to SN suffix wildcard only (for commissioner) - TBD - break out to a seperate function
         let (serialNumber, mobileSecret) = self.processDataMatrix(dataMatrix: dataMatrix)
+
         switch deviceRole {
         case .Joiner :
-            self.joinerPeripheralName = deviceType.description+"-"+serialNumber.suffix(6)
+            self.joinerPeripheralCredentials = PeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), mobileSecret: mobileSecret)
             self.joinerDeviceType = deviceType
             self.flowType = .Detecting
         case .Commissioner :
-            self.commissionerPeripheralName = deviceType.description+"-"+serialNumber.suffix(6)
+            self.commissionerPeripheralCredentials = PeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), mobileSecret: mobileSecret)
             self.commissionerDeviceType = deviceType
 //            self.flowType = ...
         }
@@ -195,8 +202,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 //    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
     func bluetoothConnectionReady(connection: MeshSetupBluetoothConnection) {
-        if let joiner = joinerPeripheralName {
-            if connection.peripheralName! == joiner {
+        if let joiner = joinerPeripheralCredentials {
+            if connection.peripheralName! == joiner.name {
                 
                 print("Joiner BLE connection with \(connection.peripheralName!) ready - setting up flow")
                 
@@ -216,8 +223,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         }
         
-        if let comm = commissionerPeripheralName {
-            if connection.peripheralName! == comm {
+        if let comm = commissionerPeripheralCredentials {
+            if connection.peripheralName! == comm.name {
                 self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection, role : .Commissioner)
                 print("Commissioner BLE connection with \(connection.peripheralName!) ready")
                 self.currentFlow!.startCommissioner()
@@ -227,11 +234,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     }
     
-    func createBluetoothConnection(with peripheralName : String) {
-        let bleReady = self.bluetoothManager!.createConnection(with: peripheralName)
+    func createBluetoothConnection(with credentials: PeripheralCredentials) {
+        let bleReady = self.bluetoothManager!.createConnection(with: credentials)
         if bleReady == false {
             // TODO: handle flow
-            self.delegate?.flowError(error: "BLE is not ready to create connection with \(peripheralName)", severity: .Error, action: .Pop)
+            self.delegate?.flowError(error: "BLE is not ready to create connection with \(credentials)", severity: .Error, action: .Pop)
             print ("Bluetooth not ready")
         }
     }
@@ -240,15 +247,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection) {
 
         print("Connection to \(connection.peripheralName!) was dropped")
-        if let joiner = joinerPeripheralName {
-            if connection.peripheralName! == joiner {
+        if let joiner = joinerPeripheralCredentials {
+            if connection.peripheralName! == joiner.name {
                 self.joinerProtocol = nil
                 self.isReady = false // TODO: check this assumption
             }
         }
         
-        if let comm = commissionerPeripheralName {
-            if connection.peripheralName! == comm {
+        if let comm = commissionerPeripheralCredentials {
+            if connection.peripheralName! == comm.name {
                 self.commissionerProtocol = nil
             }
         }

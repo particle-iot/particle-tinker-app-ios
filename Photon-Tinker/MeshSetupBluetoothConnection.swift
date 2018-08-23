@@ -33,7 +33,8 @@ extension Data {
     }
 }
 
-class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
+
+class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBluetoothConnectionHandshakeManagerDelegate {
     
     var delegate : MeshSetupBluetoothConnectionDataDelegate?
     var isReady : Bool = false
@@ -43,15 +44,21 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
     private var particleMeshRXCharacterisitic        : CBCharacteristic?
     private var particleMeshTXCharacterisitic        : CBCharacteristic?
     fileprivate let MTU = 20
+
     var peripheralName : String?
-    
-    required init(bluetoothConnectionManager : MeshSetupBluetoothConnectionManager, connectedPeripheral : CBPeripheral) {
+    var mobileSecret: String?
+    var derivedSecret: Data?
+
+    private var handshakeManager : MeshSetupBluetoothConnectionHandshakeManager?
+
+    required init(bluetoothConnectionManager : MeshSetupBluetoothConnectionManager, connectedPeripheral : CBPeripheral, credentials: PeripheralCredentials) {
         super.init()
+
         self.connectionManager = bluetoothConnectionManager
         self.peripheral = connectedPeripheral
         self.peripheral?.delegate = self
         self.peripheralName = peripheral?.name
-        
+        self.mobileSecret = credentials.mobileSecret
     }
     
     func _getPeripheral() -> CBPeripheral? {
@@ -94,7 +101,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
         
         log(level: .infoLogLevel, message: "Services discovered")
         
-        for aService: CBService in peripheral.services! {
+        for aService : CBService in peripheral.services! {
             if aService.uuid.isEqual(particleMeshServiceUUID) {
                 log(level: .verboseLogLevel, message: "Particle Mesh commissioning Service found")
                 log(level: .verboseLogLevel, message: "Discovering characteristics...")
@@ -150,17 +157,18 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
             logError(error: error!)
             return
         }
-        
-        self.isReady = true
-        self.connectionManager?.delegate?.bluetoothConnectionReady(connection: self)
-        
+
         if characteristic.isNotifying {
             log(level: .infoLogLevel, message: "Notifications enabled for characteristic: \(characteristic.uuid.uuidString)")
         } else {
             log(level: .infoLogLevel, message: "Notifications disabled for characteristic: \(characteristic.uuid.uuidString)")
         }
+
+        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret!)
+        self.handshakeManager!.delegate = self
+        self.handshakeManager!.startHandshake()
     }
-    
+
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         guard error == nil else {
             log(level: .warningLogLevel, message: "Writing value to characteristic has failed")
@@ -200,11 +208,38 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate {
             
             log(level: .infoLogLevel, message: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
         }
-        
-        self.delegate?.bluetoothConnectionDidReceiveData(sender: self, data: bytesReceived as Data)
+
+        if (self.isReady) {
+            self.delegate?.bluetoothConnectionDidReceiveData(sender: self, data: bytesReceived as Data)
+        } else {
+            self.handshakeManager!.readBytes(bytesReceived as Data)
+        }
     }
-    
-    
+
+    //MARK: MeshSetupBluetoothConnectionHandshakeManagerDelegate
+    func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HanshakeManagerError) {
+        NSLog("Handshake Error: \(error)")
+
+        //retry handshake
+        self.handshakeManager!.delegate = nil
+        self.handshakeManager = nil
+
+        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret!)
+        self.handshakeManager!.delegate = self
+        self.handshakeManager!.startHandshake()
+    }
+
+    func handshakeDidSucceed(sender: MeshSetupBluetoothConnectionHandshakeManager, derivedSecret: Data) {
+        self.derivedSecret = derivedSecret
+
+        self.handshakeManager!.delegate = nil
+        self.handshakeManager = nil
+
+        self.isReady = true
+        self.connectionManager?.delegate?.bluetoothConnectionReady(connection: self)
+    }
+
+
     func send(data aData : Data) {
         guard self.particleMeshRXCharacterisitic != nil else {
             log(level: .warningLogLevel, message: "UART RX Characteristic not found")

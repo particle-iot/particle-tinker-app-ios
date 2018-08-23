@@ -53,12 +53,12 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     var delegate : MeshSetupBluetoothConnectionManagerDelegate?
     
     private var state : MeshSetupBluetoothConnectionManagerState = .Disabled
-    private var centralManager          : CBCentralManager?
-    private var peripheralNameToConnect : String?
-    private var connections             : [MeshSetupBluetoothConnection]?
-    private var connectingPeripheral    : CBPeripheral?
-    private var scanTimer               : Timer?
-    var scanTimeoutValue                : TimeInterval = 20.0
+    private var centralManager                  : CBCentralManager?
+    private var peripheralToConnectCredentials  : PeripheralCredentials?
+    private var connections                     : [MeshSetupBluetoothConnection]?
+    private var connectingPeripheral            : CBPeripheral?
+    private var scanTimer                       : Timer?
+    var scanTimeoutValue                        : TimeInterval = 20.0
     
     //MARK: - BluetoothManager API
     
@@ -83,7 +83,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         }
     }
     
-    func createConnection(with peripheralName : String) -> Bool {
+    func createConnection(with peripheralCredentials: PeripheralCredentials) -> Bool {
         if self.state == .Scanning {
             self.centralManager?.stopScan()
             self.state = .Ready
@@ -91,7 +91,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         }
         
         if self.state == .Ready {
-            self.peripheralNameToConnect = peripheralName
+            self.peripheralToConnectCredentials = peripheralCredentials
             return self.scanForPeripherals()
             // started scanning
         } else {
@@ -210,7 +210,11 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         } else {
             log(level: .infoLogLevel, message: "Paired to device")
         }
-        
+
+        if (self.connectingPeripheral != peripheral) {
+            NSLog("!!!!!!!!!!!!!!!!!!!!!! self.connectingPeripheral != peripheral")
+        }
+
         // no need to retain periphral if it is connected since it is being passed to the Connection class instance
         if (self.connectingPeripheral == peripheral) {
             self.connectingPeripheral = nil
@@ -221,14 +225,13 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
             self.connections = [MeshSetupBluetoothConnection]()
         }
         
-        let newConnection = MeshSetupBluetoothConnection(bluetoothConnectionManager: self, connectedPeripheral: peripheral)
+        let newConnection = MeshSetupBluetoothConnection(bluetoothConnectionManager: self, connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials!)
         self.connections?.append(newConnection)
         self.delegate?.bluetoothConnectionCreated(connection: newConnection)
         newConnection.discoverServices()
         
         self.state = .Ready
         self.delegate?.bluetoothConnectionManagerReady()
-
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -276,7 +279,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
 //        print (advertisementData)
         // Scanner uses other queue to send events
         
-        if peripheral.name == self.peripheralNameToConnect {
+        if peripheral.name == self.peripheralToConnectCredentials!.name {
             central.stopScan()
             print("stop scan")
             scanTimer?.invalidate()
