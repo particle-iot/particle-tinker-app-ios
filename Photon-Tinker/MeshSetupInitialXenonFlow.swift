@@ -10,11 +10,11 @@ import UIKit
 
 class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
-    var deviceID : String?
-    //    private var talkingTo : MeshSetupDeviceRole = .Joiner // TODO: detect by sender!
-    private var networkInfo : MeshSetupNetworkInfo?
-    private var claimTimer : Timer?
-    private var claimTryCounter : Int = 0
+    var deviceID: String?
+    //    private var talkingTo: MeshSetupDeviceRole = .Joiner // TODO: detect by sender!
+    private var networkInfo: MeshSetupNetworkInfo?
+    private var claimTimer: Timer?
+    private var claimTryCounter: Int = 0
    
     override func start() {
         print("Starting MeshSetupInitialXenonFlow...")
@@ -40,7 +40,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         print("GetDeviceId reply - device ID: \(deviceId)");
         self.deviceID = deviceId
         var deviceIsNew = true
-        ParticleCloud.sharedInstance().getDevices { (userDevices : [ParticleDevice]?, error: Error?) in
+        ParticleCloud.sharedInstance().getDevices { (userDevices: [ParticleDevice]?, error: Error?) in
             if error == nil {
                 if userDevices!.count > 0 {
                     for device in userDevices! {
@@ -54,7 +54,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
                 }
                 
                 if deviceIsNew {
-                    ParticleCloud.sharedInstance().generateClaimCode { (claimCode : String?, _, error: Error?) in
+                    ParticleCloud.sharedInstance().generateClaimCode { (claimCode: String?, _, error: Error?) in
                         if error == nil {
                             print("Got claim code from the cloud: \(claimCode!)")
                             self.flowManager!.joinerProtocol?.sendSetClaimCode(claimCode: claimCode!)
@@ -132,7 +132,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     
     
-    override func userDidSetNetworkPassword(networkPassword : String) {
+    override func userDidSetNetworkPassword(networkPassword: String) {
         print("network password set to: \(networkPassword)")
         self.flowManager!.commissionerProtocol?.sendAuth(password: networkPassword)
     }
@@ -217,17 +217,17 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         
     }
     
-    override func userDidSetDeviceName(deviceName : String) {
+    override func userDidSetDeviceName(deviceName: String) {
         print("user set device name to \(deviceName)")
         self.flowManager!.delegate?.deviceNamed()
         
         // TODO: remove the success mock when real cloud connectivity is achived, validate access token existence
-        ParticleCloud.sharedInstance().getDevice(self.deviceID!) { (particleDevice : ParticleDevice?, error : Error?) in
+        ParticleCloud.sharedInstance().getDevice(self.deviceID!) { (particleDevice: ParticleDevice?, error: Error?) in
             if (error != nil) {
                 self.flowManager!.delegate?.flowError(error: "Could not retrieve device from Particle cloud", severity: .Warning, action: .Dialog)
             } else {
                 if let device = particleDevice {
-                    device.rename(deviceName, completion: { (error : Error?) in
+                    device.rename(deviceName, completion: { (error: Error?) in
                         if (error != nil) {
                             self.flowManager!.delegate?.flowError(error: "Could not set device name", severity: .Warning, action: .Dialog)
                             
@@ -253,7 +253,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     func pollDeviceClaimedByUser() -> Bool {
         print("pollDeviceClaimedByUser")
         var r = false
-        ParticleCloud.sharedInstance().getDevices { (userDevices : [ParticleDevice]?, error: Error?) in
+        ParticleCloud.sharedInstance().getDevices { (userDevices: [ParticleDevice]?, error: Error?) in
             if error == nil {
                 if userDevices!.count > 0 {
                     for device in userDevices! {
@@ -280,7 +280,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
         func unexpectedFlowError() {
              self.flowManager!.delegate?.flowError(error: "Unexpected flow error", severity: .Fatal, action: .Fail)
         }
-        var lastRequestMessageSent : ControlRequestMessageType?
+        var lastRequestMessageSent: ControlRequestMessageType?
         
         lastRequestMessageSent = sender.getLastRequestMessageSent()
         

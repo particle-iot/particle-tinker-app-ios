@@ -17,7 +17,7 @@ class MeshSetupPairDeviceViewController: MeshSetupViewController, MeshSetupScanC
     }
     
     
-    var dataMatrix : String?
+    var dataMatrix: String?
     
     func didScanCode(code: String) {
         if !code.isEmpty {

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableViewDataSource, UITableViewDelegate {
+class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class MeshSetupSelectDeviceViewController : MeshSetupViewController, UITableView
         self.navigationController!.dismiss(animated: true)
     }
     
-    @IBOutlet weak var deviceTypeTableView : UITableView!
+    @IBOutlet weak var deviceTypeTableView: UITableView!
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

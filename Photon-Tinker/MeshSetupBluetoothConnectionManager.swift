@@ -10,7 +10,7 @@ import UIKit
 import CoreBluetooth
 
 // TODO: nuke this after BLE debug
-enum BLELogLevel : String {
+enum BLELogLevel: String {
     
     case debugLogLevel = "debug"
     case verboseLogLevel = "verbose"
@@ -31,38 +31,38 @@ enum MeshSetupBluetoothConnectionManagerState {
 protocol MeshSetupBluetoothConnectionManagerDelegate {
     // Manager
     func bluetoothConnectionManagerReady()
-    func bluetoothConnectionManagerError(error : String, severity : MeshSetupErrorSeverity)
+    func bluetoothConnectionManagerError(error: String, severity: MeshSetupErrorSeverity)
     
     // Connections
-    func bluetoothConnectionReady(connection : MeshSetupBluetoothConnection)
-    func bluetoothConnectionCreated(connection : MeshSetupBluetoothConnection)
-    func bluetoothConnectionDropped(connection : MeshSetupBluetoothConnection)
-    func bluetoothConnectionError(connection : MeshSetupBluetoothConnection, error: String, severity : MeshSetupErrorSeverity)
+    func bluetoothConnectionReady(connection: MeshSetupBluetoothConnection)
+    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection)
+    func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection)
+    func bluetoothConnectionError(connection: MeshSetupBluetoothConnection, error: String, severity: MeshSetupErrorSeverity)
 }
 
 
-let particleMeshServiceUUID : CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
+let particleMeshServiceUUID: CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
 
-let particleMeshRXCharacterisiticUUID   : CBUUID = CBUUID(string: "6FA90004-5C4E-48A8-94F4-8030546F36FC")
-let particleMeshTXCharacterisiticUUID   : CBUUID = CBUUID(string: "6FA90003-5C4E-48A8-94F4-8030546F36FC")
+let particleMeshRXCharacterisiticUUID: CBUUID = CBUUID(string: "6FA90004-5C4E-48A8-94F4-8030546F36FC")
+let particleMeshTXCharacterisiticUUID: CBUUID = CBUUID(string: "6FA90003-5C4E-48A8-94F4-8030546F36FC")
 
 
 
 class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     
-    var delegate : MeshSetupBluetoothConnectionManagerDelegate?
+    var delegate: MeshSetupBluetoothConnectionManagerDelegate?
     
-    private var state : MeshSetupBluetoothConnectionManagerState = .Disabled
-    private var centralManager                  : CBCentralManager?
-    private var peripheralToConnectCredentials  : PeripheralCredentials?
-    private var connections                     : [MeshSetupBluetoothConnection]?
-    private var connectingPeripheral            : CBPeripheral?
-    private var scanTimer                       : Timer?
-    var scanTimeoutValue                        : TimeInterval = 20.0
+    private var state: MeshSetupBluetoothConnectionManagerState = .Disabled
+    private var centralManager: CBCentralManager?
+    private var peripheralToConnectCredentials: PeripheralCredentials?
+    private var connections: [MeshSetupBluetoothConnection]?
+    private var connectingPeripheral: CBPeripheral?
+    private var scanTimer: Timer?
+    var scanTimeoutValue: TimeInterval = 20.0
     
     //MARK: - BluetoothManager API
     
-    required init(delegate : MeshSetupBluetoothConnectionManagerDelegate) {
+    required init(delegate: MeshSetupBluetoothConnectionManagerDelegate) {
         super.init()
         self.delegate = delegate
         let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
@@ -106,7 +106,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
      * Disconnects or cancels pending connection.
      * The delegate's didDisconnectPeripheral() method will be called when device got disconnected.
      */
-    func dropConnection(with connection : MeshSetupBluetoothConnection) {
+    func dropConnection(with connection: MeshSetupBluetoothConnection) {
         if let p = connection._getPeripheral() {
             centralManager!.cancelPeripheralConnection(p)
         }
@@ -124,7 +124,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         print ("BluetoothConnectionManager -- scanForPeripherals with services \(particleMeshServiceUUID)")
         let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
         
-        self.centralManager!.scanForPeripherals(withServices: [particleMeshServiceUUID], options: options as? [String : AnyObject]) // []
+        self.centralManager!.scanForPeripherals(withServices: [particleMeshServiceUUID], options: options as? [String: AnyObject]) // []
         
         self.scanTimer = Timer.scheduledTimer(timeInterval: self.scanTimeoutValue,
                                                  target: self,
@@ -139,7 +139,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     
     //MARK: - Logger API
     // TODO: remove after debug
-    private func log(level : BLELogLevel, message : String) {
+    private func log(level: BLELogLevel, message: String) {
 //        logger?.log(level: aLevel, message: aMessage)
         print("[\(level.rawValue)]: \(message)")
     }
@@ -149,7 +149,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
         self.delegate!.bluetoothConnectionManagerError(error: "BLE scan timeout", severity: .Error)
     }
     
-    private func logError(error anError : Error) {
+    private func logError(error anError: Error) {
         if let e = anError as? CBError {
             self.log(level: .errorLogLevel, message: "Error \(e.code): \(e.localizedDescription)")
         } else {
@@ -160,9 +160,9 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     //MARK: - CBCentralManagerDelegate
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        var textState : String
+        var textState: String
         
-        var newState : MeshSetupBluetoothConnectionManagerState = .Disabled
+        var newState: MeshSetupBluetoothConnectionManagerState = .Disabled
         switch(central.state){
         case .poweredOn:
             textState = "Powered ON"
@@ -269,7 +269,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
     }
     
     ///#
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         if let n = peripheral.name {
             print("centralManager didDiscover peripheral \(n)")

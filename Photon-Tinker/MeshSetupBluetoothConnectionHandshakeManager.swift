@@ -22,7 +22,7 @@ enum HanshakeManagerError: Error {
     case FailedToVerifySecret
 }
 
-enum HandshakeState : Int {
+enum HandshakeState: Int {
     case notStarted = 0
     case initialized
     case roundOneSent

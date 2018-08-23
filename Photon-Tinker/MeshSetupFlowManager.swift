@@ -69,7 +69,7 @@ enum MeshSetupDeviceRole {
 
 protocol MeshSetupFlowManagerDelegate {
     //    required
-    func flowError(error : String, severity : MeshSetupErrorSeverity, action : flowErrorAction) //
+    func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) //
     // TODO: make these optional
     func scannedNetworks(networks: [String]?) // joiner returned detected mesh networks (or empty array if none)
     func flowManagerReady() // flow manager ready to start the flow
@@ -98,26 +98,26 @@ struct PeripheralCredentials {
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
     
-    var joinerProtocol : MeshSetupProtocolTransceiver?
-    var commissionerProtocol : MeshSetupProtocolTransceiver?
-    var joinerDeviceType : ParticleDeviceType?
-    var commissionerDeviceType : ParticleDeviceType?
-    var networkPassword : String? {
+    var joinerProtocol: MeshSetupProtocolTransceiver?
+    var commissionerProtocol: MeshSetupProtocolTransceiver?
+    var joinerDeviceType: ParticleDeviceType?
+    var commissionerDeviceType: ParticleDeviceType?
+    var networkPassword: String? {
         didSet {
             self.currentFlow?.networkPassword = networkPassword
         }
     }
-    var networkName : String? {
+    var networkName: String? {
         didSet {
             self.currentFlow?.networkName = networkName
         }
     }
-    var deviceName : String? {
+    var deviceName: String? {
         didSet {
             self.currentFlow?.deviceName = deviceName
         }
     }
-    var delegate : MeshSetupFlowManagerDelegate?
+    var delegate: MeshSetupFlowManagerDelegate?
     var bluetoothManagerReady = false
 
 
@@ -134,19 +134,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
     
-    private var bluetoothManager : MeshSetupBluetoothConnectionManager?
-    private var flowType : MeshSetupFlowType = .None // TODO: do we even need this?
-    private var currentFlow : MeshSetupFlow?
-    private var isReady : Bool = false
+    private var bluetoothManager: MeshSetupBluetoothConnectionManager?
+    private var flowType: MeshSetupFlowType = .None // TODO: do we even need this?
+    private var currentFlow: MeshSetupFlow?
+    private var isReady: Bool = false
     
     // meant to be initialized after choosing device type + scanning sticker
-    required init(delegate : MeshSetupFlowManagerDelegate) {
+    required init(delegate: MeshSetupFlowManagerDelegate) {
         super.init()
         self.delegate = delegate
-        self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate : self)
+        self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
     }
     
-    func startFlow(with deviceType : ParticleDeviceType, as deviceRole : MeshSetupDeviceRole, dataMatrix : String) -> Bool {
+    func startFlow(with deviceType: ParticleDeviceType, as deviceRole: MeshSetupDeviceRole, dataMatrix: String) -> Bool {
         
         print("startFlow called - \(deviceRole)")
         if !bluetoothManagerReady {
@@ -225,7 +225,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         
         if let comm = commissionerPeripheralCredentials {
             if connection.peripheralName! == comm.name {
-                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection, role : .Commissioner)
+                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection, role: .Commissioner)
                 print("Commissioner BLE connection with \(connection.peripheralName!) ready")
                 self.currentFlow!.startCommissioner()
             }
@@ -267,7 +267,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
     
 
-    private func processDataMatrix(dataMatrix : String) -> (serialNumer : String, mobileSecret : String) {
+    private func processDataMatrix(dataMatrix: String) -> (serialNumer: String, mobileSecret: String) {
         let arr = dataMatrix.split(separator: " ")
         let serialNumber = String(arr[0])//"12345678abcdefg"
         let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"

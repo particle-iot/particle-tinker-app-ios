@@ -11,7 +11,7 @@ import CoreBluetooth
 
 
 protocol MeshSetupBluetoothConnectionDataDelegate {
-    func bluetoothConnectionDidReceiveData(sender : MeshSetupBluetoothConnection,  data : Data)
+    func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection,  data: Data)
 }
 
 extension Data {
@@ -36,22 +36,22 @@ extension Data {
 
 class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBluetoothConnectionHandshakeManagerDelegate {
     
-    var delegate : MeshSetupBluetoothConnectionDataDelegate?
-    var isReady : Bool = false
+    var delegate: MeshSetupBluetoothConnectionDataDelegate?
+    var isReady: Bool = false
 
-    private var peripheral : CBPeripheral?
-    private var connectionManager : MeshSetupBluetoothConnectionManager?
-    private var particleMeshRXCharacterisitic        : CBCharacteristic?
-    private var particleMeshTXCharacterisitic        : CBCharacteristic?
+    private var peripheral: CBPeripheral?
+    private var connectionManager: MeshSetupBluetoothConnectionManager?
+    private var particleMeshRXCharacterisitic: CBCharacteristic?
+    private var particleMeshTXCharacterisitic: CBCharacteristic?
     fileprivate let MTU = 20
 
-    var peripheralName : String?
+    var peripheralName: String?
     var mobileSecret: String?
     var derivedSecret: Data?
 
-    private var handshakeManager : MeshSetupBluetoothConnectionHandshakeManager?
+    private var handshakeManager: MeshSetupBluetoothConnectionHandshakeManager?
 
-    required init(bluetoothConnectionManager : MeshSetupBluetoothConnectionManager, connectedPeripheral : CBPeripheral, credentials: PeripheralCredentials) {
+    required init(bluetoothConnectionManager: MeshSetupBluetoothConnectionManager, connectedPeripheral: CBPeripheral, credentials: PeripheralCredentials) {
         super.init()
 
         self.connectionManager = bluetoothConnectionManager
@@ -72,12 +72,12 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
     }
     
     // TODO: scrap this
-    func log(level : BLELogLevel, message : String) {
+    func log(level: BLELogLevel, message: String) {
         //        logger?.log(level: aLevel, message: aMessage)
         print("[\(level.rawValue)]: \(message)")
     }
     
-    func logError(error anError : Error) {
+    func logError(error anError: Error) {
         if let e = anError as? CBError {
             self.log(level: .errorLogLevel, message: "Error \(e.code): \(e.localizedDescription)")
         } else {
@@ -101,7 +101,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         
         log(level: .infoLogLevel, message: "Services discovered")
         
-        for aService : CBService in peripheral.services! {
+        for aService: CBService in peripheral.services! {
             if aService.uuid.isEqual(particleMeshServiceUUID) {
                 log(level: .verboseLogLevel, message: "Particle Mesh commissioning Service found")
                 log(level: .verboseLogLevel, message: "Discovering characteristics...")
@@ -114,7 +114,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         
         //No UART service discovered
         log(level: .warningLogLevel, message: "Particle Mesh commissioning Service not found. Try to turn bluetooth Off and On again to clear the cache.")
-        self.connectionManager?.delegate?.bluetoothConnectionError(connection : self, error : "Device unsupported - services mismatch", severity: .Error)
+        self.connectionManager?.delegate?.bluetoothConnectionError(connection: self, error: "Device unsupported - services mismatch", severity: .Error)
         self.connectionManager?.dropConnection(with: self)
     }
     
@@ -127,7 +127,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         log(level: .infoLogLevel, message: "Characteristics discovered")
         
         if service.uuid.isEqual(particleMeshServiceUUID) {
-            for aCharacteristic : CBCharacteristic in service.characteristics! {
+            for aCharacteristic: CBCharacteristic in service.characteristics! {
 //                print("CBCharacteristic: \(aCharacteristic)")
                 if aCharacteristic.uuid.isEqual(particleMeshTXCharacterisiticUUID) {
                     log(level: .verboseLogLevel, message: "Particle mesh TX Characteristic found")
@@ -235,12 +235,14 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         self.handshakeManager!.delegate = nil
         self.handshakeManager = nil
 
+
+
         self.isReady = true
         self.connectionManager?.delegate?.bluetoothConnectionReady(connection: self)
     }
 
 
-    func send(data aData : Data) {
+    func send(data aData: Data) {
         guard self.particleMeshRXCharacterisitic != nil else {
             log(level: .warningLogLevel, message: "UART RX Characteristic not found")
             return
@@ -265,7 +267,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
             var len = aData.count
             
             while(len != 0){
-                var part : Data
+                var part: Data
                 if len > MTU && (type == CBCharacteristicWriteType.withoutResponse || longWriteSupported == false) {
                     // If the text contains national letters they may be 2-byte long.
                     // It may happen that only 19 (MTU) bytes can be send so that not of them is splited into 2 packets.
