@@ -14,10 +14,7 @@ protocol MeshSetupUserInteractionProtocol {
 
 class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
 
-   
-//    var bluetoothManager: MeshSetupBluetoothManager?
     var flowManager: MeshSetupFlowManager?
-//    var protocolManager: MeshSetupProtocolTransceiver?
     var delegate: MeshSetupFlowManagerDelegate?
     var networkName: String? {
         didSet {
@@ -128,10 +125,7 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     
     func didReceiveErrorReply(sender: MeshSetupProtocolTransceiver, error: ControlRequestErrorType) {
         // TODO: Set to a generic error handling once Sergey removes error -270 NOT FOUND reply for GetNetworkInfo as valid response
-        
         self.delegate?.flowError(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)
-//        fatalError("Must Override in subclass")
-        
     }
     
     

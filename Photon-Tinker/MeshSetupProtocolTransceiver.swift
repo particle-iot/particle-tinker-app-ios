@@ -35,8 +35,7 @@ protocol MeshSetupProtocolTransceiverDelegate {
     
     func didReceiveErrorReply(sender: MeshSetupProtocolTransceiver, error: ControlRequestErrorType)
     func didTimeout(sender: MeshSetupProtocolTransceiver, lastCommand: ControlRequestMessageType?)
-//    func bluetoothConnectionError(
-    
+
 }
 
 

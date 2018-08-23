@@ -9,48 +9,6 @@
 import Foundation
 import UIKit
 
-/*
-enum ParticleDeviceType : String {
-    case Xenon
-    case Argon
-    case Boron
-    
-    case ESP32
-    case Photon
-    case Electron
-    case P0
-    case P1
-    case Core
-    case E0
-    
-    func name() -> String {
-        return self.rawValue
-    }
-    
-    
-}
-
-class MeshSetupParameters {
-    
-    // TODO: remove hard coding
-    static let shared = MeshSetupParameters()
-    
-        // Initialization
-    var deviceType : ParticleDeviceType?
-    var networkName : String?
-    var deviceName : String?
-    var claimCode : String?
-    
-//    var bluetoothManager : MeshSetupBluetoothManager?
-    var flowManager : MeshSetupFlowManager?
-    
-    private init() {
-        
-    }
-    
-}
- */
-
 // TODO: should be globally reference not just for mesh
 extension ParticleDeviceType : CustomStringConvertible {
     public var description: String {
@@ -78,11 +36,6 @@ func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceTy
     let subviews = view.subviews
     
     for subview in subviews {
-        
-//        if subview is UIView {
-//            // some recursive magic to iterate over child UIViews
-//            replaceMeshSetupStringTemplates(view: subview, deviceType: deviceType, networkName: networkName, deviceName: deviceName)
-//        }
         if subview is UILabel {
             let label = subview as! UILabel
             var newLabelString = label.text
