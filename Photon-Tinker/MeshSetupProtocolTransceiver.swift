@@ -42,86 +42,76 @@ protocol MeshSetupProtocolTransceiverDelegate {
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
     
-    var role : MeshSetupDeviceRole = .Joiner
-    
+    var role: MeshSetupDeviceRole = .Joiner
+    var delegate: MeshSetupProtocolTransceiverDelegate?
+    var timeoutValue: TimeInterval = 15.0 // seconds
+
     //MARK: - View Properties
-    private var bluetoothConnection    : MeshSetupBluetoothConnection?
-//    var securityManager     : MeshSetupSecurityManager?
-    
+    private var bluetoothConnection: MeshSetupBluetoothConnection
+    private var encryptionManager: MeshSetupEncryptionManager
+
     // Commissioning process data
-    private var requestMessageId     : UInt16 = 1
-    private var replyRequestTypeDict : [UInt16: ControlRequestMessageType]?
-    private var waitingForReply      : Bool = false
-//    var deviceRole          : MeshSetupDeviceRole?
-    var delegate                     : MeshSetupProtocolTransceiverDelegate?
+    private var requestMessageId: UInt16 = 1
+    private var replyRequestTypeDict: [UInt16: ControlRequestMessageType] = [:]
+
+    private var waitingForReply: Bool = false
+    private var requestTimer: Timer?
+
+    private var rxBuffer: Data = Data()
     
-    private var requestTimer        : Timer?
-    var timeoutValue                : TimeInterval = 15.0 // seconds
-    
-    required init(delegate : MeshSetupProtocolTransceiverDelegate, connection : MeshSetupBluetoothConnection, role : MeshSetupDeviceRole) {
-        super.init()
+    required init(delegate: MeshSetupProtocolTransceiverDelegate, connection: MeshSetupBluetoothConnection, role: MeshSetupDeviceRole) {
         self.delegate = delegate
         self.role = role
         self.bluetoothConnection = connection
-        self.bluetoothConnection?.delegate = self // take over didReceiveData delegate
+        self.encryptionManager = MeshSetupEncryptionManager(derivedSecret: bluetoothConnection.derivedSecret!)
+
+        super.init()
+
+        self.bluetoothConnection.delegate = self // take over didReceiveData delegate
     }
     
-    private func sendRequestMessage(type : ControlRequestMessageType, payload : Data) {
-        
-        func showErrorDialog(message : String) {
+    private func sendRequestMessage(type: ControlRequestMessageType, payload: Data) {
+        func showErrorDialog(message: String) {
             print(message)
         }
         
-        if let ble = self.bluetoothConnection {
-            if !ble.isReady {
-                showErrorDialog(message: "BLE is not paired to mesh device")
-                return
-            }
-            
-            if self.waitingForReply {
-                    showErrorDialog(message: "Waiting to hear back from device for a previously sent command, please wait")
-            }
-            
-            let requestMsg = RequestMessage(id: self.requestMessageId, type: type, size: UInt32(payload.count), data: payload)
-            
-            // add to state machine dictt to know which type of reply to deserialize
-            if self.replyRequestTypeDict != nil {
-                self.replyRequestTypeDict![requestMsg.id] = requestMsg.type
-            } else {
-                self.replyRequestTypeDict = [UInt16: ControlRequestMessageType]()
-                self.replyRequestTypeDict![requestMsg.id] = requestMsg.type
-            }
-            
-            self.waitingForReply = true
-            self.requestMessageId = self.requestMessageId + 1
-            if (requestMessageId >= 0xff00) {
-                self.requestMessageId = 1
-            }
-            let sendBuffer = RequestMessage.serialize(requestMessage: requestMsg)
-            self.bluetoothConnection!.send(data: sendBuffer)
-            
-            
-            self.requestTimer = Timer.scheduledTimer(timeInterval: self.timeoutValue,
-                                 target: self,
-                                 selector: #selector(self.requestTimeout),
-                                 userInfo: nil,
-                                 repeats: false)
-            
-        } else {
-            showErrorDialog(message: "BLE is not paired to mesh device")
+        if self.waitingForReply {
+            showErrorDialog(message: "Waiting to hear back from device for a previously sent command, please wait")
         }
-        
+
+        let requestMsg = RequestMessage(id: self.requestMessageId, type: type, data: payload)
+
+        //encrypt
+        self.encryptionManager.encrypt(requestMsg)
+
+        // add to state machine dictt to know which type of reply to deserialize
+        self.replyRequestTypeDict[requestMsg.id] = requestMsg.type
+
+        self.waitingForReply = true
+        self.requestMessageId += 1
+        if (requestMessageId >= 0xff00) {
+            self.requestMessageId = 1
+        }
+        self.bluetoothConnection.send(data: encryptionManager.encrypt(requestMsg))
+
+
+        self.requestTimer = Timer.scheduledTimer(timeInterval: self.timeoutValue,
+                             target: self,
+                             selector: #selector(self.requestTimeout),
+                             userInfo: nil,
+                             repeats: false)
+
     }
     
     @objc func requestTimeout() {
         print("Request Timeout")
-        self.delegate?.didTimeout(sender : self, lastCommand : self.getLastRequestMessageSent())
+        self.delegate?.didTimeout(sender: self, lastCommand: self.getLastRequestMessageSent())
         self.requestTimer = nil
     }
     
     func getLastRequestMessageSent() -> ControlRequestMessageType? {
-        if (self.replyRequestTypeDict != nil) {
-            return replyRequestTypeDict![requestMessageId-1]
+        if (self.replyRequestTypeDict[requestMessageId-1] != nil) {
+            return replyRequestTypeDict[requestMessageId-1]
         } else {
             return nil
         }
@@ -272,18 +262,43 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     
     
     func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection, data: Data) {
-        // TODO: error handler
-        let rm = ReplyMessage.deserialize(buffer: data)
-        
-        self.waitingForReply = false
+
+        rxBuffer.append(contentsOf: data)
         self.requestTimer?.invalidate()
+
+        //if received data is less than handshake data header length
+        if (rxBuffer.count < 2) {
+            return
+        }
+
+        //read the length of the message
+        var length: Int16 = rxBuffer.withUnsafeBytes { (pointer: UnsafePointer<Int16>) -> Int16 in
+            return Int16(pointer[0])
+        }
+
+        //if we don't have enough data, reschedule timeout timer
+        if (rxBuffer.count < Int(ReplyMessage.FRAME_EXTRA_BYTES + length)){
+            self.requestTimer = Timer.scheduledTimer(timeInterval: self.timeoutValue,
+                target: self,
+                selector: #selector(self.requestTimeout),
+                userInfo: nil,
+                repeats: false)
+
+            return
+        }
+
+        //todo: make sure there's enough data
+        let rm = encryptionManager.decrypt(data)
+        rxBuffer.removeAll()
+
+        self.waitingForReply = false
 
         if let data = rm.data {
             if rm.result == .NONE {
                 print("Received reply message id \(rm.id) --> Payload: \(data.hexString)")
                 //                let replyMessageContents
-                var decodedReply : Any?
-                let replyRequestType = self.replyRequestTypeDict![rm.id]
+                var decodedReply: Any?
+                let replyRequestType = self.replyRequestTypeDict[rm.id]
                 
                 switch replyRequestType! {
                     

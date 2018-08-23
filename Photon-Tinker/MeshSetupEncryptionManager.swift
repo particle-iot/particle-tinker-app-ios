@@ -1,0 +1,184 @@
+//
+// Created by Raimundas Sakalauskas on 23/08/2018.
+// Copyright (c) 2018 spark. All rights reserved.
+//
+
+import Foundation
+import mbedTLSWrapper
+
+class MeshSetupEncryptionManager: NSObject {
+
+    private var cipher:AesCcmWrapper
+
+    private var key:Data
+    private var reqNonce:Data
+    private var repNonce:Data
+
+    private var requestId: UInt32 = 0
+
+    required init(derivedSecret: Data) {
+        key = derivedSecret.subdata(in: 0..<16)
+        reqNonce = derivedSecret.subdata(in: 16..<24)
+        repNonce = derivedSecret.subdata(in: 24..<32)
+
+        cipher = AesCcmWrapper(key: key)!
+
+        super.init()
+    }
+
+    func getRequestNonce() -> Data {
+        var data = Data()
+        var reqIdLe = requestId.littleEndian
+
+        data.append(UInt8(reqIdLe & 0xff))
+        data.append(UInt8((reqIdLe >> 8) & 0xff))
+        data.append(UInt8((reqIdLe >> 16) & 0xff))
+        data.append(UInt8((reqIdLe >> 24) & 0xff))
+
+        data.append(reqNonce)
+
+        return data
+    }
+
+    func getReplyNonce() -> Data {
+        var data = Data()
+        var reqIdLe = requestId.littleEndian
+
+        data.append(UInt8(reqIdLe & 0xff))
+        data.append(UInt8((reqIdLe >> 8) & 0xff))
+        data.append(UInt8((reqIdLe >> 16) & 0xff))
+        data.append(UInt8(((reqIdLe >> 24) & 0xff) | 0x80))
+
+        data.append(repNonce)
+
+        return data
+    }
+
+
+
+    func encrypt(_ msg: RequestMessage) -> Data {
+        requestId = UInt32(msg.id)
+
+        var outputData = Data()
+        var dataToEncrypt = Data()
+
+        //size - store it in output data to be used as additional data during the encryption process
+        var leValue = UInt16(msg.data.count).littleEndian
+        outputData.append(UnsafeBufferPointer(start: &leValue, count: 1))
+
+        //requestId
+        leValue = msg.id.littleEndian
+        dataToEncrypt.append(UnsafeBufferPointer(start: &leValue, count: 1))
+
+        //type
+        leValue = msg.type.rawValue.littleEndian
+        dataToEncrypt.append(UnsafeBufferPointer(start: &leValue, count: 1))
+
+        //reserved for future use
+        dataToEncrypt.append(Data(repeating: 0, count: 2))
+
+        //payload
+        dataToEncrypt.append(msg.data)
+
+        var tag:NSData? = nil
+        outputData.append(cipher.encryptData(dataToEncrypt, nonce: getRequestNonce(), add: outputData, tag: &tag, tagSize: 8)!)
+        outputData.append(tag as! Data)
+
+        return outputData
+    }
+
+    //decrypt part assumes that it will decrypt
+    //the reply to previously encrypted request
+    func decrypt(_ data: Data) -> ReplyMessage {
+        var data = data
+
+        //read data
+        var sizeData = data.subdata(in: 0..<2)
+        var size: Int16 = data.withUnsafeBytes { (pointer: UnsafePointer<Int16>) -> Int16 in
+            return Int16(pointer[0])
+        }
+        var leSize = size.littleEndian
+        data.removeSubrange(0..<2)
+
+        //read encrypted data
+        var dataToDecrypt = data.subdata(in: 0..<6+Int(size))
+        data.removeSubrange(0..<6+Int(size))
+
+        //remaining part is tag
+        var tag = data
+
+        //try to decrypt
+        var replNonce = getReplyNonce()
+        var decryptedData = cipher.decryptData(dataToDecrypt, nonce: replNonce, add: sizeData, tag: tag)!
+
+        var rm = ReplyMessage(id: 0, result: .NONE, data: nil)
+        //get id
+        rm.id = decryptedData.withUnsafeBytes { (pointer: UnsafePointer<UInt16>) -> UInt16 in
+            return UInt16(pointer[0])
+        }
+        decryptedData.removeSubrange(0..<2)
+
+        //get type
+        rm.result = ControlRequestErrorType(rawValue: decryptedData.withUnsafeBytes { (pointer: UnsafePointer<Int32>) -> Int32 in
+            return Int32(pointer[0])
+        })!
+        decryptedData.removeSubrange(0..<4)
+
+        //get data
+        rm.data = decryptedData
+
+        return rm
+    }
+}
+
+
+
+
+
+
+//static func deserialize(buffer aBuffer: Data) -> ReplyMessage {
+//    //        var fw = w
+//    //        return Data(bytes: &fw, count: MemoryLayout<RequestMessage>.stride)
+//
+//    var rm = ReplyMessage(id: 0, result: .NONE, size: 0, data: nil)
+//
+//    var buffer = aBuffer
+//
+//    var bufData = buffer as NSData
+//    bufData.getBytes(&rm.id, length: 2)
+//
+//    // Create a range based on the length of data to return
+//    var result: Int16 = 0
+//
+//    var range = Range(0..<2)
+//    buffer.removeSubrange(range)
+//    bufData = buffer as NSData
+//    bufData.getBytes(&result, length: 2)
+//
+//    if let resultEnum = ControlRequestErrorType(rawValue: result) {
+//        rm.result = resultEnum
+//    } else {
+//        print("Error deserializing ReplyMessage \(result) into ControlRequestErrorType")
+//        rm.result = .INVALID_UNKNOWN
+//    }
+//
+//
+//    range = Range(0..<2)
+//    buffer.removeSubrange(range)
+//    bufData = buffer as NSData
+//    bufData.getBytes(&rm.size, length: 4)
+//
+//    range = Range(0..<4)
+//    buffer.removeSubrange(range)
+//    bufData = buffer as NSData
+//
+//    //        rm.data = aBuffer.copyBytes
+//    //        let payloadCount = buffer.count-8
+//    //        var payloadArray: Array<UInt8> = [UInt8](repeating: 0, count: payloadCount)
+//    //        bufData.getBytes(&payloadArray, range: NSRange(location: 8, length: payloadCount))
+//    //        rm.data = Data(bytes: payloadArray)
+//    rm.data = buffer
+//
+//    return rm
+//
+//}

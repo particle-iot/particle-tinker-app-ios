@@ -32,7 +32,7 @@ public enum ControlRequestMessageType: UInt16 {
     
 }
 
-public enum ControlRequestErrorType : Int16 {
+public enum ControlRequestErrorType: Int32 {
     case NONE = 0
     case UNKNOWN = -100
     case BUSY = -110
@@ -59,15 +59,15 @@ public enum ControlRequestErrorType : Int16 {
     
     func description() -> String {
         switch self {
-            case .NONE : return "OK"
-            case .INVALID_ARGUMENT : return "Invalid parameter"
-            case .TIMEOUT : return "Time out"
-            case .NOT_FOUND : return "Not found"
-            case .ALREADY_EXISTS : return "Already exists"
-            case .INVALID_STATE : return "Invalid state"
-            case .NO_MEMORY : return "No memory"
-            case .NOT_ALLOWED : return "Not allowed"
-            default : return "Unknown error"
+            case .NONE: return "OK"
+            case .INVALID_ARGUMENT: return "Invalid parameter"
+            case .TIMEOUT: return "Time out"
+            case .NOT_FOUND: return "Not found"
+            case .ALREADY_EXISTS: return "Already exists"
+            case .INVALID_STATE: return "Invalid state"
+            case .NO_MEMORY: return "No memory"
+            case .NOT_ALLOWED: return "Not allowed"
+            default: return "Unknown error"
         }
     }
     
@@ -76,103 +76,19 @@ public enum ControlRequestErrorType : Int16 {
 
 
 public struct RequestMessage {
-    
+    static let FRAME_EXTRA_BYTES: Int16 = 16
+
     var id: UInt16
     var type: ControlRequestMessageType
-    var size: UInt32
     var data: Data
-    
-    init(id aId: UInt16, type aType: ControlRequestMessageType, size aSize: UInt32, data aData: Data) {
-        self.id = aId
-        self.type = aType
-        self.size = aSize
-        self.data = aData
-    }
-    
-    static func serialize(requestMessage msg: RequestMessage) -> Data {
-        //        var fw = w
-        //        return Data(bytes: &fw, count: MemoryLayout<RequestMessage>.stride)
-        var sData = Data()
-        
-        var leIdValue = msg.id.littleEndian
-        sData.append(UnsafeBufferPointer(start: &leIdValue, count: 1))
-        var leTypeValue = msg.type.rawValue.littleEndian
-        sData.append(UnsafeBufferPointer(start: &leTypeValue, count: 1))
-        var leSizeValue = msg.size.littleEndian
-        sData.append(UnsafeBufferPointer(start: &leSizeValue, count: 1))
-        
-        
-        msg.data.withUnsafeBytes { (u8Ptr: UnsafePointer<UInt8>) in
-            sData.append(u8Ptr, count: msg.data.count)
-        }
-        
-        return sData
-        
-    }
-    
 }
 
 
 
 public struct ReplyMessage {
-    
+    static let FRAME_EXTRA_BYTES: Int16 = 16
+
     var id: UInt16
     var result: ControlRequestErrorType
-    var size: UInt32
     var data: Data?
-    
-    init(id aId: UInt16, result aResult: ControlRequestErrorType, size aSize: UInt32, data aData: Data?) {
-        self.id = aId
-        self.result = aResult
-        self.size = aSize
-        self.data = aData
-    }
-    
-    static func deserialize(buffer aBuffer: Data) -> ReplyMessage {
-        //        var fw = w
-        //        return Data(bytes: &fw, count: MemoryLayout<RequestMessage>.stride)
-        
-        var rm = ReplyMessage(id: 0, result: .NONE, size: 0, data: nil)
-        
-        var buffer = aBuffer
-        
-        var bufData = buffer as NSData
-        bufData.getBytes(&rm.id, length: 2)
-        
-        // Create a range based on the length of data to return
-        var result : Int16 = 0
-        
-        var range = Range(0..<2)
-        buffer.removeSubrange(range)
-        bufData = buffer as NSData
-        bufData.getBytes(&result, length: 2)
-        
-        if let resultEnum = ControlRequestErrorType(rawValue: result) {
-            rm.result = resultEnum
-        } else {
-            print("Error deserializing ReplyMessage \(result) into ControlRequestErrorType")
-            rm.result = .INVALID_UNKNOWN
-        }
-        
-        
-        range = Range(0..<2)
-        buffer.removeSubrange(range)
-        bufData = buffer as NSData
-        bufData.getBytes(&rm.size, length: 4)
-        
-        range = Range(0..<4)
-        buffer.removeSubrange(range)
-        bufData = buffer as NSData
-        
-        //        rm.data = aBuffer.copyBytes
-        //        let payloadCount = buffer.count-8
-        //        var payloadArray : Array<UInt8> = [UInt8](repeating: 0, count: payloadCount)
-        //        bufData.getBytes(&payloadArray, range: NSRange(location: 8, length: payloadCount))
-        //        rm.data = Data(bytes: payloadArray)
-        rm.data = buffer
-        
-        return rm
-        
-    }
-    
 }
