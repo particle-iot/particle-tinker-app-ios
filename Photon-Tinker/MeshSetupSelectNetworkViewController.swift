@@ -9,8 +9,8 @@
 import UIKit
 
 class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableViewDelegate, UITableViewDataSource {
-    var networks : [String]?
-    var selectedNetwork : String?
+    var networks: [String]?
+    var selectedNetwork: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

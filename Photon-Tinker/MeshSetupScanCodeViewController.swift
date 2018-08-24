@@ -10,13 +10,13 @@ import UIKit
 import AVFoundation
 
 protocol MeshSetupScanCodeDelegate {
-    func didScanCode(code : String)
+    func didScanCode(code: String)
 }
 
 class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var delegate : MeshSetupScanCodeDelegate?
+    var delegate: MeshSetupScanCodeDelegate?
     
     @IBOutlet weak var cameraView: UIView!
 

@@ -11,8 +11,8 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
 
     
     
-    var flowManager : MeshSetupFlowManager?
-    var deviceType : ParticleDeviceType?
+    var flowManager: MeshSetupFlowManager?
+    var deviceType: ParticleDeviceType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
     func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
         print("flowError: \(error)")
         
-        var messageType : RMessageType
+        var messageType: RMessageType
         switch severity {
             case .Info: messageType = .normal
             case .Warning: messageType = .warning

@@ -11,8 +11,8 @@ import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController {
   
-    var dataMatrix : String?
-    var scannedNetworks   : [String]?
+    var dataMatrix: String?
+    var scannedNetworks: [String]?
     
     @IBOutlet weak var pairingLabel: UILabel!
     
@@ -59,7 +59,7 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController {
         ParticleSpinner.show(self.view)
 //        self.connectRetries = 0
         
-        self.flowManager = MeshSetupFlowManager(delegate : self)
+        self.flowManager = MeshSetupFlowManager(delegate: self)
         print("flowManager initialized")
         
     }

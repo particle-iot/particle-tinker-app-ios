@@ -10,7 +10,7 @@ import UIKit
 
 class MeshSetupJoiningNetworkViewController: MeshSetupViewController {
 
-    var networkPassword : String?
+    var networkPassword: String?
     
     @IBOutlet weak var step1Label: UILabel!
     @IBOutlet weak var step2Label: UILabel!
@@ -18,12 +18,12 @@ class MeshSetupJoiningNetworkViewController: MeshSetupViewController {
     @IBOutlet weak var successImageView: UIImageView!
     
     
-    func growLabel(label : UILabel) {
+    func growLabel(label: UILabel) {
         label.font = UIFont(name: "Gotham-Medium", size: 16.0)
         label.alpha = 1.0
     }
     
-    func shrinkLabel(label : UILabel) {
+    func shrinkLabel(label: UILabel) {
         label.font = UIFont(name: "Gotham-Book", size: 15.0)
         label.alpha = 0.4
     }

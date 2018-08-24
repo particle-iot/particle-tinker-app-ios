@@ -22,7 +22,7 @@ enum HanshakeManagerError: Error {
     case FailedToVerifySecret
 }
 
-enum HandshakeState : Int {
+enum HandshakeState: Int {
     case notStarted = 0
     case initialized
     case roundOneSent
@@ -220,9 +220,8 @@ class MeshSetupBluetoothConnectionHandshakeManager {
         }
 
         //read the length of the message
-        var length: Int16 = rxBuffer.withUnsafeBytes {
-            (pointer: UnsafePointer<Int16>) -> Int16 in
-            return pointer.pointee
+        var length: Int16 = rxBuffer.withUnsafeBytes { (pointer: UnsafePointer<Int16>) -> Int16 in
+            return Int16(pointer[0])
         }
 
         //if we have the full message in rx buffer (header + message length) - process it

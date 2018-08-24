@@ -8,9 +8,9 @@
 
 import UIKit
 
-class MeshSetupPairAssistingViewController : MeshSetupViewController, MeshSetupScanCodeDelegate {
+class MeshSetupPairAssistingViewController: MeshSetupViewController, MeshSetupScanCodeDelegate {
 
-    var commissionerDataMatrix : String?
+    var commissionerDataMatrix: String?
     
     override func networkMatch() {
         print("networkMatch - commissioner is on user selected mesh network")
