@@ -49,6 +49,18 @@ enum Particle_Ctrl_StorageType: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension Particle_Ctrl_StorageType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_StorageType] = [
+    .invalidStorage,
+    .internal,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 enum Particle_Ctrl_SectionType: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case invalidSection // = 0
@@ -99,6 +111,22 @@ enum Particle_Ctrl_SectionType: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension Particle_Ctrl_SectionType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_SectionType] = [
+    .invalidSection,
+    .firmware,
+    .otaBackup,
+    .factoryBackup,
+    .config,
+    .eeprom,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 enum Particle_Ctrl_FirmwareModuleType: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case invalidFirmwareModule // = 0
@@ -143,6 +171,21 @@ enum Particle_Ctrl_FirmwareModuleType: SwiftProtobuf.Enum {
   }
 
 }
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_FirmwareModuleType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_FirmwareModuleType] = [
+    .invalidFirmwareModule,
+    .bootloader,
+    .systemPart,
+    .userPart,
+    .monoFirmware,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 enum Particle_Ctrl_SectionFlag: SwiftProtobuf.Enum {
   typealias RawValue = Int
@@ -194,7 +237,22 @@ enum Particle_Ctrl_SectionFlag: SwiftProtobuf.Enum {
 
 }
 
-/// CTRL_REQUEST_START_FIRMWARE_UPDATE (250)
+#if swift(>=4.2)
+
+extension Particle_Ctrl_SectionFlag: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_SectionFlag] = [
+    .noSectionFlags,
+    .canRead,
+    .canWrite,
+    .canClear,
+    .canGetSize,
+    .needClear,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Particle_Ctrl_StartFirmwareUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -221,7 +279,6 @@ struct Particle_Ctrl_StartFirmwareUpdateReply {
   init() {}
 }
 
-/// CTRL_REQUEST_FINISH_FIRMWARE_UPDATE (251)
 struct Particle_Ctrl_FinishFirmwareUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -244,7 +301,6 @@ struct Particle_Ctrl_FinishFirmwareUpdateReply {
   init() {}
 }
 
-/// CTRL_REQUEST_CANCEL_FIRMWARE_UPDATE (252)
 struct Particle_Ctrl_CancelFirmwareUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -265,7 +321,6 @@ struct Particle_Ctrl_CancelFirmwareUpdateReply {
   init() {}
 }
 
-/// CTRL_REQUEST_FIRMWARE_UPDATE_DATA (253)
 struct Particle_Ctrl_FirmwareUpdateDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -288,7 +343,6 @@ struct Particle_Ctrl_FirmwareUpdateDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_DESCRIBE_STORAGE (260)
 struct Particle_Ctrl_DescribeStorageRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -335,7 +389,7 @@ struct Particle_Ctrl_DescribeStorageReply {
     /// Returns true if `firmwareModule` has been explicitly set.
     var hasFirmwareModule: Bool {return _storage._firmwareModule != nil}
     /// Clears the value of `firmwareModule`. Subsequent reads from it will return its default value.
-    mutating func clearFirmwareModule() {_storage._firmwareModule = nil}
+    mutating func clearFirmwareModule() {_uniqueStorage()._firmwareModule = nil}
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -377,7 +431,6 @@ struct Particle_Ctrl_DescribeStorageReply {
   init() {}
 }
 
-/// CTRL_REQUEST_READ_SECTION_DATA (261)
 struct Particle_Ctrl_ReadSectionDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -410,7 +463,6 @@ struct Particle_Ctrl_ReadSectionDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_WRITE_SECTION_DATA (262)
 struct Particle_Ctrl_WriteSectionDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -441,7 +493,6 @@ struct Particle_Ctrl_WriteSectionDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_CLEAR_SECTION_DATA (263)
 struct Particle_Ctrl_ClearSectionDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -468,7 +519,6 @@ struct Particle_Ctrl_ClearSectionDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_GET_SECTION_DATA_SIZE (264)
 struct Particle_Ctrl_GetSectionDataSizeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -562,9 +612,9 @@ extension Particle_Ctrl_StartFirmwareUpdateRequest: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_StartFirmwareUpdateRequest) -> Bool {
-    if self.size != other.size {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_StartFirmwareUpdateRequest, rhs: Particle_Ctrl_StartFirmwareUpdateRequest) -> Bool {
+    if lhs.size != rhs.size {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -591,9 +641,9 @@ extension Particle_Ctrl_StartFirmwareUpdateReply: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_StartFirmwareUpdateReply) -> Bool {
-    if self.chunkSize != other.chunkSize {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_StartFirmwareUpdateReply, rhs: Particle_Ctrl_StartFirmwareUpdateReply) -> Bool {
+    if lhs.chunkSize != rhs.chunkSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -620,9 +670,9 @@ extension Particle_Ctrl_FinishFirmwareUpdateRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_FinishFirmwareUpdateRequest) -> Bool {
-    if self.validateOnly != other.validateOnly {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_FinishFirmwareUpdateRequest, rhs: Particle_Ctrl_FinishFirmwareUpdateRequest) -> Bool {
+    if lhs.validateOnly != rhs.validateOnly {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -640,8 +690,8 @@ extension Particle_Ctrl_FinishFirmwareUpdateReply: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_FinishFirmwareUpdateReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_FinishFirmwareUpdateReply, rhs: Particle_Ctrl_FinishFirmwareUpdateReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -659,8 +709,8 @@ extension Particle_Ctrl_CancelFirmwareUpdateRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_CancelFirmwareUpdateRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_CancelFirmwareUpdateRequest, rhs: Particle_Ctrl_CancelFirmwareUpdateRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -678,8 +728,8 @@ extension Particle_Ctrl_CancelFirmwareUpdateReply: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_CancelFirmwareUpdateReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_CancelFirmwareUpdateReply, rhs: Particle_Ctrl_CancelFirmwareUpdateReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -706,9 +756,9 @@ extension Particle_Ctrl_FirmwareUpdateDataRequest: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_FirmwareUpdateDataRequest) -> Bool {
-    if self.data != other.data {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_FirmwareUpdateDataRequest, rhs: Particle_Ctrl_FirmwareUpdateDataRequest) -> Bool {
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -726,8 +776,8 @@ extension Particle_Ctrl_FirmwareUpdateDataReply: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_FirmwareUpdateDataReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_FirmwareUpdateDataReply, rhs: Particle_Ctrl_FirmwareUpdateDataReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -745,8 +795,8 @@ extension Particle_Ctrl_DescribeStorageRequest: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_DescribeStorageRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_DescribeStorageRequest, rhs: Particle_Ctrl_DescribeStorageRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -773,9 +823,9 @@ extension Particle_Ctrl_DescribeStorageReply: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_DescribeStorageReply) -> Bool {
-    if self.storage != other.storage {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_DescribeStorageReply, rhs: Particle_Ctrl_DescribeStorageReply) -> Bool {
+    if lhs.storage != rhs.storage {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -847,20 +897,20 @@ extension Particle_Ctrl_DescribeStorageReply.Section: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_DescribeStorageReply.Section) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Particle_Ctrl_DescribeStorageReply.Section, rhs: Particle_Ctrl_DescribeStorageReply.Section) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._type != other_storage._type {return false}
-        if _storage._size != other_storage._size {return false}
-        if _storage._flags != other_storage._flags {return false}
-        if _storage._firmwareModule != other_storage._firmwareModule {return false}
+        let rhs_storage = _args.1
+        if _storage._type != rhs_storage._type {return false}
+        if _storage._size != rhs_storage._size {return false}
+        if _storage._flags != rhs_storage._flags {return false}
+        if _storage._firmwareModule != rhs_storage._firmwareModule {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -892,10 +942,10 @@ extension Particle_Ctrl_DescribeStorageReply.Section.FirmwareModule: SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_DescribeStorageReply.Section.FirmwareModule) -> Bool {
-    if self.type != other.type {return false}
-    if self.index != other.index {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_DescribeStorageReply.Section.FirmwareModule, rhs: Particle_Ctrl_DescribeStorageReply.Section.FirmwareModule) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.index != rhs.index {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -932,11 +982,11 @@ extension Particle_Ctrl_DescribeStorageReply.Storage: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_DescribeStorageReply.Storage) -> Bool {
-    if self.type != other.type {return false}
-    if self.flags != other.flags {return false}
-    if self.sections != other.sections {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_DescribeStorageReply.Storage, rhs: Particle_Ctrl_DescribeStorageReply.Storage) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.flags != rhs.flags {return false}
+    if lhs.sections != rhs.sections {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -978,12 +1028,12 @@ extension Particle_Ctrl_ReadSectionDataRequest: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_ReadSectionDataRequest) -> Bool {
-    if self.storage != other.storage {return false}
-    if self.section != other.section {return false}
-    if self.offset != other.offset {return false}
-    if self.size != other.size {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_ReadSectionDataRequest, rhs: Particle_Ctrl_ReadSectionDataRequest) -> Bool {
+    if lhs.storage != rhs.storage {return false}
+    if lhs.section != rhs.section {return false}
+    if lhs.offset != rhs.offset {return false}
+    if lhs.size != rhs.size {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1010,9 +1060,9 @@ extension Particle_Ctrl_ReadSectionDataReply: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_ReadSectionDataReply) -> Bool {
-    if self.data != other.data {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_ReadSectionDataReply, rhs: Particle_Ctrl_ReadSectionDataReply) -> Bool {
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1054,12 +1104,12 @@ extension Particle_Ctrl_WriteSectionDataRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_WriteSectionDataRequest) -> Bool {
-    if self.storage != other.storage {return false}
-    if self.section != other.section {return false}
-    if self.offset != other.offset {return false}
-    if self.data != other.data {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_WriteSectionDataRequest, rhs: Particle_Ctrl_WriteSectionDataRequest) -> Bool {
+    if lhs.storage != rhs.storage {return false}
+    if lhs.section != rhs.section {return false}
+    if lhs.offset != rhs.offset {return false}
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1077,8 +1127,8 @@ extension Particle_Ctrl_WriteSectionDataReply: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_WriteSectionDataReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_WriteSectionDataReply, rhs: Particle_Ctrl_WriteSectionDataReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1110,10 +1160,10 @@ extension Particle_Ctrl_ClearSectionDataRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_ClearSectionDataRequest) -> Bool {
-    if self.storage != other.storage {return false}
-    if self.section != other.section {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_ClearSectionDataRequest, rhs: Particle_Ctrl_ClearSectionDataRequest) -> Bool {
+    if lhs.storage != rhs.storage {return false}
+    if lhs.section != rhs.section {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1131,8 +1181,8 @@ extension Particle_Ctrl_ClearSectionDataReply: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_ClearSectionDataReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_ClearSectionDataReply, rhs: Particle_Ctrl_ClearSectionDataReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1164,10 +1214,10 @@ extension Particle_Ctrl_GetSectionDataSizeRequest: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSectionDataSizeRequest) -> Bool {
-    if self.storage != other.storage {return false}
-    if self.section != other.section {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetSectionDataSizeRequest, rhs: Particle_Ctrl_GetSectionDataSizeRequest) -> Bool {
+    if lhs.storage != rhs.storage {return false}
+    if lhs.section != rhs.section {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1194,9 +1244,9 @@ extension Particle_Ctrl_GetSectionDataSizeReply: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSectionDataSizeReply) -> Bool {
-    if self.size != other.size {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetSectionDataSizeReply, rhs: Particle_Ctrl_GetSectionDataSizeReply) -> Bool {
+    if lhs.size != rhs.size {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

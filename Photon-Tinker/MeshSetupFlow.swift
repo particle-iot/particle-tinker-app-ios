@@ -122,7 +122,23 @@ class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
     func didReceiveTestReply(sender: MeshSetupProtocolTransceiver) {
         fatalError("Must Override in subclass")
     }
-    
+
+    func didReceiveIsDeviceSetupDoneReply(sender: MeshSetupProtocolTransceiver, isDone: Bool) {
+        fatalError("Must Override in subclass")
+    }
+
+    func didReceiveDeviceSetupDoneReply(sender: MeshSetupProtocolTransceiver) {
+        fatalError("Must Override in subclass")
+    }
+
+    func didReceiveStartListeningReply(sender: MeshSetupProtocolTransceiver) {
+        fatalError("Must Override in subclass")
+    }
+
+    func didReceiveStopListeningReply(sender: MeshSetupProtocolTransceiver) {
+        fatalError("Must Override in subclass")
+    }
+
     func didReceiveErrorReply(sender: MeshSetupProtocolTransceiver, error: ControlRequestErrorType) {
         // TODO: Set to a generic error handling once Sergey removes error -270 NOT FOUND reply for GetNetworkInfo as valid response
         self.delegate?.flowError(error: "Device returned control message reply error \(error.description())", severity: .Error, action: .Pop)

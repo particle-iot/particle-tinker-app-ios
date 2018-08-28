@@ -21,6 +21,10 @@ public enum ControlRequestMessageType: UInt16 {
     case CreateNetwork = 1002
     case StartCommissioner = 1003
     case StopCommissioner = 1004
+    case StartListening = 70
+    case StopListening = 71
+    case DeviceSetupDone = 73
+    case IsDeviceSetupDone = 74
     case PrepareJoiner = 1005
     case AddJoiner = 1006
     case RemoveJoiner = 1007

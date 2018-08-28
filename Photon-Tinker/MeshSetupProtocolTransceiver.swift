@@ -32,7 +32,12 @@ protocol MeshSetupProtocolTransceiverDelegate {
     func didReceiveGetSerialNumberReply(sender: MeshSetupProtocolTransceiver, serialNumber: String)
     func didReceiveGetConnectionStatusReply(sender: MeshSetupProtocolTransceiver, connectionStatus: CloudConnectionStatus)
     func didReceiveTestReply(sender: MeshSetupProtocolTransceiver)
-    
+    func didReceiveIsDeviceSetupDoneReply(sender: MeshSetupProtocolTransceiver, isDone: Bool)
+    func didReceiveDeviceSetupDoneReply(sender: MeshSetupProtocolTransceiver)
+    func didReceiveStartListeningReply(sender: MeshSetupProtocolTransceiver)
+    func didReceiveStopListeningReply(sender: MeshSetupProtocolTransceiver)
+
+
     func didReceiveErrorReply(sender: MeshSetupProtocolTransceiver, error: ControlRequestErrorType)
     func didTimeout(sender: MeshSetupProtocolTransceiver, lastCommand: ControlRequestMessageType?)
 
@@ -248,7 +253,48 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
         self.sendRequestMessage(type: .StopCommissioner, payload: requestMsgPayloadData)
     }
-    
+
+    func sendStarListening() {
+        let requestMsgPayload = Particle_Ctrl_StartListeningModeRequest();
+
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_StartListeningModeRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .StartListening, payload: requestMsgPayloadData)
+    }
+
+    func sendStopListening() {
+        let requestMsgPayload = Particle_Ctrl_StopListeningModeRequest();
+
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_StopListeningModeRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .StopListening, payload: requestMsgPayloadData)
+    }
+
+    func sendDeviceSetupDone() {
+        let requestMsgPayload = Particle_Ctrl_SetDeviceSetupDoneRequest();
+
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_SetDeviceSetupDoneRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .DeviceSetupDone, payload: requestMsgPayloadData)
+    }
+
+    func sendIsDeviceSetupDone() {
+        let requestMsgPayload = Particle_Ctrl_IsDeviceSetupDoneRequest();
+
+        guard let requestMsgPayloadData = try? requestMsgPayload.serializedData() else {
+            print("Could not serialize protobuf Particle_Ctrl_IsDeviceSetupDoneRequest message")
+            return
+        }
+        self.sendRequestMessage(type: .IsDeviceSetupDone, payload: requestMsgPayloadData)
+    }
+
+
     func sendLeaveNetwork() {
         let requestMsgPayload = Particle_Ctrl_Mesh_LeaveNetworkRequest()
         
@@ -419,7 +465,24 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
                 case .SetClaimCode:
                     self.delegate?.didReceiveSetClaimCodeReply(sender: self)
-                    
+
+                case .StartListening:
+                    self.delegate?.didReceiveStartListeningReply(sender: self)
+                case .StopListening:
+                    self.delegate?.didReceiveStopListeningReply(sender: self)
+                case .DeviceSetupDone:
+                    self.delegate?.didReceiveDeviceSetupDoneReply(sender: self)
+                case .IsDeviceSetupDone:
+                    print("IsDeviceSetupDone reply");
+                    do {
+                        decodedReply = try Particle_Ctrl_IsDeviceSetupDoneReply(serializedData: data)
+                    } catch {
+                        print("Could not deserialize reply IsClaimedReply")
+                        return
+                    }
+                    let isDone = (decodedReply as! Particle_Ctrl_IsDeviceSetupDoneReply).done
+                    self.delegate?.didReceiveIsDeviceSetupDoneReply(sender: self, isDone: isDone)
+
                 case .GetSecurityKey:
                     fallthrough // ???
                 case .SetSecurityKey:

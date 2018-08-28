@@ -105,7 +105,7 @@ struct Particle_Ctrl_Mesh_CreateNetworkReply {
   /// Returns true if `network` has been explicitly set.
   var hasNetwork: Bool {return _storage._network != nil}
   /// Clears the value of `network`. Subsequent reads from it will return its default value.
-  mutating func clearNetwork() {_storage._network = nil}
+  mutating func clearNetwork() {_uniqueStorage()._network = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -173,7 +173,7 @@ struct Particle_Ctrl_Mesh_PrepareJoinerRequest {
   /// Returns true if `network` has been explicitly set.
   var hasNetwork: Bool {return _storage._network != nil}
   /// Clears the value of `network`. Subsequent reads from it will return its default value.
-  mutating func clearNetwork() {_storage._network = nil}
+  mutating func clearNetwork() {_uniqueStorage()._network = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -335,7 +335,7 @@ struct Particle_Ctrl_Mesh_GetNetworkInfoReply {
   /// Returns true if `network` has been explicitly set.
   var hasNetwork: Bool {return _storage._network != nil}
   /// Clears the value of `network`. Subsequent reads from it will return its default value.
-  mutating func clearNetwork() {_storage._network = nil}
+  mutating func clearNetwork() {_uniqueStorage()._network = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -408,12 +408,12 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_NetworkInfo) -> Bool {
-    if self.name != other.name {return false}
-    if self.extPanID != other.extPanID {return false}
-    if self.panID != other.panID {return false}
-    if self.channel != other.channel {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_NetworkInfo, rhs: Particle_Ctrl_Mesh_NetworkInfo) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.extPanID != rhs.extPanID {return false}
+    if lhs.panID != rhs.panID {return false}
+    if lhs.channel != rhs.channel {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -440,9 +440,9 @@ extension Particle_Ctrl_Mesh_AuthRequest: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_AuthRequest) -> Bool {
-    if self.password != other.password {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_AuthRequest, rhs: Particle_Ctrl_Mesh_AuthRequest) -> Bool {
+    if lhs.password != rhs.password {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -460,8 +460,8 @@ extension Particle_Ctrl_Mesh_AuthReply: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_AuthReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_AuthReply, rhs: Particle_Ctrl_Mesh_AuthReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -498,11 +498,11 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_CreateNetworkRequest) -> Bool {
-    if self.name != other.name {return false}
-    if self.password != other.password {return false}
-    if self.channel != other.channel {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_CreateNetworkRequest, rhs: Particle_Ctrl_Mesh_CreateNetworkRequest) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.password != rhs.password {return false}
+    if lhs.channel != rhs.channel {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -553,17 +553,17 @@ extension Particle_Ctrl_Mesh_CreateNetworkReply: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_CreateNetworkReply) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Particle_Ctrl_Mesh_CreateNetworkReply, rhs: Particle_Ctrl_Mesh_CreateNetworkReply) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._network != other_storage._network {return false}
+        let rhs_storage = _args.1
+        if _storage._network != rhs_storage._network {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -581,8 +581,8 @@ extension Particle_Ctrl_Mesh_StartCommissionerRequest: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_StartCommissionerRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_StartCommissionerRequest, rhs: Particle_Ctrl_Mesh_StartCommissionerRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -600,8 +600,8 @@ extension Particle_Ctrl_Mesh_StartCommissionerReply: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_StartCommissionerReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_StartCommissionerReply, rhs: Particle_Ctrl_Mesh_StartCommissionerReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -619,8 +619,8 @@ extension Particle_Ctrl_Mesh_StopCommissionerRequest: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_StopCommissionerRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_StopCommissionerRequest, rhs: Particle_Ctrl_Mesh_StopCommissionerRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -638,8 +638,8 @@ extension Particle_Ctrl_Mesh_StopCommissionerReply: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_StopCommissionerReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_StopCommissionerReply, rhs: Particle_Ctrl_Mesh_StopCommissionerReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -690,17 +690,17 @@ extension Particle_Ctrl_Mesh_PrepareJoinerRequest: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_PrepareJoinerRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Particle_Ctrl_Mesh_PrepareJoinerRequest, rhs: Particle_Ctrl_Mesh_PrepareJoinerRequest) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._network != other_storage._network {return false}
+        let rhs_storage = _args.1
+        if _storage._network != rhs_storage._network {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -732,10 +732,10 @@ extension Particle_Ctrl_Mesh_PrepareJoinerReply: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_PrepareJoinerReply) -> Bool {
-    if self.eui64 != other.eui64 {return false}
-    if self.password != other.password {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_PrepareJoinerReply, rhs: Particle_Ctrl_Mesh_PrepareJoinerReply) -> Bool {
+    if lhs.eui64 != rhs.eui64 {return false}
+    if lhs.password != rhs.password {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -767,10 +767,10 @@ extension Particle_Ctrl_Mesh_AddJoinerRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_AddJoinerRequest) -> Bool {
-    if self.eui64 != other.eui64 {return false}
-    if self.password != other.password {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_AddJoinerRequest, rhs: Particle_Ctrl_Mesh_AddJoinerRequest) -> Bool {
+    if lhs.eui64 != rhs.eui64 {return false}
+    if lhs.password != rhs.password {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -788,8 +788,8 @@ extension Particle_Ctrl_Mesh_AddJoinerReply: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_AddJoinerReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_AddJoinerReply, rhs: Particle_Ctrl_Mesh_AddJoinerReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -816,9 +816,9 @@ extension Particle_Ctrl_Mesh_RemoveJoinerRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_RemoveJoinerRequest) -> Bool {
-    if self.eui64 != other.eui64 {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_RemoveJoinerRequest, rhs: Particle_Ctrl_Mesh_RemoveJoinerRequest) -> Bool {
+    if lhs.eui64 != rhs.eui64 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -836,8 +836,8 @@ extension Particle_Ctrl_Mesh_RemoveJoinerReply: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_RemoveJoinerReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_RemoveJoinerReply, rhs: Particle_Ctrl_Mesh_RemoveJoinerReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -855,8 +855,8 @@ extension Particle_Ctrl_Mesh_JoinNetworkRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_JoinNetworkRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_JoinNetworkRequest, rhs: Particle_Ctrl_Mesh_JoinNetworkRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -874,8 +874,8 @@ extension Particle_Ctrl_Mesh_JoinNetworkReply: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_JoinNetworkReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_JoinNetworkReply, rhs: Particle_Ctrl_Mesh_JoinNetworkReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -893,8 +893,8 @@ extension Particle_Ctrl_Mesh_LeaveNetworkRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_LeaveNetworkRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_LeaveNetworkRequest, rhs: Particle_Ctrl_Mesh_LeaveNetworkRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -912,8 +912,8 @@ extension Particle_Ctrl_Mesh_LeaveNetworkReply: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_LeaveNetworkReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_LeaveNetworkReply, rhs: Particle_Ctrl_Mesh_LeaveNetworkReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -931,8 +931,8 @@ extension Particle_Ctrl_Mesh_GetNetworkInfoRequest: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_GetNetworkInfoRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_GetNetworkInfoRequest, rhs: Particle_Ctrl_Mesh_GetNetworkInfoRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -983,17 +983,17 @@ extension Particle_Ctrl_Mesh_GetNetworkInfoReply: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_GetNetworkInfoReply) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Particle_Ctrl_Mesh_GetNetworkInfoReply, rhs: Particle_Ctrl_Mesh_GetNetworkInfoReply) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._network != other_storage._network {return false}
+        let rhs_storage = _args.1
+        if _storage._network != rhs_storage._network {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1011,8 +1011,8 @@ extension Particle_Ctrl_Mesh_ScanNetworksRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_ScanNetworksRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_ScanNetworksRequest, rhs: Particle_Ctrl_Mesh_ScanNetworksRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1039,9 +1039,9 @@ extension Particle_Ctrl_Mesh_ScanNetworksReply: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Mesh_ScanNetworksReply) -> Bool {
-    if self.networks != other.networks {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_Mesh_ScanNetworksReply, rhs: Particle_Ctrl_Mesh_ScanNetworksReply) -> Bool {
+    if lhs.networks != rhs.networks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

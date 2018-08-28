@@ -63,6 +63,23 @@ enum Particle_Ctrl_SecurityKeyType: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension Particle_Ctrl_SecurityKeyType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_SecurityKeyType] = [
+    .invalidSecurityKey,
+    .tcpDevicePrivateKey,
+    .tcpDevicePublicKey,
+    .tcpServerPublicKey,
+    .udpDevicePrivateKey,
+    .udpDevicePublicKey,
+    .udpServerPublicKey,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// Note: Use the same values as defined by the server_protocol_type enum
 enum Particle_Ctrl_ServerProtocolType: SwiftProtobuf.Enum {
   typealias RawValue = Int
@@ -94,6 +111,60 @@ enum Particle_Ctrl_ServerProtocolType: SwiftProtobuf.Enum {
   }
 
 }
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_ServerProtocolType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_ServerProtocolType] = [
+    .invalidProtocol,
+    .tcpProtocol,
+    .udpProtocol,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// Device mode
+enum Particle_Ctrl_DeviceMode: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case other // = 0
+  case listeningMode // = 1
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .other
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .other
+    case 1: self = .listeningMode
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .other: return 0
+    case .listeningMode: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_DeviceMode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_DeviceMode] = [
+    .other,
+    .listeningMode,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 /// Get the device ID
 struct Particle_Ctrl_GetDeviceIdRequest {
@@ -142,7 +213,54 @@ struct Particle_Ctrl_GetSerialNumberReply {
   init() {}
 }
 
-/// CTRL_REQUEST_SET_CLAIM_CODE: 200
+/// Get the firmware version
+struct Particle_Ctrl_GetSystemVersionRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetSystemVersionReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var version: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Get the NCP firmware version
+struct Particle_Ctrl_GetNcpFirmwareVersionRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetNcpFirmwareVersionReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var version: String = String()
+
+  var moduleVersion: UInt32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct Particle_Ctrl_SetClaimCodeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -166,7 +284,6 @@ struct Particle_Ctrl_SetClaimCodeReply {
   init() {}
 }
 
-/// CTRL_REQUEST_IS_CLAIMED: 201
 struct Particle_Ctrl_IsClaimedRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -189,7 +306,6 @@ struct Particle_Ctrl_IsClaimedReply {
   init() {}
 }
 
-/// CTRL_REQUEST_SET_SECURITY_KEY: 210
 struct Particle_Ctrl_SetSecurityKeyRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -216,7 +332,6 @@ struct Particle_Ctrl_SetSecurityKeyReply {
   init() {}
 }
 
-/// CTRL_REQUEST_GET_SECURITY_KEY: 211
 struct Particle_Ctrl_GetSecurityKeyRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -243,7 +358,6 @@ struct Particle_Ctrl_GetSecurityKeyReply {
   init() {}
 }
 
-/// CTRL_REQUEST_SET_SERVER_ADDRESS: 220
 struct Particle_Ctrl_SetServerAddressRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -273,7 +387,6 @@ struct Particle_Ctrl_SetServerAddressReply {
   init() {}
 }
 
-/// CTRL_REQUEST_GET_SERVER_ADDRESS: 221
 struct Particle_Ctrl_GetServerAddressRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -303,7 +416,6 @@ struct Particle_Ctrl_GetServerAddressReply {
   init() {}
 }
 
-/// CTRL_REQUEST_SET_SERVER_PROTOCOL: 222
 struct Particle_Ctrl_SetServerProtocolRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -327,7 +439,6 @@ struct Particle_Ctrl_SetServerProtocolReply {
   init() {}
 }
 
-/// CTRL_REQUEST_GET_SERVER_PROTOCOL: 223
 struct Particle_Ctrl_GetServerProtocolRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -351,7 +462,6 @@ struct Particle_Ctrl_GetServerProtocolReply {
   init() {}
 }
 
-/// CTRL_REQUEST_SET_SOFTAP_SSID: 240
 struct Particle_Ctrl_SetSoftApSsidRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -370,6 +480,112 @@ struct Particle_Ctrl_SetSoftApSsidReply {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_StartListeningModeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_StartListeningModeReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_StopListeningModeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_StopListeningModeReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetDeviceModeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetDeviceModeReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var mode: Particle_Ctrl_DeviceMode = .other
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_SetDeviceSetupDoneRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var done: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_SetDeviceSetupDoneReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_IsDeviceSetupDoneRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_IsDeviceSetupDoneReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var done: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -400,6 +616,13 @@ extension Particle_Ctrl_ServerProtocolType: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Particle_Ctrl_DeviceMode: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DEVICE_MODE_OTHER"),
+    1: .same(proto: "LISTENING_MODE"),
+  ]
+}
+
 extension Particle_Ctrl_GetDeviceIdRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetDeviceIdRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -413,8 +636,8 @@ extension Particle_Ctrl_GetDeviceIdRequest: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetDeviceIdRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetDeviceIdRequest, rhs: Particle_Ctrl_GetDeviceIdRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -441,9 +664,9 @@ extension Particle_Ctrl_GetDeviceIdReply: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetDeviceIdReply) -> Bool {
-    if self.id != other.id {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetDeviceIdReply, rhs: Particle_Ctrl_GetDeviceIdReply) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -461,8 +684,8 @@ extension Particle_Ctrl_GetSerialNumberRequest: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSerialNumberRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetSerialNumberRequest, rhs: Particle_Ctrl_GetSerialNumberRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -489,9 +712,111 @@ extension Particle_Ctrl_GetSerialNumberReply: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSerialNumberReply) -> Bool {
-    if self.serial != other.serial {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetSerialNumberReply, rhs: Particle_Ctrl_GetSerialNumberReply) -> Bool {
+    if lhs.serial != rhs.serial {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetSystemVersionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSystemVersionRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetSystemVersionRequest, rhs: Particle_Ctrl_GetSystemVersionRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetSystemVersionReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSystemVersionReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "version"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.version)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.version.isEmpty {
+      try visitor.visitSingularStringField(value: self.version, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetSystemVersionReply, rhs: Particle_Ctrl_GetSystemVersionReply) -> Bool {
+    if lhs.version != rhs.version {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetNcpFirmwareVersionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetNcpFirmwareVersionRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetNcpFirmwareVersionRequest, rhs: Particle_Ctrl_GetNcpFirmwareVersionRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetNcpFirmwareVersionReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetNcpFirmwareVersionReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "version"),
+    2: .standard(proto: "module_version"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.version)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.moduleVersion)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.version.isEmpty {
+      try visitor.visitSingularStringField(value: self.version, fieldNumber: 1)
+    }
+    if self.moduleVersion != 0 {
+      try visitor.visitSingularUInt32Field(value: self.moduleVersion, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetNcpFirmwareVersionReply, rhs: Particle_Ctrl_GetNcpFirmwareVersionReply) -> Bool {
+    if lhs.version != rhs.version {return false}
+    if lhs.moduleVersion != rhs.moduleVersion {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -518,9 +843,9 @@ extension Particle_Ctrl_SetClaimCodeRequest: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetClaimCodeRequest) -> Bool {
-    if self.code != other.code {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetClaimCodeRequest, rhs: Particle_Ctrl_SetClaimCodeRequest) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -538,8 +863,8 @@ extension Particle_Ctrl_SetClaimCodeReply: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetClaimCodeReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetClaimCodeReply, rhs: Particle_Ctrl_SetClaimCodeReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -557,8 +882,8 @@ extension Particle_Ctrl_IsClaimedRequest: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_IsClaimedRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_IsClaimedRequest, rhs: Particle_Ctrl_IsClaimedRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -585,9 +910,9 @@ extension Particle_Ctrl_IsClaimedReply: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_IsClaimedReply) -> Bool {
-    if self.claimed != other.claimed {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_IsClaimedReply, rhs: Particle_Ctrl_IsClaimedReply) -> Bool {
+    if lhs.claimed != rhs.claimed {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -619,10 +944,10 @@ extension Particle_Ctrl_SetSecurityKeyRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetSecurityKeyRequest) -> Bool {
-    if self.type != other.type {return false}
-    if self.data != other.data {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetSecurityKeyRequest, rhs: Particle_Ctrl_SetSecurityKeyRequest) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -640,8 +965,8 @@ extension Particle_Ctrl_SetSecurityKeyReply: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetSecurityKeyReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetSecurityKeyReply, rhs: Particle_Ctrl_SetSecurityKeyReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -668,9 +993,9 @@ extension Particle_Ctrl_GetSecurityKeyRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSecurityKeyRequest) -> Bool {
-    if self.type != other.type {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetSecurityKeyRequest, rhs: Particle_Ctrl_GetSecurityKeyRequest) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -697,9 +1022,9 @@ extension Particle_Ctrl_GetSecurityKeyReply: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetSecurityKeyReply) -> Bool {
-    if self.data != other.data {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetSecurityKeyReply, rhs: Particle_Ctrl_GetSecurityKeyReply) -> Bool {
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -736,11 +1061,11 @@ extension Particle_Ctrl_SetServerAddressRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetServerAddressRequest) -> Bool {
-    if self.`protocol` != other.`protocol` {return false}
-    if self.address != other.address {return false}
-    if self.port != other.port {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetServerAddressRequest, rhs: Particle_Ctrl_SetServerAddressRequest) -> Bool {
+    if lhs.`protocol` != rhs.`protocol` {return false}
+    if lhs.address != rhs.address {return false}
+    if lhs.port != rhs.port {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -758,8 +1083,8 @@ extension Particle_Ctrl_SetServerAddressReply: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetServerAddressReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetServerAddressReply, rhs: Particle_Ctrl_SetServerAddressReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -786,9 +1111,9 @@ extension Particle_Ctrl_GetServerAddressRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetServerAddressRequest) -> Bool {
-    if self.`protocol` != other.`protocol` {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetServerAddressRequest, rhs: Particle_Ctrl_GetServerAddressRequest) -> Bool {
+    if lhs.`protocol` != rhs.`protocol` {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -820,10 +1145,10 @@ extension Particle_Ctrl_GetServerAddressReply: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetServerAddressReply) -> Bool {
-    if self.address != other.address {return false}
-    if self.port != other.port {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetServerAddressReply, rhs: Particle_Ctrl_GetServerAddressReply) -> Bool {
+    if lhs.address != rhs.address {return false}
+    if lhs.port != rhs.port {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -850,9 +1175,9 @@ extension Particle_Ctrl_SetServerProtocolRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetServerProtocolRequest) -> Bool {
-    if self.`protocol` != other.`protocol` {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetServerProtocolRequest, rhs: Particle_Ctrl_SetServerProtocolRequest) -> Bool {
+    if lhs.`protocol` != rhs.`protocol` {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -870,8 +1195,8 @@ extension Particle_Ctrl_SetServerProtocolReply: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetServerProtocolReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetServerProtocolReply, rhs: Particle_Ctrl_SetServerProtocolReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -889,8 +1214,8 @@ extension Particle_Ctrl_GetServerProtocolRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetServerProtocolRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetServerProtocolRequest, rhs: Particle_Ctrl_GetServerProtocolRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -917,9 +1242,9 @@ extension Particle_Ctrl_GetServerProtocolReply: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetServerProtocolReply) -> Bool {
-    if self.`protocol` != other.`protocol` {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_GetServerProtocolReply, rhs: Particle_Ctrl_GetServerProtocolReply) -> Bool {
+    if lhs.`protocol` != rhs.`protocol` {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -951,10 +1276,10 @@ extension Particle_Ctrl_SetSoftApSsidRequest: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetSoftApSsidRequest) -> Bool {
-    if self.prefix != other.prefix {return false}
-    if self.suffix != other.suffix {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetSoftApSsidRequest, rhs: Particle_Ctrl_SetSoftApSsidRequest) -> Bool {
+    if lhs.prefix != rhs.prefix {return false}
+    if lhs.suffix != rhs.suffix {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -972,8 +1297,228 @@ extension Particle_Ctrl_SetSoftApSsidReply: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_SetSoftApSsidReply) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Particle_Ctrl_SetSoftApSsidReply, rhs: Particle_Ctrl_SetSoftApSsidReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_StartListeningModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".StartListeningModeRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_StartListeningModeRequest, rhs: Particle_Ctrl_StartListeningModeRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_StartListeningModeReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".StartListeningModeReply"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_StartListeningModeReply, rhs: Particle_Ctrl_StartListeningModeReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_StopListeningModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".StopListeningModeRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_StopListeningModeRequest, rhs: Particle_Ctrl_StopListeningModeRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_StopListeningModeReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".StopListeningModeReply"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_StopListeningModeReply, rhs: Particle_Ctrl_StopListeningModeReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetDeviceModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetDeviceModeRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetDeviceModeRequest, rhs: Particle_Ctrl_GetDeviceModeRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetDeviceModeReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetDeviceModeReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "mode"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.mode)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.mode != .other {
+      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetDeviceModeReply, rhs: Particle_Ctrl_GetDeviceModeReply) -> Bool {
+    if lhs.mode != rhs.mode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_SetDeviceSetupDoneRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetDeviceSetupDoneRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "done"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBoolField(value: &self.done)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.done != false {
+      try visitor.visitSingularBoolField(value: self.done, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_SetDeviceSetupDoneRequest, rhs: Particle_Ctrl_SetDeviceSetupDoneRequest) -> Bool {
+    if lhs.done != rhs.done {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_SetDeviceSetupDoneReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetDeviceSetupDoneReply"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_SetDeviceSetupDoneReply, rhs: Particle_Ctrl_SetDeviceSetupDoneReply) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_IsDeviceSetupDoneRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".IsDeviceSetupDoneRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_IsDeviceSetupDoneRequest, rhs: Particle_Ctrl_IsDeviceSetupDoneRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_IsDeviceSetupDoneReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".IsDeviceSetupDoneReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "done"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBoolField(value: &self.done)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.done != false {
+      try visitor.visitSingularBoolField(value: self.done, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_IsDeviceSetupDoneReply, rhs: Particle_Ctrl_IsDeviceSetupDoneReply) -> Bool {
+    if lhs.done != rhs.done {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
