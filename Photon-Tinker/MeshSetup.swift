@@ -8,6 +8,26 @@
 
 import Foundation
 import UIKit
+import CoreBluetooth
+
+
+class MeshSetup {
+    static let LogBluetoothHandshakeManager = true
+    static let LogBluetoothConnection = true
+
+    static let particleMeshServiceUUID: CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
+
+    static let particleMeshRXCharacterisiticUUID: CBUUID = CBUUID(string: "6FA90004-5C4E-48A8-94F4-8030546F36FC")
+    static let particleMeshTXCharacterisiticUUID: CBUUID = CBUUID(string: "6FA90003-5C4E-48A8-94F4-8030546F36FC")
+}
+
+enum MeshSetupErrorSeverity {
+    case Info //just some info for the user
+    case Warning //something user should be informed
+    case Error //can't continue at this point, but possible to solve
+    case Fatal //can't continue and won't be able to solve
+}
+
 
 // TODO: should be globally reference not just for mesh
 extension ParticleDeviceType : CustomStringConvertible {
@@ -29,7 +49,6 @@ extension ParticleDeviceType : CustomStringConvertible {
         }
     }
 }
-
 
 func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceType?, networkName : String?, deviceName : String?) {
     
