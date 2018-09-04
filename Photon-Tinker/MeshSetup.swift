@@ -13,7 +13,13 @@ import CoreBluetooth
 
 class MeshSetup {
     static let LogBluetoothHandshakeManager = true
+    static let LogBluetoothConnectionManager = true
     static let LogBluetoothConnection = true
+    static let LogTransceiver = true
+
+    static let bluetoothScanTimeoutValue: TimeInterval = 20.0
+    static let bluetoothSendTimeoutValue: TimeInterval = 15.0
+    static let bluetoothSendTimeoutRetryCount: Int = 0
 
     static let particleMeshServiceUUID: CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
 
@@ -26,6 +32,22 @@ enum MeshSetupErrorSeverity {
     case Warning //something user should be informed
     case Error //can't continue at this point, but possible to solve
     case Fatal //can't continue and won't be able to solve
+}
+
+enum MeshSetupErrorAction {
+    case Dialog
+    case Pop
+    case Fail
+}
+
+struct MeshSetupPeripheralCredentials {
+    var name: String
+    var mobileSecret: String
+}
+
+enum MeshSetupDeviceRole {
+    case Joiner
+    case Commissioner
 }
 
 
