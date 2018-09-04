@@ -70,7 +70,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
         self.rxBuffer = Data()
     }
 
-    func log(_ message: String) {
+    private func log(_ message: String) {
         if (MeshSetup.LogBluetoothHandshakeManager) {
             NSLog(message)
         }
