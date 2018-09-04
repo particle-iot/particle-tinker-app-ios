@@ -1,312 +1,275 @@
 //
 //  NORBluetoothManager.swift
 //  nRF Toolbox
+//  Particle
 //
 //  Created by Mostafa Berg on 06/05/16.
+//  Maintained by Raimundas Sakalauskas
 //  Copyright © 2016 Nordic Semiconductor. All rights reserved.
 //
 
 import UIKit
 import CoreBluetooth
 
-// TODO: nuke this after BLE debug
-enum BLELogLevel: String {
-    
-    case debugLogLevel = "debug"
-    case verboseLogLevel = "verbose"
-    case infoLogLevel = "info"
-    case appLogLevel = "app"
-    case warningLogLevel = "warning"
-    case errorLogLevel = "error"
+
+
+protocol MeshSetupBluetoothConnectionManagerDelegate {
+    func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState)
+    func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity)
+
+    func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
+    func bluetoothConnectionManagerConnectionBecameRead(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
+    func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
 }
 
 enum MeshSetupBluetoothConnectionManagerState {
     case Disabled
     case Ready
     case Scanning
-    case DiscoveredPeripheral
+    case PeripheralDiscovered
 }
 
 
-protocol MeshSetupBluetoothConnectionManagerDelegate {
-    // Manager
-    func bluetoothConnectionManagerReady()
-    func bluetoothConnectionManagerError(error: String, severity: MeshSetupErrorSeverity)
-    
-    // Connections
-    func bluetoothConnectionReady(connection: MeshSetupBluetoothConnection)
-    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection)
-    func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection)
-    func bluetoothConnectionError(connection: MeshSetupBluetoothConnection, error: String, severity: MeshSetupErrorSeverity)
+enum BluetoothConnectionManagerError: Error, CustomStringConvertible {
+    case FailedToStartScan
+    case FailedToScanBecauseOfTimeout
+    case DeviceTooFar
+    case DeviceWasConnected //TODO: need to reconnect to the device
+    case FailedToConnect
+
+    public var description: String {
+        switch self {
+            case .FailedToStartScan : return "Failed to start scan, please make sure manager state is Ready"
+            case .FailedToScanBecauseOfTimeout: return "BLE scan timeout"
+            case .DeviceTooFar: return "Device is too far from phone, get closer with your phone to the setup device"
+            case .DeviceWasConnected: return "Device was connected when it shouldn't be"
+            case .FailedToConnect: return "Failed to connect to bluetooth peripheral"
+        }
+    }
 }
 
 
-let particleMeshServiceUUID: CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
+class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, MeshSetupBluetoothConnectionDelegate {
 
-let particleMeshRXCharacterisiticUUID: CBUUID = CBUUID(string: "6FA90004-5C4E-48A8-94F4-8030546F36FC")
-let particleMeshTXCharacterisiticUUID: CBUUID = CBUUID(string: "6FA90003-5C4E-48A8-94F4-8030546F36FC")
+    var delegate: MeshSetupBluetoothConnectionManagerDelegate
+    var state: MeshSetupBluetoothConnectionManagerState = .Disabled {
+        didSet {
+            self.delegate.bluetoothConnectionManagerStateChanged(sender: self, state: self.state)
+        }
+    }
 
+    private var centralManager: CBCentralManager
+    private var connections: [MeshSetupBluetoothConnection]
 
+    private var peripheralToConnectCredentials: MeshSetupPeripheralCredentials?
 
-class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate {
-    
-    var delegate: MeshSetupBluetoothConnectionManagerDelegate?
-    
-    private var state: MeshSetupBluetoothConnectionManagerState = .Disabled
-    private var centralManager: CBCentralManager?
-    private var peripheralToConnectCredentials: PeripheralCredentials?
-    private var connections: [MeshSetupBluetoothConnection]?
-    private var connectingPeripheral: CBPeripheral?
-    private var scanTimer: Timer?
-    var scanTimeoutValue: TimeInterval = 20.0
-    
-    //MARK: - BluetoothManager API
-    
+    private lazy var scanTimeoutWorker: DispatchWorkItem  = DispatchWorkItem() {
+        [weak self] in
+
+        if let sSelf = self {
+            sSelf.centralManager.stopScan()
+            sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
+        }
+    }
+
     required init(delegate: MeshSetupBluetoothConnectionManagerDelegate) {
-        super.init()
-        self.delegate = delegate
         let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
-        self.centralManager = CBCentralManager(delegate: self, queue: centralQueue)
-        
+
+        self.connections = []
+        self.centralManager = CBCentralManager(delegate: nil, queue: centralQueue)
+        self.delegate = delegate
+
+        super.init()
+
+        self.centralManager.delegate = self
     }
     
     deinit {
+        scanTimeoutWorker.cancel()
         self.dropAllConnections()
-        self.centralManager = nil
     }
 
-    
+    private func fail(withReason reason: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
+        self.delegate.bluetoothConnectionManagerError(sender: self, error: reason, severity: severity)
+        log("Bluetooth connection manager error: \(reason)")
+    }
+
+    private func log(_ message: String) {
+        if (MeshSetup.LogBluetoothConnectionManager) {
+            NSLog(message)
+        }
+    }
+
+
+    func createConnection(with peripheralCredentials: MeshSetupPeripheralCredentials) {
+        if (self.state != .Ready){
+            fail(withReason: .FailedToStartScan, severity: .Error)
+            return
+        }
+
+        self.peripheralToConnectCredentials = peripheralCredentials
+        self.scanForPeripherals()
+    }
+
+    private func scanForPeripherals() {
+        self.state = .Scanning
+
+        log("BluetoothConnectionManager -- scanForPeripherals with services \(MeshSetup.particleMeshServiceUUID)")
+        let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
+        self.centralManager.scanForPeripherals(withServices: [MeshSetup.particleMeshServiceUUID], options: options as? [String: AnyObject]) // []
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + MeshSetup.bluetoothScanTimeoutValue,
+                execute: scanTimeoutWorker)
+    }
+
+    func dropConnection(with connection: MeshSetupBluetoothConnection) {
+        //this will trigger delegate callback for dropped connection
+        centralManager.cancelPeripheralConnection(connection.cbPeripheral)
+    }
+
+    func dropConnection(with connection: CBPeripheral) {
+        //this will trigger delegate callback for dropped connection
+        centralManager.cancelPeripheralConnection(connection)
+    }
+
+
     func dropAllConnections() {
-        print("Dropping all BLE connections...")
-        for conn in self.connections! {
+        log("Dropping all BLE connections...")
+        for conn in self.connections {
             self.dropConnection(with: conn)
         }
     }
-    
-    func createConnection(with peripheralCredentials: PeripheralCredentials) -> Bool {
-        if self.state == .Scanning {
-            self.centralManager?.stopScan()
+
+    func stopScan(completed: @escaping () -> ()) {
+        guard self.state == .Scanning else {
+            return
+        }
+
+        self.centralManager.stopScan()
+
+        if (self.centralManager.state == .poweredOn) {
             self.state = .Ready
-            sleep(10) // TODO: something nicer
-        }
-        
-        if self.state == .Ready {
-            self.peripheralToConnectCredentials = peripheralCredentials
-            return self.scanForPeripherals()
-            // started scanning
         } else {
-            // not ready / still working on previous request
-            return false
+            self.state = .Disabled
         }
-    }
-    
 
-    
-    /**
-     * Disconnects or cancels pending connection.
-     * The delegate's didDisconnectPeripheral() method will be called when device got disconnected.
-     */
-    func dropConnection(with connection: MeshSetupBluetoothConnection) {
-        if let p = connection._getPeripheral() {
-            centralManager!.cancelPeripheralConnection(p)
-        }
+        //stopScan takes some time
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1, execute: DispatchWorkItem (block: completed))
     }
-    
-    
-    private func scanForPeripherals() -> Bool {
-        print ("scanForPeripherals called")
-        guard self.centralManager?.state == .poweredOn else {
-            return false
-        }
-        
-        self.state = .Scanning
-        
-        print ("BluetoothConnectionManager -- scanForPeripherals with services \(particleMeshServiceUUID)")
-        let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
-        
-        self.centralManager!.scanForPeripherals(withServices: [particleMeshServiceUUID], options: options as? [String: AnyObject]) // []
-        
-        self.scanTimer = Timer.scheduledTimer(timeInterval: self.scanTimeoutValue,
-                                                 target: self,
-                                                 selector: #selector(self.scanTimeout),
-                                                 userInfo: nil,
-                                                 repeats: false)
 
-        
-        
-        return true
-    }
-    
-    //MARK: - Logger API
-    // TODO: remove after debug
-    private func log(level: BLELogLevel, message: String) {
-//        logger?.log(level: aLevel, message: aMessage)
-        print("[\(level.rawValue)]: \(message)")
-    }
-    
-    @objc private func scanTimeout() {
-        self.centralManager!.stopScan()
-        self.delegate!.bluetoothConnectionManagerError(error: "BLE scan timeout", severity: .Error)
-    }
-    
-    private func logError(error anError: Error) {
-        if let e = anError as? CBError {
-            self.log(level: .errorLogLevel, message: "Error \(e.code): \(e.localizedDescription)")
-        } else {
-            self.log(level: .errorLogLevel, message: "Error \(anError.localizedDescription)")
-        }
-    }
-    
     //MARK: - CBCentralManagerDelegate
-    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        var textState: String
-        
         var newState: MeshSetupBluetoothConnectionManagerState = .Disabled
+
         switch(central.state){
-        case .poweredOn:
-            textState = "Powered ON"
-            newState = .Ready
-        case .poweredOff:
-            textState = "Powered OFF"
-            newState = .Disabled
-        case .resetting:
-            textState = "Resetting"
-            newState = .Disabled
-        case .unauthorized:
-            textState = "Unauthorized"
-            newState = .Disabled
-        case .unsupported:
-            textState = "Unsupported"
-            newState = .Disabled
-        case .unknown:
-            textState = "Unknown"
-            newState = .Disabled
+            case .poweredOn:
+                newState = .Ready
+            case .poweredOff, .resetting, .unauthorized, .unsupported, .unknown:
+                newState = .Disabled
         }
         
-        // TODO: remove debug
-        print("centralManagerDidUpdateState: \(textState)")
-        
-        if (newState == .Disabled) && (self.state != .Disabled) {
-            self.state = newState
-            self.delegate?.bluetoothConnectionManagerError(error: "Bluetooth is disabled", severity: .Warning)
-        }
-        
-        if (newState == .Ready) && (self.state != .Ready) {
-            self.state = newState
-            self.delegate?.bluetoothConnectionManagerReady()
-        }
-        
+        log("centralManagerDidUpdateState: \(newState)")
         self.state = newState
-        
     }
-    
-    
+
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+
+        if let n = peripheral.name {
+            log("centralManager didDiscover peripheral \(n)")
+        } else {
+            log("centralManager didDiscover peripheral")
+        }
+
+        if peripheral.name == self.peripheralToConnectCredentials!.name {
+            central.stopScan()
+            log("stop scan")
+
+            scanTimeoutWorker.cancel()
+
+            if RSSI.int32Value < -90  {
+                NSLog("Device too far.. sent warning to user")
+                self.fail(withReason: .DeviceTooFar, severity: .Warning)
+            }
+
+            if peripheral.state == .connected {
+                self.dropConnection(with: peripheral)
+                self.fail(withReason: .DeviceWasConnected, severity: .Warning)
+            } else {
+                self.state = .PeripheralDiscovered
+                self.centralManager.connect(peripheral, options: nil)
+                log("Pairing to \(peripheral.name!)...")
+            }
+
+        }
+
+    }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        log(level: .debugLogLevel, message: "[Callback] Central Manager did connect peripheral")
         if let name = peripheral.name {
-            log(level: .infoLogLevel, message: "Paired to: \(name)")
+            log("Paired to: \(name)")
         } else {
-            log(level: .infoLogLevel, message: "Paired to device")
+            log("Paired to device")
         }
 
-        if (self.connectingPeripheral != peripheral) {
-            NSLog("!!!!!!!!!!!!!!!!!!!!!! self.connectingPeripheral != peripheral")
+        guard self.peripheralToConnectCredentials != nil, let name = peripheral.name, name == peripheralToConnectCredentials?.name else {
+            //all mesh devices have names, if peripheral has no name, it's not our device
+            return
         }
 
-        // no need to retain periphral if it is connected since it is being passed to the Connection class instance
-        if (self.connectingPeripheral == peripheral) {
-            self.connectingPeripheral = nil
-        }
+        let newConnection = MeshSetupBluetoothConnection(connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials!)
+        newConnection.delegate = self
 
-        // retain connections in array - create if does not exist yet
-        if self.connections == nil {
-            self.connections = [MeshSetupBluetoothConnection]()
-        }
-        
-        let newConnection = MeshSetupBluetoothConnection(bluetoothConnectionManager: self, connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials!)
-        self.connections?.append(newConnection)
-        self.delegate?.bluetoothConnectionCreated(connection: newConnection)
-        newConnection.discoverServices()
-        
+        self.connections.append(newConnection)
+        self.delegate.bluetoothConnectionManagerConnectionCreated(sender:self, connection: newConnection)
         self.state = .Ready
-        self.delegate?.bluetoothConnectionManagerReady()
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         guard error == nil else {
-            log(level: .debugLogLevel, message: "[Callback] Central Manager did disconnect peripheral")
-            logError(error: error!)
+            log("Failed to disconnect from to an unknown device: \(error)")
             return
         }
-        log(level: .debugLogLevel, message: "[Callback] Central Manager did disconnect peripheral successfully")
-        log(level: .infoLogLevel, message: "Disconnected")
 
-        
-        if let connectionsArray = self.connections {
-            for connectionElement in connectionsArray {
-                if connectionElement._getPeripheral() == peripheral {
-                    self.delegate?.bluetoothConnectionDropped(connection: connectionElement)
-                    let index = connectionsArray.index(of: connectionElement)
-                    self.connections?.remove(at: index!)
-                }
+        if let name = peripheral.name {
+            log("Disconnected from: \(name)")
+        } else {
+            log("Disconnected from a device")
+        }
+
+        for connectionElement in self.connections {
+            if connectionElement.cbPeripheral == peripheral {
+                self.delegate.bluetoothConnectionManagerConnectionDropped(sender: self, connection: connectionElement)
+                let index = self.connections.index(of: connectionElement)
+                self.connections.remove(at: index!)
             }
         }
-        
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         guard error == nil else {
-            log(level: .debugLogLevel, message: "[Callback] Central Manager did fail to connect to peripheral")
-            logError(error: error!)
+            log("Failed to connect to an unknown device: \(error)")
             return
         }
-        log(level: .debugLogLevel, message: "[Callback] Central Manager did fail to connect to peripheral without errors")
-        log(level: .infoLogLevel, message: "Failed to connect")
-        
-        delegate?.bluetoothConnectionManagerError(error: "Failed to connect to bluetooth peripheral", severity: .Error)
-    }
-    
-    ///#
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        
-        if let n = peripheral.name {
-            print("centralManager didDiscover peripheral \(n)")
-        } else {
-            print("centralManager didDiscover peripheral")
-        }
-//        print (advertisementData)
-        // Scanner uses other queue to send events
-        
-        if peripheral.name == self.peripheralToConnectCredentials!.name {
-            central.stopScan()
-            print("stop scan")
-            scanTimer?.invalidate()
-            if RSSI.int32Value < -90  {
-                // TODO: message to user to come closer to device
-                self.delegate?.bluetoothConnectionManagerError(error: "Device is too far from phone, get closer with your phone to the setup device", severity: .Warning)
-//                self.delegate.message(...)
-            }
-            
-            if peripheral.state == .connected {
-                // TODO: save this peripheral and try to connect in "didDisconnectPeripheral"
-                self.centralManager?.cancelPeripheralConnection(peripheral)
-                self.delegate?.bluetoothConnectionManagerError(error: "Reinitializing connection to device", severity: .Warning)
 
-            } else {
-                self.state = .DiscoveredPeripheral
-                
-                print ("Pairing to \(peripheral.name ?? "device")...")
-                self.connectingPeripheral = peripheral
-                self.centralManager!.connect(peripheral, options: nil)
-            }
-            
+        if let name = peripheral.name {
+            log("Failed to connect to: \(name)")
+        } else {
+            log("Failed to connect to a device")
         }
-        
+
+        self.fail(withReason: .FailedToConnect, severity: .Error)
     }
-  
-    
-    
-   
+
+
+    //MARK: MeshSetupBluetoothConnectionDelegate
+    func bluetoothConnectionBecameReady(sender: MeshSetupBluetoothConnection) {
+        log("Bluetooth connection \(sender.peripheralName) became ready")
+        self.delegate.bluetoothConnectionManagerConnectionBecameRead(sender: self, connection: sender)
+        //at this point connection will be passed to transceiver and transceiver will become data delegate
+    }
+
+    func bluetoothConnectionError(sender: MeshSetupBluetoothConnection, error: BluetoothConnectionError, severity: MeshSetupErrorSeverity) {
+        log("Bluetooth connection \(sender.peripheralName) error, dropping connection:\n\(error)")
+        self.dropConnection(with: sender)
+    }
 }
