@@ -47,7 +47,7 @@ class MeshSetupNetworkPasswordViewController: MeshSetupViewController, UITextFie
         }
     }
     
-    override func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
+    override func flowError(error: String, severity: MeshSetupErrorSeverity, action: MeshSetupErrorAction) {
        
         DispatchQueue.main.async {
             ParticleSpinner.hide(self.view)

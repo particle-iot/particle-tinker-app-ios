@@ -49,7 +49,7 @@ class MeshSetupNameDeviceViewController: MeshSetupViewController, UITextFieldDel
         }
     }
     
-    override func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
+    override func flowError(error: String, severity: MeshSetupErrorSeverity, action: MeshSetupErrorAction) {
         DispatchQueue.main.async {
             self.doneButton.isEnabled = true
             self.doneButton.alpha = 1.0

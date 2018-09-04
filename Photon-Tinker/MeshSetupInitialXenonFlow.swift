@@ -3,7 +3,8 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 7/10/18.
-//  Copyright © 2018 spark. All rights reserved.
+//  Maintained by Raimundas Sakalauskas
+//  Copyright © 2018 Particle. All rights reserved.
 //
 
 import UIKit
@@ -276,7 +277,7 @@ class MeshSetupInitialXenonFlow: MeshSetupFlow {
     
     
     // TODO: consider using callbacks instead of delegation for FlowManager...
-    override func didReceiveErrorReply(sender: MeshSetupProtocolTransceiver, error: ControlRequestErrorType) {
+    override func didReceiveErrorReply(sender: MeshSetupProtocolTransceiver, error: ControlReplyErrorType) {
         func unexpectedFlowError() {
              self.flowManager!.delegate?.flowError(error: "Unexpected flow error", severity: .Fatal, action: .Fail)
         }

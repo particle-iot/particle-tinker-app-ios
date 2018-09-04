@@ -3,7 +3,8 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 7/10/18.
-//  Copyright © 2018 spark. All rights reserved.
+//  Maintained by Raimundas Sakalauskas
+//  Copyright © 2018 Particle. All rights reserved.
 //
 
 
@@ -12,7 +13,7 @@ protocol MeshSetupUserInteractionProtocol {
     func userDidTypeNetworkPassword(password: String)
 }
 
-class MeshSetupFlow: NSObject, MeshSetupProtocolTransceiverDelegate {
+class MeshSetupFlow: NSObject, MeshSetupTransceiverDelegate {
 
     var flowManager: MeshSetupFlowManager?
     var delegate: MeshSetupFlowManagerDelegate?

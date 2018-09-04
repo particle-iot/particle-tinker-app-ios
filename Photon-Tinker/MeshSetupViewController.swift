@@ -36,7 +36,7 @@ class MeshSetupViewController: UIViewController, MeshSetupFlowManagerDelegate {
     }
 
     
-    func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
+    func flowError(error: String, severity: MeshSetupErrorSeverity, action: MeshSetupErrorAction) {
         print("flowError: \(error)")
         
         var messageType: RMessageType
