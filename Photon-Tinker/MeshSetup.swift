@@ -12,10 +12,12 @@ import CoreBluetooth
 
 
 class MeshSetup {
-    static let LogBluetoothHandshakeManager = true
-    static let LogBluetoothConnectionManager = true
-    static let LogBluetoothConnection = true
-    static let LogTransceiver = true
+    static let LogBluetoothHandshakeManager = false
+    static let LogBluetoothConnectionManager = false
+    static let LogBluetoothConnection = false
+    static let LogTransceiver = false
+    static let LogUIManager = false
+    static let LogFlowManager = true
 
     static let bluetoothScanTimeoutValue: TimeInterval = 20.0
     static let bluetoothSendTimeoutValue: TimeInterval = 15.0
@@ -42,6 +44,11 @@ enum MeshSetupErrorAction {
 
 struct MeshSetupPeripheralCredentials {
     var name: String
+    var mobileSecret: String
+}
+
+struct MeshSetupDataMatrix {
+    var serialNumber: String
     var mobileSecret: String
 }
 
