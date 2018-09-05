@@ -109,7 +109,7 @@ class MeshSetupEncryptionManager: NSObject {
         var replNonce = getReplyNonce()
         var decryptedData = cipher.decryptData(dataToDecrypt, nonce: replNonce, add: sizeData, tag: tag)!
 
-        var rm = ReplyMessage(id: 0, result: .NONE, data: nil)
+        var rm = ReplyMessage(id: 0, result: .NONE, data: Data())
 
         //get id
         rm.id = decryptedData.withUnsafeBytes { (pointer: UnsafePointer<UInt16>) -> UInt16 in
