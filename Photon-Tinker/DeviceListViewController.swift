@@ -636,9 +636,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func invokeMeshDeviceSetup() {
-        // TODO: add analytics for mesh / sub menu for mesh devices from here
-        self.performSegue(withIdentifier: "meshSetup", sender: self)
-        
+        self.present(MeshSetupFlowUIManager.storyboardViewController(), animated: true)
     }
     
     
