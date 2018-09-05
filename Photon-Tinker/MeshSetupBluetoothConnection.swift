@@ -86,7 +86,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
 
     private func log(_ message: String) {
         if (MeshSetup.LogBluetoothConnection) {
-            NSLog(message)
+            NSLog("BluetoothConnection: \(message)")
         }
     }
 
@@ -143,13 +143,13 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
                 self.peripheral.writeValue(part, for: self.particleMeshRXCharacteristic!, type: type)
             }
         }
-        NSLog("Sent data: \(aData.count) Bytes")
+        log("Sent data: \(aData.count) Bytes")
     }
     
     //MARK: - CBPeripheralDelegate
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard error == nil else {
-            NSLog("error = \(error)")
+            log("error = \(error)")
             fail(withReason: .FailedToDiscoverServices, severity: .Error)
             return
         }
@@ -232,7 +232,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
                     len -= 1 // if the string is null terminated, don't pass null terminator into NSMutableString constructor
                 }
 
-                NSLog("Bytes received from: \(characteristic.uuid.uuidString), \(bytesReceived.count) Bytes")
+                log("Bytes received from: \(characteristic.uuid.uuidString), \(bytesReceived.count) Bytes")
             }
 
             if (self.isReady) {

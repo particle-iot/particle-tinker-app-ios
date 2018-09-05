@@ -40,7 +40,7 @@ protocol MeshSetupTransceiverDelegate {
     func didTimeoutSendingMessage(sender: MeshSetupProtocolTransceiver)
 }
 
-extension MeshSetupProtocolTransceiver {
+extension MeshSetupTransceiverDelegate {
     func didReceiveAuthReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType) { fatalError("Not Implemented!") }
     func didReceiveDeviceIdReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, deviceId: String) { fatalError("Not Implemented!") }
     func didReceiveSetClaimCodeReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType) { fatalError("Not Implemented!") }
@@ -100,7 +100,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     private func log(_ message: String) {
         if (MeshSetup.LogTransceiver) {
-            NSLog(message)
+            NSLog("MeshSetupTransceiverDelegate: \(message)")
         }
     }
 
@@ -148,7 +148,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private func serialize(message: SwiftProtobuf.Message) -> Data? {
+    private func serialize(message: SwiftProtobuf.Message) -> Data {
         guard let messageData = try? message.serializedData() else {
             fatalError("Could not serialize protobuf \(type(of: message)) message")
         }
@@ -335,81 +335,86 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         rxBuffer.removeAll()
         self.waitingForReply = false
 
-        log("Received reply message id \(rm.id) --> Payload size: \(data.count)")
+        log("Received reply message id \(rm.id) --> Payload size: \(rm.data.count)")
         let replyRequestType = self.replyRequestTypeDict[rm.id]!
 
         switch replyRequestType {
             case .Auth:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveAuthReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .GetDeviceId:
-                let decodedReply = try! Particle_Ctrl_GetDeviceIdReply(serializedData: data) as! Particle_Ctrl_GetDeviceIdReply
+                let decodedReply = try! Particle_Ctrl_GetDeviceIdReply(serializedData: rm.data) as! Particle_Ctrl_GetDeviceIdReply
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveDeviceIdReply(sender: self, result:rm.result, deviceId: decodedReply.id)
-                log("Received reply: \(replyRequestType)")
             case .SetClaimCode:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveSetClaimCodeReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .GetSerialNumber:
-                let decodedReply = try! Particle_Ctrl_GetSerialNumberReply(serializedData: data) as! Particle_Ctrl_GetSerialNumberReply
+                let decodedReply = try! Particle_Ctrl_GetSerialNumberReply(serializedData: rm.data) as! Particle_Ctrl_GetSerialNumberReply
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveGetSerialNumberReply(sender: self, result: rm.result, serialNumber: decodedReply.serial)
-                log("Received reply: \(replyRequestType)")
             case .GetConnectionStatus:
-                let decodedReply = try! Particle_Ctrl_Cloud_GetConnectionStatusReply(serializedData: data) as! Particle_Ctrl_Cloud_GetConnectionStatusReply
+                let decodedReply = try! Particle_Ctrl_Cloud_GetConnectionStatusReply(serializedData: rm.data) as! Particle_Ctrl_Cloud_GetConnectionStatusReply
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveGetConnectionStatusReply(sender: self, result: rm.result, connectionStatus: decodedReply.status)
-                log("Received reply: \(replyRequestType)")
             case .IsClaimed:
-                let decodedReply = try! Particle_Ctrl_IsClaimedReply(serializedData: data) as! Particle_Ctrl_IsClaimedReply
+                let decodedReply = try! Particle_Ctrl_IsClaimedReply(serializedData: rm.data) as! Particle_Ctrl_IsClaimedReply
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveIsClaimedReply(sender: self, result: rm.result, isClaimed: decodedReply.claimed)
-                log("Received reply: \(replyRequestType)")
             case .CreateNetwork:
-                let decodedReply = try! Particle_Ctrl_Mesh_CreateNetworkReply(serializedData: data) as! Particle_Ctrl_Mesh_CreateNetworkReply
+                let decodedReply = try! Particle_Ctrl_Mesh_CreateNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_CreateNetworkReply
+                log("Received reply: \(replyRequestType)")
+                log("NetworkInfo:\nName: \(decodedReply.network.name)\nXPAN ID: \(decodedReply.network.extPanID)\nPAN ID: \(decodedReply.network.panID)\nChannel: \(decodedReply.network.channel)")
                 self.delegate.didReceiveCreateNetworkReply(sender: self, result: rm.result, networkInfo: decodedReply.network)
-                log("Received reply: \(replyRequestType)")
-                log("NetworkInfo:\nName: \(decodedReply.network.name)\nXPAN ID: \(decodedReply.network.extPanID)\nPAN ID: \(decodedReply.network.panID)\nChannel: \(decodedReply.network.channel)")
             case .StartCommissioner:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveStartCommissionerReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .StopCommissioner:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveStopCommissionerReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .StartListening:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveStartListeningReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .StopListening:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveStopListeningReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .DeviceSetupDone:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveDeviceSetupDoneReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .IsDeviceSetupDone:
-                let decodedReply = try! Particle_Ctrl_IsDeviceSetupDoneReply(serializedData: data) as! Particle_Ctrl_IsDeviceSetupDoneReply
+                let decodedReply = try! Particle_Ctrl_IsDeviceSetupDoneReply(serializedData: rm.data) as! Particle_Ctrl_IsDeviceSetupDoneReply
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveIsDeviceSetupDoneReply(sender: self, result: rm.result, isDone: decodedReply.done)
-                log("Received reply: \(replyRequestType)")
             case .PrepareJoiner:
-                let decodedReply = try! Particle_Ctrl_Mesh_PrepareJoinerReply(serializedData: data) as! Particle_Ctrl_Mesh_PrepareJoinerReply
+                let decodedReply = try! Particle_Ctrl_Mesh_PrepareJoinerReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_PrepareJoinerReply
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceivePrepareJoinerReply(sender: self, result: rm.result, eui64: decodedReply.eui64, password: decodedReply.password)
-                log("Received reply: \(replyRequestType)")
             case .AddJoiner:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveAddJoinerReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .RemoveJoiner:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveRemoveJoinerReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .JoinNetwork:
+                log("Received reply: \(replyRequestType)")
                 self.delegate.didReceiveJoinNetworkReply(sender: self, result: rm.result)
-                log("Received reply: \(replyRequestType)")
             case .LeaveNetwork:
-                self.delegate.didReceiveLeaveNetworkReply(sender: self, result: rm.result)
                 log("Received reply: \(replyRequestType)")
+                self.delegate.didReceiveLeaveNetworkReply(sender: self, result: rm.result)
             case .GetNetworkInfo:
-                let decodedReply = try! Particle_Ctrl_Mesh_GetNetworkInfoReply(serializedData: data) as! Particle_Ctrl_Mesh_GetNetworkInfoReply
-                self.delegate.didReceiveGetNetworkInfoReply(sender: self, result: rm.result, networkInfo: decodedReply.network)
+                let decodedReply = try! Particle_Ctrl_Mesh_GetNetworkInfoReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_GetNetworkInfoReply
                 log("Received reply: \(replyRequestType)")
                 log("NetworkInfo:\nName: \(decodedReply.network.name)\nXPAN ID: \(decodedReply.network.extPanID)\nPAN ID: \(decodedReply.network.panID)\nChannel: \(decodedReply.network.channel)")
+                self.delegate.didReceiveGetNetworkInfoReply(sender: self, result: rm.result, networkInfo: decodedReply.network)
             case .ScanNetworks:
-                let decodedReply = try! Particle_Ctrl_Mesh_ScanNetworksReply(serializedData: data) as! Particle_Ctrl_Mesh_ScanNetworksReply
-                self.delegate.didReceiveScanNetworksReply(sender: self, result: rm.result, networks: decodedReply.networks)
+                let decodedReply = try! Particle_Ctrl_Mesh_ScanNetworksReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_ScanNetworksReply
                 log("Received reply: \(replyRequestType)")
+                self.delegate.didReceiveScanNetworksReply(sender: self, result: rm.result, networks: decodedReply.networks)
+            case .GetInterfaceList:
+                let decodedReply = try! Particle_Ctrl_GetInterfaceListReply(serializedData: rm.data) as! Particle_Ctrl_GetInterfaceListReply
+                log("Received reply: \(replyRequestType)")
+                self.delegate.didReceiveGetInterfaceListReply(sender: self, result: rm.result, networks: decodedReply.interfaces)
+
         }
     }
 }

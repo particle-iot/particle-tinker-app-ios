@@ -18,7 +18,7 @@ protocol MeshSetupBluetoothConnectionManagerDelegate {
     func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity)
 
     func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
-    func bluetoothConnectionManagerConnectionBecameRead(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
+    func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
     func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
 }
 
@@ -96,7 +96,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
     private func log(_ message: String) {
         if (MeshSetup.LogBluetoothConnectionManager) {
-            NSLog(message)
+            NSLog("MeshSetupBluetoothConnectionManager: \(message)")
         }
     }
 
@@ -264,7 +264,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     //MARK: MeshSetupBluetoothConnectionDelegate
     func bluetoothConnectionBecameReady(sender: MeshSetupBluetoothConnection) {
         log("Bluetooth connection \(sender.peripheralName) became ready")
-        self.delegate.bluetoothConnectionManagerConnectionBecameRead(sender: self, connection: sender)
+        self.delegate.bluetoothConnectionManagerConnectionBecameReady(sender: self, connection: sender)
         //at this point connection will be passed to transceiver and transceiver will become data delegate
     }
 

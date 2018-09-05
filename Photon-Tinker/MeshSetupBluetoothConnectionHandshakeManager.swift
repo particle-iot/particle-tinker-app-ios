@@ -72,18 +72,18 @@ class MeshSetupBluetoothConnectionHandshakeManager {
 
     private func log(_ message: String) {
         if (MeshSetup.LogBluetoothHandshakeManager) {
-            NSLog(message)
+            NSLog("HandshakeManager: \(message)")
         }
     }
 
     private func fail(withReason reason: HandshakeManagerError) {
         handshakeState = .failed
         self.delegate?.handshakeDidFail(sender: self, error: reason, severity: .Error)
-        log("Handshake: failed - \(reason)")
+        log("failed - \(reason)")
     }
 
     func startHandshake() {
-        log("Handshake: start handshake")
+        log("start handshake")
         if let temp = ECJPakeWrapper(role: ECJPakeWrapperRoleClient, lowEntropySharedPassword: self.mobileSecret!) {
             ecJPakeWrapper = temp
 
@@ -98,7 +98,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
 
 
     private func sendRoundOne() {
-        log("Handshake: sendRoundOne")
+        log("sendRoundOne")
         let data = ecJPakeWrapper.writeRoundOne()
 
         if let data = data {
@@ -112,7 +112,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     }
 
     private func readRoundOne(_ data: Data) {
-        log("Handshake: readRoundOne")
+        log("readRoundOne")
         let result = ecJPakeWrapper.readRoundOne(data)
 
         if (result == 0) {
@@ -125,7 +125,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     }
 
     private func readRoundTwo(_ data: Data) {
-        log("Handshake: readRoundTwo")
+        log("readRoundTwo")
         let result = ecJPakeWrapper.readRoundTwo(data)
 
         if (result == 0) {
@@ -139,7 +139,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
 
 
     private func sendRoundTwo() {
-        log("Handshake: sendRoundTwo")
+        log("sendRoundTwo")
         let data = ecJPakeWrapper.writeRoundTwo()
 
         if let data = data {
@@ -163,7 +163,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     }
 
     private func sendConfirmation() {
-        log("Handshake: sendConfirmation")
+        log("sendConfirmation")
         
         var confirmKey: Data? = getConfirmKey()
         var computedHash: Data? = getComputedHash()
@@ -190,7 +190,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     }
 
     private func readConfirmation(_ data: Data) {
-        log("Handshake: readConfirmation")
+        log("readConfirmation")
         handshakeState = .confirmationSent
 
         var confirmKey: Data? = getConfirmKey()
@@ -208,7 +208,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
         }
 
         if (data == computedHmac!) {
-            NSLog("Handshake: completed")
+            log("completed")
             handshakeState = .completed
             delegate?.handshakeDidSucceed(sender: self, derivedSecret: derivedSecret!)
         } else {
@@ -265,7 +265,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
                 readConfirmation(serverData)
                 break
             default:
-                log("Handshake: data received")
+                log("data received")
                 break
             }
         }
