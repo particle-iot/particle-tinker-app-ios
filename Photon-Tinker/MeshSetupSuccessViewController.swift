@@ -11,13 +11,13 @@ import UIKit
 class MeshSetupSuccessViewController: MeshSetupViewController {
 
     @IBAction func doneButtonTapped(_ sender: Any) {
-        self.navigationController!.dismiss(animated: true, completion: {
-            // TODO: Pass instance of new device to Tinker app?
-        })
+//        self.navigationController!.dismiss(animated: true, completion: {
+//            // TODO: Pass instance of new device to Tinker app?
+//        })
     }
     
     @IBAction func setupAnotherButtonTapped(_ sender: Any) {
-        self.navigationController!.popToRootViewController(animated: true)
+    //    self.navigationController!.popToRootViewController(animated: true)
     }
   
 }
