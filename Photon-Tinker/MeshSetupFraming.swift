@@ -31,6 +31,7 @@ public enum ControlRequestMessageType: UInt16 {
     case LeaveNetwork = 1009
     case GetNetworkInfo = 1010
     case ScanNetworks = 1011
+    case GetInterfaceList = 400
 }
 
 public enum ControlReplyErrorType: Int32 {

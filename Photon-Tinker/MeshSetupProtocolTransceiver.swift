@@ -12,6 +12,7 @@ import SwiftProtobuf
 
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
+typealias NetworkInterface = Particle_Ctrl_InterfaceEntry
 
 protocol MeshSetupTransceiverDelegate {
     //Optional
@@ -35,7 +36,8 @@ protocol MeshSetupTransceiverDelegate {
     func didReceiveLeaveNetworkReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType)
     func didReceiveGetNetworkInfoReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, networkInfo: MeshSetupNetworkInfo?)
     func didReceiveScanNetworksReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, networks: [MeshSetupNetworkInfo])
-
+    func didReceiveGetInterfaceListReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, networks: [NetworkInterface])
+    
     //Non-Optional
     func didTimeoutSendingMessage(sender: MeshSetupProtocolTransceiver)
 }
@@ -61,6 +63,7 @@ extension MeshSetupTransceiverDelegate {
     func didReceiveLeaveNetworkReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType) { fatalError("Not Implemented!") }
     func didReceiveGetNetworkInfoReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, networkInfo: MeshSetupNetworkInfo?) { fatalError("Not Implemented!") }
     func didReceiveScanNetworksReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, networks: [MeshSetupNetworkInfo]) { fatalError("Not Implemented!") }
+    func didReceiveGetInterfaceListReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, networks: [NetworkInterface]) { fatalError("Not Implemented!") }
 }
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
@@ -305,6 +308,12 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         let requestMsgPayload = Particle_Ctrl_Mesh_ScanNetworksRequest()
 
         self.prepareRequestMessage(type: .ScanNetworks, payload: self.serialize(message: requestMsgPayload))
+    }
+
+    func sendGetInterfaceList() {
+        let requestMsgPayload = Particle_Ctrl_GetInterfaceListRequest()
+
+        self.prepareRequestMessage(type: .GetInterfaceList, payload: self.serialize(message: requestMsgPayload))
     }
 
 
