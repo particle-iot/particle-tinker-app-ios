@@ -62,6 +62,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     private var connections: [MeshSetupBluetoothConnection]
 
     private var peripheralToConnectCredentials: MeshSetupPeripheralCredentials?
+    private var peripheralToConnect: CBPeripheral?
 
     private lazy var scanTimeoutWorker: DispatchWorkItem  = DispatchWorkItem() {
         [weak self] in
@@ -192,11 +193,12 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             }
 
             if peripheral.state == .connected {
-                self.dropConnection(with: peripheral)
                 self.fail(withReason: .DeviceWasConnected, severity: .Warning)
+                self.dropConnection(with: peripheral)
             } else {
                 self.state = .PeripheralDiscovered
                 self.centralManager.connect(peripheral, options: nil)
+                peripheralToConnect = peripheral
                 log("Pairing to \(peripheral.name!)...")
             }
 
@@ -215,6 +217,9 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             //all mesh devices have names, if peripheral has no name, it's not our device
             return
         }
+
+        //this was only needed, beacuse CBManager would drop connection if we lose all strong references to the device
+        self.peripheralToConnect = nil
 
         let newConnection = MeshSetupBluetoothConnection(connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials!)
         newConnection.delegate = self
