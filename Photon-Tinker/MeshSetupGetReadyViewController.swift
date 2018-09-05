@@ -10,25 +10,26 @@ import UIKit
 
 
 
-class MeshSetupGetReadyViewController: MeshSetupViewController {
+class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
+
+    @IBOutlet weak var videoView: UIView!
+
+    private var callback: (() -> ())?
+
+    func setup(didPressReady: @escaping () -> ()) {
+        self.callback = didPressReady
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType, networkName: nil, deviceName: nil)
-        
+        //replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType, networkName: nil, deviceName: nil)
     }
 
-    @IBOutlet weak var videoView: UIView!
     @IBAction func nextButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "pairDevice", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let vc = segue.destination as? MeshSetupPairDeviceViewController  else {
-            return
+        if let callback = callback {
+            callback()
         }
-        
-        vc.deviceType = self.deviceType
-        
     }
+
 }
