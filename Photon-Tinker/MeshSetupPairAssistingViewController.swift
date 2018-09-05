@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MeshSetupPairAssistingViewController: MeshSetupViewController, MeshSetupScanCodeDelegate {
+class MeshSetupPairAssistingViewController: MeshSetupViewController {
 
 //    var commissionerDataMatrix: String?
 //
