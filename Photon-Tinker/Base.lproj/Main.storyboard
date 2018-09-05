@@ -304,20 +304,11 @@
                         <outlet property="setupNewDeviceButton" destination="4Cw-AT-ACb" id="by9-6y-6rD"/>
                         <segue destination="Nmh-ef-vpa" kind="show" identifier="tinker" id="4jN-EQ-1sH"/>
                         <segue destination="XC3-E0-ieD" kind="show" identifier="deviceInspector" id="Gcf-aV-58w"/>
-                        <segue destination="a6F-gm-Yxe" kind="show" identifier="meshSetup" id="Kc5-vz-Inf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btD-jl-5UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2428" y="621"/>
-        </scene>
-        <!--MeshSetupStart-->
-        <scene sceneID="xRa-S3-fDr">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MeshSetup" referencedIdentifier="MeshSetupStart" id="a6F-gm-Yxe" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="grb-f4-pTg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2437" y="1173"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QZP-6e-GKK">
