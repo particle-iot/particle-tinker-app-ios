@@ -12,7 +12,8 @@ import SwiftProtobuf
 
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
-typealias MeshSetupNetworkInterface = Particle_Ctrl_InterfaceEntry
+typealias MeshSetupNetworkInterfaceEntry = Particle_Ctrl_InterfaceEntry
+typealias MeshSetupNetworkInterface = Particle_Ctrl_Interface
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
@@ -310,8 +311,9 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendDeviceSetupDone(callback: @escaping (ControlReplyErrorType) -> ()) {
-        let requestMsgPayload = Particle_Ctrl_SetDeviceSetupDoneRequest();
+    func sendDeviceSetupDone(done: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_SetDeviceSetupDoneRequest();
+        requestMsgPayload.done = true
 
         self.prepareRequestMessage(type: .DeviceSetupDone, payload: self.serialize(message: requestMsgPayload))
         self.sendRequestMessage(onReply: {
@@ -452,7 +454,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetInterfaceList(callback: @escaping (ControlReplyErrorType, [MeshSetupNetworkInterface]?) -> ()) {
+    func sendGetInterfaceList(callback: @escaping (ControlReplyErrorType, [MeshSetupNetworkInterfaceEntry]?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetInterfaceListRequest()
 
         self.prepareRequestMessage(type: .GetInterfaceList, payload: self.serialize(message: requestMsgPayload))
@@ -463,6 +465,100 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                 callback(rm.result, decodedReply.interfaces)
             } else {
                 callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
+    func sendGetInterface(interfaceIndex: UInt32, callback: @escaping (ControlReplyErrorType, MeshSetupNetworkInterface?) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_GetInterfaceRequest()
+        requestMsgPayload.index = interfaceIndex
+
+        self.prepareRequestMessage(type: .GetInterface, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_GetInterfaceReply(serializedData: rm.data) as! Particle_Ctrl_GetInterfaceReply
+                callback(rm.result, decodedReply.interface)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
+    func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, SystemCapability) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_GetSystemCapabilitiesRequest()
+
+        self.prepareRequestMessage(type: .GetSystemCapabilities, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_GetSystemCapabilitiesReply(serializedData: rm.data) as! Particle_Ctrl_GetSystemCapabilitiesReply
+                callback(rm.result, SystemCapability(rawValue: decodedReply.flags)!)
+            } else {
+                callback(.TIMEOUT, .NoSystemCapability)
+            }
+        })
+    }
+
+
+    func sendStartFirmwareUpdate(callback: @escaping (ControlReplyErrorType, UInt32) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_StartFirmwareUpdateRequest()
+
+        self.prepareRequestMessage(type: .StartFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_StartFirmwareUpdateReply(serializedData: rm.data) as! Particle_Ctrl_StartFirmwareUpdateReply
+                callback(rm.result, decodedReply.chunkSize)
+            } else {
+                callback(.TIMEOUT, 0)
+            }
+        })
+    }
+
+    func sendFinishFirmwareUpdate(validateOnly: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_FinishFirmwareUpdateRequest()
+        requestMsgPayload.validateOnly = validateOnly
+
+        self.prepareRequestMessage(type: .FinishFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_FinishFirmwareUpdateReply(serializedData: rm.data) as! Particle_Ctrl_FinishFirmwareUpdateReply
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+    func sendCancelFirmwareUpdate(callback: @escaping (ControlReplyErrorType) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_CancelFirmwareUpdateRequest()
+
+        self.prepareRequestMessage(type: .CancelFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_CancelFirmwareUpdateReply(serializedData: rm.data) as! Particle_Ctrl_CancelFirmwareUpdateReply
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+    func sendFirmwareUpdateData(data: Data, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_FirmwareUpdateDataRequest()
+        requestMsgPayload.data = data
+
+        self.prepareRequestMessage(type: .FirmwareUpdateData, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_FirmwareUpdateDataReply(serializedData: rm.data) as! Particle_Ctrl_FirmwareUpdateDataReply
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
             }
         })
     }

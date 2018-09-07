@@ -32,6 +32,17 @@ public enum ControlRequestMessageType: UInt16 {
     case GetNetworkInfo = 1010
     case ScanNetworks = 1011
     case GetInterfaceList = 400
+    case GetInterface = 401
+    case GetSystemCapabilities = 32
+    case StartFirmwareUpdate = 250
+    case FinishFirmwareUpdate = 251
+    case CancelFirmwareUpdate = 252
+    case FirmwareUpdateData = 253
+}
+
+public enum SystemCapability: UInt32 {
+    case NoSystemCapability = 0
+    case CompressedOTA = 1
 }
 
 public enum ControlReplyErrorType: Int32 {
