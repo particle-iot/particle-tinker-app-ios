@@ -155,7 +155,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         }
 
         //stopScan takes some time
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1, execute: DispatchWorkItem (block: completed))
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100), execute: DispatchWorkItem (block: completed))
     }
 
     //MARK: - CBCentralManagerDelegate

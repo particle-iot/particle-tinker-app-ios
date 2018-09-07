@@ -40,11 +40,6 @@ public enum ControlRequestMessageType: UInt16 {
     case FirmwareUpdateData = 253
 }
 
-public enum SystemCapability: UInt32 {
-    case NoSystemCapability = 0
-    case CompressedOTA = 1
-}
-
 public enum ControlReplyErrorType: Int32 {
     case NONE = 0
     case UNKNOWN = -100

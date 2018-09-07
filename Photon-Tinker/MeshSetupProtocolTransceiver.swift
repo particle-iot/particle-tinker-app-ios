@@ -14,6 +14,7 @@ typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
 typealias MeshSetupNetworkInterfaceEntry = Particle_Ctrl_InterfaceEntry
 typealias MeshSetupNetworkInterface = Particle_Ctrl_Interface
+typealias SystemCapability = Particle_Ctrl_SystemCapabilityFlag
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
@@ -27,6 +28,12 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private var txBuffer: Data!
 
     private var onReplyCallback: ((ReplyMessage?) -> ())!
+
+    var connection: MeshSetupBluetoothConnection {
+        get {
+            return bluetoothConnection
+        }
+    }
 
     private lazy var sendTimeoutWorker: DispatchWorkItem  = DispatchWorkItem() {
         [weak self] in
@@ -485,7 +492,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, SystemCapability) -> ()) {
+    func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, SystemCapability?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemCapabilitiesRequest()
 
         self.prepareRequestMessage(type: .GetSystemCapabilities, payload: self.serialize(message: requestMsgPayload))
@@ -493,9 +500,10 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetSystemCapabilitiesReply(serializedData: rm.data) as! Particle_Ctrl_GetSystemCapabilitiesReply
-                callback(rm.result, SystemCapability(rawValue: decodedReply.flags)!)
+                //`flags` is an OR'ed combination of individual flags defined by `SystemCapabilityFlag`
+                callback(rm.result,  SystemCapability(rawValue: decodedReply.flags == 0 ? 0 : 1))
             } else {
-                callback(.TIMEOUT, .NoSystemCapability)
+                callback(.TIMEOUT, nil)
             }
         })
     }
