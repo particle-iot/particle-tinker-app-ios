@@ -69,18 +69,66 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
         self.flowManager.setInitialDeviceInfo(deviceType: self.selectedDeviceType, dataMatrix: self.selectedDeviceDataMatrix)
     }
 
+    //user successfully scanned initial code
+    func commissionerStickerCodeFound(dataMatrix: MeshSetupDataMatrix) {
+        log("dataMatrix scanned: \(dataMatrix)")
+        self.selectedDeviceDataMatrix = dataMatrix
+        self.flowManager.setCommissionerDeviceInfo(deviceType: self.selectedDeviceType, dataMatrix: self.selectedDeviceDataMatrix)
+    }
+    
+    
+    
+
     //MARK: MeshSetupFlowManagerDelegate
+    func meshSetupDidEnterState(state: MeshSetupFlowState) {
+        log("flow setup entered state: \(state)")
+    }
+
+    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity) {
+        if (error == .DeviceTooFar) {
+            //TODO: show prompt and repeat step
+        } else {
+            //fail...
+            log("flow failed: \(error)")
+        }
+    }
+    
+    
     func meshSetupDidRequestInitialDeviceInfo() {
         //do nothing
         log("flow manager requested initial device info")
     }
 
-    func meshSetupDidEnterState(state: MeshSetupFlowState) {
-        log("flow setup entered state: \(state)")
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
+        //required for flow to continue
+        self.flowManager.setInitialDeviceLeaveNetwork(leave: true)
     }
 
+    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo]) {
+        if (availableNetworks.count == 0) {
+            flowManager.retryStep()
+        } else {
+            flowManager.setSelectedNetwork(availableNetworks.first!)
+        }
+    }
 
+    func meshSetupDidRequestCommissionerDeviceInfo() {
+        log("request user info for commissioner")
+        DispatchQueue.main.async {
+            let scanVC = MeshSetupScanCodeViewController.storyboardViewController()
+            scanVC.setup(didFindStickerCode: self.commissionerStickerCodeFound)
+            self.present(scanVC, animated: true)
+        }
+    }
 
+    func meshSetupDidRequestToEnterSelectedNetworkPassword() {
+        self.flowManager.setSelectedNetworkPassword("zxcasd")
+    }
+    
+    func meshSetupDidRequestToEnterDeviceName() {
+
+    }
+    
 
     //MARK: Helpers
     private func addCancel() {
@@ -89,6 +137,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     }
 
     @objc func cancelButtonTapped() {
+        self.flowManager.cancel()
         self.dismiss(animated: true)
     }
 

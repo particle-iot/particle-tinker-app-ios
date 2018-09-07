@@ -12,12 +12,25 @@ import Foundation
 
 //delegate required to request / deliver information from / to the UI
 enum MeshSetupFlowCommands {
+    //preflow
     case GetInitialDeviceInfo
-    case ConnectToInitialDeviceUsingBLE
-    case EnsureDeviceCanBeClaimed
+    case ConnectToInitialDevice
+    case EnsureInitialDeviceCanBeClaimed
     case CheckInitialDeviceIsSetup
     case CheckInitialDeviceHasNetworkInterfaces
-    case DecideFlowSequence
+    case ChooseFlow
+
+    //main flow
+    case SetClaimCode
+    case EnsureInitialDeviceIsNotOnMeshNetwork
+    case GetUserNetworkSelection
+
+    case GetCommissionerDeviceInfo
+    case ConnectToCommissionerDevice
+    case EnsureCommissionerNetworkMatches
+
+    case EnsureCorrectSelectedNetworkPassword
+    case JoinNetwork
 }
 
 
@@ -25,12 +38,16 @@ enum MeshSetupFlowState {
     case InitialDeviceConnecting
     case InitialDeviceConnected
     case InitialDeviceReady
+    case CommissionerDeviceConnecting
+    case CommissionerDeviceConnected
+    case CommissionerDeviceReady
 }
 
-protocol MeshSetupFlowManagerDelegate {
-    func meshSetupDidRequestInitialDeviceInfo()
-
-    func meshSetupDidEnterState(state: MeshSetupFlowState)
+enum MeshSetupFlowError: Error {
+    case DeviceAlreadyClaimedByTheUser
+    case UnableToGenerateClaimCode
+    case DeviceTooFar
+    case UserRefusedToLeaveMeshNetwork
 }
 
 struct MeshDevice {
@@ -44,30 +61,67 @@ struct MeshDevice {
     var isClaimed: Bool?
 
     var isSetupDone: Bool?
-    var hasNetworkAccess: Bool?
+    var hasInternetAccess: Bool?
+
+    var networkInfo: MeshSetupNetworkInfo?
+    var networks: [MeshSetupNetworkInfo]?
 }
 
-class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupTransceiverDelegate {
+protocol MeshSetupFlowManagerDelegate {
+    func meshSetupDidRequestInitialDeviceInfo()
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
+    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo])
+    func meshSetupDidRequestCommissionerDeviceInfo()
+    func meshSetupDidRequestToEnterSelectedNetworkPassword()
+    func meshSetupDidRequestToEnterDeviceName()
 
-    private let preflowSequence: [MeshSetupFlowCommands] = [.GetInitialDeviceInfo,
-                                                            .ConnectToInitialDeviceUsingBLE,
-                                                            .EnsureDeviceCanBeClaimed,
-                                                            .CheckInitialDeviceIsSetup,
-                                                            .CheckInitialDeviceHasNetworkInterfaces,
-                                                            .DecideFlowSequence]
+    func meshSetupDidEnterState(state: MeshSetupFlowState)
+    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity)
+}
+
+class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
+
+    private let preflow: [MeshSetupFlowCommands] = [
+                                                        .GetInitialDeviceInfo,
+                                                        .ConnectToInitialDevice,
+                                                        .EnsureInitialDeviceCanBeClaimed,
+                                                        .CheckInitialDeviceIsSetup,
+                                                        .CheckInitialDeviceHasNetworkInterfaces,
+                                                        .ChooseFlow
+                                                    ]
+
+
+    private let joinerFlow: [MeshSetupFlowCommands] = [
+                                                        .SetClaimCode,
+                                                        .EnsureInitialDeviceIsNotOnMeshNetwork,
+                                                        .GetUserNetworkSelection,
+                                                        .GetCommissionerDeviceInfo,
+                                                        .ConnectToCommissionerDevice,
+                                                        .EnsureCommissionerNetworkMatches,
+                                                        .EnsureCorrectSelectedNetworkPassword,
+                                                        .JoinNetwork
+                                                    ]
+
+
+
+    private let gatewayFlow: [MeshSetupFlowCommands] = [.SetClaimCode]
 
     var delegate: MeshSetupFlowManagerDelegate
 
     private var bluetoothManager: MeshSetupBluetoothConnectionManager!
 
     private var initialDevice: MeshDevice!
+    private var commissionerDevice: MeshDevice!
+
+    private var selectedNetworkInfo: MeshSetupNetworkInfo?
+    private var selectedNetworkPassword: String?
 
 
-    private var currentSequence: [MeshSetupFlowCommands]!
+    private var currentFlow: [MeshSetupFlowCommands]!
     private var currentStep: Int = 0
     private var currentStepFlags: [String: Any]! //if there's shared data needed to properly run the step
     private var currentCommand: MeshSetupFlowCommands {
-        return currentSequence[currentStep]
+        return currentFlow[currentStep]
     }
 
 
@@ -77,40 +131,74 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
     }
 
+
     private func log(_ message: String) {
         if (MeshSetup.LogFlowManager) {
             NSLog("MeshSetupFlowUIManager: \(message)")
         }
     }
 
-    //MARK: Pre-flow
-    //pre - flow, before we can determine the flow, we need to know what is the target device,
-    //device's current network state, if device is claimed and if device has network interfaces available
+    func cancel() {
+        self.bluetoothManager.dropAllConnections()
+    }
+
+    private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity) {
+        self.delegate.meshSetupError(error: reason, severity: severity)
+        log("error: \(reason)")
+    }
+
+    //MARK: Flow control
 
     //entry to the flow
     func startSetup() {
-        currentSequence = preflowSequence
+        currentFlow = preflow
         currentStep = 0
 
         self.runCurrentStep()
+    }
+
+    func retryStep() {
+        runCurrentStep()
     }
 
     private func runCurrentStep() {
         log("currentStep = \(currentStep), currentCommand = \(currentCommand)")
         self.currentStepFlags = [:]
         switch self.currentCommand {
+        //preflow
         case .GetInitialDeviceInfo:
             self.getInitialDeviceInfo()
-        case .ConnectToInitialDeviceUsingBLE:
+        case .ConnectToInitialDevice:
             self.connectToInitialDevice()
-        case .EnsureDeviceCanBeClaimed:
+        case .EnsureInitialDeviceCanBeClaimed:
             self.ensureDeviceCanBeClaimed()
         case .CheckInitialDeviceIsSetup:
             self.checkInitialDeviceIsSetup()
         case .CheckInitialDeviceHasNetworkInterfaces:
             self.checkInitialDeviceHasNetworkInterfaces()
+        case .ChooseFlow:
+             self.chooseFlow()
+
+        //main flow
+        case .SetClaimCode:
+            self.setClaimCode()
+        case .EnsureInitialDeviceIsNotOnMeshNetwork:
+            self.ensureInitialDeviceIsNotOnMeshNetwork()
+        case .GetUserNetworkSelection:
+            self.scanInitialDeviceNetworks()
+        case .GetCommissionerDeviceInfo:
+            self.getCommissionerDeviceInfo()
+        case .ConnectToCommissionerDevice:
+            self.connectToCommissionerDevice()
+        case .EnsureCommissionerNetworkMatches:
+            self.ensureCommissionerNetworkMatches()
+        case .EnsureCorrectSelectedNetworkPassword:
+            self.ensureCorrectSelectedNetworkPassword()
+        case .JoinNetwork:
+            self.startCommissionner()
+
         default:
-            log("Unknown command: \(currentSequence[currentStep])")
+            log("Unknown command: \(currentFlow[currentStep])")
         }
     }
 
@@ -120,26 +208,44 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
+    //end of preflow
+    private func chooseFlow() {
+        log("preflow completed")
+//        if (self.initialDevice.isClaimed!) {
+//            fail(withReason: .DeviceAlreadyClaimedByTheUser, severity: .Error)
+//            return
+//        }
+//
+//        if (self.initialDevice.claimCode == nil){
+//            fail(withReason: .UnableToGenerateClaimCode, severity: .Error)
+//            return
+//        }
 
-
-
-
-
-
-
+        //jump to new sub-flow
+        self.currentStep = 0
+        if (self.initialDevice.hasInternetAccess!) {
+            self.currentFlow = gatewayFlow
+            log("setting gateway flow")
+        } else {
+            self.currentFlow = joinerFlow
+            log("setting joiner flow")
+        }
+        self.runCurrentStep()
+    }
 
 
 
     //MARK: BluetoothConnectionManagerDelegate
     func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState) {
-        NSLog("MeshSetupBluetoothConnectionManagerState = \(state)")
-        if (self.currentCommand == .ConnectToInitialDeviceUsingBLE) {
+        log("MeshSetupBluetoothConnectionManagerState = \(state)")
+        if (self.currentCommand == .ConnectToInitialDevice || self.currentCommand == .ConnectToCommissionerDevice) {
             if (self.bluetoothManager.state == .Ready) {
                 if let connectWhenReady = self.currentStepFlags["connectWhenReady"] {
+                    self.currentStepFlags["connectWhenReady"] = nil
                     self.runCurrentStep()
                 }
             } else if (self.bluetoothManager.state == .Disabled) {
-                //TODO: flow failed?
+                //though this is not yet the reason to fail, but it might be if really soon
             }
             //we don't care about other states
         }
@@ -147,11 +253,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
-        if (self.currentCommand == .ConnectToInitialDeviceUsingBLE) {
+        if (self.currentCommand == .ConnectToInitialDevice || self.currentCommand == .ConnectToCommissionerDevice) {
             if (error == .DeviceWasConnected) {
                 self.currentStepFlags["reconnect"] = true
             } else if (error == .DeviceTooFar) {
-                //TODO: show prompt?
+                self.fail(withReason: .DeviceTooFar, severity: .Error) //after showing promt, step should be repeated
             } else {
                 //TODO: flow failed?
             }
@@ -161,8 +267,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
-        if (self.currentCommand == .ConnectToInitialDeviceUsingBLE) {
+        if (self.currentCommand == .ConnectToInitialDevice) {
             self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnected)
+        } else if (self.currentCommand == .ConnectToCommissionerDevice) {
+            self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
         } else {
             //TODO: possibly remove this
             fatalError("bluetoothConnectionManagerConnectionCreated when it should not happen")
@@ -170,11 +278,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
-        if (self.currentCommand == .ConnectToInitialDeviceUsingBLE) {
+        if (self.currentCommand == .ConnectToInitialDevice) {
             self.delegate.meshSetupDidEnterState(state: .InitialDeviceReady)
-            self.initialDevice.transceiver = MeshSetupProtocolTransceiver(delegate: self, connection: connection)
+            self.initialDevice.transceiver = MeshSetupProtocolTransceiver(connection: connection)
 
             self.initialDeviceConnected()
+        } else if (self.currentCommand == .ConnectToCommissionerDevice) {
+            self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceReady)
+            self.commissionerDevice.transceiver = MeshSetupProtocolTransceiver(connection: connection)
+
+            self.commissionerDeviceConnected()
         } else {
             //TODO: possibly remove this
             fatalError("bluetoothConnectionManagerConnectionCreated when it should not happen")
@@ -182,8 +295,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
-        if (self.currentCommand == .ConnectToInitialDeviceUsingBLE) {
+        if (self.currentCommand == .ConnectToInitialDevice || self.currentCommand == .ConnectToCommissionerDevice) {
             if let reconnect = self.currentStepFlags["reconnect"] {
+                self.currentStepFlags["reconnect"] = nil
                 self.runCurrentStep()
             } else {
                 //TODO: flow failed?
@@ -192,18 +306,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             //TODO: flow failed?
         }
     }
+//}
 
-
-    //MARK: MeshSetupTransceiverDelegate
-    func didTimeoutSendingMessage(sender: MeshSetupProtocolTransceiver) {
-        log("Tranciever timed out: \(sender)")
-        //TODO: retry step
-    }
-
-
-}
-
-extension MeshSetupFlowManager {
+//extension MeshSetupFlowManager {
     //MARK: GetInitialDeviceInfo
     private func getInitialDeviceInfo() {
         self.delegate.meshSetupDidRequestInitialDeviceInfo()
@@ -217,17 +322,16 @@ extension MeshSetupFlowManager {
 
         self.stepComplete()
     }
-}
 
-extension MeshSetupFlowManager {
     //MARK: ConnectToInitialDevice
     private func connectToInitialDevice() {
         if (self.bluetoothManager.state != .Ready) {
-            //TODO: Show appropriate prompt for user to enable the bluetooth
             self.currentStepFlags["connectWhenReady"] = true
-            //code execution will continue in bluethoothManagerDelegate methods when manager state changes to ready
             return
+            //TODO: Show appropriate prompt for user to enable the bluetooth
+            //code execution will continue in bluethoothManagerDelegate methods when manager state changes to ready
         }
+
         self.bluetoothManager.createConnection(with: self.initialDevice.credentials!)
         self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnecting)
     }
@@ -235,358 +339,366 @@ extension MeshSetupFlowManager {
     private func initialDeviceConnected() {
         self.stepComplete()
     }
-}
 
-extension MeshSetupFlowManager {
+
     //MARK: CheckInitialDeviceIsSetup
     private func checkInitialDeviceIsSetup() {
-        self.initialDevice.transceiver!.sendIsDeviceSetupDone()
+        self.initialDevice.transceiver!.sendIsDeviceSetupDone { result, isDone in
+            self.log("didReceiveIsDeviceSetupDoneReply: \(result), isDone: \(isDone)")
+            if (result == .NONE) {
+                self.stepComplete()
+            } else {
+                //TODO: handle errors?
+            }
+        }
     }
 
-    func didReceiveIsDeviceSetupDoneReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, isDone: Bool) {
-        NSLog("didReceiveIsDeviceSetupDoneReply = \(isDone)")
-        self.initialDevice.isSetupDone = isDone
-        self.stepComplete()
-    }
-}
 
-extension MeshSetupFlowManager {
     //MARK: CheckInitialDeviceHasNetworkInterfaces
     private func checkInitialDeviceHasNetworkInterfaces() {
-        self.initialDevice.transceiver!.sendGetInterfaceList()
-    }
-
-    func didReceiveGetInterfaceListReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, networks: [NetworkInterface]) {
-        NSLog("didReceiveGetInterfaceListReply = networkCount: \(networks.count)")
-        if networks.count > 1 {
-            self.initialDevice.hasNetworkAccess = true
-        } else {
-            self.initialDevice.hasNetworkAccess = false
+        self.initialDevice.transceiver!.sendGetInterfaceList { result, interfaces in
+            self.log("didReceiveStartCommissionerReply: \(result), networkCount: \(interfaces?.count)")
+            if (result == .NONE) {
+                self.initialDevice.hasInternetAccess = false
+                for interface in interfaces! {
+                    if (interface.type == .ethernet || interface.type == .wifi || interface.type == .ppp) {
+                        self.initialDevice.hasInternetAccess = true
+                        break
+                    }
+                }
+                self.stepComplete()
+            } else {
+                //TODO: handle errors?
+            }
         }
-        self.stepComplete()
     }
-}
 
-extension MeshSetupFlowManager {
+
     //MARK: EnsureDeviceCanBeClaimed
     private func ensureDeviceCanBeClaimed() {
-        self.initialDevice.transceiver!.sendGetDeviceId()
+        self.initialDevice.transceiver!.sendGetDeviceId { result, deviceId in
+            self.log("didReceiveDeviceIdReply: \(result), deviceId: \(deviceId)")
+            if (result == .NONE) {
+                self.initialDevice.deviceId = deviceId!
+                self.checkInitialDeviceIsClaimed()
+            } else {
+                //TODO: problems...
+            }
+        }
     }
 
-    func didReceiveDeviceIdReply(sender: MeshSetupProtocolTransceiver, result: ControlReplyErrorType, deviceId: String) {
-        log("didReceiveDeviceIdReply: \(deviceId)")
-        self.initialDevice.deviceId = deviceId
-
-        ParticleCloud.sharedInstance().getDevices { [weak self] devices, error in
-            guard self != nil else {
-                //no longer needed
-                return
-            }
-
+    private func checkInitialDeviceIsClaimed() {
+        ParticleCloud.sharedInstance().getDevices { devices, error in
             guard error == nil else {
-                self!.log(error!.localizedDescription)
+                self.log(error!.localizedDescription)
                 //TODO: fail for uknown reason
                 return
             }
 
             if let devices = devices {
                 for device in devices {
-                    if (device.id == self!.initialDevice.deviceId!) {
-                        NSLog("device belongs to user already")
-                        self!.initialDevice.isClaimed = true
-                        self!.stepComplete()
+                    if (device.id == self.initialDevice.deviceId!) {
+                        self.log("device belongs to user already")
+                        self.initialDevice.isClaimed = true
+                        self.stepComplete()
                         return
                     }
                 }
             }
 
-            self!.getClaimCode()
+            self.getClaimCode()
         }
     }
 
     private func getClaimCode() {
-        NSLog("generating claim code")
-        ParticleCloud.sharedInstance().generateClaimCode { [weak self] claimCode, userDevices, error in
-            guard self != nil else {
-                //no longer needed
-                return
-            }
-
+        log("generating claim code")
+        ParticleCloud.sharedInstance().generateClaimCode { claimCode, userDevices, error in
             guard error == nil else {
-                self!.log(error!.localizedDescription)
+                self.log(error!.localizedDescription)
                 //TODO: fail flow? unable to generate claim code
                 return
             }
 
-            NSLog("claim code generated")
-            self!.initialDevice.claimCode = claimCode
-            self!.initialDevice.isClaimed = false
-            self!.stepComplete()
+            self.log("claim code generated")
+            self.initialDevice.claimCode = claimCode
+            self.initialDevice.isClaimed = false
+            self.stepComplete()
+        }
+    }
+
+
+
+
+
+    //MARK: SetClaimCode
+    private func setClaimCode() {
+        if let claimCode = self.initialDevice.claimCode {
+            self.initialDevice.transceiver!.sendSetClaimCode(claimCode: self.initialDevice.claimCode!) { result in
+                self.log("didReceiveSetClaimCodeReply: \(result)")
+                if (result == .NONE) {
+                    self.stepComplete()
+                } else {
+                    //TODO: problems...
+                }
+            }
+        } else {
+            //TODO: make sure this is fine
+            self.stepComplete()
+        }
+    }
+
+
+
+
+    //MARK: EnsureInitialDeviceIsNotOnMeshNetwork
+    private func ensureInitialDeviceIsNotOnMeshNetwork() {
+        self.initialDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
+            self.log("didReceiveInitialDeviceNetworkInfoReply: \(result)")
+            if (result == .NOT_FOUND) {
+                self.initialDevice.networkInfo = nil
+                self.stepComplete()
+            } else if (result == .NONE) {
+                self.initialDevice.networkInfo = networkInfo
+                self.delegate.meshSetupDidRequestToLeaveNetwork(network: networkInfo!)
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+    func setInitialDeviceLeaveNetwork(leave: Bool) {
+        if (self.initialDevice.networkInfo == nil) {
+            self.stepComplete()
+        } else if (leave) {
+            self.initialDeviceLeaveNetwork()
+        } else {
+            fail(withReason: .UserRefusedToLeaveMeshNetwork, severity: .Error)
+        }
+    }
+
+    func initialDeviceLeaveNetwork() {
+        self.initialDevice.transceiver!.sendLeaveNetwork { result in
+            self.log("didReceiveLeaveNetworkReply: \(result)")
+            if (result == .NONE) {
+                self.stepComplete()
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+
+
+    //MARK: GetUserNetworkSelection
+    private func scanInitialDeviceNetworks() {
+        self.initialDevice.transceiver!.sendScanNetworks { result, networks in
+            self.log("sendScanNetworks: \(result), networksCount: \(networks?.count)\n\(networks)")
+            if (result == .NONE) {
+                self.initialDevice.networks = networks
+                self.getUserNetworkSelection()
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+    //TODO: GET /v1/networks to get device count
+
+    private func getUserNetworkSelection() {
+        self.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: self.initialDevice.networks!)
+    }
+
+    func setSelectedNetwork(_ selectedNetwork: MeshSetupNetworkInfo) {
+        self.selectedNetworkInfo = selectedNetwork
+        self.stepComplete()
+    }
+
+
+    //MARK: GetCommissionerDeviceInfo
+    private func getCommissionerDeviceInfo() {
+        self.delegate.meshSetupDidRequestCommissionerDeviceInfo()
+    }
+
+    func setCommissionerDeviceInfo(deviceType: ParticleDeviceType, dataMatrix: MeshSetupDataMatrix) {
+        self.commissionerDevice = MeshDevice()
+
+        self.commissionerDevice.type = deviceType
+        self.commissionerDevice.credentials = MeshSetupPeripheralCredentials(name: deviceType.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+
+        self.stepComplete()
+    }
+
+    //MARK: ConnectToCommissionerDevice
+    private func connectToCommissionerDevice() {
+        if (self.bluetoothManager.state != .Ready) {
+            //TODO: Show appropriate prompt for user to enable the bluetooth
+            self.currentStepFlags["connectWhenReady"] = true
+            //code execution will continue in bluethoothManagerDelegate methods when manager state changes to ready
+            return
+        }
+        self.bluetoothManager.createConnection(with: self.commissionerDevice.credentials!)
+        self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
+    }
+
+    private func commissionerDeviceConnected() {
+        self.stepComplete()
+    }
+
+
+    //MARK: EnsureCommissionerNetworkMatches
+    private func ensureCommissionerNetworkMatches() {
+        self.commissionerDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
+            self.log("sendGetNetworkInfo: \(result), networkInfo: \(networkInfo)")
+
+            if (result == .NOT_FOUND) {
+                self.commissionerDevice.networkInfo = nil
+            } else if (result == .NONE) {
+                self.initialDevice.networkInfo = networkInfo
+            } else {
+                //TODO: problems
+            }
+
+            if (self.selectedNetworkInfo?.extPanID == networkInfo?.extPanID) {
+                self.stepComplete()
+            } else {
+                //TODO: fail cause commisioner has no network
+            }
+        }
+    }
+
+
+
+    //MARK: EnsureCorrectSelectedNetworkPassword
+    private func ensureCorrectSelectedNetworkPassword() {
+        self.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword()
+    }
+
+    func setSelectedNetworkPassword(_ password: String) {
+        self.selectedNetworkPassword = password
+
+        /// NOT_FOUND: The device is not a member of a network
+        /// NOT_ALLOWED: Invalid commissioning credential
+        self.commissionerDevice.transceiver!.sendAuth(password: password) { result in
+            self.log("sendAuth: \(result)")
+            if (result == .NONE) {
+                self.stepComplete()
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+
+
+    //MARK: JoinNetwork
+    private func startCommissionner() {
+
+        /// NOT_ALLOWED: The client is not authenticated
+        self.commissionerDevice.transceiver!.sendStartCommissioner { result in
+            self.log("sendStartCommissioner: \(result)")
+            if result == .NONE {
+                self.prepareJoiner()
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+    private func prepareJoiner() {
+        /// ALREADY_EXIST: The device is already a member of a network
+        /// NOT_ALLOWED: The client is not authenticated
+        self.initialDevice.transceiver!.sendPrepareJoiner(networkInfo: self.selectedNetworkInfo!) { result, eui64, password in
+            self.log("sendPrepareJoiner: \(result)")
+            if (result == .NONE) {
+                self.addJoiner(eui64: eui64!, password: password!)
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+    private func addJoiner(eui64: String, password: String) {
+        /// NO_MEMORY: No memory available to add the joiner
+        /// INVALID_STATE: The commissioner role is not started
+        /// NOT_ALLOWED: The client is not authenticated
+        self.commissionerDevice.transceiver!.sendAddJoiner(eui64: eui64, password: password) { result in
+            self.log("sendAddJoiner: \(result)")
+            if (result == .NONE) {
+                self.joinNetwork()
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+    private func joinNetwork() {
+        /// NOT_FOUND: No joinable network was found
+        /// TIMEOUT: The join process timed out
+        /// NOT_ALLOWED: Invalid security credentials
+        self.initialDevice.transceiver!.sendJoinNetwork { result in
+            self.log("sendJoinNetwork: \(result)")
+            if (result == .NONE) {
+                self.stopCommissioner()
+            } else {
+                //TODO: problems...
+            }
+
+         }
+    }
+
+    private func stopCommissioner() {
+        /// NOT_ALLOWED: The client is not authenticated
+        self.commissionerDevice.transceiver!.sendStopCommissioner { result in
+            self.log("sendStopCommissioner: \(result)")
+            if (result == .NONE) {
+                self.stopCommissionerListening()
+            } else {
+                //TODO: problems...
+            }
+         }
+    }
+
+
+    private func stopCommissionerListening() {
+        self.commissionerDevice.transceiver!.sendStopListening { result in
+            self.log("commissionerDevice.sendStopListening: \(result)")
+            if (result == .NONE) {
+                self.stopInitialDeviceListening()
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+    private func stopInitialDeviceListening() {
+        self.initialDevice.transceiver!.sendStopListening { result in
+            self.log("initialDevice.sendStopListening: \(result)")
+            if (result == .NONE) {
+                self.checkInitialDeviceGotClaimed()
+            } else {
+                //TODO: problems...
+            }
+        }
+    }
+
+    private func checkInitialDeviceGotClaimed() {
+        ParticleCloud.sharedInstance().getDevices { devices, error in
+            guard error == nil else {
+                self.log(error!.localizedDescription)
+                //TODO: fail for uknown reason
+                return
+            }
+
+            if let devices = devices {
+                for device in devices {
+                    if (device.id == self.initialDevice.deviceId!) {
+                        self.log("device was successfully claimed")
+                        return
+                    }
+                }
+            }
+
+            self.log("device was NOT successfully claimed")
         }
     }
 }
-
-
-
-
-//enum MeshSetupFlowType {
-//    case None
-//    case InitialXenon
-//}
-//
-//
-//
-//enum MeshSetupErrorType: String {
-//    case CommissionerNetworksMismatch
-//    case BluetoothConnectionError
-//    case BluetoothConnectionManagerError
-//    case BluetoothNotReady
-//    case BluetoothDisabled
-//    case DeviceNotSupported
-//    case FlowNotSupported // (device already claimed or any other thing)
-//    case MessageTimeout
-//    case ParticleCloudClaimCodeFailed
-//    case ParticleCloudDeviceListFailed
-//    case JoinerAlreadyOnMeshNetwork
-//    case CouldNotClaimDevice // basically == device cloud connection timeout
-//    case CouldNotNameDevice
-//    case InvalidNetworkPassword
-//    case NotAuthenticated   // tried StartCommissionerRequest but commissioner password was not provided
-//    case UnknownFlowError
-//}
-
-
-
-
-
-
-
-//    //    required
-//    func flowError(error: String, severity: MeshSetupErrorSeverity, action: MeshSetupErrorAction) //
-//    // TODO: make these optional
-//    func scannedNetworks(networks: [String]?) // joiner returned detected mesh networks (or empty array if none)
-//    func flowManagerReady() // flow manager ready to start the flow
-//    func networkMatch() // commissioner network matches the user selection - can proceed to ask for password + commissioning
-//    func authSuccess()
-//    func joinerPrepared()
-//    func joinedNetwork()
-//    func deviceOnlineClaimed()
-//    func deviceNamed()
-
-
-// Extension to protocol to create hack for optionals
-//extension MeshSetupFlowManagerDelegate {
-//    func scannedNetworks(networks: [String]?) {  }
-//    func flowManagerReady() {}
-//    func networkMatch() {}
-//}
-
-
-//protocol MeshSetupFlowManagerDataSource {
-//    func
-//
-//}
-
-
-
-
-
-//    var joinerProtocol: MeshSetupProtocolTransceiver?
-//    var commissionerProtocol: MeshSetupProtocolTransceiver?
-//
-//    var joinerDeviceType: ParticleDeviceType?
-//    var commissionerDeviceType: ParticleDeviceType?
-//
-//    var networkPassword: String? {
-//        didSet {
-//            self.currentFlow?.networkPassword = networkPassword
-//        }
-//    }
-//
-//    var networkName: String? {
-//        didSet {
-//            self.currentFlow?.networkName = networkName
-//        }
-//    }
-//
-//    var deviceName: String? {
-//        didSet {
-//            self.currentFlow?.deviceName = deviceName
-//        }
-//    }
-//
-//    var delegate: MeshSetupFlowManagerDelegate?
-//
-//    var bluetoothManagerReady = false
-//
-//
-//    var joinerPeripheralCredentials: MeshSetupPeripheralCredentials? {
-//        didSet {
-//            print("joinerPeripheralName didSet")
-//            self.createBluetoothConnection(with: joinerPeripheralCredentials!)
-//        }
-//    }
-
-//    var commissionerPeripheralCredentials: MeshSetupPeripheralCredentials? {
-//        didSet {
-//            print("commissionerPeripheralName didSet")
-//            self.createBluetoothConnection(with: commissionerPeripheralCredentials!)
-//        }
-//    }
-//
-//    private var bluetoothManager: MeshSetupBluetoothConnectionManager?
-//    private var flowType: MeshSetupFlowType = .None // TODO: do we even need this?
-//    private var currentFlow: MeshSetupFlow?
-//    private var isReady: Bool = false
-//
-//    // meant to be initialized after choosing device type + scanning sticker
-//    required init(delegate: MeshSetupFlowManagerDelegate) {
-//        super.init()
-//        self.delegate = delegate
-//        self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
-//    }
-//
-//    func startFlow(with deviceType: ParticleDeviceType, as deviceRole: MeshSetupDeviceRole, dataMatrix: String) -> Bool {
-//
-//        print("startFlow called - \(deviceRole)")
-//        if !bluetoothManagerReady {
-//            return false
-//        }
-//        // TODO: add support for "any" device type by scanning and pairing to SN suffix wildcard only (for commissioner) - TBD - break out to a seperate function
-//        let (serialNumber, mobileSecret) = self.processDataMatrix(dataMatrix: dataMatrix)
-//
-//        switch deviceRole {
-//        case .Joiner :
-//            self.joinerPeripheralCredentials = MeshSetupPeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), mobileSecret: mobileSecret)
-//            self.joinerDeviceType = deviceType
-//            self.flowType = .Detecting
-//        case .Commissioner :
-//            self.commissionerPeripheralCredentials = MeshSetupPeripheralCredentials(name: deviceType.description+"-"+serialNumber.suffix(6), mobileSecret: mobileSecret)
-//            self.commissionerDeviceType = deviceType
-////            self.flowType = ...
-//        }
-//
-//        return true
-//
-//    }
-//
-//    func bluetoothConnectionManagerReady() {
-//        print("bluetoothConnectionManagerReady")
-//
-//        self.bluetoothManagerReady = true
-//        if (!self.isReady) {
-//            self.isReady = true
-//            self.delegate?.flowManagerReady()
-//        }
-//
-//
-////        self.createBluetoothConnection(with: self.joinerPeripheralName!)
-//    }
-//
-//
-//    func bluetoothConnectionError(connection: MeshSetupBluetoothConnection, error: String, severity: MeshSetupErrorSeverity) {
-//        print("bluetoothConnectionError [\(connection.peripheralName ?? "peripheral")] \(severity): \(error)")
-//        self.delegate?.flowError(error: error, severity: severity, action: .Dialog) // TODO: figure out action per error
-//    }
-//
-//    func bluetoothConnectionManagerError(error: String, severity: MeshSetupErrorSeverity) {
-//        print("bluetoothConnectionManagerError -- \(severity): \(error)")
-//        self.delegate?.flowError(error: error, severity: severity, action: .Dialog) // TODO: figure out action per error
-//        // TODO: analyze error and sometimes:
-////        self.bluetoothManagerReady = false
-//    }
-//
-//    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
-//        print("BLE connection with \(connection.peripheralName!) created")
-//        // waiting for connection ready
-//    }
-////    func bluetoothConnectionCreated(connection: MeshSetupBluetoothConnection) {
-//    func bluetoothConnectionReady(connection: MeshSetupBluetoothConnection) {
-//        if let joiner = joinerPeripheralCredentials {
-//            if connection.peripheralName! == joiner.name {
-//
-//                print("Joiner BLE connection with \(connection.peripheralName!) ready - setting up flow")
-//
-//
-//                switch self.joinerDeviceType! {
-//                case .xenon :
-//                    self.currentFlow = MeshSetupInitialXenonFlow(flowManager: self)
-//                    self.joinerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection, role: .Joiner)
-//                    self.flowType = .InitialXenon
-//                    self.currentFlow!.start()
-//                default:
-//                    self.delegate?.flowError(error: "Device not supported yet", severity: .Fatal, action: .Fail)
-//                    return
-//                }
-//                // TODO: the right thing - pass the decision to current flow, stop being protocol delegate
-////                self.joinerProtocol?.sendIsClaimed()
-//            }
-//        }
-//
-//        if let comm = commissionerPeripheralCredentials {
-//            if connection.peripheralName == comm.name {
-//                self.commissionerProtocol = MeshSetupProtocolTransceiver(delegate: self.currentFlow!, connection: connection, role: .Commissioner)
-//                print("Commissioner BLE connection with \(connection.peripheralName!) ready")
-//                self.currentFlow!.startCommissioner()
-//            }
-//        }
-//
-//
-//    }
-//
-//    func createBluetoothConnection(with credentials: MeshSetupPeripheralCredentials) {
-//        let bleReady = self.bluetoothManager!.createConnection(with: credentials)
-//        if bleReady == false {
-//            // TODO: handle flow
-//            self.delegate?.flowError(error: "BLE is not ready to create connection with \(credentials)", severity: .Error, action: .Pop)
-//            print ("Bluetooth not ready")
-//        }
-//    }
-//
-//
-//    func bluetoothConnectionDropped(connection: MeshSetupBluetoothConnection) {
-//
-//        print("Connection to \(connection.peripheralName!) was dropped")
-//        if let joiner = joinerPeripheralCredentials {
-//            if connection.peripheralName! == joiner.name {
-//                self.joinerProtocol = nil
-//                self.isReady = false // TODO: check this assumption
-//            }
-//        }
-//
-//        if let comm = commissionerPeripheralCredentials {
-//            if connection.peripheralName! == comm.name {
-//                self.commissionerProtocol = nil
-//            }
-//        }
-//
-//        // TODO: check if it was intentional or not via flow - if it wasn't then report an error
-//        self.delegate?.flowError(error: "BLE connection to \(connection.peripheralName!) was dropped", severity: .Error, action: .Fail) // TODO: figure out action per error
-//
-//
-//    }
-//
-//
-
-//
-//    func abortFlow() {
-//        self.bluetoothManager?.dropAllConnections()
-////        self.joinerProtocol = nil
-////        self.commissionerProtocol = nil
-//    }
-//
-//
-//
-//    func commissionDeviceToNetwork() {
-//        print("commissionDeviceToNetwork manager")
-//        self.currentFlow!.commissionDeviceToNetwork()
-//    }
-//
-//
-//    // MARK: MeshSetupBluetoothManaherDelegate
-//    func bluetoothDisabled() {
-//        self.flowType = .None
-//        self.delegate?.flowError(error: "Bluetooth is disabled, please enable bluetooth on your phone to setup your device", severity: .Fatal, action: .Fail)
-////        self.delegate?.errorBluetoothDisabled()
-//    }
-
