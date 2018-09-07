@@ -30,6 +30,12 @@ enum DeviceMode {
   LISTENING_MODE = 1;
 }
 
+// System capability flags
+enum SystemCapabilityFlag {
+  NO_SYSTEM_CAPABILITY_FLAGS = 0;
+  COMPRESSED_OTA = 0x01;
+}
+
 // Get the device ID
 message GetDeviceIdRequest {
   option (type_id) = 20; // CTRL_REQUEST_DEVICE_ID
@@ -66,6 +72,15 @@ message GetNcpFirmwareVersionRequest {
 message GetNcpFirmwareVersionReply {
   string version = 1;
   uint32 module_version = 2;
+}
+
+// Get system capabilities
+message GetSystemCapabilitiesRequest {
+  option (type_id) = 32; // CTRL_REQUEST_GET_SYSTEM_CAPABILITIES
+}
+
+message GetSystemCapabilitiesReply {
+  fixed32 flags = 1;
 }
 
 message SetClaimCodeRequest {

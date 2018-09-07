@@ -253,13 +253,56 @@ extension Particle_Ctrl_SectionFlag: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+enum Particle_Ctrl_FileFormat: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case bin // = 0
+  case miniz // = 1
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .bin
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .bin
+    case 1: self = .miniz
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .bin: return 0
+    case .miniz: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_FileFormat: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_FileFormat] = [
+    .bin,
+    .miniz,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Particle_Ctrl_StartFirmwareUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Size of the firmware data
+  /// Size of the firmware binary
   var size: UInt32 = 0
+
+  /// Format of the firmware binary
+  var format: Particle_Ctrl_FileFormat = .bin
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -590,16 +633,25 @@ extension Particle_Ctrl_SectionFlag: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Particle_Ctrl_FileFormat: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "BIN"),
+    1: .same(proto: "MINIZ"),
+  ]
+}
+
 extension Particle_Ctrl_StartFirmwareUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartFirmwareUpdateRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "size"),
+    2: .same(proto: "format"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularUInt32Field(value: &self.size)
+      case 2: try decoder.decodeSingularEnumField(value: &self.format)
       default: break
       }
     }
@@ -609,11 +661,15 @@ extension Particle_Ctrl_StartFirmwareUpdateRequest: SwiftProtobuf.Message, Swift
     if self.size != 0 {
       try visitor.visitSingularUInt32Field(value: self.size, fieldNumber: 1)
     }
+    if self.format != .bin {
+      try visitor.visitSingularEnumField(value: self.format, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Particle_Ctrl_StartFirmwareUpdateRequest, rhs: Particle_Ctrl_StartFirmwareUpdateRequest) -> Bool {
     if lhs.size != rhs.size {return false}
+    if lhs.format != rhs.format {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

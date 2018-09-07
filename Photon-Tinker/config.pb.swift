@@ -166,6 +166,47 @@ extension Particle_Ctrl_DeviceMode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// System capability flags
+enum Particle_Ctrl_SystemCapabilityFlag: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case noSystemCapabilityFlags // = 0
+  case compressedOta // = 1
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .noSystemCapabilityFlags
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .noSystemCapabilityFlags
+    case 1: self = .compressedOta
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .noSystemCapabilityFlags: return 0
+    case .compressedOta: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_SystemCapabilityFlag: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_SystemCapabilityFlag] = [
+    .noSystemCapabilityFlags,
+    .compressedOta,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// Get the device ID
 struct Particle_Ctrl_GetDeviceIdRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -255,6 +296,29 @@ struct Particle_Ctrl_GetNcpFirmwareVersionReply {
   var version: String = String()
 
   var moduleVersion: UInt32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Get system capabilities
+struct Particle_Ctrl_GetSystemCapabilitiesRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetSystemCapabilitiesReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var flags: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -623,6 +687,13 @@ extension Particle_Ctrl_DeviceMode: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Particle_Ctrl_SystemCapabilityFlag: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NO_SYSTEM_CAPABILITY_FLAGS"),
+    1: .same(proto: "COMPRESSED_OTA"),
+  ]
+}
+
 extension Particle_Ctrl_GetDeviceIdRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetDeviceIdRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -816,6 +887,54 @@ extension Particle_Ctrl_GetNcpFirmwareVersionReply: SwiftProtobuf.Message, Swift
   static func ==(lhs: Particle_Ctrl_GetNcpFirmwareVersionReply, rhs: Particle_Ctrl_GetNcpFirmwareVersionReply) -> Bool {
     if lhs.version != rhs.version {return false}
     if lhs.moduleVersion != rhs.moduleVersion {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetSystemCapabilitiesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSystemCapabilitiesRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetSystemCapabilitiesRequest, rhs: Particle_Ctrl_GetSystemCapabilitiesRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetSystemCapabilitiesReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSystemCapabilitiesReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "flags"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFixed32Field(value: &self.flags)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.flags != 0 {
+      try visitor.visitSingularFixed32Field(value: self.flags, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetSystemCapabilitiesReply, rhs: Particle_Ctrl_GetSystemCapabilitiesReply) -> Bool {
+    if lhs.flags != rhs.flags {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

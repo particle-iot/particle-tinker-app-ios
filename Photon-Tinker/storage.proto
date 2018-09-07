@@ -37,9 +37,15 @@ enum SectionFlag {
   NEED_CLEAR = 0x10; // Section needs to be cleared before writing
 }
 
+enum FileFormat {
+  BIN = 0;
+  MINIZ = 1;
+}
+
 message StartFirmwareUpdateRequest {
   option (type_id) = 250; // CTRL_REQUEST_START_FIRMWARE_UPDATE
-  uint32 size = 1; // Size of the firmware data
+  uint32 size = 1; // Size of the firmware binary
+  FileFormat format = 2; // Format of the firmware binary
 }
 
 message StartFirmwareUpdateReply {
