@@ -19,8 +19,8 @@ class MeshSetup {
     static let LogUIManager = false
     static let LogFlowManager = true
 
-    static let bluetoothScanTimeoutValue: TimeInterval = 20.0
-    static let bluetoothSendTimeoutValue: TimeInterval = 15.0
+    static let bluetoothScanTimeoutValue: DispatchTimeInterval = .seconds(20)
+    static let bluetoothSendTimeoutValue: DispatchTimeInterval = .seconds(15)
     static let bluetoothSendTimeoutRetryCount: Int = 0
 
     static let particleMeshServiceUUID: CBUUID = CBUUID(string: "6FA90001-5C4E-48A8-94F4-8030546F36FC")
