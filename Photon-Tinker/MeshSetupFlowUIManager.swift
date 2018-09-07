@@ -126,9 +126,21 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     }
     
     func meshSetupDidRequestToEnterDeviceName() {
-
+        self.flowManager.setDeviceName(name: "mama-mia")
     }
-    
+
+    func meshSetupDidRequestToFinishSetupEarly() {
+        self.flowManager.setFinishSetupEarly(finish: false)
+    }
+
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkInfo]) {
+        //self.flowManager.setSelectedNetwork(availableNetworks.first!)
+        self.flowManager.setNetworkNameAndPassword(name: "fancynetwork", password: "zxcasd")
+    }
+
+    func meshSetupDidRequestToAddOneMoreDevice() {
+        self.flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
+    }
 
     //MARK: Helpers
     private func addCancel() {
