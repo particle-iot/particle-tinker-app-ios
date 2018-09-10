@@ -508,6 +508,20 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
+    func sendGetSystemVersion(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_GetSystemVersionRequest()
+
+        self.prepareRequestMessage(type: .GetSystemVersion, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_GetSystemVersionReply(serializedData: rm.data) as! Particle_Ctrl_GetSystemVersionReply
+                callback(rm.result, decodedReply.version)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
 
     func sendStartFirmwareUpdate(callback: @escaping (ControlReplyErrorType, UInt32) -> ()) {
         let requestMsgPayload = Particle_Ctrl_StartFirmwareUpdateRequest()

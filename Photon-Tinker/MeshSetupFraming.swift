@@ -34,6 +34,7 @@ public enum ControlRequestMessageType: UInt16 {
     case GetInterfaceList = 400
     case GetInterface = 401
     case GetSystemCapabilities = 32
+    case GetSystemVersion = 30
     case StartFirmwareUpdate = 250
     case FinishFirmwareUpdate = 251
     case CancelFirmwareUpdate = 252
