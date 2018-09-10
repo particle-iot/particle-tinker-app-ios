@@ -747,13 +747,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func addJoiner() {
+
+
         /// NO_MEMORY: No memory available to add the joiner
         /// INVALID_STATE: The commissioner role is not started
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendAddJoiner(eui64: self.initialDevice.joinerCredentials!.eui64, password: self.initialDevice.joinerCredentials!.password) { result in
             self.log("sendAddJoiner: \(result)")
             if (result == .NONE) {
-                self.joinNetwork()
+                self.log("Delaying call to joinNetwork")
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    self.joinNetwork()
+                }
             } else {
                 //TODO: problems...
             }
