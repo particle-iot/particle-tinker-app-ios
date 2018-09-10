@@ -151,7 +151,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .ConnectToCommissionerDevice,
         .EnsureCommissionerNetworkMatches,
         .EnsureCorrectSelectedNetworkPassword,
-        .JoinSelectedNetwork
+        .JoinSelectedNetwork,
+        .OfferToAddOneMoreDevice
     ]
 
     private let creatorSubflow: [MeshSetupFlowCommands] = [
@@ -228,60 +229,60 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 "currentStep = \(currentStep), currentCommand = \(currentCommand)")
         self.currentStepFlags = [:]
         switch self.currentCommand {
-        //preflow
-        case .GetInitialDeviceInfo:
-            self.stepGetInitialDeviceInfo()
-        case .ConnectToInitialDevice:
-            self.stepConnectToInitialDevice()
-        case .EnsureInitialDeviceCanBeClaimed:
-            self.stepEnsureInitialDeviceCanBeClaimed()
-        case .CheckInitialDeviceHasNetworkInterfaces:
-            self.stepCheckInitialDeviceHasNetworkInterfaces()
-        case .ChooseFlow:
-             self.stepChooseFlow()
+            //preflow
+            case .GetInitialDeviceInfo:
+                self.stepGetInitialDeviceInfo()
+            case .ConnectToInitialDevice:
+                self.stepConnectToInitialDevice()
+            case .EnsureInitialDeviceCanBeClaimed:
+                self.stepEnsureInitialDeviceCanBeClaimed()
+            case .CheckInitialDeviceHasNetworkInterfaces:
+                self.stepCheckInitialDeviceHasNetworkInterfaces()
+            case .ChooseFlow:
+                 self.stepChooseFlow()
 
-        //main flow
-        case .SetClaimCode:
-            self.stepSetClaimCode()
-        case .EnsureInitialDeviceIsNotOnMeshNetwork:
-            self.stepEnsureInitialDeviceIsNotOnMeshNetwork()
-        case .GetUserNetworkSelection:
-            self.stepGetUserNetworkSelection()
-        case .GetCommissionerDeviceInfo:
-            self.stepGetCommissionerDeviceInfo()
-        case .ConnectToCommissionerDevice:
-            self.stepConnectToCommissionerDevice()
-        case .EnsureCommissionerNetworkMatches:
-            self.stepEnsureCommissionerNetworkMatches()
-        case .EnsureCorrectSelectedNetworkPassword:
-            self.stepEnsureCorrectSelectedNetworkPassword()
-        case .JoinSelectedNetwork:
-            self.stepJoinSelectedNetwork()
-        case .GetNewDeviceName:
-            self.stepGetNewDeviceName()
-        case .OfferToAddOneMoreDevice:
-            self.stepOfferToAddOneMoreDevice()
+            //main flow
+            case .SetClaimCode:
+                self.stepSetClaimCode()
+            case .EnsureInitialDeviceIsNotOnMeshNetwork:
+                self.stepEnsureInitialDeviceIsNotOnMeshNetwork()
+            case .GetUserNetworkSelection:
+                self.stepGetUserNetworkSelection()
+            case .GetCommissionerDeviceInfo:
+                self.stepGetCommissionerDeviceInfo()
+            case .ConnectToCommissionerDevice:
+                self.stepConnectToCommissionerDevice()
+            case .EnsureCommissionerNetworkMatches:
+                self.stepEnsureCommissionerNetworkMatches()
+            case .EnsureCorrectSelectedNetworkPassword:
+                self.stepEnsureCorrectSelectedNetworkPassword()
+            case .JoinSelectedNetwork:
+                self.stepJoinSelectedNetwork()
+            case .GetNewDeviceName:
+                self.stepGetNewDeviceName()
+            case .OfferToAddOneMoreDevice:
+                self.stepOfferToAddOneMoreDevice()
 
-        //gateway
-        case .EnsureHasInternetAccess:
-            self.stepEnsureHasInternetAccess()
-        case .StopInitialDeviceListening:
-            self.stepStopInitialDeviceListening()
-        case .CheckDeviceGotClaimed:
-             self.stepCheckDeviceGotClaimed()
-        case .OfferToFinishSetupEarly:
-            self.stepOfferToFinishSetupEarly()
-        case .OfferSelectOrCreateNetwork:
-            self.stepOfferSelectOrCreateNetwork()
-        case .ChooseSubflow:
-            self.stepChooseSubflow()
+            //gateway
+            case .EnsureHasInternetAccess:
+                self.stepEnsureHasInternetAccess()
+            case .StopInitialDeviceListening:
+                self.stepStopInitialDeviceListening()
+            case .CheckDeviceGotClaimed:
+                 self.stepCheckDeviceGotClaimed()
+            case .OfferToFinishSetupEarly:
+                self.stepOfferToFinishSetupEarly()
+            case .OfferSelectOrCreateNetwork:
+                self.stepOfferSelectOrCreateNetwork()
+            case .ChooseSubflow:
+                self.stepChooseSubflow()
 
-        case .CreateNetwork:
-            self.stepCreateNetwork()
+            case .CreateNetwork:
+                self.stepCreateNetwork()
 
-        default:
-            log("Unknown command: \(currentFlow[currentStep])")
-        }
+            default:
+                log("Unknown command: \(currentFlow[currentStep])")
+            }
     }
 
 
@@ -850,7 +851,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkInitialDeviceGotConnectedStartTime"] as! Date)
         log("diff: \(diff)")
-        if (diff > 30) {
+        if (diff > 45) {
             //TODO: problem connecting?
             return
         }
@@ -861,10 +862,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.log("status: \(status)")
                 if (status == .connected) {
                     self.log("device connected to the cloud")
-                    self.checkInitialDeviceGotClaimed()
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                        self.checkInitialDeviceGotClaimed()
+                    }
                 } else {
                     self.log("device did NOT connect yet")
-                    self.checkInitialDeviceGotConnected()
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                        self.checkInitialDeviceGotConnected()
+                    }
                 }
             } else {
                 //TODO: problems...
@@ -879,7 +884,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkInitialDeviceGotClaimedStartTime"] as! Date)
         log("diff: \(diff)")
-        if (diff > 30) {
+        if (diff > 45) {
             //TODO: problem claiming
             return
         }
@@ -903,7 +908,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             self.log("device was NOT successfully claimed")
-            self.checkInitialDeviceGotClaimed()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                self.checkInitialDeviceGotClaimed()
+            }
         }
     }
 
@@ -964,16 +971,20 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK:OfferToAddOneMoreDevice
     private func stepOfferToAddOneMoreDevice() {
-        self.delegate.meshSetupDidRequestToAddOneMoreDevice()
-    }
-
-    func setAddOneMoreDevice(addOneMoreDevice: Bool) {
-        if (addOneMoreDevice) {
-            //disconnect current device
+        //disconnect current device
+        if (self.initialDevice.transceiver != nil) {
+            self.log("Dropping connection to initial device")
             let connection = self.initialDevice.transceiver!.connection
             self.initialDevice.transceiver = nil
             self.bluetoothManager.dropConnection(with: connection)
+        }
 
+        self.delegate.meshSetupDidRequestToAddOneMoreDevice()
+    }
+
+
+    func setAddOneMoreDevice(addOneMoreDevice: Bool) {
+        if (addOneMoreDevice) {
             self.currentStep = 0
             self.currentFlow = preflow
             self.runCurrentStep()
@@ -1022,6 +1033,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerDevice = self.initialDevice
                 self.selectedNetworkInfo = networkInfo!
                 self.selectedNetworkPassword = self.newNetworkPassword
+
+                self.initialDevice = MeshDevice()
+
                 self.stepComplete()
             } else {
                 //TODO: problem?
