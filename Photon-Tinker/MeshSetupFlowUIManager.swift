@@ -25,7 +25,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
 
     private func log(_ message: String) {
         if (MeshSetup.LogUIManager) {
-            NSLog("MeshSetupFlowUIManager: \(message)")
+            NSLog("MeshSetupFlowUI: \(message)")
         }
     }
 

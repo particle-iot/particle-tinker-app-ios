@@ -196,7 +196,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func log(_ message: String) {
         if (MeshSetup.LogFlowManager) {
-            NSLog("MeshSetupFlowUIManager: \(message)")
+            NSLog("MeshSetupFlow: \(message)")
         }
     }
 
@@ -205,8 +205,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity) {
-        self.delegate.meshSetupError(error: reason, severity: severity)
         log("error: \(reason)")
+        self.delegate.meshSetupError(error: reason, severity: severity)
     }
 
     //MARK: Flow control

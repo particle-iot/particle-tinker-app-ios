@@ -77,9 +77,10 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     }
 
     private func fail(withReason reason: HandshakeManagerError) {
+        log("failed - \(reason)")
         handshakeState = .failed
         self.delegate?.handshakeDidFail(sender: self, error: reason, severity: .Error)
-        log("failed - \(reason)")
+
     }
 
     func startHandshake() {
@@ -164,7 +165,6 @@ class MeshSetupBluetoothConnectionHandshakeManager {
 
     private func sendConfirmation() {
         log("sendConfirmation")
-        
         var confirmKey: Data? = getConfirmKey()
         var computedHash: Data? = getComputedHash()
         var computedHmac: Data?

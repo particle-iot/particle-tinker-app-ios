@@ -91,8 +91,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
 
     private func fail(withReason reason: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
-        self.delegate.bluetoothConnectionManagerError(sender: self, error: reason, severity: severity)
         log("Bluetooth connection manager error: \(reason)")
+        self.delegate.bluetoothConnectionManagerError(sender: self, error: reason, severity: severity)
     }
 
     private func log(_ message: String) {
@@ -188,7 +188,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             scanTimeoutWorker.cancel()
 
             if RSSI.int32Value < -90  {
-                NSLog("Device too far.. sent warning to user")
+                self.log("Device too far.. sent warning to user")
                 self.fail(withReason: .DeviceTooFar, severity: .Warning)
             }
 
@@ -199,7 +199,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
                 self.state = .PeripheralDiscovered
                 self.centralManager.connect(peripheral, options: nil)
                 peripheralToConnect = peripheral
-                log("Pairing to \(peripheral.name!)...")
+                self.log("Pairing to \(peripheral.name!)...")
             }
 
         }
