@@ -106,7 +106,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
 
     func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo]) {
         if (availableNetworks.count == 0) {
-            flowManager.retryStep()
+            flowManager.retryLastAction()
         } else {
             flowManager.setSelectedNetwork(availableNetworks.first!)
         }
@@ -126,7 +126,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     }
     
     func meshSetupDidRequestToEnterDeviceName() {
-        self.flowManager.setDeviceName(name: "mama-mia")
+        self.flowManager.setDeviceName(name: randomStringWithLength(10))
     }
 
     func meshSetupDidRequestToFinishSetupEarly() {
@@ -143,6 +143,19 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     }
 
     //MARK: Helpers
+    func randomStringWithLength(_ len: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+        var str = ""
+        for _ in 0 ..< len {
+            var index = letters.index(letters.startIndex, offsetBy: Int(arc4random_uniform(UInt32(letters.count))))
+            str.append(letters[index])
+        }
+
+        return str
+    }
+
+
     private func addCancel() {
         let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
         self.topViewController!.navigationItem.rightBarButtonItem = cancelButton

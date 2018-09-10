@@ -219,12 +219,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.runCurrentStep()
     }
 
-    func retryStep() {
-        runCurrentStep()
+    func retryLastAction() {
+        self.runCurrentStep()
     }
 
     private func runCurrentStep() {
-        log("currentStep = \(currentStep), currentCommand = \(currentCommand)")
+        log("\n\n--------------------------------------------------------------------------------------------\n" +
+                "currentStep = \(currentStep), currentCommand = \(currentCommand)")
         self.currentStepFlags = [:]
         switch self.currentCommand {
         //preflow
@@ -351,6 +352,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             } else if (error == .DeviceTooFar) {
                 self.fail(withReason: .DeviceTooFar, severity: .Error) //after showing promt, step should be repeated
             } else {
+                self.log("bluetooth manager error: \(error)")
                 //TODO: flow failed?
             }
         } else {
@@ -699,7 +701,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func setSelectedNetworkPassword(_ password: String) {
-        NSLog("password set: \(password)")
+        self.log("password set: \(password)")
         self.selectedNetworkPassword = password
 
         /// NOT_FOUND: The device is not a member of a network
@@ -768,11 +770,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stopCommissioner()
             } else {
 
-                self.log("attempting to recover")
+                self.log("====================== attempting to recover ======================")
                 self.initialDevice.transceiver!.sendLeaveNetwork { result in
                     self.log("leave network result: \(result)")
-                    self.log("lets try prepare joiner once more")
-                    self.prepareJoiner()
+
+                    self.initialDevice.transceiver?.sendScanNetworks { result, networs in
+                        self.log("recovery in progress")
+                        self.log("sendScanNetworks result: \(result)")
+                        self.log("sendScanNetworks result: \(networs)")
+
+                        self.log("lets try prepare joiner once more")
+                        self.prepareJoiner()
+                    }
+
                 }
 
                 //TODO: problems...
@@ -843,7 +853,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.initialDevice.transceiver!.sendGetConnectionStatus { result, status in
             self.log("initialDevice.sendGetConnectionStatus: \(result)")
             if (result == .NONE) {
-                NSLog("status: \(status)")
+                self.log("status: \(status)")
                 if (status == .connected) {
                     self.log("device connected to the cloud")
                     self.checkInitialDeviceGotClaimed()
@@ -991,7 +1001,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func setNetworkNameAndPassword(name: String, password: String) {
-        NSLog("set network name: \(name), password: \(password)")
+        self.log("set network name: \(name), password: \(password)")
         self.newNetworkName = name
         self.newNetworkPassword = password
         self.stepComplete()
@@ -1003,6 +1013,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.initialDevice.transceiver!.sendCreateNetwork(name: self.newNetworkName!, password: self.newNetworkPassword!) { result, networkInfo in
             self.log("sendCreateNetwork: \(result), networkInfo: \(networkInfo)")
             if (result == .NONE) {
+                self.log("Setting current initial device as commissioner device")
                 self.commissionerDevice = self.initialDevice
                 self.selectedNetworkInfo = networkInfo!
                 self.selectedNetworkPassword = self.newNetworkPassword
