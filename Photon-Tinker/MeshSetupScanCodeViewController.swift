@@ -18,6 +18,7 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
     private var callback: ((MeshSetupDataMatrix) -> ())?
 
     func setup(didFindStickerCode: @escaping (MeshSetupDataMatrix) -> ()) {
+        //TODO: handle error case too
         self.callback = didFindStickerCode
     }
 

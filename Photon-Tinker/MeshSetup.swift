@@ -54,11 +54,6 @@ struct MeshSetupDataMatrix {
     var mobileSecret: String
 }
 
-enum MeshSetupDeviceRole {
-    case Joiner
-    case Commissioner
-}
-
 
 // TODO: should be globally reference not just for mesh
 extension ParticleDeviceType : CustomStringConvertible {

@@ -27,7 +27,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private var rxBuffer: Data = Data()
     private var txBuffer: Data!
 
-    private var onReplyCallback: ((ReplyMessage?) -> ())!
+    private var onReplyCallback: ((ReplyMessage?) -> ())?
 
     var connection: MeshSetupBluetoothConnection {
         get {
@@ -35,17 +35,12 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private lazy var sendTimeoutWorker: DispatchWorkItem  = DispatchWorkItem() {
-        [weak self] in
-
-        NSLog("what is happening?")
-
-        if let sSelf = self {
-            sSelf.messageSendTimeout()
+    func triggerTimeout() {
+        if let callback = self.onReplyCallback {
+            self.onReplyCallback!(nil)
+            self.onReplyCallback = nil
         }
-
     }
-
 
     
     required init(connection: MeshSetupBluetoothConnection) {
@@ -62,10 +57,6 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             NSLog("MeshSetupTransceiverDelegate: \(message)")
         }
     }
-
-
-
-
 
     private func prepareRequestMessage(type: ControlRequestMessageType, payload: Data) {
         if self.waitingForReply {
@@ -94,14 +85,11 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private func sendRequestMessage(onReply: @escaping (ReplyMessage?) -> ()) {
         self.onReplyCallback = onReply
 
+        NSLog("self.bluetoothConnection.cbPeripheral.state = \(self.bluetoothConnection.cbPeripheral.state)")
         self.bluetoothConnection.send(data: txBuffer)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + MeshSetup.bluetoothSendTimeoutValue,
-                execute: sendTimeoutWorker)
     }
 
-    private func messageSendTimeout() {
-        self.onReplyCallback(nil)
-    }
+
 
     private func serialize(message: SwiftProtobuf.Message) -> Data {
         guard let messageData = try? message.serializedData() else {
@@ -114,7 +102,6 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     //MARK: MeshSetupBluetoothConnectionDataDelegate
     func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection, data: Data) {
         rxBuffer.append(contentsOf: data)
-        self.sendTimeoutWorker.cancel()
 
         //if received data is less than handshake data header length
         if (rxBuffer.count < 2) {
@@ -126,19 +113,12 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             return Int16(pointer[0])
         }
 
-        //if we don't have enough data, reschedule timeout timer
-        if (rxBuffer.count < Int(ReplyMessage.FRAME_EXTRA_BYTES + length)){
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + MeshSetup.bluetoothSendTimeoutValue,
-                    execute: sendTimeoutWorker)
-
-            return
-        }
-
         let rm = encryptionManager.decrypt(data)
         rxBuffer.removeAll()
         self.waitingForReply = false
 
         self.onReplyCallback!(rm)
+        self.onReplyCallback = nil
     }
 
 
@@ -276,6 +256,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendStopCommissioner(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_StopCommissionerRequest()
 
+        requestMsgPayload.
         self.prepareRequestMessage(type: .StopCommissioner, payload: self.serialize(message: requestMsgPayload))
         self.sendRequestMessage(onReply: {
             replyMessage in
