@@ -255,8 +255,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     func sendStopCommissioner(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_StopCommissionerRequest()
-
-        requestMsgPayload.
+        
         self.prepareRequestMessage(type: .StopCommissioner, payload: self.serialize(message: requestMsgPayload))
         self.sendRequestMessage(onReply: {
             replyMessage in
