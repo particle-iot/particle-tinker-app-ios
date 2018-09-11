@@ -68,6 +68,8 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
+		932A8E2B2146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932A8E282146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin */; };
+		932A8E302147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932A8E2F2147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin */; };
 		937382972140580E001BF23D /* common.proto in Resources */ = {isa = PBXBuildFile; fileRef = 937382952140580E001BF23D /* common.proto */; };
 		937382982140580E001BF23D /* common.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937382962140580E001BF23D /* common.pb.swift */; };
 		93C7F2E0212D8E2200800F42 /* mbedTLSWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */; };
@@ -199,6 +201,8 @@
 		50F62D971AE0721200109F33 /* Gotham-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLight.otf"; sourceTree = "<group>"; };
 		50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightIta.otf"; sourceTree = "<group>"; };
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
+		932A8E282146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; explicitFileType = compiled; path = "bootloader-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
+		932A8E2F2147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
 		937382952140580E001BF23D /* common.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = common.proto; sourceTree = "<group>"; };
 		937382962140580E001BF23D /* common.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = common.pb.swift; sourceTree = "<group>"; };
 		93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
@@ -444,6 +448,8 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				932A8E2F2147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin */,
+				932A8E282146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin */,
 				509749A81D3EF9C300C5DF0B /* electron-tinker.bin */,
 				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
@@ -634,6 +640,8 @@
 			files = (
 				937382972140580E001BF23D /* common.proto in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
+				932A8E302147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin in Resources */,
+				932A8E2B2146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin in Resources */,
 				507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */,
 				507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */,
 				50738AC120E17E6500348131 /* MeshSetup.storyboard in Resources */,

@@ -523,8 +523,10 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendStartFirmwareUpdate(callback: @escaping (ControlReplyErrorType, UInt32) -> ()) {
-        let requestMsgPayload = Particle_Ctrl_StartFirmwareUpdateRequest()
+    func sendStartFirmwareUpdate(binarySize: Int, callback: @escaping (ControlReplyErrorType, UInt32) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_StartFirmwareUpdateRequest()
+        requestMsgPayload.format = .bin
+        requestMsgPayload.size = UInt32(binarySize)
 
         self.prepareRequestMessage(type: .StartFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
         self.sendRequestMessage(onReply: {

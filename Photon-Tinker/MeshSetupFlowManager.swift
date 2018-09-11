@@ -15,6 +15,7 @@ enum MeshSetupFlowCommands {
     //preflow
     case GetInitialDeviceInfo
     case ConnectToInitialDevice
+    case EnsureLatestFirmware
     case EnsureInitialDeviceCanBeClaimed
     case CheckInitialDeviceHasNetworkInterfaces
     case ChooseFlow
@@ -112,6 +113,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let preflow: [MeshSetupFlowCommands] = [
         .GetInitialDeviceInfo,
         .ConnectToInitialDevice,
+        .EnsureLatestFirmware,
         .EnsureInitialDeviceCanBeClaimed,
         .CheckInitialDeviceHasNetworkInterfaces,
         .ChooseFlow
@@ -185,9 +187,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return currentFlow[currentStep]
     }
 
-
-
-
     init(delegate: MeshSetupFlowManagerDelegate) {
         self.delegate = delegate
         super.init()
@@ -234,6 +233,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepGetInitialDeviceInfo()
             case .ConnectToInitialDevice:
                 self.stepConnectToInitialDevice()
+            case .EnsureLatestFirmware:
+                self.stepEnsureLatestFirmware()
             case .EnsureInitialDeviceCanBeClaimed:
                 self.stepEnsureInitialDeviceCanBeClaimed()
             case .CheckInitialDeviceHasNetworkInterfaces:
@@ -284,9 +285,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 log("Unknown command: \(currentFlow[currentStep])")
             }
     }
-
-
-
 
     private func stepComplete() {
         self.currentStep += 1
@@ -352,6 +350,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.currentStepFlags["reconnect"] = true
             } else if (error == .DeviceTooFar) {
                 self.fail(withReason: .DeviceTooFar, severity: .Error) //after showing promt, step should be repeated
+            } else if (error == .FailedToScanBecauseOfTimeout && self.currentStepFlags["reconnectAfterFirmwareFlash"] != nil) {
+                //coming online after a flash might take a while
+                self.stepConnectToInitialDevice()
             } else {
                 self.log("bluetooth manager error: \(error)")
                 //TODO: flow failed?
@@ -444,6 +445,106 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.stepComplete()
     }
 
+    //Slave Latency ≤ 30
+    //2 seconds ≤ connSupervisionTimeout ≤ 6 seconds
+    //Interval Min modulo 15 ms == 0
+    //Interval Min ≥ 15 ms
+    //
+    //One of the following:
+    //  Interval Min + 15 ms ≤ Interval Max
+    //  Interval Min == Interval Max == 15 ms
+    //
+    //Interval Max * (Slave Latency + 1) ≤ 2 seconds
+    //Interval Max * (Slave Latency + 1) * 3 <connSupervisionTimeout
+
+    //MARK: EnsureLatestFirmware
+    private func stepEnsureLatestFirmware() {
+        self.initialDevice.transceiver!.sendGetSystemVersion { result, version in
+            self.log("initialDevice.sendGetSystemVersion: \(result), version: \(version)")
+            if (result == .NONE) {
+                if (version!.range(of: "rc.12") != nil) {
+                    self.stepComplete()
+                } else {
+                    self.startFirmwareUpdate()
+                }
+
+            } else {
+                //TODO: handle errors?
+            }
+        }
+    }
+
+    private func startFirmwareUpdate() {
+        self.log("Starting firware update")
+
+        let path = Bundle.main.path(forResource: "tinker-0.8.0-rc.12-xenon", ofType: "bin")
+
+        let firmwareData = try? Data(contentsOf: URL(fileURLWithPath: path!))
+        if (firmwareData == nil) {
+            return
+            self.log("Binary file NOT found")
+        }
+
+
+        self.currentStepFlags["firmwareData"] = firmwareData!
+        self.initialDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData!.count) { result, chunkSize in
+            self.log("initialDevice.sendStartFirmwareUpdate: \(result), chunkSize: \(chunkSize)")
+            if (result == .NONE) {
+                self.currentStepFlags["chunkSize"] = Int(chunkSize)
+                self.currentStepFlags["idx"] = 0
+
+                self.sendFirmwareUpdateChunk()
+            } else {
+                //TODO: handle errors?
+            }
+        }
+    }
+
+    private func sendFirmwareUpdateChunk() {
+        let chunk = self.currentStepFlags["chunkSize"] as! Int
+        let idx = self.currentStepFlags["idx"] as! Int
+        let firmwareData = self.currentStepFlags["firmwareData"] as! Data
+
+        let start = idx*chunk
+        let bytesLeft = firmwareData.count - start
+
+        self.log("bytesLeft: \(bytesLeft)")
+
+        let subdata = firmwareData.subdata(in: start ..< min(start+chunk, start+bytesLeft))
+        self.log("sending data in range: \(start ..< min(start+chunk, start+bytesLeft))")
+        self.log("data length: \(subdata.count)")
+
+        self.initialDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { result in
+            self.log("initialDevice.sendFirmwareUpdateData: \(result)")
+            if (result == .NONE) {
+                if ((idx+1) * chunk >= firmwareData.count) {
+                    self.finishFirmwareUpdate()
+                } else {
+                    self.currentStepFlags["idx"] = idx + 1
+                    self.sendFirmwareUpdateChunk()
+                }
+            } else {
+                //TODO: handle errors?
+            }
+        }
+    }
+
+    private func finishFirmwareUpdate() {
+        self.initialDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { result in
+            self.log("initialDevice.sendFinishFirmwareUpdate: \(result)")
+            if (result == .NONE) {
+                // reconnect to device by jumping back few steps in the sequence
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    self.currentStep = self.preflow.index(of: .ConnectToInitialDevice)!
+                    self.log("returning to step: \(self.currentStep)")
+                    self.runCurrentStep()
+                    self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
+                }
+            } else {
+                //TODO: handle errors?
+            }
+        }
+    }
 
 
     //MARK: CheckInitialDeviceHasNetworkInterfaces
@@ -479,6 +580,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         }
     }
+
 
     private func checkInitialDeviceIsClaimed() {
         ParticleCloud.sharedInstance().getDevices { devices, error in
@@ -851,7 +953,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkInitialDeviceGotConnectedStartTime"] as! Date)
         log("diff: \(diff)")
-        if (diff > 45) {
+        if (diff > MeshSetup.deviceConnectToCloudTimeout) {
             //TODO: problem connecting?
             return
         }
@@ -862,12 +964,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.log("status: \(status)")
                 if (status == .connected) {
                     self.log("device connected to the cloud")
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                         self.checkInitialDeviceGotClaimed()
                     }
                 } else {
                     self.log("device did NOT connect yet")
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                         self.checkInitialDeviceGotConnected()
                     }
                 }
@@ -884,7 +986,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkInitialDeviceGotClaimedStartTime"] as! Date)
         log("diff: \(diff)")
-        if (diff > 45) {
+        if (diff > MeshSetup.deviceGettingClaimedTimeout) {
             //TODO: problem claiming
             return
         }
