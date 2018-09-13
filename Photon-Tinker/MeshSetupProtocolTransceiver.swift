@@ -82,16 +82,22 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     private func sendRequestMessage(onReply: @escaping (ReplyMessage?) -> ()) {
-        self.onReplyCallback = onReply
+        if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
+            onReply(nil)
+            return
+        }
 
-        NSLog("self.bluetoothConnection.cbPeripheral.state = \(self.bluetoothConnection.cbPeripheral.state)")
+        self.onReplyCallback = onReply
         self.bluetoothConnection.send(data: txBuffer)
     }
 
     private func sendOTARequestMessage(onReply: @escaping (ReplyMessage?) -> ()) {
-        self.onReplyCallback = onReply
+        if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
+            onReply(nil)
+            return
+        }
 
-        NSLog("self.bluetoothConnection.cbPeripheral.state = \(self.bluetoothConnection.cbPeripheral.state)")
+        self.onReplyCallback = onReply
         self.bluetoothConnection.send(data: txBuffer, writeType: .withoutResponse)
     }
 
