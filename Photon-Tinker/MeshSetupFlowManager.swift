@@ -340,6 +340,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return filtered
     }
 
+    private func getDeviceType(serialNumber: String) -> ParticleDeviceType? {
+        self.log("serialNumber: \(serialNumber)")
+        if (serialNumber.lowercased().range(of: "xen") != nil) {
+            return .xenon
+        } else if (serialNumber.lowercased().range(of: "arg") != nil) {
+            return .argon
+        } else if (serialNumber.lowercased().range(of: "bor") != nil) {
+            return .boron
+        } else {
+            return nil
+        }
+    }
+
 
     //MARK: BluetoothConnectionManagerDelegate
     func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState) {
@@ -424,7 +437,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestInitialDeviceInfo()
     }
 
-    func setInitialDeviceInfo(deviceType: ParticleDeviceType, dataMatrix: MeshSetupDataMatrix) {
+    func setInitialDeviceInfo(dataMatrix: MeshSetupDataMatrix) {
         self.initialDevice = MeshDevice()
 
         //these flags are used to determine gateway subflow .. if they are set, new network is being created
@@ -434,8 +447,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.newNetworkPassword = nil
         self.newNetworkName = nil
 
-        self.initialDevice.type = deviceType
-        self.initialDevice.credentials = MeshSetupPeripheralCredentials(name: deviceType.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+        self.initialDevice.type = self.getDeviceType(serialNumber: dataMatrix.serialNumber)
+        self.initialDevice.credentials = MeshSetupPeripheralCredentials(name: self.initialDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepComplete()
     }
@@ -756,11 +769,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestCommissionerDeviceInfo()
     }
 
-    func setCommissionerDeviceInfo(deviceType: ParticleDeviceType, dataMatrix: MeshSetupDataMatrix) {
+    func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) {
         self.commissionerDevice = MeshDevice()
 
-        self.commissionerDevice!.type = deviceType
-        self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: deviceType.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+        self.log("dataMatrix: \(dataMatrix)")
+
+        self.commissionerDevice!.type = self.getDeviceType(serialNumber: dataMatrix.serialNumber)
+        self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: self.initialDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepComplete()
     }

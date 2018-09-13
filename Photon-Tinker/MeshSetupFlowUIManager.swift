@@ -66,14 +66,14 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     func initialStickerCodeFound(dataMatrix: MeshSetupDataMatrix) {
         log("dataMatrix scanned: \(dataMatrix)")
         self.selectedDeviceDataMatrix = dataMatrix
-        self.flowManager.setInitialDeviceInfo(deviceType: self.selectedDeviceType, dataMatrix: self.selectedDeviceDataMatrix)
+        self.flowManager.setInitialDeviceInfo(dataMatrix: self.selectedDeviceDataMatrix)
     }
 
     //user successfully scanned initial code
     func commissionerStickerCodeFound(dataMatrix: MeshSetupDataMatrix) {
         log("dataMatrix scanned: \(dataMatrix)")
         self.selectedDeviceDataMatrix = dataMatrix
-        self.flowManager.setCommissionerDeviceInfo(deviceType: self.selectedDeviceType, dataMatrix: self.selectedDeviceDataMatrix)
+        self.flowManager.setCommissionerDeviceInfo(dataMatrix: self.selectedDeviceDataMatrix)
     }
     
     
