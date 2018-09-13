@@ -37,8 +37,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     func triggerTimeout() {
         if let callback = self.onReplyCallback {
-            self.onReplyCallback!(nil)
             self.onReplyCallback = nil
+            callback(nil)
         }
     }
 
@@ -63,7 +63,6 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             fatalError("Trying to send message while transceiver is waiting for a reply")
         }
 
-        NSLog("Sending message: \(type)")
         let requestMsg = RequestMessage(id: self.requestMessageId, type: type, data: payload)
 
         //encrypt
@@ -115,10 +114,15 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
         let rm = encryptionManager.decrypt(data)
         rxBuffer.removeAll()
+
         self.waitingForReply = false
 
-        self.onReplyCallback!(rm)
+        guard let callback = self.onReplyCallback else {
+            fatalError("This can't happen!")
+        }
+
         self.onReplyCallback = nil
+        callback(rm)
     }
 
 
