@@ -326,6 +326,20 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.runCurrentStep()
     }
 
+    private func removeRepeatedNetworks(_ networks: [MeshSetupNetworkInfo]) -> [MeshSetupNetworkInfo] {
+        var ids:Set<String> = []
+        var filtered:[MeshSetupNetworkInfo] = []
+
+        for network in networks {
+            if (!ids.contains(network.extPanID)) {
+                ids.insert(network.extPanID)
+                filtered.append(network)
+            }
+        }
+
+        return filtered
+    }
+
 
     //MARK: BluetoothConnectionManagerDelegate
     func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState) {
@@ -703,7 +717,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.initialDevice.transceiver!.sendScanNetworks { result, networks in
             self.log("sendScanNetworks: \(result), networksCount: \(networks?.count)\n\(networks)")
             if (result == .NONE) {
-                self.initialDevice.networks = networks
+                self.initialDevice.networks = self.removeRepeatedNetworks(networks!)
                 onComplete()
             } else {
                 //TODO: problems...
