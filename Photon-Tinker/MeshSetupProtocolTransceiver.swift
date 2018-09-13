@@ -88,6 +88,13 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         self.bluetoothConnection.send(data: txBuffer)
     }
 
+    private func sendOTARequestMessage(onReply: @escaping (ReplyMessage?) -> ()) {
+        self.onReplyCallback = onReply
+
+        NSLog("self.bluetoothConnection.cbPeripheral.state = \(self.bluetoothConnection.cbPeripheral.state)")
+        self.bluetoothConnection.send(data: txBuffer, writeType: .withoutResponse)
+    }
+
 
 
     private func serialize(message: SwiftProtobuf.Message) -> Data {
@@ -560,7 +567,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         requestMsgPayload.data = data
 
         self.prepareRequestMessage(type: .FirmwareUpdateData, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        self.sendOTARequestMessage(onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_FirmwareUpdateDataReply(serializedData: rm.data) as! Particle_Ctrl_FirmwareUpdateDataReply

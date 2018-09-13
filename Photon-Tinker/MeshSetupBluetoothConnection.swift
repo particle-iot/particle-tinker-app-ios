@@ -65,8 +65,6 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         }
     }
 
-    private let MTU: Int
-
     private var peripheral: CBPeripheral
     private var handshakeRetry: Int = 0
 
@@ -79,7 +77,6 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         self.peripheral = connectedPeripheral
         self.peripheralName = peripheral.name!
         self.mobileSecret = credentials.mobileSecret
-        self.MTU = peripheral.maximumWriteValueLength(for: .withoutResponse)
 
         super.init()
 
@@ -103,11 +100,20 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         self.peripheral.discoverServices([MeshSetup.particleMeshServiceUUID])
     }
 
-    func send(data aData: Data) {
+    func send(data aData: Data, writeType: CBCharacteristicWriteType = .withResponse) {
         guard self.particleMeshRXCharacteristic != nil else {
             log("UART RX Characteristic not found")
             return
         }
+
+        var MTU = peripheral.maximumWriteValueLength(for: .withoutResponse)
+        //using MTU for different write type is bad idea, but since xenons report bad MTU for
+        //withResponse, it's either that or 20byte hardcoded value. Tried this with iPhone 5 / iOS 9
+        //and it worked so left it this way to improve communication speed.
+//        if (writeType == .withResponse) {
+//            //withResponse reports wrong MTU and xenon triggers disconnect
+//            MTU = 20
+//        }
 
         // The following code will split the text to packets
         aData.withUnsafeBytes { (u8Ptr: UnsafePointer<UInt8>) in
@@ -117,20 +123,14 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
             while(len != 0){
                 var part: Data
                 if len > MTU {
-                    // If the text contains national letters they may be 2-byte long.
-                    // It may happen that only 19 (MTU) bytes can be send so that not of them is splited into 2 packets.
-                    // var builder = NSMutableString(bytes: buffer, length: MTU, encoding: String.Encoding.utf8.rawValue)
                     part = Data(bytes: buffer, count: MTU)
-                    // A 20-byte string has been created successfully
                     buffer  = buffer + MTU
                     len     = len - MTU
-
-
                 } else {
                     part = Data(bytes: buffer, count: len)
                     len = 0
                 }
-                self.peripheral.writeValue(part, for: self.particleMeshRXCharacteristic!, type: .withoutResponse)
+                self.peripheral.writeValue(part, for: self.particleMeshRXCharacteristic!, type: writeType)
             }
         }
         log("Sent data: \(aData.count) Bytes")
