@@ -79,6 +79,7 @@
 		937382972140580E001BF23D /* common.proto in Resources */ = {isa = PBXBuildFile; fileRef = 937382952140580E001BF23D /* common.proto */; };
 		93C7F2E0212D8E2200800F42 /* mbedTLSWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */; };
 		93C7F2E1212D8E7300800F42 /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 93C7F2DD212D8E1700800F42 /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		93E8A4C6214AB46000A5224C /* tinker-0.8.0-rc.13-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93E8A4C3214AB46000A5224C /* tinker-0.8.0-rc.13-xenon.bin */; };
 		C810B130703183FCA2C8907E /* MeshSetupProtocolTransceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B070865B4757E7ABFF85 /* MeshSetupProtocolTransceiver.swift */; };
 		C810B185B18E67EAED29E319 /* MeshSetupFlowUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD391E5F4DAD4FD0A2F8 /* MeshSetupFlowUIManager.swift */; };
 		C810B1D459CBE70A19E676CB /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B65DB906882A0C453053 /* Storyboardable.swift */; };
@@ -211,6 +212,7 @@
 		932A8E2F2147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
 		937382952140580E001BF23D /* common.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = common.proto; sourceTree = "<group>"; };
 		93C7F2D7212D8E1700800F42 /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
+		93E8A4C3214AB46000A5224C /* tinker-0.8.0-rc.13-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.13-xenon.bin"; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
 		C810B070865B4757E7ABFF85 /* MeshSetupProtocolTransceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupProtocolTransceiver.swift; sourceTree = "<group>"; };
 		C810B09653BF5ADC49A9775A /* config.proto */ = {isa = PBXFileReference; lastKnownFileType = file.proto; path = config.proto; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 			isa = PBXGroup;
 			children = (
 				932A8E2F2147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin */,
+				93E8A4C3214AB46000A5224C /* tinker-0.8.0-rc.13-xenon.bin */,
 				932A8E282146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin */,
 				509749A81D3EF9C300C5DF0B /* electron-tinker.bin */,
 				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
@@ -648,6 +651,7 @@
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
+				93E8A4C6214AB46000A5224C /* tinker-0.8.0-rc.13-xenon.bin in Resources */,
 				509749A91D3EF9C300C5DF0B /* electron-tinker.bin in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				50B0F9BC1D2C21C3007DB6D1 /* photon_wifi.mp4 in Resources */,
