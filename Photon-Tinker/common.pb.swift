@@ -69,24 +69,6 @@ enum Particle_Ctrl_ResultCode: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension Particle_Ctrl_ResultCode: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_ResultCode] = [
-    .ok,
-    .notAllowed,
-    .timeout,
-    .notFound,
-    .alreadyExist,
-    .invalidState,
-    .noMemory,
-    .invalidParam,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 struct Particle_Ctrl_IPAddress {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -132,19 +114,6 @@ struct Particle_Ctrl_IPAddress {
   init() {}
 }
 
-#if swift(>=4.2)
-
-extension Particle_Ctrl_IPAddress.ProtocolEnum: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_IPAddress.ProtocolEnum] = [
-    .none,
-    .ipv4,
-    .ipv6,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "particle.ctrl"
@@ -189,10 +158,10 @@ extension Particle_Ctrl_IPAddress: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_IPAddress, rhs: Particle_Ctrl_IPAddress) -> Bool {
-    if lhs.`protocol` != rhs.`protocol` {return false}
-    if lhs.address != rhs.address {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_IPAddress) -> Bool {
+    if self.`protocol` != other.`protocol` {return false}
+    if self.address != other.address {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }

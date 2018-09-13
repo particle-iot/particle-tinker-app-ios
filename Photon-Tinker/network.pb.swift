@@ -50,19 +50,6 @@ enum Particle_Ctrl_NetworkState: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension Particle_Ctrl_NetworkState: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_NetworkState] = [
-    .networkStatusNone,
-    .down,
-    .up,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 /// Direct mapping to if_flags_t
 enum Particle_Ctrl_InterfaceFlag: SwiftProtobuf.Enum {
   typealias RawValue = Int
@@ -123,28 +110,6 @@ enum Particle_Ctrl_InterfaceFlag: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension Particle_Ctrl_InterfaceFlag: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_InterfaceFlag] = [
-    .iffNone,
-    .iffUp,
-    .iffBroadcast,
-    .iffDebug,
-    .iffLoopback,
-    .iffPointtopoint,
-    .iffRunning,
-    .iffNoarp,
-    .iffPromisc,
-    .iffAllmulti,
-    .iffMulticast,
-    .iffNond6,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 /// Direct mapping to if_xflags_t
 enum Particle_Ctrl_InterfaceExtFlag: SwiftProtobuf.Enum {
   typealias RawValue = Int
@@ -186,22 +151,6 @@ enum Particle_Ctrl_InterfaceExtFlag: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension Particle_Ctrl_InterfaceExtFlag: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_InterfaceExtFlag] = [
-    .ifxfNone,
-    .ifxfWol,
-    .ifxfAutoconf6,
-    .ifxfDhcp,
-    .ifxfDhcp6,
-    .ifxfAutoip,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 enum Particle_Ctrl_InterfaceType: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case invalidInterfaceType // = 0
@@ -242,22 +191,6 @@ enum Particle_Ctrl_InterfaceType: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension Particle_Ctrl_InterfaceType: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_InterfaceType] = [
-    .invalidInterfaceType,
-    .loopback,
-    .thread,
-    .ethernet,
-    .wifi,
-    .ppp,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 struct Particle_Ctrl_NetworkGetStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -282,7 +215,7 @@ struct Particle_Ctrl_NetworkGetStatusReply {
   /// Returns true if `config` has been explicitly set.
   var hasConfig: Bool {return _storage._config != nil}
   /// Clears the value of `config`. Subsequent reads from it will return its default value.
-  mutating func clearConfig() {_uniqueStorage()._config = nil}
+  mutating func clearConfig() {_storage._config = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -315,7 +248,7 @@ struct Particle_Ctrl_NetworkGetConfigurationReply {
   /// Returns true if `config` has been explicitly set.
   var hasConfig: Bool {return _storage._config != nil}
   /// Clears the value of `config`. Subsequent reads from it will return its default value.
-  mutating func clearConfig() {_uniqueStorage()._config = nil}
+  mutating func clearConfig() {_storage._config = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -336,7 +269,7 @@ struct Particle_Ctrl_NetworkSetConfigurationRequest {
   /// Returns true if `config` has been explicitly set.
   var hasConfig: Bool {return _storage._config != nil}
   /// Clears the value of `config`. Subsequent reads from it will return its default value.
-  mutating func clearConfig() {_uniqueStorage()._config = nil}
+  mutating func clearConfig() {_storage._config = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -372,7 +305,7 @@ struct Particle_Ctrl_IPConfiguration {
   /// Returns true if `address` has been explicitly set.
   var hasAddress: Bool {return _storage._address != nil}
   /// Clears the value of `address`. Subsequent reads from it will return its default value.
-  mutating func clearAddress() {_uniqueStorage()._address = nil}
+  mutating func clearAddress() {_storage._address = nil}
 
   var netmask: Particle_Ctrl_IPAddress {
     get {return _storage._netmask ?? Particle_Ctrl_IPAddress()}
@@ -381,7 +314,7 @@ struct Particle_Ctrl_IPConfiguration {
   /// Returns true if `netmask` has been explicitly set.
   var hasNetmask: Bool {return _storage._netmask != nil}
   /// Clears the value of `netmask`. Subsequent reads from it will return its default value.
-  mutating func clearNetmask() {_uniqueStorage()._netmask = nil}
+  mutating func clearNetmask() {_storage._netmask = nil}
 
   var gateway: Particle_Ctrl_IPAddress {
     get {return _storage._gateway ?? Particle_Ctrl_IPAddress()}
@@ -390,7 +323,7 @@ struct Particle_Ctrl_IPConfiguration {
   /// Returns true if `gateway` has been explicitly set.
   var hasGateway: Bool {return _storage._gateway != nil}
   /// Clears the value of `gateway`. Subsequent reads from it will return its default value.
-  mutating func clearGateway() {_uniqueStorage()._gateway = nil}
+  mutating func clearGateway() {_storage._gateway = nil}
 
   var dhcpServer: Particle_Ctrl_IPAddress {
     get {return _storage._dhcpServer ?? Particle_Ctrl_IPAddress()}
@@ -399,7 +332,7 @@ struct Particle_Ctrl_IPConfiguration {
   /// Returns true if `dhcpServer` has been explicitly set.
   var hasDhcpServer: Bool {return _storage._dhcpServer != nil}
   /// Clears the value of `dhcpServer`. Subsequent reads from it will return its default value.
-  mutating func clearDhcpServer() {_uniqueStorage()._dhcpServer = nil}
+  mutating func clearDhcpServer() {_storage._dhcpServer = nil}
 
   var hostname: String {
     get {return _storage._hostname}
@@ -443,19 +376,6 @@ struct Particle_Ctrl_IPConfiguration {
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
-
-#if swift(>=4.2)
-
-extension Particle_Ctrl_IPConfiguration.TypeEnum: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_IPConfiguration.TypeEnum] = [
-    .none,
-    .dhcp,
-    .static,
-  ]
-}
-
-#endif  // swift(>=4.2)
 
 struct Particle_Ctrl_DNSConfiguration {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -501,7 +421,7 @@ struct Particle_Ctrl_NetworkConfiguration {
   /// Returns true if `ipconfig` has been explicitly set.
   var hasIpconfig: Bool {return _storage._ipconfig != nil}
   /// Clears the value of `ipconfig`. Subsequent reads from it will return its default value.
-  mutating func clearIpconfig() {_uniqueStorage()._ipconfig = nil}
+  mutating func clearIpconfig() {_storage._ipconfig = nil}
 
   var dnsconfig: Particle_Ctrl_DNSConfiguration {
     get {return _storage._dnsconfig ?? Particle_Ctrl_DNSConfiguration()}
@@ -510,7 +430,7 @@ struct Particle_Ctrl_NetworkConfiguration {
   /// Returns true if `dnsconfig` has been explicitly set.
   var hasDnsconfig: Bool {return _storage._dnsconfig != nil}
   /// Clears the value of `dnsconfig`. Subsequent reads from it will return its default value.
-  mutating func clearDnsconfig() {_uniqueStorage()._dnsconfig = nil}
+  mutating func clearDnsconfig() {_storage._dnsconfig = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -575,7 +495,6 @@ struct Particle_Ctrl_IpAddress {
     case v4(Particle_Ctrl_Ipv4Address)
     case v6(Particle_Ctrl_Ipv6Address)
 
-  #if !swift(>=4.1)
     static func ==(lhs: Particle_Ctrl_IpAddress.OneOf_Address, rhs: Particle_Ctrl_IpAddress.OneOf_Address) -> Bool {
       switch (lhs, rhs) {
       case (.v4(let l), .v4(let r)): return l == r
@@ -583,7 +502,6 @@ struct Particle_Ctrl_IpAddress {
       default: return false
       }
     }
-  #endif
   }
 
   init() {}
@@ -603,7 +521,7 @@ struct Particle_Ctrl_InterfaceAddress {
   /// Returns true if `address` has been explicitly set.
   var hasAddress: Bool {return _storage._address != nil}
   /// Clears the value of `address`. Subsequent reads from it will return its default value.
-  mutating func clearAddress() {_uniqueStorage()._address = nil}
+  mutating func clearAddress() {_storage._address = nil}
 
   /// TODO: state, scope, lifetimes, etc.
   var prefixLength: UInt32 {
@@ -636,7 +554,7 @@ struct Particle_Ctrl_Ipv4Config {
   /// Returns true if `peer` has been explicitly set.
   var hasPeer: Bool {return _storage._peer != nil}
   /// Clears the value of `peer`. Subsequent reads from it will return its default value.
-  mutating func clearPeer() {_uniqueStorage()._peer = nil}
+  mutating func clearPeer() {_storage._peer = nil}
 
   /// Temporary, will be moved to routing table
   var gateway: Particle_Ctrl_Ipv4Address {
@@ -646,7 +564,7 @@ struct Particle_Ctrl_Ipv4Config {
   /// Returns true if `gateway` has been explicitly set.
   var hasGateway: Bool {return _storage._gateway != nil}
   /// Clears the value of `gateway`. Subsequent reads from it will return its default value.
-  mutating func clearGateway() {_uniqueStorage()._gateway = nil}
+  mutating func clearGateway() {_storage._gateway = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -707,7 +625,7 @@ struct Particle_Ctrl_Interface {
   /// Returns true if `ipv4Config` has been explicitly set.
   var hasIpv4Config: Bool {return _storage._ipv4Config != nil}
   /// Clears the value of `ipv4Config`. Subsequent reads from it will return its default value.
-  mutating func clearIpv4Config() {_uniqueStorage()._ipv4Config = nil}
+  mutating func clearIpv4Config() {_storage._ipv4Config = nil}
 
   var ipv6Config: Particle_Ctrl_Ipv6Config {
     get {return _storage._ipv6Config ?? Particle_Ctrl_Ipv6Config()}
@@ -716,7 +634,7 @@ struct Particle_Ctrl_Interface {
   /// Returns true if `ipv6Config` has been explicitly set.
   var hasIpv6Config: Bool {return _storage._ipv6Config != nil}
   /// Clears the value of `ipv6Config`. Subsequent reads from it will return its default value.
-  mutating func clearIpv6Config() {_uniqueStorage()._ipv6Config = nil}
+  mutating func clearIpv6Config() {_storage._ipv6Config = nil}
 
   var hwAddress: Data {
     get {return _storage._hwAddress}
@@ -802,7 +720,7 @@ struct Particle_Ctrl_GetInterfaceReply {
   /// Returns true if `interface` has been explicitly set.
   var hasInterface: Bool {return _storage._interface != nil}
   /// Clears the value of `interface`. Subsequent reads from it will return its default value.
-  mutating func clearInterface() {_uniqueStorage()._interface = nil}
+  mutating func clearInterface() {_storage._interface = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -884,9 +802,9 @@ extension Particle_Ctrl_NetworkGetStatusRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_NetworkGetStatusRequest, rhs: Particle_Ctrl_NetworkGetStatusRequest) -> Bool {
-    if lhs.interface != rhs.interface {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_NetworkGetStatusRequest) -> Bool {
+    if self.interface != other.interface {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -937,17 +855,17 @@ extension Particle_Ctrl_NetworkGetStatusReply: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_NetworkGetStatusReply, rhs: Particle_Ctrl_NetworkGetStatusReply) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_NetworkGetStatusReply) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._config != rhs_storage._config {return false}
+        let other_storage = _args.1
+        if _storage._config != other_storage._config {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -974,9 +892,9 @@ extension Particle_Ctrl_NetworkGetConfigurationRequest: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_NetworkGetConfigurationRequest, rhs: Particle_Ctrl_NetworkGetConfigurationRequest) -> Bool {
-    if lhs.interface != rhs.interface {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_NetworkGetConfigurationRequest) -> Bool {
+    if self.interface != other.interface {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1027,17 +945,17 @@ extension Particle_Ctrl_NetworkGetConfigurationReply: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_NetworkGetConfigurationReply, rhs: Particle_Ctrl_NetworkGetConfigurationReply) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_NetworkGetConfigurationReply) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._config != rhs_storage._config {return false}
+        let other_storage = _args.1
+        if _storage._config != other_storage._config {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1088,17 +1006,17 @@ extension Particle_Ctrl_NetworkSetConfigurationRequest: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_NetworkSetConfigurationRequest, rhs: Particle_Ctrl_NetworkSetConfigurationRequest) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_NetworkSetConfigurationRequest) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._config != rhs_storage._config {return false}
+        let other_storage = _args.1
+        if _storage._config != other_storage._config {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1116,8 +1034,8 @@ extension Particle_Ctrl_NetworkSetConfigurationReply: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_NetworkSetConfigurationReply, rhs: Particle_Ctrl_NetworkSetConfigurationReply) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_NetworkSetConfigurationReply) -> Bool {
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1203,22 +1121,22 @@ extension Particle_Ctrl_IPConfiguration: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_IPConfiguration, rhs: Particle_Ctrl_IPConfiguration) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_IPConfiguration) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._type != rhs_storage._type {return false}
-        if _storage._address != rhs_storage._address {return false}
-        if _storage._netmask != rhs_storage._netmask {return false}
-        if _storage._gateway != rhs_storage._gateway {return false}
-        if _storage._dhcpServer != rhs_storage._dhcpServer {return false}
-        if _storage._hostname != rhs_storage._hostname {return false}
+        let other_storage = _args.1
+        if _storage._type != other_storage._type {return false}
+        if _storage._address != other_storage._address {return false}
+        if _storage._netmask != other_storage._netmask {return false}
+        if _storage._gateway != other_storage._gateway {return false}
+        if _storage._dhcpServer != other_storage._dhcpServer {return false}
+        if _storage._hostname != other_storage._hostname {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1253,9 +1171,9 @@ extension Particle_Ctrl_DNSConfiguration: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_DNSConfiguration, rhs: Particle_Ctrl_DNSConfiguration) -> Bool {
-    if lhs.servers != rhs.servers {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_DNSConfiguration) -> Bool {
+    if self.servers != other.servers {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1341,22 +1259,22 @@ extension Particle_Ctrl_NetworkConfiguration: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_NetworkConfiguration, rhs: Particle_Ctrl_NetworkConfiguration) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_NetworkConfiguration) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._interface != rhs_storage._interface {return false}
-        if _storage._state != rhs_storage._state {return false}
-        if _storage._name != rhs_storage._name {return false}
-        if _storage._mac != rhs_storage._mac {return false}
-        if _storage._ipconfig != rhs_storage._ipconfig {return false}
-        if _storage._dnsconfig != rhs_storage._dnsconfig {return false}
+        let other_storage = _args.1
+        if _storage._interface != other_storage._interface {return false}
+        if _storage._state != other_storage._state {return false}
+        if _storage._name != other_storage._name {return false}
+        if _storage._mac != other_storage._mac {return false}
+        if _storage._ipconfig != other_storage._ipconfig {return false}
+        if _storage._dnsconfig != other_storage._dnsconfig {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1383,9 +1301,9 @@ extension Particle_Ctrl_Ipv4Address: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_Ipv4Address, rhs: Particle_Ctrl_Ipv4Address) -> Bool {
-    if lhs.address != rhs.address {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Ipv4Address) -> Bool {
+    if self.address != other.address {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1412,9 +1330,9 @@ extension Particle_Ctrl_Ipv6Address: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_Ipv6Address, rhs: Particle_Ctrl_Ipv6Address) -> Bool {
-    if lhs.address != rhs.address {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Ipv6Address) -> Bool {
+    if self.address != other.address {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1485,17 +1403,17 @@ extension Particle_Ctrl_IpAddress: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_IpAddress, rhs: Particle_Ctrl_IpAddress) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_IpAddress) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._address != rhs_storage._address {return false}
+        let other_storage = _args.1
+        if _storage._address != other_storage._address {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1553,18 +1471,18 @@ extension Particle_Ctrl_InterfaceAddress: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_InterfaceAddress, rhs: Particle_Ctrl_InterfaceAddress) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_InterfaceAddress) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._address != rhs_storage._address {return false}
-        if _storage._prefixLength != rhs_storage._prefixLength {return false}
+        let other_storage = _args.1
+        if _storage._address != other_storage._address {return false}
+        if _storage._prefixLength != other_storage._prefixLength {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1629,19 +1547,19 @@ extension Particle_Ctrl_Ipv4Config: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_Ipv4Config, rhs: Particle_Ctrl_Ipv4Config) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Ipv4Config) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._addresses != rhs_storage._addresses {return false}
-        if _storage._peer != rhs_storage._peer {return false}
-        if _storage._gateway != rhs_storage._gateway {return false}
+        let other_storage = _args.1
+        if _storage._addresses != other_storage._addresses {return false}
+        if _storage._peer != other_storage._peer {return false}
+        if _storage._gateway != other_storage._gateway {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1668,9 +1586,9 @@ extension Particle_Ctrl_Ipv6Config: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_Ipv6Config, rhs: Particle_Ctrl_Ipv6Config) -> Bool {
-    if lhs.addresses != rhs.addresses {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Ipv6Config) -> Bool {
+    if self.addresses != other.addresses {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1784,26 +1702,26 @@ extension Particle_Ctrl_Interface: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_Interface, rhs: Particle_Ctrl_Interface) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Interface) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._index != rhs_storage._index {return false}
-        if _storage._name != rhs_storage._name {return false}
-        if _storage._type != rhs_storage._type {return false}
-        if _storage._flags != rhs_storage._flags {return false}
-        if _storage._extFlags != rhs_storage._extFlags {return false}
-        if _storage._ipv4Config != rhs_storage._ipv4Config {return false}
-        if _storage._ipv6Config != rhs_storage._ipv6Config {return false}
-        if _storage._hwAddress != rhs_storage._hwAddress {return false}
-        if _storage._mtu != rhs_storage._mtu {return false}
-        if _storage._metric != rhs_storage._metric {return false}
+        let other_storage = _args.1
+        if _storage._index != other_storage._index {return false}
+        if _storage._name != other_storage._name {return false}
+        if _storage._type != other_storage._type {return false}
+        if _storage._flags != other_storage._flags {return false}
+        if _storage._extFlags != other_storage._extFlags {return false}
+        if _storage._ipv4Config != other_storage._ipv4Config {return false}
+        if _storage._ipv6Config != other_storage._ipv6Config {return false}
+        if _storage._hwAddress != other_storage._hwAddress {return false}
+        if _storage._mtu != other_storage._mtu {return false}
+        if _storage._metric != other_storage._metric {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1840,11 +1758,11 @@ extension Particle_Ctrl_InterfaceEntry: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_InterfaceEntry, rhs: Particle_Ctrl_InterfaceEntry) -> Bool {
-    if lhs.index != rhs.index {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.type != rhs.type {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_InterfaceEntry) -> Bool {
+    if self.index != other.index {return false}
+    if self.name != other.name {return false}
+    if self.type != other.type {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1862,8 +1780,8 @@ extension Particle_Ctrl_GetInterfaceListRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_GetInterfaceListRequest, rhs: Particle_Ctrl_GetInterfaceListRequest) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetInterfaceListRequest) -> Bool {
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1890,9 +1808,9 @@ extension Particle_Ctrl_GetInterfaceListReply: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_GetInterfaceListReply, rhs: Particle_Ctrl_GetInterfaceListReply) -> Bool {
-    if lhs.interfaces != rhs.interfaces {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetInterfaceListReply) -> Bool {
+    if self.interfaces != other.interfaces {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1919,9 +1837,9 @@ extension Particle_Ctrl_GetInterfaceRequest: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_GetInterfaceRequest, rhs: Particle_Ctrl_GetInterfaceRequest) -> Bool {
-    if lhs.index != rhs.index {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetInterfaceRequest) -> Bool {
+    if self.index != other.index {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -1972,17 +1890,17 @@ extension Particle_Ctrl_GetInterfaceReply: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_GetInterfaceReply, rhs: Particle_Ctrl_GetInterfaceReply) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_GetInterfaceReply) -> Bool {
+    if _storage !== other._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._interface != rhs_storage._interface {return false}
+        let other_storage = _args.1
+        if _storage._interface != other_storage._interface {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }

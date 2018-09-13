@@ -54,20 +54,6 @@ enum Particle_Ctrl_Cloud_ConnectionStatus: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension Particle_Ctrl_Cloud_ConnectionStatus: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Particle_Ctrl_Cloud_ConnectionStatus] = [
-    .disconnected,
-    .connecting,
-    .connected,
-    .disconnecting,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 /// Get the cloud connection status
 struct Particle_Ctrl_Cloud_GetConnectionStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -117,8 +103,8 @@ extension Particle_Ctrl_Cloud_GetConnectionStatusRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_Cloud_GetConnectionStatusRequest, rhs: Particle_Ctrl_Cloud_GetConnectionStatusRequest) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Cloud_GetConnectionStatusRequest) -> Bool {
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
@@ -145,9 +131,9 @@ extension Particle_Ctrl_Cloud_GetConnectionStatusReply: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Particle_Ctrl_Cloud_GetConnectionStatusReply, rhs: Particle_Ctrl_Cloud_GetConnectionStatusReply) -> Bool {
-    if lhs.status != rhs.status {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
+  func _protobuf_generated_isEqualTo(other: Particle_Ctrl_Cloud_GetConnectionStatusReply) -> Bool {
+    if self.status != other.status {return false}
+    if unknownFields != other.unknownFields {return false}
     return true
   }
 }
