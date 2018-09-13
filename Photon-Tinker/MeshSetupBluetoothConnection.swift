@@ -48,7 +48,7 @@ enum BluetoothConnectionError: Error, CustomStringConvertible {
 class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBluetoothConnectionHandshakeManagerDelegate {
 
 
-    fileprivate let MTU = 20
+
 
     var delegate: MeshSetupBluetoothConnectionDelegate?
     var dataDelegate: MeshSetupBluetoothConnectionDataDelegate?
@@ -65,6 +65,8 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         }
     }
 
+    private let MTU: Int
+
     private var peripheral: CBPeripheral
     private var handshakeRetry: Int = 0
 
@@ -77,6 +79,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         self.peripheral = connectedPeripheral
         self.peripheralName = peripheral.name!
         self.mobileSecret = credentials.mobileSecret
+        self.MTU = peripheral.maximumWriteValueLength(for: .withoutResponse)
 
         super.init()
 
@@ -106,19 +109,6 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
             return
         }
 
-        // Check what kind of Write Type is supported. By default it will try Without Response.
-        // If the RX charactereisrtic have Write property the Write Request type will be used.
-        var type = CBCharacteristicWriteType.withoutResponse
-        if (self.particleMeshRXCharacteristic!.properties.rawValue & CBCharacteristicProperties.write.rawValue) > 0 {
-            type = CBCharacteristicWriteType.withResponse
-        }
-
-        // In case of Write Without Response the text needs to be splited in up-to 20-bytes packets.
-        // When Write Request (with response) is used, the Long Write may be used.
-        // It will be handled automatically by the iOS, but must be supported on the device side.
-        // If your device does support Long Write, change the flag below to true.
-        let longWriteSupported = false
-
         // The following code will split the text to packets
         aData.withUnsafeBytes { (u8Ptr: UnsafePointer<UInt8>) in
             var buffer = UnsafeMutableRawPointer(mutating: UnsafeRawPointer(u8Ptr))
@@ -126,7 +116,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
 
             while(len != 0){
                 var part: Data
-                if len > MTU && (type == CBCharacteristicWriteType.withoutResponse || longWriteSupported == false) {
+                if len > MTU {
                     // If the text contains national letters they may be 2-byte long.
                     // It may happen that only 19 (MTU) bytes can be send so that not of them is splited into 2 packets.
                     // var builder = NSMutableString(bytes: buffer, length: MTU, encoding: String.Encoding.utf8.rawValue)
@@ -140,7 +130,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
                     part = Data(bytes: buffer, count: len)
                     len = 0
                 }
-                self.peripheral.writeValue(part, for: self.particleMeshRXCharacteristic!, type: type)
+                self.peripheral.writeValue(part, for: self.particleMeshRXCharacteristic!, type: .withoutResponse)
             }
         }
         log("Sent data: \(aData.count) Bytes")
