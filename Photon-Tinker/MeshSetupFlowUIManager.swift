@@ -29,9 +29,6 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
         }
     }
 
-
-
-
     //entry to the flow
     func initialDeviceSelected(type: ParticleDeviceType) {
         log("initial device type selected: \(type)")
@@ -66,54 +63,42 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     func initialStickerCodeFound(dataMatrix: MeshSetupDataMatrix) {
         log("dataMatrix scanned: \(dataMatrix)")
         self.selectedDeviceDataMatrix = dataMatrix
-        self.flowManager.setInitialDeviceInfo(dataMatrix: self.selectedDeviceDataMatrix)
+        setInitialDeviceInfo?(self.selectedDeviceDataMatrix)
     }
 
     //user successfully scanned initial code
     func commissionerStickerCodeFound(dataMatrix: MeshSetupDataMatrix) {
         log("dataMatrix scanned: \(dataMatrix)")
         self.selectedDeviceDataMatrix = dataMatrix
-        self.flowManager.setCommissionerDeviceInfo(dataMatrix: self.selectedDeviceDataMatrix)
+        setCommissionerDeviceInfo?(self.selectedDeviceDataMatrix)
     }
     
     
     
 
     //MARK: MeshSetupFlowManagerDelegate
-    func meshSetupDidEnterState(state: MeshSetupFlowState) {
-        log("flow setup entered state: \(state)")
+    var setInitialDeviceInfo: MeshSetupSetDevice!
+    func meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: @escaping MeshSetupSetDevice) {
+        self.setInitialDeviceInfo = setInitialDeviceInfo
     }
 
-    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity) {
-        if (error == .DeviceTooFar) {
-            //TODO: show prompt and repeat step
-        } else {
-            //fail...
-            log("flow failed: \(error)")
-        }
-    }
-    
-    
-    func meshSetupDidRequestInitialDeviceInfo() {
-        //do nothing
-        log("flow manager requested initial device info")
+    func meshSetupDidRequestToLeaveNetwork(network: Particle.MeshSetupNetworkInfo, setLeaveNetwork: @escaping MeshSetupSetBool) {
+        setLeaveNetwork(true)
     }
 
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
-        //required for flow to continue
-        self.flowManager.setInitialDeviceLeaveNetwork(leave: true)
-    }
 
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo]) {
+    func meshSetupDidRequestToSelectNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo], setSelectedNetwork: @escaping MeshSetupSetNetwork) {
         if (availableNetworks.count == 0) {
             flowManager.retryLastAction()
         } else {
-            flowManager.setSelectedNetwork(availableNetworks.first!)
+            setSelectedNetwork(availableNetworks.first!)
         }
     }
 
-    func meshSetupDidRequestCommissionerDeviceInfo() {
-        log("request user info for commissioner")
+    var setCommissionerDeviceInfo: MeshSetupSetDevice!
+    func meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: @escaping MeshSetupSetDevice) {
+        self.setCommissionerDeviceInfo = setCommissionerDeviceInfo
+
         DispatchQueue.main.async {
             let scanVC = MeshSetupScanCodeViewController.storyboardViewController()
             scanVC.setup(didFindStickerCode: self.commissionerStickerCodeFound)
@@ -121,26 +106,57 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
         }
     }
 
-    func meshSetupDidRequestToEnterSelectedNetworkPassword() {
-        self.flowManager.setSelectedNetworkPassword("zxcasd")
-    }
-    
-    func meshSetupDidRequestToEnterDeviceName() {
-        self.flowManager.setDeviceName(name: randomStringWithLength(10))
+
+    func meshSetupDidRequestToEnterSelectedNetworkPassword(setSelectedNetworkPassword: @escaping MeshSetupSetString) {
+        setSelectedNetworkPassword("zxcasd")
     }
 
-    func meshSetupDidRequestToFinishSetupEarly() {
-        self.flowManager.setFinishSetupEarly(finish: false)
+    func meshSetupDidRequestToEnterDeviceName(setDeviceName: @escaping MeshSetupSetString) {
+        setDeviceName(randomStringWithLength(10))
     }
 
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkInfo]) {
-        //self.flowManager.setSelectedNetwork(availableNetworks.first!)
-        self.flowManager.setNetworkNameAndPassword(name: "fancynetwork", password: "zxcasd")
+
+    func meshSetupDidRequestToAddOneMoreDevice(setAddOneMoreDevice: @escaping MeshSetupSetBool) {
+        setAddOneMoreDevice(true)
     }
 
-    func meshSetupDidRequestToAddOneMoreDevice() {
-        self.flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
+    func meshSetupDidRequestToFinishSetupEarly(setFinishSetupEarly: @escaping MeshSetupSetBool) {
+        setFinishSetupEarly(false)
     }
+
+
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo], setSelectedNetwork: @escaping MeshSetupSetNetworkOptional) {
+        setSelectedNetwork(nil)
+    }
+
+    func meshSetupDidRequestToEnterNewNetworkName(setNewNetworkName: @escaping MeshSetupSetString) {
+        setNewNetworkName("fancynetwork")
+    }
+
+    func meshSetupDidRequestToEnterNewNetworkPassword(setNewNetworkPassword: @escaping MeshSetupSetString) {
+        setNewNetworkPassword("zxcasd")
+    }
+
+    func meshSetupDidRequestToChooseBetweenRetryInternetOrSwitchToJoinerFlow(setSwitchToJoiner: @escaping MeshSetupSetBool) {
+        setSwitchToJoiner(false)
+    }
+
+
+    func meshSetupDidEnterState(state: MeshSetupFlowState) {
+        log("flow setup entered state: \(state)")
+    }
+
+    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
+        if (error == .DeviceTooFar) {
+            //TODO: show prompt and repeat step
+        } else {
+            //fail...
+            log("flow failed: \(error)")
+        }
+    }
+
+
+
 
     //MARK: Helpers
     func randomStringWithLength(_ len: Int) -> String {
@@ -162,7 +178,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     }
 
     @objc func cancelButtonTapped() {
-        self.flowManager.cancel()
+        self.flowManager.cancelSetup()
         self.dismiss(animated: true)
     }
 

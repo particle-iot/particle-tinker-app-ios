@@ -34,7 +34,7 @@ enum BluetoothConnectionManagerError: Error, CustomStringConvertible {
     case FailedToStartScan
     case FailedToScanBecauseOfTimeout
     case DeviceTooFar
-    case DeviceWasConnected //TODO: need to reconnect to the device
+    case DeviceWasConnected //need to reconnect to the device
     case FailedToConnect
 
     public var description: String {
@@ -141,7 +141,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         }
     }
 
-    func stopScan(completed: @escaping () -> ()) {
+    func stopScan() {
         guard self.state == .Scanning else {
             return
         }
@@ -153,9 +153,6 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         } else {
             self.state = .Disabled
         }
-
-        //stopScan takes some time
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(100), execute: DispatchWorkItem (block: completed))
     }
 
     //MARK: - CBCentralManagerDelegate
