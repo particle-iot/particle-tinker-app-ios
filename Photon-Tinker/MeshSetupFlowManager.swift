@@ -42,6 +42,7 @@ protocol MeshSetupFlowManagerDelegate {
 
     func meshSetupDidRequestToChooseBetweenRetryInternetOrSwitchToJoinerFlow(setSwitchToJoiner: @escaping MeshSetupSetBool)
 
+
     func meshSetupDidEnterState(state: MeshSetupFlowState)
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
@@ -50,6 +51,7 @@ enum MeshSetupFlowState {
     case InitialDeviceConnecting
     case InitialDeviceConnected
     case InitialDeviceReady
+
     case CommissionerDeviceConnecting
     case CommissionerDeviceConnected
     case CommissionerDeviceReady
@@ -253,7 +255,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
-        log("error: \(reason.localizedDescription), nsError: \(nsError?.localizedDescription)")
+        log("error: \(reason.localizedDescription), nsError: \(nsError?.localizedDescription as Optional)")
         self.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
     }
 
@@ -1084,7 +1086,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.initialDevice.transceiver!.sendGetConnectionStatus { result, status in
             self.log("initialDevice.sendGetConnectionStatus: \(result)")
             if (result == .NONE) {
-                self.log("status: \(status)")
+                self.log("status: \(status as Optional)")
                 if (status! == .connected) {
                     self.log("device connected to the cloud")
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
