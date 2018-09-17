@@ -317,7 +317,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     func sendDeviceSetupDone(done: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_SetDeviceSetupDoneRequest();
-        requestMsgPayload.done = true
+        requestMsgPayload.done = done
 
         self.prepareRequestMessage(type: .DeviceSetupDone, payload: self.serialize(message: requestMsgPayload))
         self.sendRequestMessage(onReply: {
