@@ -15,9 +15,9 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
 
-    private var callback: ((MeshSetupDataMatrix) -> ())?
+    private var callback: ((String) -> ())?
 
-    func setup(didFindStickerCode: @escaping (MeshSetupDataMatrix) -> ()) {
+    func setup(didFindStickerCode: @escaping (String) -> ()) {
         //TODO: handle error case too
         self.callback = didFindStickerCode
     }
@@ -110,18 +110,13 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
 
     func foundDataMatrixString(_ dataMatrixString: String) {
         if let callback = callback {
-            callback(processDataMatrix(dataMatrixString: dataMatrixString))
+            callback(dataMatrixString)
         }
 
         self.dismiss(animated: true, completion: nil)
     }
 
-    private func processDataMatrix(dataMatrixString: String) -> MeshSetupDataMatrix {
-        let arr = dataMatrixString.split(separator: " ")
-        let serialNumber = String(arr[0])//"12345678abcdefg"
-        let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
-        return MeshSetupDataMatrix(serialNumber: serialNumber, mobileSecret: mobileSecret)
-    }
+
 
     override var prefersStatusBarHidden: Bool {
         return true

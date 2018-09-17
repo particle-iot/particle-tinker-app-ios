@@ -15,18 +15,17 @@ import Foundation
 
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowManagerDelegate {
-    typealias MeshSetupSetDevice = (MeshSetupDataMatrix) -> ()
-    typealias MeshSetupSetNetwork = (MeshSetupNetworkInfo) -> ()
-    typealias MeshSetupSetNetworkOptional = (MeshSetupNetworkInfo?) -> ()
-    typealias MeshSetupSetBool = (Bool) -> ()
-    typealias MeshSetupSetString = (String) -> ()
+    typealias MeshSetupSetNetwork = (MeshSetupNetworkInfo) -> (Bool)
+    typealias MeshSetupSetNetworkOptional = (MeshSetupNetworkInfo?) -> (Bool)
+    typealias MeshSetupSetBool = (Bool) -> (Bool)
+    typealias MeshSetupSetString = (String) -> (Bool)
 
 
-    func meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: @escaping MeshSetupSetDevice)
+    func meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: @escaping MeshSetupSetString)
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo, setLeaveNetwork: @escaping MeshSetupSetBool)
     func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo], setSelectedNetwork: @escaping MeshSetupSetNetwork)
 
-    func meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: @escaping MeshSetupSetDevice)
+    func meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: @escaping MeshSetupSetString)
     func meshSetupDidRequestToEnterSelectedNetworkPassword(setSelectedNetworkPassword: @escaping MeshSetupSetString)
 
 
@@ -80,6 +79,7 @@ enum MeshSetupFlowError: Error {
 
     //EnsureCommissionerNetworkMatches
     case CommissionerNetworkDoesNotMatch
+    case WrongNetworkPassword
 
     //GetNewDeviceName
     case UnableToRenameDevice
@@ -247,19 +247,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
     }
 
+    //MARK: public interface
 
-    private func log(_ message: String) {
-        if (MeshSetup.LogFlowManager) {
-            NSLog("MeshSetupFlow: \(message)")
-        }
-    }
-
-    private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
-        log("error: \(reason.localizedDescription), nsError: \(nsError?.localizedDescription as Optional)")
-        self.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
-    }
-
-    //MARK: Flow control
     //entry to the flow
     func startSetup() {
         currentFlow = preflow
@@ -268,7 +257,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.runCurrentStep()
     }
 
-    //public interface
     func cancelSetup() {
         //if we are waiting for the reply = trigger timeout
         if let initialDeviceTransceiver = self.initialDevice.transceiver {
@@ -288,6 +276,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.runCurrentStep()
     }
 
+    //MARK: Flow control
     private func runCurrentStep() {
         log("stepComplete\n\n" +
                 "--------------------------------------------------------------------------------------------\n" +
@@ -389,6 +378,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.runCurrentStep()
     }
 
+    //MARK: Helpers
+    private func log(_ message: String) {
+        if (MeshSetup.LogFlowManager) {
+            NSLog("MeshSetupFlow: \(message)")
+        }
+    }
+
+    private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
+        log("error: \(reason.localizedDescription), nsError: \(nsError?.localizedDescription as Optional)")
+        self.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
+    }
+
     private func removeRepeatedNetworks(_ networks: [MeshSetupNetworkInfo]) -> [MeshSetupNetworkInfo] {
         var ids:Set<String> = []
         var filtered:[MeshSetupNetworkInfo] = []
@@ -416,6 +417,48 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
+    //MARK: Input validators
+    private func validateDataMatrix(_ dataMatrixString: String) -> MeshSetupDataMatrix? {
+        let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{15})")
+        let nsString = dataMatrixString as NSString
+        let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
+
+        if (results.count > 0) {
+            let arr = dataMatrixString.split(separator: " ")
+            let serialNumber = String(arr[0])//"12345678abcdefg"
+            let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
+            return MeshSetupDataMatrix(serialNumber: serialNumber, mobileSecret: mobileSecret)
+        } else {
+            return nil
+        }
+    }
+
+    private func validateNetworkSelection(_ selectedNetwork: MeshSetupNetworkInfo) -> Bool {
+        if let networks = self.initialDevice.networks {
+            for network in networks {
+                if selectedNetwork.extPanID == network.extPanID {
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
+    private func validateNetworkPassword(_ password: String) -> Bool {
+        return password.count >= 6
+    }
+
+    private func validateNetworkName(_ networkName: String) -> Bool {
+        return (networkName.count > 0) && (networkName.count < 16)
+    }
+
+    private func validateDeviceName(_ name: String) -> Bool {
+        return name.count > 0
+    }
+
+
+    //MARK: Error Handling
     private func handleBluetoothErrorResult(_ result: ControlReplyErrorType) {
         if (self.canceled) {
             return
@@ -529,7 +572,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: setInitialDeviceInfo)
     }
 
-    private func setInitialDeviceInfo(dataMatrix: MeshSetupDataMatrix) {
+    private func setInitialDeviceInfo(dataMatrixString: String) -> Bool {
+
+        guard let dataMatrix = self.validateDataMatrix(dataMatrixString) else {
+            return false
+        }
+
         self.initialDevice = MeshDevice()
 
         //these flags are used to determine gateway subflow .. if they are set, new network is being created
@@ -545,6 +593,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.initialDevice.credentials = MeshSetupPeripheralCredentials(name: self.initialDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepComplete()
+        return true
     }
 
     //MARK: ConnectToInitialDevice
@@ -804,13 +853,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    private func setInitialDeviceLeaveNetwork(leave: Bool) {
+    private func setInitialDeviceLeaveNetwork(leave: Bool) -> Bool {
         if (leave || self.initialDevice.networkInfo == nil) {
             //forcing this command on devices with no network info helps with the joining process
             self.initialDeviceLeaveNetwork()
         } else {
             fail(withReason: .UserRefusedToLeaveMeshNetwork)
         }
+        return true
     }
 
     private func initialDeviceLeaveNetwork() {
@@ -856,9 +906,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: self.initialDevice.networks!, setSelectedNetwork: setSelectedNetwork)
     }
 
-    private func setSelectedNetwork(_ selectedNetwork: MeshSetupNetworkInfo) {
+    private func setSelectedNetwork(_ selectedNetwork: MeshSetupNetworkInfo) -> Bool {
+        guard self.validateNetworkSelection(selectedNetwork) else {
+            return false
+        }
+
         self.selectedNetworkInfo = selectedNetwork
         self.stepComplete()
+
+        return true
     }
 
 
@@ -881,7 +937,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: setCommissionerDeviceInfo)
     }
 
-    private func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) {
+    private func setCommissionerDeviceInfo(dataMatrixString: String) -> Bool {
+        guard let dataMatrix = self.validateDataMatrix(dataMatrixString) else {
+            return false
+        }
+
         self.commissionerDevice = MeshDevice()
 
         self.log("dataMatrix: \(dataMatrix)")
@@ -890,7 +950,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: self.initialDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepComplete()
+        return true
     }
+
 
     //MARK: ConnectToCommissionerDevice
     private func stepConnectToCommissionerDevice() {
@@ -944,7 +1006,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword(setSelectedNetworkPassword: setSelectedNetworkPassword)
     }
 
-    private func setSelectedNetworkPassword(_ password: String) {
+    private func setSelectedNetworkPassword(_ password: String) -> Bool {
+        guard self.validateNetworkPassword(password) else {
+            return false
+        }
+
         self.log("password set: \(password)")
         self.selectedNetworkPassword = password
 
@@ -954,12 +1020,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.log("sendAuth: \(result)")
             if (result == .NONE) {
                 self.stepComplete()
+            } else if (result == .NOT_ALLOWED) {
+                self.fail(withReason: .WrongNetworkPassword)
             } else {
                 self.handleBluetoothErrorResult(result)
             }
         }
-    }
 
+        return true
+    }
 
 
     //MARK: JoinNetwork
@@ -1169,7 +1238,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    private func setSwitchToJoiner(switchToJoiner: Bool) {
+    private func setSwitchToJoiner(switchToJoiner: Bool) -> Bool {
         if (switchToJoiner) {
             self.currentFlow = self.joinerFlow
             self.currentStep = 0
@@ -1177,6 +1246,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         } else {
             self.runCurrentStep()
         }
+
+        return true
     }
 
     //MARK: StopInitialDeviceListening
@@ -1194,7 +1265,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestToEnterDeviceName(setDeviceName: setDeviceName)
     }
 
-    private func setDeviceName(name: String) {
+    private func setDeviceName(name: String) -> Bool {
+        guard self.validateDeviceName(name) else {
+            return false
+        }
+
         self.log("name entered: \(name)")
         ParticleCloud.sharedInstance().getDevice(self.initialDevice.deviceId!) { device, error in
             if (error == nil) {
@@ -1210,7 +1285,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 fatalError("unable to get device that was JUST claimed: \(error!)")
             }
         }
+
+        return true
     }
+
 
 
     //MARK:OfferToAddOneMoreDevice
@@ -1227,7 +1305,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
-    private func setAddOneMoreDevice(addOneMoreDevice: Bool) {
+    private func setAddOneMoreDevice(addOneMoreDevice: Bool) -> Bool {
         if (addOneMoreDevice) {
             self.currentStep = 0
             self.currentFlow = preflow
@@ -1235,6 +1313,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         } else {
             self.delegate.meshSetupDidEnterState(state: .SetupComplete)
         }
+        return true
     }
 
 
@@ -1243,12 +1322,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestToFinishSetupEarly(setFinishSetupEarly: setFinishSetupEarly)
     }
 
-    private func setFinishSetupEarly(finish: Bool) {
+    private func setFinishSetupEarly(finish: Bool) -> Bool {
         if (finish) {
             self.delegate.meshSetupDidEnterState(state: .SetupComplete)
         } else {
             self.stepComplete()
         }
+
+        return true
     }
 
     //MARK: OfferSelectOrCreateNetwork
@@ -1260,27 +1341,43 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: self.initialDevice.networks!, setSelectedNetwork: setSelectedNetworkOptional)
     }
 
-    private func setSelectedNetworkOptional(_ selectedNetwork: MeshSetupNetworkInfo?) {
+    private func setSelectedNetworkOptional(_ selectedNetwork: MeshSetupNetworkInfo?) -> Bool {
         if let selectedNetwork = selectedNetwork {
+            guard self.validateNetworkSelection(selectedNetwork) else {
+                return false
+            }
+
             self.selectedNetworkInfo = selectedNetwork
             self.stepComplete()
+            return true
         } else {
             self.delegate.meshSetupDidRequestToEnterNewNetworkName(setNewNetworkName: setNetworkName)
+            return true
         }
     }
 
-    private func setNetworkName(name: String) {
+    private func setNetworkName(name: String) -> Bool {
+        guard self.validateNetworkName(name) else {
+            return false
+        }
+
         self.log("set network name: \(name)")
         self.newNetworkName = name
 
         self.delegate.meshSetupDidRequestToEnterNewNetworkPassword(setNewNetworkPassword: setNetworkPassword)
+        return true
     }
 
-    private func setNetworkPassword(password: String) {
+    private func setNetworkPassword(password: String) -> Bool {
+        guard self.validateNetworkPassword(password) else {
+            return false
+        }
+
         self.log("set network password: \(password)")
         self.newNetworkPassword = password
 
         self.stepComplete()
+        return true
     }
 
 

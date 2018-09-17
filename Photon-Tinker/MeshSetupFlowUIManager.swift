@@ -10,7 +10,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
 
     private var flowManager: MeshSetupFlowManager!
     private var selectedDeviceType: ParticleDeviceType!
-    private var selectedDeviceDataMatrix: MeshSetupDataMatrix!
+    private var selectedDeviceDataMatrixString: String!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,25 +60,26 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
     }
 
     //user successfully scanned initial code
-    func initialStickerCodeFound(dataMatrix: MeshSetupDataMatrix) {
-        log("dataMatrix scanned: \(dataMatrix)")
-        self.selectedDeviceDataMatrix = dataMatrix
-        setInitialDeviceInfo?(self.selectedDeviceDataMatrix)
+    func initialStickerCodeFound(dataMatrixString: String) {
+        log("dataMatrix scanned: \(dataMatrixString)")
+        self.selectedDeviceDataMatrixString = dataMatrixString
+
+        setInitialDeviceInfo?(self.selectedDeviceDataMatrixString)
     }
 
     //user successfully scanned initial code
-    func commissionerStickerCodeFound(dataMatrix: MeshSetupDataMatrix) {
-        log("dataMatrix scanned: \(dataMatrix)")
-        self.selectedDeviceDataMatrix = dataMatrix
-        setCommissionerDeviceInfo?(self.selectedDeviceDataMatrix)
+    func commissionerStickerCodeFound(dataMatrixString: String) {
+        log("dataMatrix scanned: \(dataMatrixString)")
+        self.selectedDeviceDataMatrixString = dataMatrixString
+        setCommissionerDeviceInfo?(self.selectedDeviceDataMatrixString)
     }
     
     
     
 
     //MARK: MeshSetupFlowManagerDelegate
-    var setInitialDeviceInfo: MeshSetupSetDevice!
-    func meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: @escaping MeshSetupSetDevice) {
+    var setInitialDeviceInfo: MeshSetupSetString!
+    func meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: @escaping MeshSetupSetString) {
         self.setInitialDeviceInfo = setInitialDeviceInfo
     }
 
@@ -95,8 +96,8 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
         }
     }
 
-    var setCommissionerDeviceInfo: MeshSetupSetDevice!
-    func meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: @escaping MeshSetupSetDevice) {
+    var setCommissionerDeviceInfo: MeshSetupSetString!
+    func meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: @escaping MeshSetupSetString) {
         self.setCommissionerDeviceInfo = setCommissionerDeviceInfo
 
         DispatchQueue.main.async {
