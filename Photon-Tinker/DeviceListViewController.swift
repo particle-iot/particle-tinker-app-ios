@@ -17,8 +17,9 @@ let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
 let kDefaultElectronFlashingTime : Int = 15
 
-class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate {
-    
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate, ClientDelegate {
+
+
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -72,6 +73,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var devices : [ParticleDevice] = []
     var selectedDevice : ParticleDevice? = nil
     var refreshControlAdded : Bool = false
+
+    private var showMesh: Bool?
     
     
     override func didReceiveMemoryWarning() {
@@ -86,19 +89,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // heading
         // TODO: format with Particle cyan and Gotham font!
-        
-        
-        
+
         let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .multipleChoice)
-        
-        
-        dialog.addButton("Mesh", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            dialog.dismiss()
-            
-            self.invokeMeshDeviceSetup()
-            
+
+        if (showMesh ?? false) {
+            dialog.addButton("Mesh", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
+                dialog.dismiss()
+
+                self.invokeMeshDeviceSetup()
+
+            }
         }
-        
         
         dialog.addButton("Photon", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
@@ -194,18 +195,40 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             })
             */
-            
         }
-        SEGAnalytics.shared().track("Tinker: Device list screen activity")
-//        animateOnlineIndicators()
 
+        SEGAnalytics.shared().track("Tinker: Device list screen activity")
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        
     }
-    
-    
-    
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let config = LDConfig(mobileKey: launchDarkly)
+        var ldUserBuilder = LDUserBuilder()
+
+        if let username = ParticleCloud.sharedInstance().loggedInUsername {
+            ldUserBuilder.key = "user:\(username)"
+            ldUserBuilder.email = username
+        }
+        LDClient.sharedInstance().start(config, with: ldUserBuilder)
+        LDClient.sharedInstance().delegate = self
+        showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
+        NSLog("starting showMesh = \(showMesh)")
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        LDClient.sharedInstance().stop()
+    }
+
+    func featureFlagDidUpdate(_ key: String!) {
+        if (key == "temp-mesh-in-mobile") {
+            showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
+            NSLog("updated showMesh = \(showMesh)")
+        }
+    }
+
     func showTutorial() {
         
        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
