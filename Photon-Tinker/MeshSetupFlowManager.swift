@@ -127,6 +127,8 @@ fileprivate struct MeshDevice {
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
 
     private enum MeshSetupFlowCommands {
+        case ResetSetupAndNetwork
+
         //preflow
         case GetInitialDeviceInfo
         case ConnectToInitialDevice
@@ -161,6 +163,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let preflow: [MeshSetupFlowCommands] = [
         .GetInitialDeviceInfo,
         .ConnectToInitialDevice,
+        //.ResetSetupAndNetwork,
         .EnsureLatestFirmware,
         .EnsureInitialDeviceCanBeClaimed,
         .CheckInitialDeviceHasNetworkInterfaces,
@@ -283,6 +286,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 "currentStep = \(currentStep), currentCommand = \(currentCommand)")
         self.currentStepFlags = [:]
         switch self.currentCommand {
+            case .ResetSetupAndNetwork:
+                #if DEBUG
+                    self.stepResetSetupAndNetwork()
+                #else
+                    fatalError("self.stepResetSetupAndNetwork")
+                #endif
+
             //preflow
             case .GetInitialDeviceInfo:
                 self.stepGetInitialDeviceInfo()
@@ -567,6 +577,35 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 //}
 
 //extension MeshSetupFlowManager {
+
+
+
+
+
+    //MARK: ResetSetupAndNetwork
+    private func stepResetSetupAndNetwork() {
+        self.initialDevice.transceiver!.sendLeaveNetwork () { result in
+            self.log("initialDevice.sendLeaveNetwork: \(result.description())")
+            if (result == .NONE) {
+                self.setSetupNotDone()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    private func setSetupNotDone() {
+        self.initialDevice.transceiver!.sendDeviceSetupDone(done: false) { result in
+            self.log("initialDevice.sendDeviceSetupDone: \(result.description())")
+            if (result == .NONE) {
+                self.log("Device reset complete")
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+
     //MARK: GetInitialDeviceInfo
     private func stepGetInitialDeviceInfo() {
         self.delegate.meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: setInitialDeviceInfo)
