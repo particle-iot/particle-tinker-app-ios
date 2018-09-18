@@ -92,7 +92,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .multipleChoice)
 
-        if (showMesh ?? false) {
+        if ((showMesh ?? false) && ParticleCloud.sharedInstance().isAuthenticated) {
             dialog.addButton("Mesh", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
                 dialog.dismiss()
 
