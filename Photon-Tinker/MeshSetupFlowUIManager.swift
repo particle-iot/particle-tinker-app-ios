@@ -6,21 +6,41 @@
 import Foundation
 import UIKit
 
-class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetupFlowManagerDelegate {
+class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate {
 
     private var flowManager: MeshSetupFlowManager!
+    private var embededNavigationController: UINavigationController!
+    
+    
+    @IBOutlet weak var accountLabel: MeshLabel!
+    
+    
     private var selectedDeviceType: ParticleDeviceType!
     private var selectedDeviceDataMatrixString: String!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
         self.flowManager = MeshSetupFlowManager(delegate: self)
         self.flowManager.startSetup()
-        self.addCancel()
+    }
 
-        let selectDeviceVC = self.viewControllers.first! as! MeshSetupSelectDeviceViewController
-        selectDeviceVC.setup(didSelectDevice: initialDeviceSelected)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.accountLabel.setStyle(font: MeshSetupStyle.BasicFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PlaceHolderColor)
+        self.accountLabel.text = ParticleCloud.sharedInstance().loggedInUsername ?? ""
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "embedNavigation") {
+            self.embededNavigationController = segue.destination as! UINavigationController
+
+            let selectDeviceVC = self.embededNavigationController.viewControllers.first! as! MeshSetupSelectDeviceViewController
+            selectDeviceVC.setup(didSelectDevice: initialDeviceSelected)
+        }
+        super.prepare(for: segue, sender: sender)
     }
 
     private func log(_ message: String) {
@@ -36,8 +56,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
 
         let getReadyVC = MeshSetupGetReadyViewController.storyboardViewController()
         getReadyVC.setup(didPressReady: initialDeviceReady)
-        self.pushViewController(getReadyVC, animated: true)
-        self.addCancel()
+        self.embededNavigationController.pushViewController(getReadyVC, animated: true)
     }
 
     //initial device ready, we explain user the sticker concept
@@ -46,8 +65,7 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
 
         let findStickerVC = MeshSetupFindStickerViewController.storyboardViewController()
         findStickerVC.setup(didPressScan: initialDeviceStickerFound)
-        self.pushViewController(findStickerVC, animated: true)
-        self.addCancel()
+        self.embededNavigationController.pushViewController(findStickerVC, animated: true)
     }
 
     //user wants to scan data matrix
@@ -172,15 +190,8 @@ class MeshSetupFlowUIManager : UINavigationController, Storyboardable, MeshSetup
         return str
     }
 
-
-    private func addCancel() {
-        let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
-        self.topViewController!.navigationItem.rightBarButtonItem = cancelButton
-    }
-
-    @objc func cancelButtonTapped() {
+    @IBAction func cancelTapped(_ sender: Any) {
         self.flowManager.cancelSetup()
         self.dismiss(animated: true)
     }
-
 }

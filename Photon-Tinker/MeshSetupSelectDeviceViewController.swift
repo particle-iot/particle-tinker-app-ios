@@ -11,6 +11,9 @@ import UIKit
 
 class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewDataSource, UITableViewDelegate {
 
+    
+    
+    @IBOutlet weak var titleLabel: MeshLabel!
     @IBOutlet weak var deviceTypeTableView: UITableView!
 
     private let deviceTypes = [ "Xenon", "Argon", "Boron" ]
@@ -27,6 +30,9 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
 
         deviceTypeTableView.delegate = self
         deviceTypeTableView.dataSource = self
+        
+        titleLabel?.setStyle(font: MeshSetupStyle.BasicFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.TextColor)
+        titleLabel?.localize()
     }
 
 

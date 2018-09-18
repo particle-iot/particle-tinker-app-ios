@@ -1,0 +1,10 @@
+/* 
+  MeshSetupStrings.strings
+  Particle
+
+  Created by Raimundas Sakalauskas on 18/09/2018.
+  Copyright © 2018 spark. All rights reserved.
+*/
+
+"MeshSetup.SelectDevice.Title" = "Choose the device you’re setting up";
+"MeshSetup.GetReady.Title" = "Get your {{device}} ready for setup";
