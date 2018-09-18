@@ -8,7 +8,7 @@ import Foundation
 class MeshSetupStyle {
 
     //fonts
-    static var BasicFont: String = "Gotham-Book"
+    static var RegularFont: String = "Gotham-Book"
     static var SemiBoldFont: String = "Gotham-Medium"
     static var BoldFont: String = "Gotham-Book"
 
@@ -17,13 +17,19 @@ class MeshSetupStyle {
     static var SmallSize = 14
     static var RegularSize = 16
     static var LargeSize = 18
+    static var ExtraLargeSize = 22
 
     //colors
-    static var TextColor = UIColor.colorWithHexString("333333")
-    static var PlaceHolderColor = UIColor.colorWithHexString("A9A9A9")
+    static var PrimaryTextColor = UIColor.colorWithHexString("#333333")
+    static var SecondaryTextColor = UIColor.colorWithHexString("#B1B1B1")
+    static var DisabledTextColor = UIColor.colorWithHexString("#A9A9A9")
+    static var PlaceHolderTextColor = UIColor.colorWithHexString("#A9A9A9")
 
-    static var ButtonColor = UIColor.colorWithHexString("02ADEF")
-    static var ButtonTitleColor = UIColor.colorWithHexString("FFFFFF")
+    static var ButtonColor = UIColor.colorWithHexString("#02ADEF")
+    static var ButtonTitleColor = UIColor.colorWithHexString("#FFFFFF")
+
+    static var CellSeparatorColor = UIColor.colorWithHexString("#BCBBC1")
+    static var CellHighlightColor = UIColor.colorWithHexString("#02ADEF")
 }
 
 class MeshLabel : UILabel {
@@ -33,7 +39,7 @@ class MeshLabel : UILabel {
     }
 
     func localize() {
-        self.text = NSLocalizedString(self.text ?? "", tableName: "MeshSetupStrings", comment: "")
+        self.text = self.text?.meshLocalized()
 
         if (self.numberOfLines == 0) {
             self.sizeToFit()
@@ -55,11 +61,15 @@ class MeshSetupButton : UIButton {
         self.layer.shadowOpacity = 1.0
 
 
-        self.setTitleColor(.white, for: .normal)
-        self.setTitleColor(.yellow, for: .selected)
-        self.setTitleColor(.yellow, for: .highlighted)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .normal)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .selected)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .highlighted)
+    }
+}
 
-        self.tintColor = .purple
+extension String {
+    func meshLocalized() -> String {
+        return NSLocalizedString(self, tableName: "MeshSetupStrings", comment: "")
     }
 }
 

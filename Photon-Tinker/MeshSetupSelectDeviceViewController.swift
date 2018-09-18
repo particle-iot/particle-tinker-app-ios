@@ -11,15 +11,17 @@ import UIKit
 
 class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewDataSource, UITableViewDelegate {
 
-    
-    
     @IBOutlet weak var titleLabel: MeshLabel!
     @IBOutlet weak var deviceTypeTableView: UITableView!
 
-    private let deviceTypes = [ "Xenon", "Argon", "Boron" ]
-    private let deviceDescriptionTypes = ["Mesh only", "Mesh and Wi-Fi gateway", "Mesh and Cellular gateway" ]
+
+
+    private let deviceTypes = [ ParticleDeviceType.xenon.description, ParticleDeviceType.argon.description, ParticleDeviceType.boron.description ]
+    private let deviceDescriptionTypes = [MeshSetupStrings.SelectDevice.MeshOnly, MeshSetupStrings.SelectDevice.MeshAndWifi, MeshSetupStrings.SelectDevice.MeshAndCellular ]
+    private var enabledCells: [Bool]!
 
     private var callback: ((ParticleDeviceType) -> ())?
+
 
     func setup(didSelectDevice: @escaping (ParticleDeviceType) -> ()) {
         self.callback = didSelectDevice
@@ -31,8 +33,17 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
         deviceTypeTableView.delegate = self
         deviceTypeTableView.dataSource = self
         
-        titleLabel?.setStyle(font: MeshSetupStyle.BasicFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.TextColor)
-        titleLabel?.localize()
+        titleLabel?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        titleLabel?.text = MeshSetupStrings.SelectDevice.Title
+
+        //remove extra cells at the bottom
+        deviceTypeTableView.tableFooterView = UIView()
+        deviceTypeTableView.separatorColor = MeshSetupStyle.CellSeparatorColor
+        enabledCells = [
+            LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false),
+            LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false),
+            LDClient.sharedInstance().boolVariation("temp-boron-in-ios", fallback: false)
+        ]
     }
 
 
@@ -41,36 +52,31 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0) {
-            return deviceTypes.count;
-        } else {
-            return 0;
-        }
+        return deviceTypes.count;
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "deviceType")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "meshDeviceCell") as! MeshDeviceCell
 
-        if let cell = cell {
-            cell.textLabel?.text = deviceTypes[indexPath.row]
-            cell.detailTextLabel?.textColor = UIColor.darkGray
-            cell.detailTextLabel?.text = deviceDescriptionTypes[indexPath.row]
-            if (indexPath.row != 0) {
-                cell.textLabel?.textColor = UIColor.lightGray
-                cell.detailTextLabel?.textColor = UIColor.lightGray
-            }
+        var enabled = enabledCells[indexPath.row]
 
-            cell.imageView?.image = UIImage.init(named: "imgDevice" + deviceTypes[indexPath.row])
+        cell.cellTitleLabel.text = deviceTypes[indexPath.row]
+        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.ExtraLargeSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DisabledTextColor)
 
-            let itemSize = CGSize(width: 30, height: 64);
-            UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
-            let imageRect = CGRect(x: 0.0, y: 0.0, width: itemSize.width, height: itemSize.height);
-            cell.imageView?.image!.draw(in: imageRect)
-            cell.imageView?.image! = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext();
-        }
+        cell.cellSubtitleLabel.text = deviceDescriptionTypes[indexPath.row]
+        cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DisabledTextColor)
 
-        return cell!
+        cell.cellImageView.image = UIImage.init(named: "imgDevice" + deviceTypes[indexPath.row])
+        cell.cellAccessoryImageView.alpha = enabled ? 1 : 0.5
+
+        let cellHighlight = UIView()
+        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
+        cell.selectedBackgroundView = cellHighlight
+
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 90, bottom: 0, right: 0)
+
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -78,7 +84,7 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.row == 0
+        return enabledCells[indexPath.row]
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

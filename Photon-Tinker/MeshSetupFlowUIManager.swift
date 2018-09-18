@@ -10,14 +10,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private var flowManager: MeshSetupFlowManager!
     private var embededNavigationController: UINavigationController!
-    
-    
+
     @IBOutlet weak var accountLabel: MeshLabel!
-    
-    
+
     private var selectedDeviceType: ParticleDeviceType!
     private var selectedDeviceDataMatrixString: String!
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,7 +26,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.accountLabel.setStyle(font: MeshSetupStyle.BasicFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PlaceHolderColor)
+        self.accountLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PlaceHolderTextColor)
         self.accountLabel.text = ParticleCloud.sharedInstance().loggedInUsername ?? ""
     }
 
@@ -173,9 +170,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             log("flow failed: \(error)")
         }
     }
-
-
-
 
     //MARK: Helpers
     func randomStringWithLength(_ len: Int) -> String {
