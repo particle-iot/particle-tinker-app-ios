@@ -210,11 +210,19 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if let username = ParticleCloud.sharedInstance().loggedInUsername {
             ldUserBuilder.key = "user:\(username)"
             ldUserBuilder.email = username
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                ldUserBuilder.customDictionary = ["version": version]
+                NSLog("version = \(version)")
+            }
         }
         LDClient.sharedInstance().start(config, with: ldUserBuilder)
         LDClient.sharedInstance().delegate = self
         showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
-        NSLog("starting showMesh = \(showMesh)")
+
+        //lets trigger these early
+        NSLog("temp-xenon-in-ios = \(LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false))")
+        NSLog("temp-argon-in-ios = \(LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false))")
+        NSLog("temp-boron-in-ios = \(LDClient.sharedInstance().boolVariation("temp-boron-in-ios", fallback: false))")
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -225,7 +233,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func featureFlagDidUpdate(_ key: String!) {
         if (key == "temp-mesh-in-mobile") {
             showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
-            NSLog("updated showMesh = \(showMesh)")
+        } else {
+            NSLog("\(key) = \(LDClient.sharedInstance().boolVariation(key, fallback: false))")
         }
     }
 
