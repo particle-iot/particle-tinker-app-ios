@@ -190,8 +190,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let gatewayFlow: [MeshSetupFlowCommands] = [
         .SetClaimCode,
         .EnsureInitialDeviceIsNotOnMeshNetwork,
+        .CheckInitialDeviceHasNetworkInterfaces,
         .EnsureHasInternetAccess,
-        .StopInitialDeviceListening,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
         .OfferToFinishSetupEarly,
@@ -222,7 +222,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var bluetoothReady: Bool = false
 
 
-    private var initialDevice: MeshDevice!
+    private var initialDevice: MeshDevice! = MeshDevice()
     private var commissionerDevice: MeshDevice?
 
     //for joining flow
@@ -882,7 +882,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.log("initialDevice.sendGetNetworkInfo: \(result)")
             if (result == .NOT_FOUND) {
                 self.initialDevice.networkInfo = nil
-                self.stepComplete()
+                self.initialDeviceLeaveNetwork()
             } else if (result == .NONE) {
                 self.initialDevice.networkInfo = networkInfo
                 self.delegate.meshSetupDidRequestToLeaveNetwork(network: networkInfo!, setLeaveNetwork: self.setInitialDeviceLeaveNetwork)
@@ -893,6 +893,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func setInitialDeviceLeaveNetwork(leave: Bool) -> Bool {
+        self.log("setInitialDeviceLeaveNetwork: \(leave)")
         if (leave || self.initialDevice.networkInfo == nil) {
             //forcing this command on devices with no network info helps with the joining process
             self.initialDeviceLeaveNetwork()
@@ -1161,18 +1162,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.commissionerDevice!.transceiver!.sendStopListening { result in
             self.log("commissionerDevice.sendStopListening: \(result)")
             if (result == .NONE) {
-                self.stopInitialDeviceListening()
+                self.stopInitialDeviceListening(onComplete: self.stepComplete)
             } else {
                 self.handleBluetoothErrorResult(result)
             }
         }
     }
 
-    private func stopInitialDeviceListening() {
+    private func stopInitialDeviceListening(onComplete: @escaping () -> ()) {
         self.initialDevice.transceiver!.sendStopListening { result in
             self.log("initialDevice.sendStopListening: \(result)")
             if (result == .NONE) {
-                self.stepComplete()
+                onComplete()
             } else {
                 self.handleBluetoothErrorResult(result)
             }
@@ -1258,30 +1259,63 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepEnsureHasInternetAccess() {
         //we only use ethernet!!!
         if let idx = self.initialDevice.getEthernetInterfaceIdx() {
-            self.initialDevice.transceiver!.sendGetInterface(interfaceIndex: idx) { result, interface in
-                if (interface!.ipv4Config.addresses.first != nil) {
-                    self.initialDevice.hasInternetAddress = true
-                    self.stepComplete()
+            self.initialDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
+                self.log("initialDevice.transceiver!.sendDeviceSetupDone: \(result)")
+                if (result == .NONE) {
+                    self.stopInitialDeviceListening(onComplete: self.checkDeviceHasIP)
                 } else {
-                    self.delegate.meshSetupDidRequestToChooseBetweenRetryInternetOrSwitchToJoinerFlow(setSwitchToJoiner: self.setSwitchToJoiner)
+                    self.handleBluetoothErrorResult(result)
                 }
             }
         } else {
-            //TODO: remove this for prod
-            fatalError("device has no ethernet interface")
-
             //jump to joiner flow
-            //we dont switch step because intro to the flow is the same
             self.currentFlow = joinerFlow
+            //first couple of steps match between the flows
+            self.currentStep = self.currentFlow.firstIndex(of: .GetUserNetworkSelection) ?? 0
             self.runCurrentStep()
+        }
+    }
+
+    private func checkDeviceHasIP() {
+        if (self.currentStepFlags["checkDeviceHasIPStartTime"] == nil) {
+            self.currentStepFlags["checkDeviceHasIPStartTime"] = Date()
+        }
+
+        let diff = Date().timeIntervalSince(self.currentStepFlags["checkDeviceHasIPStartTime"] as! Date)
+        if (diff > MeshSetup.deviceObtainedIPTimeout) {
+            self.delegate.meshSetupDidRequestToChooseBetweenRetryInternetOrSwitchToJoinerFlow(setSwitchToJoiner: self.setSwitchToJoiner)
+            return
+        }
+
+        self.initialDevice.transceiver!.sendGetInterface(interfaceIndex: self.initialDevice.getEthernetInterfaceIdx()!) { result, interface in
+            self.log("result: \(result), networkInfo: \(interface as Optional)")
+            if (interface!.ipv4Config.addresses.first != nil) {
+                self.initialDevice.hasInternetAddress = true
+                self.stepComplete()
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                    if (self.canceled) {
+                        return
+                    }
+                    self.checkDeviceHasIP()
+                }
+            }
         }
     }
 
     private func setSwitchToJoiner(switchToJoiner: Bool) -> Bool {
         if (switchToJoiner) {
-            self.currentFlow = self.joinerFlow
-            self.currentStep = 0
-            self.runCurrentStep()
+            self.initialDevice.transceiver?.sendStarListening { result in
+                self.log("initialDevice.sendStarListening: \(result.description())")
+                if (result == .NONE) {
+                    self.currentFlow = self.joinerFlow
+                    //first couple of steps match between the flows
+                    self.currentStep = self.currentFlow.firstIndex(of: .GetUserNetworkSelection) ?? 0
+                    self.runCurrentStep()
+                } else {
+                    self.handleBluetoothErrorResult(result)
+                }
+            }
         } else {
             self.runCurrentStep()
         }
@@ -1291,7 +1325,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: StopInitialDeviceListening
     private func stepStopInitialDeviceListening() {
-        self.stopInitialDeviceListening()
+        self.stopInitialDeviceListening(onComplete: self.stepComplete)
     }
 
     //MARK: CheckDeviceGotClaimed

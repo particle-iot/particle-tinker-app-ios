@@ -21,6 +21,7 @@ class MeshSetup {
 
     static let bluetoothScanTimeoutValue: DispatchTimeInterval = .seconds(10)
     static let bluetoothSendTimeoutValue: DispatchTimeInterval = .seconds(15)
+    static let deviceObtainedIPTimeout: Double = 15.0
     static let deviceConnectToCloudTimeout: Double = 45.0
     static let deviceGettingClaimedTimeout: Double = 45.0
     static let bluetoothSendTimeoutRetryCount: Int = 0
