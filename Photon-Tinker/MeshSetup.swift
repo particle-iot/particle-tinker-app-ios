@@ -117,8 +117,9 @@ func replaceMeshSetupStringTemplates(view: UIView, deviceType : String? = nil, n
             }
 
             label.text = newLabelString
+        } else if (subview is UIView) {
+            replaceMeshSetupStringTemplates(view: subview, deviceType: deviceType, networkName: networkName, deviceName: deviceName)
         }
-        
     }
 }
 
