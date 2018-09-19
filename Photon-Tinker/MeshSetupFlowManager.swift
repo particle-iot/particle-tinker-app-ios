@@ -39,9 +39,6 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToEnterNewNetworkPassword(setNewNetworkPassword: @escaping MeshSetupSetString)
 
 
-    func meshSetupDidRequestToChooseBetweenRetryInternetOrSwitchToJoinerFlow(setSwitchToJoiner: @escaping MeshSetupSetBool)
-
-
     func meshSetupDidEnterState(state: MeshSetupFlowState)
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
@@ -50,6 +47,9 @@ enum MeshSetupFlowState {
     case InitialDeviceConnecting
     case InitialDeviceConnected
     case InitialDeviceReady
+
+    case InitialDeviceScanningForNetworks
+    case InitialDeviceConnectingToInternet
 
     case CommissionerDeviceConnecting
     case CommissionerDeviceConnected
@@ -80,6 +80,9 @@ enum MeshSetupFlowError: Error {
     //EnsureCommissionerNetworkMatches
     case CommissionerNetworkDoesNotMatch
     case WrongNetworkPassword
+
+    //EnsureHasInternetAccess
+    case FailedToObtainIp
 
     //GetNewDeviceName
     case UnableToRenameDevice
@@ -190,7 +193,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let gatewayFlow: [MeshSetupFlowCommands] = [
         .SetClaimCode,
         .EnsureInitialDeviceIsNotOnMeshNetwork,
-        .CheckInitialDeviceHasNetworkInterfaces,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
@@ -251,6 +253,22 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     //MARK: public interface
+    func initialDeviceName() -> String? {
+        return initialDevice.credentials?.name
+    }
+
+    func initialDeviceType() -> ParticleDeviceType? {
+        return initialDevice.type
+    }
+
+    func commissionerDeviceName() -> String? {
+        return commissionerDevice?.credentials?.name
+    }
+
+    func commissionerDeviceType() -> ParticleDeviceType? {
+        return commissionerDevice?.type
+    }
+
 
     //entry to the flow
     func startSetup() {
@@ -414,7 +432,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return filtered
     }
 
-    private func getDeviceType(serialNumber: String) -> ParticleDeviceType? {
+    //right now it is public because we want to make sure that user scans the device of the same type as he selects
+    //in the first screen of the flow
+    //TODO: make this private in the future
+    func getDeviceType(serialNumber: String) -> ParticleDeviceType? {
         self.log("serialNumber: \(serialNumber)")
         if (serialNumber.lowercased().range(of: "xen")?.lowerBound == serialNumber.startIndex) {
             return .xenon
@@ -428,7 +449,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     //MARK: Input validators
-    private func validateDataMatrix(_ dataMatrixString: String) -> MeshSetupDataMatrix? {
+    //TODO: make this private in the future
+    func validateDataMatrix(_ dataMatrixString: String) -> MeshSetupDataMatrix? {
         let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{15})")
         let nsString = dataMatrixString as NSString
         let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
@@ -924,6 +946,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
+        self.delegate.meshSetupDidEnterState(state: .InitialDeviceScanningForNetworks)
+
         self.scanNetworks(onComplete: self.getUserNetworkSelection)
     }
 
@@ -1259,6 +1283,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepEnsureHasInternetAccess() {
         //we only use ethernet!!!
         if let idx = self.initialDevice.getEthernetInterfaceIdx() {
+            self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectingToInternet)
+
             self.initialDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
                 self.log("initialDevice.transceiver!.sendDeviceSetupDone: \(result)")
                 if (result == .NONE) {
@@ -1268,11 +1294,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 }
             }
         } else {
-            //jump to joiner flow
-            self.currentFlow = joinerFlow
-            //first couple of steps match between the flows
-            self.currentStep = self.currentFlow.firstIndex(of: .GetUserNetworkSelection) ?? 0
-            self.runCurrentStep()
+            self.fail(withReason: .FailedToObtainIp)
+            return
         }
     }
 
@@ -1283,7 +1306,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkDeviceHasIPStartTime"] as! Date)
         if (diff > MeshSetup.deviceObtainedIPTimeout) {
-            self.delegate.meshSetupDidRequestToChooseBetweenRetryInternetOrSwitchToJoinerFlow(setSwitchToJoiner: self.setSwitchToJoiner)
+            self.fail(withReason: .FailedToObtainIp)
             return
         }
 
@@ -1301,26 +1324,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 }
             }
         }
-    }
-
-    private func setSwitchToJoiner(switchToJoiner: Bool) -> Bool {
-        if (switchToJoiner) {
-            self.initialDevice.transceiver?.sendStarListening { result in
-                self.log("initialDevice.sendStarListening: \(result.description())")
-                if (result == .NONE) {
-                    self.currentFlow = self.joinerFlow
-                    //first couple of steps match between the flows
-                    self.currentStep = self.currentFlow.firstIndex(of: .GetUserNetworkSelection) ?? 0
-                    self.runCurrentStep()
-                } else {
-                    self.handleBluetoothErrorResult(result)
-                }
-            }
-        } else {
-            self.runCurrentStep()
-        }
-
-        return true
     }
 
     //MARK: StopInitialDeviceListening
