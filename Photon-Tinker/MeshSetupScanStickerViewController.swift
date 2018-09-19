@@ -94,7 +94,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         titleLabel.text = MeshSetupStrings.ScanSticker.Title
 
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         textLabel.text = MeshSetupStrings.ScanSticker.Text
 
         replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType.description)
@@ -116,6 +116,12 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             self.foundDataMatrixString(stringValue)
+        }
+    }
+
+    func restartCaptureSession() {
+        if (captureSession?.isRunning == false) {
+            captureSession.startRunning()
         }
     }
 
