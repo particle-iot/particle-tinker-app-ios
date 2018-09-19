@@ -170,13 +170,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureLatestFirmware,
         .EnsureInitialDeviceCanBeClaimed,
         .CheckInitialDeviceHasNetworkInterfaces,
+        .EnsureInitialDeviceIsNotOnMeshNetwork,
+        .SetClaimCode,
         .ChooseFlow
     ]
 
 
     private let joinerFlow: [MeshSetupFlowCommands] = [
-        .SetClaimCode,
-        .EnsureInitialDeviceIsNotOnMeshNetwork,
         .GetUserNetworkSelection,
         .GetCommissionerDeviceInfo,
         .ConnectToCommissionerDevice,
@@ -190,9 +190,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
 
-    private let gatewayFlow: [MeshSetupFlowCommands] = [
-        .SetClaimCode,
-        .EnsureInitialDeviceIsNotOnMeshNetwork,
+    private let ethernetFlow: [MeshSetupFlowCommands] = [
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
@@ -322,14 +320,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepEnsureInitialDeviceCanBeClaimed()
             case .CheckInitialDeviceHasNetworkInterfaces:
                 self.stepCheckInitialDeviceHasNetworkInterfaces()
+            case .EnsureInitialDeviceIsNotOnMeshNetwork:
+                self.stepEnsureInitialDeviceIsNotOnMeshNetwork()
+            case .SetClaimCode:
+                self.stepSetClaimCode()
             case .ChooseFlow:
                  self.stepChooseFlow()
 
             //main flow
-            case .SetClaimCode:
-                self.stepSetClaimCode()
-            case .EnsureInitialDeviceIsNotOnMeshNetwork:
-                self.stepEnsureInitialDeviceIsNotOnMeshNetwork()
             case .GetUserNetworkSelection:
                 self.stepGetUserNetworkSelection()
             case .GetCommissionerDeviceInfo:
@@ -385,7 +383,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //jump to new flow
         self.currentStep = 0
         if (self.initialDevice.hasInternetCapableNetworkInterfaces!) {
-            self.currentFlow = gatewayFlow
+            self.currentFlow = ethernetFlow
             log("setting gateway flow")
         } else {
             self.currentFlow = joinerFlow
@@ -877,27 +875,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
 
-
-
-    //MARK: SetClaimCode
-    private func stepSetClaimCode() {
-        if let claimCode = self.initialDevice.claimCode {
-            self.initialDevice.transceiver!.sendSetClaimCode(claimCode: claimCode) { result in
-                self.log("sendSetClaimCode: \(result)")
-                if (result == .NONE) {
-                    self.stepComplete()
-                } else {
-                    self.handleBluetoothErrorResult(result)
-                }
-            }
-        } else {
-            self.stepComplete()
-        }
-    }
-
-
-
-
     //MARK: EnsureInitialDeviceIsNotOnMeshNetwork
     private func stepEnsureInitialDeviceIsNotOnMeshNetwork() {
         self.initialDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
@@ -935,6 +912,29 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         }
     }
+
+
+
+
+    //MARK: SetClaimCode
+    private func stepSetClaimCode() {
+        if let claimCode = self.initialDevice.claimCode {
+            self.initialDevice.transceiver!.sendSetClaimCode(claimCode: claimCode) { result in
+                self.log("sendSetClaimCode: \(result)")
+                if (result == .NONE) {
+                    self.stepComplete()
+                } else {
+                    self.handleBluetoothErrorResult(result)
+                }
+            }
+        } else {
+            self.stepComplete()
+        }
+    }
+
+
+
+
 
 
 
