@@ -10,7 +10,7 @@ class MeshSetupStyle {
     //fonts
     static var RegularFont: String = "Gotham-Book"
     static var SemiBoldFont: String = "Gotham-Medium"
-    static var BoldFont: String = "Gotham-Book"
+    static var BoldFont: String = "Gotham-Medium"
 
     //text sizes
     static var DetailSize = 12
@@ -22,6 +22,7 @@ class MeshSetupStyle {
     //colors
     static var PrimaryTextColor = UIColor.colorWithHexString("#333333")
     static var SecondaryTextColor = UIColor.colorWithHexString("#B1B1B1")
+
     static var DisabledTextColor = UIColor.colorWithHexString("#A9A9A9")
     static var PlaceHolderTextColor = UIColor.colorWithHexString("#A9A9A9")
 
@@ -30,6 +31,9 @@ class MeshSetupStyle {
 
     static var CellSeparatorColor = UIColor.colorWithHexString("#BCBBC1")
     static var CellHighlightColor = UIColor.colorWithHexString("#02ADEF")
+
+    static var GrayBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
+    static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
 }
 
 class MeshLabel : UILabel {
@@ -37,33 +41,29 @@ class MeshLabel : UILabel {
         self.textColor = color
         self.font = UIFont(name: font, size: CGFloat(size))
     }
-
-    func localize() {
-        self.text = self.text?.meshLocalized()
-
-        if (self.numberOfLines == 0) {
-            self.sizeToFit()
-        }
-    }
 }
 
 class MeshSetupButton : UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        //self.clipsToBounds = true
         self.layer.cornerRadius = 3.0
-
         self.backgroundColor = MeshSetupStyle.ButtonColor
 
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
         self.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         self.layer.shadowOpacity = 1.0
 
+    }
 
-        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .normal)
-        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .selected)
-        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .highlighted)
+    func setStyle(font: String, size: Int, color: UIColor) {
+        self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
+
+        self.setTitleColor(color, for: .normal)
+        self.setTitleColor(color, for: .selected)
+        self.setTitleColor(color, for: .highlighted)
+
+        self.tintColor = color
     }
 }
 

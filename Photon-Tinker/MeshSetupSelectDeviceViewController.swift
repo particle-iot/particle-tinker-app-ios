@@ -14,14 +14,11 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
     @IBOutlet weak var titleLabel: MeshLabel!
     @IBOutlet weak var deviceTypeTableView: UITableView!
 
-
-
     private let deviceTypes = [ ParticleDeviceType.xenon.description, ParticleDeviceType.argon.description, ParticleDeviceType.boron.description ]
     private let deviceDescriptionTypes = [MeshSetupStrings.SelectDevice.MeshOnly, MeshSetupStrings.SelectDevice.MeshAndWifi, MeshSetupStrings.SelectDevice.MeshAndCellular ]
     private var enabledCells: [Bool]!
 
     private var callback: ((ParticleDeviceType) -> ())?
-
 
     func setup(didSelectDevice: @escaping (ParticleDeviceType) -> ()) {
         self.callback = didSelectDevice
@@ -33,11 +30,14 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
         deviceTypeTableView.delegate = self
         deviceTypeTableView.dataSource = self
         
-        titleLabel?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        titleLabel?.text = MeshSetupStrings.SelectDevice.Title
+        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        titleLabel.text = MeshSetupStrings.SelectDevice.Title
+
+        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
 
         //remove extra cells at the bottom
         deviceTypeTableView.tableFooterView = UIView()
+        deviceTypeTableView.backgroundColor = MeshSetupStyle.ViewBackgroundColor
         deviceTypeTableView.separatorColor = MeshSetupStyle.CellSeparatorColor
         enabledCells = [
             LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false),

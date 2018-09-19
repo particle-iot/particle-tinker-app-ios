@@ -12,4 +12,18 @@
 "MeshSetup.SelectDevice.MeshAndCellular" = "Mesh + Cellular";
 
 "MeshSetup.GetReady.Title" = "Get your {{device}} ready for setup";
+"MeshSetup.GetReady.Text1" = "Plug your {{device}} into a power source";
+"MeshSetup.GetReady.Text2" = "If your Xenon requires an external antenna, connect it your {{device}}";
+"MeshSetup.GetReady.Text3" = "Confirm your {{device}} is blinking blue";
+"MeshSetup.GetReady.Button" = "{{device}} is blinking blue";
+
+
+"MeshSetup.FindSticker.Title" = "Pair {{device}} with your phone";
+"MeshSetup.FindSticker.Text" = "Find the data matrix sticker on the front of your device. Use your phone camera to scan the code.";
+"MeshSetup.FindSticker.Button" = "Scan data matrix";
+
+"MeshSetup.ScanSticker.Title" = "Pair {{device}} with your phone";
+"MeshSetup.ScanSticker.Text" = "Point the camera at the data matrix on the {{device}}.";
+
+
 

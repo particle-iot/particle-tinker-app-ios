@@ -52,7 +52,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.selectedDeviceType = type
 
         let getReadyVC = MeshSetupGetReadyViewController.storyboardViewController()
-        getReadyVC.setup(didPressReady: initialDeviceReady)
+        getReadyVC.setup(didPressReady: initialDeviceReady, deviceType: self.selectedDeviceType)
         self.embededNavigationController.pushViewController(getReadyVC, animated: true)
     }
 
@@ -61,7 +61,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         log("initial device ready")
 
         let findStickerVC = MeshSetupFindStickerViewController.storyboardViewController()
-        findStickerVC.setup(didPressScan: initialDeviceStickerFound)
+        findStickerVC.setup(didPressScan: initialDeviceStickerFound, deviceType: self.selectedDeviceType)
         self.embededNavigationController.pushViewController(findStickerVC, animated: true)
     }
 
@@ -69,9 +69,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func initialDeviceStickerFound() {
         log("sticker found by user")
 
-        let scanVC = MeshSetupScanCodeViewController.storyboardViewController()
-        scanVC.setup(didFindStickerCode: initialStickerCodeFound)
-        self.present(scanVC, animated: true)
+        let scanVC = MeshSetupScanStickerViewController.storyboardViewController()
+        scanVC.setup(didFindStickerCode: initialStickerCodeFound, deviceType: self.selectedDeviceType)
+        self.embededNavigationController.pushViewController(scanVC, animated: true)
     }
 
     //user successfully scanned initial code
@@ -116,9 +116,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.setCommissionerDeviceInfo = setCommissionerDeviceInfo
 
         DispatchQueue.main.async {
-            let scanVC = MeshSetupScanCodeViewController.storyboardViewController()
-            scanVC.setup(didFindStickerCode: self.commissionerStickerCodeFound)
-            self.present(scanVC, animated: true)
+            let scanVC = MeshSetupScanStickerViewController.storyboardViewController()
+            scanVC.setup(didFindStickerCode: self.commissionerStickerCodeFound, deviceType: self.selectedDeviceType)
+            self.embededNavigationController.pushViewController(scanVC, animated: true)
         }
     }
 

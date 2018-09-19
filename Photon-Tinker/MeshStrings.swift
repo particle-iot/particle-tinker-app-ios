@@ -15,5 +15,25 @@ class MeshSetupStrings {
 
     struct GetReady {
         static let Title = "MeshSetup.GetReady.Title".meshLocalized()
+        
+        static let Text1 = "MeshSetup.GetReady.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GetReady.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.GetReady.Text3".meshLocalized()
+
+        static let Button = "MeshSetup.GetReady.Button".meshLocalized()
+    }
+
+    struct FindSticker {
+        static let Title = "MeshSetup.FindSticker.Title".meshLocalized()
+
+        static let Text = "MeshSetup.FindSticker.Text".meshLocalized()
+
+        static let Button = "MeshSetup.FindSticker.Button".meshLocalized()
+    }
+
+    struct ScanSticker {
+        static let Title = "MeshSetup.ScanSticker.Title".meshLocalized()
+
+        static let Text = "MeshSetup.ScanSticker.Text".meshLocalized()
     }
 }

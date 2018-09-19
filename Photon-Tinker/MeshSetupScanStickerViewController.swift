@@ -1,5 +1,5 @@
 //
-//  MeshSetupScanCodeViewController.swift
+//  MeshSetupScanStickerViewController.swift
 //  Particle
 //
 //  Created by Ido Kleinman on 6/19/18.
@@ -9,28 +9,28 @@
 import UIKit
 import AVFoundation
 
-class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadataOutputObjectsDelegate, Storyboardable {
+class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMetadataOutputObjectsDelegate, Storyboardable {
     @IBOutlet weak var cameraView: UIView!
+
+    @IBOutlet weak var titleLabel: MeshLabel!
+    
+    @IBOutlet weak var textLabel: MeshLabel!
 
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
 
     private var callback: ((String) -> ())?
+    private var deviceType: ParticleDeviceType!
 
-    func setup(didFindStickerCode: @escaping (String) -> ()) {
-        //TODO: handle error case too
+    func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType) {
         self.callback = didFindStickerCode
+        self.deviceType = deviceType
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.cameraView.backgroundColor = UIColor.black
-        self.cameraView.layer.borderWidth = 1.0
-        self.cameraView.layer.borderColor = UIColor.black.cgColor
-
         captureSession = AVCaptureSession()
-
         guard let videoCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video) else { return }
         let videoInput: AVCaptureDeviceInput
 
@@ -66,6 +66,13 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         self.cameraView.clipsToBounds = true
 
         captureSession.startRunning()
+
+
+        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
+
+        cameraView.backgroundColor = MeshSetupStyle.GrayBackgroundColor
+        cameraView.clipsToBounds = true
+        cameraView.layer.cornerRadius = 5
     }
 
 
@@ -83,6 +90,14 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         if (captureSession?.isRunning == false) {
             captureSession.startRunning()
         }
+
+        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        titleLabel.text = MeshSetupStrings.ScanSticker.Title
+
+        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        textLabel.text = MeshSetupStrings.ScanSticker.Text
+
+        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType.description)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,28 +119,10 @@ class MeshSetupScanCodeViewController: MeshSetupViewController, AVCaptureMetadat
         }
     }
 
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
     func foundDataMatrixString(_ dataMatrixString: String) {
         if let callback = callback {
             callback(dataMatrixString)
         }
-
-        self.dismiss(animated: true, completion: nil)
     }
-
-
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
-
-    
     
 }

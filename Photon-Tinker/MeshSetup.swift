@@ -77,7 +77,25 @@ extension ParticleDeviceType : CustomStringConvertible {
     }
 }
 
-func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceType?, networkName : String?, deviceName : String?) {
+func replaceMeshSetupStringTemplates(string: String, deviceType : String? = nil, networkName : String? = nil, deviceName : String? = nil) -> String {
+    var string = string
+
+    if let t = deviceType {
+        string = string.replacingOccurrences(of: "{{device}}", with: t.description)
+    }
+
+    if let n = networkName {
+        string = string.replacingOccurrences(of: "{{network}}", with: n)
+    }
+
+    if let d = deviceName {
+        string = string.replacingOccurrences(of: "{{deviceName}}", with: d)
+    }
+
+    return string
+}
+
+func replaceMeshSetupStringTemplates(view: UIView, deviceType : String? = nil, networkName : String? = nil, deviceName : String? = nil) {
     
     let subviews = view.subviews
     
@@ -85,9 +103,9 @@ func replaceMeshSetupStringTemplates(view: UIView, deviceType : ParticleDeviceTy
         if subview is UILabel {
             let label = subview as! UILabel
             var newLabelString = label.text
-            // TODO: retrieve info diffrently
+
             if let t = deviceType {
-                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t.description)
+                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t)
             }
 
             if let n = networkName {
