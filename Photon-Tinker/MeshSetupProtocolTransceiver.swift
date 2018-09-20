@@ -18,12 +18,18 @@ typealias SystemCapability = Particle_Ctrl_SystemCapabilityFlag
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
+    var isBusy: Bool {
+        get {
+            return waitingForReply
+        }
+    }
+
     private var bluetoothConnection: MeshSetupBluetoothConnection
     private var encryptionManager: MeshSetupEncryptionManager
 
     private var requestMessageId: UInt16 = 1
-
     private var waitingForReply: Bool = false
+
     private var rxBuffer: Data = Data()
     private var txBuffer: Data!
 

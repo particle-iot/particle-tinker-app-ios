@@ -18,7 +18,7 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
     private let deviceDescriptionTypes = [MeshSetupStrings.SelectDevice.MeshOnly, MeshSetupStrings.SelectDevice.MeshAndWifi, MeshSetupStrings.SelectDevice.MeshAndCellular ]
     private var enabledCells: [Bool]!
 
-    private var callback: ((ParticleDeviceType) -> ())?
+    private var callback: ((ParticleDeviceType) -> ())!
 
     func setup(didSelectDevice: @escaping (ParticleDeviceType) -> ()) {
         self.callback = didSelectDevice
@@ -90,17 +90,15 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        if let callback = callback {
-            switch indexPath.row {
-                case 0:
-                    callback(ParticleDeviceType.xenon)
-                case 1:
-                    callback(ParticleDeviceType.argon)
-                case 2:
-                    callback(ParticleDeviceType.boron)
-                default:
-                    callback(ParticleDeviceType.xenon)
-            }
+        switch indexPath.row {
+            case 0:
+                callback(ParticleDeviceType.xenon)
+            case 1:
+                callback(ParticleDeviceType.argon)
+            case 2:
+                callback(ParticleDeviceType.boron)
+            default:
+                callback(ParticleDeviceType.xenon)
         }
     }
 }

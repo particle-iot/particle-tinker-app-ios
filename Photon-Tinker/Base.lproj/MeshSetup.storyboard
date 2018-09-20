@@ -91,7 +91,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCj-n6-LOj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2908" y="4204"/>
+            <point key="canvasLocation" x="2710" y="5546"/>
         </scene>
         <!--Select Device-->
         <scene sceneID="t1t-6v-FPK">
@@ -193,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0g-Ha-lKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2639" y="3271"/>
+            <point key="canvasLocation" x="3674" y="2584"/>
         </scene>
         <!--Get Ready-->
         <scene sceneID="Wc4-Ms-gjb">
@@ -278,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dJn-UC-R5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3866.4000000000001" y="4205.1724137931033"/>
+            <point key="canvasLocation" x="3668" y="5546"/>
         </scene>
         <!--Get Ready-->
         <scene sceneID="ccT-wG-kqg">
@@ -289,25 +289,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your {{device}} ready for setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qx-pQ-4n5" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="44.666666666666657" y="64" width="286" height="16"/>
+                                <rect key="frame" x="44.666666666666657" y="59" width="286" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plug your device into a power source" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1j-7P-wUr" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="120" width="335" height="16"/>
+                                <rect key="frame" x="20" y="115" width="335" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If your device requires external antenna, connect it to your device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0y-kn-uHP" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="156" width="335" height="32"/>
+                                <rect key="frame" x="20" y="151" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your device is blinking blue. Press MODE button for 3 seconds to put device in listening mode if needed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thS-L5-wvg" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="208" width="335" height="48"/>
+                                <rect key="frame" x="20" y="203" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -328,7 +328,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ImC-3i-gg4">
-                                <rect key="frame" x="30" y="296" width="315" height="377"/>
+                                <rect key="frame" x="30" y="291" width="315" height="382"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -343,7 +343,7 @@
                             <constraint firstItem="rD1-gc-NHe" firstAttribute="leading" secondItem="W0y-kn-uHP" secondAttribute="leading" constant="-20" id="F3o-JT-fkf"/>
                             <constraint firstItem="rD1-gc-NHe" firstAttribute="trailing" secondItem="S1j-7P-wUr" secondAttribute="trailing" constant="20" id="KdD-5W-uCg"/>
                             <constraint firstItem="W0y-kn-uHP" firstAttribute="trailing" secondItem="rD1-gc-NHe" secondAttribute="trailing" constant="-20" id="Ko5-gH-PyO"/>
-                            <constraint firstItem="9qx-pQ-4n5" firstAttribute="top" secondItem="rD1-gc-NHe" secondAttribute="top" constant="20" id="NnV-yZ-B26"/>
+                            <constraint firstItem="9qx-pQ-4n5" firstAttribute="top" secondItem="rD1-gc-NHe" secondAttribute="top" constant="15" id="NnV-yZ-B26"/>
                             <constraint firstItem="ImC-3i-gg4" firstAttribute="leading" secondItem="rD1-gc-NHe" secondAttribute="leading" constant="30" id="OE1-Io-LHJ"/>
                             <constraint firstItem="rD1-gc-NHe" firstAttribute="trailing" secondItem="ImC-3i-gg4" secondAttribute="trailing" constant="30" id="Q4E-Cx-rx5"/>
                             <constraint firstItem="rD1-gc-NHe" firstAttribute="bottom" secondItem="xNC-n0-nhp" secondAttribute="bottom" constant="25" id="Qg1-c4-wFk"/>
@@ -369,7 +369,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sux-bg-qbC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3359" y="3270"/>
+            <point key="canvasLocation" x="4394" y="2583"/>
         </scene>
         <!--Pair Device-->
         <scene sceneID="HM4-j1-Hrz">
@@ -434,7 +434,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fas-n3-Rw2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4799" y="4207"/>
+            <point key="canvasLocation" x="4599" y="5549"/>
         </scene>
         <!--Scan code-->
         <scene sceneID="Idp-Lc-Br2">
@@ -499,7 +499,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAR-oW-aPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5887" y="4827"/>
+            <point key="canvasLocation" x="5687" y="6168"/>
         </scene>
         <!--Scan code-->
         <scene sceneID="88R-3k-FJR">
@@ -510,7 +510,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VA0-Va-dVd" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="136.33333333333334" y="64" width="102.33333333333334" height="17"/>
+                                <rect key="frame" x="136.33333333333334" y="59" width="102.33333333333334" height="17"/>
                                 <viewLayoutGuide key="safeArea" id="ACe-Qb-sdv"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -534,7 +534,7 @@
                         <constraints>
                             <constraint firstItem="frK-ju-tyw" firstAttribute="trailing" secondItem="IFI-nM-brA" secondAttribute="trailing" constant="-20" id="ITi-oq-bwe"/>
                             <constraint firstItem="w24-MJ-dTW" firstAttribute="leading" secondItem="IFI-nM-brA" secondAttribute="leading" constant="30" id="Sjo-iy-Cyw"/>
-                            <constraint firstItem="VA0-Va-dVd" firstAttribute="top" secondItem="IFI-nM-brA" secondAttribute="top" constant="20" id="U03-Kp-LZK"/>
+                            <constraint firstItem="VA0-Va-dVd" firstAttribute="top" secondItem="IFI-nM-brA" secondAttribute="top" constant="15" id="U03-Kp-LZK"/>
                             <constraint firstItem="w24-MJ-dTW" firstAttribute="centerY" secondItem="IFI-nM-brA" secondAttribute="centerY" multiplier="0.9" id="baf-Lk-Bbf"/>
                             <constraint firstItem="IFI-nM-brA" firstAttribute="trailing" secondItem="w24-MJ-dTW" secondAttribute="trailing" constant="30" id="jJr-LN-hmO"/>
                             <constraint firstItem="VA0-Va-dVd" firstAttribute="centerX" secondItem="IFI-nM-brA" secondAttribute="centerX" id="jOM-fk-4ks"/>
@@ -552,7 +552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wR6-EU-wHB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4831" y="3270"/>
+            <point key="canvasLocation" x="5866" y="2583"/>
         </scene>
         <!--Pairing-->
         <scene sceneID="RFR-rC-f1z">
@@ -610,7 +610,108 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P0V-mP-8Fl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6970.3999999999996" y="4245.8128078817736"/>
+            <point key="canvasLocation" x="6772" y="5588"/>
+        </scene>
+        <!--Pairing-->
+        <scene sceneID="8Rq-e1-iR5">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupPairingProcessViewController" id="iuj-Hm-exZ" customClass="MeshSetupPairingProcessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DxS-uN-KDk" customClass="Mesh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yv2-3m-yo6" userLabel="SuccessView">
+                                <rect key="frame" x="30" y="306.33333333333331" width="315" height="118"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fRF-za-RNy">
+                                        <rect key="frame" x="125.66666666666666" y="0.0" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="p2u-hn-amd"/>
+                                            <constraint firstAttribute="width" constant="64" id="pul-Qs-bM9"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-fY-zpj" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="79" width="315" height="17"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DB-d4-I3a" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="101" width="315" height="17"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="CeB-fY-zpj" firstAttribute="top" secondItem="fRF-za-RNy" secondAttribute="bottom" constant="15" id="0E5-oS-ODP"/>
+                                    <constraint firstItem="fRF-za-RNy" firstAttribute="centerX" secondItem="Yv2-3m-yo6" secondAttribute="centerX" id="2O4-MD-nKa"/>
+                                    <constraint firstItem="3DB-d4-I3a" firstAttribute="top" secondItem="CeB-fY-zpj" secondAttribute="bottom" constant="5" id="5FE-GZ-kYn"/>
+                                    <constraint firstAttribute="trailing" secondItem="CeB-fY-zpj" secondAttribute="trailing" id="6Ib-pd-1q6"/>
+                                    <constraint firstItem="3DB-d4-I3a" firstAttribute="leading" secondItem="Yv2-3m-yo6" secondAttribute="leading" id="ONW-u4-0xI"/>
+                                    <constraint firstItem="CeB-fY-zpj" firstAttribute="leading" secondItem="Yv2-3m-yo6" secondAttribute="leading" id="l5z-Cf-Gud"/>
+                                    <constraint firstItem="fRF-za-RNy" firstAttribute="top" secondItem="Yv2-3m-yo6" secondAttribute="top" id="sMc-ut-Sie"/>
+                                    <constraint firstAttribute="trailing" secondItem="3DB-d4-I3a" secondAttribute="trailing" id="ta9-NZ-4d8"/>
+                                    <constraint firstAttribute="bottom" secondItem="3DB-d4-I3a" secondAttribute="bottom" id="ynL-re-FVV"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVU-wC-365" userLabel="PairingView">
+                                <rect key="frame" x="30" y="333.33333333333331" width="315" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPi-hE-7Ph" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="47" width="315" height="17"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-ch-x6n">
+                                        <rect key="frame" x="139" y="0.0" width="37" height="37"/>
+                                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="bPi-hE-7Ph" firstAttribute="leading" secondItem="iVU-wC-365" secondAttribute="leading" id="Afc-C6-vRH"/>
+                                    <constraint firstAttribute="bottom" secondItem="bPi-hE-7Ph" secondAttribute="bottom" id="Io7-S7-bFA"/>
+                                    <constraint firstItem="bPi-hE-7Ph" firstAttribute="top" secondItem="NLa-ch-x6n" secondAttribute="bottom" constant="10" id="YEO-Hi-DB8"/>
+                                    <constraint firstItem="NLa-ch-x6n" firstAttribute="top" secondItem="iVU-wC-365" secondAttribute="top" id="ZOe-v0-nXp"/>
+                                    <constraint firstAttribute="trailing" secondItem="bPi-hE-7Ph" secondAttribute="trailing" id="aqh-r0-FnR"/>
+                                    <constraint firstItem="NLa-ch-x6n" firstAttribute="centerX" secondItem="iVU-wC-365" secondAttribute="centerX" id="juS-nK-SIV"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="iVU-wC-365" firstAttribute="leading" secondItem="tB4-Xt-v0t" secondAttribute="leading" constant="30" id="NO6-po-ruW"/>
+                            <constraint firstItem="tB4-Xt-v0t" firstAttribute="trailing" secondItem="Yv2-3m-yo6" secondAttribute="trailing" constant="30" id="QOb-l4-2wq"/>
+                            <constraint firstItem="tB4-Xt-v0t" firstAttribute="trailing" secondItem="iVU-wC-365" secondAttribute="trailing" constant="30" id="QY8-y9-nrM"/>
+                            <constraint firstItem="iVU-wC-365" firstAttribute="centerX" secondItem="DxS-uN-KDk" secondAttribute="centerX" id="gXq-Ea-1w0"/>
+                            <constraint firstItem="Yv2-3m-yo6" firstAttribute="leading" secondItem="tB4-Xt-v0t" secondAttribute="leading" constant="30" id="hoK-6X-JeW"/>
+                            <constraint firstItem="Yv2-3m-yo6" firstAttribute="centerY" secondItem="DxS-uN-KDk" secondAttribute="centerY" multiplier="0.9" id="r2t-gW-C6Z"/>
+                            <constraint firstItem="iVU-wC-365" firstAttribute="centerY" secondItem="DxS-uN-KDk" secondAttribute="centerY" multiplier="0.9" id="ydW-nI-Jzy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tB4-Xt-v0t"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pairing" id="DMy-A3-AlZ">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="1Tb-lt-DBo">
+                            <connections>
+                                <action selector="cancelTapped:" destination="iuj-Hm-exZ" id="jFR-ZA-DLQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="pairingIndicator" destination="NLa-ch-x6n" id="IVH-q2-znd"/>
+                        <outlet property="pairingTextLabel" destination="bPi-hE-7Ph" id="bgt-4L-0bF"/>
+                        <outlet property="pairingView" destination="iVU-wC-365" id="Ko5-ej-JpZ"/>
+                        <outlet property="successTextLabel" destination="3DB-d4-I3a" id="WyI-eL-ZVX"/>
+                        <outlet property="successTitleLabel" destination="CeB-fY-zpj" id="CSd-GI-nBy"/>
+                        <outlet property="successView" destination="Yv2-3m-yo6" id="jeu-L5-b9Z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bdu-Bw-IyW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6593" y="2583"/>
         </scene>
         <!--Select Network-->
         <scene sceneID="NWp-uM-rJW">
@@ -687,42 +788,133 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oGY-wD-Wma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9314" y="3756"/>
+            <point key="canvasLocation" x="8982" y="4872"/>
+        </scene>
+        <!--Select Network-->
+        <scene sceneID="Hjh-AF-JE6">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupSelectNetworkViewController" id="ZcN-pG-fu2" customClass="MeshSetupSelectNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aec-3r-aOV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bhn-2V-qyt">
+                                <rect key="frame" x="0.0" y="135" width="375" height="677"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meshNetworkCell" rowHeight="80" id="Naa-pI-AGs" customClass="MeshDeviceCell" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Naa-pI-AGs" id="wYD-fh-OWA">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="79.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaW-J7-N30" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="19.333333333333332" width="312" height="20.999999999999996"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJO-6X-HAM" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="46.333333333333336" width="42" height="21.000000000000007"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TJO-6X-HAM" firstAttribute="leading" secondItem="JaW-J7-N30" secondAttribute="leading" id="3Of-MM-oKl"/>
+                                                <constraint firstItem="JaW-J7-N30" firstAttribute="centerY" secondItem="wYD-fh-OWA" secondAttribute="centerY" constant="-10" id="TVb-j1-VMv"/>
+                                                <constraint firstItem="TJO-6X-HAM" firstAttribute="top" secondItem="JaW-J7-N30" secondAttribute="bottom" constant="6" id="joj-ly-M14"/>
+                                                <constraint firstItem="JaW-J7-N30" firstAttribute="leading" secondItem="wJN-zI-VTP" secondAttribute="leading" constant="15" id="k8w-Xa-LHX"/>
+                                                <constraint firstItem="wJN-zI-VTP" firstAttribute="trailing" secondItem="JaW-J7-N30" secondAttribute="trailing" constant="15" id="mKU-aK-PHg"/>
+                                            </constraints>
+                                            <viewLayoutGuide key="safeArea" id="wJN-zI-VTP"/>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="WQC-3p-dJN"/>
+                                        <connections>
+                                            <outlet property="cellSubtitleLabel" destination="TJO-6X-HAM" id="Qv9-4v-YGJ"/>
+                                            <outlet property="cellTitleLabel" destination="JaW-J7-N30" id="346-aF-nlJ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0W-kF-m2Q" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="59" width="335" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9SJ-HG-257">
+                                <rect key="frame" x="177.66666666666666" y="85" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="o0W-kF-m2Q" firstAttribute="leading" secondItem="fUp-s0-aCh" secondAttribute="leading" constant="20" id="3HG-Q3-4sF"/>
+                            <constraint firstItem="bhn-2V-qyt" firstAttribute="top" secondItem="9SJ-HG-257" secondAttribute="bottom" constant="30" id="4Ux-jT-RMn"/>
+                            <constraint firstItem="bhn-2V-qyt" firstAttribute="leading" secondItem="fUp-s0-aCh" secondAttribute="leading" id="Bdu-pF-wSS"/>
+                            <constraint firstItem="bhn-2V-qyt" firstAttribute="bottom" secondItem="aec-3r-aOV" secondAttribute="bottom" id="IrU-Nq-lrh"/>
+                            <constraint firstItem="9SJ-HG-257" firstAttribute="top" secondItem="o0W-kF-m2Q" secondAttribute="bottom" constant="10" id="NNc-Nw-ibz"/>
+                            <constraint firstItem="o0W-kF-m2Q" firstAttribute="top" secondItem="fUp-s0-aCh" secondAttribute="top" constant="15" id="a6m-5G-EjH"/>
+                            <constraint firstItem="9SJ-HG-257" firstAttribute="centerX" secondItem="aec-3r-aOV" secondAttribute="centerX" id="jzq-2w-KPa"/>
+                            <constraint firstItem="fUp-s0-aCh" firstAttribute="trailing" secondItem="o0W-kF-m2Q" secondAttribute="trailing" constant="20" id="mcG-CH-87s"/>
+                            <constraint firstItem="fUp-s0-aCh" firstAttribute="trailing" secondItem="bhn-2V-qyt" secondAttribute="trailing" id="trV-lb-cqH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fUp-s0-aCh"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Select Network" id="U3W-mI-aBA">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" id="jGE-Bd-crT"/>
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="L4R-xV-4MF">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="ZcN-pG-fu2" id="CnS-ht-9CJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="networksTableView" destination="bhn-2V-qyt" id="7X6-ah-cJG"/>
+                        <outlet property="scanActivityIndicator" destination="9SJ-HG-257" id="BfF-GC-SOp"/>
+                        <outlet property="titleLabel" destination="o0W-kF-m2Q" id="Ovg-dq-MXn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uz0-Pz-Jo1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7572" y="2138"/>
         </scene>
         <!--Add To Network-->
         <scene sceneID="JZd-oL-H44">
             <objects>
-                <viewController id="AJB-CI-ERq" customClass="MeshSetupAddToNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AJB-CI-ERq" customClass="MeshSetupGetCommissionerReadyViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PBt-7m-Ldr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add {{device}} to {{network}} mesh network " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zid-he-83s">
-                                <rect key="frame" x="20" y="20" width="335" height="32"/>
+                                <rect key="frame" x="20" y="20" width="335" height="18.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find a device that is already on the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6q2-He-rAy">
-                                <rect key="frame" x="20" y="72" width="335" height="32"/>
+                                <rect key="frame" x="20" y="58.666666666666657" width="335" height="37.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press and hold the MODE button for 3 seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faf-kd-hUD">
-                                <rect key="frame" x="20" y="124" width="335" height="32"/>
+                                <rect key="frame" x="20" y="115.99999999999999" width="335" height="37.333333333333329"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm the device is blinking blue and your phone remains physically close to that device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pz-zQ-aJc">
-                                <rect key="frame" x="20" y="176" width="335" height="48"/>
+                                <rect key="frame" x="20" y="173.33333333333331" width="335" height="37.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vPk-gW-13X">
-                                <rect key="frame" x="20" y="244" width="335" height="314"/>
+                                <rect key="frame" x="20" y="230.66666666666671" width="335" height="327.33333333333326"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2S-Oi-Wsw">
@@ -769,7 +961,97 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zag-9a-TXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8743" y="4245"/>
+            <point key="canvasLocation" x="8510" y="5605"/>
+        </scene>
+        <!--Add To Network-->
+        <scene sceneID="Qk7-DC-BjZ">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupGetCommissionerReadyViewController" id="zfk-9u-y64" customClass="MeshSetupGetCommissionerReadyViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Mt-eZ-S96">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add device to network mesh network " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gK-XO-GDi" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="59" width="335" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find a device that is already on the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgE-bq-c83" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="115" width="335" height="32"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press and hold the MODE button for 3 seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rt-a4-KD8" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="167" width="335" height="32"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm the device is blinking blue and your phone remains physically close to that device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKE-GX-VaC" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="219" width="335" height="48"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebH-Ek-veD">
+                                <rect key="frame" x="30" y="307" width="315" height="371"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Kf-uJ-Ot5" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="718" width="335" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Y1Z-Ku-Knj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Assisting device blinking blue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonTapped:" destination="zfk-9u-y64" eventType="touchUpInside" id="zzZ-Am-kW2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="3rt-a4-KD8" firstAttribute="top" secondItem="GgE-bq-c83" secondAttribute="bottom" constant="20" id="0EA-RB-k1N"/>
+                            <constraint firstItem="qtB-xv-dcR" firstAttribute="trailing" secondItem="ebH-Ek-veD" secondAttribute="trailing" constant="30" id="4f8-Yk-E1I"/>
+                            <constraint firstItem="9gK-XO-GDi" firstAttribute="top" secondItem="qtB-xv-dcR" secondAttribute="top" constant="15" id="DLu-lg-cFz"/>
+                            <constraint firstItem="ebH-Ek-veD" firstAttribute="top" secondItem="jKE-GX-VaC" secondAttribute="bottom" constant="40" id="Ebh-pj-hih"/>
+                            <constraint firstItem="3rt-a4-KD8" firstAttribute="trailing" secondItem="qtB-xv-dcR" secondAttribute="trailing" constant="-20" id="Ec1-2W-6nh"/>
+                            <constraint firstItem="jKE-GX-VaC" firstAttribute="top" secondItem="3rt-a4-KD8" secondAttribute="bottom" constant="20" id="Hv6-a2-KhP"/>
+                            <constraint firstItem="qtB-xv-dcR" firstAttribute="trailing" secondItem="9Kf-uJ-Ot5" secondAttribute="trailing" constant="20" id="JAe-4I-yAF"/>
+                            <constraint firstItem="qtB-xv-dcR" firstAttribute="leading" secondItem="3rt-a4-KD8" secondAttribute="leading" constant="-20" id="Lty-nF-dix"/>
+                            <constraint firstItem="9gK-XO-GDi" firstAttribute="trailing" secondItem="qtB-xv-dcR" secondAttribute="trailing" constant="-20" id="Q3b-lO-Pg5"/>
+                            <constraint firstItem="9Kf-uJ-Ot5" firstAttribute="top" secondItem="ebH-Ek-veD" secondAttribute="bottom" constant="40" id="erR-5q-iTL"/>
+                            <constraint firstItem="9Kf-uJ-Ot5" firstAttribute="leading" secondItem="qtB-xv-dcR" secondAttribute="leading" constant="20" id="fOz-Fr-g0K"/>
+                            <constraint firstItem="qtB-xv-dcR" firstAttribute="leading" secondItem="GgE-bq-c83" secondAttribute="leading" constant="-20" id="i6b-T8-06Q"/>
+                            <constraint firstItem="qtB-xv-dcR" firstAttribute="leading" secondItem="9gK-XO-GDi" secondAttribute="leading" constant="-20" id="kcy-Ww-ty8"/>
+                            <constraint firstItem="GgE-bq-c83" firstAttribute="top" secondItem="9gK-XO-GDi" secondAttribute="bottom" constant="40" id="p9E-0z-FLi"/>
+                            <constraint firstItem="GgE-bq-c83" firstAttribute="trailing" secondItem="qtB-xv-dcR" secondAttribute="trailing" constant="-20" id="riv-6D-Mqb"/>
+                            <constraint firstItem="ebH-Ek-veD" firstAttribute="leading" secondItem="qtB-xv-dcR" secondAttribute="leading" constant="30" id="sD9-DX-LVa"/>
+                            <constraint firstItem="jKE-GX-VaC" firstAttribute="trailing" secondItem="qtB-xv-dcR" secondAttribute="trailing" constant="-20" id="sdW-3l-Yyt"/>
+                            <constraint firstItem="qtB-xv-dcR" firstAttribute="bottom" secondItem="9Kf-uJ-Ot5" secondAttribute="bottom" constant="20" id="wQa-zD-sdQ"/>
+                            <constraint firstItem="qtB-xv-dcR" firstAttribute="leading" secondItem="jKE-GX-VaC" secondAttribute="leading" constant="-20" id="wfu-7d-UmN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qtB-xv-dcR"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add To Network" id="ZCA-mQ-SUd"/>
+                    <connections>
+                        <outlet property="continueButton" destination="9Kf-uJ-Ot5" id="CpP-M4-h5e"/>
+                        <outlet property="textLabel1" destination="GgE-bq-c83" id="Ne4-nn-Lmd"/>
+                        <outlet property="textLabel2" destination="3rt-a4-KD8" id="yC7-X5-iLq"/>
+                        <outlet property="textLabel3" destination="jKE-GX-VaC" id="v9O-FH-kV3"/>
+                        <outlet property="titleLabel" destination="9gK-XO-GDi" id="Uon-fN-tZh"/>
+                        <outlet property="videoView" destination="ebH-Ek-veD" id="6po-lY-TZe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ada-Gb-1pQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8285.6000000000004" y="2137.6847290640394"/>
         </scene>
         <!--Network Password-->
         <scene sceneID="J5v-bc-Rcn">
@@ -844,7 +1126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjC-rG-nO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10742" y="4244"/>
+            <point key="canvasLocation" x="10543" y="5585"/>
         </scene>
         <!--Joining Network-->
         <scene sceneID="Cqu-Xm-urO">
@@ -916,7 +1198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ejn-kg-bN9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11655" y="4244"/>
+            <point key="canvasLocation" x="11455" y="5585"/>
         </scene>
         <!--Name Device-->
         <scene sceneID="I4q-GS-b9d">
@@ -989,7 +1271,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZSK-yW-arT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="12442" y="4244"/>
+            <point key="canvasLocation" x="12242" y="5585"/>
         </scene>
         <!--Success-->
         <scene sceneID="QqM-DZ-ob5">
@@ -1082,7 +1364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Pa-xo-6If" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13356" y="4244"/>
+            <point key="canvasLocation" x="13158" y="5585"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LIU-GY-A4H">
@@ -1108,40 +1390,40 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iV1-66-Vea" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2007" y="4207"/>
+            <point key="canvasLocation" x="1807" y="5549"/>
         </scene>
         <!--Pair Assisting Device-->
         <scene sceneID="jIT-se-h4u">
             <objects>
-                <viewController id="t3A-V8-D39" customClass="MeshSetupPairAssistingViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="t3A-V8-D39" customClass="MeshSetupFindCommissionerStickerViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nlh-CU-DkD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVP-9n-gym">
-                                <rect key="frame" x="20" y="130" width="335" height="48"/>
+                                <rect key="frame" x="20" y="132.66666666666669" width="335" height="56"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZo-1d-hZE">
-                                <rect key="frame" x="38" y="20" width="299" height="16"/>
+                                <rect key="frame" x="54.666666666666657" y="20" width="266" height="18.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="DCa-JM-Z1H">
-                                <rect key="frame" x="20" y="198" width="335" height="360"/>
+                                <rect key="frame" x="20" y="208.66666666666671" width="335" height="349.33333333333326"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="epB-91-07g">
-                                <rect key="frame" x="20" y="46" width="335" height="64"/>
+                                <rect key="frame" x="20" y="48.666666666666657" width="335" height="64"/>
                                 <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="i4e-GB-7hu"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHQ-27-Sbd">
-                                <rect key="frame" x="40" y="46" width="295" height="64"/>
+                                <rect key="frame" x="40" y="48.666666666666657" width="295" height="64"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1194,7 +1476,95 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k98-hJ-dld" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9701.6000000000004" y="4243.5960591133007"/>
+            <point key="canvasLocation" x="9503" y="5585"/>
+        </scene>
+        <!--Pair Assisting Device-->
+        <scene sceneID="HE2-1B-NpF">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupFindCommissionerStickerViewController" id="CWf-C5-IYT" customClass="MeshSetupFindCommissionerStickerViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8qU-7A-ZTe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiM-O3-dht" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="222.33333333333334" width="335" height="48.000000000000028"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv7-0e-gf5" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="59" width="335" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="tHU-6r-7dt">
+                                <rect key="frame" x="30" y="305.33333333333326" width="315" height="372.66666666666674"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHv-1p-IH0" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="15" y="115" width="345" height="72.333333333333314"/>
+                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbz-8G-PUF" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="30" y="130" width="315" height="42.333333333333343"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVk-YS-EmU" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="718" width="335" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="F3X-Jh-Lvi"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Scan assisting device" image="MeshCameraIcon">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="scanButtonTapped:" destination="CWf-C5-IYT" eventType="touchUpInside" id="cGf-AV-jad"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="wbz-8G-PUF" firstAttribute="bottom" secondItem="HHv-1p-IH0" secondAttribute="bottom" constant="-15" id="1ww-oA-mEK"/>
+                            <constraint firstItem="wbz-8G-PUF" firstAttribute="top" secondItem="HHv-1p-IH0" secondAttribute="top" constant="15" id="5Eg-ek-fEX"/>
+                            <constraint firstItem="HHv-1p-IH0" firstAttribute="top" secondItem="hv7-0e-gf5" secondAttribute="bottom" constant="40" id="6TQ-qO-v0Q"/>
+                            <constraint firstItem="TiM-O3-dht" firstAttribute="top" secondItem="HHv-1p-IH0" secondAttribute="bottom" constant="35" id="96B-Ye-1Mf"/>
+                            <constraint firstItem="TiM-O3-dht" firstAttribute="leading" secondItem="jFr-eE-pVa" secondAttribute="leading" constant="20" id="EcP-rR-CAj"/>
+                            <constraint firstItem="wbz-8G-PUF" firstAttribute="trailing" secondItem="HHv-1p-IH0" secondAttribute="trailing" constant="-15" id="NtZ-jC-akA"/>
+                            <constraint firstItem="tHU-6r-7dt" firstAttribute="leading" secondItem="jFr-eE-pVa" secondAttribute="leading" constant="30" id="RR1-XK-DgD"/>
+                            <constraint firstItem="gVk-YS-EmU" firstAttribute="top" secondItem="tHU-6r-7dt" secondAttribute="bottom" constant="40" id="T4R-UJ-tq0"/>
+                            <constraint firstItem="hv7-0e-gf5" firstAttribute="leading" secondItem="jFr-eE-pVa" secondAttribute="leading" constant="20" id="TTE-4W-cob"/>
+                            <constraint firstItem="jFr-eE-pVa" firstAttribute="trailing" secondItem="hv7-0e-gf5" secondAttribute="trailing" constant="20" id="Tut-dQ-DS8"/>
+                            <constraint firstItem="jFr-eE-pVa" firstAttribute="trailing" secondItem="HHv-1p-IH0" secondAttribute="trailing" constant="15" id="avJ-34-E1Q"/>
+                            <constraint firstItem="jFr-eE-pVa" firstAttribute="trailing" secondItem="TiM-O3-dht" secondAttribute="trailing" constant="20" id="efS-gr-LVP"/>
+                            <constraint firstItem="wbz-8G-PUF" firstAttribute="leading" secondItem="HHv-1p-IH0" secondAttribute="leading" constant="15" id="gup-97-qzg"/>
+                            <constraint firstItem="tHU-6r-7dt" firstAttribute="top" secondItem="TiM-O3-dht" secondAttribute="bottom" constant="35" id="tcT-Vc-BHu"/>
+                            <constraint firstItem="gVk-YS-EmU" firstAttribute="leading" secondItem="jFr-eE-pVa" secondAttribute="leading" constant="20" id="tnd-Yd-FJd"/>
+                            <constraint firstItem="jFr-eE-pVa" firstAttribute="trailing" secondItem="gVk-YS-EmU" secondAttribute="trailing" constant="20" id="ugZ-4x-UMY"/>
+                            <constraint firstItem="jFr-eE-pVa" firstAttribute="bottom" secondItem="gVk-YS-EmU" secondAttribute="bottom" constant="20" id="vwG-3q-Zws"/>
+                            <constraint firstItem="hv7-0e-gf5" firstAttribute="top" secondItem="jFr-eE-pVa" secondAttribute="top" constant="15" id="wjP-5Q-OPN"/>
+                            <constraint firstItem="jFr-eE-pVa" firstAttribute="trailing" secondItem="tHU-6r-7dt" secondAttribute="trailing" constant="30" id="yNr-N7-Ka8"/>
+                            <constraint firstItem="HHv-1p-IH0" firstAttribute="leading" secondItem="jFr-eE-pVa" secondAttribute="leading" constant="15" id="zQQ-de-TVy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jFr-eE-pVa"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pair Assisting Device" id="1zN-gt-bF5"/>
+                    <connections>
+                        <outlet property="continueButton" destination="gVk-YS-EmU" id="R4V-dg-BvX"/>
+                        <outlet property="noteLabel" destination="wbz-8G-PUF" id="V2u-ep-oDF"/>
+                        <outlet property="noteView" destination="HHv-1p-IH0" id="wpy-QH-ZXU"/>
+                        <outlet property="textLabel" destination="TiM-O3-dht" id="jvD-aV-DXx"/>
+                        <outlet property="titleLabel" destination="hv7-0e-gf5" id="jBD-Gx-x0d"/>
+                        <outlet property="videoView" destination="tHU-6r-7dt" id="dmn-0C-NVT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1xg-2v-aqk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9036" y="2138"/>
         </scene>
         <!--Mesh Setup FlowUI Manager-->
         <scene sceneID="e4n-ZK-JBS">
@@ -1270,7 +1640,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5r5-1q-11F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="970" y="3270"/>
+            <point key="canvasLocation" x="2006" y="2583"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fzb-Wf-UYk">
@@ -1287,7 +1657,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ud6-BA-eOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="3271"/>
+            <point key="canvasLocation" x="2889" y="2584"/>
         </scene>
         <!--Pair Device-->
         <scene sceneID="b1U-Un-7xe">
@@ -1298,19 +1668,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair {{device}} with your phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOf-fQ-KFJ" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="59.666666666666671" y="64" width="255.66666666666663" height="16"/>
+                                <rect key="frame" x="59.666666666666671" y="59" width="255.66666666666663" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of your device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQR-Nd-MQx" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="100" width="335" height="48"/>
+                                <rect key="frame" x="20" y="85" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" image="datamatrix-sticker_nl" translatesAutoresizingMaskIntoConstraints="NO" id="CCv-k7-G1V">
-                                <rect key="frame" x="30" y="188" width="315" height="490"/>
+                                <rect key="frame" x="30" y="173" width="315" height="505"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7D8-6D-RNu" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="20" y="718" width="335" height="40"/>
@@ -1334,11 +1704,11 @@
                         <constraints>
                             <constraint firstItem="B69-Od-KCp" firstAttribute="trailing" secondItem="CCv-k7-G1V" secondAttribute="trailing" constant="30" id="09w-bE-T2O"/>
                             <constraint firstItem="B69-Od-KCp" firstAttribute="bottom" secondItem="7D8-6D-RNu" secondAttribute="bottom" constant="20" id="2b6-ar-GPj"/>
-                            <constraint firstItem="AOf-fQ-KFJ" firstAttribute="top" secondItem="B69-Od-KCp" secondAttribute="top" constant="20" id="AMV-NV-EkF"/>
+                            <constraint firstItem="AOf-fQ-KFJ" firstAttribute="top" secondItem="B69-Od-KCp" secondAttribute="top" constant="15" id="AMV-NV-EkF"/>
                             <constraint firstItem="CCv-k7-G1V" firstAttribute="top" secondItem="nQR-Nd-MQx" secondAttribute="bottom" constant="40" id="ERh-kk-ssH"/>
                             <constraint firstItem="AOf-fQ-KFJ" firstAttribute="centerX" secondItem="B69-Od-KCp" secondAttribute="centerX" id="Fg0-hm-73o"/>
                             <constraint firstItem="7D8-6D-RNu" firstAttribute="leading" secondItem="B69-Od-KCp" secondAttribute="leading" constant="20" id="Fj8-5Y-bUb"/>
-                            <constraint firstItem="nQR-Nd-MQx" firstAttribute="top" secondItem="AOf-fQ-KFJ" secondAttribute="bottom" constant="20" id="GPm-g2-NKN"/>
+                            <constraint firstItem="nQR-Nd-MQx" firstAttribute="top" secondItem="AOf-fQ-KFJ" secondAttribute="bottom" constant="10" id="GPm-g2-NKN"/>
                             <constraint firstItem="B69-Od-KCp" firstAttribute="trailing" secondItem="7D8-6D-RNu" secondAttribute="trailing" constant="20" id="dde-jh-i6r"/>
                             <constraint firstItem="CCv-k7-G1V" firstAttribute="leading" secondItem="B69-Od-KCp" secondAttribute="leading" constant="30" id="f7b-aN-XfC"/>
                             <constraint firstItem="B69-Od-KCp" firstAttribute="leading" secondItem="nQR-Nd-MQx" secondAttribute="leading" constant="-20" id="fbE-zu-0rZ"/>
@@ -1359,13 +1729,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="evx-dY-F1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4081" y="3270"/>
+            <point key="canvasLocation" x="5118" y="2583"/>
         </scene>
     </scenes>
     <resources>
         <image name="MeshCameraIcon" width="23" height="18"/>
         <image name="MeshCloseIcon" width="20" height="20"/>
         <image name="MeshIcon" width="23" height="22"/>
+        <image name="MeshSetupCompleteIcon" width="70" height="70"/>
         <image name="datamatrix-sticker_nl" width="205" height="147"/>
         <image name="imgCamera" width="21" height="21"/>
         <image name="imgCheckmarkRound" width="600" height="600"/>
@@ -1374,6 +1745,6 @@
         <image name="imgMeshBlue" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2Pd-Nq-I5o"/>
+        <segue reference="FEu-Az-sfo"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -21,8 +21,8 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     
     @IBOutlet weak var continueButton: MeshSetupButton!
     
-    private var callback: (() -> ())?
-    private var deviceType: ParticleDeviceType!
+    internal var callback: (() -> ())!
+    internal var deviceType: ParticleDeviceType!
 
     func setup(didPressReady: @escaping () -> (), deviceType: ParticleDeviceType) {
         self.callback = didPressReady
@@ -35,7 +35,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
 
-        videoView.backgroundColor = MeshSetupStyle.GrayBackgroundColor
+        videoView.backgroundColor = MeshSetupStyle.VideoBackgroundColor
         videoView.layer.cornerRadius = 5
         videoView.clipsToBounds = true
     }
@@ -43,7 +43,10 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        setContent()
+    }
 
+    open func setContent() {
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         titleLabel.text = MeshSetupStrings.GetReady.Title
 
@@ -64,9 +67,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     @IBAction func nextButtonTapped(_ sender: Any) {
-        if let callback = callback {
-            callback()
-        }
+        callback()
     }
 
 }

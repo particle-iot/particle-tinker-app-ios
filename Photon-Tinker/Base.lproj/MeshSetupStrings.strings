@@ -17,13 +17,33 @@
 "MeshSetup.GetReady.Text3" = "Confirm your {{device}} is blinking blue";
 "MeshSetup.GetReady.Button" = "{{device}} is blinking blue";
 
+"MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network ";
+"MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";
+"MeshSetup.GetCommissionerReady.Text2" = "Press and hold the MODE button for 3 seconds";
+"MeshSetup.GetCommissionerReady.Text3" = "Confirm the device is blinking blue and your phone remains physically close to that device";
+"MeshSetup.GetCommissionerReady.Button" = "Assisting device blinking blue";
+
+
 
 "MeshSetup.FindSticker.Title" = "Pair {{device}} with your phone";
 "MeshSetup.FindSticker.Text" = "Find the data matrix sticker on the front of your device. Use your phone camera to scan the code.";
 "MeshSetup.FindSticker.Button" = "Scan data matrix";
 
+"MeshSetup.FindCommissionerSticker.Title" = "Pair assisting device with your phone";
+"MeshSetup.FindCommissionerSticker.Text" = "Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code.";
+"MeshSetup.FindCommissionerSticker.Note" = "This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network";
+"MeshSetup.FindCommissionerSticker.Button" = "Scan assisting device";
+
+
 "MeshSetup.ScanSticker.Title" = "Pair {{device}} with your phone";
 "MeshSetup.ScanSticker.Text" = "Point the camera at the data matrix on the {{device}}.";
+
+"MeshSetup.Pairing.PairingText" = "Pairing with your {{device}}";
+"MeshSetup.Pairing.SuccessTitle" = "Congrats!";
+"MeshSetup.Pairing.SuccessText" = "You’ve successfully paired {{deviceName}}";
+
+"MeshSetup.Networks.Title" = "Select mesh network to join";
+
 
 
 

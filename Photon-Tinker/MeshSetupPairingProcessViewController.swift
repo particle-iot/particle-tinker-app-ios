@@ -9,84 +9,64 @@
 import UIKit
 import CoreBluetooth
 
-class MeshSetupPairingProcessViewController: MeshSetupViewController {
+class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboardable {
   
-//    var dataMatrix: String?
-//    var scannedNetworks: [String]?
-//
-//    @IBOutlet weak var pairingLabel: UILabel!
-//
-//    override func scannedNetworks(networks: [String]?) {
-//        DispatchQueue.main.async {
-//            print("--> scannedNetworks \(networks ?? [String]())")
-//            ParticleSpinner.hide(self.view)
-//            if networks != nil {
-//                self.scannedNetworks = networks!
-//                self.successImageView.isHidden = false
-//                self.pairingLabel.text = "Successfully paired with \(self.flowManager!.joinerPeripheralCredentials!)"
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                    self.performSegue(withIdentifier: "selectNetwork", sender: self)
-//                }
-//
-//            } else {
-//                self.flowError(error: "No mesh networks detected", severity: .Error, action: .Dialog)
-//
-//            }
-//        }
-//    }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        print("prepare for segue")
-//        guard let vc = segue.destination as? MeshSetupSelectNetworkViewController else {
-//            print("guard failed")
-//            return
-//        }
-//
-//        vc.networks = self.scannedNetworks!
-//        vc.flowManager = self.flowManager
-//    }
-//
-//    @IBOutlet weak var successImageView: UIImageView!
-//
-//    //MARK: - ViewController Methods
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        self.successImageView.isHidden = true
-//        // we don't need a back button while trying to pair/start setup
-//        self.navigationItem.hidesBackButton = true
-//        ParticleSpinner.show(self.view)
-////        self.connectRetries = 0
-//
-//        self.flowManager = MeshSetupFlowManager(delegate: self)
-//        print("flowManager initialized")
-//
-//    }
-//
-//    override func flowManagerReady() {
-//        print("flowManagerReady")
-//        print("Starting flow with a \(self.deviceType!.description) as Joiner ")
-//        let ok = self.flowManager!.startFlow(with: self.deviceType!, as: .Joiner, dataMatrix: self.dataMatrix!)
-//
-//        if !ok {
-//            print("ERROR: Cannot start flow!")
-//            self.abort()
-//        }
-//    }
-//
-//
-//    @IBAction func cancelTapped(_ sender: Any) {
-//        self.flowManager!.abortFlow()
-//        self.abort()
-//    }
-//
-//    func abort() {
-////        MeshSetupParameters.shared.bluetoothManager = nil
-//        DispatchQueue.main.async {
-//            self.navigationController?.popViewController(animated: true)
-//        }
-//    }
-//
-//
+    @IBOutlet weak var pairingView: UIView!
+    @IBOutlet weak var pairingTextLabel: MeshLabel!
+    @IBOutlet weak var pairingIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var successView: UIView!
+    @IBOutlet weak var successTitleLabel: MeshLabel!
+    @IBOutlet weak var successTextLabel: MeshLabel!
+
+    private var callback: (() -> ())!
+    private var deviceType: ParticleDeviceType!
+    private var deviceName: String!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
+        pairingIndicator.color = MeshSetupStyle.PairingActivityIndicatorColor
+
+        successView.isHidden = true
+    }
+
+    func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType, deviceName: String) {
+        self.callback = didFinishScreen
+        self.deviceType = deviceType
+        self.deviceName = deviceName
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        pairingIndicator.startAnimating()
+
+        pairingTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        pairingTextLabel.text = MeshSetupStrings.Pairing.PairingText
+
+        successTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        successTitleLabel.text = MeshSetupStrings.Pairing.SuccessTitle
+
+        successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        successTextLabel.text = MeshSetupStrings.Pairing.SuccessText
+
+        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType.description, deviceName: self.deviceName)
+    }
+
+    func setSuccess() {
+        DispatchQueue.main.async {
+            self.pairingIndicator.stopAnimating()
+            self.pairingView.isHidden = true
+
+            self.successView.isHidden = false
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+                [weak self] in
+                if let callback = self?.callback {
+                    callback()
+                }
+            }
+        }
+    }
 }

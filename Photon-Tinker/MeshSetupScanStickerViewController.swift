@@ -19,7 +19,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
 
-    private var callback: ((String) -> ())?
+    private var callback: ((String) -> ())!
     private var deviceType: ParticleDeviceType!
 
     func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType) {
@@ -70,7 +70,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
 
         view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
 
-        cameraView.backgroundColor = MeshSetupStyle.GrayBackgroundColor
+        cameraView.backgroundColor = MeshSetupStyle.VideoBackgroundColor
         cameraView.clipsToBounds = true
         cameraView.layer.cornerRadius = 5
     }
@@ -126,9 +126,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     func foundDataMatrixString(_ dataMatrixString: String) {
-        if let callback = callback {
-            callback(dataMatrixString)
-        }
+        callback(dataMatrixString)
     }
     
 }

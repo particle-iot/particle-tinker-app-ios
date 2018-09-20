@@ -26,14 +26,23 @@ class MeshSetupStyle {
     static var DisabledTextColor = UIColor.colorWithHexString("#A9A9A9")
     static var PlaceHolderTextColor = UIColor.colorWithHexString("#A9A9A9")
 
+    static var NoteBackgroundColor = UIColor.colorWithHexString("#F7F7F7")
+    static var NoteBorderColor = UIColor.colorWithHexString("#C7C7C7")
+
+    static var VideoBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
+    static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
+
     static var ButtonColor = UIColor.colorWithHexString("#02ADEF")
     static var ButtonTitleColor = UIColor.colorWithHexString("#FFFFFF")
 
     static var CellSeparatorColor = UIColor.colorWithHexString("#BCBBC1")
     static var CellHighlightColor = UIColor.colorWithHexString("#02ADEF")
 
-    static var GrayBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
-    static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
+
+    static var PairingActivityIndicatorColor = UIColor.colorWithHexString("#02ADEF")
+    static var NetworkScanActivityIndicatorColor = UIColor.colorWithHexString("#333333")
+    static var NetworkJoinActivityIndicatorColor = UIColor.colorWithHexString("#333333")
+
 }
 
 class MeshLabel : UILabel {
@@ -64,6 +73,18 @@ class MeshSetupButton : UIButton {
         self.setTitleColor(color, for: .highlighted)
 
         self.tintColor = color
+    }
+}
+
+class MeshSetupNoteView: UIView {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.layer.cornerRadius = 3
+        self.backgroundColor = MeshSetupStyle.NoteBackgroundColor
+
+        self.layer.borderColor = MeshSetupStyle.NoteBorderColor.cgColor
+        self.layer.borderWidth = 1
     }
 }
 

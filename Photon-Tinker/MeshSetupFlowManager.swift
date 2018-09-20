@@ -19,10 +19,14 @@ protocol MeshSetupFlowManagerDelegate {
     typealias MeshSetupSetNetworkOptional = (MeshSetupNetworkInfo?) -> (Bool)
     typealias MeshSetupSetBool = (Bool) -> (Bool)
     typealias MeshSetupSetString = (String) -> (Bool)
+    typealias MeshSetupSetVoid = () -> ()
 
 
     func meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: @escaping MeshSetupSetString)
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo, setLeaveNetwork: @escaping MeshSetupSetBool)
+    func meshSetupDidPairWithInitialDevice(continueFlow: @escaping MeshSetupSetVoid)
+
+
     func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo], setSelectedNetwork: @escaping MeshSetupSetNetwork)
 
     func meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: @escaping MeshSetupSetString)
@@ -49,7 +53,10 @@ enum MeshSetupFlowState {
     case InitialDeviceReady
 
     case InitialDeviceScanningForNetworks
+
     case InitialDeviceConnectingToInternet
+    case InitialDeviceConnectedToInternet
+    case InitialDeviceConnectedToCloud
 
     case CommissionerDeviceConnecting
     case CommissionerDeviceConnected
@@ -170,13 +177,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureLatestFirmware,
         .EnsureInitialDeviceCanBeClaimed,
         .CheckInitialDeviceHasNetworkInterfaces,
-        .EnsureInitialDeviceIsNotOnMeshNetwork,
         .SetClaimCode,
         .ChooseFlow
     ]
 
 
     private let joinerFlow: [MeshSetupFlowCommands] = [
+        .EnsureInitialDeviceIsNotOnMeshNetwork,
         .GetUserNetworkSelection,
         .GetCommissionerDeviceInfo,
         .ConnectToCommissionerDevice,
@@ -191,6 +198,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private let ethernetFlow: [MeshSetupFlowCommands] = [
+        .EnsureInitialDeviceIsNotOnMeshNetwork,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
@@ -292,7 +300,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func retryLastAction() {
-        self.runCurrentStep()
+        switch self.currentCommand {
+            case .GetUserNetworkSelection:
+                self.runCurrentStep()
+            default:
+                break;
+        }
     }
 
     //MARK: Flow control
@@ -380,9 +393,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //end of preflow
     private func stepChooseFlow() {
         log("preflow completed")
+        self.delegate.meshSetupDidPairWithInitialDevice(continueFlow: self.continueWithMainFlow)
+    }
+
+    private func continueWithMainFlow() {
+
         //jump to new flow
         self.currentStep = 0
-        if (self.initialDevice.hasInternetCapableNetworkInterfaces!) {
+        //if there's ethernet and we are not adding more devices to same network
+        if (self.initialDevice.hasInternetCapableNetworkInterfaces! && self.selectedNetworkInfo == nil) {
             self.currentFlow = ethernetFlow
             log("setting gateway flow")
         } else {
@@ -935,9 +954,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
 
-
-
-
     //MARK: GetUserNetworkSelection
     private func stepGetUserNetworkSelection() {
         //adding more devices to same network
@@ -964,6 +980,22 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     //TODO: GET /v1/networks to get device count
+    func rescanNetworks() -> Bool {
+        //only allow to rescan if current step asks for it and transceiver is free to be used
+        guard let isBusy = initialDevice.transceiver?.isBusy, isBusy == false else {
+            return false
+        }
+
+        if (self.currentCommand == .GetUserNetworkSelection) {
+            self.scanNetworks(onComplete: self.getUserNetworkSelection)
+            return true
+        } else if (self.currentCommand == .OfferSelectOrCreateNetwork) {
+            self.scanNetworks(onComplete: self.getUserMeshSetupChoice)
+            return true
+        }
+
+        return false
+    }
 
 
     private func getUserNetworkSelection() {
@@ -971,9 +1003,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func setSelectedNetwork(_ selectedNetwork: MeshSetupNetworkInfo) -> Bool {
-        guard self.validateNetworkSelection(selectedNetwork) else {
-            return false
-        }
+        //TODO: not sure if this is needed
+//        guard self.validateNetworkSelection(selectedNetwork) else {
+//            return false
+//        }
 
         self.selectedNetworkInfo = selectedNetwork
         self.stepComplete()
@@ -1222,6 +1255,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.log("status: \(status as Optional)")
                 if (status! == .connected) {
                     self.log("device connected to the cloud")
+                    if (self.currentFlow == self.ethernetFlow) {
+                        self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectedToInternet)
+                    }
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                         if (self.canceled) {
                             return
@@ -1244,6 +1280,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func checkInitialDeviceGotClaimed() {
+        if let isClaimed = self.initialDevice.isClaimed, isClaimed == true {
+            self.log("device was successfully claimed")
+            if (self.currentFlow == self.ethernetFlow) {
+                self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectedToCloud)
+            }
+            self.stepComplete()
+            return
+        }
+
         if (self.currentStepFlags["checkInitialDeviceGotClaimedStartTime"] == nil) {
             self.currentStepFlags["checkInitialDeviceGotClaimedStartTime"] = Date()
         }
@@ -1264,6 +1309,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 for device in devices {
                     if (device.id == self.initialDevice.deviceId!) {
                         self.log("device was successfully claimed")
+                        if (self.currentFlow == self.ethernetFlow) {
+                            self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectedToCloud)
+                        }
                         self.stepComplete()
                         return
                     }

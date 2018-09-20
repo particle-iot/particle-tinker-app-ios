@@ -15,9 +15,9 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
 
     @IBOutlet weak var textLabel: MeshLabel!
     @IBOutlet weak var continueButton: MeshSetupButton!
-    
-    private var callback: (() -> ())?
-    private var deviceType: ParticleDeviceType!
+
+    internal var callback: (() -> ())!
+    internal var deviceType: ParticleDeviceType!
 
     func setup(didPressScan: @escaping () -> (), deviceType: ParticleDeviceType) {
         self.callback = didPressScan
@@ -29,7 +29,7 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
 
         view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
 
-        videoView.backgroundColor = MeshSetupStyle.GrayBackgroundColor
+        videoView.backgroundColor = MeshSetupStyle.VideoBackgroundColor
         videoView.layer.cornerRadius = 5
         videoView.clipsToBounds = true
     }
@@ -37,6 +37,10 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        setContent()
+    }
+
+    open func setContent() {
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         titleLabel.text = MeshSetupStrings.FindSticker.Title
 
@@ -51,8 +55,6 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
     }
 
     @IBAction func scanButtonTapped(_ sender: Any) {
-        if let callback = callback {
-            callback()
-        }
+        callback()
     }
 }
