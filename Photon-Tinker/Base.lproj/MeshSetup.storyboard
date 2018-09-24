@@ -30,7 +30,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0m0-HG-mnX">
-                                <rect key="frame" x="0.0" y="56" width="375" height="582"/>
+                                <rect key="frame" x="0.0" y="58.666666666666686" width="375" height="579.33333333333326"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="deviceType" textLabel="77M-BU-7Ob" detailTextLabel="ca2-lm-KbI" imageView="bGl-uF-KHD" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="HqX-4S-y49">
@@ -66,7 +66,7 @@
                                 <sections/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select device type to setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Css-g0-0tJ">
-                                <rect key="frame" x="77.666666666666686" y="20" width="220" height="16"/>
+                                <rect key="frame" x="90" y="20" width="195" height="18.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -554,6 +554,59 @@
             </objects>
             <point key="canvasLocation" x="5866" y="2583"/>
         </scene>
+        <!--Scan code-->
+        <scene sceneID="owz-GJ-AqP">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupScanCommissionerStickerViewController" id="Cgy-fm-a5J" userLabel="Scan code" customClass="MeshSetupScanCommissionerStickerViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZOk-u3-8fY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUR-QA-TWf" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="136.33333333333334" y="59" width="102.33333333333334" height="17"/>
+                                <viewLayoutGuide key="safeArea" id="gkK-V9-8b1"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6y2-tc-j2m">
+                                <rect key="frame" x="30" y="212.33333333333337" width="315" height="315"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6y2-tc-j2m" secondAttribute="height" multiplier="1:1" id="lU0-QM-Jrr"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Point camera at code sticker on the device to start pairing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceU-Rz-pot" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="547.33333333333337" width="335" height="32"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="cUR-QA-TWf" firstAttribute="centerX" secondItem="mXl-qX-HwJ" secondAttribute="centerX" id="BRP-cI-YOX"/>
+                            <constraint firstItem="6y2-tc-j2m" firstAttribute="centerY" secondItem="mXl-qX-HwJ" secondAttribute="centerY" multiplier="0.9" id="Cjj-5y-Sns"/>
+                            <constraint firstItem="ceU-Rz-pot" firstAttribute="trailing" secondItem="mXl-qX-HwJ" secondAttribute="trailing" constant="-20" id="Zrn-Xg-Fwh"/>
+                            <constraint firstItem="6y2-tc-j2m" firstAttribute="leading" secondItem="mXl-qX-HwJ" secondAttribute="leading" constant="30" id="b18-OC-rdW"/>
+                            <constraint firstItem="mXl-qX-HwJ" firstAttribute="leading" secondItem="ceU-Rz-pot" secondAttribute="leading" constant="-20" id="cVW-Mt-xqt"/>
+                            <constraint firstItem="ceU-Rz-pot" firstAttribute="top" secondItem="6y2-tc-j2m" secondAttribute="bottom" constant="20" id="d8I-xP-edX"/>
+                            <constraint firstItem="cUR-QA-TWf" firstAttribute="top" secondItem="mXl-qX-HwJ" secondAttribute="top" constant="15" id="nam-gJ-FZG"/>
+                            <constraint firstItem="mXl-qX-HwJ" firstAttribute="trailing" secondItem="6y2-tc-j2m" secondAttribute="trailing" constant="30" id="yNL-vc-On3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mXl-qX-HwJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pair Device" id="AxB-Lf-clL"/>
+                    <connections>
+                        <outlet property="cameraView" destination="6y2-tc-j2m" id="3wj-RL-nOw"/>
+                        <outlet property="textLabel" destination="ceU-Rz-pot" id="tCy-1N-ZOI"/>
+                        <outlet property="titleLabel" destination="cUR-QA-TWf" id="436-J7-Fy8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zoY-ps-0hj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9754" y="2138"/>
+        </scene>
         <!--Pairing-->
         <scene sceneID="RFR-rC-f1z">
             <objects>
@@ -713,6 +766,107 @@
             </objects>
             <point key="canvasLocation" x="6593" y="2583"/>
         </scene>
+        <!--Pairing-->
+        <scene sceneID="ZB5-0K-3vT">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupPairingCommissionerProcessViewController" id="Avh-WU-kQw" customClass="MeshSetupPairingCommissionerProcessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bfw-V3-BgF" customClass="Mesh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFt-Pg-BgW" userLabel="SuccessView">
+                                <rect key="frame" x="30" y="306.33333333333331" width="315" height="118"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mhV-qK-bSc">
+                                        <rect key="frame" x="125.66666666666666" y="0.0" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="0Ms-1f-KXB"/>
+                                            <constraint firstAttribute="width" constant="64" id="aMb-tz-zvA"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pT-sM-9Hp" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="79" width="315" height="17"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XK-38-o6g" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="101" width="315" height="17"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="6pT-sM-9Hp" firstAttribute="leading" secondItem="EFt-Pg-BgW" secondAttribute="leading" id="4zE-vn-hvT"/>
+                                    <constraint firstItem="mhV-qK-bSc" firstAttribute="top" secondItem="EFt-Pg-BgW" secondAttribute="top" id="EU6-wS-K5G"/>
+                                    <constraint firstItem="4XK-38-o6g" firstAttribute="top" secondItem="6pT-sM-9Hp" secondAttribute="bottom" constant="5" id="KBP-QS-d7Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="4XK-38-o6g" secondAttribute="trailing" id="Svn-m2-HgW"/>
+                                    <constraint firstItem="4XK-38-o6g" firstAttribute="leading" secondItem="EFt-Pg-BgW" secondAttribute="leading" id="WCR-tn-ThN"/>
+                                    <constraint firstAttribute="trailing" secondItem="6pT-sM-9Hp" secondAttribute="trailing" id="XeW-KV-ibD"/>
+                                    <constraint firstAttribute="bottom" secondItem="4XK-38-o6g" secondAttribute="bottom" id="cSQ-Wr-aap"/>
+                                    <constraint firstItem="6pT-sM-9Hp" firstAttribute="top" secondItem="mhV-qK-bSc" secondAttribute="bottom" constant="15" id="hvu-NV-v3U"/>
+                                    <constraint firstItem="mhV-qK-bSc" firstAttribute="centerX" secondItem="EFt-Pg-BgW" secondAttribute="centerX" id="t7e-m8-N6l"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1d-FR-9pn" userLabel="PairingView">
+                                <rect key="frame" x="30" y="333.33333333333331" width="315" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ej3-2M-jyd" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="47" width="315" height="17"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qhD-oZ-BDD">
+                                        <rect key="frame" x="139" y="0.0" width="37" height="37"/>
+                                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Ej3-2M-jyd" firstAttribute="leading" secondItem="j1d-FR-9pn" secondAttribute="leading" id="46O-OJ-iw9"/>
+                                    <constraint firstItem="qhD-oZ-BDD" firstAttribute="top" secondItem="j1d-FR-9pn" secondAttribute="top" id="DWg-7H-HuH"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ej3-2M-jyd" secondAttribute="trailing" id="OIN-HB-SSZ"/>
+                                    <constraint firstItem="qhD-oZ-BDD" firstAttribute="centerX" secondItem="j1d-FR-9pn" secondAttribute="centerX" id="TZW-BP-xC8"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ej3-2M-jyd" secondAttribute="bottom" id="Yvf-Jv-8X5"/>
+                                    <constraint firstItem="Ej3-2M-jyd" firstAttribute="top" secondItem="qhD-oZ-BDD" secondAttribute="bottom" constant="10" id="cLc-8Z-zyV"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="IgV-n7-qun" firstAttribute="trailing" secondItem="j1d-FR-9pn" secondAttribute="trailing" constant="30" id="Lyv-2p-ydQ"/>
+                            <constraint firstItem="EFt-Pg-BgW" firstAttribute="centerY" secondItem="bfw-V3-BgF" secondAttribute="centerY" multiplier="0.9" id="NNS-4K-q2M"/>
+                            <constraint firstItem="j1d-FR-9pn" firstAttribute="leading" secondItem="IgV-n7-qun" secondAttribute="leading" constant="30" id="YeQ-nj-dC1"/>
+                            <constraint firstItem="j1d-FR-9pn" firstAttribute="centerY" secondItem="bfw-V3-BgF" secondAttribute="centerY" multiplier="0.9" id="bDR-PR-Nte"/>
+                            <constraint firstItem="EFt-Pg-BgW" firstAttribute="leading" secondItem="IgV-n7-qun" secondAttribute="leading" constant="30" id="e6e-1M-IMB"/>
+                            <constraint firstItem="IgV-n7-qun" firstAttribute="trailing" secondItem="EFt-Pg-BgW" secondAttribute="trailing" constant="30" id="naq-hf-9s5"/>
+                            <constraint firstItem="j1d-FR-9pn" firstAttribute="centerX" secondItem="bfw-V3-BgF" secondAttribute="centerX" id="zzN-yV-ndY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IgV-n7-qun"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pairing" id="sAI-mQ-cjQ">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="2w4-d1-vYK">
+                            <connections>
+                                <action selector="cancelTapped:" destination="Avh-WU-kQw" id="teF-sD-6Qx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="pairingIndicator" destination="qhD-oZ-BDD" id="cDn-l7-PN3"/>
+                        <outlet property="pairingTextLabel" destination="Ej3-2M-jyd" id="VXn-H5-AMl"/>
+                        <outlet property="pairingView" destination="j1d-FR-9pn" id="6a8-Bt-BqP"/>
+                        <outlet property="successTextLabel" destination="4XK-38-o6g" id="huh-Go-cwe"/>
+                        <outlet property="successTitleLabel" destination="6pT-sM-9Hp" id="YHM-qT-j2T"/>
+                        <outlet property="successView" destination="EFt-Pg-BgW" id="K5s-ik-cPJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="std-cO-gS4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10455" y="2138"/>
+        </scene>
         <!--Select Network-->
         <scene sceneID="NWp-uM-rJW">
             <objects>
@@ -799,7 +953,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bhn-2V-qyt">
-                                <rect key="frame" x="0.0" y="135" width="375" height="677"/>
+                                <rect key="frame" x="0.0" y="137.66666666666669" width="375" height="674.33333333333326"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meshNetworkCell" rowHeight="80" id="Naa-pI-AGs" customClass="MeshDeviceCell" customModule="Particle" customModuleProvider="target">
@@ -840,13 +994,13 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0W-kF-m2Q" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="59" width="335" height="16"/>
+                                <rect key="frame" x="20" y="58.999999999999993" width="335" height="18.666666666666664"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9SJ-HG-257">
-                                <rect key="frame" x="177.66666666666666" y="85" width="20" height="20"/>
+                                <rect key="frame" x="177.66666666666666" y="87.666666666666671" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -890,31 +1044,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add {{device}} to {{network}} mesh network " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zid-he-83s">
-                                <rect key="frame" x="20" y="20" width="335" height="18.666666666666671"/>
+                                <rect key="frame" x="20" y="20" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find a device that is already on the {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6q2-He-rAy">
-                                <rect key="frame" x="20" y="58.666666666666657" width="335" height="37.333333333333343"/>
+                                <rect key="frame" x="20" y="72" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press and hold the MODE button for 3 seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faf-kd-hUD">
-                                <rect key="frame" x="20" y="115.99999999999999" width="335" height="37.333333333333329"/>
+                                <rect key="frame" x="20" y="124" width="335" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm the device is blinking blue and your phone remains physically close to that device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pz-zQ-aJc">
-                                <rect key="frame" x="20" y="173.33333333333331" width="335" height="37.333333333333343"/>
+                                <rect key="frame" x="20" y="176" width="335" height="48"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vPk-gW-13X">
-                                <rect key="frame" x="20" y="230.66666666666671" width="335" height="327.33333333333326"/>
+                                <rect key="frame" x="20" y="244" width="335" height="314"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2S-Oi-Wsw">
@@ -1127,6 +1281,85 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjC-rG-nO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="10543" y="5585"/>
+        </scene>
+        <!--Network Password-->
+        <scene sceneID="ZyN-YZ-0Xv">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupNetworkPasswordViewController" id="mA5-Ug-02Y" customClass="MeshSetupNetworkPasswordViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tfr-mK-zgd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter network password for {{network}}" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFo-fB-DvK" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="59" width="335" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUi-Sv-dAF" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="718" width="335" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6Wk-eB-yPB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Join Network">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueButtonTapped:" destination="mA5-Ug-02Y" eventType="touchUpInside" id="g90-oY-nbc"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lTB-aE-A5p" customClass="MeshTextField" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="95" width="335" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="p6M-0r-aWf"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                                <connections>
+                                    <action selector="textFieldDidChange:" destination="mA5-Ug-02Y" eventType="editingChanged" id="B79-Xo-B2X"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wH1-7T-XKy" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="155" width="335" height="64"/>
+                                <string key="text">This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.</string>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="8fv-93-OES" firstAttribute="trailing" secondItem="EFo-fB-DvK" secondAttribute="trailing" constant="20" id="00h-ZB-r88"/>
+                            <constraint firstItem="lTB-aE-A5p" firstAttribute="leading" secondItem="8fv-93-OES" secondAttribute="leading" constant="20" id="1Kk-rg-G2c"/>
+                            <constraint firstItem="8fv-93-OES" firstAttribute="trailing" secondItem="rUi-Sv-dAF" secondAttribute="trailing" constant="20" id="6tU-qJ-0Ng"/>
+                            <constraint firstItem="EFo-fB-DvK" firstAttribute="top" secondItem="8fv-93-OES" secondAttribute="top" constant="15" id="Baf-JC-Taf"/>
+                            <constraint firstItem="rUi-Sv-dAF" firstAttribute="leading" secondItem="8fv-93-OES" secondAttribute="leading" constant="20" id="MhB-Et-jhR"/>
+                            <constraint firstItem="wH1-7T-XKy" firstAttribute="trailing" secondItem="8fv-93-OES" secondAttribute="trailing" constant="-20" id="RSD-ii-IyV"/>
+                            <constraint firstItem="8fv-93-OES" firstAttribute="leading" secondItem="wH1-7T-XKy" secondAttribute="leading" constant="-20" id="agq-rx-NxG"/>
+                            <constraint firstItem="8fv-93-OES" firstAttribute="bottom" secondItem="rUi-Sv-dAF" secondAttribute="bottom" constant="20" id="bMS-Nk-TKI"/>
+                            <constraint firstItem="EFo-fB-DvK" firstAttribute="leading" secondItem="8fv-93-OES" secondAttribute="leading" constant="20" id="eH6-16-d4f"/>
+                            <constraint firstItem="lTB-aE-A5p" firstAttribute="top" secondItem="EFo-fB-DvK" secondAttribute="bottom" constant="20" id="jPr-Xc-pcE"/>
+                            <constraint firstItem="wH1-7T-XKy" firstAttribute="top" secondItem="lTB-aE-A5p" secondAttribute="bottom" constant="20" id="pC6-Lo-eAP"/>
+                            <constraint firstItem="8fv-93-OES" firstAttribute="trailing" secondItem="lTB-aE-A5p" secondAttribute="trailing" constant="20" id="yI0-eH-vWG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8fv-93-OES"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Network Password" id="REC-6l-xdj"/>
+                    <connections>
+                        <outlet property="buttonBottomConstraint" destination="bMS-Nk-TKI" id="gHz-qt-7P9"/>
+                        <outlet property="continueButton" destination="rUi-Sv-dAF" id="ba8-uQ-PQi"/>
+                        <outlet property="passwordTextField" destination="lTB-aE-A5p" id="QIW-xY-qgq"/>
+                        <outlet property="textLabel" destination="wH1-7T-XKy" id="Kfi-ER-d7u"/>
+                        <outlet property="titleLabel" destination="EFo-fB-DvK" id="RAu-sl-BfN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NQU-Ha-ECA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="11178" y="2138"/>
         </scene>
         <!--Joining Network-->
         <scene sceneID="Cqu-Xm-urO">

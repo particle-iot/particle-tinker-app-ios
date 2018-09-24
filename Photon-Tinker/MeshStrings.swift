@@ -57,6 +57,12 @@ class MeshSetupStrings {
         static let Text = "MeshSetup.ScanSticker.Text".meshLocalized()
     }
 
+    struct ScanCommissionerSticker {
+        static let Title = "MeshSetup.ScanCommissionerSticker.Title".meshLocalized()
+
+        static let Text = "MeshSetup.ScanCommissionerSticker.Text".meshLocalized()
+    }
+
     struct Pairing {
         static let PairingText = "MeshSetup.Pairing.PairingText".meshLocalized()
 
@@ -65,7 +71,24 @@ class MeshSetupStrings {
         static let SuccessText = "MeshSetup.Pairing.SuccessText".meshLocalized()
     }
 
+    struct PairingCommissioner {
+        static let PairingText = "MeshSetup.PairingCommissioner.PairingText".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.PairingCommissioner.SuccessTitle".meshLocalized()
+
+        static let SuccessText = "MeshSetup.PairingCommissioner.SuccessText".meshLocalized()
+    }
+
     struct Networks {
         static let Title = "MeshSetup.Networks.Title".meshLocalized()
+    }
+
+
+    struct ExistingNetworkPassword {
+        static let Title = "MeshSetup.ExistingNetworkPassword.Title".meshLocalized()
+
+        static let Text = "MeshSetup.ExistingNetworkPassword.Text".meshLocalized()
+
+        static let Button = "MeshSetup.ExistingNetworkPassword.Button".meshLocalized()
     }
 }

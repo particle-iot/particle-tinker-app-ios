@@ -19,8 +19,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
 
-    private var callback: ((String) -> ())!
-    private var deviceType: ParticleDeviceType!
+    internal var callback: ((String) -> ())!
+    internal var deviceType: ParticleDeviceType!
 
     func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType) {
         self.callback = didFindStickerCode
@@ -91,6 +91,10 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             captureSession.startRunning()
         }
 
+        setContent()
+    }
+
+    open func setContent() {
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         titleLabel.text = MeshSetupStrings.ScanSticker.Title
 

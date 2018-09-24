@@ -52,6 +52,13 @@ class MeshLabel : UILabel {
     }
 }
 
+class MeshTextField: UITextField {
+    func setStyle(font: String, size: Int, color: UIColor) {
+        self.textColor = color
+        self.font = UIFont(name: font, size: CGFloat(size))
+    }
+}
+
 class MeshSetupButton : UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -71,6 +78,7 @@ class MeshSetupButton : UIButton {
         self.setTitleColor(color, for: .normal)
         self.setTitleColor(color, for: .selected)
         self.setTitleColor(color, for: .highlighted)
+        self.setTitleColor(color.withAlphaComponent(0.5), for: .disabled)
 
         self.tintColor = color
     }

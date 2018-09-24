@@ -15,32 +15,24 @@ import Foundation
 
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowManagerDelegate {
-    typealias MeshSetupSetNetwork = (MeshSetupNetworkInfo) -> (Bool)
-    typealias MeshSetupSetNetworkOptional = (MeshSetupNetworkInfo?) -> (Bool)
-    typealias MeshSetupSetBool = (Bool) -> (Bool)
-    typealias MeshSetupSetString = (String) -> (Bool)
-    typealias MeshSetupSetVoid = () -> ()
+    func meshSetupDidRequestTargetDeviceInfo()
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
+    func meshSetupDidPairWithTargetDevice()
 
 
-    func meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: @escaping MeshSetupSetString)
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo, setLeaveNetwork: @escaping MeshSetupSetBool)
-    func meshSetupDidPairWithInitialDevice(continueFlow: @escaping MeshSetupSetVoid)
+    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo])
+
+    func meshSetupDidRequestCommissionerDeviceInfo()
+    func meshSetupDidRequestToEnterSelectedNetworkPassword()
 
 
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo], setSelectedNetwork: @escaping MeshSetupSetNetwork)
+    func meshSetupDidRequestToEnterDeviceName()
+    func meshSetupDidRequestToAddOneMoreDevice()
 
-    func meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: @escaping MeshSetupSetString)
-    func meshSetupDidRequestToEnterSelectedNetworkPassword(setSelectedNetworkPassword: @escaping MeshSetupSetString)
+    func meshSetupDidRequestToFinishSetupEarly() //before setting mesh network
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkInfo])
 
-
-    func meshSetupDidRequestToEnterDeviceName(setDeviceName: @escaping MeshSetupSetString)
-    func meshSetupDidRequestToAddOneMoreDevice(setAddOneMoreDevice: @escaping MeshSetupSetBool)
-
-    func meshSetupDidRequestToFinishSetupEarly(setFinishSetupEarly: @escaping MeshSetupSetBool) //before setting mesh network
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkInfo], setSelectedNetwork: @escaping MeshSetupSetNetworkOptional)
-
-    func meshSetupDidRequestToEnterNewNetworkName(setNewNetworkName: @escaping MeshSetupSetString)
-    func meshSetupDidRequestToEnterNewNetworkPassword(setNewNetworkPassword: @escaping MeshSetupSetString)
+    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
@@ -48,15 +40,15 @@ protocol MeshSetupFlowManagerDelegate {
 }
 
 enum MeshSetupFlowState {
-    case InitialDeviceConnecting
-    case InitialDeviceConnected
-    case InitialDeviceReady
+    case TargetDeviceConnecting
+    case TargetDeviceConnected
+    case TargetDeviceReady
 
-    case InitialDeviceScanningForNetworks
+    case TargetDeviceScanningForNetworks
 
-    case InitialDeviceConnectingToInternet
-    case InitialDeviceConnectedToInternet
-    case InitialDeviceConnectedToCloud
+    case TargetDeviceConnectingToInternet
+    case TargetDeviceConnectedToInternet
+    case TargetDeviceConnectedToCloud
 
     case CommissionerDeviceConnecting
     case CommissionerDeviceConnected
@@ -66,10 +58,13 @@ enum MeshSetupFlowState {
 }
 
 enum MeshSetupFlowError: Error {
-    //EnsureInitialDeviceCanBeClaimed
+    //trying to perform action at the wrong time
+    case IllegalOperation
+
+    //EnsureTargetDeviceCanBeClaimed
     case UnableToGenerateClaimCode
 
-    //ConnectToInitialDevice && ConnectToCommissionerDevice
+    //ConnectToTargetDevice && ConnectToCommissionerDevice
     case DeviceTooFar
     case FailedToStartScan
     case FailedToScanBecauseOfTimeout
@@ -87,12 +82,14 @@ enum MeshSetupFlowError: Error {
     //EnsureCommissionerNetworkMatches
     case CommissionerNetworkDoesNotMatch
     case WrongNetworkPassword
+    case PasswordTooShort
 
     //EnsureHasInternetAccess
     case FailedToObtainIp
 
     //GetNewDeviceName
     case UnableToRenameDevice
+    case NameTooShort
 
     //CheckDeviceGotClaimed
     case DeviceConnectToCloudTimeout
@@ -140,16 +137,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         case ResetSetupAndNetwork
 
         //preflow
-        case GetInitialDeviceInfo
-        case ConnectToInitialDevice
+        case GetTargetDeviceInfo
+        case ConnectToTargetDevice
         case EnsureLatestFirmware
-        case EnsureInitialDeviceCanBeClaimed
-        case CheckInitialDeviceHasNetworkInterfaces
+        case EnsureTargetDeviceCanBeClaimed
+        case CheckTargetDeviceHasNetworkInterfaces
         case ChooseFlow
 
         //main flow
         case SetClaimCode
-        case EnsureInitialDeviceIsNotOnMeshNetwork
+        case EnsureTargetDeviceIsNotOnMeshNetwork
         case GetUserNetworkSelection
         case GetCommissionerDeviceInfo
         case ConnectToCommissionerDevice
@@ -162,7 +159,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //gateway
         case EnsureHasInternetAccess
         case CheckDeviceGotClaimed
-        case StopInitialDeviceListening
+        case StopTargetDeviceListening
         case OfferToFinishSetupEarly
         case OfferSelectOrCreateNetwork
         case ChooseSubflow
@@ -171,19 +168,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private let preflow: [MeshSetupFlowCommands] = [
-        .GetInitialDeviceInfo,
-        .ConnectToInitialDevice,
+        .GetTargetDeviceInfo,
+        .ConnectToTargetDevice,
         //.ResetSetupAndNetwork,
         .EnsureLatestFirmware,
-        .EnsureInitialDeviceCanBeClaimed,
-        .CheckInitialDeviceHasNetworkInterfaces,
+        .EnsureTargetDeviceCanBeClaimed,
+        .CheckTargetDeviceHasNetworkInterfaces,
         .SetClaimCode,
         .ChooseFlow
     ]
 
 
     private let joinerFlow: [MeshSetupFlowCommands] = [
-        .EnsureInitialDeviceIsNotOnMeshNetwork,
+        .EnsureTargetDeviceIsNotOnMeshNetwork,
         .GetUserNetworkSelection,
         .GetCommissionerDeviceInfo,
         .ConnectToCommissionerDevice,
@@ -198,7 +195,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private let ethernetFlow: [MeshSetupFlowCommands] = [
-        .EnsureInitialDeviceIsNotOnMeshNetwork,
+        .EnsureTargetDeviceIsNotOnMeshNetwork,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
@@ -230,7 +227,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var bluetoothReady: Bool = false
 
 
-    private var initialDevice: MeshDevice! = MeshDevice()
+    private var targetDevice: MeshDevice! = MeshDevice()
     private var commissionerDevice: MeshDevice?
 
     //for joining flow
@@ -259,12 +256,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     //MARK: public interface
-    func initialDeviceName() -> String? {
-        return initialDevice.credentials?.name
+    func targetDeviceName() -> String? {
+        return targetDevice.credentials?.name
     }
 
-    func initialDeviceType() -> ParticleDeviceType? {
-        return initialDevice.type
+    func targetDeviceType() -> ParticleDeviceType? {
+        return targetDevice.type
     }
 
     func commissionerDeviceName() -> String? {
@@ -286,8 +283,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     func cancelSetup() {
         //if we are waiting for the reply = trigger timeout
-        if let initialDeviceTransceiver = self.initialDevice.transceiver {
-            initialDeviceTransceiver.triggerTimeout()
+        if let targetDeviceTransceiver = self.targetDevice.transceiver {
+            targetDeviceTransceiver.triggerTimeout()
         }
 
         //if we are waiting for the reply = trigger timeout
@@ -323,18 +320,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 #endif
 
             //preflow
-            case .GetInitialDeviceInfo:
-                self.stepGetInitialDeviceInfo()
-            case .ConnectToInitialDevice:
-                self.stepConnectToInitialDevice()
+            case .GetTargetDeviceInfo:
+                self.stepGetTargetDeviceInfo()
+            case .ConnectToTargetDevice:
+                self.stepConnectToTargetDevice()
             case .EnsureLatestFirmware:
                 self.stepEnsureLatestFirmware()
-            case .EnsureInitialDeviceCanBeClaimed:
-                self.stepEnsureInitialDeviceCanBeClaimed()
-            case .CheckInitialDeviceHasNetworkInterfaces:
-                self.stepCheckInitialDeviceHasNetworkInterfaces()
-            case .EnsureInitialDeviceIsNotOnMeshNetwork:
-                self.stepEnsureInitialDeviceIsNotOnMeshNetwork()
+            case .EnsureTargetDeviceCanBeClaimed:
+                self.stepEnsureTargetDeviceCanBeClaimed()
+            case .CheckTargetDeviceHasNetworkInterfaces:
+                self.stepCheckTargetDeviceHasNetworkInterfaces()
+            case .EnsureTargetDeviceIsNotOnMeshNetwork:
+                self.stepEnsureTargetDeviceIsNotOnMeshNetwork()
             case .SetClaimCode:
                 self.stepSetClaimCode()
             case .ChooseFlow:
@@ -361,8 +358,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             //gateway
             case .EnsureHasInternetAccess:
                 self.stepEnsureHasInternetAccess()
-            case .StopInitialDeviceListening:
-                self.stepStopInitialDeviceListening()
+            case .StopTargetDeviceListening:
+                self.stepStopTargetDeviceListening()
             case .CheckDeviceGotClaimed:
                  self.stepCheckDeviceGotClaimed()
             case .OfferToFinishSetupEarly:
@@ -393,15 +390,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //end of preflow
     private func stepChooseFlow() {
         log("preflow completed")
-        self.delegate.meshSetupDidPairWithInitialDevice(continueFlow: self.continueWithMainFlow)
+        self.delegate.meshSetupDidPairWithTargetDevice()
     }
 
-    private func continueWithMainFlow() {
+    func continueWithMainFlow() {
 
         //jump to new flow
         self.currentStep = 0
         //if there's ethernet and we are not adding more devices to same network
-        if (self.initialDevice.hasInternetCapableNetworkInterfaces! && self.selectedNetworkInfo == nil) {
+        if (self.targetDevice.hasInternetCapableNetworkInterfaces! && self.selectedNetworkInfo == nil) {
             self.currentFlow = ethernetFlow
             log("setting gateway flow")
         } else {
@@ -449,51 +446,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return filtered
     }
 
-    //right now it is public because we want to make sure that user scans the device of the same type as he selects
-    //in the first screen of the flow
-    //TODO: make this private in the future
-    func getDeviceType(serialNumber: String) -> ParticleDeviceType? {
-        self.log("serialNumber: \(serialNumber)")
-        if (serialNumber.lowercased().range(of: "xen")?.lowerBound == serialNumber.startIndex) {
-            return .xenon
-        } else if (serialNumber.lowercased().range(of: "arg")?.lowerBound == serialNumber.startIndex) {
-            return .argon
-        } else if (serialNumber.lowercased().range(of: "brn")?.lowerBound == serialNumber.startIndex) {
-            return .boron
-        } else {
-            return nil
-        }
-    }
-
     //MARK: Input validators
-    //TODO: make this private in the future
-    func validateDataMatrix(_ dataMatrixString: String) -> MeshSetupDataMatrix? {
-        let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{15})")
-        let nsString = dataMatrixString as NSString
-        let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
-
-        if (results.count > 0) {
-            let arr = dataMatrixString.split(separator: " ")
-            let serialNumber = String(arr[0])//"12345678abcdefg"
-            let mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
-            return MeshSetupDataMatrix(serialNumber: serialNumber, mobileSecret: mobileSecret)
-        } else {
-            return nil
-        }
-    }
-
-    private func validateNetworkSelection(_ selectedNetwork: MeshSetupNetworkInfo) -> Bool {
-        if let networks = self.initialDevice.networks {
-            for network in networks {
-                if selectedNetwork.extPanID == network.extPanID {
-                    return true
-                }
-            }
-        }
-
-        return false
-    }
-
     private func validateNetworkPassword(_ password: String) -> Bool {
         return password.count >= 6
     }
@@ -530,8 +483,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.bluetoothReady = false
 
             //if we are waiting for the reply = trigger timeout
-            if let initialDeviceTransceiver = self.initialDevice.transceiver {
-                initialDeviceTransceiver.triggerTimeout()
+            if let targetDeviceTransceiver = self.targetDevice.transceiver {
+                targetDeviceTransceiver.triggerTimeout()
             }
 
             //if we are waiting for the reply = trigger timeout
@@ -544,7 +497,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
         log("bluetoothConnectionManagerError = \(error), severity = \(severity)")
-        if (self.currentCommand == .ConnectToInitialDevice || self.currentCommand == .ConnectToCommissionerDevice) {
+        if (self.currentCommand == .ConnectToTargetDevice || self.currentCommand == .ConnectToCommissionerDevice) {
             if (error == .DeviceWasConnected) {
                 self.currentStepFlags["reconnect"] = true
                 //this will be used in connection dropped to restart the step
@@ -553,7 +506,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 //after showing promt, step should be repeated
             } else if (error == .FailedToScanBecauseOfTimeout && self.currentStepFlags["reconnectAfterFirmwareFlash"] != nil) {
                 //coming online after a flash might take a while, if for some reason we timeout, we should retry the step
-                self.stepConnectToInitialDevice()
+                self.stepConnectToTargetDevice()
             } else {
                 if (error == .FailedToStartScan) {
                     self.fail(withReason: .FailedToStartScan)
@@ -570,8 +523,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
-        if (self.currentCommand == .ConnectToInitialDevice) {
-            self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnected)
+        if (self.currentCommand == .ConnectToTargetDevice) {
+            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnected)
         } else if (self.currentCommand == .ConnectToCommissionerDevice) {
             self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
         } else {
@@ -581,9 +534,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
-        if (self.currentCommand == .ConnectToInitialDevice) {
-            self.delegate.meshSetupDidEnterState(state: .InitialDeviceReady)
-            self.initialDeviceConnected(connection: connection)
+        if (self.currentCommand == .ConnectToTargetDevice) {
+            self.delegate.meshSetupDidEnterState(state: .TargetDeviceReady)
+            self.targetDeviceConnected(connection: connection)
         } else if (self.currentCommand == .ConnectToCommissionerDevice) {
             self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceReady)
             self.commissionerDeviceConnected(connection: connection)
@@ -595,14 +548,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
         log("bluetoothConnectionManagerConnectionDropped = \(connection)")
-        if (connection == self.initialDevice.transceiver?.connection || connection == self.commissionerDevice?.transceiver?.connection) {
-            if self.currentStepFlags["reconnect"] != nil && (self.currentCommand == .ConnectToInitialDevice || self.currentCommand == .ConnectToCommissionerDevice) {
+        if (connection == self.targetDevice.transceiver?.connection || connection == self.commissionerDevice?.transceiver?.connection) {
+            if self.currentStepFlags["reconnect"] != nil && (self.currentCommand == .ConnectToTargetDevice || self.currentCommand == .ConnectToCommissionerDevice) {
                 self.currentStepFlags["reconnect"] = nil
                 self.runCurrentStep()
             } else {
                 //if we are waiting for the reply = trigger timeout
-                if let initialDeviceTransceiver = self.initialDevice.transceiver {
-                    initialDeviceTransceiver.triggerTimeout()
+                if let targetDeviceTransceiver = self.targetDevice.transceiver {
+                    targetDeviceTransceiver.triggerTimeout()
                 }
 
                 //if we are waiting for the reply = trigger timeout
@@ -623,8 +576,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: ResetSetupAndNetwork
     private func stepResetSetupAndNetwork() {
-        self.initialDevice.transceiver!.sendLeaveNetwork () { result in
-            self.log("initialDevice.sendLeaveNetwork: \(result.description())")
+        self.targetDevice.transceiver!.sendLeaveNetwork () { result in
+            self.log("targetDevice.sendLeaveNetwork: \(result.description())")
             if (result == .NONE) {
                 self.setSetupNotDone()
             } else {
@@ -634,8 +587,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func setSetupNotDone() {
-        self.initialDevice.transceiver!.sendDeviceSetupDone(done: false) { result in
-            self.log("initialDevice.sendDeviceSetupDone: \(result.description())")
+        self.targetDevice.transceiver!.sendDeviceSetupDone(done: false) { result in
+            self.log("targetDevice.sendDeviceSetupDone: \(result.description())")
             if (result == .NONE) {
                 self.log("Device reset complete")
             } else {
@@ -645,18 +598,17 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
-    //MARK: GetInitialDeviceInfo
-    private func stepGetInitialDeviceInfo() {
-        self.delegate.meshSetupDidRequestInitialDeviceInfo(setInitialDeviceInfo: setInitialDeviceInfo)
+    //MARK: GetTargetDeviceInfo
+    private func stepGetTargetDeviceInfo() {
+        self.delegate.meshSetupDidRequestTargetDeviceInfo()
     }
 
-    private func setInitialDeviceInfo(dataMatrixString: String) -> Bool {
-
-        guard let dataMatrix = self.validateDataMatrix(dataMatrixString) else {
-            return false
+    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
+        guard currentCommand == .GetTargetDeviceInfo else {
+            return .IllegalOperation
         }
 
-        self.initialDevice = MeshDevice()
+        self.targetDevice = MeshDevice()
 
         //these flags are used to determine gateway subflow .. if they are set, new network is being created
         //otherwise gateway is joining the existing network so it is important to clear them
@@ -666,27 +618,28 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.newNetworkName = nil
 
         self.log("dataMatrix: \(dataMatrix)")
-        self.initialDevice.type = self.getDeviceType(serialNumber: dataMatrix.serialNumber)
-        self.log("self.initialDevice.type?.description = \(self.initialDevice.type?.description as Optional)")
-        self.initialDevice.credentials = MeshSetupPeripheralCredentials(name: self.initialDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+        self.targetDevice.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
+        self.log("self.targetDevice.type?.description = \(self.targetDevice.type?.description as Optional)")
+        self.targetDevice.credentials = MeshSetupPeripheralCredentials(name: self.targetDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepComplete()
-        return true
+
+        return nil
     }
 
-    //MARK: ConnectToInitialDevice
-    private func stepConnectToInitialDevice() {
+    //MARK: ConnectToTargetDevice
+    private func stepConnectToTargetDevice() {
         if (self.bluetoothManager.state != .Ready) {
             self.fail(withReason: .BluetoothDisabled)
             return
         }
 
-        self.bluetoothManager.createConnection(with: self.initialDevice.credentials!)
-        self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnecting)
+        self.bluetoothManager.createConnection(with: self.targetDevice.credentials!)
+        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnecting)
     }
 
-    private func initialDeviceConnected(connection: MeshSetupBluetoothConnection) {
-        self.initialDevice.transceiver = MeshSetupProtocolTransceiver(connection: connection)
+    private func targetDeviceConnected(connection: MeshSetupBluetoothConnection) {
+        self.targetDevice.transceiver = MeshSetupProtocolTransceiver(connection: connection)
         self.stepComplete()
     }
 
@@ -704,14 +657,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: EnsureLatestFirmware
     private func stepEnsureLatestFirmware() {
-        self.initialDevice.transceiver!.sendGetSystemVersion { result, version in
-            self.log("initialDevice.sendGetSystemVersion: \(result.description()), version: \(version as Optional)")
+        self.targetDevice.transceiver!.sendGetSystemVersion { result, version in
+            self.log("targetDevice.sendGetSystemVersion: \(result.description()), version: \(version as Optional)")
             if (result == .NONE) {
                 //TODO: get the answer from server if firmware should be updated
                 if (version!.range(of: "rc.13") != nil) {
                     self.stepComplete()
                 } else {
-                    self.checkInitialDeviceSupportsCompressedOTA()
+                    self.checkTargetDeviceSupportsCompressedOTA()
                 }
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -720,23 +673,23 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
-    private func checkInitialDeviceSupportsCompressedOTA() {
-        self.initialDevice.transceiver!.sendGetSystemCapabilities { result, capability in
-            self.log("initialDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
+    private func checkTargetDeviceSupportsCompressedOTA() {
+        self.targetDevice.transceiver!.sendGetSystemCapabilities { result, capability in
+            self.log("targetDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
             if (result == .NONE) {
-                self.initialDevice.supportsCompressedOTAUpdate = (capability! == SystemCapability.compressedOta)
-                self.checkInitialDeviceIsSetupDone()
+                self.targetDevice.supportsCompressedOTAUpdate = (capability! == SystemCapability.compressedOta)
+                self.checkTargetDeviceIsSetupDone()
             } else {
                 self.handleBluetoothErrorResult(result)
             }
         }
     }
 
-    private func checkInitialDeviceIsSetupDone() {
-        self.initialDevice.transceiver!.sendIsDeviceSetupDone { result, isSetupDone in
-            self.log("initialDevice.sendIsDeviceSetupDone: \(result.description()), isSetupDone: \(isSetupDone as Optional)")
+    private func checkTargetDeviceIsSetupDone() {
+        self.targetDevice.transceiver!.sendIsDeviceSetupDone { result, isSetupDone in
+            self.log("targetDevice.sendIsDeviceSetupDone: \(result.description()), isSetupDone: \(isSetupDone as Optional)")
             if (result == .NONE) {
-                self.initialDevice.isSetupDone = isSetupDone
+                self.targetDevice.isSetupDone = isSetupDone
                 self.startFirmwareUpdate()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -754,8 +707,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         let firmwareData = try! Data(contentsOf: URL(fileURLWithPath: path!))
 
         self.currentStepFlags["firmwareData"] = firmwareData
-        self.initialDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
-            self.log("initialDevice.sendStartFirmwareUpdate: \(result), chunkSize: \(chunkSize)")
+        self.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
+            self.log("targetDevice.sendStartFirmwareUpdate: \(result), chunkSize: \(chunkSize)")
             if (result == .NONE) {
                 self.currentStepFlags["chunkSize"] = Int(chunkSize)
                 self.currentStepFlags["idx"] = 0
@@ -778,8 +731,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.log("bytesLeft: \(bytesLeft)")
 
         let subdata = firmwareData.subdata(in: start ..< min(start+chunk, start+bytesLeft))
-        self.initialDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { result in
-            self.log("initialDevice.sendFirmwareUpdateData: \(result)")
+        self.targetDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { result in
+            self.log("targetDevice.sendFirmwareUpdateData: \(result)")
             if (result == .NONE) {
                 if ((idx+1) * chunk >= firmwareData.count) {
                     self.finishFirmwareUpdate()
@@ -794,8 +747,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func finishFirmwareUpdate() {
-        self.initialDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { result in
-            self.log("initialDevice.sendFinishFirmwareUpdate: \(result)")
+        self.targetDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { result in
+            self.log("targetDevice.sendFinishFirmwareUpdate: \(result)")
             if (result == .NONE) {
                 // reconnect to device by jumping back few steps in the sequence
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
@@ -804,7 +757,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     }
 
 
-                    self.currentStep = self.preflow.index(of: .ConnectToInitialDevice)!
+                    self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
                     self.log("returning to step: \(self.currentStep)")
                     self.runCurrentStep()
                     self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
@@ -816,16 +769,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
-    //MARK: CheckInitialDeviceHasNetworkInterfaces
-    private func stepCheckInitialDeviceHasNetworkInterfaces() {
-        self.initialDevice.transceiver!.sendGetInterfaceList { result, interfaces in
-            self.log("initialDevice.sendGetInterfaceList: \(result), networkCount: \(interfaces?.count as Optional)")
+    //MARK: CheckTargetDeviceHasNetworkInterfaces
+    private func stepCheckTargetDeviceHasNetworkInterfaces() {
+        self.targetDevice.transceiver!.sendGetInterfaceList { result, interfaces in
+            self.log("targetDevice.sendGetInterfaceList: \(result), networkCount: \(interfaces?.count as Optional)")
             if (result == .NONE) {
-                self.initialDevice.hasInternetCapableNetworkInterfaces = false
-                self.initialDevice.networkInterfaces = interfaces!
+                self.targetDevice.hasInternetCapableNetworkInterfaces = false
+                self.targetDevice.networkInterfaces = interfaces!
                 for interface in interfaces! {
                     if (interface.type == .ethernet || interface.type == .wifi || interface.type == .ppp) {
-                        self.initialDevice.hasInternetCapableNetworkInterfaces = true
+                        self.targetDevice.hasInternetCapableNetworkInterfaces = true
                         break
                     }
                 }
@@ -838,12 +791,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     //MARK: EnsureDeviceCanBeClaimed
-    private func stepEnsureInitialDeviceCanBeClaimed() {
-        self.initialDevice.transceiver!.sendGetDeviceId { result, deviceId in
+    private func stepEnsureTargetDeviceCanBeClaimed() {
+        self.targetDevice.transceiver!.sendGetDeviceId { result, deviceId in
             self.log("didReceiveDeviceIdReply: \(result), deviceId: \(deviceId as Optional)")
             if (result == .NONE) {
-                self.initialDevice.deviceId = deviceId!
-                self.checkInitialDeviceIsClaimed()
+                self.targetDevice.deviceId = deviceId!
+                self.checkTargetDeviceIsClaimed()
             } else {
                 self.handleBluetoothErrorResult(result)
             }
@@ -851,7 +804,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
-    private func checkInitialDeviceIsClaimed() {
+    private func checkTargetDeviceIsClaimed() {
         ParticleCloud.sharedInstance().getDevices { devices, error in
             guard error == nil else {
                 self.fail(withReason: .UnableToGenerateClaimCode, nsError: error)
@@ -860,18 +813,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
             if let devices = devices {
                 for device in devices {
-                    if (device.id == self.initialDevice.deviceId!) {
+                    if (device.id == self.targetDevice.deviceId!) {
                         self.log("device belongs to user already")
-                        self.initialDevice.isClaimed = true
-                        self.initialDevice.claimCode = nil
+                        self.targetDevice.isClaimed = true
+                        self.targetDevice.claimCode = nil
                         self.stepComplete()
                         return
                     }
                 }
             }
 
-            self.initialDevice.isClaimed = nil
-            self.initialDevice.claimCode = nil
+            self.targetDevice.isClaimed = nil
+            self.targetDevice.claimCode = nil
 
             self.getClaimCode()
         }
@@ -886,43 +839,48 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             self.log("claim code generated")
-            self.initialDevice.claimCode = claimCode
-            self.initialDevice.isClaimed = false
+            self.targetDevice.claimCode = claimCode
+            self.targetDevice.isClaimed = false
             self.stepComplete()
         }
     }
 
 
 
-    //MARK: EnsureInitialDeviceIsNotOnMeshNetwork
-    private func stepEnsureInitialDeviceIsNotOnMeshNetwork() {
-        self.initialDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
-            self.log("initialDevice.sendGetNetworkInfo: \(result)")
+    //MARK: EnsureTargetDeviceIsNotOnMeshNetwork
+    private func stepEnsureTargetDeviceIsNotOnMeshNetwork() {
+        self.targetDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
+            self.log("targetDevice.sendGetNetworkInfo: \(result)")
             if (result == .NOT_FOUND) {
-                self.initialDevice.networkInfo = nil
-                self.initialDeviceLeaveNetwork()
+                self.targetDevice.networkInfo = nil
+                self.targetDeviceLeaveNetwork()
             } else if (result == .NONE) {
-                self.initialDevice.networkInfo = networkInfo
-                self.delegate.meshSetupDidRequestToLeaveNetwork(network: networkInfo!, setLeaveNetwork: self.setInitialDeviceLeaveNetwork)
+                self.targetDevice.networkInfo = networkInfo
+                self.delegate.meshSetupDidRequestToLeaveNetwork(network: networkInfo!)
             } else {
                 self.handleBluetoothErrorResult(result)
             }
         }
     }
 
-    private func setInitialDeviceLeaveNetwork(leave: Bool) -> Bool {
-        self.log("setInitialDeviceLeaveNetwork: \(leave)")
-        if (leave || self.initialDevice.networkInfo == nil) {
-            //forcing this command on devices with no network info helps with the joining process
-            self.initialDeviceLeaveNetwork()
-        } else {
-            fail(withReason: .UserRefusedToLeaveMeshNetwork)
+    func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError? {
+        guard currentCommand == .EnsureTargetDeviceIsNotOnMeshNetwork else {
+            return .IllegalOperation
         }
-        return true
+
+        self.log("setTargetDeviceLeaveNetwork: \(leave)")
+        if (leave || self.targetDevice.networkInfo == nil) {
+            //forcing this command on devices with no network info helps with the joining process
+            self.targetDeviceLeaveNetwork()
+        } else {
+            return .UserRefusedToLeaveMeshNetwork
+        }
+
+        return nil
     }
 
-    private func initialDeviceLeaveNetwork() {
-        self.initialDevice.transceiver!.sendLeaveNetwork { result in
+    private func targetDeviceLeaveNetwork() {
+        self.targetDevice.transceiver!.sendLeaveNetwork { result in
             self.log("didReceiveLeaveNetworkReply: \(result)")
             if (result == .NONE) {
                 self.stepComplete()
@@ -937,8 +895,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: SetClaimCode
     private func stepSetClaimCode() {
-        if let claimCode = self.initialDevice.claimCode {
-            self.initialDevice.transceiver!.sendSetClaimCode(claimCode: claimCode) { result in
+        if let claimCode = self.targetDevice.claimCode {
+            self.targetDevice.transceiver!.sendSetClaimCode(claimCode: claimCode) { result in
                 self.log("sendSetClaimCode: \(result)")
                 if (result == .NONE) {
                     self.stepComplete()
@@ -962,16 +920,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
-        self.delegate.meshSetupDidEnterState(state: .InitialDeviceScanningForNetworks)
+        self.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForNetworks)
 
         self.scanNetworks(onComplete: self.getUserNetworkSelection)
     }
 
     private func scanNetworks(onComplete: @escaping () -> ()) {
-        self.initialDevice.transceiver!.sendScanNetworks { result, networks in
+        self.targetDevice.transceiver!.sendScanNetworks { result, networks in
             self.log("sendScanNetworks: \(result), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
             if (result == .NONE) {
-                self.initialDevice.networks = self.removeRepeatedNetworks(networks!)
+                self.targetDevice.networks = self.removeRepeatedNetworks(networks!)
                 onComplete()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -980,38 +938,37 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     //TODO: GET /v1/networks to get device count
-    func rescanNetworks() -> Bool {
+    func rescanNetworks() -> MeshSetupFlowError? {
         //only allow to rescan if current step asks for it and transceiver is free to be used
-        guard let isBusy = initialDevice.transceiver?.isBusy, isBusy == false else {
-            return false
+        guard let isBusy = targetDevice.transceiver?.isBusy, isBusy == false else {
+            return .IllegalOperation
         }
 
         if (self.currentCommand == .GetUserNetworkSelection) {
             self.scanNetworks(onComplete: self.getUserNetworkSelection)
-            return true
         } else if (self.currentCommand == .OfferSelectOrCreateNetwork) {
             self.scanNetworks(onComplete: self.getUserMeshSetupChoice)
-            return true
+        } else {
+            return .IllegalOperation
         }
 
-        return false
+        return nil
     }
 
 
     private func getUserNetworkSelection() {
-        self.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: self.initialDevice.networks!, setSelectedNetwork: setSelectedNetwork)
+        self.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: self.targetDevice.networks!)
     }
 
-    private func setSelectedNetwork(_ selectedNetwork: MeshSetupNetworkInfo) -> Bool {
-        //TODO: not sure if this is needed
-//        guard self.validateNetworkSelection(selectedNetwork) else {
-//            return false
-//        }
+    func setSelectedNetwork(selectedNetwork: MeshSetupNetworkInfo) -> MeshSetupFlowError? {
+        guard currentCommand == .GetUserNetworkSelection else {
+            return .IllegalOperation
+        }
 
         self.selectedNetworkInfo = selectedNetwork
         self.stepComplete()
 
-        return true
+        return nil
     }
 
 
@@ -1031,23 +988,24 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
-        self.delegate.meshSetupDidRequestCommissionerDeviceInfo(setCommissionerDeviceInfo: setCommissionerDeviceInfo)
+        self.delegate.meshSetupDidRequestCommissionerDeviceInfo()
     }
 
-    private func setCommissionerDeviceInfo(dataMatrixString: String) -> Bool {
-        guard let dataMatrix = self.validateDataMatrix(dataMatrixString) else {
-            return false
+    func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
+        guard currentCommand == .GetCommissionerDeviceInfo else {
+            return .IllegalOperation
         }
 
         self.commissionerDevice = MeshDevice()
 
         self.log("dataMatrix: \(dataMatrix)")
-        self.commissionerDevice!.type = self.getDeviceType(serialNumber: dataMatrix.serialNumber)
+        self.commissionerDevice!.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
         self.log("self.commissionerDevice.type?.description = \(self.commissionerDevice!.type?.description as Optional)")
-        self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: self.initialDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+        self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: self.targetDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepComplete()
-        return true
+
+        return nil
     }
 
 
@@ -1091,6 +1049,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (self.selectedNetworkInfo?.extPanID == self.commissionerDevice!.networkInfo?.extPanID) {
                 self.stepComplete()
             } else {
+                //drop connection with current peripheral
+                let connection = self.commissionerDevice!.transceiver!.connection
+                self.commissionerDevice!.transceiver = nil
+                self.commissionerDevice = nil
+                self.bluetoothManager.dropConnection(with: connection)
+
+                //TODO: rollback to correct step?
+
                 self.fail(withReason: .CommissionerNetworkDoesNotMatch)
             }
         }
@@ -1100,12 +1066,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: EnsureCorrectSelectedNetworkPassword
     private func stepEnsureCorrectSelectedNetworkPassword() {
-        self.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword(setSelectedNetworkPassword: setSelectedNetworkPassword)
+        self.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword()
     }
 
-    private func setSelectedNetworkPassword(_ password: String) -> Bool {
+    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+        guard currentCommand == .EnsureCorrectSelectedNetworkPassword else {
+            onComplete(.IllegalOperation)
+            return
+        }
+
         guard self.validateNetworkPassword(password) else {
-            return false
+            onComplete(.PasswordTooShort)
+            return
         }
 
         self.log("password set: \(password)")
@@ -1116,15 +1088,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.commissionerDevice!.transceiver!.sendAuth(password: password) { result in
             self.log("sendAuth: \(result)")
             if (result == .NONE) {
+                onComplete(nil)
                 self.stepComplete()
             } else if (result == .NOT_ALLOWED) {
-                self.fail(withReason: .WrongNetworkPassword)
+                onComplete(.WrongNetworkPassword)
             } else {
                 self.handleBluetoothErrorResult(result)
             }
         }
-
-        return true
     }
 
 
@@ -1144,11 +1115,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func prepareJoiner() {
         /// ALREADY_EXIST: The device is already a member of a network
         /// NOT_ALLOWED: The client is not authenticated
-        self.initialDevice.transceiver!.sendPrepareJoiner(networkInfo: self.selectedNetworkInfo!) { result, eui64, password in
+        self.targetDevice.transceiver!.sendPrepareJoiner(networkInfo: self.selectedNetworkInfo!) { result, eui64, password in
             self.log("sendPrepareJoiner sent networkInfo: \(self.selectedNetworkInfo!)")
             self.log("sendPrepareJoiner: \(result)")
             if (result == .NONE) {
-                self.initialDevice.joinerCredentials = (eui64: eui64!, password: password!)
+                self.targetDevice.joinerCredentials = (eui64: eui64!, password: password!)
                 self.addJoiner()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -1160,7 +1131,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NO_MEMORY: No memory available to add the joiner
         /// INVALID_STATE: The commissioner role is not started
         /// NOT_ALLOWED: The client is not authenticated
-        self.commissionerDevice!.transceiver!.sendAddJoiner(eui64: self.initialDevice.joinerCredentials!.eui64, password: self.initialDevice.joinerCredentials!.password) { result in
+        self.commissionerDevice!.transceiver!.sendAddJoiner(eui64: self.targetDevice.joinerCredentials!.eui64, password: self.targetDevice.joinerCredentials!.password) { result in
             self.log("sendAddJoiner: \(result)")
             if (result == .NONE) {
                 self.log("Delaying call to joinNetwork")
@@ -1181,7 +1152,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_FOUND: No joinable network was found
         /// TIMEOUT: The join process timed out
         /// NOT_ALLOWED: Invalid security credentials
-        self.initialDevice.transceiver!.sendJoinNetwork { result in
+        self.targetDevice.transceiver!.sendJoinNetwork { result in
             self.log("sendJoinNetwork: \(result)")
             if (result == .NONE) {
                 self.stopCommissioner()
@@ -1204,7 +1175,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func setSetupDone() {
-        self.initialDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
+        self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
             self.log("sendDeviceSetupDone: \(result)")
             if (result == .NONE) {
                 self.stopCommissionerListening()
@@ -1219,16 +1190,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.commissionerDevice!.transceiver!.sendStopListening { result in
             self.log("commissionerDevice.sendStopListening: \(result)")
             if (result == .NONE) {
-                self.stopInitialDeviceListening(onComplete: self.stepComplete)
+                self.stopTargetDeviceListening(onComplete: self.stepComplete)
             } else {
                 self.handleBluetoothErrorResult(result)
             }
         }
     }
 
-    private func stopInitialDeviceListening(onComplete: @escaping () -> ()) {
-        self.initialDevice.transceiver!.sendStopListening { result in
-            self.log("initialDevice.sendStopListening: \(result)")
+    private func stopTargetDeviceListening(onComplete: @escaping () -> ()) {
+        self.targetDevice.transceiver!.sendStopListening { result in
+            self.log("targetDevice.sendStopListening: \(result)")
             if (result == .NONE) {
                 onComplete()
             } else {
@@ -1238,31 +1209,31 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     //MARK: CheckDeviceGotClaimed
-    private func checkInitialDeviceGotConnected() {
-        if (self.currentStepFlags["checkInitialDeviceGotConnectedStartTime"] == nil) {
-            self.currentStepFlags["checkInitialDeviceGotConnectedStartTime"] = Date()
+    private func checkTargetDeviceGotConnected() {
+        if (self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] == nil) {
+            self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] = Date()
         }
 
-        let diff = Date().timeIntervalSince(self.currentStepFlags["checkInitialDeviceGotConnectedStartTime"] as! Date)
+        let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] as! Date)
         if (diff > MeshSetup.deviceConnectToCloudTimeout) {
             self.fail(withReason: .DeviceConnectToCloudTimeout)
             return
         }
 
-        self.initialDevice.transceiver!.sendGetConnectionStatus { result, status in
-            self.log("initialDevice.sendGetConnectionStatus: \(result)")
+        self.targetDevice.transceiver!.sendGetConnectionStatus { result, status in
+            self.log("targetDevice.sendGetConnectionStatus: \(result)")
             if (result == .NONE) {
                 self.log("status: \(status as Optional)")
                 if (status! == .connected) {
                     self.log("device connected to the cloud")
                     if (self.currentFlow == self.ethernetFlow) {
-                        self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectedToInternet)
+                        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToInternet)
                     }
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                         if (self.canceled) {
                             return
                         }
-                        self.checkInitialDeviceGotClaimed()
+                        self.checkTargetDeviceGotClaimed()
                     }
                 } else {
                     self.log("device did NOT connect yet")
@@ -1270,7 +1241,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                         if (self.canceled) {
                             return
                         }
-                        self.checkInitialDeviceGotConnected()
+                        self.checkTargetDeviceGotConnected()
                     }
                 }
             } else {
@@ -1279,21 +1250,21 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    private func checkInitialDeviceGotClaimed() {
-        if let isClaimed = self.initialDevice.isClaimed, isClaimed == true {
+    private func checkTargetDeviceGotClaimed() {
+        if let isClaimed = self.targetDevice.isClaimed, isClaimed == true {
             self.log("device was successfully claimed")
             if (self.currentFlow == self.ethernetFlow) {
-                self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectedToCloud)
+                self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToCloud)
             }
             self.stepComplete()
             return
         }
 
-        if (self.currentStepFlags["checkInitialDeviceGotClaimedStartTime"] == nil) {
-            self.currentStepFlags["checkInitialDeviceGotClaimedStartTime"] = Date()
+        if (self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] == nil) {
+            self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] = Date()
         }
 
-        let diff = Date().timeIntervalSince(self.currentStepFlags["checkInitialDeviceGotClaimedStartTime"] as! Date)
+        let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] as! Date)
         if (diff > MeshSetup.deviceGettingClaimedTimeout) {
             fail(withReason: .DeviceGettingClaimedTimeout)
             return
@@ -1307,10 +1278,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
             if let devices = devices {
                 for device in devices {
-                    if (device.id == self.initialDevice.deviceId!) {
+                    if (device.id == self.targetDevice.deviceId!) {
                         self.log("device was successfully claimed")
                         if (self.currentFlow == self.ethernetFlow) {
-                            self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectedToCloud)
+                            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToCloud)
                         }
                         self.stepComplete()
                         return
@@ -1320,7 +1291,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
             self.log("device was NOT successfully claimed")
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-                self.checkInitialDeviceGotClaimed()
+                self.checkTargetDeviceGotClaimed()
             }
         }
     }
@@ -1330,13 +1301,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: EnsureHasInternetAccess
     private func stepEnsureHasInternetAccess() {
         //we only use ethernet!!!
-        if let idx = self.initialDevice.getEthernetInterfaceIdx() {
-            self.delegate.meshSetupDidEnterState(state: .InitialDeviceConnectingToInternet)
+        if let idx = self.targetDevice.getEthernetInterfaceIdx() {
+            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternet)
 
-            self.initialDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
-                self.log("initialDevice.transceiver!.sendDeviceSetupDone: \(result)")
+            self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
+                self.log("targetDevice.transceiver!.sendDeviceSetupDone: \(result)")
                 if (result == .NONE) {
-                    self.stopInitialDeviceListening(onComplete: self.checkDeviceHasIP)
+                    self.stopTargetDeviceListening(onComplete: self.checkDeviceHasIP)
                 } else {
                     self.handleBluetoothErrorResult(result)
                 }
@@ -1358,10 +1329,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
-        self.initialDevice.transceiver!.sendGetInterface(interfaceIndex: self.initialDevice.getEthernetInterfaceIdx()!) { result, interface in
+        self.targetDevice.transceiver!.sendGetInterface(interfaceIndex: self.targetDevice.getEthernetInterfaceIdx()!) { result, interface in
             self.log("result: \(result), networkInfo: \(interface as Optional)")
             if (interface!.ipv4Config.addresses.first != nil) {
-                self.initialDevice.hasInternetAddress = true
+                self.targetDevice.hasInternetAddress = true
                 self.stepComplete()
             } else {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
@@ -1374,34 +1345,42 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    //MARK: StopInitialDeviceListening
-    private func stepStopInitialDeviceListening() {
-        self.stopInitialDeviceListening(onComplete: self.stepComplete)
+    //MARK: StopTargetDeviceListening
+    private func stepStopTargetDeviceListening() {
+        self.stopTargetDeviceListening(onComplete: self.stepComplete)
     }
 
     //MARK: CheckDeviceGotClaimed
     private func stepCheckDeviceGotClaimed() {
-        self.checkInitialDeviceGotConnected()
+        self.checkTargetDeviceGotConnected()
     }
 
     //MARK: GetNewDeviceName
     private func stepGetNewDeviceName() {
-        self.delegate.meshSetupDidRequestToEnterDeviceName(setDeviceName: setDeviceName)
+        self.delegate.meshSetupDidRequestToEnterDeviceName()
     }
 
-    private func setDeviceName(name: String) -> Bool {
+    func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+        guard currentCommand == .GetNewDeviceName else {
+            onComplete(.IllegalOperation)
+            return
+        }
+
         guard self.validateDeviceName(name) else {
-            return false
+            onComplete(.NameTooShort)
+            return
         }
 
         self.log("name entered: \(name)")
-        ParticleCloud.sharedInstance().getDevice(self.initialDevice.deviceId!) { device, error in
+        ParticleCloud.sharedInstance().getDevice(self.targetDevice.deviceId!) { device, error in
             if (error == nil) {
                 device!.rename(name) { error in
                     if error == nil {
+                        onComplete(nil)
                         self.stepComplete()
                     } else {
-                        self.fail(withReason: .UnableToRenameDevice, nsError: error)
+                        onComplete(.UnableToRenameDevice)
+                        return
                     }
                 }
             } else {
@@ -1409,8 +1388,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 fatalError("unable to get device that was JUST claimed: \(error!)")
             }
         }
-
-        return true
     }
 
 
@@ -1418,18 +1395,22 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK:OfferToAddOneMoreDevice
     private func stepOfferToAddOneMoreDevice() {
         //disconnect current device
-        if (self.initialDevice.transceiver != nil) {
-            self.log("Dropping connection to initial device")
-            let connection = self.initialDevice.transceiver!.connection
-            self.initialDevice.transceiver = nil
+        if (self.targetDevice.transceiver != nil) {
+            self.log("Dropping connection to target device")
+            let connection = self.targetDevice.transceiver!.connection
+            self.targetDevice.transceiver = nil
             self.bluetoothManager.dropConnection(with: connection)
         }
 
-        self.delegate.meshSetupDidRequestToAddOneMoreDevice(setAddOneMoreDevice: setAddOneMoreDevice)
+        self.delegate.meshSetupDidRequestToAddOneMoreDevice()
     }
 
 
-    private func setAddOneMoreDevice(addOneMoreDevice: Bool) -> Bool {
+    func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError? {
+        guard currentCommand == .OfferToAddOneMoreDevice else {
+            return .IllegalOperation
+        }
+
         if (addOneMoreDevice) {
             self.currentStep = 0
             self.currentFlow = preflow
@@ -1437,23 +1418,28 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         } else {
             self.delegate.meshSetupDidEnterState(state: .SetupComplete)
         }
-        return true
+
+        return nil
     }
 
 
     //MARK: OfferToFinishSetupEarly
     private func stepOfferToFinishSetupEarly() {
-        self.delegate.meshSetupDidRequestToFinishSetupEarly(setFinishSetupEarly: setFinishSetupEarly)
+        self.delegate.meshSetupDidRequestToFinishSetupEarly()
     }
 
-    private func setFinishSetupEarly(finish: Bool) -> Bool {
+    func setFinishSetupEarly(finish: Bool) -> MeshSetupFlowError? {
+        guard currentCommand == .OfferToFinishSetupEarly else {
+            return .IllegalOperation
+        }
+
         if (finish) {
             self.delegate.meshSetupDidEnterState(state: .SetupComplete)
         } else {
             self.stepComplete()
         }
 
-        return true
+        return nil
     }
 
     //MARK: OfferSelectOrCreateNetwork
@@ -1462,60 +1448,60 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func getUserMeshSetupChoice() {
-        self.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: self.initialDevice.networks!, setSelectedNetwork: setSelectedNetworkOptional)
+        self.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: self.targetDevice.networks!)
     }
 
-    private func setSelectedNetworkOptional(_ selectedNetwork: MeshSetupNetworkInfo?) -> Bool {
-        if let selectedNetwork = selectedNetwork {
-            guard self.validateNetworkSelection(selectedNetwork) else {
-                return false
-            }
+    func setSelectOrCreateNetwork(_ selectedNetwork: MeshSetupNetworkInfo?) -> MeshSetupFlowError? {
+        guard currentCommand == .OfferSelectOrCreateNetwork else {
+            return .IllegalOperation
+        }
 
+        if let selectedNetwork = selectedNetwork {
             self.selectedNetworkInfo = selectedNetwork
             self.stepComplete()
-            return true
         } else {
-            self.delegate.meshSetupDidRequestToEnterNewNetworkName(setNewNetworkName: setNetworkName)
-            return true
+            //TODO: split into three steps
+            self.delegate.meshSetupDidRequestToEnterNewNetworkNameAndPassword()
         }
+
+        return nil
     }
 
-    private func setNetworkName(name: String) -> Bool {
+    func setNewNetwork(name: String, password: String) -> MeshSetupFlowError? {
+        guard currentCommand == .OfferSelectOrCreateNetwork else {
+            return .IllegalOperation
+        }
+
         guard self.validateNetworkName(name) else {
-            return false
+            return .NameTooShort
         }
 
-        self.log("set network name: \(name)")
-        self.newNetworkName = name
-
-        self.delegate.meshSetupDidRequestToEnterNewNetworkPassword(setNewNetworkPassword: setNetworkPassword)
-        return true
-    }
-
-    private func setNetworkPassword(password: String) -> Bool {
         guard self.validateNetworkPassword(password) else {
-            return false
+            return .PasswordTooShort
         }
 
-        self.log("set network password: \(password)")
+        self.log("set network name: \(name) password: \(password)")
+        self.newNetworkName = name
         self.newNetworkPassword = password
 
         self.stepComplete()
-        return true
+
+        return nil
     }
+
 
 
     //MARK: CreateNetwork
     private func stepCreateNetwork() {
-        self.initialDevice.transceiver!.sendCreateNetwork(name: self.newNetworkName!, password: self.newNetworkPassword!) { result, networkInfo in
+        self.targetDevice.transceiver!.sendCreateNetwork(name: self.newNetworkName!, password: self.newNetworkPassword!) { result, networkInfo in
             self.log("sendCreateNetwork: \(result), networkInfo: \(networkInfo as Optional)")
             if (result == .NONE) {
-                self.log("Setting current initial device as commissioner device")
-                self.commissionerDevice = self.initialDevice
+                self.log("Setting current target device as commissioner device")
+                self.commissionerDevice = self.targetDevice
                 self.selectedNetworkInfo = networkInfo!
                 self.selectedNetworkPassword = self.newNetworkPassword
 
-                self.initialDevice = MeshDevice()
+                self.targetDevice = MeshDevice()
 
                 self.stepComplete()
             } else {

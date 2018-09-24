@@ -19,9 +19,9 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboard
     @IBOutlet weak var successTitleLabel: MeshLabel!
     @IBOutlet weak var successTextLabel: MeshLabel!
 
-    private var callback: (() -> ())!
-    private var deviceType: ParticleDeviceType!
-    private var deviceName: String!
+    internal var callback: (() -> ())!
+    internal var deviceType: ParticleDeviceType!
+    internal var deviceName: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,10 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboard
 
         pairingIndicator.startAnimating()
 
+        setContent()
+    }
+
+    open func setContent() {
         pairingTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         pairingTextLabel.text = MeshSetupStrings.Pairing.PairingText
 

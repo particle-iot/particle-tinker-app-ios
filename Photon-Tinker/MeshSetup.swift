@@ -53,6 +53,20 @@ struct MeshSetupPeripheralCredentials {
 struct MeshSetupDataMatrix {
     var serialNumber: String
     var mobileSecret: String
+
+    init?(dataMatrixString: String) {
+        let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{15})")
+        let nsString = dataMatrixString as NSString
+        let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
+
+        if (results.count > 0) {
+            let arr = dataMatrixString.split(separator: " ")
+            serialNumber = String(arr[0])//"12345678abcdefg"
+            mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
+        } else {
+            return nil
+        }
+    }
 }
 
 
@@ -73,6 +87,18 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .argon : return "Argon"
             case .boron : return "Boron"
             case .xenon : return "Xenon"
+        }
+    }
+
+    init?(serialNumber: String) {
+        if (serialNumber.lowercased().range(of: "xen")?.lowerBound == serialNumber.startIndex) {
+            self = .xenon
+        } else if (serialNumber.lowercased().range(of: "arg")?.lowerBound == serialNumber.startIndex) {
+            self = .argon
+        } else if (serialNumber.lowercased().range(of: "brn")?.lowerBound == serialNumber.startIndex) {
+            self = .boron
+        } else {
+            return nil
         }
     }
 }
