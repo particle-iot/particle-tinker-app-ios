@@ -20,43 +20,34 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboard
     @IBOutlet weak var successTextLabel: MeshLabel!
 
     internal var callback: (() -> ())!
-    internal var deviceType: ParticleDeviceType!
-    internal var deviceName: String!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
-        pairingIndicator.color = MeshSetupStyle.PairingActivityIndicatorColor
 
-        successView.isHidden = true
-    }
-
-    func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType, deviceName: String) {
+    func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType?, deviceName: String) {
         self.callback = didFinishScreen
         self.deviceType = deviceType
         self.deviceName = deviceName
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func setStyle() {
+        pairingIndicator.color = MeshSetupStyle.PairingActivityIndicatorColor
 
-        pairingIndicator.startAnimating()
-
-        setContent()
+        pairingTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        successTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
     }
 
-    open func setContent() {
-        pairingTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+    override func viewWillAppear(_ animated: Bool) {
+        successView.isHidden = true
+        pairingIndicator.startAnimating()
+
+        super.viewWillAppear(animated)
+    }
+
+    override func setContent() {
         pairingTextLabel.text = MeshSetupStrings.Pairing.PairingText
-
-        successTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         successTitleLabel.text = MeshSetupStrings.Pairing.SuccessTitle
-
-        successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         successTextLabel.text = MeshSetupStrings.Pairing.SuccessText
-
-        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType.description, deviceName: self.deviceName)
     }
 
     func setSuccess() {

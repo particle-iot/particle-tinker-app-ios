@@ -54,6 +54,11 @@ enum MeshSetupFlowState {
     case CommissionerDeviceConnected
     case CommissionerDeviceReady
 
+    case JoiningNetworkStarted
+    case JoiningNetworkStep1Done
+    case JoiningNetworkStep2Done
+    case JoiningNetworkCompleted
+
     case SetupComplete
 }
 
@@ -1101,6 +1106,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: JoinNetwork
     private func stepJoinSelectedNetwork() {
+        self.delegate.meshSetupDidEnterState(state: .JoiningNetworkStarted)
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendStartCommissioner { result in
             self.log("sendStartCommissioner: \(result)")
@@ -1128,6 +1134,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func addJoiner() {
+        self.delegate.meshSetupDidEnterState(state: .JoiningNetworkStep1Done)
         /// NO_MEMORY: No memory available to add the joiner
         /// INVALID_STATE: The commissioner role is not started
         /// NOT_ALLOWED: The client is not authenticated
@@ -1136,6 +1143,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (result == .NONE) {
                 self.log("Delaying call to joinNetwork")
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    self.log("Delay hit")
                     if (self.canceled) {
                         return
                     }
@@ -1149,6 +1157,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func joinNetwork() {
+        self.log("Sending join network")
         /// NOT_FOUND: No joinable network was found
         /// TIMEOUT: The join process timed out
         /// NOT_ALLOWED: Invalid security credentials
@@ -1163,6 +1172,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func stopCommissioner() {
+        self.delegate.meshSetupDidEnterState(state: .JoiningNetworkStep2Done)
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
             self.log("sendStopCommissioner: \(result)")
@@ -1252,11 +1262,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func checkTargetDeviceGotClaimed() {
         if let isClaimed = self.targetDevice.isClaimed, isClaimed == true {
-            self.log("device was successfully claimed")
-            if (self.currentFlow == self.ethernetFlow) {
-                self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToCloud)
-            }
-            self.stepComplete()
+            self.deviceGotClaimed()
             return
         }
 
@@ -1279,11 +1285,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if let devices = devices {
                 for device in devices {
                     if (device.id == self.targetDevice.deviceId!) {
-                        self.log("device was successfully claimed")
-                        if (self.currentFlow == self.ethernetFlow) {
-                            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToCloud)
-                        }
-                        self.stepComplete()
+                        self.deviceGotClaimed()
                         return
                     }
                 }
@@ -1294,6 +1296,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.checkTargetDeviceGotClaimed()
             }
         }
+    }
+
+    private func deviceGotClaimed() {
+        self.log("device was successfully claimed")
+        if (self.currentFlow == self.ethernetFlow) {
+            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToCloud)
+        } else if (self.currentFlow == self.joinerFlow) {
+            self.delegate.meshSetupDidEnterState(state: .JoiningNetworkCompleted)
+        }
+        self.stepComplete()
     }
 
 

@@ -8,78 +8,89 @@
 
 import UIKit
 
-class MeshSetupJoiningNetworkViewController: MeshSetupViewController {
+class MeshSetupJoiningNetworkViewController: MeshSetupViewController, Storyboardable {
 
-//    var networkPassword: String?
-//
-//    @IBOutlet weak var step1Label: UILabel!
-//    @IBOutlet weak var step2Label: UILabel!
-//    @IBOutlet weak var step3Label: UILabel!
-//    @IBOutlet weak var successImageView: UIImageView!
-//
-//
-//    func growLabel(label: UILabel) {
-//        label.font = UIFont(name: "Gotham-Medium", size: 16.0)
-//        label.alpha = 1.0
-//    }
-//
-//    func shrinkLabel(label: UILabel) {
-//        label.font = UIFont(name: "Gotham-Book", size: 15.0)
-//        label.alpha = 0.4
-//    }
-//
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        self.successImageView.isHidden = true
-//        growLabel(label: step1Label)
-//        shrinkLabel(label: step2Label)
-//        shrinkLabel(label: step3Label)
-//
-//    }
-//
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        print("viewDidAppear - commissionDeviceToNetwork")
-//
-//        self.flowManager!.commissionDeviceToNetwork()
-//        ParticleSpinner.show(self.view)
-//    }
-//
-//    override func joinerPrepared() {
-//        DispatchQueue.main.async {
-//            self.growLabel(label: self.step2Label)
-//            self.shrinkLabel(label: self.step1Label)
-//            self.shrinkLabel(label: self.step3Label)
-//        }
-//
-//    }
-//
-//    override func joinedNetwork() {
-//        DispatchQueue.main.async {
-//            self.growLabel(label: self.step3Label)
-//            self.shrinkLabel(label: self.step1Label)
-//            self.shrinkLabel(label: self.step2Label)
-//        }
-//    }
-//
-//    override func deviceOnlineClaimed() {
-//        DispatchQueue.main.async {
-//            self.shrinkLabel(label: self.step1Label)
-//            self.shrinkLabel(label: self.step1Label)
-//            self.shrinkLabel(label: self.step3Label)
-//            ParticleSpinner.hide(self.view)
-//            self.successImageView.isHidden = false
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                // delay is needed otherwise joiner returns -1
-//                self.performSegue(withIdentifier: "nameDevice", sender: self)
-//            }
-//        }
-//
-//    }
+    @IBOutlet weak var joiningView: UIView!
+    @IBOutlet weak var joiningTitleLabel: MeshLabel!
+    @IBOutlet weak var joiningIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var joiningTextLabel1: MeshLabel!
+    @IBOutlet weak var joiningTextLabel2: MeshLabel!
+    @IBOutlet weak var joiningTextLabel3: MeshLabel!
+    
+    
+    @IBOutlet weak var successView: UIView!
+    @IBOutlet weak var successTitleLabel: MeshLabel!
+    @IBOutlet weak var successTextLabel: MeshLabel!
+    
+    internal var callback: (() -> ())!
 
-  
+    func setup(didFinishScreen: @escaping () -> (), networkName: String, deviceType: ParticleDeviceType!) {
+        self.callback = didFinishScreen
+        self.networkName = networkName
+        self.deviceType = deviceType
+    }
+
+    override func setStyle() {
+        successTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+
+        joiningTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        joiningIndicator.color = MeshSetupStyle.PairingActivityIndicatorColor
+
+        joiningTextLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        joiningTextLabel2.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
+        joiningTextLabel3.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
+    }
+
+    override func setContent() {
+        successTitleLabel.text = MeshSetupStrings.JoiningNetwork.SuccessTitle
+        successTextLabel.text = MeshSetupStrings.JoiningNetwork.SuccessText
+
+        joiningTitleLabel.text = MeshSetupStrings.JoiningNetwork.Title
+        joiningTextLabel1.text = MeshSetupStrings.JoiningNetwork.Text1
+        joiningTextLabel2.text = MeshSetupStrings.JoiningNetwork.Text2
+        joiningTextLabel3.text = MeshSetupStrings.JoiningNetwork.Text3
+    }
+
+    func setState(_ state: MeshSetupFlowState) {
+        DispatchQueue.main.async {
+            switch state {
+                case .JoiningNetworkStep1Done:
+                    self.joiningTextLabel1.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+                    self.joiningTextLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+                case .JoiningNetworkStep2Done:
+                    self.joiningTextLabel2.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+                    self.joiningTextLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+                case .JoiningNetworkCompleted:
+                    self.setSuccess()
+                default:
+                    fatalError("this should never happen")
+            }
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        successView.isHidden = true
+        joiningIndicator.startAnimating()
+    }
+
+
+    private func setSuccess() {
+        DispatchQueue.main.async {
+            self.joiningIndicator.stopAnimating()
+            self.joiningView.isHidden = true
+
+            self.successView.isHidden = false
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+                [weak self] in
+                if let callback = self?.callback {
+                    callback()
+                }
+            }
+        }
+    }
+
 
 }

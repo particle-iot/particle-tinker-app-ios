@@ -9,14 +9,23 @@ import UIKit
 
 class MeshSetupViewController: UIViewController {
 
-
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint?
-
 
     private var bottomConstraintConstant: CGFloat?
 
+    internal var deviceType: ParticleDeviceType?
+    internal var networkName: String?
+    internal var deviceName: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setCommonStyle()
+        setStyle()
+    }
+
+    private func setCommonStyle() {
+        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -25,6 +34,21 @@ class MeshSetupViewController: UIViewController {
         if let constraint = buttonBottomConstraint {
             bottomConstraintConstant = constraint.constant
         }
+
+        setContent()
+        replacePlaceHolderStrings()
+    }
+
+    open func setStyle() {
+        fatalError("Not implemented")
+    }
+
+    open func setContent() {
+        fatalError("Not implemented")
+    }
+
+    func replacePlaceHolderStrings() {
+        view.replaceMeshSetupStrings(deviceType: self.deviceType?.description, networkName: networkName, deviceName: deviceName)
     }
 
     override func viewDidAppear(_ animated: Bool) {

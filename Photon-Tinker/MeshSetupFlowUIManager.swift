@@ -13,8 +13,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     @IBOutlet weak var accountLabel: MeshLabel!
 
-    private var targetDeviceType: ParticleDeviceType!
+    private var targetDeviceType: ParticleDeviceType?
     private var targetDeviceDataMatrixString: String!
+    private var targetDeviceName:String?
 
     private var commissionerDeviceType: ParticleDeviceType?
     private var commissionerDeviceDataMatrixString: String!
@@ -24,7 +25,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private var pairingScreenDone: Bool?
     private var pairingFlowDone: Bool?
-
 
 
     override func awakeFromNib() {
@@ -98,7 +98,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         //make sure the scanned device is of the same type as user requested in the first screen
         if let matrix = MeshSetupDataMatrix(dataMatrixString: self.targetDeviceDataMatrixString),
            let type = ParticleDeviceType(serialNumber: matrix.serialNumber),
-           type == self.targetDeviceType {
+           self.targetDeviceType == nil || type == self.targetDeviceType {
+            self.targetDeviceType = type
 
             let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix)
             guard error == nil else {
@@ -106,7 +107,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             }
 
             let pairingVC = MeshSetupPairingProcessViewController.storyboardViewController()
-            pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceName() ?? self.targetDeviceType.description)
+            pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceName() ?? self.targetDeviceType!.description)
             self.embededNavigationController.pushViewController(pairingVC, animated: true)
         } else {
             if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
@@ -305,29 +306,69 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             if error == nil {
                 //this will happen automatically
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNetworkPasswordViewController {
-                vc.setWrongPassword()
+                vc.setWrongInput()
             }
         }
     }
 
-
-
-
-
-
-    func meshSetupDidRequestToEnterDeviceName() {
-        flowManager.setDeviceName(name: randomStringWithLength(10)) { error in
-
+    private func showJoiningNetwork() {
+        DispatchQueue.main.async {
+            let joiningVC = MeshSetupJoiningNetworkViewController.storyboardViewController()
+            joiningVC.setup(didFinishScreen: self.didFinishJoinNetworkScreen, networkName: self.selectedNetwork!.name, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(joiningVC, animated: true)
         }
     }
 
+    func didFinishJoinNetworkScreen() {
+        DispatchQueue.main.async {
+            let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
+            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(nameVC, animated: true)
+        }
+    }
 
-    func meshSetupDidRequestToAddOneMoreDevice() {
-        flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
+    func meshSetupDidRequestToEnterDeviceName() {
+        //do nothing
+//        flowManager.setDeviceName(name: randomStringWithLength(10)) { error in
+//
+//        }
     }
 
 
+    func didEnterName(name: String) {
+        self.targetDeviceName = name
+        flowManager.setDeviceName(name: name) { error in
+            if error == nil {
+                //this will happen automatically
+            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController {
+                vc.setWrongInput()
+            }
+        }
+    }
 
+    func meshSetupDidRequestToAddOneMoreDevice() {
+        DispatchQueue.main.async {
+            //flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
+            let successVC = MeshSetupSuccessViewController.storyboardViewController()
+            successVC.setup(didSelectToAddOneMore: self.didSelectToAddOneMore, deviceName: self.targetDeviceName!)
+            self.embededNavigationController.pushViewController(successVC, animated: true)
+        }
+    }
+
+    func didSelectToAddOneMore(add: Bool) {
+        if (add) {
+            targetDeviceType = nil
+            targetDeviceDataMatrixString = nil
+            targetDeviceName = nil
+
+            let getReadyVC = MeshSetupGetReadyViewController.storyboardViewController()
+            getReadyVC.setup(didPressReady: targetDeviceReady, deviceType: self.targetDeviceType)
+            self.embededNavigationController.setViewControllers([getReadyVC], animated: true)
+        } else {
+            //setup done
+            self.dismiss(animated: true)
+        }
+    }
 
 
 
@@ -406,6 +447,17 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     //TODO: remove from prod
                     fatalError("why oh why?")
                 }
+
+            case .JoiningNetworkStarted:
+                showJoiningNetwork()
+            case .JoiningNetworkStep1Done, .JoiningNetworkStep2Done, .JoiningNetworkCompleted:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupJoiningNetworkViewController {
+                    vc.setState(state)
+                } else {
+                    //TODO: remove from prod
+                    fatalError("why oh why?")
+                }
+
             default:
                 break;
 

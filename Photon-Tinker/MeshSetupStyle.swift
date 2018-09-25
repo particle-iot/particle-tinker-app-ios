@@ -72,6 +72,10 @@ class MeshSetupButton : UIButton {
 
     }
 
+    override func setTitle(_ title: String?, for state: State) {
+        super.setTitle(title?.uppercased(), for: state)
+    }
+
     func setStyle(font: String, size: Int, color: UIColor) {
         self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
 
@@ -93,12 +97,6 @@ class MeshSetupNoteView: UIView {
 
         self.layer.borderColor = MeshSetupStyle.NoteBorderColor.cgColor
         self.layer.borderWidth = 1
-    }
-}
-
-extension String {
-    func meshLocalized() -> String {
-        return NSLocalizedString(self, tableName: "MeshSetupStrings", comment: "")
     }
 }
 

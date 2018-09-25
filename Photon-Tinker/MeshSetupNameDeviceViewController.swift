@@ -8,59 +8,41 @@
 
 import UIKit
 
-class MeshSetupNameDeviceViewController: MeshSetupViewController, UITextFieldDelegate {
+class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Storyboardable {
 
-    
-//    @IBOutlet weak var deviceNameTextField: UITextField!
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        self.navigationItem.hidesBackButton = true
-//    }
-//
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        self.deviceNameTextField.becomeFirstResponder()
-//        self.deviceNameTextField.delegate = self
-//
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//
-//        textField.resignFirstResponder()
-//        if let name = textField.text {
-//            if name.count < 1 {
-//                // TODO: enforce more things ?
-//                self.flowError(error: "Device name must be 1 characters or more", severity: .Warning, action: .Dialog)
-//            } else {
-//                ParticleSpinner.show(self.view)
-//                self.flowManager!.deviceName = name
-//                self.doneButton.isEnabled = false
-//                self.doneButton.alpha = 0.5
-//            }
-//        }
-//    }
-//
-//    override func deviceNamed() {
-//        DispatchQueue.main.async {
-//            ParticleSpinner.hide(self.view)
-//            self.performSegue(withIdentifier: "success", sender: self)
-//        }
-//    }
-//
-//    override func flowError(error: String, severity: MeshSetupErrorSeverity, action: MeshSetupErrorAction) {
-//        DispatchQueue.main.async {
-//            self.doneButton.isEnabled = true
-//            self.doneButton.alpha = 1.0
-//        }
-//
-//        super.flowError(error: error, severity: severity, action: action)
-//
-//    }
-//
-//    @IBOutlet weak var doneButton: UIButton!
-//    @IBAction func doneButtonTapped(_ sender: Any) {
-//        self.textFieldDidEndEditing(self.deviceNameTextField)
-//    }
+    internal var callback: ((String) -> ())!
+
+    func setup(didEnterPassword: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
+        self.callback = didEnterPassword
+        self.deviceType = deviceType
+    }
+
+    override func setStyle() {
+        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+
+        inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+    }
+
+    override func setContent() {
+        titleLabel.text = MeshSetupStrings.DeviceName.Title
+        textLabel.text = MeshSetupStrings.DeviceName.Text
+
+        continueButton.setTitle(MeshSetupStrings.DeviceName.Button, for: .normal)
+    }
+
+    override func submit() {
+        super.submit()
+
+        callback(self.inputTextField.text!)
+    }
+
+    override func validateInput() -> Bool {
+        if let text = inputTextField.text, text.count >= 1 {
+            return true
+        } else {
+            return false
+        }
+    }
 }

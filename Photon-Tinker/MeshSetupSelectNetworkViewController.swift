@@ -16,7 +16,6 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, Storyboarda
     @IBOutlet weak var scanActivityIndicator: UIActivityIndicatorView!
 
     private var networks:[MeshSetupNetworkInfo]?
-
     private var callback: ((MeshSetupNetworkInfo) -> ())!
 
     override func viewDidLoad() {
@@ -24,12 +23,6 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, Storyboarda
 
         networksTableView.delegate = self
         networksTableView.dataSource = self
-        networksTableView.tableFooterView = UIView()
-
-        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
-
-        scanActivityIndicator.color = MeshSetupStyle.NetworkScanActivityIndicatorColor
-        scanActivityIndicator.hidesWhenStopped = true
     }
 
     func setup(didSelectNetwork: @escaping (MeshSetupNetworkInfo) -> ()) {
@@ -39,10 +32,20 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, Storyboarda
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        titleLabel.text = MeshSetupStrings.Networks.Title
-
         startScanning()
+    }
+
+    override func setContent() {
+        titleLabel.text = MeshSetupStrings.Networks.Title
+    }
+
+    override func setStyle() {
+        networksTableView.tableFooterView = UIView()
+
+        scanActivityIndicator.color = MeshSetupStyle.NetworkScanActivityIndicatorColor
+        scanActivityIndicator.hidesWhenStopped = true
+
+        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
     }
 
     func startScanning() {

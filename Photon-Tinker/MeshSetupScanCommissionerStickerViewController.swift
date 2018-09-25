@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AVFoundation
 
 class MeshSetupScanCommissionerStickerViewController: MeshSetupScanStickerViewController {
 
@@ -16,11 +15,7 @@ class MeshSetupScanCommissionerStickerViewController: MeshSetupScanStickerViewCo
     }
 
     override func setContent() {
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         titleLabel.text = MeshSetupStrings.ScanCommissionerSticker.Title
-
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         textLabel.text = MeshSetupStrings.ScanCommissionerSticker.Text
     }
-
 }

@@ -63,6 +63,7 @@
 		930CEE2B21513B7A00C3EA02 /* MeshSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 930CEE2D21513B7A00C3EA02 /* MeshSetup.storyboard */; };
 		930CEE332151555000C3EA02 /* MeshSetupImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 930CEE322151555000C3EA02 /* MeshSetupImages.xcassets */; };
 		930CEE4521516D1500C3EA02 /* MeshSetupStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 930CEE4321516D1400C3EA02 /* MeshSetupStrings.strings */; };
+		931C3770215A5FEF0014811C /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C376F215A5FEF0014811C /* MeshSetupTextInputViewController.swift */; };
 		932A8E2B2146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932A8E282146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin */; };
 		932A8E302147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932A8E2F2147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin */; };
 		937382972140580E001BF23D /* common.proto in Resources */ = {isa = PBXBuildFile; fileRef = 937382952140580E001BF23D /* common.proto */; };
@@ -203,6 +204,7 @@
 		930CEE3021513B9900C3EA02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MeshSetup.storyboard; sourceTree = "<group>"; };
 		930CEE322151555000C3EA02 /* MeshSetupImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MeshSetupImages.xcassets; sourceTree = "<group>"; };
 		930CEE4421516D1400C3EA02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetupStrings.strings"; sourceTree = "<group>"; };
+		931C376F215A5FEF0014811C /* MeshSetupTextInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupTextInputViewController.swift; sourceTree = "<group>"; };
 		932A8E282146CC8500E39F68 /* bootloader-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; explicitFileType = compiled; path = "bootloader-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
 		932A8E2F2147127100E39F68 /* tinker-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
 		937382952140580E001BF23D /* common.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = common.proto; sourceTree = "<group>"; };
@@ -261,6 +263,8 @@
 			isa = PBXGroup;
 			children = (
 				50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */,
+				C810BB956758D08BED88FCE9 /* ScanBarcodeViewController.h */,
+				C810B850BE47E7B13D4BF211 /* ScanBarcodeViewController.m */,
 				5048CD221AE09AD00097150A /* DeviceListViewController.swift */,
 				50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */,
 				50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */,
@@ -507,7 +511,6 @@
 			isa = PBXGroup;
 			children = (
 				C810B345745844B8B3FFF59A /* ViewController */,
-				C810B9162D01963719C521A3 /* ViewControllersOld */,
 				C810B2CAE260B3148184A35D /* MeshSetupStyle.swift */,
 				C810B9AD84E83D46895E4B3C /* MeshStrings.swift */,
 				C810BC3EDE8E873F49179516 /* Controls */,
@@ -519,19 +522,22 @@
 		C810B345745844B8B3FFF59A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C810B3C161CFC92566CED3C4 /* MeshSetupJoiningNetworkViewController.swift */,
+				C810BE52FD6FF6D1D7F9A4B7 /* MeshSetupSuccessViewController.swift */,
+				C810BC6AC4EB58C11FB24A01 /* MeshSetupNameDeviceViewController.swift */,
+				C810B936AC009FFCE9C597A9 /* MeshSetupGetCommissionerReadyViewController.swift */,
+				C810B5259F8A2C1EE87C6127 /* MeshSetupViewController.swift */,
 				C810B7C3AEF22E0B96149417 /* MeshSetupSelectDeviceViewController.swift */,
 				C810BAE573F3ED56189AA4E4 /* MeshSetupGetReadyViewController.swift */,
-				C810B936AC009FFCE9C597A9 /* MeshSetupGetCommissionerReadyViewController.swift */,
 				C810B9110A09D7BA2729B8B5 /* MeshSetupFindStickerViewController.swift */,
 				C810BA42F32AB44A64976BEA /* MeshSetupFindCommissionerStickerViewController.swift */,
 				C810B881C0851F83C3D204DE /* MeshSetupScanStickerViewController.swift */,
 				C810B04B0CAF8FCE725E36C9 /* MeshSetupPairingProcessViewController.swift */,
 				C810B86230E717DC2D8ADEBE /* MeshSetupSelectNetworkViewController.swift */,
-				C810BB956758D08BED88FCE9 /* ScanBarcodeViewController.h */,
-				C810B850BE47E7B13D4BF211 /* ScanBarcodeViewController.m */,
 				C810B4C603CAF0052687BF4F /* MeshSetupScanCommissionerStickerViewController.swift */,
 				C810B31078ED9759714A64C3 /* MeshSetupPairingCommissionerProcessViewController.swift */,
 				C810B2736E3F1FA6A1A4600E /* MeshSetupNetworkPasswordViewController.swift */,
+				931C376F215A5FEF0014811C /* MeshSetupTextInputViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -544,17 +550,6 @@
 				C810B070865B4757E7ABFF85 /* MeshSetupProtocolTransceiver.swift */,
 			);
 			name = Components;
-			sourceTree = "<group>";
-		};
-		C810B9162D01963719C521A3 /* ViewControllersOld */ = {
-			isa = PBXGroup;
-			children = (
-				C810B3C161CFC92566CED3C4 /* MeshSetupJoiningNetworkViewController.swift */,
-				C810B5259F8A2C1EE87C6127 /* MeshSetupViewController.swift */,
-				C810BC6AC4EB58C11FB24A01 /* MeshSetupNameDeviceViewController.swift */,
-				C810BE52FD6FF6D1D7F9A4B7 /* MeshSetupSuccessViewController.swift */,
-			);
-			name = ViewControllersOld;
 			sourceTree = "<group>";
 		};
 		C810BC3EDE8E873F49179516 /* Controls */ = {
@@ -890,6 +885,7 @@
 				C810B11BBD950CFB3F0ACBA7 /* MeshSetupViewController.swift in Sources */,
 				C810BCCB280D2B56490F921A /* MeshSetupNameDeviceViewController.swift in Sources */,
 				C810BF19EE07E4AE63DF0E90 /* MeshSetupSuccessViewController.swift in Sources */,
+				931C3770215A5FEF0014811C /* MeshSetupTextInputViewController.swift in Sources */,
 				C810B40F25131D275FBF05EE /* MeshSetupStyle.swift in Sources */,
 				C810B1DC516445C4397951BA /* MeshStrings.swift in Sources */,
 				C810BC970F231F003E6714F2 /* MeshDeviceCell.swift in Sources */,

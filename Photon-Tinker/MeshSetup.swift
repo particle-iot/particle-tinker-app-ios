@@ -39,12 +39,6 @@ enum MeshSetupErrorSeverity {
     case Fatal //can't continue and won't be able to solve
 }
 
-enum MeshSetupErrorAction {
-    case Dialog
-    case Pop
-    case Fail
-}
-
 struct MeshSetupPeripheralCredentials {
     var name: String
     var mobileSecret: String
@@ -102,51 +96,3 @@ extension ParticleDeviceType : CustomStringConvertible {
         }
     }
 }
-
-func replaceMeshSetupStringTemplates(string: String, deviceType : String? = nil, networkName : String? = nil, deviceName : String? = nil) -> String {
-    var string = string
-
-    if let t = deviceType {
-        string = string.replacingOccurrences(of: "{{device}}", with: t.description)
-    }
-
-    if let n = networkName {
-        string = string.replacingOccurrences(of: "{{network}}", with: n)
-    }
-
-    if let d = deviceName {
-        string = string.replacingOccurrences(of: "{{deviceName}}", with: d)
-    }
-
-    return string
-}
-
-func replaceMeshSetupStringTemplates(view: UIView, deviceType : String? = nil, networkName : String? = nil, deviceName : String? = nil) {
-    
-    let subviews = view.subviews
-    
-    for subview in subviews {
-        if subview is UILabel {
-            let label = subview as! UILabel
-            var newLabelString = label.text
-
-            if let t = deviceType {
-                newLabelString = label.text?.replacingOccurrences(of: "{{device}}", with: t)
-            }
-
-            if let n = networkName {
-                newLabelString = newLabelString!.replacingOccurrences(of: "{{network}}", with: n)
-            }
-
-            if let d = deviceName {
-                newLabelString = newLabelString!.replacingOccurrences(of: "{{deviceName}}", with: d)
-            }
-
-            label.text = newLabelString
-        } else if (subview is UIView) {
-            replaceMeshSetupStringTemplates(view: subview, deviceType: deviceType, networkName: networkName, deviceName: deviceName)
-        }
-    }
-}
-
-

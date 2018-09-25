@@ -11,18 +11,15 @@ import AVFoundation
 
 class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMetadataOutputObjectsDelegate, Storyboardable {
     @IBOutlet weak var cameraView: UIView!
-
     @IBOutlet weak var titleLabel: MeshLabel!
-    
     @IBOutlet weak var textLabel: MeshLabel!
 
-    var captureSession: AVCaptureSession!
-    var previewLayer: AVCaptureVideoPreviewLayer!
-
     internal var callback: ((String) -> ())!
-    internal var deviceType: ParticleDeviceType!
 
-    func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType) {
+    private var captureSession: AVCaptureSession!
+    private var previewLayer: AVCaptureVideoPreviewLayer!
+
+    func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
         self.callback = didFindStickerCode
         self.deviceType = deviceType
     }
@@ -62,17 +59,11 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = self.cameraView.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
-        self.cameraView.layer.addSublayer(previewLayer)
-        self.cameraView.clipsToBounds = true
+
+        cameraView.layer.addSublayer(previewLayer)
+        cameraView.clipsToBounds = true
 
         captureSession.startRunning()
-
-
-        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
-
-        cameraView.backgroundColor = MeshSetupStyle.VideoBackgroundColor
-        cameraView.clipsToBounds = true
-        cameraView.layer.cornerRadius = 5
     }
 
 
@@ -90,18 +81,16 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         if (captureSession?.isRunning == false) {
             captureSession.startRunning()
         }
-
-        setContent()
     }
 
-    open func setContent() {
+    override func setStyle() {
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        titleLabel.text = MeshSetupStrings.ScanSticker.Title
-
         textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel.text = MeshSetupStrings.ScanSticker.Text
+    }
 
-        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType.description)
+    override func setContent() {
+        titleLabel.text = MeshSetupStrings.ScanSticker.Title
+        textLabel.text = MeshSetupStrings.ScanSticker.Text
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -119,7 +108,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            self.foundDataMatrixString(stringValue)
+            callback(stringValue)
         }
     }
 
@@ -128,9 +117,4 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             captureSession.startRunning()
         }
     }
-
-    func foundDataMatrixString(_ dataMatrixString: String) {
-        callback(dataMatrixString)
-    }
-    
 }

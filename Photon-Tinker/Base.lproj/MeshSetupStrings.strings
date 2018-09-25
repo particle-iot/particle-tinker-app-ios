@@ -6,7 +6,7 @@
   Copyright © 2018 spark. All rights reserved.
 */
 
-"MeshSetup.SelectDevice.Title" = "Choose the device you’re setting up... or you are not";
+"MeshSetup.SelectDevice.Title" = "Choose the device you’re setting up";
 "MeshSetup.SelectDevice.MeshOnly" = "Mesh only";
 "MeshSetup.SelectDevice.MeshAndWifi" = "Mesh + Wi-Fi";
 "MeshSetup.SelectDevice.MeshAndCellular" = "Mesh + Cellular";
@@ -69,3 +69,24 @@
 "MeshSetup.ExistingNetworkPassword.Button" = "Join Network";
 
 
+
+"MeshSetup.JoiningNetwork.Title" = "Your {{device}} is joining the {{network}} mesh network";
+"MeshSetup.JoiningNetwork.Text1" = "Requesting permission from assisting device to add {{device}}";
+"MeshSetup.JoiningNetwork.Text2" = "Adding {{device}} to the mesh network";
+"MeshSetup.JoiningNetwork.Text3" = "Starting a secure session with the Particle Device Cloud via gateway";
+"MeshSetup.JoiningNetwork.SuccessTitle" = "Congrats!";
+"MeshSetup.JoiningNetwork.SuccessText" = "Your {{device}} has been successfully added to {{network}} mesh network";
+
+
+
+"MeshSetup.DeviceName.Title" = "Give your {{device}} a name";
+"MeshSetup.DeviceName.Text" = "Name your device something you will remember to help you easily identify it later.";
+"MeshSetup.DeviceName.Button" = "Next";
+
+
+"MeshSetup.Success.SuccessTitle" = "Congrats!";
+"MeshSetup.Success.SuccessText" = "{{deviceName}} is all set up!";
+"MeshSetup.Success.SetupAnotherLabel" = "Adding more devices to this network?";
+"MeshSetup.Success.SetupAnotherButton" = "Setup another device";
+"MeshSetup.Success.DoneLabel" = "Itching to get started?";
+"MeshSetup.Success.DoneButton" = "Done";

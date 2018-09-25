@@ -22,48 +22,33 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBOutlet weak var continueButton: MeshSetupButton!
     
     internal var callback: (() -> ())!
-    internal var deviceType: ParticleDeviceType!
 
-    func setup(didPressReady: @escaping () -> (), deviceType: ParticleDeviceType) {
+    func setup(didPressReady: @escaping () -> (), deviceType: ParticleDeviceType?) {
         self.callback = didPressReady
         self.deviceType = deviceType
     }
 
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
-
+    override func setStyle() {
         videoView.backgroundColor = MeshSetupStyle.VideoBackgroundColor
         videoView.layer.cornerRadius = 5
         videoView.clipsToBounds = true
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        setContent()
-    }
-
-    open func setContent() {
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        titleLabel.text = MeshSetupStrings.GetReady.Title
-
         textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel1.text = MeshSetupStrings.GetReady.Text1
-
         textLabel2.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
-        textLabel2.text = MeshSetupStrings.GetReady.Text2
-
         textLabel3.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
+
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+    }
+
+
+    override func setContent() {
+        titleLabel.text = MeshSetupStrings.GetReady.Title
+        textLabel1.text = MeshSetupStrings.GetReady.Text1
+        textLabel2.text = MeshSetupStrings.GetReady.Text2
         textLabel3.text = MeshSetupStrings.GetReady.Text3
 
-        var buttonTitle = replaceMeshSetupStringTemplates(string: MeshSetupStrings.GetReady.Button, deviceType: self.deviceType.description)
-        continueButton.setTitle(buttonTitle.uppercased(), for: .normal)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
-
-        replaceMeshSetupStringTemplates(view: self.view, deviceType: self.deviceType.description)
+        continueButton.setTitle(MeshSetupStrings.GetReady.Button, for: .normal)
     }
 
     @IBAction func nextButtonTapped(_ sender: Any) {

@@ -29,16 +29,16 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
 
         deviceTypeTableView.delegate = self
         deviceTypeTableView.dataSource = self
-        
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        titleLabel.text = MeshSetupStrings.SelectDevice.Title
+    }
 
-        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
+    override func setStyle() {
+        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
 
         //remove extra cells at the bottom
         deviceTypeTableView.tableFooterView = UIView()
         deviceTypeTableView.backgroundColor = MeshSetupStyle.ViewBackgroundColor
         deviceTypeTableView.separatorColor = MeshSetupStyle.CellSeparatorColor
+
         enabledCells = [
             LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false),
             LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false),
@@ -46,6 +46,15 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
         ]
     }
 
+    override func setContent() {
+        enabledCells = [
+            LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false),
+            LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false),
+            LDClient.sharedInstance().boolVariation("temp-boron-in-ios", fallback: false)
+        ]
+
+        titleLabel.text = MeshSetupStrings.SelectDevice.Title
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
