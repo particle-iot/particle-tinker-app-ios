@@ -312,7 +312,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
                     self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
                     if (result == .NONE) {
-                        self.runCurrentStep()
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                            self.runCurrentStep()
+                        }
                     } else {
                         self.handleBluetoothErrorResult(result)
                     }
