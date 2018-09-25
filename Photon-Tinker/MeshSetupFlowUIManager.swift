@@ -8,10 +8,10 @@ import UIKit
 
 class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate {
 
+    @IBOutlet weak var accountLabel: MeshLabel!
+
     private var flowManager: MeshSetupFlowManager!
     private var embededNavigationController: UINavigationController!
-
-    @IBOutlet weak var accountLabel: MeshLabel!
 
     private var targetDeviceType: ParticleDeviceType?
     private var targetDeviceDataMatrixString: String!
@@ -39,8 +39,15 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
         self.accountLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PlaceHolderTextColor)
         self.accountLabel.text = ParticleCloud.sharedInstance().loggedInUsername ?? ""
+
+        UIApplication.shared.isIdleTimerDisabled = true
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        UIApplication.shared.isIdleTimerDisabled = false
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "embedNavigation") {
@@ -283,6 +290,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         pairingFlowDone = true
 
         if pairingScreenDone == true {
+            pairingScreenDone = nil
+            pairingFlowDone = nil
+
             showPasswordPrompt()
         }
     }
@@ -291,6 +301,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         pairingScreenDone = true
 
         if pairingFlowDone == true {
+            pairingScreenDone = nil
+            pairingFlowDone = nil
+
             showPasswordPrompt()
         }
     }
@@ -328,10 +341,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func meshSetupDidRequestToEnterDeviceName() {
-        //do nothing
-//        flowManager.setDeviceName(name: randomStringWithLength(10)) { error in
-//
-//        }
+        //on joiner flow this won't execute, but this will execute on repetead joins & ethernet flow
+        guard let topVC = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController else {
+            let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
+            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(nameVC, animated: true)
+        }
     }
 
 
@@ -356,6 +371,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didSelectToAddOneMore(add: Bool) {
+        flowManager.setAddOneMoreDevice(addOneMoreDevice: add)
+
         if (add) {
             targetDeviceType = nil
             targetDeviceDataMatrixString = nil
@@ -467,11 +484,28 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
-        if (error == .DeviceTooFar) {
-            //TODO: show prompt and repeat step
-        } else {
-            //fail...
-            log("flow failed: \(error)")
+        switch (error) {
+            case .DeviceTooFar:
+                showAlert("DeviceTooFar")
+            case .DeviceIsNotAllowedToJoinNetwork:
+                showAlert("DeviceIsNotAllowedToJoinNetwork")
+            case .DeviceIsUnableToFindNetworkToJoin:
+                showAlert("DeviceIsUnableToFindNetworkToJoin")
+            default:
+                showAlert(error.localizedDescription)
+        }
+    }
+
+    //TODO refactor this
+    func showAlert(_ message: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                self.flowManager.retryLastAction()
+            })
+
+            self.present(alert, animated: true)
         }
     }
 

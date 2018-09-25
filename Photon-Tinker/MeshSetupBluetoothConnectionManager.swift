@@ -128,9 +128,9 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         centralManager.cancelPeripheralConnection(connection.cbPeripheral)
     }
 
-    func dropConnection(with connection: CBPeripheral) {
+    func dropPeripheralConnection(with peripheral: CBPeripheral) {
         //this will trigger delegate callback for dropped connection
-        centralManager.cancelPeripheralConnection(connection)
+        centralManager.cancelPeripheralConnection(peripheral)
     }
 
 
@@ -191,7 +191,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
             if peripheral.state == .connected {
                 self.fail(withReason: .DeviceWasConnected, severity: .Warning)
-                self.dropConnection(with: peripheral)
+                self.dropPeripheralConnection(with: peripheral)
             } else {
                 self.state = .PeripheralDiscovered
                 self.centralManager.connect(peripheral, options: nil)
