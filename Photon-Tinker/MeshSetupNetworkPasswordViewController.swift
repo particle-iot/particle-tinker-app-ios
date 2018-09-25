@@ -8,57 +8,38 @@
 
 import UIKit
 
-class MeshSetupNetworkPasswordViewController: MeshSetupViewController, UITextFieldDelegate {
-    
-    
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var networkPasswordTextField: UITextField!
-    @IBAction func joinNetworkButtonTapped(_ sender: Any) {
-        self.textFieldDidEndEditing(self.networkPasswordTextField)
+class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
+
+    internal var callback: ((String) -> ())!
+
+    func setup(didEnterPassword: @escaping (String) -> (), networkName: String) {
+        self.callback = didEnterPassword
+        self.networkName = networkName
     }
-    
-    @IBOutlet weak var joinButton: UIButton!
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.networkPasswordTextField.becomeFirstResponder()
-        self.networkPasswordTextField.delegate = self
+
+    override func setStyle() {
+        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+        inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        textField.resignFirstResponder()
-        if let pwd = textField.text {
-            if pwd.count < 6 {
-                // TODO: enforce more things ?
-                self.flowError(error: "Network Password must be 6 characters or more", severity: .Warning, action: .Dialog)
-            } else {
-                ParticleSpinner.show(self.view)
-                self.flowManager!.networkPassword = pwd
-                self.joinButton.isEnabled = false
-                self.joinButton.alpha = 0.5
-            }
+
+    override func setContent() {
+        titleLabel.text = MeshSetupStrings.ExistingNetworkPassword.Title
+        textLabel.text = MeshSetupStrings.ExistingNetworkPassword.Text
+        continueButton.setTitle(MeshSetupStrings.ExistingNetworkPassword.Button, for: .normal)
+    }
+
+    override func submit() {
+        super.submit()
+        callback!(self.inputTextField.text!)
+    }
+
+    override func validateInput() -> Bool {
+        if let text = inputTextField.text, text.count >= 6 {
+            return true
+        } else {
+            return false
         }
     }
-    
-    override func authSuccess() {
-        DispatchQueue.main.async {
-            ParticleSpinner.hide(self.view)
-            self.performSegue(withIdentifier: "joiningNetwork", sender: self)
-        }
-    }
-    
-    override func flowError(error: String, severity: MeshSetupErrorSeverity, action: flowErrorAction) {
-       
-        DispatchQueue.main.async {
-            ParticleSpinner.hide(self.view)
-            self.joinButton.isEnabled = true
-            self.joinButton.alpha = 1.0
-            self.networkPasswordTextField.selectAll(self)
-            self.networkPasswordTextField.becomeFirstResponder()
-        }
-        
-        super.flowError(error: error, severity: severity, action: action)
-       
-    }
-    
 }

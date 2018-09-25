@@ -1,0 +1,23 @@
+syntax = "proto3";
+package particle.ctrl.cloud;
+
+import "extensions.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl.cloud";
+
+// Make sure values of this enum match the values defined for the diagnostic info
+enum ConnectionStatus {
+  DISCONNECTED = 0;
+  CONNECTING = 1;
+  CONNECTED = 2;
+  DISCONNECTING = 3;
+}
+
+// Get the cloud connection status
+message GetConnectionStatusRequest {
+  option (type_id) = 300; // CTRL_REQUEST_GET_CLOUD_CONNECTION_STATUS
+}
+
+message GetConnectionStatusReply {
+  ConnectionStatus status = 1;
+}

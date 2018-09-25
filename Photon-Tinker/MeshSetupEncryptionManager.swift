@@ -1,6 +1,7 @@
 //
 // Created by Raimundas Sakalauskas on 23/08/2018.
-// Copyright (c) 2018 spark. All rights reserved.
+// Maintained by Raimundas Sakalauskas
+// Copyright (c) 2018 Particle. All rights reserved.
 //
 
 import Foundation
@@ -108,7 +109,7 @@ class MeshSetupEncryptionManager: NSObject {
         var replNonce = getReplyNonce()
         var decryptedData = cipher.decryptData(dataToDecrypt, nonce: replNonce, add: sizeData, tag: tag)!
 
-        var rm = ReplyMessage(id: 0, result: .NONE, data: nil)
+        var rm = ReplyMessage(id: 0, result: .NONE, data: Data())
 
         //get id
         rm.id = decryptedData.withUnsafeBytes { (pointer: UnsafePointer<UInt16>) -> UInt16 in
@@ -117,7 +118,7 @@ class MeshSetupEncryptionManager: NSObject {
         decryptedData.removeSubrange(0..<2)
 
         //get type
-        rm.result = ControlRequestErrorType(rawValue: decryptedData.withUnsafeBytes { (pointer: UnsafePointer<Int32>) -> Int32 in
+        rm.result = ControlReplyErrorType(rawValue: decryptedData.withUnsafeBytes { (pointer: UnsafePointer<Int32>) -> Int32 in
             return Int32(pointer[0])
         })!
         decryptedData.removeSubrange(0..<4)

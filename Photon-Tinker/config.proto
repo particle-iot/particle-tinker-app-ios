@@ -1,0 +1,202 @@
+syntax = "proto3";
+package particle.ctrl;
+
+import "extensions.proto";
+import "common.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl";
+
+// Note: Use the same values as defined by the security_key_type enum
+enum SecurityKeyType {
+  INVALID_SECURITY_KEY = 0;
+  TCP_DEVICE_PRIVATE_KEY = 1;
+  TCP_DEVICE_PUBLIC_KEY = 2;
+  TCP_SERVER_PUBLIC_KEY = 3;
+  UDP_DEVICE_PRIVATE_KEY = 4;
+  UDP_DEVICE_PUBLIC_KEY = 5;
+  UDP_SERVER_PUBLIC_KEY = 6;
+}
+
+// Note: Use the same values as defined by the server_protocol_type enum
+enum ServerProtocolType {
+  INVALID_PROTOCOL = 0;
+  TCP_PROTOCOL = 1;
+  UDP_PROTOCOL = 2;
+}
+
+// Device mode
+enum DeviceMode {
+  DEVICE_MODE_OTHER = 0;
+  LISTENING_MODE = 1;
+}
+
+// System capability flags
+enum SystemCapabilityFlag {
+  NO_SYSTEM_CAPABILITY_FLAGS = 0;
+  COMPRESSED_OTA = 0x01;
+}
+
+// Get the device ID
+message GetDeviceIdRequest {
+  option (type_id) = 20; // CTRL_REQUEST_DEVICE_ID
+}
+
+message GetDeviceIdReply {
+  // Device ID (hex-encoded)
+  string id = 1 [(nanopb).max_size = 24];
+}
+
+// Get the device's serial number
+message GetSerialNumberRequest {
+  option (type_id) = 21; // CTRL_REQUEST_SERIAL_NUMBER
+}
+
+message GetSerialNumberReply {
+  string serial = 1 [(nanopb).max_size = 16];
+}
+
+// Get the firmware version
+message GetSystemVersionRequest {
+  option (type_id) = 30; // CTRL_REQUEST_SYSTEM_VERSION
+}
+
+message GetSystemVersionReply {
+  string version = 1;
+}
+
+// Get the NCP firmware version
+message GetNcpFirmwareVersionRequest {
+  option (type_id) = 31; // CTRL_REQUEST_NCP_FIRMWARE_VERSION
+}
+
+message GetNcpFirmwareVersionReply {
+  string version = 1;
+  uint32 module_version = 2;
+}
+
+// Get system capabilities
+message GetSystemCapabilitiesRequest {
+  option (type_id) = 32; // CTRL_REQUEST_GET_SYSTEM_CAPABILITIES
+}
+
+message GetSystemCapabilitiesReply {
+  fixed32 flags = 1;
+}
+
+message SetClaimCodeRequest {
+  option (type_id) = 200; // CTRL_REQUEST_SET_CLAIM_CODE
+  string code = 1 [(nanopb).max_size = 64]; // Claim code
+}
+
+message SetClaimCodeReply {
+}
+
+message IsClaimedRequest {
+  option (type_id) = 201; // CTRL_REQUEST_IS_CLAIMED
+}
+
+message IsClaimedReply {
+  bool claimed = 1;
+}
+
+message SetSecurityKeyRequest {
+  option (type_id) = 210; // CTRL_REQUEST_SET_SECURITY_KEY
+  SecurityKeyType type = 1; // Key type
+  bytes data = 2; // Key data in DER format
+}
+
+message SetSecurityKeyReply {
+}
+
+
+message GetSecurityKeyRequest {
+  option (type_id) = 211; // CTRL_REQUEST_GET_SECURITY_KEY
+  SecurityKeyType type = 1; // Key type
+}
+
+message GetSecurityKeyReply {
+  bytes data = 1; // Key data in DER format
+}
+
+message SetServerAddressRequest {
+  option (type_id) = 220; // CTRL_REQUEST_SET_SERVER_ADDRESS
+  ServerProtocolType protocol = 1; // Protocol type
+  string address = 2 [(nanopb).max_size = 64]; // Server address
+  int32 port = 3; // Port number
+}
+
+message SetServerAddressReply {
+}
+
+message GetServerAddressRequest {
+  option (type_id) = 221; // CTRL_REQUEST_GET_SERVER_ADDRESS
+  ServerProtocolType protocol = 1; // Protocol type
+}
+
+message GetServerAddressReply {
+  string address = 1; // Server address
+  int32 port = 2; // Port number
+}
+
+message SetServerProtocolRequest {
+  option (type_id) = 222;  // CTRL_REQUEST_SET_SERVER_PROTOCOL
+  ServerProtocolType protocol = 1; // Protocol type
+}
+
+message SetServerProtocolReply {
+}
+
+message GetServerProtocolRequest {
+  option (type_id) = 223;  // CTRL_REQUEST_GET_SERVER_PROTOCOL
+}
+
+message GetServerProtocolReply {
+  ServerProtocolType protocol = 1; // Protocol type
+}
+
+message SetSoftApSsidRequest {
+  option (type_id) = 240;  // CTRL_REQUEST_SET_SOFTAP_SSID
+  string prefix = 1 [(nanopb).max_size = 32];
+  string suffix = 2 [(nanopb).max_size = 16];
+}
+
+message SetSoftApSsidReply {
+}
+
+message StartListeningModeRequest {
+  option (type_id) = 70; // CTRL_REQUEST_START_LISTENING
+}
+
+message StartListeningModeReply {
+}
+
+message StopListeningModeRequest {
+  option (type_id) = 71; // CTRL_REQUEST_STOP_LISTENING
+}
+
+message StopListeningModeReply {
+}
+
+message GetDeviceModeRequest {
+  option (type_id) = 72; // CTRL_REQUEST_GET_DEVICE_MODE
+}
+
+message GetDeviceModeReply {
+  DeviceMode mode = 1;
+}
+
+message SetDeviceSetupDoneRequest {
+  option (type_id) = 73; // CTRL_REQUEST_SET_DEVICE_SETUP_DONE
+  bool done = 1;
+}
+
+message SetDeviceSetupDoneReply {
+}
+
+message IsDeviceSetupDoneRequest {
+  option (type_id) = 74; // CTRL_REQUEST_IS_DEVICE_SETUP_DONE
+}
+
+message IsDeviceSetupDoneReply {
+  bool done = 1;
+}

@@ -194,14 +194,44 @@ enum Particle_Ctrl_SectionFlag: SwiftProtobuf.Enum {
 
 }
 
-/// CTRL_REQUEST_START_FIRMWARE_UPDATE (250)
+enum Particle_Ctrl_FileFormat: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case bin // = 0
+  case miniz // = 1
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .bin
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .bin
+    case 1: self = .miniz
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .bin: return 0
+    case .miniz: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
 struct Particle_Ctrl_StartFirmwareUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Size of the firmware data
+  /// Size of the firmware binary
   var size: UInt32 = 0
+
+  /// Format of the firmware binary
+  var format: Particle_Ctrl_FileFormat = .bin
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -221,7 +251,6 @@ struct Particle_Ctrl_StartFirmwareUpdateReply {
   init() {}
 }
 
-/// CTRL_REQUEST_FINISH_FIRMWARE_UPDATE (251)
 struct Particle_Ctrl_FinishFirmwareUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -244,7 +273,6 @@ struct Particle_Ctrl_FinishFirmwareUpdateReply {
   init() {}
 }
 
-/// CTRL_REQUEST_CANCEL_FIRMWARE_UPDATE (252)
 struct Particle_Ctrl_CancelFirmwareUpdateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -265,7 +293,6 @@ struct Particle_Ctrl_CancelFirmwareUpdateReply {
   init() {}
 }
 
-/// CTRL_REQUEST_FIRMWARE_UPDATE_DATA (253)
 struct Particle_Ctrl_FirmwareUpdateDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -288,7 +315,6 @@ struct Particle_Ctrl_FirmwareUpdateDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_DESCRIBE_STORAGE (260)
 struct Particle_Ctrl_DescribeStorageRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -377,7 +403,6 @@ struct Particle_Ctrl_DescribeStorageReply {
   init() {}
 }
 
-/// CTRL_REQUEST_READ_SECTION_DATA (261)
 struct Particle_Ctrl_ReadSectionDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -410,7 +435,6 @@ struct Particle_Ctrl_ReadSectionDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_WRITE_SECTION_DATA (262)
 struct Particle_Ctrl_WriteSectionDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -441,7 +465,6 @@ struct Particle_Ctrl_WriteSectionDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_CLEAR_SECTION_DATA (263)
 struct Particle_Ctrl_ClearSectionDataRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -468,7 +491,6 @@ struct Particle_Ctrl_ClearSectionDataReply {
   init() {}
 }
 
-/// CTRL_REQUEST_GET_SECTION_DATA_SIZE (264)
 struct Particle_Ctrl_GetSectionDataSizeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -540,16 +562,25 @@ extension Particle_Ctrl_SectionFlag: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Particle_Ctrl_FileFormat: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "BIN"),
+    1: .same(proto: "MINIZ"),
+  ]
+}
+
 extension Particle_Ctrl_StartFirmwareUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartFirmwareUpdateRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "size"),
+    2: .same(proto: "format"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularUInt32Field(value: &self.size)
+      case 2: try decoder.decodeSingularEnumField(value: &self.format)
       default: break
       }
     }
@@ -559,11 +590,15 @@ extension Particle_Ctrl_StartFirmwareUpdateRequest: SwiftProtobuf.Message, Swift
     if self.size != 0 {
       try visitor.visitSingularUInt32Field(value: self.size, fieldNumber: 1)
     }
+    if self.format != .bin {
+      try visitor.visitSingularEnumField(value: self.format, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   func _protobuf_generated_isEqualTo(other: Particle_Ctrl_StartFirmwareUpdateRequest) -> Bool {
     if self.size != other.size {return false}
+    if self.format != other.format {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }

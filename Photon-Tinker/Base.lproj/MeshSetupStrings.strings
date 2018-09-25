@@ -1,0 +1,92 @@
+/* 
+  MeshSetupStrings.strings
+  Particle
+
+  Created by Raimundas Sakalauskas on 18/09/2018.
+  Copyright © 2018 spark. All rights reserved.
+*/
+
+"MeshSetup.SelectDevice.Title" = "Choose the device you’re setting up";
+"MeshSetup.SelectDevice.MeshOnly" = "Mesh only";
+"MeshSetup.SelectDevice.MeshAndWifi" = "Mesh + Wi-Fi";
+"MeshSetup.SelectDevice.MeshAndCellular" = "Mesh + Cellular";
+
+
+
+
+"MeshSetup.GetReady.Title" = "Get your {{device}} ready for setup";
+"MeshSetup.GetReady.Text1" = "Plug your {{device}} into a power source";
+"MeshSetup.GetReady.Text2" = "If your Xenon requires an external antenna, connect it your {{device}}";
+"MeshSetup.GetReady.Text3" = "Confirm your {{device}} is blinking blue";
+"MeshSetup.GetReady.Button" = "{{device}} is blinking blue";
+
+"MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network ";
+"MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";
+"MeshSetup.GetCommissionerReady.Text2" = "Press and hold the MODE button for 3 seconds";
+"MeshSetup.GetCommissionerReady.Text3" = "Confirm the device is blinking blue and your phone remains physically close to that device";
+"MeshSetup.GetCommissionerReady.Button" = "Assisting device blinking blue";
+
+
+
+
+"MeshSetup.FindSticker.Title" = "Pair {{device}} with your phone";
+"MeshSetup.FindSticker.Text" = "Find the data matrix sticker on the front of your device. Use your phone camera to scan the code.";
+"MeshSetup.FindSticker.Button" = "Scan data matrix";
+
+"MeshSetup.FindCommissionerSticker.Title" = "Pair assisting device with your phone";
+"MeshSetup.FindCommissionerSticker.Text" = "Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code.";
+"MeshSetup.FindCommissionerSticker.Note" = "This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network";
+"MeshSetup.FindCommissionerSticker.Button" = "Scan assisting device";
+
+
+
+
+"MeshSetup.ScanSticker.Title" = "Pair {{device}} with your phone";
+"MeshSetup.ScanSticker.Text" = "Point the camera at the data matrix on the {{device}}.";
+
+"MeshSetup.ScanCommissionerSticker.Title" = "Pair assisting device with your phone";
+"MeshSetup.ScanCommissionerSticker.Text" = "Point the camera at the data matrix on the device.";
+
+
+
+
+"MeshSetup.Pairing.PairingText" = "Pairing with your {{device}}";
+"MeshSetup.Pairing.SuccessTitle" = "Congrats!";
+"MeshSetup.Pairing.SuccessText" = "You’ve successfully paired {{deviceName}}";
+
+"MeshSetup.PairingCommissioner.PairingText" = "Pairing with your {{device}}";
+"MeshSetup.PairingCommissioner.SuccessTitle" = "Congrats!";
+"MeshSetup.PairingCommissioner.SuccessText" = "You’ve successfully paired {{deviceName}}";
+
+
+
+"MeshSetup.Networks.Title" = "Select mesh network to join";
+
+
+
+"MeshSetup.ExistingNetworkPassword.Title" = "Enter network password for {{network}}";
+"MeshSetup.ExistingNetworkPassword.Text" = "This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.";
+"MeshSetup.ExistingNetworkPassword.Button" = "Join Network";
+
+
+
+"MeshSetup.JoiningNetwork.Title" = "Your {{device}} is joining the {{network}} mesh network";
+"MeshSetup.JoiningNetwork.Text1" = "Requesting permission from assisting device to add {{device}}";
+"MeshSetup.JoiningNetwork.Text2" = "Adding {{device}} to the mesh network";
+"MeshSetup.JoiningNetwork.Text3" = "Starting a secure session with the Particle Device Cloud via gateway";
+"MeshSetup.JoiningNetwork.SuccessTitle" = "Congrats!";
+"MeshSetup.JoiningNetwork.SuccessText" = "Your {{device}} has been successfully added to {{network}} mesh network";
+
+
+
+"MeshSetup.DeviceName.Title" = "Give your {{device}} a name";
+"MeshSetup.DeviceName.Text" = "Name your device something you will remember to help you easily identify it later.";
+"MeshSetup.DeviceName.Button" = "Next";
+
+
+"MeshSetup.Success.SuccessTitle" = "Congrats!";
+"MeshSetup.Success.SuccessText" = "{{deviceName}} is all set up!";
+"MeshSetup.Success.SetupAnotherLabel" = "Adding more devices to this network?";
+"MeshSetup.Success.SetupAnotherButton" = "Setup another device";
+"MeshSetup.Success.DoneLabel" = "Itching to get started?";
+"MeshSetup.Success.DoneButton" = "Done";

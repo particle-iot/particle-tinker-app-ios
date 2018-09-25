@@ -1,17 +1,18 @@
 //
 // Created by Raimundas Sakalauskas on 21/08/2018.
-// Copyright (c) 2018 spark. All rights reserved.
+// Maintained by Raimundas Sakalauskas
+// Copyright (c) 2018 Particle. All rights reserved.
 //
 
 import Foundation
 import mbedTLSWrapper
 
 protocol MeshSetupBluetoothConnectionHandshakeManagerDelegate {
-    func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HanshakeManagerError)
+    func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HandshakeManagerError, severity: MeshSetupErrorSeverity)
     func handshakeDidSucceed(sender: MeshSetupBluetoothConnectionHandshakeManager, derivedSecret: Data)
 }
 
-enum HanshakeManagerError: Error {
+enum HandshakeManagerError: Error, CustomStringConvertible {
     case FailedToInitializeEcJPake
     case FailedToCreateRoundOne
     case FailedToCreateRoundTwo
@@ -20,6 +21,19 @@ enum HanshakeManagerError: Error {
     case FailedToDeriveSecret
     case FailedToCreateConfirmation
     case FailedToVerifySecret
+
+    public var description: String {
+        switch self {
+            case .FailedToInitializeEcJPake : return "Unable to initialize EC-JPake"
+            case .FailedToCreateRoundOne : return "Unable to create handshake local round 1 data"
+            case .FailedToCreateRoundTwo : return "Unable to create handshake local round 2 data"
+            case .FailedToReadRoundOne : return "Unable to read handshake remote round 1 data"
+            case .FailedToReadRoundTwo : return "Unable to read handshake remote round 2 data"
+            case .FailedToDeriveSecret : return "Unable to derive secret"
+            case .FailedToCreateConfirmation : return "Unable to create confirmation data"
+            case .FailedToVerifySecret : return "Unable to verify secret"
+        }
+    }
 }
 
 enum HandshakeState: Int {
@@ -56,23 +70,36 @@ class MeshSetupBluetoothConnectionHandshakeManager {
         self.rxBuffer = Data()
     }
 
+    private func log(_ message: String) {
+        if (MeshSetup.LogBluetoothHandshakeManager) {
+            NSLog("HandshakeManager: \(message)")
+        }
+    }
+
+    private func fail(withReason reason: HandshakeManagerError) {
+        log("failed - \(reason)")
+        handshakeState = .failed
+        self.delegate?.handshakeDidFail(sender: self, error: reason, severity: .Error)
+
+    }
+
     func startHandshake() {
-        NSLog("Handshake: start handshake")
+        log("start handshake")
         if let temp = ECJPakeWrapper(role: ECJPakeWrapperRoleClient, lowEntropySharedPassword: self.mobileSecret!) {
             ecJPakeWrapper = temp
 
             handshakeState = .initialized
             sendRoundOne()
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToInitializeEcJPake)
+            fail(withReason: .FailedToInitializeEcJPake)
         }
     }
 
 
 
+
     private func sendRoundOne() {
-        NSLog("Handshake: sendRoundOne")
+        log("sendRoundOne")
         let data = ecJPakeWrapper.writeRoundOne()
 
         if let data = data {
@@ -81,13 +108,12 @@ class MeshSetupBluetoothConnectionHandshakeManager {
             handshakeState = .roundOneSent
             //server will respond with data for roundOneRead
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToCreateRoundOne)
+            fail(withReason: .FailedToCreateRoundOne)
         }
     }
 
     private func readRoundOne(_ data: Data) {
-        NSLog("Handshake: readRoundOne")
+        log("readRoundOne")
         let result = ecJPakeWrapper.readRoundOne(data)
 
         if (result == 0) {
@@ -95,13 +121,12 @@ class MeshSetupBluetoothConnectionHandshakeManager {
             handshakeState = .roundOneRead
             //server will respond with data for roundTwoRead
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToReadRoundOne)
+            fail(withReason: .FailedToReadRoundOne)
         }
     }
 
     private func readRoundTwo(_ data: Data) {
-        NSLog("Handshake: readRoundTwo")
+        log("readRoundTwo")
         let result = ecJPakeWrapper.readRoundTwo(data)
 
         if (result == 0) {
@@ -109,14 +134,13 @@ class MeshSetupBluetoothConnectionHandshakeManager {
             handshakeState = .roundTwoRead
             sendRoundTwo()
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToReadRoundTwo)
+            fail(withReason: .FailedToReadRoundTwo)
         }
     }
 
 
     private func sendRoundTwo() {
-        NSLog("Handshake: sendRoundTwo")
+        log("sendRoundTwo")
         let data = ecJPakeWrapper.writeRoundTwo()
 
         if let data = data {
@@ -125,8 +149,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
             handshakeState = .roundTwoSent
             deriveSecret()
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToCreateRoundTwo)
+            fail(withReason: .FailedToCreateRoundTwo)
         }
     }
 
@@ -136,14 +159,12 @@ class MeshSetupBluetoothConnectionHandshakeManager {
         if let secret = derivedSecret {
             sendConfirmation()
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToDeriveSecret)
+            fail(withReason: .FailedToDeriveSecret)
         }
     }
 
     private func sendConfirmation() {
-        NSLog("Handshake: sendConfirmation")
-        
+        log("sendConfirmation")
         var confirmKey: Data? = getConfirmKey()
         var computedHash: Data? = getComputedHash()
         var computedHmac: Data?
@@ -164,13 +185,12 @@ class MeshSetupBluetoothConnectionHandshakeManager {
             handshakeState = .confirmationSent
             //server will respond with data for confirmationReceived
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToCreateConfirmation)
+            fail(withReason: .FailedToCreateConfirmation)
         }
     }
 
     private func readConfirmation(_ data: Data) {
-        NSLog("Handshake: readConfirmation")
+        log("readConfirmation")
         handshakeState = .confirmationSent
 
         var confirmKey: Data? = getConfirmKey()
@@ -188,12 +208,11 @@ class MeshSetupBluetoothConnectionHandshakeManager {
         }
 
         if (data == computedHmac!) {
-            NSLog("Handshake: completed")
+            log("completed")
             handshakeState = .completed
             delegate?.handshakeDidSucceed(sender: self, derivedSecret: derivedSecret!)
         } else {
-            handshakeState = .failed
-            self.delegate?.handshakeDidFail(sender: self, error: .FailedToVerifySecret)
+            fail(withReason: .FailedToVerifySecret)
         }
 
     }
@@ -246,7 +265,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
                 readConfirmation(serverData)
                 break
             default:
-                NSLog("Handshake: data received")
+                log("data received")
                 break
             }
         }
@@ -256,8 +275,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     private func getConfirmKey() -> Data? {
         let hash = Sha256Wrapper()
         if hash == nil {
-            handshakeState = .failed
-            delegate?.handshakeDidFail(sender: self, error: .FailedToCreateConfirmation)
+            fail(withReason: .FailedToCreateConfirmation)
             return nil;
         } else {
             var result = hash!.update(with: derivedSecret!)
@@ -269,8 +287,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     private func getComputedHash() -> Data? {
         let hash = Sha256Wrapper()
         if hash == nil {
-            handshakeState = .failed
-            delegate?.handshakeDidFail(sender: self, error: .FailedToCreateConfirmation)
+            fail(withReason: .FailedToCreateConfirmation)
             return nil;
         } else {
             var data = Data()

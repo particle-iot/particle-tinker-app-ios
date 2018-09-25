@@ -1,0 +1,185 @@
+syntax = "proto3";
+package particle.ctrl;
+
+import "extensions.proto";
+import "common.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl";
+
+//
+// Requests
+//
+
+message NetworkGetStatusRequest {
+    option (type_id) = 122;  // CTRL_REQUEST_NETWORK_GET_STATUS
+    int32 interface = 1;
+}
+
+message NetworkGetStatusReply {
+    NetworkConfiguration config = 1;
+}
+
+message NetworkGetConfigurationRequest {
+    option (type_id) = 120; // CTRL_REQUEST_NETWORK_GET_CONFIGURATION
+    int32 interface = 1;
+}
+
+message NetworkGetConfigurationReply {
+    NetworkConfiguration config = 1;
+}
+
+message NetworkSetConfigurationRequest {
+    option (type_id) = 121;  // CTRL_REQUEST_NETWORK_SET_CONFIGURATION
+    NetworkConfiguration config = 1;
+}
+
+message NetworkSetConfigurationReply {
+}
+
+//
+// Data types
+//
+
+enum NetworkState {
+    NETWORK_STATUS_NONE = 0;
+    DOWN = 1;
+    UP = 2;
+}
+
+message IPConfiguration {
+    enum Type {
+        NONE = 0;
+        DHCP = 1;
+        STATIC = 2;
+    }
+    Type type = 1;
+    IPAddress address = 2;
+    IPAddress netmask = 3;
+    IPAddress gateway = 4;
+    IPAddress dhcp_server = 5;
+    string hostname = 6;
+}
+
+message DNSConfiguration {
+    repeated IPAddress servers = 1;
+}
+
+message NetworkConfiguration {
+    int32 interface = 1;
+    NetworkState state = 2;
+    string name = 3;
+    bytes mac = 4 [(nanopb).max_size = 6];
+    IPConfiguration ipconfig = 5;
+    DNSConfiguration dnsconfig = 6;
+}
+
+//
+// New network interface API
+//
+
+message Ipv4Address {
+  fixed32 address = 1;
+}
+
+message Ipv6Address {
+  bytes address = 1 [(nanopb).max_size = 16, (nanopb).fixed_length = true];
+}
+
+message IpAddress {
+  oneof address {
+    Ipv4Address v4 = 1;
+    Ipv6Address v6 = 2;
+  }
+}
+
+message InterfaceAddress {
+  IpAddress address = 1;
+  uint32 prefix_length = 2;
+  // TODO: state, scope, lifetimes, etc.
+}
+
+message Ipv4Config {
+  repeated InterfaceAddress addresses = 1;
+  // On P2P links
+  Ipv4Address peer = 2;
+  // Temporary, will be moved to routing table
+  Ipv4Address gateway = 3;
+}
+
+message Ipv6Config {
+  repeated InterfaceAddress addresses = 1;
+}
+
+// Direct mapping to if_flags_t
+enum InterfaceFlag {
+  option allow_alias = true;
+  IFF_NONE = 0x00;
+  IFF_UP = 0x01;
+  IFF_BROADCAST = 0x02;
+  IFF_DEBUG = 0x04;
+  IFF_LOOPBACK = 0x08;
+  IFF_POINTTOPOINT = 0x10;
+  IFF_RUNNING = 0x40;
+  IFF_LOWER_UP = 0x40;
+  IFF_NOARP = 0x80;
+  IFF_PROMISC = 0x100;
+  IFF_ALLMULTI = 0x200;
+  IFF_MULTICAST = 0x8000;
+  IFF_NOND6 = 0x10000;
+}
+
+// Direct mapping to if_xflags_t
+enum InterfaceExtFlag {
+  IFXF_NONE = 0x00;
+  IFXF_WOL = 0x10;
+  IFXF_AUTOCONF6 = 0x20;
+  IFXF_DHCP = 0x10000;
+  IFXF_DHCP6 = 0x20000;
+  IFXF_AUTOIP = 0x40000;
+}
+
+enum InterfaceType {
+  INVALID_INTERFACE_TYPE = 0;
+  LOOPBACK = 0x01;
+  THREAD = 0x02;
+  ETHERNET = 0x04;
+  WIFI = 0x08;
+  PPP = 0x10;
+}
+
+// Operation state of the interface
+message Interface {
+  uint32 index = 1;
+  string name = 2;
+  InterfaceType type = 3;
+  uint32 flags = 4; // InterfaceFlag
+  uint32 ext_flags = 5; // InterfaceExtFlag
+  Ipv4Config ipv4_config = 6;
+  Ipv6Config ipv6_config = 7;
+  bytes hw_address = 8 [(nanopb).max_size = 8];
+  uint32 mtu = 9;
+  uint32 metric = 10;
+}
+
+message InterfaceEntry {
+  uint32 index = 1;
+  string name = 2;
+  InterfaceType type = 3;
+}
+
+message GetInterfaceListRequest {
+  option (type_id) = 400; // CTRL_REQUEST_NETWORK_GET_INTERFACE_LIST
+}
+
+message GetInterfaceListReply {
+  repeated InterfaceEntry interfaces = 1;
+}
+
+message GetInterfaceRequest {
+  option (type_id) = 401; // CTRL_REQUEST_NETWORK_GET_INTERFACE
+  uint32 index = 1;
+}
+
+message GetInterfaceReply {
+  Interface interface = 1;
+}

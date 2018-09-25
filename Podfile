@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-#use_frameworks!
+platform :ios, '9.0'
 
 target 'Particle' do
     pod 'Particle-SDK', :path => '../particle-sdk-ios'
@@ -16,6 +16,7 @@ target 'Particle' do
     pod 'YCTutorialBox'
     pod 'Crashlytics'
     pod 'Analytics'
+    pod 'LaunchDarkly', '2.13.4'
 end
 
 

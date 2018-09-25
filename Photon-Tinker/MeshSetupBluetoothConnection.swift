@@ -3,231 +3,255 @@
 //  Particle
 //
 //  Created by Ido Kleinman on 7/12/18.
-//  Copyright © 2018 spark. All rights reserved.
+//  Maintained by Raimundas Sakalauskas
+//  Copyright © 2018 Particle. All rights reserved.
 //
 
 import UIKit
 import CoreBluetooth
 
 
+protocol MeshSetupBluetoothConnectionDelegate {
+    func bluetoothConnectionBecameReady(sender: MeshSetupBluetoothConnection)
+    func bluetoothConnectionError(sender: MeshSetupBluetoothConnection, error: BluetoothConnectionError, severity: MeshSetupErrorSeverity)
+}
+
 protocol MeshSetupBluetoothConnectionDataDelegate {
-    func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection,  data: Data)
+    func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection, data: Data)
 }
 
-extension Data {
-    
-    internal var hexString: String {
-        let pointer = self.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
+enum BluetoothConnectionError: Error, CustomStringConvertible {
+    case FailedToHandshake
+    case FailedToDiscoverServices
+    case FailedToDiscoverParticleMeshService
+    case FailedToDiscoverCharacteristics
+    case FailedToDiscoverParticleMeshCharacteristics
+    case FailedToEnableBluetoothConnectionNotifications
+    case FailedToWriteValueForCharacteristic
+    case FailedToReadValueForCharacteristic
+
+
+    public var description: String {
+        switch self {
+            case .FailedToHandshake : return "Failed to perform handshake"
+            case .FailedToDiscoverServices : return "Failed to discover bluetooth services"
+            case .FailedToDiscoverParticleMeshService : return "Particle Mesh commissioning Service not found. Try to turn bluetooth Off and On again to clear the cache."
+            case .FailedToDiscoverCharacteristics : return "Failed to discover bluetooth characteristics"
+            case .FailedToDiscoverParticleMeshCharacteristics : return "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache."
+            case .FailedToEnableBluetoothConnectionNotifications : return "Failed to enable bluetooth characteristic notifications"
+            case .FailedToWriteValueForCharacteristic : return "Writing value for bluetooth characteristic has failed (sending data to device failed)"
+            case .FailedToReadValueForCharacteristic : return "Reading value for bluetooth characteristic has failed (receiving data to device failed)"
         }
-        let array = getByteArray(pointer)
-        
-        return array.reduce("") { (result, byte) -> String in
-            result + String(format: "%02x", byte)
-        }
-    }
-    
-    fileprivate func getByteArray(_ pointer: UnsafePointer<UInt8>) -> [UInt8] {
-        let buffer = UnsafeBufferPointer<UInt8>(start: pointer, count: count)
-        return [UInt8](buffer)
     }
 }
-
 
 class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBluetoothConnectionHandshakeManagerDelegate {
-    
-    var delegate: MeshSetupBluetoothConnectionDataDelegate?
+
+
+
+
+    var delegate: MeshSetupBluetoothConnectionDelegate?
+    var dataDelegate: MeshSetupBluetoothConnectionDataDelegate?
+
     var isReady: Bool = false
 
-    private var peripheral: CBPeripheral?
-    private var connectionManager: MeshSetupBluetoothConnectionManager?
-    private var particleMeshRXCharacterisitic: CBCharacteristic?
-    private var particleMeshTXCharacterisitic: CBCharacteristic?
-    fileprivate let MTU = 20
-
-    var peripheralName: String?
-    var mobileSecret: String?
+    var peripheralName: String
+    var mobileSecret: String
     var derivedSecret: Data?
 
-    private var handshakeManager: MeshSetupBluetoothConnectionHandshakeManager?
-
-    required init(bluetoothConnectionManager: MeshSetupBluetoothConnectionManager, connectedPeripheral: CBPeripheral, credentials: PeripheralCredentials) {
-        super.init()
-
-        self.connectionManager = bluetoothConnectionManager
-        self.peripheral = connectedPeripheral
-        self.peripheral?.delegate = self
-        self.peripheralName = peripheral?.name
-        self.mobileSecret = credentials.mobileSecret
-    }
-    
-    func _getPeripheral() -> CBPeripheral? {
-        return self.peripheral
-    }
-    
-    
-    func disconnect() {
-        // TODO: memory management / releasing
-        self.connectionManager?.dropConnection(with: self)
-    }
-    
-    // TODO: scrap this
-    func log(level: BLELogLevel, message: String) {
-        //        logger?.log(level: aLevel, message: aMessage)
-        print("[\(level.rawValue)]: \(message)")
-    }
-    
-    func logError(error anError: Error) {
-        if let e = anError as? CBError {
-            self.log(level: .errorLogLevel, message: "Error \(e.code): \(e.localizedDescription)")
-        } else {
-            self.log(level: .errorLogLevel, message: "Error \(anError.localizedDescription)")
+    var cbPeripheral: CBPeripheral {
+        get {
+            return peripheral
         }
     }
-    
+
+    private var peripheral: CBPeripheral
+    private var handshakeRetry: Int = 0
+
+    private var handshakeManager: MeshSetupBluetoothConnectionHandshakeManager?
+    private var particleMeshRXCharacteristic: CBCharacteristic!
+    private var particleMeshTXCharacteristic: CBCharacteristic!
+
+    required init(connectedPeripheral: CBPeripheral, credentials: MeshSetupPeripheralCredentials) {
+
+        self.peripheral = connectedPeripheral
+        self.peripheralName = peripheral.name!
+        self.mobileSecret = credentials.mobileSecret
+
+        super.init()
+
+        self.peripheral.delegate = self
+        self.discoverServices()
+    }
+
+    private func log(_ message: String) {
+        if (MeshSetup.LogBluetoothConnection) {
+            NSLog("BluetoothConnection: \(message)")
+        }
+    }
+
+    private func fail(withReason reason: BluetoothConnectionError, severity: MeshSetupErrorSeverity) {
+        log("Bluetooth connection error: \(reason), severity: \(severity)")
+        self.delegate?.bluetoothConnectionError(sender: self, error: reason, severity: severity)
+
+    }
+
     func discoverServices() {
-        self.peripheral?.discoverServices([particleMeshServiceUUID])
+        self.peripheral.discoverServices([MeshSetup.particleMeshServiceUUID])
+    }
+
+    func send(data aData: Data, writeType: CBCharacteristicWriteType = .withResponse) {
+        guard self.particleMeshRXCharacteristic != nil else {
+            log("UART RX Characteristic not found")
+            return
+        }
+
+        var MTU = peripheral.maximumWriteValueLength(for: .withoutResponse)
+        //using MTU for different write type is bad idea, but since xenons report bad MTU for
+        //withResponse, it's either that or 20byte hardcoded value. Tried this with iPhone 5 / iOS 9
+        //and it worked so left it this way to improve communication speed.
+//        if (writeType == .withResponse) {
+//            //withResponse reports wrong MTU and xenon triggers disconnect
+//            MTU = 20
+//        }
+
+        // The following code will split the text to packets
+        aData.withUnsafeBytes { (u8Ptr: UnsafePointer<UInt8>) in
+            var buffer = UnsafeMutableRawPointer(mutating: UnsafeRawPointer(u8Ptr))
+            var len = aData.count
+
+            while(len != 0){
+                var part: Data
+                if len > MTU {
+                    part = Data(bytes: buffer, count: MTU)
+                    buffer  = buffer + MTU
+                    len     = len - MTU
+                } else {
+                    part = Data(bytes: buffer, count: len)
+                    len = 0
+                }
+                self.peripheral.writeValue(part, for: self.particleMeshRXCharacteristic!, type: writeType)
+            }
+        }
+        log("Sent data: \(aData.count) Bytes")
     }
     
     //MARK: - CBPeripheralDelegate
-    
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard error == nil else {
-            log(level: .warningLogLevel, message: "Service discovery failed")
-            logError(error: error!)
-            //TODO: Disconnect?
+            log("error = \(error)")
+            fail(withReason: .FailedToDiscoverServices, severity: .Error)
             return
         }
-        
-        log(level: .infoLogLevel, message: "Services discovered")
-        
-        for aService: CBService in peripheral.services! {
-            if aService.uuid.isEqual(particleMeshServiceUUID) {
-                log(level: .verboseLogLevel, message: "Particle Mesh commissioning Service found")
-                log(level: .verboseLogLevel, message: "Discovering characteristics...")
-                log(level: .debugLogLevel, message: "peripheral.discoverCharacteristics(nil, for: \(aService.uuid.uuidString))")
-                
-                self.peripheral!.discoverCharacteristics(nil, for: aService)
+
+        log("Services discovered")
+        for aService in peripheral.services! {
+            if aService.uuid.isEqual(MeshSetup.particleMeshServiceUUID) {
+                log("Particle Mesh commissioning Service found")
+                self.peripheral.discoverCharacteristics(nil, for: aService)
                 return
             }
         }
         
-        //No UART service discovered
-        log(level: .warningLogLevel, message: "Particle Mesh commissioning Service not found. Try to turn bluetooth Off and On again to clear the cache.")
-        self.connectionManager?.delegate?.bluetoothConnectionError(connection: self, error: "Device unsupported - services mismatch", severity: .Error)
-        self.connectionManager?.dropConnection(with: self)
+        fail(withReason: .FailedToDiscoverParticleMeshService, severity: .Error)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard error == nil else {
-            log(level: .warningLogLevel, message: "Characteristics discovery failed")
-            logError(error: error!)
+            NSLog("error = \(error)")
+            fail(withReason: .FailedToDiscoverCharacteristics, severity: .Error)
             return
         }
-        log(level: .infoLogLevel, message: "Characteristics discovered")
+        log("Characteristics discovered")
         
-        if service.uuid.isEqual(particleMeshServiceUUID) {
-            for aCharacteristic: CBCharacteristic in service.characteristics! {
-//                print("CBCharacteristic: \(aCharacteristic)")
-                if aCharacteristic.uuid.isEqual(particleMeshTXCharacterisiticUUID) {
-                    log(level: .verboseLogLevel, message: "Particle mesh TX Characteristic found")
-                    particleMeshTXCharacterisitic = aCharacteristic
-                } else if aCharacteristic.uuid.isEqual(particleMeshRXCharacterisiticUUID) {
-                    log(level: .verboseLogLevel, message: "Particle mesh RX Characteristic found")
-                    particleMeshRXCharacterisitic = aCharacteristic
+        if service.uuid.isEqual(MeshSetup.particleMeshServiceUUID) {
+            for aCharacteristic in service.characteristics! {
+                if aCharacteristic.uuid.isEqual(MeshSetup.particleMeshTXCharacterisiticUUID) {
+                    log("Particle mesh TX Characteristic found")
+                    particleMeshTXCharacteristic = aCharacteristic
+                } else if aCharacteristic.uuid.isEqual(MeshSetup.particleMeshRXCharacterisiticUUID) {
+                    log("Particle mesh RX Characteristic found")
+                    particleMeshRXCharacteristic = aCharacteristic
                 }
             }
+
             //Enable notifications on TX Characteristic
-            if (particleMeshTXCharacterisitic != nil && particleMeshRXCharacterisitic != nil) {
-                log(level: .verboseLogLevel, message: "Enabling notifications for \(particleMeshTXCharacterisitic!.uuid.uuidString)")
-                log(level: .debugLogLevel, message: "peripheral.setNotifyValue(true, for: \(particleMeshTXCharacterisitic!.uuid.uuidString))")
-                self.peripheral!.setNotifyValue(true, for: particleMeshTXCharacterisitic!)
+            if (particleMeshTXCharacteristic != nil && particleMeshRXCharacteristic != nil) {
+                log("Enabling notifications for \(particleMeshTXCharacteristic!.uuid.uuidString)")
+                self.peripheral.setNotifyValue(true, for: particleMeshTXCharacteristic!)
             } else {
-                
-                log(level: .warningLogLevel, message: "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache.")
-                self.connectionManager?.delegate?.bluetoothConnectionError(connection: self, error: "Device unsupported - characteristics mismatch", severity: .Error)
-                self.connectionManager?.dropConnection(with: self)
+                fail(withReason: .FailedToDiscoverParticleMeshCharacteristics, severity: .Error)
             }
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        guard error == nil else {
-            log(level: .warningLogLevel, message: "Enabling notifications failed")
-            logError(error: error!)
+        guard error == nil, characteristic.isNotifying == true else {
+            NSLog("error = \(error)")
+            fail(withReason: .FailedToEnableBluetoothConnectionNotifications, severity: .Error)
+
             return
         }
 
-        if characteristic.isNotifying {
-            log(level: .infoLogLevel, message: "Notifications enabled for characteristic: \(characteristic.uuid.uuidString)")
-        } else {
-            log(level: .infoLogLevel, message: "Notifications disabled for characteristic: \(characteristic.uuid.uuidString)")
-        }
-
-        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret!)
+        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret)
         self.handshakeManager!.delegate = self
         self.handshakeManager!.startHandshake()
     }
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         guard error == nil else {
-            log(level: .warningLogLevel, message: "Writing value to characteristic has failed")
-            logError(error: error!)
+            NSLog("error = \(error)")
+            fail(withReason: .FailedToWriteValueForCharacteristic, severity: .Error)
+
             return
         }
-//        log(level: .infoLogLevel, message: "Data written to characteristic: \(characteristic.uuid.uuidString)")
     }
-    
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-        guard error == nil else {
-            log(level: .warningLogLevel, message: "Writing value to descriptor has failed")
-            logError(error: error!)
-            return
-        }
-        log(level: .infoLogLevel, message: "Data written to descriptor: \(descriptor.uuid.uuidString)")
-    }
-    
+
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard error == nil else {
-            log(level: .warningLogLevel, message: "Updating characteristic has failed")
-            logError(error: error!)
+            NSLog("error = \(error)")
+            fail(withReason: .FailedToReadValueForCharacteristic, severity: .Error)
+
             return
-        }
-        
-        // try to print a friendly string of received bytes if they can be parsed as UTF8
-        guard let bytesReceived = characteristic.value else {
-            log(level: .infoLogLevel, message: "Notification received from: \(characteristic.uuid.uuidString), with empty value")
-            log(level: .appLogLevel, message: "Empty packet received")
-            return
-        }
-        bytesReceived.withUnsafeBytes { (utf8Bytes: UnsafePointer<CChar>) in
-            var len = bytesReceived.count
-            if utf8Bytes[len - 1] == 0 {
-                len -= 1 // if the string is null terminated, don't pass null terminator into NSMutableString constructor
-            }
-            
-            log(level: .infoLogLevel, message: "Notification received from: \(characteristic.uuid.uuidString), with value: 0x\(bytesReceived.hexString)")
         }
 
-        if (self.isReady) {
-            self.delegate?.bluetoothConnectionDidReceiveData(sender: self, data: bytesReceived as Data)
-        } else {
-            self.handshakeManager!.readBytes(bytesReceived as Data)
+        if let bytesReceived = characteristic.value {
+            bytesReceived.withUnsafeBytes { (utf8Bytes: UnsafePointer<CChar>) in
+                var len = bytesReceived.count
+                if utf8Bytes[len - 1] == 0 {
+                    len -= 1 // if the string is null terminated, don't pass null terminator into NSMutableString constructor
+                }
+
+                log("Bytes received from: \(characteristic.uuid.uuidString), \(bytesReceived.count) Bytes")
+            }
+
+            if (self.isReady) {
+                self.dataDelegate?.bluetoothConnectionDidReceiveData(sender: self, data: bytesReceived as Data)
+            } else {
+                self.handshakeManager!.readBytes(bytesReceived as Data)
+            }
         }
     }
 
     //MARK: MeshSetupBluetoothConnectionHandshakeManagerDelegate
-    func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HanshakeManagerError) {
-        NSLog("Handshake Error: \(error)")
+    func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HandshakeManagerError, severity: MeshSetupErrorSeverity) {
+        log("Handshake Error: \(error)")
+
+        if (handshakeRetry < 3) {
+            handshakeRetry += 1
+        } else {
+            fail(withReason: .FailedToHandshake, severity: .Error)
+        }
 
         //retry handshake
         self.handshakeManager!.delegate = nil
         self.handshakeManager = nil
 
-        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret!)
+        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret)
         self.handshakeManager!.delegate = self
         self.handshakeManager!.startHandshake()
     }
+
 
     func handshakeDidSucceed(sender: MeshSetupBluetoothConnectionHandshakeManager, derivedSecret: Data) {
         self.derivedSecret = derivedSecret
@@ -235,59 +259,9 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         self.handshakeManager!.delegate = nil
         self.handshakeManager = nil
 
-
-
         self.isReady = true
-        self.connectionManager?.delegate?.bluetoothConnectionReady(connection: self)
+        self.delegate?.bluetoothConnectionBecameReady(sender: self)
     }
-
-
-    func send(data aData: Data) {
-        guard self.particleMeshRXCharacterisitic != nil else {
-            log(level: .warningLogLevel, message: "UART RX Characteristic not found")
-            return
-        }
-        
-        // Check what kind of Write Type is supported. By default it will try Without Response.
-        // If the RX charactereisrtic have Write property the Write Request type will be used.
-        var type = CBCharacteristicWriteType.withoutResponse
-        if (self.particleMeshRXCharacterisitic!.properties.rawValue & CBCharacteristicProperties.write.rawValue) > 0 {
-            type = CBCharacteristicWriteType.withResponse
-        }
-        
-        // In case of Write Without Response the text needs to be splited in up-to 20-bytes packets.
-        // When Write Request (with response) is used, the Long Write may be used.
-        // It will be handled automatically by the iOS, but must be supported on the device side.
-        // If your device does support Long Write, change the flag below to true.
-        let longWriteSupported = false
-        
-        // The following code will split the text to packets
-        aData.withUnsafeBytes { (u8Ptr: UnsafePointer<UInt8>) in
-            var buffer = UnsafeMutableRawPointer(mutating: UnsafeRawPointer(u8Ptr))
-            var len = aData.count
-            
-            while(len != 0){
-                var part: Data
-                if len > MTU && (type == CBCharacteristicWriteType.withoutResponse || longWriteSupported == false) {
-                    // If the text contains national letters they may be 2-byte long.
-                    // It may happen that only 19 (MTU) bytes can be send so that not of them is splited into 2 packets.
-                    //                    var builder = NSMutableString(bytes: buffer, length: MTU, encoding: String.Encoding.utf8.rawValue)
-                    part = Data(bytes: buffer, count: MTU)
-                    // A 20-byte string has been created successfully
-                    buffer  = buffer + MTU
-                    len     = len - MTU
-                    
-                    
-                } else {
-                    part = Data(bytes: buffer, count: len)
-                    len = 0
-                }
-                self.peripheral!.writeValue(part, for: self.particleMeshRXCharacterisitic!, type: type)
-                log(level: .appLogLevel, message: "Sent data: \"\(part.hexString)\"")
-            }
-        }
-    }
-
 
    
 

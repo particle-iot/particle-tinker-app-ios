@@ -1,0 +1,35 @@
+syntax = "proto3";
+package particle.ctrl;
+
+import public "nanopb.proto";
+import "extensions.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl";
+
+
+// The field numbers here are just protobuf details.  The value to pay attention to 
+// is the "int_value" option, which corresponds to the numeric value that will 
+// be set in reply frames (which itself ultimately comes from the numeric values
+// in the system_error_t enum in the firmware code).
+enum ResultCode {
+  OK = 0 [(int_value) = 0];
+  NOT_ALLOWED = 1 [(int_value) = -130];
+  TIMEOUT = 2 [(int_value) = -160];
+  NOT_FOUND = 3 [(int_value) = -170];
+  ALREADY_EXIST = 4 [(int_value) = -180];
+  INVALID_STATE = 5 [(int_value) = -210];
+  NO_MEMORY = 6 [(int_value) = -260];
+  INVALID_PARAM = 7 [(int_value) = -270];
+}
+
+
+message IPAddress {
+    enum Protocol {
+        NONE = 0;
+        IPv4 = 1;
+        IPv6 = 2;
+    }
+    Protocol protocol = 1;
+    bytes address = 2 [(nanopb).max_size = 16];
+}
+

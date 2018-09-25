@@ -8,61 +8,106 @@
 
 import UIKit
 
-class MeshSetupSelectNetworkViewController: MeshSetupViewController, UITableViewDelegate, UITableViewDataSource {
-    var networks: [String]?
-    var selectedNetwork: String?
+class MeshSetupSelectNetworkViewController: MeshSetupViewController, Storyboardable, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet weak var networksTableView: UITableView!
+
+    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var scanActivityIndicator: UIActivityIndicatorView!
+
+    private var networks:[MeshSetupNetworkInfo]?
+    private var callback: ((MeshSetupNetworkInfo) -> ())!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.networksTableView.delegate = self
-        self.networksTableView.dataSource = self
 
-        // Do any additional setup after loading the view.
+        networksTableView.delegate = self
+        networksTableView.dataSource = self
     }
 
+    func setup(didSelectNetwork: @escaping (MeshSetupNetworkInfo) -> ()) {
+        self.callback = didSelectNetwork
+    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        startScanning()
     }
-    
-    @IBAction func cancelButtonTapped(_ sender: Any) {
+
+    override func setContent() {
+        titleLabel.text = MeshSetupStrings.Networks.Title
     }
-    
-    @IBOutlet weak var networksTableView: UITableView!
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return networks!.count
+
+    override func setStyle() {
+        networksTableView.tableFooterView = UIView()
+
+        scanActivityIndicator.color = MeshSetupStyle.NetworkScanActivityIndicatorColor
+        scanActivityIndicator.hidesWhenStopped = true
+
+        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "networkCell")
-        
-        cell!.textLabel!.text = self.networks![indexPath.row]
-        cell!.detailTextLabel!.textColor = UIColor.darkGray
-        cell!.detailTextLabel!.text = "? devices on network"
-        
-        cell?.imageView?.image = UIImage.init(named: "imgMeshBlue")
-        
-        let itemSize = CGSize(width: 48, height: 48);
-        UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
-        let imageRect = CGRect(x: 0.0, y: 0.0, width: itemSize.width, height: itemSize.height);
-        cell?.imageView?.image!.draw(in: imageRect)
-        cell?.imageView?.image! = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext();
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selectedNetwork = networks![indexPath.row]
-        self.flowManager!.networkName = self.selectedNetwork
+
+    func startScanning() {
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "addToNetwork", sender: self)
+            self.scanActivityIndicator.startAnimating()
         }
     }
 
+    func setNetworks(networks: [MeshSetupNetworkInfo]) {
+        self.networks = networks
+
+        DispatchQueue.main.async {
+            self.scanActivityIndicator.stopAnimating()
+            self.networksTableView.reloadData()
+        }
+    }
+
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return networks?.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "meshNetworkCell") as! MeshDeviceCell
+
+        cell.cellTitleLabel.text = networks![indexPath.row].name
+        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+
+        cell.cellSubtitleLabel.text = "? devices on network"
+        cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+
+        let cellHighlight = UIView()
+        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
+        cell.selectedBackgroundView = cellHighlight
+
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+
+        cell.accessoryView = nil
+        cell.accessoryType = .disclosureIndicator
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.isUserInteractionEnabled = false
+
+        if let cell = tableView.cellForRow(at: indexPath) {
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            activityIndicator.color = MeshSetupStyle.NetworkJoinActivityIndicatorColor
+            activityIndicator.startAnimating()
+
+            cell.accessoryView = activityIndicator
+        }
+
+        scanActivityIndicator.stopAnimating()
+        callback(networks![indexPath.row])
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64.0
+        return 60.0
     }
 
    

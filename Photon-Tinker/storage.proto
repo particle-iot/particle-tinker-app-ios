@@ -1,0 +1,141 @@
+syntax = "proto3";
+package particle.ctrl;
+
+import "extensions.proto";
+import "common.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl";
+
+enum StorageType {
+  INVALID_STORAGE = 0;
+  INTERNAL = 1; // Internal flash
+}
+
+enum SectionType {
+  INVALID_SECTION = 0;
+  FIRMWARE = 1; // Firmware module
+  OTA_BACKUP = 2; // OTA backup
+  FACTORY_BACKUP = 3; // Factory backup
+  CONFIG = 4; // Device configuration
+  EEPROM = 5; // Emulated EEPROM
+}
+
+enum FirmwareModuleType {
+  INVALID_FIRMWARE_MODULE = 0;
+  BOOTLOADER = 1; // Bootloader
+  SYSTEM_PART = 2; // System part
+  USER_PART = 3; // User part
+  MONO_FIRMWARE = 4; // Monolithic firmware
+}
+
+enum SectionFlag {
+  NO_SECTION_FLAGS = 0;
+  CAN_READ = 0x01; // Section data is readable
+  CAN_WRITE = 0x02; // Section data is writable
+  CAN_CLEAR = 0x04; // Section can be cleared
+  CAN_GET_SIZE = 0x08; // Actual size of the section data can be determined
+  NEED_CLEAR = 0x10; // Section needs to be cleared before writing
+}
+
+enum FileFormat {
+  BIN = 0;
+  MINIZ = 1;
+}
+
+message StartFirmwareUpdateRequest {
+  option (type_id) = 250; // CTRL_REQUEST_START_FIRMWARE_UPDATE
+  uint32 size = 1; // Size of the firmware binary
+  FileFormat format = 2; // Format of the firmware binary
+}
+
+message StartFirmwareUpdateReply {
+  uint32 chunk_size = 1; // Maximum chunk size
+}
+
+message FinishFirmwareUpdateRequest {
+  option (type_id) = 251;  // CTRL_REQUEST_FINISH_FIRMWARE_UPDATE
+  bool validate_only = 1;
+}
+
+message FinishFirmwareUpdateReply {
+}
+
+message CancelFirmwareUpdateRequest {
+  option (type_id) = 252;  // CTRL_REQUEST_CANCEL_FIRMWARE_UPDATE
+}
+
+message CancelFirmwareUpdateReply {
+}
+
+message FirmwareUpdateDataRequest {
+  option (type_id) = 253;  // CTRL_REQUEST_FIRMWARE_UPDATE_DATA
+  bytes data = 1;
+}
+
+message FirmwareUpdateDataReply {
+}
+
+message DescribeStorageRequest {
+  option (type_id) = 260; // CTRL_REQUEST_DESCRIBE_STORAGE
+}
+
+message DescribeStorageReply {
+  message Section {
+    message FirmwareModule {
+      FirmwareModuleType type = 1;
+      uint32 index = 2;
+    }
+    SectionType type = 1;
+    uint32 size = 2;
+    uint32 flags = 3;
+    FirmwareModule firmware_module = 4;
+  }
+  message Storage {
+    StorageType type = 1;
+    uint32 flags = 2;
+    repeated Section sections = 3;
+  }
+  repeated Storage storage = 1;
+}
+
+message ReadSectionDataRequest {
+  option (type_id) = 261;  // CTRL_REQUEST_READ_SECTION_DATA
+  uint32 storage = 1; // Storage index
+  uint32 section = 2; // Section index
+  uint32 offset = 3;
+  uint32 size = 4;
+}
+
+message ReadSectionDataReply {
+  bytes data = 1;
+}
+
+message WriteSectionDataRequest {
+  option (type_id) = 262;  // CTRL_REQUEST_WRITE_SECTION_DATA
+  uint32 storage = 1; // Storage index
+  uint32 section = 2; // Section index
+  uint32 offset = 3;
+  bytes data = 4;
+}
+
+message WriteSectionDataReply {
+}
+
+message ClearSectionDataRequest {
+  option (type_id) = 263;  // CTRL_REQUEST_CLEAR_SECTION_DATA
+  uint32 storage = 1; // Storage index
+  uint32 section = 2; // Section index
+}
+
+message ClearSectionDataReply {
+}
+
+message GetSectionDataSizeRequest {
+  option (type_id) = 264;  // CTRL_REQUEST_GET_SECTION_DATA_SIZE
+  uint32 storage = 1; // Storage index
+  uint32 section = 2; // Section index
+}
+
+message GetSectionDataSizeReply {
+  uint32 size = 1;
+}

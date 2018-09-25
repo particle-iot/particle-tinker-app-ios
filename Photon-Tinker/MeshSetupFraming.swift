@@ -3,7 +3,8 @@
 //  Particle Mesh
 //
 //  Created by Ido Kleinman on 5/1/18.
-//  Copyright © 2018 Nordic Semiconductor. All rights reserved.
+//  Maintained by Raimundas Sakalauskas
+//  Copyright © 2018 Particle. All rights reserved.
 //
 
 import Foundation
@@ -16,11 +17,13 @@ public enum ControlRequestMessageType: UInt16 {
     case GetSerialNumber = 21
     case GetConnectionStatus = 300
     case IsClaimed = 201
-    case SetSecurityKey = 210
-    case GetSecurityKey = 211
     case CreateNetwork = 1002
     case StartCommissioner = 1003
     case StopCommissioner = 1004
+    case StartListening = 70
+    case StopListening = 71
+    case DeviceSetupDone = 73
+    case IsDeviceSetupDone = 74
     case PrepareJoiner = 1005
     case AddJoiner = 1006
     case RemoveJoiner = 1007
@@ -28,11 +31,17 @@ public enum ControlRequestMessageType: UInt16 {
     case LeaveNetwork = 1009
     case GetNetworkInfo = 1010
     case ScanNetworks = 1011
-    case Test = 1111
-    
+    case GetInterfaceList = 400
+    case GetInterface = 401
+    case GetSystemCapabilities = 32
+    case GetSystemVersion = 30
+    case StartFirmwareUpdate = 250
+    case FinishFirmwareUpdate = 251
+    case CancelFirmwareUpdate = 252
+    case FirmwareUpdateData = 253
 }
 
-public enum ControlRequestErrorType: Int32 {
+public enum ControlReplyErrorType: Int32 {
     case NONE = 0
     case UNKNOWN = -100
     case BUSY = -110
@@ -89,6 +98,6 @@ public struct ReplyMessage {
     static let FRAME_EXTRA_BYTES: Int16 = 16
 
     var id: UInt16
-    var result: ControlRequestErrorType
-    var data: Data?
+    var result: ControlReplyErrorType
+    var data: Data
 }
