@@ -356,6 +356,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didSelectToAddOneMore(add: Bool) {
+        flowManager.setAddOneMoreDevice(addOneMoreDevice: add)
+
         if (add) {
             targetDeviceType = nil
             targetDeviceDataMatrixString = nil
@@ -467,11 +469,28 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
-        if (error == .DeviceTooFar) {
-            //TODO: show prompt and repeat step
-        } else {
-            //fail...
-            log("flow failed: \(error)")
+        switch (error) {
+            case .DeviceTooFar:
+                showAlert("DeviceTooFar")
+            case .DeviceIsNotAllowedToJoinNetwork:
+                showAlert("DeviceIsNotAllowedToJoinNetwork")
+            case .DeviceIsUnableToFindNetworkToJoin:
+                showAlert("DeviceIsUnableToFindNetworkToJoin")
+            default:
+                showAlert(error.localizedDescription)
+        }
+    }
+
+    //TODO refactor this
+    func showAlert(_ message: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+                self.flowManager.retryLastAction()
+            })
+
+            self.present(alert, animated: true)
         }
     }
 

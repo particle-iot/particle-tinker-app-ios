@@ -96,6 +96,9 @@ enum MeshSetupFlowError: Error {
     case UnableToRenameDevice
     case NameTooShort
 
+    case DeviceIsNotAllowedToJoinNetwork
+    case DeviceIsUnableToFindNetworkToJoin
+
     //CheckDeviceGotClaimed
     case DeviceConnectToCloudTimeout
     case DeviceGettingClaimedTimeout
@@ -176,7 +179,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .GetTargetDeviceInfo,
         .ConnectToTargetDevice,
         //.ResetSetupAndNetwork,
-        .EnsureLatestFirmware,
+        //.EnsureLatestFirmware,
         .EnsureTargetDeviceCanBeClaimed,
         .CheckTargetDeviceHasNetworkInterfaces,
         .SetClaimCode,
@@ -305,6 +308,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         switch self.currentCommand {
             case .GetUserNetworkSelection:
                 self.runCurrentStep()
+            case .JoinSelectedNetwork:
+                self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
+                    self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
+                    if (result == .NONE) {
+                        self.runCurrentStep()
+                    } else {
+                        self.handleBluetoothErrorResult(result)
+                    }
+                }
             default:
                 break;
         }
@@ -1165,7 +1177,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.log("sendJoinNetwork: \(result)")
             if (result == .NONE) {
                 self.stopCommissioner()
-            } else {
+            } else if (result == .NOT_ALLOWED) {
+                self.fail(withReason: .DeviceIsNotAllowedToJoinNetwork)
+            } else if (result == .NOT_FOUND) {
+                self.fail(withReason: .DeviceIsUnableToFindNetworkToJoin)
+            }else {
                 self.handleBluetoothErrorResult(result)
             }
          }
