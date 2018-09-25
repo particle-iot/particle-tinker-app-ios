@@ -8,10 +8,10 @@ import UIKit
 
 class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate {
 
+    @IBOutlet weak var accountLabel: MeshLabel!
+
     private var flowManager: MeshSetupFlowManager!
     private var embededNavigationController: UINavigationController!
-
-    @IBOutlet weak var accountLabel: MeshLabel!
 
     private var targetDeviceType: ParticleDeviceType?
     private var targetDeviceDataMatrixString: String!
@@ -341,10 +341,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func meshSetupDidRequestToEnterDeviceName() {
-        //do nothing
-//        flowManager.setDeviceName(name: randomStringWithLength(10)) { error in
-//
-//        }
+        //on joiner flow this won't execute, but this will execute on repetead joins & ethernet flow
+        guard let topVC = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController else {
+            let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
+            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(nameVC, animated: true)
+        }
     }
 
 
