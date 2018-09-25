@@ -78,7 +78,7 @@ class ParticleUtils: NSObject {
         
     }
 
-    
+
     @objc class func shouldDisplayTutorialForViewController(_ vc : UIViewController) -> Bool {
     
 //        return true
@@ -99,8 +99,8 @@ class ParticleUtils: NSObject {
             return true
         }
     }
-    
-    
+
+
     @objc class func setTutorialWasDisplayedForViewController(_ vc : UIViewController) {
         
         let prefs = UserDefaults.standard
@@ -123,7 +123,8 @@ class ParticleUtils: NSObject {
         
     }
 
-    
+
+
     @objc class func animateOnlineIndicatorImageView(_ imageView: UIImageView, online: Bool, flashing: Bool) {
         DispatchQueue.main.async(execute: {
             imageView.image = UIImage(named: "imgCircle")

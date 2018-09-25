@@ -222,7 +222,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     @objc func numberOfSectionsInTableView(_ tableView: UITableView) -> Int {
         return 1
     }
-    
+
     @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if filtering {
@@ -239,8 +239,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             }
         }
     }
-    
-    
+
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // kill section
         return 0.0

@@ -48,8 +48,7 @@ open class ParticleSpinner : NSObject {
         hud.customView = spinnerView
         
     }
-    
-    
+
     @objc class func hide(_ view : UIView) {
         MBProgressHUD.hide(for: view, animated: true)
     }

@@ -36,26 +36,28 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         
         dialog.addButton("Rename device", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             
-            dialog.dismiss()
-            self.renameDialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
-                                    okButtonHandler: { [unowned self] alertView in
-                                        
-                                        let tf = alertView.getTextFieldWithIdentifier("name")
-                                        self.renameDevice(tf!.text)
-                                        alertView.dismiss()
-                },
-                                    cancelButtonHandler: { alertView in
-                                        alertView.dismiss()
-                }
-            )
-            self.renameDialog!.addTextField("name", placeHolder: self.device!.name!)
-            let tf = self.renameDialog!.getTextFieldWithIdentifier("name")
-            tf?.text = self.device?.name
-            tf?.delegate = self
-            tf?.tag = 100
+            dialog.dismissWithDuration(0.01)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
+                self.renameDialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
+                        okButtonHandler: { [unowned self] alertView in
 
-            self.renameDialog!.show()
-            tf?.becomeFirstResponder()
+                            let tf = alertView.getTextFieldWithIdentifier("name")
+                            self.renameDevice(tf!.text)
+                            alertView.dismiss()
+                        },
+                        cancelButtonHandler: { alertView in
+                            alertView.dismiss()
+                        }
+                )
+                self.renameDialog!.addTextField("name", placeHolder: self.device!.name!)
+                let tf = self.renameDialog!.getTextFieldWithIdentifier("name")
+                tf?.text = self.device?.name
+                tf?.delegate = self
+                tf?.tag = 100
+
+                self.renameDialog!.show()
+                tf?.becomeFirstResponder()
+            }
         }
         
        

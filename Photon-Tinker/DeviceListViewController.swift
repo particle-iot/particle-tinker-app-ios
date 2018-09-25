@@ -19,7 +19,6 @@ let kDefaultElectronFlashingTime : Int = 15
 
 class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate, ClientDelegate {
 
-
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -44,10 +43,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         ZAlertView.positiveColor            = ParticleUtils.particleCyanColor
         ZAlertView.negativeColor            = ParticleUtils.particlePomegranateColor
         ZAlertView.blurredBackground        = true
-        ZAlertView.showAnimation            = .bounceBottom
-        ZAlertView.hideAnimation            = .bounceBottom
-//        ZAlertView.initialSpringVelocity    = 0.5
-        ZAlertView.duration                 = 0.9
+        ZAlertView.showAnimation            = .fadeIn
+        ZAlertView.hideAnimation            = .fadeOut
+        ZAlertView.duration                 = 0.25
         ZAlertView.cornerRadius             = 4.0
         ZAlertView.textFieldTextColor       = ParticleUtils.particleDarkGrayColor
         ZAlertView.textFieldBackgroundColor = UIColor.white
@@ -62,8 +60,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var setupNewDeviceButton: UIButton!
     
     @objc func appDidBecomeActive(_ sender : AnyObject) {
-//        print("appDidBecomeActive observer triggered")
-        //        self.animateOnlineIndicators()
         self.photonSelectionTableView.reloadData()
         
     }
@@ -120,10 +116,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         dialog.addButton("Core", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            
-            dialog.dismiss()
-            self.showParticleCoreAppPopUp()
-            
+            dialog.dismissWithDuration(0.01)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
+                self.showParticleCoreAppPopUp()
+            }
         }
 
         dialog.addButton("Cancel", font: ParticleUtils.particleRegularFont, color: ParticleUtils.particleGrayColor, titleColor: UIColor.white) { (dialog : ZAlertView) in
@@ -326,7 +322,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             //            print(e.description)
             if (e as NSError).code == 401 {
                 //                print("invalid access token - logging out")
-                self.logoutButtonTapped(self.logoutButton)
+                self.logout()
             } else {
                 RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
             }
@@ -348,33 +344,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
                 
                 self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
-                
-                // Sort alphabetically
+
                 self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    if let n1 = firstDevice.name
-                    {
-                        if let n2 = secondDevice.name
-                        {
-                            return n1 < n2 //firstDevice.name < secondDevice.name
-                        }
+                    if (firstDevice.connected != secondDevice.connected) {
+                        return firstDevice.connected == true
+                    } else {
+                        var nameA = firstDevice.name ?? " "
+                        var nameB = secondDevice.name ?? " "
+                        return nameA.lowercased() < nameB.lowercased()
                     }
-                    return false;
-                    
-                })
-                
-                // then sort by device type
-                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    return firstDevice.type.rawValue > secondDevice.type.rawValue
-                })
-                
-                // and then by online/offline
-                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    return firstDevice.connected && !secondDevice.connected
-                })
-                
-                // and then by running tinker or not
-                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    return firstDevice.isRunningTinker() && !secondDevice.isRunningTinker()
                 })
                 
                 DispatchQueue.main.async {
@@ -537,44 +515,33 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if editingStyle == .delete
         {
 
-            RMessage.showNotification(in: self, title: "Unclaim confirmation", subtitle: "Are you sure you want to remove this device from your account?",
-                    iconImage: UIImage(named: "imgQuestionWhite"), type: .error, customTypeName: nil, duration: -1,
-                    callback:
-                    { () -> Void in
-                        // callback for user dismiss by touching inside notification
-                        RMessage.dismissActiveNotification()
-                        tableView.isEditing = false
-                    }, presentingCompletion: nil, dismissCompletion: nil, buttonTitle: " Yes ",
-                    buttonCallback:
-                    { () -> Void in
-                        // callback for user tapping YES button - need to delete row and update table (TODO: actually unclaim device)
-                        self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
-                            if let err = error
-                            {
-                                RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, callback: nil)
-                                self.photonSelectionTableView.reloadData()
-                            }
-                        }
+            let alert = UIAlertController(title: "Unclaim confirmation", message: "Are you sure you want to remove this device from your account?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Unclaim", style: .default) { action in
+                self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
+                    if let err = error
+                    {
+                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, callback: nil)
+                        self.photonSelectionTableView.reloadData()
+                    }
+                }
 
-                        self.devices.remove(at: (indexPath as NSIndexPath).row)
-                        tableView.deleteRows(at: [indexPath], with: .automatic)
-                        let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                        // update table view display to show dark/light cells with delay so that delete animation can complete nicely
-                        DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                            tableView.reloadData()
-                        }
-                    }, at: .top, canBeDismissedByUser: true)
+                self.devices.remove(at: (indexPath as NSIndexPath).row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                // update table view display to show dark/light cells with delay so that delete animation can complete nicely
+                DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                    tableView.reloadData()
+                }
+            })
+            self.present(alert, animated: true)
         }
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Remove"
     }
-    
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        // user touches elsewhere
-        RMessage.dismissActiveNotification()
-    }
+
     
     // prevent "Setup new photon" row from being edited/deleted
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -651,14 +618,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         c?.pageBackgroundImage = nil
         
         c?.normalTextColor = ParticleUtils.particleDarkGrayColor// UIColor.whiteColor()
-        c?.linkTextColor = UIColor.blue
-        c?.brandImageBackgroundColor = UIColor(patternImage: UIImage(named: "imgTrianglifyBackgroundBlue")!)
+        c?.linkTextColor = ParticleUtils.particleDarkGrayColor
+
         c?.modeButtonName = "SETUP button"
         
         c?.elementTextColor = UIColor.white//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
         c?.elementBackgroundColor = ParticleUtils.particleCyanColor
         c?.brandImage = UIImage(named: "particle-horizontal-head")
-        
+        c?.brandImageBackgroundColor = .clear
+        c?.brandImageBackgroundImage = UIImage(named: "imgTrianglifyHeader")
+
         c?.tintSetupImages = false
         c?.instructionalVideoFilename = "photon_wifi.mp4"
         c?.allowPasswordManager = true
@@ -741,15 +710,30 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
-    func logoutButtonTapped(_ sender: UIButton) {
+
+    @IBAction func logoutButtonTapped(_ sender: UIButton) {
+        //this method is can be triggered by Log In button therefore we have to have else clause
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
+            let alert = UIAlertController(title: "Log out", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Log out", style: .default) { action in
+                self.logout()
+            })
+            self.present(alert, animated: true)
+        } else if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
+    }
+
+
+    private func logout() {
         ParticleCloud.sharedInstance().logout()
+
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
-
     }
-    
-    
+
     func generateDeviceName() -> String
     {
         let name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + "_" + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]

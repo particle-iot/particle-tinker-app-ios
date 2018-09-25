@@ -9,6 +9,9 @@
 
 import Foundation
 
-let mixpanelToken = "12345678901234567890"
-let oAuthClientId = "myapp-2146"
-let oAuthSecret = "615c620d647b6e1dab13bef1695c120b0293c342"
+//you can obtain this from https://app.segment.com/ by creating an iOS app source and copying API write key.
+let segmentAnalyticsWriteKey = "segment-source-key"
+
+//you can obtain this from https://console.particle.io/authentication
+let oAuthClientId = "myapp-auth-client"
+let oAuthSecret = "myapp-auth-secret"

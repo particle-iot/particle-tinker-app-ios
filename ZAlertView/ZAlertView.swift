@@ -110,7 +110,7 @@ open class ZAlertView: UIViewController {
             btnClose.setTitle(closeTitle, for: UIControlState())
         }
     }
-    
+
     open var allowTouchOutsideToDismiss: Bool = true {
         didSet {
             if allowTouchOutsideToDismiss == false {
@@ -163,8 +163,12 @@ open class ZAlertView: UIViewController {
     
     // Old frame
     var oldFrame: CGRect!
-    
-    
+
+
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+
     // MARK: - Initializers
     
     init() {
@@ -528,6 +532,7 @@ open class ZAlertView: UIViewController {
         return textFields.filter({ textField in
             textField.identifier == identifier
         }).first
+    return nil
     }
     
     @objc func buttonDidTouch(_ sender: ZButton) {
@@ -546,7 +551,7 @@ open class ZAlertView: UIViewController {
     
     @objc func keyboardDidShow(_ notification: Notification) {
         let info = (notification as NSNotification).userInfo
-        let keyboardSize = ((info![UIKeyboardFrameBeginUserInfoKey] as AnyObject).cgRectValue.size)
+        let keyboardSize = (info![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.size
         self.oldFrame = self.alertView.frame
         let extraHeight = (oldFrame.size.height + oldFrame.origin.y) - (self.view.frame.size.height - keyboardSize.height)
         if extraHeight > 0 {
