@@ -1,8 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
+platform :ios, '9.0'
+
 target 'Particle' do
     pod 'Particle-SDK'
     pod 'ParticleSetup'
+    pod 'SwiftProtobuf', '~> 1.0'
     pod 'MBProgressHUD', '~> 0.9'
     pod 'RMessage'
     pod 'PullToRefreshCoreText', '~> 0.1'
@@ -12,8 +15,8 @@ target 'Particle' do
     pod 'YCTutorialBox'
     pod 'Crashlytics'
     pod 'Analytics'
+    pod 'LaunchDarkly', '2.13.4'
     pod 'Segment-Firebase'
-
     pod 'Reveal-SDK', :configurations => ['Debug']
 end
 
