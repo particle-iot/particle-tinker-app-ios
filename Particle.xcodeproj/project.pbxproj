@@ -51,9 +51,105 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
+		931C377E215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 931C377C215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin */; };
+		931C377F215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 931C377D215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin */; };
+		931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931C3780215AA2240014811C /* MeshSetupStrings.strings */; };
+		931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931C3782215AA2240014811C /* MeshSetup.storyboard */; };
+		931C3787215AA24B0014811C /* MeshSetupImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931C3786215AA24B0014811C /* MeshSetupImages.xcassets */; };
+		931C3788215AA25D0014811C /* mbedTLSWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; };
+		931C3789215AA25D0014811C /* mbedTLSWrapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		931C379C215AA3960014811C /* storage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C3790215AA3950014811C /* storage.pb.swift */; };
+		931C379D215AA3960014811C /* storage.proto in Sources */ = {isa = PBXBuildFile; fileRef = 931C3791215AA3950014811C /* storage.proto */; };
+		931C379E215AA3960014811C /* network.proto in Sources */ = {isa = PBXBuildFile; fileRef = 931C3792215AA3950014811C /* network.proto */; };
+		931C379F215AA3960014811C /* config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C3793215AA3950014811C /* config.pb.swift */; };
+		931C37A0215AA3960014811C /* cloud.proto in Sources */ = {isa = PBXBuildFile; fileRef = 931C3794215AA3950014811C /* cloud.proto */; };
+		931C37A1215AA3960014811C /* mesh.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C3795215AA3950014811C /* mesh.pb.swift */; };
+		931C37A2215AA3960014811C /* cloud.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C3796215AA3950014811C /* cloud.pb.swift */; };
+		931C37A3215AA3960014811C /* config.proto in Sources */ = {isa = PBXBuildFile; fileRef = 931C3797215AA3950014811C /* config.proto */; };
+		931C37A4215AA3960014811C /* common.proto in Sources */ = {isa = PBXBuildFile; fileRef = 931C3798215AA3950014811C /* common.proto */; };
+		931C37A5215AA3960014811C /* common.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C3799215AA3950014811C /* common.pb.swift */; };
+		931C37A6215AA3960014811C /* mesh.proto in Sources */ = {isa = PBXBuildFile; fileRef = 931C379A215AA3950014811C /* mesh.proto */; };
+		931C37A7215AA3960014811C /* network.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C379B215AA3960014811C /* network.pb.swift */; };
+		931C37CA215AA4310014811C /* MeshSetupNameDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37AE215AA42E0014811C /* MeshSetupNameDeviceViewController.swift */; };
+		931C37CB215AA4310014811C /* MeshSetupScanCommissionerStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37AF215AA42E0014811C /* MeshSetupScanCommissionerStickerViewController.swift */; };
+		931C37CC215AA4310014811C /* MeshSetupGetReadyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B0215AA42E0014811C /* MeshSetupGetReadyViewController.swift */; };
+		931C37CD215AA4310014811C /* MeshSetupPairingProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B1215AA42E0014811C /* MeshSetupPairingProcessViewController.swift */; };
+		931C37CE215AA4310014811C /* MeshSetupPairingCommissionerProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B2215AA42F0014811C /* MeshSetupPairingCommissionerProcessViewController.swift */; };
+		931C37CF215AA4310014811C /* MeshSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B3215AA42F0014811C /* MeshSetup.swift */; };
+		931C37D0215AA4310014811C /* MeshSetupFraming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B4215AA42F0014811C /* MeshSetupFraming.swift */; };
+		931C37D1215AA4310014811C /* MeshSetupBluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B5215AA42F0014811C /* MeshSetupBluetoothConnection.swift */; };
+		931C37D2215AA4310014811C /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B6215AA42F0014811C /* MeshSetupTextInputViewController.swift */; };
+		931C37D3215AA4310014811C /* MeshSetupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B7215AA42F0014811C /* MeshSetupSuccessViewController.swift */; };
+		931C37D4215AA4310014811C /* MeshSetupProtocolTransceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B8215AA42F0014811C /* MeshSetupProtocolTransceiver.swift */; };
+		931C37D5215AA4310014811C /* MeshDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B9215AA42F0014811C /* MeshDeviceCell.swift */; };
+		931C37D6215AA4310014811C /* MeshSetupSelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BA215AA42F0014811C /* MeshSetupSelectNetworkViewController.swift */; };
+		931C37D7215AA4310014811C /* MeshSetupFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BB215AA42F0014811C /* MeshSetupFlowManager.swift */; };
+		931C37D8215AA4310014811C /* MeshSetupEncryptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BC215AA42F0014811C /* MeshSetupEncryptionManager.swift */; };
+		931C37D9215AA4310014811C /* MeshSetupFlowUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BD215AA4300014811C /* MeshSetupFlowUIManager.swift */; };
+		931C37DA215AA4310014811C /* MeshSetupNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BE215AA4300014811C /* MeshSetupNetworkPasswordViewController.swift */; };
+		931C37DB215AA4310014811C /* MeshSetupJoiningNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BF215AA4300014811C /* MeshSetupJoiningNetworkViewController.swift */; };
+		931C37DC215AA4310014811C /* MeshStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C0215AA4300014811C /* MeshStrings.swift */; };
+		931C37DD215AA4310014811C /* MeshSetupFindCommissionerStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C1215AA4300014811C /* MeshSetupFindCommissionerStickerViewController.swift */; };
+		931C37DE215AA4310014811C /* MeshSetupScanStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C2215AA4300014811C /* MeshSetupScanStickerViewController.swift */; };
+		931C37DF215AA4310014811C /* MeshSetupStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C3215AA4300014811C /* MeshSetupStyle.swift */; };
+		931C37E0215AA4310014811C /* MeshSetupGetCommissionerReadyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C4215AA4300014811C /* MeshSetupGetCommissionerReadyViewController.swift */; };
+		931C37E1215AA4310014811C /* MeshSetupFindStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C5215AA4300014811C /* MeshSetupFindStickerViewController.swift */; };
+		931C37E2215AA4310014811C /* MeshSetupBluetoothConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C6215AA4300014811C /* MeshSetupBluetoothConnectionManager.swift */; };
+		931C37E3215AA4310014811C /* MeshSetupSelectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */; };
+		931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */; };
+		931C37E5215AA4310014811C /* MeshSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C9215AA4310014811C /* MeshSetupViewController.swift */; };
+		931C37E7215AA4C10014811C /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9383399820E0FD5F0002B90C /* GoogleService-Info.plist */; };
 		B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		931C3778215AA1020014811C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9365493221232D3300E12BC0;
+			remoteInfo = mbedTLSWrapper;
+		};
+		931C377A215AA1020014811C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9365493B21232D3300E12BC0;
+			remoteInfo = mbedTLSWrapperTests;
+		};
+		931C378A215AA25D0014811C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9365493121232D3300E12BC0;
+			remoteInfo = mbedTLSWrapper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		931C378C215AA25D0014811C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				931C3789215AA25D0014811C /* mbedTLSWrapper.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		931C37E6215AA4970014811C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				931C37E7215AA4C10014811C /* mbedTLSWrapper.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		500B3A151BF6B7B700D83C92 /* ElectronSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElectronSetupViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +211,52 @@
 		50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightIta.otf"; sourceTree = "<group>"; };
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
 		8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
+		931C377C215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
+		931C377D215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.13-xenon.bin"; sourceTree = "<group>"; };
+		931C3781215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetupStrings.strings"; sourceTree = "<group>"; };
+		931C3783215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetup.storyboard"; sourceTree = "<group>"; };
+		931C3786215AA24B0014811C /* MeshSetupImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MeshSetupImages.xcassets; sourceTree = "<group>"; };
+		931C3790215AA3950014811C /* storage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = storage.pb.swift; path = "Photon-Tinker/storage.pb.swift"; sourceTree = SOURCE_ROOT; };
+		931C3791215AA3950014811C /* storage.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; name = storage.proto; path = "Photon-Tinker/storage.proto"; sourceTree = SOURCE_ROOT; };
+		931C3792215AA3950014811C /* network.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; name = network.proto; path = "Photon-Tinker/network.proto"; sourceTree = SOURCE_ROOT; };
+		931C3793215AA3950014811C /* config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = config.pb.swift; path = "Photon-Tinker/config.pb.swift"; sourceTree = SOURCE_ROOT; };
+		931C3794215AA3950014811C /* cloud.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; name = cloud.proto; path = "Photon-Tinker/cloud.proto"; sourceTree = SOURCE_ROOT; };
+		931C3795215AA3950014811C /* mesh.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = mesh.pb.swift; path = "Photon-Tinker/mesh.pb.swift"; sourceTree = SOURCE_ROOT; };
+		931C3796215AA3950014811C /* cloud.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = cloud.pb.swift; path = "Photon-Tinker/cloud.pb.swift"; sourceTree = SOURCE_ROOT; };
+		931C3797215AA3950014811C /* config.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; name = config.proto; path = "Photon-Tinker/config.proto"; sourceTree = SOURCE_ROOT; };
+		931C3798215AA3950014811C /* common.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; name = common.proto; path = "Photon-Tinker/common.proto"; sourceTree = SOURCE_ROOT; };
+		931C3799215AA3950014811C /* common.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = common.pb.swift; path = "Photon-Tinker/common.pb.swift"; sourceTree = SOURCE_ROOT; };
+		931C379A215AA3950014811C /* mesh.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; name = mesh.proto; path = "Photon-Tinker/mesh.proto"; sourceTree = SOURCE_ROOT; };
+		931C379B215AA3960014811C /* network.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = network.pb.swift; path = "Photon-Tinker/network.pb.swift"; sourceTree = SOURCE_ROOT; };
+		931C37AE215AA42E0014811C /* MeshSetupNameDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNameDeviceViewController.swift; sourceTree = "<group>"; };
+		931C37AF215AA42E0014811C /* MeshSetupScanCommissionerStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupScanCommissionerStickerViewController.swift; sourceTree = "<group>"; };
+		931C37B0215AA42E0014811C /* MeshSetupGetReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetReadyViewController.swift; sourceTree = "<group>"; };
+		931C37B1215AA42E0014811C /* MeshSetupPairingProcessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupPairingProcessViewController.swift; sourceTree = "<group>"; };
+		931C37B2215AA42F0014811C /* MeshSetupPairingCommissionerProcessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupPairingCommissionerProcessViewController.swift; sourceTree = "<group>"; };
+		931C37B3215AA42F0014811C /* MeshSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetup.swift; sourceTree = "<group>"; };
+		931C37B4215AA42F0014811C /* MeshSetupFraming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFraming.swift; sourceTree = "<group>"; };
+		931C37B5215AA42F0014811C /* MeshSetupBluetoothConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnection.swift; sourceTree = "<group>"; };
+		931C37B6215AA42F0014811C /* MeshSetupTextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupTextInputViewController.swift; sourceTree = "<group>"; };
+		931C37B7215AA42F0014811C /* MeshSetupSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSuccessViewController.swift; sourceTree = "<group>"; };
+		931C37B8215AA42F0014811C /* MeshSetupProtocolTransceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupProtocolTransceiver.swift; sourceTree = "<group>"; };
+		931C37B9215AA42F0014811C /* MeshDeviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshDeviceCell.swift; sourceTree = "<group>"; };
+		931C37BA215AA42F0014811C /* MeshSetupSelectNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectNetworkViewController.swift; sourceTree = "<group>"; };
+		931C37BB215AA42F0014811C /* MeshSetupFlowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowManager.swift; sourceTree = "<group>"; };
+		931C37BC215AA42F0014811C /* MeshSetupEncryptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupEncryptionManager.swift; sourceTree = "<group>"; };
+		931C37BD215AA4300014811C /* MeshSetupFlowUIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowUIManager.swift; sourceTree = "<group>"; };
+		931C37BE215AA4300014811C /* MeshSetupNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkPasswordViewController.swift; sourceTree = "<group>"; };
+		931C37BF215AA4300014811C /* MeshSetupJoiningNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupJoiningNetworkViewController.swift; sourceTree = "<group>"; };
+		931C37C0215AA4300014811C /* MeshStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshStrings.swift; sourceTree = "<group>"; };
+		931C37C1215AA4300014811C /* MeshSetupFindCommissionerStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFindCommissionerStickerViewController.swift; sourceTree = "<group>"; };
+		931C37C2215AA4300014811C /* MeshSetupScanStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupScanStickerViewController.swift; sourceTree = "<group>"; };
+		931C37C3215AA4300014811C /* MeshSetupStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupStyle.swift; sourceTree = "<group>"; };
+		931C37C4215AA4300014811C /* MeshSetupGetCommissionerReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetCommissionerReadyViewController.swift; sourceTree = "<group>"; };
+		931C37C5215AA4300014811C /* MeshSetupFindStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFindStickerViewController.swift; sourceTree = "<group>"; };
+		931C37C6215AA4300014811C /* MeshSetupBluetoothConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionManager.swift; sourceTree = "<group>"; };
+		931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectDeviceViewController.swift; sourceTree = "<group>"; };
+		931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionHandshakeManager.swift; sourceTree = "<group>"; };
+		931C37C9215AA4310014811C /* MeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupViewController.swift; sourceTree = "<group>"; };
 		9383399820E0FD5F0002B90C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */,
+				931C3788215AA25D0014811C /* mbedTLSWrapper.framework in Frameworks */,
 				B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,6 +300,7 @@
 		50B1253A1AE06CF4003C29DC = {
 			isa = PBXGroup;
 			children = (
+				931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */,
 				50CF03C01D93420D0019E3F6 /* Particle.entitlements */,
 				50F62D721AE071AF00109F33 /* Assets */,
 				50B125451AE06CF4003C29DC /* Particle-Tinker */,
@@ -178,6 +322,7 @@
 		50B125451AE06CF4003C29DC /* Particle-Tinker */ = {
 			isa = PBXGroup;
 			children = (
+				931C378D215AA3360014811C /* MeshSetup */,
 				5014D1EE1AE87B7000725BA8 /* ViewControllers */,
 				50EB761D1AE70AE700C925A9 /* Views */,
 				50EB76101AE6EE9C00C925A9 /* Models */,
@@ -274,10 +419,15 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				931C377C215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin */,
+				931C377D215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin */,
 				509749A81D3EF9C300C5DF0B /* electron-tinker.bin */,
 				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
 				50B0F9BB1D2C21C3007DB6D1 /* photon_wifi.mp4 */,
+				931C3782215AA2240014811C /* MeshSetup.storyboard */,
+				931C3786215AA24B0014811C /* MeshSetupImages.xcassets */,
+				931C3780215AA2240014811C /* MeshSetupStrings.strings */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				50F62D941AE0721200109F33 /* Fonts */,
 			);
@@ -297,6 +447,110 @@
 			);
 			name = Fonts;
 			path = "Photon-Tinker/Fonts";
+			sourceTree = "<group>";
+		};
+		931C3774215AA1020014811C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				931C3779215AA1020014811C /* mbedTLSWrapper.framework */,
+				931C377B215AA1020014811C /* mbedTLSWrapperTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		931C378D215AA3360014811C /* MeshSetup */ = {
+			isa = PBXGroup;
+			children = (
+				931C37EB215AA5650014811C /* BLE */,
+				931C37E9215AA51E0014811C /* FlowManagers */,
+				931C37E8215AA4F10014811C /* ViewControllers */,
+				931C378E215AA33D0014811C /* Model */,
+				931C37B3215AA42F0014811C /* MeshSetup.swift */,
+			);
+			name = MeshSetup;
+			sourceTree = "<group>";
+		};
+		931C378E215AA33D0014811C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				931C378F215AA3510014811C /* ProtoBuffs */,
+				931C37B4215AA42F0014811C /* MeshSetupFraming.swift */,
+				931C37C3215AA4300014811C /* MeshSetupStyle.swift */,
+				931C37C0215AA4300014811C /* MeshStrings.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		931C378F215AA3510014811C /* ProtoBuffs */ = {
+			isa = PBXGroup;
+			children = (
+				931C3796215AA3950014811C /* cloud.pb.swift */,
+				931C3794215AA3950014811C /* cloud.proto */,
+				931C3799215AA3950014811C /* common.pb.swift */,
+				931C3798215AA3950014811C /* common.proto */,
+				931C3793215AA3950014811C /* config.pb.swift */,
+				931C3797215AA3950014811C /* config.proto */,
+				931C3795215AA3950014811C /* mesh.pb.swift */,
+				931C379A215AA3950014811C /* mesh.proto */,
+				931C379B215AA3960014811C /* network.pb.swift */,
+				931C3792215AA3950014811C /* network.proto */,
+				931C3790215AA3950014811C /* storage.pb.swift */,
+				931C3791215AA3950014811C /* storage.proto */,
+			);
+			name = ProtoBuffs;
+			sourceTree = "<group>";
+		};
+		931C37E8215AA4F10014811C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				931C37EA215AA54E0014811C /* Controls */,
+				931C37C9215AA4310014811C /* MeshSetupViewController.swift */,
+				931C37C1215AA4300014811C /* MeshSetupFindCommissionerStickerViewController.swift */,
+				931C37C5215AA4300014811C /* MeshSetupFindStickerViewController.swift */,
+				931C37C4215AA4300014811C /* MeshSetupGetCommissionerReadyViewController.swift */,
+				931C37B0215AA42E0014811C /* MeshSetupGetReadyViewController.swift */,
+				931C37BF215AA4300014811C /* MeshSetupJoiningNetworkViewController.swift */,
+				931C37AE215AA42E0014811C /* MeshSetupNameDeviceViewController.swift */,
+				931C37BE215AA4300014811C /* MeshSetupNetworkPasswordViewController.swift */,
+				931C37B2215AA42F0014811C /* MeshSetupPairingCommissionerProcessViewController.swift */,
+				931C37B1215AA42E0014811C /* MeshSetupPairingProcessViewController.swift */,
+				931C37AF215AA42E0014811C /* MeshSetupScanCommissionerStickerViewController.swift */,
+				931C37C2215AA4300014811C /* MeshSetupScanStickerViewController.swift */,
+				931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */,
+				931C37BA215AA42F0014811C /* MeshSetupSelectNetworkViewController.swift */,
+				931C37B7215AA42F0014811C /* MeshSetupSuccessViewController.swift */,
+				931C37B6215AA42F0014811C /* MeshSetupTextInputViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		931C37E9215AA51E0014811C /* FlowManagers */ = {
+			isa = PBXGroup;
+			children = (
+				931C37BB215AA42F0014811C /* MeshSetupFlowManager.swift */,
+				931C37BD215AA4300014811C /* MeshSetupFlowUIManager.swift */,
+			);
+			name = FlowManagers;
+			sourceTree = "<group>";
+		};
+		931C37EA215AA54E0014811C /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				931C37B9215AA42F0014811C /* MeshDeviceCell.swift */,
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
+		931C37EB215AA5650014811C /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				931C37B5215AA42F0014811C /* MeshSetupBluetoothConnection.swift */,
+				931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */,
+				931C37C6215AA4300014811C /* MeshSetupBluetoothConnectionManager.swift */,
+				931C37BC215AA42F0014811C /* MeshSetupEncryptionManager.swift */,
+				931C37B8215AA42F0014811C /* MeshSetupProtocolTransceiver.swift */,
+			);
+			name = BLE;
 			sourceTree = "<group>";
 		};
 		9F8A6834C76C6E158FE8EE72 /* Frameworks */ = {
@@ -329,12 +583,15 @@
 				50B125401AE06CF4003C29DC /* Frameworks */,
 				50B125411AE06CF4003C29DC /* Resources */,
 				50E5EF201D349D450087C7B6 /* Run Script */,
+				931C37E6215AA4970014811C /* CopyFiles */,
 				2EC80B6EBE6027169D7F4597 /* [CP] Embed Pods Frameworks */,
 				4061BE20097F170B9053B6D9 /* [CP] Copy Pods Resources */,
+				931C378C215AA25D0014811C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				931C378B215AA25D0014811C /* PBXTargetDependency */,
 			);
 			name = Particle;
 			productName = "Photon-Tinker";
@@ -376,12 +633,35 @@
 			mainGroup = 50B1253A1AE06CF4003C29DC;
 			productRefGroup = 50B125441AE06CF4003C29DC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 931C3774215AA1020014811C /* Products */;
+					ProjectRef = 931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				50B125421AE06CF4003C29DC /* Particle */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		931C3779215AA1020014811C /* mbedTLSWrapper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = mbedTLSWrapper.framework;
+			remoteRef = 931C3778215AA1020014811C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		931C377B215AA1020014811C /* mbedTLSWrapperTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = mbedTLSWrapperTests.xctest;
+			remoteRef = 931C377A215AA1020014811C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		50B125411AE06CF4003C29DC /* Resources */ = {
@@ -396,10 +676,15 @@
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
 				509749A91D3EF9C300C5DF0B /* electron-tinker.bin in Resources */,
+				931C3787215AA24B0014811C /* MeshSetupImages.xcassets in Resources */,
+				931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
+				931C377E215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin in Resources */,
 				50B0F9BC1D2C21C3007DB6D1 /* photon_wifi.mp4 in Resources */,
 				50B125501AE06CF4003C29DC /* Images.xcassets in Resources */,
+				931C377F215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin in Resources */,
 				50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */,
+				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
 				502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +803,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				931C37A1215AA3960014811C /* mesh.pb.swift in Sources */,
+				931C379C215AA3960014811C /* storage.pb.swift in Sources */,
+				931C37A2215AA3960014811C /* cloud.pb.swift in Sources */,
+				931C37D1215AA4310014811C /* MeshSetupBluetoothConnection.swift in Sources */,
+				931C37E0215AA4310014811C /* MeshSetupGetCommissionerReadyViewController.swift in Sources */,
 				507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */,
 				50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */,
 				502E9BC01B194DF800D2C45B /* HelpViewController.swift in Sources */,
@@ -527,32 +817,75 @@
 				5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */,
 				5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */,
 				50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */,
+				931C37D9215AA4310014811C /* MeshSetupFlowUIManager.swift in Sources */,
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,
+				931C379E215AA3960014811C /* network.proto in Sources */,
+				931C37A3215AA3960014811C /* config.proto in Sources */,
 				507A84BA1D247FFD0050B3B6 /* ParticleUtils.swift in Sources */,
+				931C37CE215AA4310014811C /* MeshSetupPairingCommissionerProcessViewController.swift in Sources */,
 				505062D51CE19F920060FEE7 /* Keys.swift in Sources */,
 				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
+				931C37DA215AA4310014811C /* MeshSetupNetworkPasswordViewController.swift in Sources */,
 				50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */,
 				50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */,
+				931C37CA215AA4310014811C /* MeshSetupNameDeviceViewController.swift in Sources */,
+				931C37E1215AA4310014811C /* MeshSetupFindStickerViewController.swift in Sources */,
+				931C37E2215AA4310014811C /* MeshSetupBluetoothConnectionManager.swift in Sources */,
 				50A11F2A1D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift in Sources */,
+				931C37A7215AA3960014811C /* network.pb.swift in Sources */,
+				931C37A5215AA3960014811C /* common.pb.swift in Sources */,
 				50E5EF1F1D2F2CD60087C7B6 /* HelpTableViewCell.swift in Sources */,
 				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,
+				931C37A4215AA3960014811C /* common.proto in Sources */,
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,
+				931C37DB215AA4310014811C /* MeshSetupJoiningNetworkViewController.swift in Sources */,
 				508311491C0EAF98009C0161 /* ScanBarcodeViewController.m in Sources */,
+				931C379D215AA3960014811C /* storage.proto in Sources */,
+				931C37D8215AA4310014811C /* MeshSetupEncryptionManager.swift in Sources */,
+				931C37CD215AA4310014811C /* MeshSetupPairingProcessViewController.swift in Sources */,
+				931C37D4215AA4310014811C /* MeshSetupProtocolTransceiver.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				50E5EF1C1D2DDCBF0087C7B6 /* UIImage.swift in Sources */,
+				931C37D6215AA4310014811C /* MeshSetupSelectNetworkViewController.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* ParticleDevice+pins.m in Sources */,
+				931C379F215AA3960014811C /* config.pb.swift in Sources */,
+				931C37CC215AA4310014811C /* MeshSetupGetReadyViewController.swift in Sources */,
 				507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */,
 				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50B0F9BA1D261149007DB6D1 /* DeviceEventTableViewCell.swift in Sources */,
+				931C37D2215AA4310014811C /* MeshSetupTextInputViewController.swift in Sources */,
+				931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */,
+				931C37A6215AA3960014811C /* mesh.proto in Sources */,
+				931C37A0215AA3960014811C /* cloud.proto in Sources */,
+				931C37E3215AA4310014811C /* MeshSetupSelectDeviceViewController.swift in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
+				931C37DC215AA4310014811C /* MeshStrings.swift in Sources */,
+				931C37D7215AA4310014811C /* MeshSetupFlowManager.swift in Sources */,
+				931C37D0215AA4310014811C /* MeshSetupFraming.swift in Sources */,
 				50E5EF1D1D2DDCBF0087C7B6 /* ZAlertView.swift in Sources */,
+				931C37D5215AA4310014811C /* MeshDeviceCell.swift in Sources */,
+				931C37DF215AA4310014811C /* MeshSetupStyle.swift in Sources */,
+				931C37DE215AA4310014811C /* MeshSetupScanStickerViewController.swift in Sources */,
+				931C37CF215AA4310014811C /* MeshSetup.swift in Sources */,
+				931C37D3215AA4310014811C /* MeshSetupSuccessViewController.swift in Sources */,
+				931C37DD215AA4310014811C /* MeshSetupFindCommissionerStickerViewController.swift in Sources */,
+				931C37E5215AA4310014811C /* MeshSetupViewController.swift in Sources */,
+				931C37CB215AA4310014811C /* MeshSetupScanCommissionerStickerViewController.swift in Sources */,
 				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		931C378B215AA25D0014811C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mbedTLSWrapper;
+			targetProxy = 931C378A215AA25D0014811C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		50B1254C1AE06CF4003C29DC /* Main.storyboard */ = {
@@ -562,6 +895,22 @@
 			);
 			name = Main.storyboard;
 			path = "Photon-Tinker";
+			sourceTree = "<group>";
+		};
+		931C3780215AA2240014811C /* MeshSetupStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				931C3781215AA2240014811C /* Base */,
+			);
+			name = MeshSetupStrings.strings;
+			sourceTree = "<group>";
+		};
+		931C3782215AA2240014811C /* MeshSetup.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				931C3783215AA2240014811C /* Base */,
+			);
+			name = MeshSetup.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
