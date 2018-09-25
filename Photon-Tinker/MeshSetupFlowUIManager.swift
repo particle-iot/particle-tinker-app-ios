@@ -283,6 +283,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         pairingFlowDone = true
 
         if pairingScreenDone == true {
+            pairingScreenDone = nil
+            pairingFlowDone = nil
+
             showPasswordPrompt()
         }
     }
@@ -291,6 +294,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         pairingScreenDone = true
 
         if pairingFlowDone == true {
+            pairingScreenDone = nil
+            pairingFlowDone = nil
+
             showPasswordPrompt()
         }
     }
