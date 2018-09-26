@@ -37,6 +37,8 @@ extension String {
 
         if let t = deviceType {
             string = string.replacingOccurrences(of: "{{device}}", with: t.description, options: CompareOptions.caseInsensitive)
+        } else {
+            string = string.replacingOccurrences(of: "{{device}}", with: MeshSetupStrings.Default.DeviceType, options: CompareOptions.caseInsensitive)
         }
 
         if let n = networkName {
@@ -53,6 +55,10 @@ extension String {
 
 
 class MeshSetupStrings {
+    struct Default {
+        static let DeviceType = "MeshSetup.Default.DeviceType".meshLocalized()
+    }
+
     struct SelectDevice {
         static let Title = "MeshSetup.SelectDevice.Title".meshLocalized()
         static let MeshOnly = "MeshSetup.SelectDevice.MeshOnly".meshLocalized()

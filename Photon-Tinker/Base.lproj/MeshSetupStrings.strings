@@ -6,6 +6,8 @@
   Copyright © 2018 spark. All rights reserved.
 */
 
+"MeshSetup.Default.DeviceType" = "Mesh Device";
+
 "MeshSetup.SelectDevice.Title" = "Choose the device you’re setting up";
 "MeshSetup.SelectDevice.MeshOnly" = "Mesh only";
 "MeshSetup.SelectDevice.MeshAndWifi" = "Mesh + Wi-Fi";
