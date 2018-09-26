@@ -81,25 +81,31 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         log("target device type selected: \(type)")
         self.targetDeviceType = type
 
-        let getReadyVC = MeshSetupGetReadyViewController.storyboardViewController()
-        getReadyVC.setup(didPressReady: targetDeviceReady, deviceType: self.targetDeviceType)
-        self.embededNavigationController.pushViewController(getReadyVC, animated: true)
+        DispatchQueue.main.async {
+            let getReadyVC = MeshSetupGetReadyViewController.storyboardViewController()
+            getReadyVC.setup(didPressReady: self.targetDeviceReady, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(getReadyVC, animated: true)
+        }
     }
 
     func targetDeviceReady() {
         log("target device ready")
 
-        let findStickerVC = MeshSetupFindStickerViewController.storyboardViewController()
-        findStickerVC.setup(didPressScan: targetDeviceStickerFound, deviceType: self.targetDeviceType)
-        self.embededNavigationController.pushViewController(findStickerVC, animated: true)
+        DispatchQueue.main.async {
+            let findStickerVC = MeshSetupFindStickerViewController.storyboardViewController()
+            findStickerVC.setup(didPressScan: self.targetDeviceStickerFound, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(findStickerVC, animated: true)
+        }
     }
 
     func targetDeviceStickerFound() {
         log("sticker found by user")
 
-        let scanVC = MeshSetupScanStickerViewController.storyboardViewController()
-        scanVC.setup(didFindStickerCode: targetDeviceCodeFound, deviceType: self.targetDeviceType)
-        self.embededNavigationController.pushViewController(scanVC, animated: true)
+        DispatchQueue.main.async {
+            let scanVC = MeshSetupScanStickerViewController.storyboardViewController()
+            scanVC.setup(didFindStickerCode: self.targetDeviceCodeFound, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(scanVC, animated: true)
+        }
     }
 
     //user successfully scanned target code
@@ -135,6 +141,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     //MARK: Complete preflow, artifial pause for UI to catch up.
     func meshSetupDidPairWithTargetDevice() {
         pairingFlowDone = true
+
         evalContinueMainFlow()
     }
 
@@ -142,16 +149,17 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func targetDevicePairingScreenDone() {
         pairingScreenDone = true
+
         evalContinueMainFlow()
     }
 
     private func evalContinueMainFlow() {
 
         if pairingScreenDone == true, pairingFlowDone == true {
-            flowManager.continueWithMainFlow()
-
             pairingScreenDone = nil
             pairingFlowDone = nil
+
+            flowManager.continueWithMainFlow()
         }
 
         //the next thing to happen will be one out of 3:
@@ -386,13 +394,19 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func meshSetupDidRequestToAddOneMoreDevice() {
         DispatchQueue.main.async {
-
-
-
-
-            let successVC = MeshSetupSuccessViewController.storyboardViewController()
-            successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.targetDeviceName!)
-            self.embededNavigationController.pushViewController(successVC, animated: true)
+            if (self.createNetworkName != nil && self.createNetworkPassword != nil) {
+                self.createNetworkName = nil
+                self.createNetworkPassword = nil
+                //this is the end of create network flow
+                let successVC = MeshSetupNetworkCreatedViewController.storyboardViewController()
+                successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.targetDeviceName!)
+                self.embededNavigationController.pushViewController(successVC, animated: true)
+            } else {
+                //this is the end of joiner flow
+                let successVC = MeshSetupSuccessViewController.storyboardViewController()
+                successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.targetDeviceName!)
+                self.embededNavigationController.pushViewController(successVC, animated: true)
+            }
         }
     }
 
@@ -527,7 +541,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     private func showCreateNetwork() {
         DispatchQueue.main.async {
             let createNetworkVC = MeshSetupCreatingNetworkViewController.storyboardViewController()
-            createNetworkVC.setup(didFinishScreen: self.createNetworkScreenDone)
+            createNetworkVC.setup(didFinishScreen: self.createNetworkScreenDone, deviceType: self.targetDeviceType, deviceName: self.targetDeviceName)
             self.embededNavigationController.pushViewController(createNetworkVC, animated: true)
         }
     }
@@ -540,6 +554,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.commissionerDeviceType = self.targetDeviceType
         self.commissionerDeviceDataMatrixString = self.targetDeviceDataMatrixString
         self.selectedNetworkPassword = self.createNetworkPassword
+
+        self.pairingScreenDone = nil
+        self.pairingFlowDone = nil
     }
 
     func createNetworkScreenDone() {
