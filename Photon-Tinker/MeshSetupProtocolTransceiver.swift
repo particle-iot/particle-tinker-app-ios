@@ -18,6 +18,12 @@ typealias SystemCapability = Particle_Ctrl_SystemCapabilityFlag
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
+    private struct PendingMessage {
+        var data: Data
+        var writeWithResponse: Bool
+        var callback: (ReplyMessage?) -> ()
+    }
+
     var isBusy: Bool {
         get {
             return waitingForReply
@@ -30,10 +36,10 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private var requestMessageId: UInt16 = 1
     private var waitingForReply: Bool = false
 
-    private var rxBuffer: Data = Data()
-    private var txBuffer: Data!
+    private var pendingMessages: [PendingMessage] = []
 
-    private var onReplyCallback: ((ReplyMessage?) -> ())?
+    private var rxBuffer: Data = Data()
+
 
     var connection: MeshSetupBluetoothConnection {
         get {
@@ -42,8 +48,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     func triggerTimeout() {
-        if let callback = self.onReplyCallback {
-            self.onReplyCallback = nil
+        if let callback = pendingMessages.first?.callback {
+            pendingMessages.removeAll()
             callback(nil)
         }
     }
@@ -64,49 +70,47 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private func prepareRequestMessage(type: ControlRequestMessageType, payload: Data) {
-        if self.waitingForReply {
-            fatalError("Trying to send message while transceiver is waiting for a reply")
-        }
-
+    private func prepareRequestMessage(type: ControlRequestMessageType, payload: Data) -> Data {
         let requestMsg = RequestMessage(id: self.requestMessageId, type: type, data: payload)
-
-        //encrypt
-        self.encryptionManager.encrypt(requestMsg)
 
         // add to state machine dict to know which type of reply to deserialize
         //self.replyRequestTypeDict[requestMsg.id] = requestMsg.type
-
-        self.waitingForReply = true
 
         self.requestMessageId += 1
         if (requestMessageId >= 0xff00) {
             self.requestMessageId = 1
         }
 
-        self.txBuffer = encryptionManager.encrypt(requestMsg)
+        return encryptionManager.encrypt(requestMsg)
     }
 
-    private func sendRequestMessage(onReply: @escaping (ReplyMessage?) -> ()) {
+    private func sendRequestMessage(data: Data, onReply: @escaping (ReplyMessage?) -> ()) {
         if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
             onReply(nil)
             return
         }
 
-        self.onReplyCallback = onReply
-        self.bluetoothConnection.send(data: txBuffer)
+        self.pendingMessages.append(PendingMessage(data: data, writeWithResponse: true, callback: onReply))
+        self.sendNextMessage()
     }
 
-    private func sendOTARequestMessage(onReply: @escaping (ReplyMessage?) -> ()) {
+    private func sendOTARequestMessage(data: Data, onReply: @escaping (ReplyMessage?) -> ()) {
         if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
             onReply(nil)
             return
         }
 
-        self.onReplyCallback = onReply
-        self.bluetoothConnection.send(data: txBuffer, writeType: .withoutResponse)
+        self.pendingMessages.append(PendingMessage(data: data, writeWithResponse: false, callback: onReply))
+        self.sendNextMessage()
     }
 
+    private func sendNextMessage() {
+        if self.pendingMessages.count > 0, self.waitingForReply == false {
+            self.waitingForReply = true
+            let message = self.pendingMessages.first!
+            self.bluetoothConnection.send(data: message.data, writeType: message.writeWithResponse ? .withResponse : .withoutResponse)
+        }
+    }
 
 
     private func serialize(message: SwiftProtobuf.Message) -> Data {
@@ -136,12 +140,13 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
         self.waitingForReply = false
 
-        guard let callback = self.onReplyCallback else {
+        guard let callback = self.pendingMessages.first?.callback else {
             fatalError("This can't happen!")
         }
 
-        self.onReplyCallback = nil
+        self.pendingMessages.removeFirst()
         callback(rm)
+        self.sendNextMessage()
     }
 
 
@@ -151,8 +156,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_Mesh_AuthRequest()
         requestMsgPayload.password = password
 
-        self.prepareRequestMessage(type: .Auth, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .Auth, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -166,8 +171,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendGetDeviceId(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetDeviceIdRequest()
 
-        self.prepareRequestMessage(type: .GetDeviceId, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetDeviceId, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetDeviceIdReply(serializedData: rm.data) as! Particle_Ctrl_GetDeviceIdReply
@@ -183,8 +188,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_SetClaimCodeRequest()
         requestMsgPayload.code = claimCode
 
-        self.prepareRequestMessage(type: .SetClaimCode, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .SetClaimCode, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -198,8 +203,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendGetSerialNumber(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_GetSerialNumberRequest()
 
-        self.prepareRequestMessage(type: .GetSerialNumber, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetSerialNumber, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetSerialNumberReply(serializedData: rm.data) as! Particle_Ctrl_GetSerialNumberReply
@@ -214,8 +219,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendGetConnectionStatus(callback: @escaping (ControlReplyErrorType, CloudConnectionStatus?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Cloud_GetConnectionStatusRequest()
 
-        self.prepareRequestMessage(type: .GetConnectionStatus, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetConnectionStatus, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Cloud_GetConnectionStatusReply(serializedData: rm.data) as! Particle_Ctrl_Cloud_GetConnectionStatusReply
@@ -230,8 +235,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendIsClaimed(callback: @escaping (ControlReplyErrorType, Bool?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_IsClaimedRequest()
 
-        self.prepareRequestMessage(type: .IsClaimed, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .IsClaimed, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_IsClaimedReply(serializedData: rm.data) as! Particle_Ctrl_IsClaimedReply
@@ -248,8 +253,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         requestMsgPayload.name = name
         requestMsgPayload.password = password
 
-        self.prepareRequestMessage(type: .CreateNetwork, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .CreateNetwork, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Mesh_CreateNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_CreateNetworkReply
@@ -264,8 +269,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendStartCommissioner(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_StartCommissionerRequest()
 
-        self.prepareRequestMessage(type: .StartCommissioner, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .StartCommissioner, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -278,9 +283,9 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     func sendStopCommissioner(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_StopCommissionerRequest()
-        
-        self.prepareRequestMessage(type: .StopCommissioner, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+
+        let data = self.prepareRequestMessage(type: .StopCommissioner, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -294,8 +299,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendStarListening(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_StartListeningModeRequest();
 
-        self.prepareRequestMessage(type: .StartListening, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .StartListening, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -309,8 +314,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendStopListening(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_StopListeningModeRequest();
 
-        self.prepareRequestMessage(type: .StopListening, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .StopListening, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -325,8 +330,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_SetDeviceSetupDoneRequest();
         requestMsgPayload.done = done
 
-        self.prepareRequestMessage(type: .DeviceSetupDone, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .DeviceSetupDone, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -340,8 +345,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendIsDeviceSetupDone(callback: @escaping (ControlReplyErrorType, Bool?) -> Void) {
         let requestMsgPayload = Particle_Ctrl_IsDeviceSetupDoneRequest();
 
-        self.prepareRequestMessage(type: .IsDeviceSetupDone, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .IsDeviceSetupDone, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_IsDeviceSetupDoneReply(serializedData: rm.data) as! Particle_Ctrl_IsDeviceSetupDoneReply
@@ -357,8 +362,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_Mesh_PrepareJoinerRequest()
         requestMsgPayload.network = networkInfo
 
-        self.prepareRequestMessage(type: .PrepareJoiner, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .PrepareJoiner, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Mesh_PrepareJoinerReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_PrepareJoinerReply
@@ -375,8 +380,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         requestMsgPayload.eui64 = eui64
         requestMsgPayload.password = password
 
-        self.prepareRequestMessage(type: .AddJoiner, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .AddJoiner, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -391,8 +396,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_Mesh_RemoveJoinerRequest()
         requestMsgPayload.eui64 = eui64
 
-        self.prepareRequestMessage(type: .RemoveJoiner, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .RemoveJoiner, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -406,8 +411,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendJoinNetwork(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_JoinNetworkRequest()
 
-        self.prepareRequestMessage(type: .JoinNetwork, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .JoinNetwork, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -421,8 +426,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendLeaveNetwork(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_LeaveNetworkRequest()
 
-        self.prepareRequestMessage(type: .LeaveNetwork, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .LeaveNetwork, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 callback(rm.result)
@@ -436,8 +441,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendGetNetworkInfo(callback: @escaping (ControlReplyErrorType, MeshSetupNetworkInfo?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_GetNetworkInfoRequest()
 
-        self.prepareRequestMessage(type: .GetNetworkInfo, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetNetworkInfo, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Mesh_GetNetworkInfoReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_GetNetworkInfoReply
@@ -452,8 +457,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendScanNetworks(callback: @escaping (ControlReplyErrorType, [MeshSetupNetworkInfo]?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_ScanNetworksRequest()
 
-        self.prepareRequestMessage(type: .ScanNetworks, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .ScanNetworks, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Mesh_ScanNetworksReply(serializedData: rm.data) as! Particle_Ctrl_Mesh_ScanNetworksReply
@@ -467,8 +472,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendGetInterfaceList(callback: @escaping (ControlReplyErrorType, [MeshSetupNetworkInterfaceEntry]?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetInterfaceListRequest()
 
-        self.prepareRequestMessage(type: .GetInterfaceList, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetInterfaceList, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetInterfaceListReply(serializedData: rm.data) as! Particle_Ctrl_GetInterfaceListReply
@@ -483,8 +488,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_GetInterfaceRequest()
         requestMsgPayload.index = interfaceIndex
 
-        self.prepareRequestMessage(type: .GetInterface, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetInterface, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetInterfaceReply(serializedData: rm.data) as! Particle_Ctrl_GetInterfaceReply
@@ -498,8 +503,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, SystemCapability?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemCapabilitiesRequest()
 
-        self.prepareRequestMessage(type: .GetSystemCapabilities, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetSystemCapabilities, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetSystemCapabilitiesReply(serializedData: rm.data) as! Particle_Ctrl_GetSystemCapabilitiesReply
@@ -514,8 +519,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendGetSystemVersion(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemVersionRequest()
 
-        self.prepareRequestMessage(type: .GetSystemVersion, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .GetSystemVersion, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetSystemVersionReply(serializedData: rm.data) as! Particle_Ctrl_GetSystemVersionReply
@@ -531,8 +536,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         requestMsgPayload.format = .bin
         requestMsgPayload.size = UInt32(binarySize)
 
-        self.prepareRequestMessage(type: .StartFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .StartFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_StartFirmwareUpdateReply(serializedData: rm.data) as! Particle_Ctrl_StartFirmwareUpdateReply
@@ -547,8 +552,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_FinishFirmwareUpdateRequest()
         requestMsgPayload.validateOnly = validateOnly
 
-        self.prepareRequestMessage(type: .FinishFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .FinishFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_FinishFirmwareUpdateReply(serializedData: rm.data) as! Particle_Ctrl_FinishFirmwareUpdateReply
@@ -562,8 +567,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendCancelFirmwareUpdate(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_CancelFirmwareUpdateRequest()
 
-        self.prepareRequestMessage(type: .CancelFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
-        self.sendRequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .CancelFirmwareUpdate, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_CancelFirmwareUpdateReply(serializedData: rm.data) as! Particle_Ctrl_CancelFirmwareUpdateReply
@@ -578,8 +583,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         var requestMsgPayload = Particle_Ctrl_FirmwareUpdateDataRequest()
         requestMsgPayload.data = data
 
-        self.prepareRequestMessage(type: .FirmwareUpdateData, payload: self.serialize(message: requestMsgPayload))
-        self.sendOTARequestMessage(onReply: {
+        let data = self.prepareRequestMessage(type: .FirmwareUpdateData, payload: self.serialize(message: requestMsgPayload))
+        self.sendOTARequestMessage(data: data, onReply: {
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_FirmwareUpdateDataReply(serializedData: rm.data) as! Particle_Ctrl_FirmwareUpdateDataReply

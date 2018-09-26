@@ -16,6 +16,7 @@ class MeshSetupEncryptionManager: NSObject {
     private var repNonce:Data
 
     private var requestId: UInt32 = 0
+    private var pendingResponseIds: [UInt32] = []
 
     required init(derivedSecret: Data) {
         key = derivedSecret.subdata(in: 0..<16)
@@ -29,7 +30,9 @@ class MeshSetupEncryptionManager: NSObject {
 
     func getRequestNonce() -> Data {
         var data = Data()
+
         var reqIdLe = requestId.littleEndian
+        pendingResponseIds.append(requestId) //will be used to decrypt
 
         data.append(UInt8(reqIdLe & 0xff))
         data.append(UInt8((reqIdLe >> 8) & 0xff))
@@ -42,7 +45,9 @@ class MeshSetupEncryptionManager: NSObject {
 
     func getReplyNonce() -> Data {
         var data = Data()
-        var reqIdLe = requestId.littleEndian
+
+        var reqIdLe = pendingResponseIds.first!.littleEndian
+        pendingResponseIds.removeFirst()
 
         data.append(UInt8(reqIdLe & 0xff))
         data.append(UInt8((reqIdLe >> 8) & 0xff))
