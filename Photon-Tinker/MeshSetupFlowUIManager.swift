@@ -19,14 +19,15 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private var commissionerDeviceType: ParticleDeviceType?
     private var commissionerDeviceDataMatrixString: String!
-    private var commissionerDevicePassword: String?
+    private var selectedNetworkPassword: String?
 
+
+    //these flags are used to sync up flow & ui
     private var pairingScreenDone: Bool?
     private var pairingFlowDone: Bool?
 
     private var selectedNetwork: MeshSetupNetworkInfo?
     private var didSelectNetwork: Bool = false
-
 
     private var createNetworkName:String?
     private var createNetworkPassword:String?
@@ -157,6 +158,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         // 1)meshSetupDidRequestToLeaveNetwork callback
         // 2)meshSetupDidEnterState: TargetDeviceScanningForNetworks
         // 3)meshSetupDidEnterState: TargetDeviceConnectingToInternet
+
+        // 4)meshSetupDidEnterState: JoiningNetworkStarted
     }
 
 
@@ -273,7 +276,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             self.commissionerDeviceType = deviceType
             flowManager.setCommissionerDeviceInfo(dataMatrix: matrix)
 
-
             let pairingVC = MeshSetupPairingCommissionerProcessViewController.storyboardViewController()
             pairingVC.setup(didFinishScreen: commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: flowManager.commissionerDeviceName() ?? deviceType.description)
             self.embededNavigationController.pushViewController(pairingVC, animated: true)
@@ -286,15 +288,17 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
-    func meshSetupDidRequestToEnterSelectedNetworkPassword() {
-        pairingFlowDone = true
-        evalContinueNetworkJoin()
-    }
+
 
     func commissionerDevicePairingScreenDone() {
         pairingScreenDone = true
         evalContinueNetworkJoin()
 
+    }
+
+    func meshSetupDidRequestToEnterSelectedNetworkPassword() {
+        pairingFlowDone = true
+        evalContinueNetworkJoin()
     }
 
     func evalContinueNetworkJoin() {
@@ -308,17 +312,20 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     private func showPasswordPrompt() {
-        let passwordVC = MeshSetupNetworkPasswordViewController.storyboardViewController()
-        passwordVC.setup(didEnterPassword: didEnterNetworkPassword, networkName: self.selectedNetwork!.name)
-        self.embededNavigationController.pushViewController(passwordVC, animated: true)
+        DispatchQueue.main.async {
+            let passwordVC = MeshSetupNetworkPasswordViewController.storyboardViewController()
+            passwordVC.setup(didEnterPassword: self.didEnterNetworkPassword, networkName: self.selectedNetwork!.name)
+            self.embededNavigationController.pushViewController(passwordVC, animated: true)
+        }
     }
 
     func didEnterNetworkPassword(password: String) {
-        self.commissionerDevicePassword = password
+        self.selectedNetworkPassword = password
         flowManager.setSelectedNetworkPassword(password) { error in
             if error == nil {
                 //this will happen automatically
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNetworkPasswordViewController {
+                self.selectedNetworkPassword = nil
                 vc.setWrongInput()
             }
         }
@@ -379,7 +386,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func meshSetupDidRequestToAddOneMoreDevice() {
         DispatchQueue.main.async {
-            //flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
+
+
+
+
             let successVC = MeshSetupSuccessViewController.storyboardViewController()
             successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.targetDeviceName!)
             self.embededNavigationController.pushViewController(successVC, animated: true)
@@ -523,29 +533,18 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func meshSetupDidCreateNetwork(network: MeshSetupNetworkInfo) {
+        //make target device into a commissioner
         self.selectedNetwork = network
-        createNetworkFlowDone()
+        self.didSelectNetwork = true
+
+        self.commissionerDeviceType = self.targetDeviceType
+        self.commissionerDeviceDataMatrixString = self.targetDeviceDataMatrixString
+        self.selectedNetworkPassword = self.createNetworkPassword
     }
 
     func createNetworkScreenDone() {
-        pairingScreenDone = true
-        evalContinueCreateNetwork()
+        // simply do nothing. screen will be exited automatically
     }
-
-    func createNetworkFlowDone() {
-        pairingFlowDone = true
-        evalContinueCreateNetwork()
-    }
-
-    func evalContinueCreateNetwork() {
-        if pairingScreenDone == true, pairingFlowDone == true {
-            pairingScreenDone = nil
-            pairingFlowDone = nil
-
-            //do nothing...
-        }
-    }
-
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState) {
