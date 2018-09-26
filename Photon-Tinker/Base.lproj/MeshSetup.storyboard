@@ -901,15 +901,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="Joining Network" id="Li7-zK-hnT"/>
                     <connections>
-                        <outlet property="joiningIndicator" destination="aIn-4a-ISn" id="GaA-y0-2gw"/>
-                        <outlet property="joiningTextLabel1" destination="IfS-8b-deC" id="as3-3Z-kQ7"/>
-                        <outlet property="joiningTextLabel2" destination="8UP-ez-AKU" id="d64-lC-ov7"/>
-                        <outlet property="joiningTextLabel3" destination="cci-Q4-Eue" id="YkA-DA-R7b"/>
-                        <outlet property="joiningTitleLabel" destination="W21-BV-auz" id="bNR-Qv-ZQu"/>
-                        <outlet property="joiningView" destination="Opn-f7-DMU" id="Of2-y3-oNR"/>
+                        <outlet property="progressIndicator" destination="aIn-4a-ISn" id="GaA-y0-2gw"/>
+                        <outlet property="progressTitleLabel" destination="W21-BV-auz" id="bNR-Qv-ZQu"/>
+                        <outlet property="progressView" destination="Opn-f7-DMU" id="Of2-y3-oNR"/>
                         <outlet property="successTextLabel" destination="7Eb-tx-GLg" id="qIJ-MU-iLA"/>
                         <outlet property="successTitleLabel" destination="LwV-Sq-5JR" id="BRW-kH-AMS"/>
                         <outlet property="successView" destination="wM2-fM-rYr" id="Dzt-xt-YSu"/>
+                        <outletCollection property="progressTextLabels" destination="IfS-8b-deC" collectionClass="NSMutableArray" id="FtU-me-pcx"/>
+                        <outletCollection property="progressTextLabels" destination="8UP-ez-AKU" collectionClass="NSMutableArray" id="BMs-MX-TtR"/>
+                        <outletCollection property="progressTextLabels" destination="cci-Q4-Eue" collectionClass="NSMutableArray" id="NVU-LD-pxW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LJo-tW-itq" userLabel="First Responder" sceneMemberID="firstResponder"/>

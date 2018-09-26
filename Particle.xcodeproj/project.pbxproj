@@ -76,7 +76,6 @@
 		931C37CF215AA4310014811C /* MeshSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B3215AA42F0014811C /* MeshSetup.swift */; };
 		931C37D0215AA4310014811C /* MeshSetupFraming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B4215AA42F0014811C /* MeshSetupFraming.swift */; };
 		931C37D1215AA4310014811C /* MeshSetupBluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B5215AA42F0014811C /* MeshSetupBluetoothConnection.swift */; };
-		931C37D2215AA4310014811C /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B6215AA42F0014811C /* MeshSetupTextInputViewController.swift */; };
 		931C37D3215AA4310014811C /* MeshSetupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B7215AA42F0014811C /* MeshSetupSuccessViewController.swift */; };
 		931C37D4215AA4310014811C /* MeshSetupProtocolTransceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B8215AA42F0014811C /* MeshSetupProtocolTransceiver.swift */; };
 		931C37D5215AA4310014811C /* MeshDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B9215AA42F0014811C /* MeshDeviceCell.swift */; };
@@ -100,6 +99,8 @@
 		931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37F9215AAB2E0014811C /* Storyboardable.swift */; };
 		9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9383399820E0FD5F0002B90C /* GoogleService-Info.plist */; };
 		B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */; };
+		C810B0B450D8B9D9B4E5FD04 /* MeshSetupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB6752878502156A630A /* MeshSetupProgressViewController.swift */; };
+		C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,7 +219,6 @@
 		931C37B3215AA42F0014811C /* MeshSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetup.swift; sourceTree = "<group>"; };
 		931C37B4215AA42F0014811C /* MeshSetupFraming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFraming.swift; sourceTree = "<group>"; };
 		931C37B5215AA42F0014811C /* MeshSetupBluetoothConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnection.swift; sourceTree = "<group>"; };
-		931C37B6215AA42F0014811C /* MeshSetupTextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupTextInputViewController.swift; sourceTree = "<group>"; };
 		931C37B7215AA42F0014811C /* MeshSetupSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSuccessViewController.swift; sourceTree = "<group>"; };
 		931C37B8215AA42F0014811C /* MeshSetupProtocolTransceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupProtocolTransceiver.swift; sourceTree = "<group>"; };
 		931C37B9215AA42F0014811C /* MeshDeviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshDeviceCell.swift; sourceTree = "<group>"; };
@@ -241,6 +241,8 @@
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		9383399820E0FD5F0002B90C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
+		C810BB6752878502156A630A /* MeshSetupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupProgressViewController.swift; sourceTree = "<group>"; };
+		C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupTextInputViewController.swift; sourceTree = "<group>"; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -274,6 +276,7 @@
 				502E9BBF1B194DF800D2C45B /* HelpViewController.swift */,
 				508311471C0EAF98009C0161 /* ScanBarcodeViewController.h */,
 				508311481C0EAF98009C0161 /* ScanBarcodeViewController.m */,
+				C810BB6752878502156A630A /* MeshSetupProgressViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -500,7 +503,7 @@
 				931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */,
 				931C37BA215AA42F0014811C /* MeshSetupSelectNetworkViewController.swift */,
 				931C37B7215AA42F0014811C /* MeshSetupSuccessViewController.swift */,
-				931C37B6215AA42F0014811C /* MeshSetupTextInputViewController.swift */,
+				C810B6481F30B822962912B8 /* AbstractViewController */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -551,6 +554,14 @@
 				9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C810B6481F30B822962912B8 /* AbstractViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */,
+			);
+			name = AbstractViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -817,7 +828,6 @@
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50B0F9BA1D261149007DB6D1 /* DeviceEventTableViewCell.swift in Sources */,
 				931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */,
-				931C37D2215AA4310014811C /* MeshSetupTextInputViewController.swift in Sources */,
 				931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */,
 				931C37A6215AA3960014811C /* mesh.proto in Sources */,
 				931C37A0215AA3960014811C /* cloud.proto in Sources */,
@@ -836,6 +846,8 @@
 				931C37E5215AA4310014811C /* MeshSetupViewController.swift in Sources */,
 				931C37CB215AA4310014811C /* MeshSetupScanCommissionerStickerViewController.swift in Sources */,
 				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
+				C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */,
+				C810B0B450D8B9D9B4E5FD04 /* MeshSetupProgressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

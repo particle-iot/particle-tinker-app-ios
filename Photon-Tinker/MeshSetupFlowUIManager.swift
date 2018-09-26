@@ -346,6 +346,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
             nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(nameVC, animated: true)
+
+            return
         }
     }
 
@@ -391,7 +393,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     //MARK: Connect to internet
     private func showConnectToInternet() {
-
+//        DispatchQueue.main.async {
+//            let joiningVC = MeshSetupJoiningNetworkViewController.storyboardViewController()
+//            joiningVC.setup(didFinishScreen: self.didFinishJoinNetworkScreen, networkName: self.selectedNetwork!.name, deviceType: self.targetDeviceType)
+//            self.embededNavigationController.pushViewController(joiningVC, animated: true)
+//        }
     }
 
 
