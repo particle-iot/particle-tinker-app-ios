@@ -29,6 +29,7 @@ class MeshSetupProgressViewController: MeshSetupViewController {
         self.callback = didFinishScreen
         self.networkName = networkName
         self.deviceType = deviceType
+        self.deviceName = deviceName
     }
 
     override func setStyle() {
