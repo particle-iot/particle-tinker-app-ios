@@ -19,13 +19,17 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private var commissionerDeviceType: ParticleDeviceType?
     private var commissionerDeviceDataMatrixString: String!
-
-    private var selectedNetwork: MeshSetupNetworkInfo?
-    private var scanInProgress: Bool = false
+    private var commissionerDevicePassword: String?
 
     private var pairingScreenDone: Bool?
     private var pairingFlowDone: Bool?
 
+    private var selectedNetwork: MeshSetupNetworkInfo?
+    private var didSelectNetwork: Bool = false
+
+
+    private var createNetworkName:String?
+    private var createNetworkPassword:String?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -130,19 +134,19 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     //MARK: Complete preflow, artifial pause for UI to catch up.
     func meshSetupDidPairWithTargetDevice() {
         pairingFlowDone = true
-
-        if pairingScreenDone == true {
-            flowManager.continueWithMainFlow()
-
-            pairingScreenDone = nil
-            pairingFlowDone = nil
-        }
+        evalContinueMainFlow()
     }
+
+
 
     func targetDevicePairingScreenDone() {
         pairingScreenDone = true
+        evalContinueMainFlow()
+    }
 
-        if pairingFlowDone == true {
+    private func evalContinueMainFlow() {
+
+        if pairingScreenDone == true, pairingFlowDone == true {
             flowManager.continueWithMainFlow()
 
             pairingScreenDone = nil
@@ -153,7 +157,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         // 1)meshSetupDidRequestToLeaveNetwork callback
         // 2)meshSetupDidEnterState: TargetDeviceScanningForNetworks
         // 3)meshSetupDidEnterState: TargetDeviceConnectingToInternet
-
     }
 
 
@@ -182,54 +185,51 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     func didSelectNetwork(network: MeshSetupNetworkInfo) {
+        self.didSelectNetwork = true
         self.selectedNetwork = network
 
-        if (!scanInProgress) {
-            flowManager.setSelectedNetwork(selectedNetwork: selectedNetwork!)
-        }
+        flowManager.setSelectedNetwork(selectedNetwork: selectedNetwork!)
     }
 
 
     func meshSetupDidRequestToSelectNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
         NSLog("scan complete")
-        self.scanInProgress = false
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
-        if let selectedNetwork = self.selectedNetwork {
-            flowManager.setSelectedNetwork(selectedNetwork: selectedNetwork)
-            return
-        } else if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
             vc.setNetworks(networks: availableNetworks)
-        }
 
-
-        //if no networks found = force instant rescan
-        if (availableNetworks.count == 0) {
-            forceScan()
-        } else {
-            //rescan in 3seconds
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-                [weak self] in
-                //only rescan if user hasn't made choice by now
-
-                if self != nil, self!.selectedNetwork == nil {
-                    self!.scanInProgress = true
-                    self!.forceScan()
+            //if no networks found = force instant rescan
+            if (availableNetworks.count == 0) {
+                rescanNetworks()
+            } else {
+                //rescan in 3seconds
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    [weak self] in
+                    //only rescan if user hasn't made choice by now
+                    self?.rescanNetworks()
                 }
             }
         }
-
     }
 
-    private func forceScan() {
-        if (flowManager.rescanNetworks() == nil) {
-            self.scanInProgress = true
+    private func rescanNetworks() {
+        if self.didSelectNetwork == false {
             if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
-                vc.startScanning()
+                if (flowManager.rescanNetworks() == nil) {
+                    vc.startScanning()
+                } else {
+                    //TODO: remove for prod
+                    fatalError("something is horribly wrong here 1")
+                }
+            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+                if (flowManager.rescanNetworks() == nil) {
+                    vc.startScanning()
+                } else {
+                    //TODO: remove for prod
+                    fatalError("something is horribly wrong here 1")
+                }
             }
-        } else {
-            //TODO: remove for prod
-            fatalError("something is horribly wrong here 1")
         }
     }
 
@@ -288,25 +288,24 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func meshSetupDidRequestToEnterSelectedNetworkPassword() {
         pairingFlowDone = true
-
-        if pairingScreenDone == true {
-            pairingScreenDone = nil
-            pairingFlowDone = nil
-
-            showPasswordPrompt()
-        }
+        evalContinueNetworkJoin()
     }
 
     func commissionerDevicePairingScreenDone() {
         pairingScreenDone = true
+        evalContinueNetworkJoin()
 
-        if pairingFlowDone == true {
+    }
+
+    func evalContinueNetworkJoin() {
+        if pairingScreenDone == true, pairingFlowDone == true {
             pairingScreenDone = nil
             pairingFlowDone = nil
 
             showPasswordPrompt()
         }
     }
+
 
     private func showPasswordPrompt() {
         let passwordVC = MeshSetupNetworkPasswordViewController.storyboardViewController()
@@ -315,6 +314,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didEnterNetworkPassword(password: String) {
+        self.commissionerDevicePassword = password
         flowManager.setSelectedNetworkPassword(password) { error in
             if error == nil {
                 //this will happen automatically
@@ -333,23 +333,35 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didFinishJoinNetworkScreen() {
+        pairingScreenDone = true
+        evalContinueEnterName()
+    }
+
+    func meshSetupDidRequestToEnterDeviceName() {
+        pairingFlowDone = true
+        evalContinueEnterName()
+    }
+
+    private func evalContinueEnterName() {
+        if pairingScreenDone == true, pairingFlowDone == true {
+            pairingScreenDone = nil
+            pairingFlowDone = nil
+
+            showEnterName()
+        }
+    }
+
+
+    private func showEnterName() {
+        //joiner flow
         DispatchQueue.main.async {
             let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
-            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
+            nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(nameVC, animated: true)
         }
     }
 
-    func meshSetupDidRequestToEnterDeviceName() {
-//        //on joiner flow this won't execute, but this will execute on repetead joins & ethernet flow
-//        guard let topVC = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController else {
-//            let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
-//            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
-//            self.embededNavigationController.pushViewController(nameVC, animated: true)
-//
-//            return
-//        }
-    }
+
 
 
     func didEnterName(name: String) {
@@ -363,6 +375,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+
+
     func meshSetupDidRequestToAddOneMoreDevice() {
         DispatchQueue.main.async {
             //flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
@@ -371,6 +385,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             self.embededNavigationController.pushViewController(successVC, animated: true)
         }
     }
+
+
 
     func didSelectSetupDone(done: Bool) {
         flowManager.setAddOneMoreDevice(addOneMoreDevice: !done)
@@ -403,7 +419,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func didFinishConnectToInternetScreen() {
         DispatchQueue.main.async {
             let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
-            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
+            nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(nameVC, animated: true)
         }
     }
@@ -418,13 +434,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didSelectToFinishEarly(finishEarly: Bool) {
-        flowManager.setFinishSetupEarly(finish: finishEarly)
+        flowManager.setFinishSetupEarly(finish: finishEarly )
 
         if (finishEarly) {
             //setup done
             self.dismiss(animated: true)
-        } else {
-            //select network?
         }
     }
 
@@ -432,42 +446,106 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
+    private func showSelectOrCreateNetwork() {
+        DispatchQueue.main.async {
+            let networksVC = MeshSetupSelectOrCreateNetworkViewController.storyboardViewController()
+            networksVC.setup(didSelectGatewayNetwork: self.didSelectGatewayNetwork)
+            self.embededNavigationController.pushViewController(networksVC, animated: true)
+        }
+    }
 
+    func didSelectGatewayNetwork(network: MeshSetupNetworkInfo?) {
+        self.didSelectNetwork = true
+        self.selectedNetwork = network
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        flowManager.setSelectOrCreateNetwork(selectedNetwork: selectedNetwork)
+    }
 
 
     func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
-        flowManager.setSelectOrCreateNetwork(nil)
+        NSLog("scan complete")
+
+        //if by the time this returned, user has already selected the network, ignore the results of last scan
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+            vc.setNetworks(networks: availableNetworks)
+
+            //if no networks found = force instant rescan
+            if (availableNetworks.count == 0) {
+                rescanNetworks()
+            } else {
+                //rescan in 3seconds
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    [weak self] in
+                    //only rescan if user hasn't made choice by now
+                    self?.rescanNetworks()
+                }
+            }
+        }
     }
 
+
     func meshSetupDidRequestToEnterNewNetworkNameAndPassword() {
-        flowManager.setNewNetwork(name: "fancynetwork", password: "zxcasd")
+        DispatchQueue.main.async {
+            let networkNameVC = MeshSetupCreateNetworkNameViewController.storyboardViewController()
+            networkNameVC.setup(didEnterNetworkName: self.didEnterCreateNetworkName)
+            self.embededNavigationController.pushViewController(networkNameVC, animated: true)
+        }
     }
+
+    func didEnterCreateNetworkName(networkName: String) {
+        self.createNetworkName = networkName
+
+        showCreateNetworkPassword()
+    }
+
+
+    private func showCreateNetworkPassword() {
+        DispatchQueue.main.async {
+            let networkPasswordVC = MeshSetupCreateNetworkPasswordViewController.storyboardViewController()
+            networkPasswordVC.setup(didEnterNetworkPassword: self.didEnterCreateNetworkPassword)
+            self.embededNavigationController.pushViewController(networkPasswordVC, animated: true)
+        }
+    }
+
+    func didEnterCreateNetworkPassword(networkPassword: String) {
+        self.createNetworkPassword = networkPassword
+
+        self.flowManager.setNewNetwork(name: self.createNetworkName!, password: self.createNetworkPassword!)
+    }
+
+
+    private func showCreateNetwork() {
+        DispatchQueue.main.async {
+            let createNetworkVC = MeshSetupCreatingNetworkViewController.storyboardViewController()
+            createNetworkVC.setup(didFinishScreen: self.createNetworkScreenDone)
+            self.embededNavigationController.pushViewController(createNetworkVC, animated: true)
+        }
+    }
+
+    func meshSetupDidCreateNetwork(network: MeshSetupNetworkInfo) {
+        self.selectedNetwork = network
+        createNetworkFlowDone()
+    }
+
+    func createNetworkScreenDone() {
+        pairingScreenDone = true
+        evalContinueCreateNetwork()
+    }
+
+    func createNetworkFlowDone() {
+        pairingFlowDone = true
+        evalContinueCreateNetwork()
+    }
+
+    func evalContinueCreateNetwork() {
+        if pairingScreenDone == true, pairingFlowDone == true {
+            pairingScreenDone = nil
+            pairingFlowDone = nil
+
+            //do nothing...
+        }
+    }
+
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState) {
@@ -480,17 +558,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     //TODO: remove from prod
                     fatalError("why oh why?")
                 }
-            case .TargetDeviceScanningForNetworks:
-                showScanNetworks()
-            case .TargetDeviceConnectingToInternet:
-                showConnectToInternet()
-            case .TargetDeviceConnectedToInternet, .TargetDeviceConnectedToCloud:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectToInternetViewController {
-                    vc.setState(state)
-                } else {
-                    //TODO: remove from prod
-                    fatalError("why oh why?")
-                }
             case .CommissionerDeviceReady:
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupPairingCommissionerProcessViewController {
                     vc.setSuccess()
@@ -498,6 +565,23 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     //TODO: remove from prod
                     fatalError("why oh why?")
                 }
+
+            case .TargetDeviceScanningForNetworks:
+                showScanNetworks()
+            case .TargetGatewayDeviceScanningForNetworks:
+                showSelectOrCreateNetwork()
+
+
+            case .TargetDeviceConnectingToInternetStarted:
+                showConnectToInternet()
+            case .TargetDeviceConnectingToInternetStep1Done, .TargetDeviceConnectingToInternetCompleted:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectToInternetViewController {
+                    vc.setState(state)
+                } else {
+                    //TODO: remove from prod
+                    fatalError("why oh why?")
+                }
+
 
             case .JoiningNetworkStarted:
                 showJoiningNetwork()
@@ -509,6 +593,16 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     fatalError("why oh why?")
                 }
 
+
+            case .CreateNetworkStarted:
+                showCreateNetwork()
+            case .CreateNetworkStep1Done, .CreateNetworkStep2Done, .CreateNetworkStep3Done, .CreateNetworkCompleted:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupCreatingNetworkViewController {
+                    vc.setState(state)
+                } else {
+                    //TODO: remove from prod
+                    fatalError("why oh why?")
+                }
             default:
                 break;
 
@@ -543,18 +637,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
-    //MARK: Helpers
-    func randomStringWithLength(_ len: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-
-        var str = ""
-        for _ in 0 ..< len {
-            var index = letters.index(letters.startIndex, offsetBy: Int(arc4random_uniform(UInt32(letters.count))))
-            str.append(letters[index])
-        }
-
-        return str
-    }
 
     @IBAction func cancelTapped(_ sender: Any) {
         self.flowManager.cancelSetup()

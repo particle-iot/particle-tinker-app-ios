@@ -20,7 +20,7 @@
 "MeshSetup.GetReady.Text3" = "Confirm your {{device}} is blinking blue";
 "MeshSetup.GetReady.Button" = "{{device}} is blinking blue";
 
-"MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network ";
+"MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text2" = "Press and hold the MODE button for 3 seconds";
 "MeshSetup.GetCommissionerReady.Text3" = "Confirm the device is blinking blue and your phone remains physically close to that device";
@@ -60,13 +60,16 @@
 
 
 
+
 "MeshSetup.Networks.Title" = "Select mesh network to join";
+
 
 
 
 "MeshSetup.ExistingNetworkPassword.Title" = "Enter network password for {{network}}";
 "MeshSetup.ExistingNetworkPassword.Text" = "This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.";
 "MeshSetup.ExistingNetworkPassword.Button" = "Join Network";
+
 
 
 
@@ -79,9 +82,12 @@
 
 
 
+
 "MeshSetup.DeviceName.Title" = "Give your {{device}} a name";
 "MeshSetup.DeviceName.Text" = "Name your device something you will remember to help you easily identify it later.";
 "MeshSetup.DeviceName.Button" = "Next";
+
+
 
 
 "MeshSetup.Success.SuccessTitle" = "Congrats!";
@@ -94,6 +100,11 @@
 
 
 
+
+
+
+"MeshSetup.CreateOrSelectNetwork.Title" = "Your Xenon + Ethernet Featherwing will act as a gateway in a mesh network";
+"MeshSetup.CreateOrSelectNetwork.CreateNetwork" = "Create new network...";
 
 
 
@@ -113,3 +124,48 @@
 "MeshSetup.FinishSetupEarly.ContinueSetupButton" = "Continue onto Mesh Setup";
 "MeshSetup.FinishSetupEarly.DoneLabel" = "Using as a standalone device?";
 "MeshSetup.FinishSetupEarly.DoneButton" = "I’m done";
+
+
+
+
+"MeshSetup.BillingInfo.Title" = "Woo-hoo! Enjoy this new mesh network on us!";
+"MeshSetup.BillingInfo.Text1" = "All new networks begin as Micro Networks";
+"MeshSetup.BillingInfo.Text2" = "Micro Networks include 10 total devices and 1 gateway";
+"MeshSetup.BillingInfo.Text3" = "Your first 10 Micro Networks using a Wi-Fi or Ethernet gateway are FREE";
+"MeshSetup.BillingInfo.Note" = "You have 10 free micro networks";
+"MeshSetup.BillingInfo.Button" = "Sounds good";
+
+
+
+
+"MeshSetup.CreateNetworkName.Title" = "Give your network a name";
+"MeshSetup.CreateNetworkName.Text" = "Name your network something you will remember to help you easily identify it later.";
+"MeshSetup.CreateNetworkName.Button" = "Next";
+
+
+
+
+"MeshSetup.CreateNetworkPassword.Title" = "Set network admin password";
+"MeshSetup.CreateNetworkPassword.Text" = "You’ll need this password each time you want to add a new device to this mesh network.";
+"MeshSetup.CreateNetworkPassword.Button" = "Create network";
+
+
+
+
+"MeshSetup.CreatingNetwork.Title" = "Creating network";
+"MeshSetup.CreatingNetwork.Text1" = "Sending network credentials to your {{device}}";
+"MeshSetup.CreatingNetwork.Text2" = "{{deviceName}} creating the mesh network locally";
+"MeshSetup.CreatingNetwork.Text3" = "Registering the mesh network with the Particle Device Cloud";
+"MeshSetup.CreatingNetwork.Text4" = "Activating {{deviceName}} as a gateway in the mesh network";
+"MeshSetup.CreatingNetwork.SuccessTitle" = "Congrats!";
+"MeshSetup.CreatingNetwork.SuccessText" = "Your network has been created!";
+
+
+
+
+"MeshSetup.NetworkCreated.SuccessTitle" = "Congrats!";
+"MeshSetup.NetworkCreated.SuccessText" = "Your network has been created with {{deviceName}} acting as a gateway ";
+"MeshSetup.NetworkCreated.ContinueSetupLabel" = "Adding more devices to your network?";
+"MeshSetup.NetworkCreated.ContinueSetupButton" = "Set up next device";
+"MeshSetup.NetworkCreated.DoneLabel" = "Itching to get started?";
+"MeshSetup.NetworkCreated.DoneButton" = "I’m done";

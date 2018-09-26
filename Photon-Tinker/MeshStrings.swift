@@ -167,6 +167,9 @@ class MeshSetupStrings {
 
 
 
+
+
+
     struct FinishSetupEarly {
         static let SuccessTitle = "MeshSetup.FinishSetupEarly.SuccessTitle".meshLocalized()
         static let SuccessText = "MeshSetup.FinishSetupEarly.SuccessText".meshLocalized()
@@ -176,5 +179,61 @@ class MeshSetupStrings {
 
         static let DoneLabel = "MeshSetup.FinishSetupEarly.DoneLabel".meshLocalized()
         static let DoneButton = "MeshSetup.FinishSetupEarly.DoneButton".meshLocalized()
+    }
+
+
+
+    struct CreateOrSelectNetwork {
+        static let Title = "MeshSetup.CreateOrSelectNetwork.Title".meshLocalized()
+        static let CreateNetwork = "MeshSetup.CreateOrSelectNetwork.CreateNetwork".meshLocalized()
+    }
+
+
+    struct BillingInfo {
+        static let Title = "MeshSetup.BillingInfo.Title".meshLocalized()
+        static let Text1 = "MeshSetup.BillingInfo.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.BillingInfo.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.BillingInfo.Text3".meshLocalized()
+        static let Note = "MeshSetup.BillingInfo.Note".meshLocalized()
+        static let Button = "MeshSetup.BillingInfo.Button".meshLocalized()
+    }
+
+
+    struct CreateNetworkName {
+        static let Title = "MeshSetup.CreateNetworkName.Title".meshLocalized()
+        static let Text = "MeshSetup.CreateNetworkName.Text".meshLocalized()
+        static let Button = "MeshSetup.CreateNetworkName.Button".meshLocalized()
+    }
+
+
+    struct CreateNetworkPassword {
+        static let Title = "MeshSetup.CreateNetworkPassword.Title".meshLocalized()
+        static let Text = "MeshSetup.CreateNetworkPassword.Text".meshLocalized()
+        static let Button = "MeshSetup.CreateNetworkPassword.Button".meshLocalized()
+    }
+
+
+
+    struct CreatingNetwork {
+        static let Title = "MeshSetup.CreatingNetwork.Title".meshLocalized()
+        static let Text1 = "MeshSetup.CreatingNetwork.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.CreatingNetwork.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.CreatingNetwork.Text3".meshLocalized()
+        static let Text4 = "MeshSetup.CreatingNetwork.Text4".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.CreatingNetwork.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.CreatingNetwork.SuccessText".meshLocalized()
+    }
+
+
+    struct NetworkCreated {
+        static let SuccessTitle = "MeshSetup.NetworkCreated.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.NetworkCreated.SuccessText".meshLocalized()
+
+        static let ContinueSetupLabel = "MeshSetup.NetworkCreated.ContinueSetupLabel".meshLocalized()
+        static let ContinueSetupButton = "MeshSetup.NetworkCreated.ContinueSetupButton".meshLocalized()
+
+        static let DoneLabel = "MeshSetup.NetworkCreated.DoneLabel".meshLocalized()
+        static let DoneButton = "MeshSetup.NetworkCreated.DoneButton".meshLocalized()
     }
 }

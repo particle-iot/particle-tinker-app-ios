@@ -12,17 +12,9 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
 
     internal var callback: ((String) -> ())!
 
-    func setup(didEnterPassword: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
-        self.callback = didEnterPassword
+    func setup(didEnterName: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
+        self.callback = didEnterName
         self.deviceType = deviceType
-    }
-
-    override func setStyle() {
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
-
-        inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
     }
 
     override func setContent() {
@@ -30,6 +22,12 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
         textLabel.text = MeshSetupStrings.DeviceName.Text
 
         continueButton.setTitle(MeshSetupStrings.DeviceName.Button, for: .normal)
+    }
+
+    override func setStyle() {
+        super.setStyle()
+
+        self.inputTextField.isSecureTextEntry = false
     }
 
     override func submit() {

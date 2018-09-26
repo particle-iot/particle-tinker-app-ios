@@ -8,19 +8,18 @@
 
 import UIKit
 
-class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
+class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
 
     internal var callback: ((String) -> ())!
 
-    func setup(didEnterPassword: @escaping (String) -> (), networkName: String) {
-        self.callback = didEnterPassword
-        self.networkName = networkName
+    func setup(didEnterNetworkPassword: @escaping (String) -> ()) {
+        self.callback = didEnterNetworkPassword
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ExistingNetworkPassword.Title
-        textLabel.text = MeshSetupStrings.ExistingNetworkPassword.Text
-        continueButton.setTitle(MeshSetupStrings.ExistingNetworkPassword.Button, for: .normal)
+        titleLabel.text = MeshSetupStrings.CreateNetworkPassword.Title
+        textLabel.text = MeshSetupStrings.CreateNetworkPassword.Text
+        continueButton.setTitle(MeshSetupStrings.CreateNetworkPassword.Button, for: .normal)
     }
 
     override func setStyle() {

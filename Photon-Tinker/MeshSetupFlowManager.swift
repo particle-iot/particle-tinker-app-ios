@@ -33,6 +33,7 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkInfo])
 
     func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+    func meshSetupDidCreateNetwork(network: MeshSetupNetworkInfo)
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
@@ -45,10 +46,11 @@ enum MeshSetupFlowState {
     case TargetDeviceReady
 
     case TargetDeviceScanningForNetworks
+    case TargetGatewayDeviceScanningForNetworks
 
-    case TargetDeviceConnectingToInternet
-    case TargetDeviceConnectedToInternet
-    case TargetDeviceConnectedToCloud
+    case TargetDeviceConnectingToInternetStarted
+    case TargetDeviceConnectingToInternetStep1Done
+    case TargetDeviceConnectingToInternetCompleted
 
     case CommissionerDeviceConnecting
     case CommissionerDeviceConnected
@@ -59,7 +61,12 @@ enum MeshSetupFlowState {
     case JoiningNetworkStep2Done
     case JoiningNetworkCompleted
 
-    case SetupComplete
+
+    case CreateNetworkStarted
+    case CreateNetworkStep1Done
+    case CreateNetworkStep2Done
+    case CreateNetworkStep3Done
+    case CreateNetworkCompleted
 }
 
 enum MeshSetupFlowError: Error {
@@ -300,6 +307,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             commissionerDeviceTransceiver.triggerTimeout()
         }
 
+        self.bluetoothManager.stopScan()
+        self.bluetoothManager.dropAllConnections()
+    }
+
+    private func finishSetup() {
         self.bluetoothManager.stopScan()
         self.bluetoothManager.dropAllConnections()
     }
@@ -940,7 +952,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         self.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForNetworks)
-
         self.scanNetworks(onComplete: self.getUserNetworkSelection)
     }
 
@@ -1255,7 +1266,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 if (status! == .connected) {
                     self.log("device connected to the cloud")
                     if (self.currentFlow == self.ethernetFlow) {
-                        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToInternet)
+                        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
                     }
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                         if (self.canceled) {
@@ -1319,7 +1330,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func deviceGotClaimed() {
         self.log("device was successfully claimed")
         if (self.currentFlow == self.ethernetFlow) {
-            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectedToCloud)
+            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetCompleted)
         } else if (self.currentFlow == self.joinerFlow) {
             self.delegate.meshSetupDidEnterState(state: .JoiningNetworkCompleted)
         }
@@ -1332,7 +1343,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepEnsureHasInternetAccess() {
         //we only use ethernet!!!
         if let idx = self.targetDevice.getEthernetInterfaceIdx() {
-            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternet)
+            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStarted)
 
             self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
                 self.log("targetDevice.transceiver!.sendDeviceSetupDone: \(result)")
@@ -1446,7 +1457,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.currentFlow = preflow
             self.runCurrentStep()
         } else {
-            self.delegate.meshSetupDidEnterState(state: .SetupComplete)
+            self.finishSetup()
         }
 
         return nil
@@ -1464,7 +1475,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         if (finish) {
-            self.delegate.meshSetupDidEnterState(state: .SetupComplete)
+            self.finishSetup()
         } else {
             self.stepComplete()
         }
@@ -1474,6 +1485,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: OfferSelectOrCreateNetwork
     private func stepOfferSelectOrCreateNetwork() {
+        self.delegate.meshSetupDidEnterState(state: .TargetGatewayDeviceScanningForNetworks)
+
         self.scanNetworks(onComplete: self.getUserMeshSetupChoice)
     }
 
@@ -1481,7 +1494,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: self.targetDevice.networks!)
     }
 
-    func setSelectOrCreateNetwork(_ selectedNetwork: MeshSetupNetworkInfo?) -> MeshSetupFlowError? {
+    func setSelectOrCreateNetwork(selectedNetwork: MeshSetupNetworkInfo?) -> MeshSetupFlowError? {
         guard currentCommand == .OfferSelectOrCreateNetwork else {
             return .IllegalOperation
         }
@@ -1523,6 +1536,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: CreateNetwork
     private func stepCreateNetwork() {
+        self.delegate.meshSetupDidEnterState(state: .CreateNetworkStarted)
+
         self.targetDevice.transceiver!.sendCreateNetwork(name: self.newNetworkName!, password: self.newNetworkPassword!) { result, networkInfo in
             self.log("sendCreateNetwork: \(result), networkInfo: \(networkInfo as Optional)")
             if (result == .NONE) {
@@ -1530,8 +1545,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerDevice = self.targetDevice
                 self.selectedNetworkInfo = networkInfo!
                 self.selectedNetworkPassword = self.newNetworkPassword
-
                 self.targetDevice = MeshDevice()
+
+                self.delegate.meshSetupDidEnterState(state: .CreateNetworkStep1Done)
+                self.delegate.meshSetupDidEnterState(state: .CreateNetworkStep2Done)
+                self.delegate.meshSetupDidEnterState(state: .CreateNetworkStep3Done)
+                self.delegate.meshSetupDidEnterState(state: .CreateNetworkCompleted)
+
+                self.delegate.meshSetupDidCreateNetwork(network: networkInfo!)
 
                 self.stepComplete()
             } else {

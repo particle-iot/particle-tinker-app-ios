@@ -99,9 +99,15 @@
 		9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9383399820E0FD5F0002B90C /* GoogleService-Info.plist */; };
 		B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */; };
 		C810B0886AE017F5D93DABB5 /* MeshSetupFinishSetupEarlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA8C49140CDDB5DE23E5 /* MeshSetupFinishSetupEarlyViewController.swift */; };
+		C810B192D62089B370C49568 /* MeshSetupBillingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5D8DB16E5E26CBB8817 /* MeshSetupBillingInfoViewController.swift */; };
+		C810B1F59C14C1DF6729D6B2 /* MeshSetupCreateNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B53B3FF656161F206C4A /* MeshSetupCreateNetworkPasswordViewController.swift */; };
 		C810B6B490B3E0F0DEE3A09E /* MeshSetupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8843593B1542D03BA54 /* MeshSetupProgressViewController.swift */; };
+		C810B6C51E6C09579DB3C318 /* MeshSetupSelectOrCreateNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B57F9293CD20B706630B /* MeshSetupSelectOrCreateNetworkViewController.swift */; };
 		C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */; };
+		C810BA5F90B06FCDCF3F21BA /* MeshSetupCreatingNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB55059C80151EC1FE89 /* MeshSetupCreatingNetworkViewController.swift */; };
 		C810BA6340DA15524FDDA962 /* ScanBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C810BBF99BF4AC32D496472A /* ScanBarcodeViewController.m */; };
+		C810BD5F76DCCD2C74472949 /* MeshSetupNetworkCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B12F2906E63F800327E1 /* MeshSetupNetworkCreatedViewController.swift */; };
+		C810BE60B24E156C4C7E55CC /* MeshSetupCreateNetworkNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B000C6D32132595A7F41 /* MeshSetupCreateNetworkNameViewController.swift */; };
 		C810BF7DF02A7DC4F7AF53BF /* MeshSetupConnectToInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BED45F56ADDF578D427C /* MeshSetupConnectToInternetViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -241,9 +247,15 @@
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		9383399820E0FD5F0002B90C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
+		C810B000C6D32132595A7F41 /* MeshSetupCreateNetworkNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreateNetworkNameViewController.swift; sourceTree = "<group>"; };
+		C810B12F2906E63F800327E1 /* MeshSetupNetworkCreatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkCreatedViewController.swift; sourceTree = "<group>"; };
 		C810B4E9298B8E338B5D6FB9 /* ScanBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanBarcodeViewController.h; sourceTree = "<group>"; };
+		C810B53B3FF656161F206C4A /* MeshSetupCreateNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreateNetworkPasswordViewController.swift; sourceTree = "<group>"; };
+		C810B57F9293CD20B706630B /* MeshSetupSelectOrCreateNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectOrCreateNetworkViewController.swift; sourceTree = "<group>"; };
+		C810B5D8DB16E5E26CBB8817 /* MeshSetupBillingInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBillingInfoViewController.swift; sourceTree = "<group>"; };
 		C810B8843593B1542D03BA54 /* MeshSetupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupProgressViewController.swift; sourceTree = "<group>"; };
 		C810BA8C49140CDDB5DE23E5 /* MeshSetupFinishSetupEarlyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFinishSetupEarlyViewController.swift; sourceTree = "<group>"; };
+		C810BB55059C80151EC1FE89 /* MeshSetupCreatingNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreatingNetworkViewController.swift; sourceTree = "<group>"; };
 		C810BBF99BF4AC32D496472A /* ScanBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanBarcodeViewController.m; sourceTree = "<group>"; };
 		C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupTextInputViewController.swift; sourceTree = "<group>"; };
 		C810BED45F56ADDF578D427C /* MeshSetupConnectToInternetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupConnectToInternetViewController.swift; sourceTree = "<group>"; };
@@ -509,6 +521,12 @@
 				C810B6481F30B822962912B8 /* AbstractViewController */,
 				C810BED45F56ADDF578D427C /* MeshSetupConnectToInternetViewController.swift */,
 				C810BA8C49140CDDB5DE23E5 /* MeshSetupFinishSetupEarlyViewController.swift */,
+				C810BB55059C80151EC1FE89 /* MeshSetupCreatingNetworkViewController.swift */,
+				C810B000C6D32132595A7F41 /* MeshSetupCreateNetworkNameViewController.swift */,
+				C810B53B3FF656161F206C4A /* MeshSetupCreateNetworkPasswordViewController.swift */,
+				C810B5D8DB16E5E26CBB8817 /* MeshSetupBillingInfoViewController.swift */,
+				C810B12F2906E63F800327E1 /* MeshSetupNetworkCreatedViewController.swift */,
+				C810B57F9293CD20B706630B /* MeshSetupSelectOrCreateNetworkViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -856,6 +874,12 @@
 				C810BA6340DA15524FDDA962 /* ScanBarcodeViewController.m in Sources */,
 				C810BF7DF02A7DC4F7AF53BF /* MeshSetupConnectToInternetViewController.swift in Sources */,
 				C810B0886AE017F5D93DABB5 /* MeshSetupFinishSetupEarlyViewController.swift in Sources */,
+				C810BA5F90B06FCDCF3F21BA /* MeshSetupCreatingNetworkViewController.swift in Sources */,
+				C810BE60B24E156C4C7E55CC /* MeshSetupCreateNetworkNameViewController.swift in Sources */,
+				C810B1F59C14C1DF6729D6B2 /* MeshSetupCreateNetworkPasswordViewController.swift in Sources */,
+				C810B192D62089B370C49568 /* MeshSetupBillingInfoViewController.swift in Sources */,
+				C810BD5F76DCCD2C74472949 /* MeshSetupNetworkCreatedViewController.swift in Sources */,
+				C810B6C51E6C09579DB3C318 /* MeshSetupSelectOrCreateNetworkViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
