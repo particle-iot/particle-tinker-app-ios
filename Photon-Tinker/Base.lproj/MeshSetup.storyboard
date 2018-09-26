@@ -1431,7 +1431,7 @@
         <scene sceneID="rUe-B3-BHl">
             <objects>
                 <viewController storyboardIdentifier="MeshSetupNameDeviceViewController" id="IOL-h5-vvu" customClass="MeshSetupNameDeviceViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tHG-H0-vQS" customClass="MeshSetupNam">
+                    <view key="view" contentMode="scaleToFill" id="tHG-H0-vQS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
