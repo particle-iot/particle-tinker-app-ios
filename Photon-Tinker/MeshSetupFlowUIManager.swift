@@ -341,14 +341,14 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func meshSetupDidRequestToEnterDeviceName() {
-        //on joiner flow this won't execute, but this will execute on repetead joins & ethernet flow
-        guard let topVC = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController else {
-            let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
-            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
-            self.embededNavigationController.pushViewController(nameVC, animated: true)
-
-            return
-        }
+//        //on joiner flow this won't execute, but this will execute on repetead joins & ethernet flow
+//        guard let topVC = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController else {
+//            let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
+//            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
+//            self.embededNavigationController.pushViewController(nameVC, animated: true)
+//
+//            return
+//        }
     }
 
 
@@ -367,15 +367,18 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             //flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
             let successVC = MeshSetupSuccessViewController.storyboardViewController()
-            successVC.setup(didSelectToAddOneMore: self.didSelectToAddOneMore, deviceName: self.targetDeviceName!)
+            successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.targetDeviceName!)
             self.embededNavigationController.pushViewController(successVC, animated: true)
         }
     }
 
-    func didSelectToAddOneMore(add: Bool) {
-        flowManager.setAddOneMoreDevice(addOneMoreDevice: add)
+    func didSelectSetupDone(done: Bool) {
+        flowManager.setAddOneMoreDevice(addOneMoreDevice: !done)
 
-        if (add) {
+        if (done) {
+            //setup done
+            self.dismiss(animated: true)
+        } else {
             targetDeviceType = nil
             targetDeviceDataMatrixString = nil
             targetDeviceName = nil
@@ -383,9 +386,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             let getReadyVC = MeshSetupGetReadyViewController.storyboardViewController()
             getReadyVC.setup(didPressReady: targetDeviceReady, deviceType: self.targetDeviceType)
             self.embededNavigationController.setViewControllers([getReadyVC], animated: true)
-        } else {
-            //setup done
-            self.dismiss(animated: true)
         }
     }
 
@@ -393,49 +393,72 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     //MARK: Connect to internet
     private func showConnectToInternet() {
-//        DispatchQueue.main.async {
-//            let joiningVC = MeshSetupJoiningNetworkViewController.storyboardViewController()
-//            joiningVC.setup(didFinishScreen: self.didFinishJoinNetworkScreen, networkName: self.selectedNetwork!.name, deviceType: self.targetDeviceType)
-//            self.embededNavigationController.pushViewController(joiningVC, animated: true)
-//        }
+        DispatchQueue.main.async {
+            let connectingVC = MeshSetupConnectToInternetViewController.storyboardViewController()
+            connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(connectingVC, animated: true)
+        }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    func didFinishConnectToInternetScreen() {
+        DispatchQueue.main.async {
+            let nameVC = MeshSetupNameDeviceViewController.storyboardViewController()
+            nameVC.setup(didEnterPassword: self.didEnterName, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(nameVC, animated: true)
+        }
+    }
 
     func meshSetupDidRequestToFinishSetupEarly() {
-        flowManager.setFinishSetupEarly(finish: false)
+        DispatchQueue.main.async {
+            //flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
+            let earlyVC = MeshSetupFinishSetupEarlyViewController.storyboardViewController()
+            earlyVC.setup(didSelectDone: self.didSelectToFinishEarly, deviceName: self.targetDeviceName!)
+            self.embededNavigationController.pushViewController(earlyVC, animated: true)
+        }
     }
+
+    func didSelectToFinishEarly(finishEarly: Bool) {
+        flowManager.setFinishSetupEarly(finish: finishEarly)
+
+        if (finishEarly) {
+            //setup done
+            self.dismiss(animated: true)
+        } else {
+            //select network?
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
@@ -462,7 +485,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             case .TargetDeviceConnectingToInternet:
                 showConnectToInternet()
             case .TargetDeviceConnectedToInternet, .TargetDeviceConnectedToCloud:
-                break;
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectToInternetViewController {
+                    vc.setState(state)
+                } else {
+                    //TODO: remove from prod
+                    fatalError("why oh why?")
+                }
             case .CommissionerDeviceReady:
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupPairingCommissionerProcessViewController {
                     vc.setSuccess()

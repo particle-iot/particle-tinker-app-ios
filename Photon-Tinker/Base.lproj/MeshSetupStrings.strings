@@ -90,3 +90,26 @@
 "MeshSetup.Success.SetupAnotherButton" = "Setup another device";
 "MeshSetup.Success.DoneLabel" = "Itching to get started?";
 "MeshSetup.Success.DoneButton" = "Done";
+
+
+
+
+
+
+
+
+"MeshSetup.ConnectToInternet.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
+"MeshSetup.ConnectToInternet.Text1" = "Connecting to the internet via Ethernet";
+"MeshSetup.ConnectToInternet.Text2" = "Starting a secure session with the Particle Device Cloud";
+"MeshSetup.ConnectToInternet.SuccessTitle" = "Congrats!";
+"MeshSetup.ConnectToInternet.SuccessText" = "Your {{device}} has successfully connectedto the Particle Device Cloud";
+
+
+
+
+"MeshSetup.FinishSetupEarly.SuccessTitle" = "Congrats!";
+"MeshSetup.FinishSetupEarly.SuccessText" = "{{deviceName}} is all set up!";
+"MeshSetup.FinishSetupEarly.ContinueSetupLabel" = "Using {{deviceName}} in a mesh network?";
+"MeshSetup.FinishSetupEarly.ContinueSetupButton" = "Continue onto Mesh Setup";
+"MeshSetup.FinishSetupEarly.DoneLabel" = "Using as a standalone device?";
+"MeshSetup.FinishSetupEarly.DoneButton" = "I’m done";

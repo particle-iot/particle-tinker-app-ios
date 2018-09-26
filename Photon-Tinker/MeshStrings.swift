@@ -153,4 +153,28 @@ class MeshSetupStrings {
         static let DoneLabel = "MeshSetup.Success.DoneLabel".meshLocalized()
         static let DoneButton = "MeshSetup.Success.DoneButton".meshLocalized()
     }
+
+
+    struct ConnectToInternet {
+        static let Title = "MeshSetup.ConnectToInternet.Title".meshLocalized()
+        static let Text1 = "MeshSetup.ConnectToInternet.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.ConnectToInternet.Text2".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.ConnectToInternet.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.ConnectToInternet.SuccessText".meshLocalized()
+    }
+
+
+
+
+    struct FinishSetupEarly {
+        static let SuccessTitle = "MeshSetup.FinishSetupEarly.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.FinishSetupEarly.SuccessText".meshLocalized()
+
+        static let ContinueSetupLabel = "MeshSetup.FinishSetupEarly.ContinueSetupLabel".meshLocalized()
+        static let ContinueSetupButton = "MeshSetup.FinishSetupEarly.ContinueSetupButton".meshLocalized()
+
+        static let DoneLabel = "MeshSetup.FinishSetupEarly.DoneLabel".meshLocalized()
+        static let DoneButton = "MeshSetup.FinishSetupEarly.DoneButton".meshLocalized()
+    }
 }
