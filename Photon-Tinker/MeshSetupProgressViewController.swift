@@ -36,7 +36,7 @@ class MeshSetupProgressViewController: MeshSetupViewController {
         successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
 
         progressTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        progressIndicator.color = MeshSetupStyle.PairingActivityIndicatorColor
+        progressIndicator.color = MeshSetupStyle.ProgressActivityIndicatorColor
 
         let first = progressTextLabels.first!
         first.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)

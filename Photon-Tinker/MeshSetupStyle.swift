@@ -42,6 +42,7 @@ class MeshSetupStyle {
     static var PairingActivityIndicatorColor = UIColor.colorWithHexString("#02ADEF")
     static var NetworkScanActivityIndicatorColor = UIColor.colorWithHexString("#333333")
     static var NetworkJoinActivityIndicatorColor = UIColor.colorWithHexString("#333333")
+    static var ProgressActivityIndicatorColor = UIColor.colorWithHexString("#333333")
 
 }
 
