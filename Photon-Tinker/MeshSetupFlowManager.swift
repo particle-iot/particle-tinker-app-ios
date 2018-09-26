@@ -1096,6 +1096,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: EnsureCorrectSelectedNetworkPassword
     private func stepEnsureCorrectSelectedNetworkPassword() {
+        if (self.selectedNetworkPassword != nil) {
+            self.stepComplete()
+            return
+        }
+
         self.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword()
     }
 
