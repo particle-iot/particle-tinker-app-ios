@@ -15,9 +15,6 @@ class MeshSetupEncryptionManager: NSObject {
     private var reqNonce:Data
     private var repNonce:Data
 
-    private var requestId: UInt32 = 0
-    private var pendingResponseIds: [UInt32] = []
-
     required init(derivedSecret: Data) {
         key = derivedSecret.subdata(in: 0..<16)
         reqNonce = derivedSecret.subdata(in: 16..<24)
@@ -28,12 +25,10 @@ class MeshSetupEncryptionManager: NSObject {
         super.init()
     }
 
-    func getRequestNonce() -> Data {
+    func getRequestNonce(requestId: UInt32) -> Data {
         var data = Data()
 
         var reqIdLe = requestId.littleEndian
-        pendingResponseIds.append(requestId) //will be used to decrypt
-
         data.append(UInt8(reqIdLe & 0xff))
         data.append(UInt8((reqIdLe >> 8) & 0xff))
         data.append(UInt8((reqIdLe >> 16) & 0xff))
@@ -43,12 +38,10 @@ class MeshSetupEncryptionManager: NSObject {
         return data
     }
 
-    func getReplyNonce() -> Data {
+    func getReplyNonce(requestId: UInt32) -> Data {
         var data = Data()
 
-        var reqIdLe = pendingResponseIds.first!.littleEndian
-        pendingResponseIds.removeFirst()
-
+        var reqIdLe = requestId.littleEndian
         data.append(UInt8(reqIdLe & 0xff))
         data.append(UInt8((reqIdLe >> 8) & 0xff))
         data.append(UInt8((reqIdLe >> 16) & 0xff))
@@ -60,7 +53,7 @@ class MeshSetupEncryptionManager: NSObject {
 
 
     func encrypt(_ msg: RequestMessage) -> Data {
-        requestId = UInt32(msg.id)
+        var requestId = UInt32(msg.id)
 
         var outputData = Data()
         var dataToEncrypt = Data()
@@ -84,7 +77,7 @@ class MeshSetupEncryptionManager: NSObject {
         dataToEncrypt.append(msg.data)
 
         var tag:NSData? = nil
-        outputData.append(cipher.encryptData(dataToEncrypt, nonce: getRequestNonce(), add: outputData, tag: &tag, tagSize: 8)!)
+        outputData.append(cipher.encryptData(dataToEncrypt, nonce: getRequestNonce(requestId: requestId), add: outputData, tag: &tag, tagSize: 8)!)
         outputData.append(tag as! Data)
 
         return outputData
@@ -92,7 +85,7 @@ class MeshSetupEncryptionManager: NSObject {
 
     //decrypt part assumes that it will decrypt
     //the reply to previously encrypted request
-    func decrypt(_ data: Data) -> ReplyMessage {
+    func decrypt(_ data: Data, messageId: UInt16) -> ReplyMessage {
         var data = data
 
         //read data
@@ -111,7 +104,7 @@ class MeshSetupEncryptionManager: NSObject {
         var tag = data
 
         //try to decrypt
-        var replNonce = getReplyNonce()
+        var replNonce = getReplyNonce(requestId: UInt32(messageId))
         var decryptedData = cipher.decryptData(dataToDecrypt, nonce: replNonce, add: sizeData, tag: tag)!
 
         var rm = ReplyMessage(id: 0, result: .NONE, data: Data())

@@ -19,6 +19,7 @@ typealias SystemCapability = Particle_Ctrl_SystemCapabilityFlag
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
     private struct PendingMessage {
+        var messageId: UInt16
         var data: Data
         var writeWithResponse: Bool
         var callback: (ReplyMessage?) -> ()
@@ -70,37 +71,39 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private func prepareRequestMessage(type: ControlRequestMessageType, payload: Data) -> Data {
+    private func prepareRequestMessage(type: ControlRequestMessageType, payload: Data) -> (UInt16, Data) {
         let requestMsg = RequestMessage(id: self.requestMessageId, type: type, data: payload)
 
         // add to state machine dict to know which type of reply to deserialize
         //self.replyRequestTypeDict[requestMsg.id] = requestMsg.type
+
+        let response = (self.requestMessageId, encryptionManager.encrypt(requestMsg))
 
         self.requestMessageId += 1
         if (requestMessageId >= 0xff00) {
             self.requestMessageId = 1
         }
 
-        return encryptionManager.encrypt(requestMsg)
+        return response
     }
 
-    private func sendRequestMessage(data: Data, onReply: @escaping (ReplyMessage?) -> ()) {
+    private func sendRequestMessage(data: (UInt16, Data), onReply: @escaping (ReplyMessage?) -> ()) {
         if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
             onReply(nil)
             return
         }
 
-        self.pendingMessages.append(PendingMessage(data: data, writeWithResponse: true, callback: onReply))
+        self.pendingMessages.append(PendingMessage(messageId: data.0, data: data.1, writeWithResponse: true, callback: onReply))
         self.sendNextMessage()
     }
 
-    private func sendOTARequestMessage(data: Data, onReply: @escaping (ReplyMessage?) -> ()) {
+    private func sendOTARequestMessage(data: (UInt16, Data), onReply: @escaping (ReplyMessage?) -> ()) {
         if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
             onReply(nil)
             return
         }
 
-        self.pendingMessages.append(PendingMessage(data: data, writeWithResponse: false, callback: onReply))
+        self.pendingMessages.append(PendingMessage(messageId: data.0, data: data.1, writeWithResponse: false, callback: onReply))
         self.sendNextMessage()
     }
 
@@ -135,17 +138,21 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             return Int16(pointer[0])
         }
 
-        let rm = encryptionManager.decrypt(data)
+
+
+        guard let pendingMessage = self.pendingMessages.first else {
+            fatalError("This can't happen!")
+        }
+
+        let rm = encryptionManager.decrypt(data, messageId: pendingMessage.messageId)
         rxBuffer.removeAll()
 
         self.waitingForReply = false
 
-        guard let callback = self.pendingMessages.first?.callback else {
-            fatalError("This can't happen!")
-        }
+
 
         self.pendingMessages.removeFirst()
-        callback(rm)
+        pendingMessage.callback(rm)
         self.sendNextMessage()
     }
 
