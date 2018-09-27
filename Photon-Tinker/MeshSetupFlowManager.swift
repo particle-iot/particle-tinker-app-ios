@@ -103,6 +103,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
     case DeviceIsNotAllowedToJoinNetwork
     case DeviceIsUnableToFindNetworkToJoin
+    case DeviceTimeoutWhileJoiningNetwork
 
     //CheckDeviceGotClaimed
     case DeviceConnectToCloudTimeout
@@ -117,23 +118,25 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .UnableToRenameDevice : return ""
             case .NameTooShort : return ""
 
-            //user facing errors
-            case .UnableToGenerateClaimCode : return "There was an error attempting to generate claim code or verifying if device was claimed successfully."
-            case .DeviceTooFar : return "Device is too far. Please hold your phone closer and try again."
-            case .FailedToStartScan : return "Bluetooth appears to be disabled on your phone."
-            case .FailedToScanBecauseOfTimeout : return "Unable to find the device. Make sure it is blinking blue and is not connected to any other device."
-            case .FailedToConnect : return "Failed to connect to device. Please try again."
-            case .BluetoothDisabled : return "Bluetooth appears to be disabled on your phone"
-            case .BluetoothError : return "Bluetooth error. Please restart the setup."
-            case .CommissionerNetworkDoesNotMatch : return "The assisting device is on different mesh network than previously selected."
-            case .FailedToObtainIp : return "Device failed to obtain IP. Make sure ethernet cable is connected to device."
+                //user facing errors
+            case .UnableToGenerateClaimCode : return "There was an error attempting to claim this device to your account."
+            case .DeviceTooFar : return "Your mesh device is too far away from your phone. Please hold your phone closer and try again."
+            case .FailedToStartScan : return "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again."
+            case .FailedToScanBecauseOfTimeout : return "Unable to find your mesh device. Make sure the mesh device’s LED is blinking blue and that it’s not connected to any other devices."
+            case .FailedToConnect : return "You phone failed to connect to your mesh device. Please try again."
+            case .BluetoothDisabled : return "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again."
+            case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the the setup process and try again."
+            case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
+            case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure the ethernet cable is connected securely to the Ethernet FeatherWing."
 
-            case .BluetoothConnectionDropped : return "Bluetooth connection was dropped unexpectedly. Please restart the setup."
+            case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the setup and try again."
 
-            case .DeviceIsNotAllowedToJoinNetwork : return "Device was unable to join the network (NOT_ALLOWED). Retrying might help with that."
-            case .DeviceIsUnableToFindNetworkToJoin : return "Device was unable to join the network (NOT_FOUND). Retrying might help with that."
-            case .DeviceConnectToCloudTimeout : return "Could not connect to the cloud. Please try running the setup again"
-            case .DeviceGettingClaimedTimeout : return "Device failed to be claimed. Please try running the setup again"
+            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please try again."
+            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please try again."
+            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please try again."
+
+            case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try running the set up again."
+            case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try running the set up again."
         }
     }
 }
@@ -553,7 +556,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.fail(withReason: .BluetoothDisabled)
             return
         } else {
-            self.fail(withReason: .BluetoothError)
+            self.fail(withReason: .BluetoothError, severity: .Fatal)
         }
     }
 
@@ -601,7 +604,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         } else {
             //bluetoothConnectionManagerError shouldn't happen in any other step but if it happens lets handle it
-            self.fail(withReason: .BluetoothError)
+            self.fail(withReason: .BluetoothError, severity: .Error)
         }
     }
 
@@ -612,7 +615,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
         } else {
             //bluetoothConnectionManagerConnectionCreated shouldn't happen in any other step but if it happens lets handle it
-            self.fail(withReason: .BluetoothError)
+            self.fail(withReason: .BluetoothError, severity: .Error)
         }
     }
 
@@ -625,7 +628,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.commissionerDeviceConnected(connection: connection)
         } else {
             //bluetoothConnectionManagerConnectionBecameReady shouldn't happen in any other step but if it happens lets handle it
-            self.fail(withReason: .BluetoothError)
+            self.fail(withReason: .BluetoothError, severity: .Error)
         }
     }
 
@@ -869,7 +872,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: EnsureDeviceCanBeClaimed
     private func stepEnsureTargetDeviceCanBeClaimed() {
         self.targetDevice.transceiver!.sendGetDeviceId { result, deviceId in
-            self.log("didReceiveDeviceIdReply: \(result), deviceId: \(deviceId as Optional)")
+            self.log("targetDevice.didReceiveDeviceIdReply: \(result), deviceId: \(deviceId as Optional)")
             if (result == .NONE) {
                 self.targetDevice.deviceId = deviceId!
                 self.checkTargetDeviceIsClaimed()
@@ -965,7 +968,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func targetDeviceLeaveNetwork() {
         self.targetDevice.transceiver!.sendLeaveNetwork { result in
-            self.log("didReceiveLeaveNetworkReply: \(result)")
+            self.log("targetDevice.didReceiveLeaveNetworkReply: \(result)")
             if (result == .NONE) {
                 self.stepComplete()
             } else {
@@ -981,7 +984,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepSetClaimCode() {
         if let claimCode = self.targetDevice.claimCode {
             self.targetDevice.transceiver!.sendSetClaimCode(claimCode: claimCode) { result in
-                self.log("sendSetClaimCode: \(result)")
+                self.log("targetDevice.sendSetClaimCode: \(result)")
                 if (result == .NONE) {
                     self.stepComplete()
                 } else {
@@ -1061,7 +1064,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         if (self.commissionerDevice?.credentials != nil) {
             //we need to put the commissioner into listening mode by sending the command
             self.commissionerDevice!.transceiver!.sendStarListening { result in
-                self.log("sendStarListening: \(result)")
+                self.log("commissionerDevice.sendStarListening: \(result)")
                 if (result == .NONE) {
                     self.stepComplete()
                 } else {
@@ -1173,7 +1176,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_FOUND: The device is not a member of a network
         /// NOT_ALLOWED: Invalid commissioning credential
         self.commissionerDevice!.transceiver!.sendAuth(password: password) { result in
-            self.log("sendAuth: \(result)")
+            self.log("commissionerDevice.sendAuth: \(result)")
             if (result == .NONE) {
                 onComplete(nil)
                 self.stepComplete()
@@ -1191,7 +1194,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidEnterState(state: .JoiningNetworkStarted)
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendStartCommissioner { result in
-            self.log("sendStartCommissioner: \(result)")
+            self.log("commissionerDevice.sendStartCommissioner: \(result)")
             if result == .NONE {
                 self.prepareJoiner()
             } else {
@@ -1204,11 +1207,17 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// ALREADY_EXIST: The device is already a member of a network
         /// NOT_ALLOWED: The client is not authenticated
         self.targetDevice.transceiver!.sendPrepareJoiner(networkInfo: self.selectedNetworkInfo!) { result, eui64, password in
-            self.log("sendPrepareJoiner sent networkInfo: \(self.selectedNetworkInfo!)")
-            self.log("sendPrepareJoiner: \(result)")
+            self.log("targetDevice.sendPrepareJoiner sent networkInfo: \(self.selectedNetworkInfo!)")
+            self.log("targetDevice.sendPrepareJoiner: \(result)")
             if (result == .NONE) {
                 self.targetDevice.joinerCredentials = (eui64: eui64!, password: password!)
-                self.addJoiner()
+                self.log("Delaying call to addJoiner")
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(10)) {
+                    if (self.canceled) {
+                        return
+                    }
+                    self.addJoiner()
+                }
             } else {
                 self.handleBluetoothErrorResult(result)
             }
@@ -1221,11 +1230,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// INVALID_STATE: The commissioner role is not started
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendAddJoiner(eui64: self.targetDevice.joinerCredentials!.eui64, password: self.targetDevice.joinerCredentials!.password) { result in
-            self.log("sendAddJoiner: \(result)")
+            self.log("commissionerDevice.sendAddJoiner: \(result)")
             if (result == .NONE) {
                 self.log("Delaying call to joinNetwork")
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(15)) {
-                    self.log("Delay hit")
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(10)) {
                     if (self.canceled) {
                         return
                     }
@@ -1244,14 +1252,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// TIMEOUT: The join process timed out
         /// NOT_ALLOWED: Invalid security credentials
         self.targetDevice.transceiver!.sendJoinNetwork { result in
-            self.log("sendJoinNetwork: \(result)")
+            self.log("targetDevice.sendJoinNetwork: \(result)")
             if (result == .NONE) {
                 self.stopCommissioner()
             } else if (result == .NOT_ALLOWED) {
                 self.fail(withReason: .DeviceIsNotAllowedToJoinNetwork)
             } else if (result == .NOT_FOUND) {
                 self.fail(withReason: .DeviceIsUnableToFindNetworkToJoin)
-            }else {
+            } else if (result == .TIMEOUT) {
+                self.fail(withReason: .DeviceTimeoutWhileJoiningNetwork)
+            } else {
                 self.handleBluetoothErrorResult(result)
             }
          }
@@ -1261,7 +1271,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidEnterState(state: .JoiningNetworkStep2Done)
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
-            self.log("sendStopCommissioner: \(result)")
+            self.log("commissionerDevice.sendStopCommissioner: \(result)")
             if (result == .NONE) {
                 self.setSetupDone()
             } else {
@@ -1272,7 +1282,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func setSetupDone() {
         self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
-            self.log("sendDeviceSetupDone: \(result)")
+            self.log("targetDevice.sendDeviceSetupDone: \(result)")
             if (result == .NONE) {
                 self.stopCommissionerListening()
             } else {
@@ -1312,6 +1322,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] as! Date)
         if (diff > MeshSetup.deviceConnectToCloudTimeout) {
+            self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] = nil
             self.fail(withReason: .DeviceConnectToCloudTimeout)
             return
         }
@@ -1358,6 +1369,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] as! Date)
         if (diff > MeshSetup.deviceGettingClaimedTimeout) {
+            self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] = nil
             fail(withReason: .DeviceGettingClaimedTimeout)
             return
         }
@@ -1423,6 +1435,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkDeviceHasIPStartTime"] as! Date)
         if (diff > MeshSetup.deviceObtainedIPTimeout) {
+            self.currentStepFlags["checkDeviceHasIPStartTime"] = nil
             self.fail(withReason: .FailedToObtainIp)
             return
         }
@@ -1601,7 +1614,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidEnterState(state: .CreateNetworkStarted)
 
         self.targetDevice.transceiver!.sendCreateNetwork(name: self.newNetworkName!, password: self.newNetworkPassword!) { result, networkInfo in
-            self.log("sendCreateNetwork: \(result), networkInfo: \(networkInfo as Optional)")
+            self.log("targetDevice.sendCreateNetwork: \(result), networkInfo: \(networkInfo as Optional)")
             if (result == .NONE) {
                 self.log("Setting current target device as commissioner device")
                 self.commissionerDevice = self.targetDevice
