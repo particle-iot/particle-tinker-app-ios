@@ -1273,7 +1273,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     if (self.currentFlow == self.ethernetFlow) {
                         self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
                     }
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                         if (self.canceled) {
                             return
                         }
@@ -1281,7 +1281,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     }
                 } else {
                     self.log("device did NOT connect yet")
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                         if (self.canceled) {
                             return
                         }
@@ -1326,7 +1326,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             self.log("device was NOT successfully claimed")
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                 self.checkTargetDeviceGotClaimed()
             }
         }
@@ -1381,7 +1381,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.targetDevice.hasInternetAddress = true
                 self.stepComplete()
             } else {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                     if (self.canceled) {
                         return
                     }
