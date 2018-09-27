@@ -1344,7 +1344,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     }
                 } else {
                     self.log("device did NOT connect yet")
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
                         if (self.canceled) {
                             return
                         }
