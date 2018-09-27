@@ -131,9 +131,9 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the setup and try again."
 
-            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please try again."
-            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please try again."
-            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please try again."
+            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press RESET and hold button on the joiner device and try again."
+            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please press RESET and hold button on the joiner device and try again."
+            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press RESET and hold button on the joiner device and try again."
 
             case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try running the set up again."
             case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try running the set up again."
@@ -1257,16 +1257,53 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_ALLOWED: Invalid security credentials
         self.targetDevice.transceiver!.sendJoinNetwork { result in
             self.log("targetDevice.sendJoinNetwork: \(result)")
+
+            var fatalFailureReason: MeshSetupFlowError? = nil
+
             if (result == .NONE) {
                 self.stopCommissioner()
             } else if (result == .NOT_ALLOWED) {
-                self.fail(withReason: .DeviceIsNotAllowedToJoinNetwork)
+                fatalFailureReason = .DeviceIsNotAllowedToJoinNetwork
             } else if (result == .NOT_FOUND) {
-                self.fail(withReason: .DeviceIsUnableToFindNetworkToJoin)
+                fatalFailureReason = .DeviceIsUnableToFindNetworkToJoin
             } else if (result == .TIMEOUT) {
-                self.fail(withReason: .DeviceTimeoutWhileJoiningNetwork)
+                fatalFailureReason = .DeviceTimeoutWhileJoiningNetwork
             } else {
                 self.handleBluetoothErrorResult(result)
+            }
+
+            //TODO: this is as ugly as it gets
+            if let reason = fatalFailureReason {
+                let recoveryLeaveNetwork = {
+                    self.targetDevice.transceiver!.sendLeaveNetwork () { result in
+                        self.log("targetDevice.sendLeaveNetwork: \(result.description())")
+                        if (result == .NONE) {
+                            self.fail(withReason: reason, severity: .Fatal)
+                        } else {
+                            self.handleBluetoothErrorResult(result)
+                        }
+                    }
+                }
+
+                let recoveryStopListening = {
+                    self.commissionerDevice!.transceiver!.sendStopListening () { result in
+                        self.log("commissionerDevice.sendStopListening: \(result.description())")
+                        if (result == .NONE) {
+                            recoveryLeaveNetwork()
+                        } else {
+                            self.handleBluetoothErrorResult(result)
+                        }
+                    }
+                }
+
+                self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
+                    self.log("commissionerDevice.sendStopCommissioner: \(result)")
+                    if (result == .NONE) {
+                        recoveryStopListening()
+                    } else {
+                        self.handleBluetoothErrorResult(result)
+                    }
+                }
             }
          }
     }
