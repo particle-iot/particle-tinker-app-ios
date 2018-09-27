@@ -19,6 +19,9 @@
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
 		505062D51CE19F920060FEE7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505062D41CE19F920060FEE7 /* Keys.swift */; };
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
+		5069CB44215C6344000B842A /* xenon_power_on.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5069CB41215C59B0000B842A /* xenon_power_on.mp4 */; };
+		5069CB45215C6AF9000B842A /* commissioner_to_listening_mode.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5069CB42215C59B0000B842A /* commissioner_to_listening_mode.mp4 */; };
+		5069CB46215C6AFC000B842A /* ethernet_featherwing_power_on.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5069CB43215C59B0000B842A /* ethernet_featherwing_power_on.mp4 */; };
 		507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */; };
 		507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */; };
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
@@ -153,6 +156,9 @@
 		5048CD221AE09AD00097150A /* DeviceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Photon-Tinker/Keys.swift"; sourceTree = SOURCE_ROOT; };
+		5069CB41215C59B0000B842A /* xenon_power_on.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = xenon_power_on.mp4; sourceTree = "<group>"; };
+		5069CB42215C59B0000B842A /* commissioner_to_listening_mode.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = commissioner_to_listening_mode.mp4; sourceTree = "<group>"; };
+		5069CB43215C59B0000B842A /* ethernet_featherwing_power_on.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ethernet_featherwing_power_on.mp4; sourceTree = "<group>"; };
 		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Medium.ttf"; path = "../../FiraMono-Medium.ttf"; sourceTree = "<group>"; };
 		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Regular.ttf"; path = "../../FiraMono-Regular.ttf"; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
@@ -418,6 +424,9 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				5069CB42215C59B0000B842A /* commissioner_to_listening_mode.mp4 */,
+				5069CB43215C59B0000B842A /* ethernet_featherwing_power_on.mp4 */,
+				5069CB41215C59B0000B842A /* xenon_power_on.mp4 */,
 				931C377C215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin */,
 				931C377D215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin */,
 				509749A81D3EF9C300C5DF0B /* electron-tinker.bin */,
@@ -602,6 +611,7 @@
 				50E5EF201D349D450087C7B6 /* Run Script */,
 				931C37F7215AAADE0014811C /* CopyFiles */,
 				4061BE20097F170B9053B6D9 /* [CP] Copy Pods Resources */,
+				F2F0CCCB7BA13C430642B444 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -682,6 +692,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5069CB44215C6344000B842A /* xenon_power_on.mp4 in Resources */,
 				9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */,
@@ -692,6 +703,7 @@
 				509749A91D3EF9C300C5DF0B /* electron-tinker.bin in Resources */,
 				931C3787215AA24B0014811C /* MeshSetupImages.xcassets in Resources */,
 				931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */,
+				5069CB46215C6AFC000B842A /* ethernet_featherwing_power_on.mp4 in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				931C377E215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin in Resources */,
 				50B0F9BC1D2C21C3007DB6D1 /* photon_wifi.mp4 in Resources */,
@@ -700,6 +712,7 @@
 				50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */,
 				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
 				502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */,
+				5069CB45215C6AF9000B842A /* commissioner_to_listening_mode.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,6 +803,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2F0CCCB7BA13C430642B444 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-15/iOS/RevealServer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

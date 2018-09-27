@@ -25,5 +25,7 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
         textLabel3.text = MeshSetupStrings.GetCommissionerReady.Text3
 
         continueButton.setTitle(MeshSetupStrings.GetCommissionerReady.Button, for: .normal)
+        
+        initializeVideoPlayerWithVideo(videoFileName: "commissioner_to_listening_mode")
     }
 }

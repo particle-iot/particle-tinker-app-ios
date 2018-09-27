@@ -73,7 +73,7 @@ class MeshSetupButton : UIButton {
 
     }
 
-    override func setTitle(_ title: String?, for state: State) {
+    override func setTitle(_ title: String?, for state: UIControlState) {
         super.setTitle(title?.uppercased(), for: state)
     }
 
