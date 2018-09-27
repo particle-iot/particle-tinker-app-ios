@@ -70,6 +70,10 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         if let sSelf = self {
             sSelf.centralManager.stopScan()
             sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
+            if (sSelf.state != .Disabled) {
+                sSelf.state = .Ready
+            }
+
         }
     }
 
@@ -186,11 +190,11 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
             if RSSI.int32Value < -90  {
                 self.log("Device too far.. sent warning to user")
-                self.fail(withReason: .DeviceTooFar, severity: .Warning)
+                self.fail(withReason: .DeviceTooFar, severity: .Error)
             }
 
             if peripheral.state == .connected {
-                self.fail(withReason: .DeviceWasConnected, severity: .Warning)
+                self.fail(withReason: .DeviceWasConnected, severity: .Error)
                 self.dropPeripheralConnection(with: peripheral)
             } else {
                 self.state = .PeripheralDiscovered
