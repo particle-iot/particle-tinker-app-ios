@@ -33,10 +33,8 @@ class MeshSetup {
 }
 
 enum MeshSetupErrorSeverity {
-    case Info //just some info for the user
-    case Warning //something user should be informed
-    case Error //can't continue at this point, but possible to solve
-    case Fatal //can't continue and won't be able to solve
+    case Error //can't continue at this point, but retrying might help
+    case Fatal //can't continue and flow has to be restarted
 }
 
 struct MeshSetupPeripheralCredentials {

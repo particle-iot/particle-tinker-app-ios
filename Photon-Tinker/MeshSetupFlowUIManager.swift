@@ -619,41 +619,33 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+    @IBAction func cancelTapped(_ sender: Any) {
+        self.flowManager.cancelSetup()
+        self.dismiss(animated: true)
+    }
 
 
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
-        switch (error) {
-            case .DeviceTooFar:
-                showAlert("DeviceTooFar")
-            case .DeviceIsNotAllowedToJoinNetwork:
-                showAlert("DeviceIsNotAllowedToJoinNetwork")
-            case .DeviceIsUnableToFindNetworkToJoin:
-                showAlert("DeviceIsUnableToFindNetworkToJoin")
-            default:
-                showAlert(error.localizedDescription)
-        }
-    }
-
-    //TODO refactor this
-    func showAlert(_ message: String) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: error.description, preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: "Retry", style: .default) { action in
-                self.flowManager.retryLastAction()
-            })
+            if (severity == .Fatal) {
+                alert.addAction(UIAlertAction(title: "Ok", style: .default) { action in
+                    self.cancelTapped(self)
+                })
+            } else {
+                alert.addAction(UIAlertAction(title: "Retry", style: .default) { action in
+                    self.flowManager.retryLastAction()
+                })
 
-            alert.addAction(UIAlertAction(title: "cancel", style: .cancel) { action in
-                self.cancelTapped(self)
-            })
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
+                    self.cancelTapped(self)
+                })
+            }
 
             self.present(alert, animated: true)
         }
     }
 
 
-    @IBAction func cancelTapped(_ sender: Any) {
-        self.flowManager.cancelSetup()
-        self.dismiss(animated: true)
-    }
 }
