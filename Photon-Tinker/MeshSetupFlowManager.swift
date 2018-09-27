@@ -330,6 +330,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func cancelSetup() {
+        self.canceled = true
+
         self.bluetoothManager.stopScan()
         self.bluetoothManager.dropAllConnections()
     }
@@ -514,8 +516,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
-        log("error: \(reason.description), nsError: \(nsError?.localizedDescription as Optional)")
-        self.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
+        if self.canceled == false {
+            log("error: \(reason.description), nsError: \(nsError?.localizedDescription as Optional)")
+            self.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
+        }
     }
 
     private func removeRepeatedNetworks(_ networks: [MeshSetupNetworkInfo]) -> [MeshSetupNetworkInfo] {
