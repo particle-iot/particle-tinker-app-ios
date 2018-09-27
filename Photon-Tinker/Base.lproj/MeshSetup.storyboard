@@ -130,23 +130,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KS-VFl" userLabel="ViewGateway">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KS-VFl" userLabel="ViewGateway">
                                 <rect key="frame" x="20" y="44" width="335" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get your {{device}} ready for setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnS-vk-oFX" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="24.666666666666657" y="15" width="286" height="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attach your Ethernet Featherwing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnS-vk-oFX" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="30.333333333333343" y="15" width="275" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plug your device into a power source" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyZ-If-6kf" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="20.666666666666657" y="51" width="294" height="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line up Xenon pin headers and gentely push the Xenon into the Featherwing until flush" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyZ-If-6kf" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="51" width="335" height="48"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your Xenon is blinking blue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PnZ-Pt-i9q" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="87" width="335" height="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insert ethernet cable into the port" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PnZ-Pt-i9q" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="119" width="335" height="16"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plug your Xenon to a power source" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moq-oS-m4z" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="155" width="335" height="16"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your Xenon is blinking blue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6P-xf-uQ9" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="191" width="335" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -158,9 +170,16 @@
                                     <constraint firstItem="EnS-vk-oFX" firstAttribute="top" secondItem="LK7-KS-VFl" secondAttribute="top" constant="15" id="DJh-WV-tUf"/>
                                     <constraint firstItem="PnZ-Pt-i9q" firstAttribute="leading" secondItem="LK7-KS-VFl" secondAttribute="leading" id="DRg-Uh-sqt"/>
                                     <constraint firstAttribute="trailing" secondItem="PnZ-Pt-i9q" secondAttribute="trailing" id="J0J-1v-RmD"/>
-                                    <constraint firstItem="CyZ-If-6kf" firstAttribute="centerX" secondItem="LK7-KS-VFl" secondAttribute="centerX" id="P5B-JC-cn3"/>
+                                    <constraint firstItem="moq-oS-m4z" firstAttribute="top" secondItem="PnZ-Pt-i9q" secondAttribute="bottom" constant="20" id="LBR-05-6MI"/>
+                                    <constraint firstItem="u6P-xf-uQ9" firstAttribute="top" secondItem="moq-oS-m4z" secondAttribute="bottom" constant="20" id="YPx-lv-c22"/>
+                                    <constraint firstAttribute="trailing" secondItem="u6P-xf-uQ9" secondAttribute="trailing" id="daZ-UZ-OoF"/>
                                     <constraint firstItem="EnS-vk-oFX" firstAttribute="centerX" secondItem="LK7-KS-VFl" secondAttribute="centerX" id="mHo-Iu-tY2"/>
+                                    <constraint firstAttribute="trailing" secondItem="moq-oS-m4z" secondAttribute="trailing" id="mNj-bm-MBA"/>
                                     <constraint firstItem="CyZ-If-6kf" firstAttribute="top" secondItem="EnS-vk-oFX" secondAttribute="bottom" constant="20" id="qxw-AU-Has"/>
+                                    <constraint firstAttribute="trailing" secondItem="CyZ-If-6kf" secondAttribute="trailing" id="rUg-21-xdL"/>
+                                    <constraint firstItem="moq-oS-m4z" firstAttribute="leading" secondItem="LK7-KS-VFl" secondAttribute="leading" id="xgb-F9-Zs2"/>
+                                    <constraint firstItem="CyZ-If-6kf" firstAttribute="leading" secondItem="LK7-KS-VFl" secondAttribute="leading" id="xh4-mz-RVd"/>
+                                    <constraint firstItem="u6P-xf-uQ9" firstAttribute="leading" secondItem="LK7-KS-VFl" secondAttribute="leading" id="z2N-kO-iXh"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxt-UK-ZQn" userLabel="ViewJoiner">
@@ -184,15 +203,24 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;empty&gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpj-r4-ex5" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="123" width="335" height="16"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="DWF-pJ-ahs"/>
                                     <constraint firstAttribute="trailing" secondItem="W0y-kn-uHP" secondAttribute="trailing" id="Ems-BK-u9W"/>
+                                    <constraint firstAttribute="trailing" secondItem="rpj-r4-ex5" secondAttribute="trailing" id="EsC-u5-CkN"/>
                                     <constraint firstItem="W0y-kn-uHP" firstAttribute="top" secondItem="S1j-7P-wUr" secondAttribute="bottom" constant="20" id="HUp-Lt-0GK"/>
                                     <constraint firstItem="9qx-pQ-4n5" firstAttribute="top" secondItem="gxt-UK-ZQn" secondAttribute="top" constant="15" id="Hgx-ZR-ZeC"/>
+                                    <constraint firstItem="rpj-r4-ex5" firstAttribute="leading" secondItem="gxt-UK-ZQn" secondAttribute="leading" id="K86-rH-ROq"/>
                                     <constraint firstItem="S1j-7P-wUr" firstAttribute="centerX" secondItem="gxt-UK-ZQn" secondAttribute="centerX" id="TMo-JV-dRS"/>
                                     <constraint firstItem="9qx-pQ-4n5" firstAttribute="centerX" secondItem="gxt-UK-ZQn" secondAttribute="centerX" id="UfO-Ze-UE9"/>
+                                    <constraint firstItem="rpj-r4-ex5" firstAttribute="top" secondItem="W0y-kn-uHP" secondAttribute="bottom" constant="20" id="XfF-Ge-Qjc"/>
                                     <constraint firstItem="W0y-kn-uHP" firstAttribute="leading" secondItem="gxt-UK-ZQn" secondAttribute="leading" id="iXi-9b-617"/>
                                     <constraint firstItem="S1j-7P-wUr" firstAttribute="top" secondItem="9qx-pQ-4n5" secondAttribute="bottom" constant="20" id="j3I-AA-RFM"/>
                                 </constraints>
@@ -230,6 +258,9 @@
                             </view>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1ba-Ux-4hf">
                                 <rect key="frame" x="306" y="726.66666666666663" width="51" height="31"/>
+                                <connections>
+                                    <action selector="setupSwitchChanged:" destination="jX6-kC-4wJ" eventType="valueChanged" id="0t9-Lr-bij"/>
+                                </connections>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -262,8 +293,17 @@
                     </view>
                     <connections>
                         <outlet property="continueButton" destination="xNC-n0-nhp" id="y0X-iF-VTi"/>
+                        <outlet property="gatewayTextLabel1" destination="CyZ-If-6kf" id="wzI-yr-s1S"/>
+                        <outlet property="gatewayTextLabel2" destination="PnZ-Pt-i9q" id="dSo-30-bb9"/>
+                        <outlet property="gatewayTextLabel3" destination="moq-oS-m4z" id="R7F-wG-XBa"/>
+                        <outlet property="gatewayTextLabel4" destination="u6P-xf-uQ9" id="CDT-R9-nfq"/>
+                        <outlet property="gatewayTitleLabel" destination="EnS-vk-oFX" id="1L7-1L-VKG"/>
+                        <outlet property="gatewayView" destination="LK7-KS-VFl" id="AVP-Gr-ii7"/>
+                        <outlet property="joinerView" destination="gxt-UK-ZQn" id="k9c-of-yph"/>
+                        <outlet property="setupSwitch" destination="1ba-Ux-4hf" id="sn9-yU-hks"/>
                         <outlet property="textLabel1" destination="S1j-7P-wUr" id="NxI-UA-2Q0"/>
                         <outlet property="textLabel2" destination="W0y-kn-uHP" id="TwH-sW-FCV"/>
+                        <outlet property="textLabel3" destination="rpj-r4-ex5" id="iJp-Ym-oqg"/>
                         <outlet property="titleLabel" destination="9qx-pQ-4n5" id="Vh2-aS-b9x"/>
                         <outlet property="videoView" destination="ImC-3i-gg4" id="q7I-5b-gHt"/>
                     </connections>
