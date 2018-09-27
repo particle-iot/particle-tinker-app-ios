@@ -1172,7 +1172,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.log("sendAddJoiner: \(result)")
             if (result == .NONE) {
                 self.log("Delaying call to joinNetwork")
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(15)) {
                     self.log("Delay hit")
                     if (self.canceled) {
                         return
