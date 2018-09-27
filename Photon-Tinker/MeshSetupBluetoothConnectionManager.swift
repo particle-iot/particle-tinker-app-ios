@@ -97,10 +97,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
     
     deinit {
-        if let worker = scanTimeoutWorker {
-            worker.cancel()
-            scanTimeoutWorker = nil
-        }
+        self.cancelTimeout()
         self.dropAllConnections()
     }
 
@@ -133,10 +130,17 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
         self.centralManager.scanForPeripherals(withServices: [MeshSetup.particleMeshServiceUUID], options: options as? [String: AnyObject]) // []
 
+        self.restartTimeout()
+    }
+
+    private func cancelTimeout() {
         if let worker = scanTimeoutWorker {
             worker.cancel()
             scanTimeoutWorker = nil
         }
+    }
+    private func restartTimeout() {
+        self.cancelTimeout()
 
         scanTimeoutWorker = scanTimeoutWorkerFactory
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + MeshSetup.bluetoothScanTimeoutValue,
@@ -202,10 +206,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             central.stopScan()
             log("stop scan")
 
-            if let worker = scanTimeoutWorker {
-                worker.cancel()
-                scanTimeoutWorker = nil
-            }
+            self.restartTimeout()
 
             if RSSI.int32Value < -90  {
                 self.log("Device too far.. sent warning to user")
@@ -237,6 +238,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             //all mesh devices have names, if peripheral has no name, it's not our device
             return
         }
+
+        self.cancelTimeout()
 
         //this was only needed, beacuse CBManager would drop connection if we lose all strong references to the device
         self.peripheralToConnect = nil
