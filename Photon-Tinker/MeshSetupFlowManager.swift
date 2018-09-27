@@ -131,12 +131,12 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the setup and try again."
 
-            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press RESET and hold button on the joiner device and try again."
-            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please press RESET and hold button on the joiner device and try again."
-            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press RESET and hold button on the joiner device and try again."
+            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press RESET button on both devices and try again."
+            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please press RESET button on both devices and try again."
+            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press RESET button on both devices and try again."
 
-            case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try running the set up again."
-            case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try running the set up again."
+            case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try again."
+            case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try again."
         }
     }
 }
