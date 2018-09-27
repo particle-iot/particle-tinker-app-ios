@@ -138,7 +138,10 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             return Int16(pointer[0])
         }
 
-
+        //we didn't receive the full message yet.
+        if (rxBuffer.count < length + 16) {
+            return
+        }
 
         guard let pendingMessage = self.pendingMessages.first else {
             fatalError("This can't happen!")
