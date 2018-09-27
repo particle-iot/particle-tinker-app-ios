@@ -82,9 +82,6 @@ enum MeshSetupFlowError: Error {
     case FailedToScanBecauseOfTimeout
     case FailedToConnect
 
-    //Scanned device is on the network. Offer setup options when those will be implemented
-    case UserRefusedToLeaveMeshNetwork
-
     //Can happen in any step, inform user about it and repeat the step
     case BluetoothDisabled
 
@@ -109,7 +106,33 @@ enum MeshSetupFlowError: Error {
     //CheckDeviceGotClaimed
     case DeviceConnectToCloudTimeout
     case DeviceGettingClaimedTimeout
-    case UnableToGetDeviceList
+
+    public var description: String {
+        switch self {
+            //these errors are handled instantly
+            case .WrongNetworkPassword : return ""
+            case .PasswordTooShort : return ""
+            case .IllegalOperation : return ""
+            case .UnableToRenameDevice : return ""
+            case .NameTooShort : return ""
+
+            //user facing errors
+            case .UnableToGenerateClaimCode : return "There was an error attempting to generate claim code or verifying if device was claimed successfully."
+            case .DeviceTooFar : return "Device is too far. Please hold your phone closer and try again."
+            case .FailedToStartScan : return "Bluetooth appears to be disabled on your phone."
+            case .FailedToScanBecauseOfTimeout : return "Unable to find the device. Make sure it is blinking blue and is not connected to any other device."
+            case .FailedToConnect : return "Failed to connect to device. Please try again."
+            case .BluetoothDisabled : return "Bluetooth appears to be disabled on your phone"
+            case .BluetoothError : return "Bluetooth error. Please restart the setup."
+            case .CommissionerNetworkDoesNotMatch : return "The assisting device is on different mesh network than previously selected."
+            case .FailedToObtainIp : return "Device failed to obtain IP. Make sure ethernet cable is connected to device."
+
+            case .DeviceIsNotAllowedToJoinNetwork : return "Device was unable to join the network (NOT_ALLOWED). Retrying might help with that."
+            case .DeviceIsUnableToFindNetworkToJoin : return "Device was unable to join the network (NOT_FOUND). Retrying might help with that."
+            case .DeviceConnectToCloudTimeout : return "Could not connect to the cloud. Please try running the setup again"
+            case .DeviceGettingClaimedTimeout : return "Device failed to be claimed. Please try running the setup again"
+        }
+    }
 }
 
 fileprivate struct MeshDevice {
@@ -548,8 +571,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 }
             }
         } else {
-            //TODO: remove this for production
-            fatalError("bluetoothConnectionManagerError shouldn't happen in any other step: \(error)")
+            //bluetoothConnectionManagerError shouldn't happen in any other step but if it happens lets handle it
+            self.fail(withReason: .BluetoothError)
         }
     }
 
@@ -559,8 +582,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         } else if (self.currentCommand == .ConnectToCommissionerDevice) {
             self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
         } else {
-            //TODO: remove this for production
-            fatalError("bluetoothConnectionManagerConnectionCreated shouldn't happen in any other step: \(connection)")
+            //bluetoothConnectionManagerConnectionCreated shouldn't happen in any other step but if it happens lets handle it
+            self.fail(withReason: .BluetoothError)
         }
     }
 
@@ -572,8 +595,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceReady)
             self.commissionerDeviceConnected(connection: connection)
         } else {
-            //TODO: remove this for production
-            fatalError("bluetoothConnectionManagerConnectionBecameReady shouldn't happen in any other step: \(connection)")
+            //bluetoothConnectionManagerConnectionBecameReady shouldn't happen in any other step but if it happens lets handle it
+            self.fail(withReason: .BluetoothError)
         }
     }
 
@@ -904,7 +927,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             //forcing this command on devices with no network info helps with the joining process
             self.targetDeviceLeaveNetwork()
         } else {
-            return .UserRefusedToLeaveMeshNetwork
+            fatalError("this is not implemented")
         }
 
         return nil
@@ -1312,7 +1335,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         ParticleCloud.sharedInstance().getDevices { devices, error in
             guard error == nil else {
-                self.fail(withReason: .UnableToGetDeviceList, nsError: error!)
+                self.fail(withReason: .DeviceGettingClaimedTimeout, nsError: error!)
                 return
             }
 
@@ -1430,8 +1453,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     }
                 }
             } else {
-                //TODO: remove for prod
-                fatalError("unable to get device that was JUST claimed: \(error!)")
+                onComplete(.UnableToRenameDevice)
+                return
             }
         }
     }

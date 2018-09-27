@@ -121,7 +121,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix)
             guard error == nil else {
-                fatalError("shouldn't happen")
+                NSLog("!!!!!!!!!!!!!!!!!!!!!!! flowManager.setTargetDeviceInfo Error: \(error)")
+                return
             }
 
             let pairingVC = MeshSetupPairingProcessViewController.storyboardViewController()
@@ -131,7 +132,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
                 vc.restartCaptureSession()
             } else {
-                //TODO: problem?
+                NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
             }
         }
     }
@@ -230,15 +231,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 if (flowManager.rescanNetworks() == nil) {
                     vc.startScanning()
                 } else {
-                    //TODO: remove for prod
-                    fatalError("something is horribly wrong here 1")
+                    NSLog("rescanNetworks was attempted when it shouldn't be")
                 }
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
                 if (flowManager.rescanNetworks() == nil) {
                     vc.startScanning()
                 } else {
-                    //TODO: remove for prod
-                    fatalError("something is horribly wrong here 1")
+                    NSLog("rescanNetworks was attempted when it shouldn't be")
                 }
             }
         }
@@ -291,7 +290,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             if let vc = self.embededNavigationController.topViewController as? MeshSetupScanCommissionerStickerViewController {
                 vc.restartCaptureSession()
             } else {
-                //TODO: problem?
+                NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController.restartCaptureSession was attempted when it shouldn't be")
             }
         }
     }
@@ -571,15 +570,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupPairingProcessViewController {
                     vc.setSuccess()
                 } else {
-                    //TODO: remove from prod
-                    fatalError("why oh why?")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupPairingProcessViewController.setSuccess was attempted when it shouldn't be")
                 }
             case .CommissionerDeviceReady:
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupPairingCommissionerProcessViewController {
                     vc.setSuccess()
                 } else {
-                    //TODO: remove from prod
-                    fatalError("why oh why?")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupPairingCommissionerProcessViewController.setSuccess was attempted when it shouldn't be")
                 }
 
             case .TargetDeviceScanningForNetworks:
@@ -594,8 +591,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectToInternetViewController {
                     vc.setState(state)
                 } else {
-                    //TODO: remove from prod
-                    fatalError("why oh why?")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupConnectToInternetViewController.setState was attempted when it shouldn't be")
                 }
 
 
@@ -605,8 +601,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupJoiningNetworkViewController {
                     vc.setState(state)
                 } else {
-                    //TODO: remove from prod
-                    fatalError("why oh why?")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupJoiningNetworkViewController.setState was attempted when it shouldn't be")
                 }
 
 
@@ -616,8 +611,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupCreatingNetworkViewController {
                     vc.setState(state)
                 } else {
-                    //TODO: remove from prod
-                    fatalError("why oh why?")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be")
                 }
             default:
                 break;
@@ -645,8 +639,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { action in
+            alert.addAction(UIAlertAction(title: "Retry", style: .default) { action in
                 self.flowManager.retryLastAction()
+            })
+
+            alert.addAction(UIAlertAction(title: "cancel", style: .cancel) { action in
+                self.cancelTapped(self)
             })
 
             self.present(alert, animated: true)
