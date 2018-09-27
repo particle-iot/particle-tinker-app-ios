@@ -115,7 +115,7 @@
 "MeshSetup.ConnectToInternet.Text1" = "Connecting to the internet via Ethernet";
 "MeshSetup.ConnectToInternet.Text2" = "Starting a secure session with the Particle Device Cloud";
 "MeshSetup.ConnectToInternet.SuccessTitle" = "Congrats!";
-"MeshSetup.ConnectToInternet.SuccessText" = "Your {{device}} has successfully connectedto the Particle Device Cloud";
+"MeshSetup.ConnectToInternet.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
 
 
 
