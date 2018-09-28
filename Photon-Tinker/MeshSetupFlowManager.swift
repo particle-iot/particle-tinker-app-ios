@@ -131,9 +131,9 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the setup and try again."
 
-            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press RESET button on both devices and try again."
-            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please press RESET button on both devices and try again."
-            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press RESET button on both devices and try again."
+            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press try again."
+            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please press try again."
+            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press try again."
 
             case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try again."
             case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try again."
@@ -378,16 +378,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 }
 
             case .JoinSelectedNetwork:
-                self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
-                    self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
-                    if (result == .NONE) {
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-                            self.runCurrentStep()
-                        }
-                    } else {
-                        self.handleBluetoothErrorResult(result)
-                    }
-                }
+                self.runCurrentStep()
             default:
                 break;
         }
@@ -1256,40 +1247,29 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// TIMEOUT: The join process timed out
         /// NOT_ALLOWED: Invalid security credentials
         self.targetDevice.transceiver!.sendJoinNetwork { result in
-            self.log("targetDevice.sendJoinNetwork: \(result)")
+            self.log("targetDevice.sendJoinNetwork: \(result.description())")
 
-            var fatalFailureReason: MeshSetupFlowError? = nil
+            var failureReason: MeshSetupFlowError? = nil
 
             if (result == .NONE) {
                 self.stopCommissioner()
             } else if (result == .NOT_ALLOWED) {
-                fatalFailureReason = .DeviceIsNotAllowedToJoinNetwork
+                failureReason = .DeviceIsNotAllowedToJoinNetwork
             } else if (result == .NOT_FOUND) {
-                fatalFailureReason = .DeviceIsUnableToFindNetworkToJoin
+                failureReason = .DeviceIsUnableToFindNetworkToJoin
             } else if (result == .TIMEOUT) {
-                fatalFailureReason = .DeviceTimeoutWhileJoiningNetwork
+                failureReason = .DeviceTimeoutWhileJoiningNetwork
             } else {
                 self.handleBluetoothErrorResult(result)
             }
 
-            //TODO: this is as ugly as it gets
-            if let reason = fatalFailureReason {
+
+            if let reason = failureReason {
                 let recoveryLeaveNetwork = {
-                    self.targetDevice.transceiver!.sendLeaveNetwork () { result in
+                    self.targetDevice.transceiver!.sendLeaveNetwork() { result in
                         self.log("targetDevice.sendLeaveNetwork: \(result.description())")
                         if (result == .NONE) {
-                            self.fail(withReason: reason, severity: .Fatal)
-                        } else {
-                            self.handleBluetoothErrorResult(result)
-                        }
-                    }
-                }
-
-                let recoveryStopListening = {
-                    self.commissionerDevice!.transceiver!.sendStopListening () { result in
-                        self.log("commissionerDevice.sendStopListening: \(result.description())")
-                        if (result == .NONE) {
-                            recoveryLeaveNetwork()
+                            self.fail(withReason: reason)
                         } else {
                             self.handleBluetoothErrorResult(result)
                         }
@@ -1297,9 +1277,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 }
 
                 self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
-                    self.log("commissionerDevice.sendStopCommissioner: \(result)")
+                    self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
                     if (result == .NONE) {
-                        recoveryStopListening()
+                        if (!self.canceled) {
+                            recoveryLeaveNetwork()
+                        }
                     } else {
                         self.handleBluetoothErrorResult(result)
                     }
