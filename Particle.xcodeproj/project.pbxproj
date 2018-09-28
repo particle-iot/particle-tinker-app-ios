@@ -11,37 +11,25 @@
 		5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */; };
 		501DA8E41D24A5D0003CE43F /* DeviceInspectorDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */; };
 		5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022204A1B1E7F8400387B24 /* WebViewController.swift */; };
-		502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */; };
-		502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */; };
-		502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 502E9BBB1B15773D00D2C45B /* photon-tinker.bin */; };
 		502E9BC01B194DF800D2C45B /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E9BBF1B194DF800D2C45B /* HelpViewController.swift */; };
 		5048CD231AE09AD00097150A /* DeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD221AE09AD00097150A /* DeviceListViewController.swift */; };
 		5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */; };
-		505062D51CE19F920060FEE7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505062D41CE19F920060FEE7 /* Keys.swift */; };
 		5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D971AE0721200109F33 /* Gotham-XLight.otf */; };
-		5069CB44215C6344000B842A /* xenon_power_on.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5069CB41215C59B0000B842A /* xenon_power_on.mp4 */; };
-		5069CB45215C6AF9000B842A /* commissioner_to_listening_mode.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5069CB42215C59B0000B842A /* commissioner_to_listening_mode.mp4 */; };
-		5069CB46215C6AFC000B842A /* ethernet_featherwing_power_on.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5069CB43215C59B0000B842A /* ethernet_featherwing_power_on.mp4 */; };
-		507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */; };
-		507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */; };
 		5073D4C91AFB14DE00068C2A /* PinFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4C81AFB14DE00068C2A /* PinFunctionView.m */; };
 		5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073D4CB1AFB2E3000068C2A /* PinValueView.m */; };
 		507A84B81D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */; };
 		507A84BA1D247FFD0050B3B6 /* ParticleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */; };
 		507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */; };
 		508311461C0E907F009C0161 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508311451C0E907E009C0161 /* JavaScriptCore.framework */; };
-		509749A91D3EF9C300C5DF0B /* electron-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 509749A81D3EF9C300C5DF0B /* electron-tinker.bin */; };
 		5097E5261D0A59DA001F33EE /* DeviceDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */; };
 		50A11F2A1D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A11F291D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift */; };
 		50B0F9BA1D261149007DB6D1 /* DeviceEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B0F9B91D261149007DB6D1 /* DeviceEventTableViewCell.swift */; };
-		50B0F9BC1D2C21C3007DB6D1 /* photon_wifi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 50B0F9BB1D2C21C3007DB6D1 /* photon_wifi.mp4 */; };
 		50B125491AE06CF4003C29DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B125481AE06CF4003C29DC /* AppDelegate.swift */; };
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
 		50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */; };
 		50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB1521D1E24D10060659B /* ParticleSpinner.swift */; };
-		50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */; };
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
 		50D47F301AFAF56C004AD3AE /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2F1AFAF56C004AD3AE /* PinView.m */; };
 		50E5EF1B1D2DDCBF0087C7B6 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E5EF171D2DDCBF0087C7B6 /* UIColor.swift */; };
@@ -53,8 +41,6 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
-		931C377E215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 931C377C215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin */; };
-		931C377F215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 931C377D215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin */; };
 		931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931C3780215AA2240014811C /* MeshSetupStrings.strings */; };
 		931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931C3782215AA2240014811C /* MeshSetup.storyboard */; };
 		931C37CA215AA4310014811C /* MeshSetupNameDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37AE215AA42E0014811C /* MeshSetupNameDeviceViewController.swift */; };
@@ -85,7 +71,6 @@
 		931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */; };
 		931C37F8215AAAE70014811C /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37F9215AAB2E0014811C /* Storyboardable.swift */; };
-		9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9383399820E0FD5F0002B90C /* GoogleService-Info.plist */; };
 		93FFD598215E7A01005A469D /* MeshSetupImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */; };
 		93FFD5A5215E7A6F005A469D /* network.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD599215E7A6E005A469D /* network.pb.swift */; };
 		93FFD5A6215E7A6F005A469D /* network.proto in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD59A215E7A6F005A469D /* network.proto */; };
@@ -99,6 +84,21 @@
 		93FFD5AE215E7A6F005A469D /* common.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5A2215E7A6F005A469D /* common.pb.swift */; };
 		93FFD5AF215E7A6F005A469D /* config.proto in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5A3215E7A6F005A469D /* config.proto */; };
 		93FFD5B0215E7A6F005A469D /* mesh.proto in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5A4215E7A6F005A469D /* mesh.proto */; };
+		93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B2215E7ED7005A469D /* FiraMono-Medium.ttf */; };
+		93FFD5B4215E7EDB005A469D /* FiraMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B1215E7ED7005A469D /* FiraMono-Regular.ttf */; };
+		93FFD5BD215E7EFF005A469D /* ethernet_featherwing_power_on.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B5215E7EFD005A469D /* ethernet_featherwing_power_on.mp4 */; };
+		93FFD5BE215E7EFF005A469D /* xenon_power_on.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B6215E7EFE005A469D /* xenon_power_on.mp4 */; };
+		93FFD5BF215E7EFF005A469D /* commissioner_to_listening_mode.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B7215E7EFE005A469D /* commissioner_to_listening_mode.mp4 */; };
+		93FFD5C0215E7EFF005A469D /* tinker-0.8.0-rc.12-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B8215E7EFE005A469D /* tinker-0.8.0-rc.12-xenon.bin */; };
+		93FFD5C1215E7EFF005A469D /* tinker-0.8.0-rc.13-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B9215E7EFE005A469D /* tinker-0.8.0-rc.13-xenon.bin */; };
+		93FFD5C2215E7EFF005A469D /* electron-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BA215E7EFE005A469D /* electron-tinker.bin */; };
+		93FFD5C3215E7EFF005A469D /* photon_wifi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */; };
+		93FFD5C4215E7EFF005A469D /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BC215E7EFE005A469D /* photon-tinker.bin */; };
+		93FFD5C6215E7F4B005A469D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5C5215E7F4A005A469D /* Keys.swift */; };
+		93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */; };
+		93FFD5CA215E7FA9005A469D /* DeviceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5C9215E7FA8005A469D /* DeviceInspectorViewController.swift */; };
+		93FFD5CC215E7FB7005A469D /* DeviceFunctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5CB215E7FB7005A469D /* DeviceFunctionTableViewCell.swift */; };
+		93FFD5CE215E7FCA005A469D /* DeviceVariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5CD215E7FCA005A469D /* DeviceVariableTableViewCell.swift */; };
 		B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */; };
 		C810B0886AE017F5D93DABB5 /* MeshSetupFinishSetupEarlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA8C49140CDDB5DE23E5 /* MeshSetupFinishSetupEarlyViewController.swift */; };
 		C810B192D62089B370C49568 /* MeshSetupBillingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5D8DB16E5E26CBB8817 /* MeshSetupBillingInfoViewController.swift */; };
@@ -149,18 +149,9 @@
 		5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 		501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorDataViewController.swift; sourceTree = "<group>"; };
 		5022204A1B1E7F8400387B24 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceFunctionTableViewCell.swift; path = ../DeviceFunctionTableViewCell.swift; sourceTree = "<group>"; };
-		502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceVariableTableViewCell.swift; path = ../DeviceVariableTableViewCell.swift; sourceTree = "<group>"; };
-		502E9BBB1B15773D00D2C45B /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "photon-tinker.bin"; sourceTree = "<group>"; };
 		502E9BBF1B194DF800D2C45B /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		5048CD221AE09AD00097150A /* DeviceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
 		5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
-		505062D41CE19F920060FEE7 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = "Photon-Tinker/Keys.swift"; sourceTree = SOURCE_ROOT; };
-		5069CB41215C59B0000B842A /* xenon_power_on.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = xenon_power_on.mp4; sourceTree = "<group>"; };
-		5069CB42215C59B0000B842A /* commissioner_to_listening_mode.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = commissioner_to_listening_mode.mp4; sourceTree = "<group>"; };
-		5069CB43215C59B0000B842A /* ethernet_featherwing_power_on.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ethernet_featherwing_power_on.mp4; sourceTree = "<group>"; };
-		507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Medium.ttf"; path = "../../FiraMono-Medium.ttf"; sourceTree = "<group>"; };
-		507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FiraMono-Regular.ttf"; path = "../../FiraMono-Regular.ttf"; sourceTree = "<group>"; };
 		5073D4C71AFB14DE00068C2A /* PinFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinFunctionView.h; sourceTree = "<group>"; };
 		5073D4C81AFB14DE00068C2A /* PinFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinFunctionView.m; sourceTree = "<group>"; };
 		5073D4CA1AFB2E3000068C2A /* PinValueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinValueView.h; sourceTree = "<group>"; };
@@ -169,11 +160,9 @@
 		507A84B91D247FFD0050B3B6 /* ParticleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleUtils.swift; sourceTree = "<group>"; };
 		507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorChildViewController.swift; sourceTree = "<group>"; };
 		508311451C0E907E009C0161 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		509749A81D3EF9C300C5DF0B /* electron-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "electron-tinker.bin"; sourceTree = "<group>"; };
 		5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDataTableViewCell.swift; sourceTree = "<group>"; };
 		50A11F291D2609AA0062BD79 /* DeviceInspectorEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorEventsViewController.swift; sourceTree = "<group>"; };
 		50B0F9B91D261149007DB6D1 /* DeviceEventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceEventTableViewCell.swift; sourceTree = "<group>"; };
-		50B0F9BB1D2C21C3007DB6D1 /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = photon_wifi.mp4; sourceTree = "<group>"; };
 		50B125431AE06CF4003C29DC /* Particle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B125471AE06CF4003C29DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B125481AE06CF4003C29DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -185,7 +174,6 @@
 		50B659991AFC6A2B00606A39 /* SSPieProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPieProgressView.h; sourceTree = "<group>"; };
 		50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
 		50BBB1521D1E24D10060659B /* ParticleSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSpinner.swift; sourceTree = "<group>"; };
-		50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceInspectorViewController.swift; path = ../DeviceInspectorViewController.swift; sourceTree = "<group>"; };
 		50CF03C01D93420D0019E3F6 /* Particle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Particle.entitlements; sourceTree = "<group>"; };
 		50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SPKTinkerViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SPKTinkerViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -206,8 +194,6 @@
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
 		8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
-		931C377C215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
-		931C377D215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.13-xenon.bin"; sourceTree = "<group>"; };
 		931C3781215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetupStrings.strings"; sourceTree = "<group>"; };
 		931C3783215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetup.storyboard"; sourceTree = "<group>"; };
 		931C37AE215AA42E0014811C /* MeshSetupNameDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNameDeviceViewController.swift; sourceTree = "<group>"; };
@@ -237,7 +223,6 @@
 		931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectDeviceViewController.swift; sourceTree = "<group>"; };
 		931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionHandshakeManager.swift; sourceTree = "<group>"; };
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
-		9383399820E0FD5F0002B90C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeshSetupImages.xcassets; path = "Photon-Tinker/MeshSetupImages.xcassets"; sourceTree = "<group>"; };
 		93FFD599215E7A6E005A469D /* network.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = network.pb.swift; sourceTree = "<group>"; };
 		93FFD59A215E7A6F005A469D /* network.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = network.proto; sourceTree = "<group>"; };
@@ -251,6 +236,21 @@
 		93FFD5A2215E7A6F005A469D /* common.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = common.pb.swift; sourceTree = "<group>"; };
 		93FFD5A3215E7A6F005A469D /* config.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = config.proto; sourceTree = "<group>"; };
 		93FFD5A4215E7A6F005A469D /* mesh.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = mesh.proto; sourceTree = "<group>"; };
+		93FFD5B1215E7ED7005A469D /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Regular.ttf"; sourceTree = "<group>"; };
+		93FFD5B2215E7ED7005A469D /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Medium.ttf"; sourceTree = "<group>"; };
+		93FFD5B5215E7EFD005A469D /* ethernet_featherwing_power_on.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = ethernet_featherwing_power_on.mp4; path = Resources/ethernet_featherwing_power_on.mp4; sourceTree = "<group>"; };
+		93FFD5B6215E7EFE005A469D /* xenon_power_on.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = xenon_power_on.mp4; path = Resources/xenon_power_on.mp4; sourceTree = "<group>"; };
+		93FFD5B7215E7EFE005A469D /* commissioner_to_listening_mode.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = commissioner_to_listening_mode.mp4; path = Resources/commissioner_to_listening_mode.mp4; sourceTree = "<group>"; };
+		93FFD5B8215E7EFE005A469D /* tinker-0.8.0-rc.12-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "tinker-0.8.0-rc.12-xenon.bin"; path = "Resources/tinker-0.8.0-rc.12-xenon.bin"; sourceTree = "<group>"; };
+		93FFD5B9215E7EFE005A469D /* tinker-0.8.0-rc.13-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "tinker-0.8.0-rc.13-xenon.bin"; path = "Resources/tinker-0.8.0-rc.13-xenon.bin"; sourceTree = "<group>"; };
+		93FFD5BA215E7EFE005A469D /* electron-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "electron-tinker.bin"; path = "Resources/electron-tinker.bin"; sourceTree = "<group>"; };
+		93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = photon_wifi.mp4; path = Resources/photon_wifi.mp4; sourceTree = "<group>"; };
+		93FFD5BC215E7EFE005A469D /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "photon-tinker.bin"; path = "Resources/photon-tinker.bin"; sourceTree = "<group>"; };
+		93FFD5C5215E7F4A005A469D /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = SOURCE_ROOT; };
+		93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		93FFD5C9215E7FA8005A469D /* DeviceInspectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorViewController.swift; sourceTree = "<group>"; };
+		93FFD5CB215E7FB7005A469D /* DeviceFunctionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceFunctionTableViewCell.swift; sourceTree = "<group>"; };
+		93FFD5CD215E7FCA005A469D /* DeviceVariableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceVariableTableViewCell.swift; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
 		C810B000C6D32132595A7F41 /* MeshSetupCreateNetworkNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreateNetworkNameViewController.swift; sourceTree = "<group>"; };
 		C810B12F2906E63F800327E1 /* MeshSetupNetworkCreatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkCreatedViewController.swift; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 				5048CD221AE09AD00097150A /* DeviceListViewController.swift */,
 				50D47F2B1AFAF1A9004AD3AE /* SPKTinkerViewController.h */,
 				50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */,
-				50BBB1541D2200C50060659B /* DeviceInspectorViewController.swift */,
+				93FFD5C9215E7FA8005A469D /* DeviceInspectorViewController.swift */,
 				507A84BB1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift */,
 				507A84B71D23686C0050B3B6 /* DeviceInspectorInfoViewController.swift */,
 				501DA8E31D24A5D0003CE43F /* DeviceInspectorDataViewController.swift */,
@@ -332,7 +332,7 @@
 				50EB761D1AE70AE700C925A9 /* Views */,
 				50EB76101AE6EE9C00C925A9 /* Models */,
 				50B125481AE06CF4003C29DC /* AppDelegate.swift */,
-				505062D41CE19F920060FEE7 /* Keys.swift */,
+				93FFD5C5215E7F4A005A469D /* Keys.swift */,
 				50E5EF141D2DDCA80087C7B6 /* 3rd Party */,
 				50B125461AE06CF4003C29DC /* Supporting Files */,
 			);
@@ -343,7 +343,7 @@
 		50B125461AE06CF4003C29DC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9383399820E0FD5F0002B90C /* GoogleService-Info.plist */,
+				93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */,
 				50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */,
 				50B125471AE06CF4003C29DC /* Info.plist */,
 			);
@@ -413,8 +413,8 @@
 				50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */,
 				5048CD241AE1C3F90097150A /* DeviceTableViewCell.swift */,
 				5097E5251D0A59DA001F33EE /* DeviceDataTableViewCell.swift */,
-				502E81991CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift */,
-				502E819B1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift */,
+				93FFD5CB215E7FB7005A469D /* DeviceFunctionTableViewCell.swift */,
+				93FFD5CD215E7FCA005A469D /* DeviceVariableTableViewCell.swift */,
 				50B0F9B91D261149007DB6D1 /* DeviceEventTableViewCell.swift */,
 				50E5EF1E1D2F2CD60087C7B6 /* HelpTableViewCell.swift */,
 			);
@@ -424,15 +424,15 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				5069CB42215C59B0000B842A /* commissioner_to_listening_mode.mp4 */,
-				5069CB43215C59B0000B842A /* ethernet_featherwing_power_on.mp4 */,
-				5069CB41215C59B0000B842A /* xenon_power_on.mp4 */,
-				931C377C215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin */,
-				931C377D215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin */,
-				509749A81D3EF9C300C5DF0B /* electron-tinker.bin */,
-				502E9BBB1B15773D00D2C45B /* photon-tinker.bin */,
+				93FFD5B7215E7EFE005A469D /* commissioner_to_listening_mode.mp4 */,
+				93FFD5B6215E7EFE005A469D /* xenon_power_on.mp4 */,
+				93FFD5B5215E7EFD005A469D /* ethernet_featherwing_power_on.mp4 */,
+				93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */,
+				93FFD5BA215E7EFE005A469D /* electron-tinker.bin */,
+				93FFD5BC215E7EFE005A469D /* photon-tinker.bin */,
+				93FFD5B8215E7EFE005A469D /* tinker-0.8.0-rc.12-xenon.bin */,
+				93FFD5B9215E7EFE005A469D /* tinker-0.8.0-rc.13-xenon.bin */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
-				50B0F9BB1D2C21C3007DB6D1 /* photon_wifi.mp4 */,
 				93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */,
 				931C3782215AA2240014811C /* MeshSetup.storyboard */,
 				931C3780215AA2240014811C /* MeshSetupStrings.strings */,
@@ -445,8 +445,8 @@
 		50F62D941AE0721200109F33 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				507118BF1D13512000EB6DD3 /* FiraMono-Medium.ttf */,
-				507118C01D13512000EB6DD3 /* FiraMono-Regular.ttf */,
+				93FFD5B2215E7ED7005A469D /* FiraMono-Medium.ttf */,
+				93FFD5B1215E7ED7005A469D /* FiraMono-Regular.ttf */,
 				50F62D951AE0721200109F33 /* Gotham-Book.otf */,
 				50F62D961AE0721200109F33 /* Gotham-Medium.otf */,
 				50F62D971AE0721200109F33 /* Gotham-XLight.otf */,
@@ -693,27 +693,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5069CB44215C6344000B842A /* xenon_power_on.mp4 in Resources */,
-				9383399920E0FD5F0002B90C /* GoogleService-Info.plist in Resources */,
+				93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */,
+				93FFD5BE215E7EFF005A469D /* xenon_power_on.mp4 in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
-				507118C21D13512000EB6DD3 /* FiraMono-Regular.ttf in Resources */,
-				507118C11D13512000EB6DD3 /* FiraMono-Medium.ttf in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
+				93FFD5BD215E7EFF005A469D /* ethernet_featherwing_power_on.mp4 in Resources */,
+				93FFD5B4215E7EDB005A469D /* FiraMono-Regular.ttf in Resources */,
+				93FFD5BF215E7EFF005A469D /* commissioner_to_listening_mode.mp4 in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
-				509749A91D3EF9C300C5DF0B /* electron-tinker.bin in Resources */,
 				931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */,
-				5069CB46215C6AFC000B842A /* ethernet_featherwing_power_on.mp4 in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
-				931C377E215AA1580014811C /* tinker-0.8.0-rc.12-xenon.bin in Resources */,
-				50B0F9BC1D2C21C3007DB6D1 /* photon_wifi.mp4 in Resources */,
+				93FFD5C3215E7EFF005A469D /* photon_wifi.mp4 in Resources */,
+				93FFD5C1215E7EFF005A469D /* tinker-0.8.0-rc.13-xenon.bin in Resources */,
 				50B125501AE06CF4003C29DC /* Images.xcassets in Resources */,
-				931C377F215AA1580014811C /* tinker-0.8.0-rc.13-xenon.bin in Resources */,
+				93FFD5C2215E7EFF005A469D /* electron-tinker.bin in Resources */,
 				50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */,
+				93FFD5C0215E7EFF005A469D /* tinker-0.8.0-rc.12-xenon.bin in Resources */,
+				93FFD5C4215E7EFF005A469D /* photon-tinker.bin in Resources */,
 				93FFD598215E7A01005A469D /* MeshSetupImages.xcassets in Resources */,
 				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
-				502E9BBC1B15773D00D2C45B /* photon-tinker.bin in Resources */,
-				5069CB45215C6AF9000B842A /* commissioner_to_listening_mode.mp4 in Resources */,
+				93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,7 +846,6 @@
 				50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */,
 				507A84BA1D247FFD0050B3B6 /* ParticleUtils.swift in Sources */,
 				931C37CE215AA4310014811C /* MeshSetupPairingCommissionerProcessViewController.swift in Sources */,
-				505062D51CE19F920060FEE7 /* Keys.swift in Sources */,
 				5073D4CC1AFB2E3000068C2A /* PinValueView.m in Sources */,
 				931C37DA215AA4310014811C /* MeshSetupNetworkPasswordViewController.swift in Sources */,
 				50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */,
@@ -858,7 +857,6 @@
 				93FFD5A8215E7A6F005A469D /* common.proto in Sources */,
 				50E5EF1F1D2F2CD60087C7B6 /* HelpTableViewCell.swift in Sources */,
 				93FFD5AD215E7A6F005A469D /* cloud.proto in Sources */,
-				502E819A1CEA6FA4004D4A4B /* DeviceFunctionTableViewCell.swift in Sources */,
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,
 				931C37DB215AA4310014811C /* MeshSetupJoiningNetworkViewController.swift in Sources */,
 				931C37D8215AA4310014811C /* MeshSetupEncryptionManager.swift in Sources */,
@@ -866,16 +864,17 @@
 				931C37D4215AA4310014811C /* MeshSetupProtocolTransceiver.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
 				93FFD5B0215E7A6F005A469D /* mesh.proto in Sources */,
+				93FFD5C6215E7F4B005A469D /* Keys.swift in Sources */,
 				50E5EF1C1D2DDCBF0087C7B6 /* UIImage.swift in Sources */,
 				93FFD5A9215E7A6F005A469D /* cloud.pb.swift in Sources */,
 				93FFD5A5215E7A6F005A469D /* network.pb.swift in Sources */,
 				931C37D6215AA4310014811C /* MeshSetupSelectNetworkViewController.swift in Sources */,
 				50EB76151AE6EF2900C925A9 /* ParticleDevice+pins.m in Sources */,
+				93FFD5CE215E7FCA005A469D /* DeviceVariableTableViewCell.swift in Sources */,
 				931C37CC215AA4310014811C /* MeshSetupGetReadyViewController.swift in Sources */,
 				507A84BC1D24857F0050B3B6 /* DeviceInspectorChildViewController.swift in Sources */,
 				93FFD5AB215E7A6F005A469D /* storage.proto in Sources */,
 				93FFD5AE215E7A6F005A469D /* common.pb.swift in Sources */,
-				50BBB1551D2200C50060659B /* DeviceInspectorViewController.swift in Sources */,
 				5022204B1B1E7F8400387B24 /* WebViewController.swift in Sources */,
 				50D47F301AFAF56C004AD3AE /* PinView.m in Sources */,
 				50B0F9BA1D261149007DB6D1 /* DeviceEventTableViewCell.swift in Sources */,
@@ -883,6 +882,7 @@
 				931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */,
 				93FFD5AC215E7A6F005A469D /* config.pb.swift in Sources */,
 				931C37E3215AA4310014811C /* MeshSetupSelectDeviceViewController.swift in Sources */,
+				93FFD5CA215E7FA9005A469D /* DeviceInspectorViewController.swift in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
 				93FFD5AF215E7A6F005A469D /* config.proto in Sources */,
 				931C37DC215AA4310014811C /* MeshStrings.swift in Sources */,
@@ -896,9 +896,9 @@
 				931C37CF215AA4310014811C /* MeshSetup.swift in Sources */,
 				931C37D3215AA4310014811C /* MeshSetupSuccessViewController.swift in Sources */,
 				93FFD5A7215E7A6F005A469D /* storage.pb.swift in Sources */,
+				93FFD5CC215E7FB7005A469D /* DeviceFunctionTableViewCell.swift in Sources */,
 				931C37DD215AA4310014811C /* MeshSetupFindCommissionerStickerViewController.swift in Sources */,
 				931C37CB215AA4310014811C /* MeshSetupScanCommissionerStickerViewController.swift in Sources */,
-				502E819C1CEA6FC4004D4A4B /* DeviceVariableTableViewCell.swift in Sources */,
 				C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */,
 				C810B6B490B3E0F0DEE3A09E /* MeshSetupProgressViewController.swift in Sources */,
 				C810BA6340DA15524FDDA962 /* ScanBarcodeViewController.m in Sources */,
