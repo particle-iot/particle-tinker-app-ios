@@ -24,8 +24,12 @@ class MeshSetupConnectToInternetViewController: MeshSetupProgressViewController,
     func setState(_ state: MeshSetupFlowState) {
         DispatchQueue.main.async {
             switch state {
-                case .TargetDeviceConnectingToInternetStep1Done, .TargetDeviceConnectingToInternetCompleted:
-                    self.advance()
+                case .TargetDeviceConnectingToInternetStarted:
+                    self.setStep(0)
+                case .TargetDeviceConnectingToInternetStep1Done:
+                    self.setStep(1)
+                case .TargetDeviceConnectingToInternetCompleted:
+                    self.setStep(2)
                 default:
                     fatalError("this should never happen")
             }

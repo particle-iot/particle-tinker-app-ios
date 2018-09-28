@@ -25,8 +25,14 @@ class MeshSetupJoiningNetworkViewController: MeshSetupProgressViewController, St
     func setState(_ state: MeshSetupFlowState) {
         DispatchQueue.main.async {
             switch state {
-                case .JoiningNetworkStep1Done, .JoiningNetworkStep2Done, .JoiningNetworkCompleted:
-                    self.advance()
+                case .JoiningNetworkStarted:
+                    self.setStep(0)
+                case .JoiningNetworkStep1Done:
+                    self.setStep(1)
+                case .JoiningNetworkStep2Done:
+                    self.setStep(2)
+                case .JoiningNetworkCompleted:
+                    self.setStep(3)
                 default:
                     fatalError("this should never happen")
             }

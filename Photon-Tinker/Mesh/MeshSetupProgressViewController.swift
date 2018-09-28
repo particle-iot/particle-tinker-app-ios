@@ -20,8 +20,6 @@ class MeshSetupProgressViewController: MeshSetupViewController {
     
     internal var callback: (() -> ())!
 
-    internal var currentStep = 0
-
     func setup(didFinishScreen: @escaping () -> (), networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
         self.callback = didFinishScreen
         self.networkName = networkName
@@ -55,13 +53,20 @@ class MeshSetupProgressViewController: MeshSetupViewController {
         }
     }
 
-    func advance() {
-        if (currentStep == progressTextLabels.count-1) {
+    func setStep(_ step:Int) {
+        NSLog("step = \(step) progressTextLabels.count: \(progressTextLabels.count)")
+        if (step == progressTextLabels.count) {
             setSuccess()
         } else {
-            progressTextLabels[currentStep].setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-            currentStep += 1
-            progressTextLabels[currentStep].setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            for i in 0 ..< progressTextLabels.count {
+                if (i < step) {
+                    progressTextLabels[i].setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+                } else if i == step {
+                    progressTextLabels[i].setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+                } else {
+                    progressTextLabels[i].setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
+                }
+            }
         }
     }
 
