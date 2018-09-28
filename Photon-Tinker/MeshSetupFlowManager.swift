@@ -1,10 +1,6 @@
 //
-//  MeshSetupFlowManager.swift
-//  Particle
-//
-//  Created by Ido Kleinman on 7/3/18.
-//  Maintained by Raimundas Sakalauskas
-//  Copyright © 2018 Particle. All rights reserved.
+// Created by Raimundas Sakalauskas on 9/20/18.
+// Copyright © 2018 Particle. All rights reserved.
 //
 
 import Foundation

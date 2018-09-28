@@ -1,7 +1,6 @@
 //
 // Created by Raimundas Sakalauskas on 21/08/2018.
-// Maintained by Raimundas Sakalauskas
-// Copyright (c) 2018 Particle. All rights reserved.
+// Copyright © 2018 Particle. All rights reserved.
 //
 
 import Foundation

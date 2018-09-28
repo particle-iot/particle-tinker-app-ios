@@ -1,11 +1,6 @@
 //
-//  NORBluetoothManager.swift
-//  nRF Toolbox
-//  Particle
-//
-//  Created by Mostafa Berg on 06/05/16.
-//  Maintained by Raimundas Sakalauskas
-//  Copyright © 2016 Nordic Semiconductor. All rights reserved.
+// Created by Raimundas Sakalauskas on 23/08/2018.
+// Copyright © 2018 Particle. All rights reserved.
 //
 
 import UIKit

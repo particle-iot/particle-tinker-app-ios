@@ -1,10 +1,7 @@
 //
-//  MeshSetupBluetoothConnection.swift
-//  Particle
-//
-//  Created by Ido Kleinman on 7/12/18.
-//  Maintained by Raimundas Sakalauskas
-//  Copyright © 2018 Particle. All rights reserved.
+// Created by Ido Kleinman on 7/12/18.
+// Maintained by Raimundas Sakalauskas
+// Copyright © 2018 Particle. All rights reserved.
 //
 
 import UIKit

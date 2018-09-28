@@ -1,10 +1,6 @@
 //
-//  MeshSetupProtocolTransceiver.swift
-//  Particle
-//
-//  Created by Ido Kleinman on 6/27/18.
-//  Maintained by Raimundas Sakalauskas
-//  Copyright © 2018 Particle. All rights reserved.
+// Created by Raimundas Sakalauskas on 8/29/18.
+// Copyright © 2018 Particle. All rights reserved.
 //
 
 import UIKit

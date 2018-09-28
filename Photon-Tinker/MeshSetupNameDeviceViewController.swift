@@ -1,9 +1,6 @@
 //
-//  MeshSetupNameDeviceViewController.swift
-//  Particle
-//
-//  Created by Ido Kleinman on 7/25/18.
-//  Copyright © 2018 spark. All rights reserved.
+// Created by Raimundas Sakalauskas on 9/20/18.
+// Copyright © 2018 Particle. All rights reserved.
 //
 
 import UIKit
