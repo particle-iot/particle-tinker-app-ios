@@ -1203,16 +1203,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_ALLOWED: The client is not authenticated
         self.targetDevice.transceiver!.sendPrepareJoiner(networkInfo: self.selectedNetworkInfo!) { result, eui64, password in
             self.log("targetDevice.sendPrepareJoiner sent networkInfo: \(self.selectedNetworkInfo!)")
-            self.log("targetDevice.sendPrepareJoiner: \(result)")
+            self.log("targetDevice.sendPrepareJoiner: \(result.description())")
             if (result == .NONE) {
                 self.targetDevice.joinerCredentials = (eui64: eui64!, password: password!)
-                self.log("Delaying call to addJoiner")
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(10)) {
-                    if (self.canceled) {
-                        return
-                    }
-                    self.addJoiner()
-                }
+                self.addJoiner()
             } else {
                 self.handleBluetoothErrorResult(result)
             }
