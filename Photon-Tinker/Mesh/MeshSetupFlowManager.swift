@@ -333,6 +333,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func finishSetup() {
+        self.canceled = true
+
         self.bluetoothManager.stopScan()
         self.bluetoothManager.dropAllConnections()
     }
@@ -382,6 +384,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: Flow control
     private func runCurrentStep() {
+        if (self.canceled) {
+            return
+        }
+
         log("stepComplete\n\n" +
                 "--------------------------------------------------------------------------------------------\n" +
                 "currentStep = \(currentStep), currentCommand = \(currentCommand)")
@@ -647,6 +653,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepResetSetupAndNetwork() {
         self.targetDevice.transceiver!.sendLeaveNetwork () { result in
             self.log("targetDevice.sendLeaveNetwork: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.setSetupNotDone()
             } else {
@@ -658,6 +667,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func setSetupNotDone() {
         self.targetDevice.transceiver!.sendDeviceSetupDone(done: false) { result in
             self.log("targetDevice.sendDeviceSetupDone: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.log("Device reset complete")
             } else {
@@ -729,6 +741,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepEnsureLatestFirmware() {
         self.targetDevice.transceiver!.sendGetSystemVersion { result, version in
             self.log("targetDevice.sendGetSystemVersion: \(result.description()), version: \(version as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 //TODO: get the answer from server if firmware should be updated
                 if (version!.range(of: "rc.13") != nil) {
@@ -746,6 +761,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func checkTargetDeviceSupportsCompressedOTA() {
         self.targetDevice.transceiver!.sendGetSystemCapabilities { result, capability in
             self.log("targetDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.targetDevice.supportsCompressedOTAUpdate = (capability! == SystemCapability.compressedOta)
                 self.checkTargetDeviceIsSetupDone()
@@ -758,6 +776,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func checkTargetDeviceIsSetupDone() {
         self.targetDevice.transceiver!.sendIsDeviceSetupDone { result, isSetupDone in
             self.log("targetDevice.sendIsDeviceSetupDone: \(result.description()), isSetupDone: \(isSetupDone as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.targetDevice.isSetupDone = isSetupDone
                 self.startFirmwareUpdate()
@@ -779,6 +800,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.currentStepFlags["firmwareData"] = firmwareData
         self.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
             self.log("targetDevice.sendStartFirmwareUpdate: \(result.description()), chunkSize: \(chunkSize)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.currentStepFlags["chunkSize"] = Int(chunkSize)
                 self.currentStepFlags["idx"] = 0
@@ -803,6 +827,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         let subdata = firmwareData.subdata(in: start ..< min(start+chunk, start+bytesLeft))
         self.targetDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { result in
             self.log("targetDevice.sendFirmwareUpdateData: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 if ((idx+1) * chunk >= firmwareData.count) {
                     self.finishFirmwareUpdate()
@@ -819,6 +846,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func finishFirmwareUpdate() {
         self.targetDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { result in
             self.log("targetDevice.sendFinishFirmwareUpdate: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 // reconnect to device by jumping back few steps in the sequence
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
@@ -843,6 +873,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepCheckTargetDeviceHasNetworkInterfaces() {
         self.targetDevice.transceiver!.sendGetInterfaceList { result, interfaces in
             self.log("targetDevice.sendGetInterfaceList: \(result.description()), networkCount: \(interfaces?.count as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.targetDevice.hasInternetCapableNetworkInterfaces = false
                 self.targetDevice.networkInterfaces = interfaces!
@@ -864,6 +897,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepEnsureTargetDeviceCanBeClaimed() {
         self.targetDevice.transceiver!.sendGetDeviceId { result, deviceId in
             self.log("targetDevice.didReceiveDeviceIdReply: \(result.description()), deviceId: \(deviceId as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.targetDevice.deviceId = deviceId!
                 self.checkTargetDeviceIsClaimed()
@@ -876,6 +912,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func checkTargetDeviceIsClaimed() {
         ParticleCloud.sharedInstance().getDevices { devices, error in
+            if (self.canceled) {
+                return
+            }
+
             guard error == nil else {
                 self.fail(withReason: .UnableToGenerateClaimCode, nsError: error)
                 return
@@ -903,6 +943,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func getClaimCode() {
         log("generating claim code")
         ParticleCloud.sharedInstance().generateClaimCode { claimCode, userDevices, error in
+            if (self.canceled) {
+                return
+            }
+
             guard error == nil else {
                 self.fail(withReason: .UnableToGenerateClaimCode, nsError: error)
                 return
@@ -921,6 +965,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepEnsureTargetDeviceIsNotOnMeshNetwork() {
         self.targetDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
             self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NOT_FOUND) {
                 self.targetDevice.networkInfo = nil
                 self.targetDeviceLeaveNetwork()
@@ -960,6 +1007,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func targetDeviceLeaveNetwork() {
         self.targetDevice.transceiver!.sendLeaveNetwork { result in
             self.log("targetDevice.didReceiveLeaveNetworkReply: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.stepComplete()
             } else {
@@ -976,6 +1026,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         if let claimCode = self.targetDevice.claimCode {
             self.targetDevice.transceiver!.sendSetClaimCode(claimCode: claimCode) { result in
                 self.log("targetDevice.sendSetClaimCode: \(result.description())")
+                if (self.canceled) {
+                    return
+                }
                 if (result == .NONE) {
                     self.stepComplete()
                 } else {
@@ -1005,6 +1058,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func scanNetworks(onComplete: @escaping () -> ()) {
         self.targetDevice.transceiver!.sendScanNetworks { result, networks in
             self.log("sendScanNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.targetDevice.networks = self.removeRepeatedNetworks(networks!)
                 onComplete()
@@ -1056,6 +1112,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             //we need to put the commissioner into listening mode by sending the command
             self.commissionerDevice!.transceiver!.sendStarListening { result in
                 self.log("commissionerDevice.sendStarListening: \(result.description())")
+                if (self.canceled) {
+                    return
+                }
                 if (result == .NONE) {
                     self.stepComplete()
                 } else {
@@ -1113,6 +1172,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepEnsureCommissionerNetworkMatches() {
         self.commissionerDevice!.transceiver!.sendGetNetworkInfo { result, networkInfo in
             self.log("commissionerDevice.sendGetNetworkInfo: \(result.description()), networkInfo: \(networkInfo as Optional)")
+            if (self.canceled) {
+                return
+            }
 
             if (result == .NOT_FOUND) {
                 self.commissionerDevice!.networkInfo = nil
@@ -1167,6 +1229,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_FOUND: The device is not a member of a network
         /// NOT_ALLOWED: Invalid commissioning credential
         self.commissionerDevice!.transceiver!.sendAuth(password: password) { result in
+            if (self.canceled) {
+                return
+            }
             self.log("commissionerDevice.sendAuth: \(result.description())")
             if (result == .NONE) {
                 onComplete(nil)
@@ -1186,6 +1251,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendStartCommissioner { result in
             self.log("commissionerDevice.sendStartCommissioner: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if result == .NONE {
                 self.prepareJoiner()
             } else {
@@ -1199,6 +1267,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_ALLOWED: The client is not authenticated
         self.targetDevice.transceiver!.sendPrepareJoiner(networkInfo: self.selectedNetworkInfo!) { result, eui64, password in
             self.log("targetDevice.sendPrepareJoiner sent networkInfo: \(self.selectedNetworkInfo!)")
+            if (self.canceled) {
+                return
+            }
             self.log("targetDevice.sendPrepareJoiner: \(result.description())")
             if (result == .NONE) {
                 self.targetDevice.joinerCredentials = (eui64: eui64!, password: password!)
@@ -1216,6 +1287,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendAddJoiner(eui64: self.targetDevice.joinerCredentials!.eui64, password: self.targetDevice.joinerCredentials!.password) { result in
             self.log("commissionerDevice.sendAddJoiner: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.log("Delaying call to joinNetwork")
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(10)) {
@@ -1238,6 +1312,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_ALLOWED: Invalid security credentials
         self.targetDevice.transceiver!.sendJoinNetwork { result in
             self.log("targetDevice.sendJoinNetwork: \(result.description())")
+            if (self.canceled) {
+                return
+            }
 
             var failureReason: MeshSetupFlowError? = nil
 
@@ -1258,6 +1335,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 let recoveryLeaveNetwork = {
                     self.targetDevice.transceiver!.sendLeaveNetwork() { result in
                         self.log("targetDevice.sendLeaveNetwork: \(result.description())")
+                        if (self.canceled) {
+                            return
+                        }
                         if (result == .NONE) {
                             self.fail(withReason: reason)
                         } else {
@@ -1268,6 +1348,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
                 self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
                     self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
+                    if (self.canceled) {
+                        return
+                    }
                     if (result == .NONE) {
                         if (!self.canceled) {
                             recoveryLeaveNetwork()
@@ -1285,6 +1368,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         /// NOT_ALLOWED: The client is not authenticated
         self.commissionerDevice!.transceiver!.sendStopCommissioner { result in
             self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.setSetupDone()
             } else {
@@ -1296,6 +1382,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func setSetupDone() {
         self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
             self.log("targetDevice.sendDeviceSetupDone: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.stopCommissionerListening()
             } else {
@@ -1308,6 +1397,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stopCommissionerListening() {
         self.commissionerDevice!.transceiver!.sendStopListening { result in
             self.log("commissionerDevice.sendStopListening: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.stopTargetDeviceListening(onComplete: self.stepComplete)
             } else {
@@ -1319,6 +1411,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stopTargetDeviceListening(onComplete: @escaping () -> ()) {
         self.targetDevice.transceiver!.sendStopListening { result in
             self.log("targetDevice.sendStopListening: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 onComplete()
             } else {
@@ -1342,6 +1437,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         self.targetDevice.transceiver!.sendGetConnectionStatus { result, status in
             self.log("targetDevice.sendGetConnectionStatus: \(result.description())")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.log("status: \(status as Optional)")
                 if (status! == .connected) {
@@ -1388,6 +1486,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         ParticleCloud.sharedInstance().getDevices { devices, error in
+            if (self.canceled) {
+                return
+            }
+
             guard error == nil else {
                 self.fail(withReason: .DeviceGettingClaimedTimeout, nsError: error!)
                 return
@@ -1429,6 +1531,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
             self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
                 self.log("targetDevice.transceiver!.sendDeviceSetupDone: \(result.description())")
+                if (self.canceled) {
+                    return
+                }
                 if (result == .NONE) {
                     self.stopTargetDeviceListening(onComplete: self.checkDeviceHasIP)
                 } else {
@@ -1455,6 +1560,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         self.targetDevice.transceiver!.sendGetInterface(interfaceIndex: self.targetDevice.getEthernetInterfaceIdx()!) { result, interface in
             self.log("result: \(result.description()), networkInfo: \(interface as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (interface!.ipv4Config.addresses.first != nil) {
                 self.targetDevice.hasInternetAddress = true
                 self.stepComplete()
@@ -1496,6 +1604,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         ParticleCloud.sharedInstance().getDevice(self.targetDevice.deviceId!) { device, error in
+            if (self.canceled) {
+                return
+            }
+
             if (error == nil) {
                 device!.rename(name) { error in
                     if error == nil {
@@ -1628,6 +1740,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         self.targetDevice.transceiver!.sendCreateNetwork(name: self.newNetworkName!, password: self.newNetworkPassword!) { result, networkInfo in
             self.log("targetDevice.sendCreateNetwork: \(result.description()), networkInfo: \(networkInfo as Optional)")
+            if (self.canceled) {
+                return
+            }
             if (result == .NONE) {
                 self.log("Setting current target device as commissioner device")
                 self.commissionerDevice = self.targetDevice
