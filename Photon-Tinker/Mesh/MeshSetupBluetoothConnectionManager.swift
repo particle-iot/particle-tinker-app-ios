@@ -234,7 +234,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             return
         }
 
-        self.cancelTimeout()
+        self.restartTimeout()
 
         //this was only needed, beacuse CBManager would drop connection if we lose all strong references to the device
         self.peripheralToConnect = nil
@@ -258,6 +258,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         } else {
             log("Disconnected from a device")
         }
+
+        self.cancelTimeout()
 
         for connectionElement in self.connections {
             if connectionElement.cbPeripheral == peripheral {
