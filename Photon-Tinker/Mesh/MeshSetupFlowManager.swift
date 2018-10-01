@@ -1574,7 +1574,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (self.canceled) {
                 return
             }
-            if (interface!.ipv4Config.addresses.first != nil) {
+            if (interface?.ipv4Config.addresses.first != nil) {
                 self.targetDevice.hasInternetAddress = true
                 self.stepComplete()
             } else {
