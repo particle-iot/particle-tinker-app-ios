@@ -1233,29 +1233,31 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
-        self.log("password set: \(password)")
-        self.selectedNetworkPassword = password
-
         /// NOT_FOUND: The device is not a member of a network
         /// NOT_ALLOWED: Invalid commissioning credential
         self.commissionerDevice!.transceiver!.sendAuth(password: password) { result in
             if (self.canceled) {
                 return
             }
+            self.log("trying password: \(password)")
+
             self.log("commissionerDevice.sendAuth: \(result.description())")
             if (result == .NONE) {
+                self.log("password set: \(password)")
+                self.selectedNetworkPassword = password
+
                 onComplete(nil)
                 self.stepComplete()
             } else if (result == .NOT_ALLOWED) {
                 onComplete(.WrongNetworkPassword)
             } else {
-                self.handleBluetoothErrorResult(result)
+                onComplete(.BluetoothTimeout)
             }
         }
     }
 
 
-    //MARK: JoinNetwork
+    //MARK: JoinSelectedNetwork
     private func stepJoinSelectedNetwork() {
         self.delegate.meshSetupDidEnterState(state: .JoiningNetworkStarted)
         /// NOT_ALLOWED: The client is not authenticated
@@ -1381,6 +1383,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (self.canceled) {
                 return
             }
+
             if (result == .NONE) {
                 self.setSetupDone()
             } else {
@@ -1440,7 +1443,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] as! Date)
         if (diff > MeshSetup.deviceConnectToCloudTimeout) {
-            self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] = nil
             self.fail(withReason: .DeviceConnectToCloudTimeout)
             return
         }
@@ -1490,7 +1492,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] as! Date)
         if (diff > MeshSetup.deviceGettingClaimedTimeout) {
-            self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] = nil
             fail(withReason: .DeviceGettingClaimedTimeout)
             return
         }
