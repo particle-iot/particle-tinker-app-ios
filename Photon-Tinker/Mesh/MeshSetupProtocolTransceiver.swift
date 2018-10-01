@@ -46,12 +46,17 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     func triggerTimeout() {
         if let callback = pendingMessages.first?.callback {
+
+            //to avoid message idx getting out of sync with device
+            requestMessageId = requestMessageId - UInt16(pendingMessages.count)
+
             pendingMessages.removeAll()
+            waitingForReply = false
             callback(nil)
         }
     }
 
-    
+
     required init(connection: MeshSetupBluetoothConnection) {
         self.bluetoothConnection = connection
         self.encryptionManager = MeshSetupEncryptionManager(derivedSecret: bluetoothConnection.derivedSecret!)
@@ -85,6 +90,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     private func sendRequestMessage(data: (UInt16, Data), onReply: @escaping (ReplyMessage?) -> ()) {
         if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
+            self.requestMessageId -= 1 //to avoid message idx getting out of sync with device
             onReply(nil)
             return
         }
@@ -95,6 +101,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     private func sendOTARequestMessage(data: (UInt16, Data), onReply: @escaping (ReplyMessage?) -> ()) {
         if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
+            self.requestMessageId -= 1 //to avoid message idx getting out of sync with device
             onReply(nil)
             return
         }
