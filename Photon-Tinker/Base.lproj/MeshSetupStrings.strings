@@ -18,8 +18,8 @@
 
 "MeshSetup.GetReady.Title" = "Get your {{device}} ready for setup";
 "MeshSetup.GetReady.Text1" = "Plug your {{device}} into a power source";
-"MeshSetup.GetReady.Text2" = "If your Xenon requires an external antenna, connect it your {{device}}";
-"MeshSetup.GetReady.Text3" = "Confirm your {{device}} is blinking blue";
+"MeshSetup.GetReady.Text2" = "Confirm your {{device}} is blinking blue";
+"MeshSetup.GetReady.Text3" = "";
 "MeshSetup.GetReady.Button" = "{{device}} is blinking blue";
 
 "MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network";
