@@ -259,8 +259,6 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             log("Disconnected from a device")
         }
 
-        self.cancelTimeout()
-
         for connectionElement in self.connections {
             if connectionElement.cbPeripheral == peripheral {
                 self.delegate.bluetoothConnectionManagerConnectionDropped(sender: self, connection: connectionElement)
@@ -289,6 +287,9 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     //MARK: MeshSetupBluetoothConnectionDelegate
     func bluetoothConnectionBecameReady(sender: MeshSetupBluetoothConnection) {
         log("Bluetooth connection \(sender.peripheralName) became ready")
+
+        self.cancelTimeout()
+
         self.delegate.bluetoothConnectionManagerConnectionBecameReady(sender: self, connection: sender)
         //at this point connection will be passed to transceiver and transceiver will become data delegate
     }
