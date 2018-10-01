@@ -84,6 +84,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
     //Can happen in any step, when result != NONE and special case is not handled by onReply handler
     case BluetoothError
+    case BluetoothTimeout
 
     //EnsureCommissionerNetworkMatches
     case CommissionerNetworkDoesNotMatch
@@ -121,6 +122,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .FailedToScanBecauseOfTimeout : return "Unable to find your mesh device. Make sure the mesh device’s LED is blinking blue and that it’s not connected to any other devices."
             case .FailedToConnect : return "You phone failed to connect to your mesh device. Please try again."
             case .BluetoothDisabled : return "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again."
+            case .BluetoothTimeout : return "Sending bluetooth message failed. Please try again."
             case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the the setup process and try again."
             case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
             case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure the ethernet cable is connected securely to the Ethernet FeatherWing."
@@ -552,8 +554,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         if (result == .TIMEOUT && !self.bluetoothReady) {
             self.fail(withReason: .BluetoothDisabled)
             return
+        } else if (result == .TIMEOUT) {
+            self.fail(withReason: .BluetoothTimeout)
+            return
         } else {
             self.fail(withReason: .BluetoothError)
+            return
         }
     }
 
@@ -656,6 +662,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (self.canceled) {
                 return
             }
+
             if (result == .NONE) {
                 self.setSetupNotDone()
             } else {
@@ -1065,7 +1072,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.targetDevice.networks = self.removeRepeatedNetworks(networks!)
                 onComplete()
             } else {
-                self.handleBluetoothErrorResult(result)
+                //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
+                self.targetDevice.networks = []
+                onComplete()
+                //self.handleBluetoothErrorResult(result)
             }
         }
     }
