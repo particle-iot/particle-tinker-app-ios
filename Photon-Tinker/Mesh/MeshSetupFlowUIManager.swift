@@ -189,9 +189,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     //MARK: Scan networks
     private func showScanNetworks() {
         DispatchQueue.main.async {
-            let networksVC = MeshSetupSelectNetworkViewController.storyboardViewController()
-            networksVC.setup(didSelectNetwork: self.didSelectNetwork)
-            self.embededNavigationController.pushViewController(networksVC, animated: true)
+            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
+                //do nothing
+            } else {
+                let networksVC = MeshSetupSelectNetworkViewController.storyboardViewController()
+                networksVC.setup(didSelectNetwork: self.didSelectNetwork)
+                self.embededNavigationController.pushViewController(networksVC, animated: true)
+            }
         }
     }
 
