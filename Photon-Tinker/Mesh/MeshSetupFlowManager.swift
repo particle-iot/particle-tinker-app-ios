@@ -108,11 +108,11 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
             //these errors are handled instantly
-            case .WrongNetworkPassword : return ""
-            case .PasswordTooShort : return ""
-            case .IllegalOperation : return ""
-            case .UnableToRenameDevice : return ""
-            case .NameTooShort : return ""
+            case .WrongNetworkPassword : return "Provided password is incorrect."
+            case .PasswordTooShort : return "Network password has to be between 6 and 16 characters."
+            case .IllegalOperation : return "Illegal operation."
+            case .UnableToRenameDevice : return "Unable to rename device at this time. Please try again later."
+            case .NameTooShort : return "Device name cannot be empty."
 
                 //user facing errors
             case .UnableToGenerateClaimCode : return "There was an error attempting to claim this device to your account."
