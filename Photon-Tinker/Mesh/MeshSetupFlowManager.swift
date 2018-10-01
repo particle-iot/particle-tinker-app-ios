@@ -197,6 +197,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         case EnsureCommissionerNetworkMatches
         case EnsureCorrectSelectedNetworkPassword
         case JoinSelectedNetwork
+        case FinishJoinSelectedNetwork
         case GetNewDeviceName
         case OfferToAddOneMoreDevice
 
@@ -231,6 +232,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureCommissionerNetworkMatches,
         .EnsureCorrectSelectedNetworkPassword,
         .JoinSelectedNetwork,
+        .FinishJoinSelectedNetwork,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
         .OfferToAddOneMoreDevice
@@ -367,6 +369,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .EnsureHasInternetAccess,
                     .CheckDeviceGotClaimed,
                     .StopTargetDeviceListening,
+                    .FinishJoinSelectedNetwork,
+                    .JoinSelectedNetwork,
                     .OfferSelectOrCreateNetwork:
                 runCurrentStep()
 
@@ -377,8 +381,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     setTargetDeviceLeaveNetwork(leave: self.userSelectedToLeaveNetwork!)
                 }
 
-            case .JoinSelectedNetwork:
-                self.runCurrentStep()
             default:
                 break;
         }
@@ -433,6 +435,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepEnsureCorrectSelectedNetworkPassword()
             case .JoinSelectedNetwork:
                 self.stepJoinSelectedNetwork()
+            case .FinishJoinSelectedNetwork:
+                self.stepFinishJoinSelectedNetwork()
             case .GetNewDeviceName:
                 self.stepGetNewDeviceName()
             case .OfferToAddOneMoreDevice:
@@ -1331,7 +1335,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             var failureReason: MeshSetupFlowError? = nil
 
             if (result == .NONE) {
-                self.stopCommissioner()
+                self.stepComplete()
             } else if (result == .NOT_ALLOWED) {
                 failureReason = .DeviceIsNotAllowedToJoinNetwork
             } else if (result == .NOT_FOUND) {
@@ -1350,11 +1354,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                         if (self.canceled) {
                             return
                         }
-                        if (result == .NONE) {
-                            self.fail(withReason: reason)
-                        } else {
-                            self.handleBluetoothErrorResult(result)
-                        }
+
+                        self.fail(withReason: reason)
                     }
                 }
 
@@ -1363,16 +1364,23 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     if (self.canceled) {
                         return
                     }
+
                     if (result == .NONE) {
-                        if (!self.canceled) {
-                            recoveryLeaveNetwork()
-                        }
+                        recoveryLeaveNetwork()
                     } else {
-                        self.handleBluetoothErrorResult(result)
+                        //if there's one more error here, do not display message cause that
+                        //most likely won't be handeled properly anyway
+                        self.fail(withReason: reason)
                     }
                 }
             }
          }
+    }
+
+
+    //MARK: FinishJoinNetwork
+    private func stepFinishJoinSelectedNetwork() {
+        self.stopCommissioner()
     }
 
     private func stopCommissioner() {
