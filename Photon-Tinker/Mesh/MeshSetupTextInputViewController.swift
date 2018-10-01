@@ -85,9 +85,21 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
             ParticleSpinner.hide(self.view)
             self.unfadeContent()
 
-            self.inputTextField.becomeFirstResponder()
-            self.inputTextField.selectedTextRange = self.inputTextField.textRange(from: self.inputTextField.beginningOfDocument, to: self.inputTextField.endOfDocument)
+            if let message = message {
+                let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default) { action in
+                    self.focusInputText()
+                })
+                self.present(alert, animated: true)
+            } else {
+                self.focusInputText()
+            }
         }
+    }
+
+    func focusInputText() {
+        self.inputTextField.becomeFirstResponder()
+        self.inputTextField.selectedTextRange = self.inputTextField.textRange(from: self.inputTextField.beginningOfDocument, to: self.inputTextField.endOfDocument)
     }
 
     @IBAction func textFieldDidChange(_ sender: Any) {

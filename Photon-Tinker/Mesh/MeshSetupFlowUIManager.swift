@@ -333,7 +333,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 //this will happen automatically
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNetworkPasswordViewController {
                 self.selectedNetworkPassword = nil
-                vc.setWrongInput()
+                vc.setWrongInput(message: error!.description)
             }
         }
     }
@@ -384,7 +384,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             if error == nil {
                 //this will happen automatically
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController {
-                vc.setWrongInput()
+                vc.setWrongInput(message: error!.description)
             }
         }
     }
