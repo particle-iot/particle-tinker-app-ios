@@ -553,7 +553,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.fail(withReason: .BluetoothDisabled)
             return
         } else {
-            self.fail(withReason: .BluetoothError, severity: .Fatal)
+            self.fail(withReason: .BluetoothError)
         }
     }
 
@@ -601,7 +601,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         } else {
             //bluetoothConnectionManagerError shouldn't happen in any other step but if it happens lets handle it
-            self.fail(withReason: .BluetoothError, severity: .Error)
+            self.fail(withReason: .BluetoothError, severity: .Fatal)
         }
     }
 
@@ -612,7 +612,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
         } else {
             //bluetoothConnectionManagerConnectionCreated shouldn't happen in any other step but if it happens lets handle it
-            self.fail(withReason: .BluetoothError, severity: .Error)
+            self.fail(withReason: .BluetoothError, severity: .Fatal)
         }
     }
 
@@ -625,7 +625,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.commissionerDeviceConnected(connection: connection)
         } else {
             //bluetoothConnectionManagerConnectionBecameReady shouldn't happen in any other step but if it happens lets handle it
-            self.fail(withReason: .BluetoothError, severity: .Error)
+            self.fail(withReason: .BluetoothError, severity: .Fatal)
         }
     }
 
