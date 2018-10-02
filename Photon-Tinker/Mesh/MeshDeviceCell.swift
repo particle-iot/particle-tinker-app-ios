@@ -10,6 +10,7 @@ class MeshDeviceCell : UITableViewCell {
     @IBOutlet weak var cellTitleLabel: MeshLabel!
     @IBOutlet weak var cellSubtitleLabel: MeshLabel!
     @IBOutlet weak var cellAccessoryImageView: UIImageView!
+    @IBOutlet weak var cellSecondaryAccessoryImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

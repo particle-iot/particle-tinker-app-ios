@@ -13,6 +13,7 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
 
     private let deviceTypes = [ ParticleDeviceType.xenon.description, ParticleDeviceType.argon.description, ParticleDeviceType.boron.description ]
     private let deviceDescriptionTypes = [MeshSetupStrings.SelectDevice.MeshOnly, MeshSetupStrings.SelectDevice.MeshAndWifi, MeshSetupStrings.SelectDevice.MeshAndCellular ]
+    private let secondaryAccessoryImages = [nil, "MeshWifiIcon", "MeshLTEIcon"]
     private var enabledCells: [Bool]!
 
     private var callback: ((ParticleDeviceType) -> ())!
@@ -74,6 +75,14 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
 
         cell.cellImageView.image = UIImage.init(named: "imgDevice" + deviceTypes[indexPath.row])
         cell.cellAccessoryImageView.alpha = enabled ? 1 : 0.5
+
+        if let icon = secondaryAccessoryImages[indexPath.row] {
+            cell.cellSecondaryAccessoryImageView.image = UIImage.init(named: icon)
+            cell.cellSecondaryAccessoryImageView.alpha = enabled ? 1 : 0.5
+        } else {
+            cell.cellSecondaryAccessoryImageView.image = nil
+        }
+        cell.cellSecondaryAccessoryImageView.isHidden = (cell.cellSecondaryAccessoryImageView.image == nil)
 
         let cellHighlight = UIView()
         cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
