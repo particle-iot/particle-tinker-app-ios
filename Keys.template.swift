@@ -15,3 +15,10 @@ let segmentAnalyticsWriteKey = "segment-source-key"
 //you can obtain this from https://console.particle.io/authentication
 let oAuthClientId = "myapp-auth-client"
 let oAuthSecret = "myapp-auth-secret"
+
+
+#if DEBUG
+    let launchDarkly = "mob-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+#else
+    let launchDarkly = "mob-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+#endif

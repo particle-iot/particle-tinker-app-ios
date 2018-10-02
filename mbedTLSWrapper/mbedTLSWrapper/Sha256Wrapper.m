@@ -1,6 +1,6 @@
 //
 // Created by Raimundas Sakalauskas on 21/08/2018.
-// Copyright (c) 2018 Particle Inc. All rights reserved.
+// Copyright © 2018 Particle Inc. All rights reserved.
 //
 
 #import "Sha256Wrapper.h"
