@@ -537,7 +537,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func didEnterCreateNetworkPassword(networkPassword: String) {
         self.createNetworkPassword = networkPassword
 
-        self.flowManager.setNewNetwork(name: self.createNetworkName!, password: self.createNetworkPassword!)
+        if let error = self.flowManager.setNewNetwork(name: self.createNetworkName!, password: self.createNetworkPassword!),
+           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkPasswordViewController{
+            vc.setWrongInput(message: error.description)
+        }
     }
 
 

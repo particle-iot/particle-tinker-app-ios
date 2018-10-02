@@ -7,43 +7,66 @@ import UIKit
 
 class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
 
+    @IBOutlet weak var repeatTextLabel: MeshLabel!
+    @IBOutlet weak var repeatPasswordTextField: MeshTextField!
+    
     internal var callback: ((String) -> ())!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        repeatPasswordTextField.delegate = self
+    }
 
     func setup(didEnterNetworkPassword: @escaping (String) -> ()) {
         self.callback = didEnterNetworkPassword
     }
 
-    @IBOutlet weak var repeatPasswordTextField: MeshTextField!
-    
-    @IBOutlet weak var repeatTextLabel: MeshLabel!
+
     override func setContent() {
         titleLabel.text = MeshSetupStrings.CreateNetworkPassword.Title
         textLabel.text = MeshSetupStrings.CreateNetworkPassword.Text
-        textLabel.text = MeshSetupStrings.CreateNetworkPassword.Repeat
-        
+        repeatTextLabel.text = MeshSetupStrings.CreateNetworkPassword.Repeat
 
         continueButton.setTitle(MeshSetupStrings.CreateNetworkPassword.Button, for: .normal)
     }
 
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField == self.inputTextField) {
+            self.repeatPasswordTextField.becomeFirstResponder()
+        } else if validateInput() {
+            textField.resignFirstResponder()
+            submit()
+        }
+
+        return false
+    }
+
+
     override func setStyle() {
         super.setStyle()
+
+        self.repeatTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.repeatPasswordTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
         self.inputTextField.isSecureTextEntry = true
         self.repeatPasswordTextField.isSecureTextEntry = true
     }
 
     override func submit() {
-        super.submit()
-        callback!(self.inputTextField.text!)
+        if let text = inputTextField.text, text.count >= 1,
+           repeatPasswordTextField.text == inputTextField.text {
+            super.submit()
+            callback!(self.inputTextField.text!)
+        } else {
+            self.setWrongInput(message: MeshSetupStrings.CreateNetworkPassword.PasswordsDoNotMatch)
+        }
     }
 
     override func validateInput() -> Bool {
-        if let text = inputTextField.text, text.count >= 6 {
-            if text == repeatPasswordTextField.text {
-                return true
-            } else {
-                return false
-            }
+        if let text = inputTextField.text, text.count >= 1,
+            let repeatText = repeatPasswordTextField.text, repeatText.count >= 1 {
+            return true
         } else {
             return false
         }

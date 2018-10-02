@@ -15,6 +15,9 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
 
     @IBOutlet weak var continueButton: MeshSetupButton!
 
+
+    @IBOutlet var additionalViewsToFade: [UIView]?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,6 +59,12 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
             self.inputTextField.alpha = 0.5
             self.textLabel.alpha = 0.5
             self.continueButton.alpha = 0.5
+
+            if let additionalViewsToFade = self.additionalViewsToFade {
+                for childView in additionalViewsToFade {
+                    childView.alpha = 0.5
+                }
+            }
         }
     }
 
@@ -65,6 +74,12 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
             self.inputTextField.alpha = 1
             self.textLabel.alpha = 1
             self.continueButton.alpha = 1
+
+            if let additionalViewsToFade = self.additionalViewsToFade {
+                for childView in additionalViewsToFade {
+                    childView.alpha = 1
+                }
+            }
         }
     }
 
