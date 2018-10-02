@@ -627,8 +627,24 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     @IBAction func cancelTapped(_ sender: Any) {
-        self.flowManager.cancelSetup()
-        self.dismiss(animated: true)
+        if let _ = sender as? MeshSetupFlowUIManager {
+            self.flowManager.cancelSetup()
+            self.dismiss(animated: true)
+        } else {
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: MeshSetupStrings.Prompt.CancelSetupTitle, message: MeshSetupStrings.Prompt.CancelSetupText, preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Continue, style: .default) { action in
+                    //do nothing
+                })
+
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                    self.cancelTapped(self)
+                })
+
+                self.present(alert, animated: true)
+            }
+        }
     }
 
 
