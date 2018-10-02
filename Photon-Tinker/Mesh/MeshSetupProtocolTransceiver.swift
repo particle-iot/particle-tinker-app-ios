@@ -150,7 +150,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             fatalError("This can't happen!")
         }
 
-        let rm = encryptionManager.decrypt(data, messageId: pendingMessage.messageId)
+        let rm = encryptionManager.decrypt(rxBuffer, messageId: pendingMessage.messageId)
         rxBuffer.removeAll()
 
         self.waitingForReply = false
