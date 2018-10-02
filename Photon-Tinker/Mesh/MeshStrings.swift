@@ -55,6 +55,23 @@ extension String {
 
 
 class MeshSetupStrings {
+
+    struct Prompt {
+        static let ErrorTitle = "MeshSetup.Prompt.ErrorTitle".meshLocalized()
+        static let CancelSetupTitle = "MeshSetup.Prompt.CancelSetupTitle".meshLocalized()
+        static let CancelSetupText = "MeshSetup.Prompt.CancelSetupText".meshLocalized()
+    }
+
+    struct Action {
+        static let Ok = "MeshSetup.Action.Ok".meshLocalized()
+        static let Cancel = "MeshSetup.Action.Cancel".meshLocalized()
+        static let CancelSetup = "MeshSetup.Action.CancelSetup".meshLocalized()
+        static let Retry = "MeshSetup.Action.Retry".meshLocalized()
+        static let Continue = "MeshSetup.Action.Continue".meshLocalized()
+    }
+
+
+
     struct Default {
         static let DeviceType = "MeshSetup.Default.DeviceType".meshLocalized()
     }

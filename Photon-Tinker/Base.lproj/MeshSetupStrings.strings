@@ -6,7 +6,28 @@
   Copyright © 2018 spark. All rights reserved.
 */
 
+"MeshSetup.Prompt.ErrorTitle" = "Error";
+"MeshSetup.Prompt.CancelSetupTitle" = "Cancel setup";
+"MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to cancel setup?";
+
+
+
+
+
+"MeshSetup.Action.Ok" = "Ok";
+"MeshSetup.Action.Cancel" = "Cancel";
+"MeshSetup.Action.Retry" = "Retry";
+"MeshSetup.Action.Continue" = "Continue";
+"MeshSetup.Action.CancelSetup" = "Cancel";
+
+
+
+
+
 "MeshSetup.Default.DeviceType" = "Mesh Device";
+
+
+
 
 "MeshSetup.SelectDevice.Title" = "Choose the device you’re setting up";
 "MeshSetup.SelectDevice.MeshOnly" = "Mesh only";

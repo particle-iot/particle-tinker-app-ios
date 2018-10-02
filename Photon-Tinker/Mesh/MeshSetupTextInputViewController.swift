@@ -101,8 +101,8 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
             self.unfadeContent()
 
             if let message = message {
-                let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default) { action in
+                let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
                     self.focusInputText()
                 })
                 self.present(alert, animated: true)

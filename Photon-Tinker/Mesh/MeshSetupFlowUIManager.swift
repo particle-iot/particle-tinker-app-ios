@@ -634,18 +634,18 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Error", message: error.description, preferredStyle: .alert)
+            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
 
             if (severity == .Fatal) {
-                alert.addAction(UIAlertAction(title: "Ok", style: .default) { action in
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
                     self.cancelTapped(self)
                 })
             } else {
-                alert.addAction(UIAlertAction(title: "Retry", style: .default) { action in
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
                     self.flowManager.retryLastAction()
                 })
 
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
                     self.cancelTapped(self)
                 })
             }
