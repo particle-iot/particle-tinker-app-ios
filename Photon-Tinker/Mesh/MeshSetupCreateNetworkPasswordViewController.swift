@@ -13,9 +13,15 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
         self.callback = didEnterNetworkPassword
     }
 
+    @IBOutlet weak var repeatPasswordTextField: MeshTextField!
+    
+    @IBOutlet weak var repeatTextLabel: MeshLabel!
     override func setContent() {
         titleLabel.text = MeshSetupStrings.CreateNetworkPassword.Title
         textLabel.text = MeshSetupStrings.CreateNetworkPassword.Text
+        textLabel.text = MeshSetupStrings.CreateNetworkPassword.Repeat
+        
+
         continueButton.setTitle(MeshSetupStrings.CreateNetworkPassword.Button, for: .normal)
     }
 
@@ -23,6 +29,7 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
         super.setStyle()
 
         self.inputTextField.isSecureTextEntry = true
+        self.repeatPasswordTextField.isSecureTextEntry = true
     }
 
     override func submit() {
@@ -32,7 +39,11 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
 
     override func validateInput() -> Bool {
         if let text = inputTextField.text, text.count >= 6 {
-            return true
+            if text == repeatPasswordTextField.text {
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }

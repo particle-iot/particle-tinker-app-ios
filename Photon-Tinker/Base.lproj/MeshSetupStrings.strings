@@ -150,6 +150,7 @@
 "MeshSetup.CreateNetworkPassword.Title" = "Set network admin password";
 "MeshSetup.CreateNetworkPassword.Text" = "You’ll need this password each time you want to add a new device to this mesh network.";
 "MeshSetup.CreateNetworkPassword.Button" = "Create network";
+"MeshSetup.CreateNetworkPassword.Repeat" = "Repeat password";
 
 
 

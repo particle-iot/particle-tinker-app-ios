@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1106,8 +1108,20 @@
                                     <action selector="textFieldDidChange:" destination="NPp-3h-3nd" eventType="editingChanged" id="hOw-rH-asO"/>
                                 </connections>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WFp-dT-aD9" customClass="MeshTextField" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="175" width="335" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="YVv-nt-m9k"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                                <connections>
+                                    <action selector="textFieldDidChange:" destination="NPp-3h-3nd" eventType="editingChanged" id="Ary-ik-Yhy"/>
+                                </connections>
+                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Q1-NW-JWm" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="15" y="155" width="345" height="110"/>
+                                <rect key="frame" x="15" y="235" width="345" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fza-kU-P9N" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="15" y="15" width="315" height="80"/>
@@ -1125,21 +1139,33 @@
                                     <constraint firstItem="fza-kU-P9N" firstAttribute="top" secondItem="6Q1-NW-JWm" secondAttribute="top" constant="15" id="uqZ-y4-Cim"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat password" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMI-5j-X8S" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="155" width="335" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="JQD-jr-l3N" firstAttribute="top" secondItem="P01-DH-5bJ" secondAttribute="bottom" constant="20" id="5OS-LF-zgo"/>
                             <constraint firstItem="P01-DH-5bJ" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="CEE-bl-ni9"/>
                             <constraint firstItem="tUz-7R-LZp" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="Cc7-vz-3IT"/>
-                            <constraint firstItem="6Q1-NW-JWm" firstAttribute="top" secondItem="JQD-jr-l3N" secondAttribute="bottom" constant="20" id="DPL-Cc-xws"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="6Q1-NW-JWm" secondAttribute="trailing" constant="15" id="GBa-6G-S8y"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="bottom" secondItem="tUz-7R-LZp" secondAttribute="bottom" constant="20" id="NNp-0i-HI1"/>
+                            <constraint firstItem="dMI-5j-X8S" firstAttribute="top" secondItem="JQD-jr-l3N" secondAttribute="bottom" constant="20" id="QDe-G0-vIE"/>
+                            <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="WFp-dT-aD9" secondAttribute="trailing" constant="20" id="SWj-9f-CQL"/>
+                            <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="dMI-5j-X8S" secondAttribute="trailing" constant="20" id="WnE-VV-hM4"/>
+                            <constraint firstItem="WFp-dT-aD9" firstAttribute="top" secondItem="JQD-jr-l3N" secondAttribute="bottom" constant="40" id="bQP-et-s11"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="tUz-7R-LZp" secondAttribute="trailing" constant="20" id="dar-NI-B7B"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="P01-DH-5bJ" secondAttribute="trailing" constant="20" id="e8d-u1-SZ4"/>
                             <constraint firstItem="P01-DH-5bJ" firstAttribute="top" secondItem="IUq-Qv-CZm" secondAttribute="top" constant="15" id="gbY-Ir-sq1"/>
                             <constraint firstItem="JQD-jr-l3N" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="iXY-mT-sfC"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="JQD-jr-l3N" secondAttribute="trailing" constant="20" id="mEb-aY-XB1"/>
+                            <constraint firstItem="6Q1-NW-JWm" firstAttribute="top" secondItem="WFp-dT-aD9" secondAttribute="bottom" constant="20" id="sOE-1h-dvS"/>
+                            <constraint firstItem="WFp-dT-aD9" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="uF4-oo-vzN"/>
                             <constraint firstItem="6Q1-NW-JWm" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="15" id="vc1-tw-MAk"/>
+                            <constraint firstItem="dMI-5j-X8S" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="w6v-9m-cLt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IUq-Qv-CZm"/>
                     </view>
@@ -1147,6 +1173,8 @@
                         <outlet property="buttonBottomConstraint" destination="NNp-0i-HI1" id="xps-Zz-AVi"/>
                         <outlet property="continueButton" destination="tUz-7R-LZp" id="Nbf-30-3yq"/>
                         <outlet property="inputTextField" destination="JQD-jr-l3N" id="sy5-wN-iKF"/>
+                        <outlet property="repeatPasswordTextField" destination="WFp-dT-aD9" id="UZr-ry-M92"/>
+                        <outlet property="repeatTextLabel" destination="dMI-5j-X8S" id="lIK-nY-koD"/>
                         <outlet property="textLabel" destination="fza-kU-P9N" id="Zpc-WB-cG2"/>
                         <outlet property="titleLabel" destination="P01-DH-5bJ" id="oBp-ca-K2V"/>
                     </connections>

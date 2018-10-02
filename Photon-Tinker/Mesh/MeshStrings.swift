@@ -216,6 +216,8 @@ class MeshSetupStrings {
         static let Title = "MeshSetup.CreateNetworkPassword.Title".meshLocalized()
         static let Text = "MeshSetup.CreateNetworkPassword.Text".meshLocalized()
         static let Button = "MeshSetup.CreateNetworkPassword.Button".meshLocalized()
+        static let Repeat = "MeshSetup.CreateNetworkPassword.Repeat".meshLocalized()
+
     }
 
 
