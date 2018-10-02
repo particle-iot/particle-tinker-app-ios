@@ -37,4 +37,16 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
             return false
         }
     }
+
+
+    let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        for var char in string {
+            if !charset.contains(char) {
+                return false
+            }
+        }
+
+        return true
+    }
 }
