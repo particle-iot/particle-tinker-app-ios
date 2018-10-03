@@ -97,6 +97,9 @@ class MeshSetupStrings {
         static let EthernetText2 = "MeshSetup.GetReady.EthernetText2".meshLocalized()
         static let EthernetText3 = "MeshSetup.GetReady.EthernetText3".meshLocalized()
         static let EthernetText4 = "MeshSetup.GetReady.EthernetText4".meshLocalized()
+
+        static let EthernetToggleTitle = "MeshSetup.GetReady.EthernetToggleTitle".meshLocalized()
+        static let EthernetToggleText = "MeshSetup.GetReady.EthernetToggleText".meshLocalized()
     }
 
     struct GetCommissionerReady {

@@ -8,6 +8,7 @@ import UIKit
 class MeshSetupViewController: UIViewController {
 
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint?
+    @IBOutlet var constraintsToShrinkOnSmallScreens: [NSLayoutConstraint]?
 
     private var bottomConstraintConstant: CGFloat?
 
@@ -23,6 +24,14 @@ class MeshSetupViewController: UIViewController {
     }
 
     private func setCommonStyle() {
+        if (MeshScreenUtils.isIPhone() && (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5)) {
+            if let constraints = constraintsToShrinkOnSmallScreens {
+                for constraint in constraints {
+                    constraint.constant = constraint.constant / 2
+                }
+            }
+        }
+
         view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
     }
 

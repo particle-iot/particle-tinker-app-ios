@@ -24,12 +24,13 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBOutlet weak var textLabel3: MeshLabel!
     @IBOutlet weak var textLabel4: MeshLabel!
     
-    @IBOutlet weak var joinerView: UIView!
+    @IBOutlet weak var ethernetToggleTitle: MeshLabel!
+    @IBOutlet weak var ethernetToggleText: MeshLabel!
+    
     @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var contentStackView: UIStackView!
     
-
     
-    @IBOutlet weak var gatewayView: UIView!
     internal var callback: (() -> ())!
     
     func setup(didPressReady: @escaping () -> (), deviceType: ParticleDeviceType?) {
@@ -53,14 +54,36 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         videoView.layer.cornerRadius = 5
         videoView.clipsToBounds = true
 
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-
         ethernetToggleBackground.backgroundColor = MeshSetupStyle.EthernetToggleBackgroundColor
         continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+
+
+        if (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {
+            contentStackView.spacing = 15
+
+            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+
+
+            ethernetToggleTitle.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            ethernetToggleText.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+        } else {
+            contentStackView.spacing = 20
+
+            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            ethernetToggleTitle.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            ethernetToggleText.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        }
     }
 
 
@@ -69,6 +92,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         continueButton.setTitle(MeshSetupStrings.GetReady.Button, for: .normal)
         initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
+
+        ethernetToggleTitle.text = MeshSetupStrings.GetReady.EthernetToggleTitle
+        ethernetToggleText.text = MeshSetupStrings.GetReady.EthernetToggleText
     }
 
     private func setDefaultContent() {

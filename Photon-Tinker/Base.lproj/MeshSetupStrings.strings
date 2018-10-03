@@ -49,6 +49,9 @@
 "MeshSetup.GetReady.EthernetText3" = "Plug your {{device}} into a power source";
 "MeshSetup.GetReady.EthernetText4" = "Confirm your {{device}} is blinking blue";
 
+"MeshSetup.GetReady.EthernetToggleTitle" = "USE WITH ETHERNET?";
+"MeshSetup.GetReady.EthernetToggleText" = "Toggle ethernet featherwing setup";
+
 
 "MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";

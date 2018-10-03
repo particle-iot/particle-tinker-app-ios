@@ -236,7 +236,7 @@
                             <constraint firstItem="ImC-3i-gg4" firstAttribute="centerX" secondItem="Gib-mC-teg" secondAttribute="centerX" id="0WT-kN-Z5A"/>
                             <constraint firstItem="rD1-gc-NHe" firstAttribute="trailing" secondItem="xNC-n0-nhp" secondAttribute="trailing" constant="20" id="4Zp-cI-57T"/>
                             <constraint firstAttribute="trailing" secondItem="kVW-YV-nr5" secondAttribute="trailing" id="9XO-vs-k63"/>
-                            <constraint firstItem="xNC-n0-nhp" firstAttribute="top" secondItem="ImC-3i-gg4" secondAttribute="bottom" constant="20" id="DVZ-pc-TDQ"/>
+                            <constraint firstItem="xNC-n0-nhp" firstAttribute="top" secondItem="ImC-3i-gg4" secondAttribute="bottom" priority="240" constant="20" id="DVZ-pc-TDQ"/>
                             <constraint firstItem="rYB-qu-JnH" firstAttribute="top" secondItem="9qx-pQ-4n5" secondAttribute="bottom" constant="20" id="Hug-Uj-DBp"/>
                             <constraint firstAttribute="bottom" secondItem="kVW-YV-nr5" secondAttribute="bottom" id="JPu-VO-GgW"/>
                             <constraint firstItem="rYB-qu-JnH" firstAttribute="leading" secondItem="rD1-gc-NHe" secondAttribute="leading" constant="20" id="Ko0-oR-FIQ"/>
@@ -253,8 +253,11 @@
                         <viewLayoutGuide key="safeArea" id="rD1-gc-NHe"/>
                     </view>
                     <connections>
+                        <outlet property="contentStackView" destination="rYB-qu-JnH" id="vKg-tB-xj2"/>
                         <outlet property="continueButton" destination="xNC-n0-nhp" id="y0X-iF-VTi"/>
                         <outlet property="ethernetToggleBackground" destination="kVW-YV-nr5" id="364-17-RJi"/>
+                        <outlet property="ethernetToggleText" destination="Ath-pR-Daf" id="mHo-Fy-nP0"/>
+                        <outlet property="ethernetToggleTitle" destination="Zoo-3M-jlc" id="q59-wJ-Kvl"/>
                         <outlet property="setupSwitch" destination="1ba-Ux-4hf" id="sn9-yU-hks"/>
                         <outlet property="textLabel1" destination="CyZ-If-6kf" id="l4o-kg-6LT"/>
                         <outlet property="textLabel2" destination="PnZ-Pt-i9q" id="64l-Yc-9Z8"/>
@@ -262,6 +265,19 @@
                         <outlet property="textLabel4" destination="u6P-xf-uQ9" id="6SD-7c-iTu"/>
                         <outlet property="titleLabel" destination="9qx-pQ-4n5" id="xTM-BI-1Vy"/>
                         <outlet property="videoView" destination="ImC-3i-gg4" id="AZ6-eV-hxH"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="iVm-EJ-egg" collectionClass="NSMutableArray" id="Djz-q7-ObW"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="cBq-yZ-CQ7" collectionClass="NSMutableArray" id="htC-E4-wiv"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="YaF-xc-4Ct" collectionClass="NSMutableArray" id="FJw-Vm-5D2"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="Ko0-oR-FIQ" collectionClass="NSMutableArray" id="QAt-9h-VRc"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="nnW-vj-TZe" collectionClass="NSMutableArray" id="ILn-fh-4Eg"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="fow-29-evh" collectionClass="NSMutableArray" id="0ps-lr-eq2"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="DVZ-pc-TDQ" collectionClass="NSMutableArray" id="Crn-xv-6rS"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="ddt-hL-xWu" collectionClass="NSMutableArray" id="Wy3-GN-dAb"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="VWd-Uh-68y" collectionClass="NSMutableArray" id="bKu-4n-OGY"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="F55-7X-zGL" collectionClass="NSMutableArray" id="Tz6-1R-tyu"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="Kkc-Dv-ba2" collectionClass="NSMutableArray" id="Zre-Ej-1nM"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="oAe-Ow-fDc" collectionClass="NSMutableArray" id="6iL-Zg-qeK"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="Rh8-bp-EVx" collectionClass="NSMutableArray" id="fqt-6a-hdb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sux-bg-qbC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -822,7 +838,7 @@
                             <constraint firstItem="qtB-xv-dcR" firstAttribute="trailing" secondItem="9Kf-uJ-Ot5" secondAttribute="trailing" constant="20" id="JAe-4I-yAF"/>
                             <constraint firstItem="qtB-xv-dcR" firstAttribute="leading" secondItem="3rt-a4-KD8" secondAttribute="leading" constant="-20" id="Lty-nF-dix"/>
                             <constraint firstItem="9gK-XO-GDi" firstAttribute="trailing" secondItem="qtB-xv-dcR" secondAttribute="trailing" constant="-20" id="Q3b-lO-Pg5"/>
-                            <constraint firstItem="9Kf-uJ-Ot5" firstAttribute="top" secondItem="ebH-Ek-veD" secondAttribute="bottom" constant="40" id="erR-5q-iTL"/>
+                            <constraint firstItem="9Kf-uJ-Ot5" firstAttribute="top" secondItem="ebH-Ek-veD" secondAttribute="bottom" priority="240" constant="40" id="erR-5q-iTL"/>
                             <constraint firstItem="9Kf-uJ-Ot5" firstAttribute="leading" secondItem="qtB-xv-dcR" secondAttribute="leading" constant="20" id="fOz-Fr-g0K"/>
                             <constraint firstItem="qtB-xv-dcR" firstAttribute="leading" secondItem="GgE-bq-c83" secondAttribute="leading" constant="-20" id="i6b-T8-06Q"/>
                             <constraint firstItem="qtB-xv-dcR" firstAttribute="leading" secondItem="9gK-XO-GDi" secondAttribute="leading" constant="-20" id="kcy-Ww-ty8"/>
