@@ -68,6 +68,7 @@ class MeshSetupStrings {
         static let CancelSetup = "MeshSetup.Action.CancelSetup".meshLocalized()
         static let Retry = "MeshSetup.Action.Retry".meshLocalized()
         static let Continue = "MeshSetup.Action.Continue".meshLocalized()
+        static let ContinueSetup = "MeshSetup.Action.ContinueSetup".meshLocalized()
     }
 
 

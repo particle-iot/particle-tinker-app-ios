@@ -19,6 +19,7 @@
 "MeshSetup.Action.Retry" = "Retry";
 "MeshSetup.Action.Continue" = "Continue";
 "MeshSetup.Action.CancelSetup" = "Cancel";
+"MeshSetup.Action.ContinueSetup" = "Don't Cancel";
 
 
 

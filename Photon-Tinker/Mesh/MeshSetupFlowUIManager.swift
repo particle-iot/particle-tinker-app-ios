@@ -634,12 +634,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             DispatchQueue.main.async {
                 let alert = UIAlertController(title: MeshSetupStrings.Prompt.CancelSetupTitle, message: MeshSetupStrings.Prompt.CancelSetupText, preferredStyle: .alert)
 
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Continue, style: .default) { action in
-                    //do nothing
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .default) { action in
+                    self.cancelTapped(self)
                 })
 
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-                    self.cancelTapped(self)
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContinueSetup, style: .cancel) { action in
+                    //do nothing
                 })
 
                 self.present(alert, animated: true)
