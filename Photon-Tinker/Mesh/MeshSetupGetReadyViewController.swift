@@ -8,25 +8,26 @@ import AVFoundation
 
 
 class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
-    @IBOutlet weak var gatewayTitleLabel: MeshLabel!
+
+    internal var videoPlayer: AVPlayer?
+    internal var layer: AVPlayerLayer?
+    internal var gatewayVideo : AVPlayerItem?
+    internal var defaultVideo : AVPlayerItem?
+
+    @IBOutlet weak var ethernetToggleBackground: UIView!
     
-    @IBOutlet weak var gatewayTextLabel1: MeshLabel!
-    @IBOutlet weak var gatewayTextLabel2: MeshLabel!
     @IBOutlet weak var titleLabel: MeshLabel!
     @IBOutlet weak var videoView: UIView!
-    internal var videoPlayer: AVPlayer?
-    
-    @IBOutlet weak var gatewayTextLabel3: MeshLabel!
-    @IBOutlet weak var gatewayTextLabel4: MeshLabel!
+
     @IBOutlet weak var textLabel1: MeshLabel!
     @IBOutlet weak var textLabel2: MeshLabel!
     @IBOutlet weak var textLabel3: MeshLabel!
+    @IBOutlet weak var textLabel4: MeshLabel!
     
     @IBOutlet weak var joinerView: UIView!
     @IBOutlet weak var continueButton: MeshSetupButton!
     
-    internal var gatewayVideo : AVPlayerItem?
-    internal var defaultVideo : AVPlayerItem?
+
     
     @IBOutlet weak var gatewayView: UIView!
     internal var callback: (() -> ())!
@@ -39,18 +40,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     
     @IBAction func setupSwitchChanged(_ sender: Any) {
         if self.setupSwitch.isOn {
-//            initializeVideoPlayerWithVideo(videoFileName: "ethernet_featherwing_power_on")
             self.videoPlayer?.replaceCurrentItem(with: gatewayVideo)
-            self.gatewayView.isHidden = false
-            self.joinerView.isHidden = true
+            setEthernetContent()
         } else {
-//            initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
             self.videoPlayer?.replaceCurrentItem(with: defaultVideo)
-            self.gatewayView.isHidden = true
-            self.joinerView.isHidden = false
+            setDefaultContent()
         }
-        setVideoLoopObserver()
-
     }
     
     override func setStyle() {
@@ -61,37 +56,56 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
         textLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel3.isHidden = true
-        
-        gatewayTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        gatewayTextLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        gatewayTextLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        gatewayTextLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        gatewayTextLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        
+        textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+        ethernetToggleBackground.backgroundColor = MeshSetupStyle.EthernetToggleBackgroundColor
         continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
     }
 
 
     override func setContent() {
+        setDefaultContent()
+
+        continueButton.setTitle(MeshSetupStrings.GetReady.Button, for: .normal)
+        initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
+    }
+
+    private func setDefaultContent() {
         titleLabel.text = MeshSetupStrings.GetReady.Title
         textLabel1.text = MeshSetupStrings.GetReady.Text1
         textLabel2.text = MeshSetupStrings.GetReady.Text2
-//        textLabel3.text = MeshSetupStrings.GetReady.Text3
+        textLabel3.text = MeshSetupStrings.GetReady.Text3
+        textLabel4.text = MeshSetupStrings.GetReady.Text4
 
-        continueButton.setTitle(MeshSetupStrings.GetReady.Button, for: .normal)
-        
-        initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
+        replacePlaceHolderStrings()
+        hideEmptyLabels()
+    }
+
+    private func setEthernetContent() {
+        titleLabel.text = MeshSetupStrings.GetReady.EthernetTitle
+        textLabel1.text = MeshSetupStrings.GetReady.EthernetText1
+        textLabel2.text = MeshSetupStrings.GetReady.EthernetText2
+        textLabel3.text = MeshSetupStrings.GetReady.EthernetText3
+        textLabel4.text = MeshSetupStrings.GetReady.EthernetText4
+
+        replacePlaceHolderStrings()
+        hideEmptyLabels()
+    }
+
+
+    private func hideEmptyLabels() {
+        textLabel1.isHidden = (textLabel1.text?.count ?? 0) == 0
+        textLabel2.isHidden = (textLabel2.text?.count ?? 0) == 0
+        textLabel3.isHidden = (textLabel3.text?.count ?? 0) == 0
+        textLabel4.isHidden = (textLabel4.text?.count ?? 0) == 0
     }
 
     @IBAction func nextButtonTapped(_ sender: Any) {
         callback()
     }
 
-    func initializeVideoPlayerWithVideo(videoFileName : String?) {
-        
-//        desetVideoLoopObserver()
-        
+    func initializeVideoPlayerWithVideo(videoFileName: String) {
         // Create a new AVPlayerItem with the asset and an
         // array of asset keys to be automatically loaded
         let gatewayVideoString:String? = Bundle.main.path(forResource: "ethernet_featherwing_power_on", ofType: "mp4")
@@ -102,22 +116,28 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         let defaultVideoUrl = URL(fileURLWithPath: defaultVideoString!)
         defaultVideo = AVPlayerItem(url: defaultVideoUrl)
         
-        
-        // get the path string for the video from assets
-
-//        guard let unwrappedVideoPath = videoString else {return}
-//        let videoUrl = URL(fileURLWithPath: unwrappedVideoPath)
-//        self.videoPlayer = AVPlayer(url: videoUrl)
         self.videoPlayer = AVPlayer(playerItem: defaultVideo)
-        let layer: AVPlayerLayer = AVPlayerLayer(player: videoPlayer)
-        layer.frame = videoView.bounds
-        layer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        videoView.layer.addSublayer(layer)
+        layer = AVPlayerLayer(player: videoPlayer)
+        layer!.frame = videoView.bounds
+        layer!.videoGravity = AVLayerVideoGravity.resizeAspectFill
+
+        videoView.layer.addSublayer(layer!)
         setVideoLoopObserver()
         videoPlayer?.play()
     }
-    
-    
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        layer?.frame = videoView.bounds
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        desetVideoLoopObserver()
+    }
+
     func desetVideoLoopObserver() {
         NotificationCenter.default.removeObserver(self.videoPlayer?.currentItem)
     }

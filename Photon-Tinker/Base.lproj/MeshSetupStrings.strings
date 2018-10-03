@@ -36,12 +36,19 @@
 
 
 
-
+"MeshSetup.GetReady.Button" = "Next";
 "MeshSetup.GetReady.Title" = "Get your {{device}} ready for setup";
 "MeshSetup.GetReady.Text1" = "Plug your {{device}} into a power source";
 "MeshSetup.GetReady.Text2" = "Confirm your {{device}} is blinking blue";
 "MeshSetup.GetReady.Text3" = "";
-"MeshSetup.GetReady.Button" = "{{device}} is blinking blue";
+"MeshSetup.GetReady.Text4" = "";
+
+"MeshSetup.GetReady.EthernetTitle" = "Attach your Ethernet Featherwing";
+"MeshSetup.GetReady.EthernetText1" = "Line up {{device}} pin headers and gently push the {{device}} into the Featherwing until flush";
+"MeshSetup.GetReady.EthernetText2" = "Insert an ethernet cable into the port";
+"MeshSetup.GetReady.EthernetText3" = "Plug your {{device}} into a power source";
+"MeshSetup.GetReady.EthernetText4" = "Confirm your {{device}} is blinking blue";
+
 
 "MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";

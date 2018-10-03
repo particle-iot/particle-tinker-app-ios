@@ -84,11 +84,19 @@ class MeshSetupStrings {
     }
 
     struct GetReady {
+        static let Button = "MeshSetup.GetReady.Button".meshLocalized()
+
         static let Title = "MeshSetup.GetReady.Title".meshLocalized()
         static let Text1 = "MeshSetup.GetReady.Text1".meshLocalized()
         static let Text2 = "MeshSetup.GetReady.Text2".meshLocalized()
         static let Text3 = "MeshSetup.GetReady.Text3".meshLocalized()
-        static let Button = "MeshSetup.GetReady.Button".meshLocalized()
+        static let Text4 = "MeshSetup.GetReady.Text4".meshLocalized()
+
+        static let EthernetTitle = "MeshSetup.GetReady.EthernetTitle".meshLocalized()
+        static let EthernetText1 = "MeshSetup.GetReady.EthernetText1".meshLocalized()
+        static let EthernetText2 = "MeshSetup.GetReady.EthernetText2".meshLocalized()
+        static let EthernetText3 = "MeshSetup.GetReady.EthernetText3".meshLocalized()
+        static let EthernetText4 = "MeshSetup.GetReady.EthernetText4".meshLocalized()
     }
 
     struct GetCommissionerReady {

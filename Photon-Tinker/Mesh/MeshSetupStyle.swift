@@ -29,6 +29,7 @@ class MeshSetupStyle {
     static var NoteBackgroundColor = UIColor.colorWithHexString("#F7F7F7")
     static var NoteBorderColor = UIColor.colorWithHexString("#C7C7C7")
 
+    static var EthernetToggleBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
     static var VideoBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
     static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
 
@@ -36,7 +37,7 @@ class MeshSetupStyle {
     static var ButtonTitleColor = UIColor.colorWithHexString("#FFFFFF")
 
     static var CellSeparatorColor = UIColor.colorWithHexString("#BCBBC1")
-    static var CellHighlightColor = UIColor.colorWithHexString("#02ADEF")
+    static var CellHighlightColor = UIColor.colorWithHexString("#F5F5F5")
 
 
     static var PairingActivityIndicatorColor = UIColor.colorWithHexString("#02ADEF")
