@@ -76,8 +76,8 @@
 
 
 
-"MeshSetup.ScanSticker.Title" = "Pair {{device}} with your phone";
-"MeshSetup.ScanSticker.Text" = "Point the camera at the data matrix on the {{device}}.";
+"MeshSetup.ScanSticker.Title" = "Scan the sticker";
+"MeshSetup.ScanSticker.Text" = "Make sure the sticker is steady and well-lit";
 
 "MeshSetup.ScanCommissionerSticker.Title" = "Pair assisting device with your phone";
 "MeshSetup.ScanCommissionerSticker.Text" = "Point the camera at the data matrix on the device.";

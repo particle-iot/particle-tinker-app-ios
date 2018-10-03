@@ -14,7 +14,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     internal var callback: ((String) -> ())!
 
     private var captureSession: AVCaptureSession!
-    private var previewLayer: AVCaptureVideoPreviewLayer!
+    private var previewLayer: AVCaptureVideoPreviewLayer?
 
     func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
         self.callback = didFindStickerCode
@@ -54,10 +54,10 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         }
 
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = self.cameraView.layer.bounds
-        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer!.frame = self.cameraView.layer.bounds
+        previewLayer!.videoGravity = .resizeAspectFill
 
-        cameraView.layer.addSublayer(previewLayer)
+        cameraView.layer.addSublayer(previewLayer!)
         cameraView.clipsToBounds = true
 
         captureSession.startRunning()
@@ -66,7 +66,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        previewLayer.frame = self.cameraView.layer.bounds
+        previewLayer?.frame = self.cameraView.layer.bounds
     }
 
     func failed() {
@@ -85,8 +85,13 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     override func setStyle() {
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        if (MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone4) {
+            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        } else {
+            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+        }
     }
 
     override func setContent() {
