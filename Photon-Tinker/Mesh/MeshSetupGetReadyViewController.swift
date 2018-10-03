@@ -24,8 +24,8 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBOutlet weak var textLabel3: MeshLabel!
     @IBOutlet weak var textLabel4: MeshLabel!
     
-    @IBOutlet weak var ethernetToggleTitle: MeshLabel!
-    @IBOutlet weak var ethernetToggleText: MeshLabel!
+    @IBOutlet weak var ethernetToggleTitle: MeshLabel?
+    @IBOutlet weak var ethernetToggleText: MeshLabel?
     
     @IBOutlet weak var continueButton: MeshSetupButton!
     @IBOutlet weak var contentStackView: UIStackView!
@@ -69,8 +69,8 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
             textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
 
 
-            ethernetToggleTitle.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
-            ethernetToggleText.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            ethernetToggleTitle?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            ethernetToggleText?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
         } else {
             contentStackView.spacing = 20
 
@@ -81,8 +81,8 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
             textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
             textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
-            ethernetToggleTitle.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-            ethernetToggleText.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            ethernetToggleTitle?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            ethernetToggleText?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
         }
     }
 
@@ -93,8 +93,8 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         continueButton.setTitle(MeshSetupStrings.GetReady.Button, for: .normal)
         initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
 
-        ethernetToggleTitle.text = MeshSetupStrings.GetReady.EthernetToggleTitle
-        ethernetToggleText.text = MeshSetupStrings.GetReady.EthernetToggleText
+        ethernetToggleTitle?.text = MeshSetupStrings.GetReady.EthernetToggleTitle
+        ethernetToggleText?.text = MeshSetupStrings.GetReady.EthernetToggleText
     }
 
     private func setDefaultContent() {
@@ -120,7 +120,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
 
-    private func hideEmptyLabels() {
+    internal func hideEmptyLabels() {
         textLabel1.isHidden = (textLabel1.text?.count ?? 0) == 0
         textLabel2.isHidden = (textLabel2.text?.count ?? 0) == 0
         textLabel3.isHidden = (textLabel3.text?.count ?? 0) == 0

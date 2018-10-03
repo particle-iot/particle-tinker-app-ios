@@ -108,6 +108,7 @@ class MeshSetupStrings {
         static let Text1 = "MeshSetup.GetCommissionerReady.Text1".meshLocalized()
         static let Text2 = "MeshSetup.GetCommissionerReady.Text2".meshLocalized()
         static let Text3 = "MeshSetup.GetCommissionerReady.Text3".meshLocalized()
+        static let Text4 = "MeshSetup.GetCommissionerReady.Text4".meshLocalized()
         static let Button = "MeshSetup.GetCommissionerReady.Button".meshLocalized()
     }
 

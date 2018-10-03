@@ -24,6 +24,7 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
         textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
         textLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
         textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
         continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
     }
@@ -33,6 +34,9 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
         textLabel1.text = MeshSetupStrings.GetCommissionerReady.Text1
         textLabel2.text = MeshSetupStrings.GetCommissionerReady.Text2
         textLabel3.text = MeshSetupStrings.GetCommissionerReady.Text3
+        textLabel3.text = MeshSetupStrings.GetCommissionerReady.Text4
+
+        hideEmptyLabels()
 
         continueButton.setTitle(MeshSetupStrings.GetCommissionerReady.Button, for: .normal)
         

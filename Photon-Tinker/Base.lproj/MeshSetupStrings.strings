@@ -58,6 +58,7 @@
 "MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text2" = "Press and hold the MODE button for 3 seconds";
 "MeshSetup.GetCommissionerReady.Text3" = "Confirm the device is blinking blue and your phone remains physically close to that device";
+"MeshSetup.GetCommissionerReady.Text4" = "";
 "MeshSetup.GetCommissionerReady.Button" = "Assisting device blinking blue";
 
 
