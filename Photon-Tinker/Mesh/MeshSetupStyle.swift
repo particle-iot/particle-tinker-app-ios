@@ -8,9 +8,9 @@ import Foundation
 class MeshSetupStyle {
 
     //fonts
-    static var RegularFont: String = "Gotham-Book"
-    static var SemiBoldFont: String = "Gotham-Medium"
-    static var BoldFont: String = "Gotham-Medium"
+    static var RegularFont: String = "AvenirNext-Regular"
+    static var ItalicFont: String = "AvenirNext-Italic"
+    static var BoldFont: String = "AvenirNext-DemiBold"
 
     //text sizes
     static var DetailSize = 12

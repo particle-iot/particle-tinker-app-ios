@@ -41,6 +41,7 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
+		9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */; };
 		931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931C3780215AA2240014811C /* MeshSetupStrings.strings */; };
 		931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931C3782215AA2240014811C /* MeshSetup.storyboard */; };
 		931C37CA215AA4310014811C /* MeshSetupNameDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37AE215AA42E0014811C /* MeshSetupNameDeviceViewController.swift */; };
@@ -193,6 +194,7 @@
 		50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightIta.otf"; sourceTree = "<group>"; };
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
 		8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Avenir Next.ttc"; path = "Photon-Tinker/Fonts/Avenir Next.ttc"; sourceTree = "<group>"; };
 		931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
 		931C3781215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetupStrings.strings"; sourceTree = "<group>"; };
 		931C3783215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetup.storyboard"; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */,
 				93FFD5B7215E7EFE005A469D /* commissioner_to_listening_mode.mp4 */,
 				93FFD5B6215E7EFE005A469D /* xenon_power_on.mp4 */,
 				93FFD5B5215E7EFD005A469D /* ethernet_featherwing_power_on.mp4 */,
@@ -693,6 +696,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */,
 				93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */,
 				93FFD5BE215E7EFF005A469D /* xenon_power_on.mp4 in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
