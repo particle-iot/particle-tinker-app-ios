@@ -121,7 +121,7 @@ class MeshSetupStrings {
     struct FindCommissionerSticker {
         static let Title = "MeshSetup.FindCommissionerSticker.Title".meshLocalized()
         static let Text = "MeshSetup.FindCommissionerSticker.Text".meshLocalized()
-        static let Note = "MeshSetup.FindCommissionerSticker.Note".meshLocalized()
+        static let NoteText = "MeshSetup.FindCommissionerSticker.NoteText".meshLocalized()
         static let NoteTitle = "MeshSetup.FindCommissionerSticker.NoteTitle".meshLocalized()
         static let Button = "MeshSetup.FindCommissionerSticker.Button".meshLocalized()
     }
@@ -158,7 +158,7 @@ class MeshSetupStrings {
     struct ExistingNetworkPassword {
         static let Title = "MeshSetup.ExistingNetworkPassword.Title".meshLocalized()
         static let NoteTitle = "MeshSetup.ExistingNetworkPassword.NoteTitle".meshLocalized()
-        static let NoteText = "MeshSetup.ExistingNetworkPassword.Text".meshLocalized()
+        static let NoteText = "MeshSetup.ExistingNetworkPassword.NoteText".meshLocalized()
         static let Button = "MeshSetup.ExistingNetworkPassword.Button".meshLocalized()
     }
 
@@ -177,7 +177,7 @@ class MeshSetupStrings {
     struct DeviceName {
         static let Title = "MeshSetup.DeviceName.Title".meshLocalized()
         static let NoteTitle = "MeshSetup.DeviceName.NoteTitle".meshLocalized()
-        static let NoteText = "MeshSetup.DeviceName.Text".meshLocalized()
+        static let NoteText = "MeshSetup.DeviceName.NoteText".meshLocalized()
         static let Button = "MeshSetup.DeviceName.Button".meshLocalized()
     }
 
@@ -240,6 +240,7 @@ class MeshSetupStrings {
 
     struct CreateNetworkName {
         static let Title = "MeshSetup.CreateNetworkName.Title".meshLocalized()
+        static let NoteTitle = "MeshSetup.CreateNetworkName.NoteTitle".meshLocalized()
         static let NoteText = "MeshSetup.CreateNetworkName.NoteText".meshLocalized()
         static let Button = "MeshSetup.CreateNetworkName.Button".meshLocalized()
     }
@@ -247,6 +248,7 @@ class MeshSetupStrings {
 
     struct CreateNetworkPassword {
         static let Title = "MeshSetup.CreateNetworkPassword.Title".meshLocalized()
+        static let NoteTitle = "MeshSetup.CreateNetworkPassword.NoteTitle".meshLocalized()
         static let NoteText = "MeshSetup.CreateNetworkPassword.NoteText".meshLocalized()
         static let Button = "MeshSetup.CreateNetworkPassword.Button".meshLocalized()
         static let Repeat = "MeshSetup.CreateNetworkPassword.Repeat".meshLocalized()

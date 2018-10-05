@@ -177,6 +177,7 @@
 
 
 "MeshSetup.CreateNetworkName.Title" = "Give your network a name";
+"MeshSetup.CreateNetworkName.NoteTitle" = "HELPFUL TIP!";
 "MeshSetup.CreateNetworkName.NoteText" = "Name your network something you will remember to help you easily identify it later.";
 "MeshSetup.CreateNetworkName.Button" = "Next";
 
@@ -184,6 +185,7 @@
 
 
 "MeshSetup.CreateNetworkPassword.Title" = "Set network admin password";
+"MeshSetup.CreateNetworkPassword.NoteTitle" = "KEEP THIS PASSWORD SAFE!";
 "MeshSetup.CreateNetworkPassword.NoteText" = "You’ll need this password each time you want to add a new device to this mesh network.";
 "MeshSetup.CreateNetworkPassword.Button" = "Create network";
 "MeshSetup.CreateNetworkPassword.Repeat" = "Repeat password";

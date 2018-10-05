@@ -16,6 +16,10 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer?
 
+    static var nibName: String {
+        return "MeshSetupScanStickerView"
+    }
+
     func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
         self.callback = didFindStickerCode
         self.deviceType = deviceType

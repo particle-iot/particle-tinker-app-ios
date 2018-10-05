@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController, Storyboardable{
 
+    static var nibName: String {
+        return "MeshSetupTextInputView"
+    }
+
     internal var callback: ((String) -> ())!
 
     func setup(didEnterNetworkName: @escaping (String) -> ()) {
@@ -15,6 +19,7 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.CreateNetworkName.Title
+        noteTitleLabel.text = MeshSetupStrings.CreateNetworkName.NoteTitle
         noteTextLabel.text = MeshSetupStrings.CreateNetworkName.NoteText
         continueButton.setTitle(MeshSetupStrings.CreateNetworkName.Button, for: .normal)
     }
@@ -39,7 +44,7 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
     }
 
 
-    let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+    let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_"
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         for var char in string {
             if !charset.contains(char) {

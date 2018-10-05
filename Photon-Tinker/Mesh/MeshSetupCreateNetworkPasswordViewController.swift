@@ -26,6 +26,7 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
     override func setContent() {
         titleLabel.text = MeshSetupStrings.CreateNetworkPassword.Title
         noteTextLabel.text = MeshSetupStrings.CreateNetworkPassword.NoteText
+        noteTitleLabel.text = MeshSetupStrings.CreateNetworkPassword.NoteTitle
         repeatTextLabel.text = MeshSetupStrings.CreateNetworkPassword.Repeat
 
         continueButton.setTitle(MeshSetupStrings.CreateNetworkPassword.Button, for: .normal)
