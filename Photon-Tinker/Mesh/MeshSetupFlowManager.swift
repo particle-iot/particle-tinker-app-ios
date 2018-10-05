@@ -257,6 +257,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureCommissionerNetworkMatches,
         .EnsureCorrectSelectedNetworkPassword,
         .JoinSelectedNetwork,
+        .FinishJoinSelectedNetwork,
         .OfferToAddOneMoreDevice
     ]
 
@@ -1308,7 +1309,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
             if (result == .NONE) {
                 self.log("Delaying call to joinNetwork")
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(10)) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                     if (self.canceled) {
                         return
                     }
