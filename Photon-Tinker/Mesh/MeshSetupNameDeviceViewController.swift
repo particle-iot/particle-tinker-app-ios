@@ -16,7 +16,7 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.DeviceName.Title
-        textLabel.text = MeshSetupStrings.DeviceName.Text
+        noteTextLabel.text = MeshSetupStrings.DeviceName.NoteText
 
         continueButton.setTitle(MeshSetupStrings.DeviceName.Button, for: .normal)
     }
