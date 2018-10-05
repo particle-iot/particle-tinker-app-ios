@@ -637,7 +637,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func invokeMeshDeviceSetup() {
-        self.present(MeshSetupFlowUIManager.storyboardViewController(), animated: true)
+        self.present(MeshSetupFlowUIManager.loadedViewController(), animated: true)
     }
     
     
