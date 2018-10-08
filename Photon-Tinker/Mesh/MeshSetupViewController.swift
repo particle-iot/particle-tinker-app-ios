@@ -98,7 +98,7 @@ class MeshSetupViewController: UIViewController {
                     }
                 }
 
-                constraint.constant = keyboardSize.height
+                constraint.constant = keyboardSize.height - safeAreaBottomMargin
                 UIView.animate(withDuration: 0.25) { () -> Void in
                     self.view.layoutIfNeeded()
                 }
