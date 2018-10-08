@@ -545,7 +545,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func validateNetworkName(_ networkName: String) -> Bool {
-        return (networkName.count > 0) && (networkName.count < 16)
+        //ensure proper length
+        if (networkName.count == 0) || (networkName.count > 16) {
+            return false
+        }
+
+        //ensure no illegal characters
+        let regex = try! NSRegularExpression(pattern: "[^a-zA-Z0-9_\\-]+")
+        let matches = regex.matches(in: networkName, options: [], range: NSRange(location: 0, length: networkName.count))
+        return matches.count == 0
     }
 
     private func validateDeviceName(_ name: String) -> Bool {
