@@ -68,9 +68,11 @@ class MeshSetupButton : UIButton {
         self.layer.cornerRadius = 3.0
         self.backgroundColor = MeshSetupStyle.ButtonColor
 
-        self.layer.shadowOffset = CGSize(width: 0, height: 1)
-        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-        self.layer.shadowOpacity = 1.0
+        self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
+
+//        self.layer.shadowOffset = CGSize(width: 0, height: 1)
+//        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//        self.layer.shadowOpacity = 1.0
 
     }
 
@@ -87,6 +89,29 @@ class MeshSetupButton : UIButton {
         self.setTitleColor(color.withAlphaComponent(0.5), for: .disabled)
 
         self.tintColor = color
+    }
+}
+
+extension CALayer {
+    func applySketchShadow(
+            color: UIColor = .black,
+            alpha: Float = 0.5,
+            x: CGFloat = 0,
+            y: CGFloat = 2,
+            blur: CGFloat = 4,
+            spread: CGFloat = 0)
+    {
+        shadowColor = color.cgColor
+        shadowOpacity = alpha
+        shadowOffset = CGSize(width: x, height: y)
+        shadowRadius = blur / 2.0
+        if spread == 0 {
+            shadowPath = nil
+        } else {
+            let dx = -spread
+            let rect = bounds.insetBy(dx: dx, dy: dx)
+            shadowPath = UIBezierPath(rect: rect).cgPath
+        }
     }
 }
 
