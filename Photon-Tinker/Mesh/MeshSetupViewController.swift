@@ -89,8 +89,9 @@ class MeshSetupViewController: UIViewController {
 
                 if #available(iOS 11.0, *) {
                     safeAreaBottomMargin = view.safeAreaInsets.bottom
-                    safeAreaSideMargin = max(view.safeAreaInsets.left, view.safeAreaInsets.right) + 5
+                    safeAreaSideMargin = max(view.safeAreaInsets.left, view.safeAreaInsets.right)
                 }
+                safeAreaSideMargin += 5 //to compensate rounded corners of the button
 
                 if let sideConstraints = buttonSideConstraints {
                     for sideConstraint in sideConstraints {
