@@ -22,6 +22,10 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
         self.callback = didEnterNetworkPassword
     }
 
+    //this screen is too big for iphone6 so we don't open keyboard for it
+    override func shouldAutoFocusInput() -> Bool {
+        return MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone6
+    }
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.CreateNetworkPassword.Title
@@ -49,11 +53,8 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
     override func setStyle() {
         super.setStyle()
 
-
         self.repeatTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.InputTitleColor)
         self.repeatPasswordTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-
-
 
         self.inputTextField.isSecureTextEntry = true
         self.repeatPasswordTextField.isSecureTextEntry = true

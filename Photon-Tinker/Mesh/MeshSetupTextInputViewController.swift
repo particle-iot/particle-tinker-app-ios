@@ -30,9 +30,13 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if (MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone5) {
-            inputTextField.becomeFirstResponder()
+        if (shouldAutoFocusInput()) {
+            focusInputText()
         }
+    }
+
+    open func shouldAutoFocusInput() -> Bool {
+        return MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone5
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
