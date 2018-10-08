@@ -40,17 +40,35 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBOutlet weak var setupSwitch: UISwitch!
     
     @IBAction func setupSwitchChanged(_ sender: Any) {
-        if self.setupSwitch.isOn {
-            self.videoPlayer?.replaceCurrentItem(with: gatewayVideo)
-            setEthernetContent()
-        } else {
-            self.videoPlayer?.replaceCurrentItem(with: defaultVideo)
-            setDefaultContent()
-        }
+        continueButton.isUserInteractionEnabled = false
+        contentStackView.alpha = 0
+        titleLabel.alpha = 0
+        videoView.alpha = 0
+        setViewContent()
     }
-    
+
+    private func setViewContent() {
+        if self.setupSwitch.isOn {
+            setEthernetContent()
+            self.videoPlayer?.replaceCurrentItem(with: gatewayVideo)
+        } else {
+            setDefaultContent()
+            self.videoPlayer?.replaceCurrentItem(with: defaultVideo)
+        }
+
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+
+        UIView.animate(withDuration: 0.125, delay: 0.125, options: [], animations: { () -> Void in
+            self.contentStackView.alpha = 1
+            self.titleLabel.alpha = 1
+            self.videoView.alpha = 1
+        }, completion: { completed in
+            self.continueButton.isUserInteractionEnabled = true
+        })
+    }
+
     override func setStyle() {
-        videoView.backgroundColor = MeshSetupStyle.VideoBackgroundColor
         videoView.layer.cornerRadius = 5
         videoView.clipsToBounds = true
 
@@ -91,10 +109,14 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         setDefaultContent()
 
         continueButton.setTitle(MeshSetupStrings.GetReady.Button, for: .normal)
-        initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
 
         ethernetToggleTitle?.text = MeshSetupStrings.GetReady.EthernetToggleTitle
         ethernetToggleText?.text = MeshSetupStrings.GetReady.EthernetToggleText
+
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+
+        initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
     }
 
     private func setDefaultContent() {

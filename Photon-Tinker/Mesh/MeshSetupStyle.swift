@@ -30,7 +30,6 @@ class MeshSetupStyle {
     static var NoteBorderColor = UIColor.colorWithHexString("#C7C7C7")
 
     static var EthernetToggleBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
-    static var VideoBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
     static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
 
     static var ButtonColor = UIColor.colorWithHexString("#02ADEF")
