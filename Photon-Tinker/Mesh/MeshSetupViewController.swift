@@ -8,9 +8,12 @@ import UIKit
 class MeshSetupViewController: UIViewController {
 
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint?
+    @IBOutlet var buttonSideConstraints: [NSLayoutConstraint]?
+    
     @IBOutlet var constraintsToShrinkOnSmallScreens: [NSLayoutConstraint]?
 
     private var bottomConstraintConstant: CGFloat?
+    private var sideConstraintConstant: CGFloat?
 
     internal var deviceType: ParticleDeviceType?
     internal var networkName: String?
@@ -40,6 +43,10 @@ class MeshSetupViewController: UIViewController {
 
         if let constraint = buttonBottomConstraint {
             bottomConstraintConstant = constraint.constant
+        }
+
+        if let sideConstraints = buttonSideConstraints, let constraint = sideConstraints.first {
+            sideConstraintConstant = constraint.constant
         }
 
         setContent()
@@ -77,12 +84,21 @@ class MeshSetupViewController: UIViewController {
             if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
                 let keyboardHeight = keyboardSize.height
 
-                var safeAreaMargin:CGFloat = 0
+                var safeAreaBottomMargin:CGFloat = 0
+                var safeAreaSideMargin:CGFloat = 0
+
                 if #available(iOS 11.0, *) {
-                    safeAreaMargin = view.safeAreaInsets.bottom
+                    safeAreaBottomMargin = view.safeAreaInsets.bottom
+                    safeAreaSideMargin = max(view.safeAreaInsets.left, view.safeAreaInsets.right) + 5
                 }
 
-                constraint.constant = keyboardSize.height + bottomConstraintConstant! - safeAreaMargin
+                if let sideConstraints = buttonSideConstraints {
+                    for sideConstraint in sideConstraints {
+                        sideConstraint.constant = -safeAreaSideMargin
+                    }
+                }
+
+                constraint.constant = keyboardSize.height
                 UIView.animate(withDuration: 0.25) { () -> Void in
                     self.view.layoutIfNeeded()
                 }
@@ -93,6 +109,13 @@ class MeshSetupViewController: UIViewController {
     @objc func keyboardWillHide(notification: NSNotification) {
         if let constraint = buttonBottomConstraint {
             constraint.constant = bottomConstraintConstant!
+
+            if let sideConstraints = buttonSideConstraints {
+                for sideConstraint in sideConstraints {
+                    sideConstraint.constant = sideConstraintConstant!
+                }
+            }
+
             UIView.animate(withDuration: 0.25) { () -> Void in
                 self.view.layoutIfNeeded()
             }

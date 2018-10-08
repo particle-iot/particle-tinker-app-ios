@@ -27,6 +27,8 @@
                 <outlet property="noteTitleLabel" destination="Tpg-xy-IQf" id="MyR-aW-5fT"/>
                 <outlet property="titleLabel" destination="UnX-o6-r2M" id="fL2-j8-Rqc"/>
                 <outlet property="view" destination="XEB-96-QjT" id="CE7-R0-sP7"/>
+                <outletCollection property="buttonSideConstraints" destination="S52-wI-PMw" collectionClass="NSMutableArray" id="d6q-No-cur"/>
+                <outletCollection property="buttonSideConstraints" destination="PD1-xY-QW3" collectionClass="NSMutableArray" id="LO4-j9-waP"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
