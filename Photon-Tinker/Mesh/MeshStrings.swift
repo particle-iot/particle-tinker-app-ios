@@ -157,6 +157,7 @@ class MeshSetupStrings {
 
     struct ExistingNetworkPassword {
         static let Title = "MeshSetup.ExistingNetworkPassword.Title".meshLocalized()
+        static let InputTitle = "MeshSetup.ExistingNetworkPassword.InputTitle".meshLocalized()
         static let NoteTitle = "MeshSetup.ExistingNetworkPassword.NoteTitle".meshLocalized()
         static let NoteText = "MeshSetup.ExistingNetworkPassword.NoteText".meshLocalized()
         static let Button = "MeshSetup.ExistingNetworkPassword.Button".meshLocalized()
@@ -176,6 +177,7 @@ class MeshSetupStrings {
 
     struct DeviceName {
         static let Title = "MeshSetup.DeviceName.Title".meshLocalized()
+        static let InputTitle = "MeshSetup.DeviceName.InputTitle".meshLocalized()
         static let NoteTitle = "MeshSetup.DeviceName.NoteTitle".meshLocalized()
         static let NoteText = "MeshSetup.DeviceName.NoteText".meshLocalized()
         static let Button = "MeshSetup.DeviceName.Button".meshLocalized()
@@ -240,6 +242,7 @@ class MeshSetupStrings {
 
     struct CreateNetworkName {
         static let Title = "MeshSetup.CreateNetworkName.Title".meshLocalized()
+        static let InputTitle = "MeshSetup.CreateNetworkName.InputTitle".meshLocalized()
         static let NoteTitle = "MeshSetup.CreateNetworkName.NoteTitle".meshLocalized()
         static let NoteText = "MeshSetup.CreateNetworkName.NoteText".meshLocalized()
         static let Button = "MeshSetup.CreateNetworkName.Button".meshLocalized()
@@ -250,8 +253,9 @@ class MeshSetupStrings {
         static let Title = "MeshSetup.CreateNetworkPassword.Title".meshLocalized()
         static let NoteTitle = "MeshSetup.CreateNetworkPassword.NoteTitle".meshLocalized()
         static let NoteText = "MeshSetup.CreateNetworkPassword.NoteText".meshLocalized()
+        static let InputTitle = "MeshSetup.CreateNetworkPassword.InputTitle".meshLocalized()
+        static let RepeatTitle = "MeshSetup.CreateNetworkPassword.RepeatTitle".meshLocalized()
         static let Button = "MeshSetup.CreateNetworkPassword.Button".meshLocalized()
-        static let Repeat = "MeshSetup.CreateNetworkPassword.Repeat".meshLocalized()
         static let PasswordsDoNotMatch = "MeshSetup.CreateNetworkPassword.PasswordsDoNotMatch".meshLocalized()
 
     }

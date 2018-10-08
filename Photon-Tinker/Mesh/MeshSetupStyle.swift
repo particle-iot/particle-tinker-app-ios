@@ -26,6 +26,7 @@ class MeshSetupStyle {
     static var DisabledTextColor = UIColor.colorWithHexString("#A9A9A9")
     static var PlaceHolderTextColor = UIColor.colorWithHexString("#A9A9A9")
 
+    static var InputTitleColor = UIColor.colorWithHexString("#777777")
     static var NoteBackgroundColor = UIColor.colorWithHexString("#F7F7F7")
     static var NoteBorderColor = UIColor.colorWithHexString("#C7C7C7")
 
@@ -37,6 +38,8 @@ class MeshSetupStyle {
 
     static var CellSeparatorColor = UIColor.colorWithHexString("#BCBBC1")
     static var CellHighlightColor = UIColor.colorWithHexString("#F5F5F5")
+
+
 
 
     static var PairingActivityIndicatorColor = UIColor.colorWithHexString("#02ADEF")
@@ -58,6 +61,14 @@ class MeshTextField: UITextField {
         self.textColor = color
         self.font = UIFont(name: font, size: CGFloat(size))
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        superview?.layer.cornerRadius = 3
+        superview?.layer.borderColor = MeshSetupStyle.NoteBorderColor.cgColor
+        superview?.layer.borderWidth = 1
+    }
 }
 
 class MeshSetupButton : UIButton {
@@ -68,7 +79,6 @@ class MeshSetupButton : UIButton {
         self.backgroundColor = MeshSetupStyle.ButtonColor
 
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
-
 //        self.layer.shadowOffset = CGSize(width: 0, height: 1)
 //        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
 //        self.layer.shadowOpacity = 1.0

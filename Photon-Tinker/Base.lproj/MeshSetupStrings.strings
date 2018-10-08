@@ -103,6 +103,7 @@
 
 
 "MeshSetup.ExistingNetworkPassword.Title" = "Enter network password for {{network}}";
+"MeshSetup.ExistingNetworkPassword.InputTitle" = "Network password";
 "MeshSetup.ExistingNetworkPassword.NoteTitle" = "HELPFUL TIP!";
 "MeshSetup.ExistingNetworkPassword.NoteText" = "This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.";
 "MeshSetup.ExistingNetworkPassword.Button" = "Join Network";
@@ -121,6 +122,7 @@
 
 
 "MeshSetup.DeviceName.Title" = "Give your {{device}} a name";
+"MeshSetup.DeviceName.InputTitle" = "Device name";
 "MeshSetup.DeviceName.NoteTitle" = "HELPFUL TIP!";
 "MeshSetup.DeviceName.NoteText" = "Name your device something you will remember to help you easily identify it later.";
 "MeshSetup.DeviceName.Button" = "Next";
@@ -177,6 +179,7 @@
 
 
 "MeshSetup.CreateNetworkName.Title" = "Give your network a name";
+"MeshSetup.CreateNetworkName.InputTitle" = "Network name";
 "MeshSetup.CreateNetworkName.NoteTitle" = "HELPFUL TIP!";
 "MeshSetup.CreateNetworkName.NoteText" = "Name your network something you will remember to help you easily identify it later.";
 "MeshSetup.CreateNetworkName.Button" = "Next";
@@ -188,7 +191,8 @@
 "MeshSetup.CreateNetworkPassword.NoteTitle" = "KEEP THIS PASSWORD SAFE!";
 "MeshSetup.CreateNetworkPassword.NoteText" = "You’ll need this password each time you want to add a new device to this mesh network.";
 "MeshSetup.CreateNetworkPassword.Button" = "Create network";
-"MeshSetup.CreateNetworkPassword.Repeat" = "Repeat password";
+"MeshSetup.CreateNetworkPassword.InputTitle" = "Network password";
+"MeshSetup.CreateNetworkPassword.RepeatTitle" = "Confirm network password";
 "MeshSetup.CreateNetworkPassword.PasswordsDoNotMatch" = "Password and repeated password do not match.";
 
 

@@ -982,32 +982,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JQD-jr-l3N" customClass="MeshTextField" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="92.5" width="280" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Yqa-Wx-F44"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
-                                <connections>
-                                    <action selector="textFieldDidChange:" destination="NPp-3h-3nd" eventType="editingChanged" id="hOw-rH-asO"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WFp-dT-aD9" customClass="MeshTextField" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="201.5" width="280" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="YVv-nt-m9k"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
-                                <connections>
-                                    <action selector="textFieldDidChange:" destination="NPp-3h-3nd" eventType="editingChanged" id="Ary-ik-Yhy"/>
-                                </connections>
-                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Q1-NW-JWm" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="15" y="261.5" width="290" height="150.5"/>
+                                <rect key="frame" x="15" y="223.5" width="290" height="150.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fza-kU-P9N" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="10" y="42" width="270" height="93.5"/>
@@ -1054,47 +1030,103 @@
                                     <action selector="continueButtonTapped:" destination="NPp-3h-3nd" eventType="touchUpInside" id="Isx-MX-TiW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMI-5j-X8S" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="172.5" width="280" height="19"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZHk-2G-BL4">
+                                <rect key="frame" x="15" y="92.5" width="290" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzE-Dn-WNf" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="6" width="274" height="14"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gPG-GI-HBw" customClass="MeshTextField" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="18" width="274" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="EXW-40-oHI"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="NPp-3h-3nd" eventType="editingChanged" id="R8H-q4-WDb"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="gzE-Dn-WNf" firstAttribute="top" secondItem="ZHk-2G-BL4" secondAttribute="top" constant="6" id="CGm-SW-c8y"/>
+                                    <constraint firstAttribute="bottom" secondItem="gPG-GI-HBw" secondAttribute="bottom" id="HGH-mD-iR0"/>
+                                    <constraint firstAttribute="trailing" secondItem="gPG-GI-HBw" secondAttribute="trailing" constant="8" id="LTk-4q-MEZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="gzE-Dn-WNf" secondAttribute="trailing" constant="8" id="Okt-oB-pgj"/>
+                                    <constraint firstItem="gzE-Dn-WNf" firstAttribute="leading" secondItem="ZHk-2G-BL4" secondAttribute="leading" constant="8" id="YCY-7M-cUY"/>
+                                    <constraint firstItem="gPG-GI-HBw" firstAttribute="top" secondItem="gzE-Dn-WNf" secondAttribute="bottom" constant="-2" id="mUC-6Q-to3"/>
+                                    <constraint firstItem="gPG-GI-HBw" firstAttribute="leading" secondItem="ZHk-2G-BL4" secondAttribute="leading" constant="8" id="sHE-vx-EHE"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVB-yu-wTU">
+                                <rect key="frame" x="15" y="155.5" width="290" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDt-ls-rnb" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="6" width="274" height="14"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-2k-BR6" customClass="MeshTextField" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="18" width="274" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Mzt-Rm-3s9"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="NPp-3h-3nd" eventType="editingChanged" id="Hlz-J7-K1A"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="fpo-2k-BR6" secondAttribute="trailing" constant="8" id="5gT-4K-qVT"/>
+                                    <constraint firstItem="fpo-2k-BR6" firstAttribute="top" secondItem="wDt-ls-rnb" secondAttribute="bottom" constant="-2" id="Lcz-Ge-MYG"/>
+                                    <constraint firstItem="wDt-ls-rnb" firstAttribute="leading" secondItem="CVB-yu-wTU" secondAttribute="leading" constant="8" id="Umf-2A-5Rt"/>
+                                    <constraint firstAttribute="trailing" secondItem="wDt-ls-rnb" secondAttribute="trailing" constant="8" id="ayh-x5-XLo"/>
+                                    <constraint firstItem="wDt-ls-rnb" firstAttribute="top" secondItem="CVB-yu-wTU" secondAttribute="top" constant="6" id="p47-Qi-fSj"/>
+                                    <constraint firstItem="fpo-2k-BR6" firstAttribute="leading" secondItem="CVB-yu-wTU" secondAttribute="leading" constant="8" id="qFt-pe-Ulg"/>
+                                    <constraint firstAttribute="bottom" secondItem="fpo-2k-BR6" secondAttribute="bottom" id="sD3-6x-msU"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="JQD-jr-l3N" firstAttribute="top" secondItem="P01-DH-5bJ" secondAttribute="bottom" constant="20" id="5OS-LF-zgo"/>
+                            <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="ZHk-2G-BL4" secondAttribute="trailing" constant="15" id="0WI-EW-6qv"/>
+                            <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="CVB-yu-wTU" secondAttribute="trailing" constant="15" id="4ph-RV-mD3"/>
                             <constraint firstItem="P01-DH-5bJ" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="CEE-bl-ni9"/>
                             <constraint firstItem="tUz-7R-LZp" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="Cc7-vz-3IT"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="6Q1-NW-JWm" secondAttribute="trailing" constant="15" id="GBa-6G-S8y"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="bottom" secondItem="tUz-7R-LZp" secondAttribute="bottom" constant="20" id="NNp-0i-HI1"/>
-                            <constraint firstItem="dMI-5j-X8S" firstAttribute="top" secondItem="JQD-jr-l3N" secondAttribute="bottom" constant="40" id="QDe-G0-vIE"/>
-                            <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="WFp-dT-aD9" secondAttribute="trailing" constant="20" id="SWj-9f-CQL"/>
-                            <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="dMI-5j-X8S" secondAttribute="trailing" constant="20" id="WnE-VV-hM4"/>
+                            <constraint firstItem="ZHk-2G-BL4" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="15" id="cMd-CK-n96"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="tUz-7R-LZp" secondAttribute="trailing" constant="20" id="dar-NI-B7B"/>
                             <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="P01-DH-5bJ" secondAttribute="trailing" constant="20" id="e8d-u1-SZ4"/>
                             <constraint firstItem="P01-DH-5bJ" firstAttribute="top" secondItem="IUq-Qv-CZm" secondAttribute="top" constant="15" id="gbY-Ir-sq1"/>
-                            <constraint firstItem="JQD-jr-l3N" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="iXY-mT-sfC"/>
-                            <constraint firstItem="IUq-Qv-CZm" firstAttribute="trailing" secondItem="JQD-jr-l3N" secondAttribute="trailing" constant="20" id="mEb-aY-XB1"/>
-                            <constraint firstItem="6Q1-NW-JWm" firstAttribute="top" secondItem="WFp-dT-aD9" secondAttribute="bottom" constant="20" id="sOE-1h-dvS"/>
-                            <constraint firstItem="WFp-dT-aD9" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="uF4-oo-vzN"/>
+                            <constraint firstItem="CVB-yu-wTU" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="15" id="luc-r3-uH9"/>
+                            <constraint firstItem="6Q1-NW-JWm" firstAttribute="top" secondItem="CVB-yu-wTU" secondAttribute="bottom" constant="20" id="r7V-AN-HUb"/>
+                            <constraint firstItem="CVB-yu-wTU" firstAttribute="top" secondItem="ZHk-2G-BL4" secondAttribute="bottom" constant="15" id="rkf-Ow-xbQ"/>
+                            <constraint firstItem="ZHk-2G-BL4" firstAttribute="top" secondItem="P01-DH-5bJ" secondAttribute="bottom" constant="20" id="sqW-Tt-2L1"/>
                             <constraint firstItem="6Q1-NW-JWm" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="15" id="vc1-tw-MAk"/>
-                            <constraint firstItem="dMI-5j-X8S" firstAttribute="leading" secondItem="IUq-Qv-CZm" secondAttribute="leading" constant="20" id="w6v-9m-cLt"/>
-                            <constraint firstItem="WFp-dT-aD9" firstAttribute="top" secondItem="dMI-5j-X8S" secondAttribute="bottom" constant="10" id="xs6-9T-ykH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IUq-Qv-CZm"/>
                     </view>
                     <connections>
                         <outlet property="buttonBottomConstraint" destination="NNp-0i-HI1" id="xps-Zz-AVi"/>
                         <outlet property="continueButton" destination="tUz-7R-LZp" id="Nbf-30-3yq"/>
-                        <outlet property="inputTextField" destination="JQD-jr-l3N" id="sy5-wN-iKF"/>
+                        <outlet property="inputTextField" destination="gPG-GI-HBw" id="7mR-Hr-qT7"/>
+                        <outlet property="inputTitleLabel" destination="gzE-Dn-WNf" id="wT4-sT-Qn7"/>
                         <outlet property="noteTextLabel" destination="fza-kU-P9N" id="tXO-6M-qBt"/>
                         <outlet property="noteTitleLabel" destination="0XQ-bQ-JtA" id="0eG-0a-JAP"/>
-                        <outlet property="repeatPasswordTextField" destination="WFp-dT-aD9" id="UZr-ry-M92"/>
-                        <outlet property="repeatTextLabel" destination="dMI-5j-X8S" id="lIK-nY-koD"/>
+                        <outlet property="repeatPasswordTextField" destination="fpo-2k-BR6" id="6rB-cQ-NvR"/>
+                        <outlet property="repeatTitleLabel" destination="wDt-ls-rnb" id="Soh-oa-Krs"/>
                         <outlet property="titleLabel" destination="P01-DH-5bJ" id="oBp-ca-K2V"/>
-                        <outletCollection property="additionalViewsToFade" destination="dMI-5j-X8S" collectionClass="NSMutableArray" id="plV-rs-FQb"/>
-                        <outletCollection property="additionalViewsToFade" destination="WFp-dT-aD9" collectionClass="NSMutableArray" id="3B6-Lz-nxy"/>
                         <outletCollection property="buttonSideConstraints" destination="dar-NI-B7B" collectionClass="NSMutableArray" id="XUM-7M-VEe"/>
                         <outletCollection property="buttonSideConstraints" destination="Cc7-vz-3IT" collectionClass="NSMutableArray" id="L6I-Js-2Ry"/>
                     </connections>

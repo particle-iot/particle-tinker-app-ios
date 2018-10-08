@@ -18,7 +18,9 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
     }
 
     override func setContent() {
+
         titleLabel.text = MeshSetupStrings.CreateNetworkName.Title
+        inputTitleLabel.text = MeshSetupStrings.CreateNetworkName.InputTitle
         noteTitleLabel.text = MeshSetupStrings.CreateNetworkName.NoteTitle
         noteTextLabel.text = MeshSetupStrings.CreateNetworkName.NoteText
         continueButton.setTitle(MeshSetupStrings.CreateNetworkName.Button, for: .normal)

@@ -12,6 +12,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     @IBOutlet weak var noteTitleLabel: MeshLabel!
     @IBOutlet weak var noteTextLabel: MeshLabel!
 
+    @IBOutlet weak var inputTitleLabel: MeshLabel!
     @IBOutlet weak var inputTextField: MeshTextField!
 
     @IBOutlet weak var continueButton: MeshSetupButton!
@@ -51,6 +52,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
         inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        inputTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.InputTitleColor)
     }
 
     open func submit() {
@@ -61,6 +63,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     internal func fadeContent() {
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
+            self.inputTitleLabel.alpha = 0.5
             self.inputTextField.alpha = 0.5
             self.noteTextLabel.alpha = 0.5
             self.noteTitleLabel.alpha = 0.5
@@ -77,6 +80,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     internal func unfadeContent() {
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 1
+            self.inputTitleLabel.alpha = 1
             self.inputTextField.alpha = 1
             self.noteTextLabel.alpha = 1
             self.noteTitleLabel.alpha = 1
