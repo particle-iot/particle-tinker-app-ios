@@ -93,13 +93,15 @@ class MeshSetupViewController: UIViewController {
                 }
                 safeAreaSideMargin += 5 //to compensate rounded corners of the button
 
+                constraint.constant = keyboardSize.height - safeAreaBottomMargin - 1
+
                 if let sideConstraints = buttonSideConstraints {
                     for sideConstraint in sideConstraints {
                         sideConstraint.constant = -safeAreaSideMargin
                     }
                 }
 
-                constraint.constant = keyboardSize.height - safeAreaBottomMargin
+
                 UIView.animate(withDuration: 0.25) { () -> Void in
                     self.view.layoutIfNeeded()
                 }
