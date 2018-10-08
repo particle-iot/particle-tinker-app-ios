@@ -91,6 +91,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case WrongNetworkPassword
     case PasswordTooShort
 
+    case SameDeviceScannedTwice
+
     //EnsureHasInternetAccess
     case FailedToObtainIp
 
@@ -125,6 +127,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .BluetoothTimeout : return "Sending bluetooth message failed. Please try again."
             case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the the setup process and try again."
             case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
+            case .SameDeviceScannedTwice : return "You scanned the same device sticker twice."
             case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure the ethernet cable is connected securely to the Ethernet FeatherWing."
 
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the setup and try again."
@@ -1153,6 +1156,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.commissionerDevice!.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
         self.log("self.commissionerDevice.type?.description = \(self.commissionerDevice!.type?.description as Optional)")
         self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: self.targetDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+
+        if (self.commissionerDevice?.credentials?.name == self.targetDevice.credentials?.name) {
+            self.commissionerDevice = nil
+            return .SameDeviceScannedTwice
+        }
 
         self.stepComplete()
 

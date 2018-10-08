@@ -121,21 +121,16 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
            self.targetDeviceType == nil || type == self.targetDeviceType {
             self.targetDeviceType = type
 
-            let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix)
-            guard error == nil else {
-                NSLog("!!!!!!!!!!!!!!!!!!!!!!! flowManager.setTargetDeviceInfo Error: \(error)")
-                return
-            }
-
-            let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
-            pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceName() ?? self.targetDeviceType!.description)
-            self.embededNavigationController.pushViewController(pairingVC, animated: true)
-        } else {
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
-                vc.restartCaptureSession()
+            if let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix) {
+                //TODO: show error
+                restartCaptureSession()
             } else {
-                NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
+                let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
+                pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceName() ?? self.targetDeviceType!.description)
+                self.embededNavigationController.pushViewController(pairingVC, animated: true)
             }
+        } else {
+            restartCaptureSession()
         }
     }
 
@@ -287,21 +282,29 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             let deviceType = ParticleDeviceType(serialNumber: matrix.serialNumber) {
 
             self.commissionerDeviceType = deviceType
-            flowManager.setCommissionerDeviceInfo(dataMatrix: matrix)
-
-            let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
-            pairingVC.setup(didFinishScreen: commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: flowManager.commissionerDeviceName() ?? deviceType.description)
-            self.embededNavigationController.pushViewController(pairingVC, animated: true)
-        } else {
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupScanCommissionerStickerViewController {
-                vc.restartCaptureSession()
+            if let error = flowManager.setCommissionerDeviceInfo(dataMatrix: matrix) {
+                //TODO: show error
+                restartCaptureSession()
             } else {
-                NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController.restartCaptureSession was attempted when it shouldn't be")
+                let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
+                pairingVC.setup(didFinishScreen: commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: flowManager.commissionerDeviceName() ?? deviceType.description)
+                self.embededNavigationController.pushViewController(pairingVC, animated: true)
             }
+        } else {
+            restartCaptureSession()
         }
     }
 
 
+    private func restartCaptureSession() {
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupScanCommissionerStickerViewController {
+            vc.restartCaptureSession()
+        } else if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
+            vc.restartCaptureSession()
+        } else {
+            NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController / MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
+        }
+    }
 
     func commissionerDevicePairingScreenDone() {
         pairingScreenDone = true
