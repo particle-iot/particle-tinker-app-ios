@@ -14,7 +14,9 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     internal var callback: ((String) -> ())!
 
     private var captureSession: AVCaptureSession!
+    private var videoCaptureDevice: AVCaptureDevice?
     private var previewLayer: AVCaptureVideoPreviewLayer?
+
 
     static var nibName: String {
         return "MeshSetupScanStickerView"
@@ -29,11 +31,13 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         super.viewDidLoad()
 
         captureSession = AVCaptureSession()
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+        guard let vcd = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+
+        videoCaptureDevice = vcd
         let videoInput: AVCaptureDeviceInput
 
         do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice!)
         } catch {
             return
         }
@@ -64,7 +68,21 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         cameraView.layer.addSublayer(previewLayer!)
         cameraView.clipsToBounds = true
 
-        captureSession.startRunning()
+        startCaptureSession()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(startCaptureSession), name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopCaptureSession), name: .UIApplicationDidEnterBackground, object: nil)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationDidEnterBackground, object: nil)
     }
 
     override func viewDidLayoutSubviews() {
@@ -83,9 +101,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if (captureSession?.isRunning == false) {
-            captureSession.startRunning()
-        }
+        startCaptureSession()
     }
 
     override func setStyle() {
@@ -106,9 +122,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if (captureSession?.isRunning == true) {
-            captureSession.stopRunning()
-        }
+        stopCaptureSession()
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -122,9 +136,33 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         }
     }
 
-    func restartCaptureSession() {
+    @objc
+    private func stopCaptureSession() {
+        if (captureSession?.isRunning == true) {
+            captureSession.stopRunning()
+        }
+
+        if videoCaptureDevice?.hasTorch == true {
+            do {
+                try? videoCaptureDevice?.lockForConfiguration()
+                videoCaptureDevice?.torchMode = .off
+                try? videoCaptureDevice?.unlockForConfiguration()
+            }
+        }
+    }
+
+    @objc
+    func startCaptureSession() {
         if (captureSession?.isRunning == false) {
             captureSession.startRunning()
+        }
+
+        if videoCaptureDevice?.hasTorch == true {
+            do {
+                try? videoCaptureDevice?.lockForConfiguration()
+                videoCaptureDevice?.torchMode = .on
+                try? videoCaptureDevice?.unlockForConfiguration()
+            }
         }
     }
 }

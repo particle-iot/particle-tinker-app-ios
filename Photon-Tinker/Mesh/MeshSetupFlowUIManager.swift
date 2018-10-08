@@ -298,9 +298,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private func restartCaptureSession() {
         if let vc = self.embededNavigationController.topViewController as? MeshSetupScanCommissionerStickerViewController {
-            vc.restartCaptureSession()
+            vc.startCaptureSession()
         } else if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
-            vc.restartCaptureSession()
+            vc.startCaptureSession()
         } else {
             NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController / MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
         }
