@@ -70,14 +70,15 @@
 
 "MeshSetup.FindCommissionerSticker.Title" = "Pair assisting device with your phone";
 "MeshSetup.FindCommissionerSticker.Text" = "Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code.";
-"MeshSetup.FindCommissionerSticker.Note" = "This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network";
+"MeshSetup.FindCommissionerSticker.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.FindCommissionerSticker.NoteText" = "This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.FindCommissionerSticker.Button" = "Scan assisting device";
 
 
 
 
-"MeshSetup.ScanSticker.Title" = "Pair {{device}} with your phone";
-"MeshSetup.ScanSticker.Text" = "Point the camera at the data matrix on the {{device}}.";
+"MeshSetup.ScanSticker.Title" = "Scan the sticker";
+"MeshSetup.ScanSticker.Text" = "Make sure the sticker is steady and well-lit";
 
 "MeshSetup.ScanCommissionerSticker.Title" = "Pair assisting device with your phone";
 "MeshSetup.ScanCommissionerSticker.Text" = "Point the camera at the data matrix on the device.";
@@ -102,7 +103,9 @@
 
 
 "MeshSetup.ExistingNetworkPassword.Title" = "Enter network password for {{network}}";
-"MeshSetup.ExistingNetworkPassword.Text" = "This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.";
+"MeshSetup.ExistingNetworkPassword.InputTitle" = "Network password";
+"MeshSetup.ExistingNetworkPassword.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.ExistingNetworkPassword.NoteText" = "This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.";
 "MeshSetup.ExistingNetworkPassword.Button" = "Join Network";
 
 
@@ -119,7 +122,9 @@
 
 
 "MeshSetup.DeviceName.Title" = "Give your {{device}} a name";
-"MeshSetup.DeviceName.Text" = "Name your device something you will remember to help you easily identify it later.";
+"MeshSetup.DeviceName.InputTitle" = "Device name";
+"MeshSetup.DeviceName.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.DeviceName.NoteText" = "Name your device something you will remember to help you easily identify it later.";
 "MeshSetup.DeviceName.Button" = "Next";
 
 
@@ -174,16 +179,20 @@
 
 
 "MeshSetup.CreateNetworkName.Title" = "Give your network a name";
-"MeshSetup.CreateNetworkName.Text" = "Name your network something you will remember to help you easily identify it later.";
+"MeshSetup.CreateNetworkName.InputTitle" = "Network name";
+"MeshSetup.CreateNetworkName.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.CreateNetworkName.NoteText" = "Name your network something you will remember to help you easily identify it later.";
 "MeshSetup.CreateNetworkName.Button" = "Next";
 
 
 
 
 "MeshSetup.CreateNetworkPassword.Title" = "Set network admin password";
-"MeshSetup.CreateNetworkPassword.Text" = "You’ll need this password each time you want to add a new device to this mesh network.";
+"MeshSetup.CreateNetworkPassword.NoteTitle" = "KEEP THIS PASSWORD SAFE!";
+"MeshSetup.CreateNetworkPassword.NoteText" = "You’ll need this password each time you want to add a new device to this mesh network.";
 "MeshSetup.CreateNetworkPassword.Button" = "Create network";
-"MeshSetup.CreateNetworkPassword.Repeat" = "Repeat password";
+"MeshSetup.CreateNetworkPassword.InputTitle" = "Network password";
+"MeshSetup.CreateNetworkPassword.RepeatTitle" = "Confirm network password";
 "MeshSetup.CreateNetworkPassword.PasswordsDoNotMatch" = "Password and repeated password do not match.";
 
 

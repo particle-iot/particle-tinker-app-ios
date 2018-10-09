@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupConnectToInternetViewController: MeshSetupProgressViewController, Storyboardable {
 
+    static var nibName: String {
+        return "MeshSetupProgressView"
+    }
+
     override func setContent() {
         successTitleLabel.text = MeshSetupStrings.ConnectToInternet.SuccessTitle
         successTextLabel.text = MeshSetupStrings.ConnectToInternet.SuccessText

@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController, Storyboardable{
 
+    static var nibName: String {
+        return "MeshSetupTextInputView"
+    }
+
     internal var callback: ((String) -> ())!
 
     func setup(didEnterNetworkName: @escaping (String) -> ()) {
@@ -14,8 +18,11 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
     }
 
     override func setContent() {
+
         titleLabel.text = MeshSetupStrings.CreateNetworkName.Title
-        textLabel.text = MeshSetupStrings.CreateNetworkName.Text
+        inputTitleLabel.text = MeshSetupStrings.CreateNetworkName.InputTitle
+        noteTitleLabel.text = MeshSetupStrings.CreateNetworkName.NoteTitle
+        noteTextLabel.text = MeshSetupStrings.CreateNetworkName.NoteText
         continueButton.setTitle(MeshSetupStrings.CreateNetworkName.Button, for: .normal)
     }
 
@@ -38,15 +45,9 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
         }
     }
 
-
-    let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        for var char in string {
-            if !charset.contains(char) {
-                return false
-            }
-        }
-
-        return true
+        let regex = try! NSRegularExpression(pattern: "[^a-zA-Z0-9_\\-]+")
+        let matches = regex.matches(in: string, options: [], range: NSRange(location: 0, length: string.count))
+        return matches.count == 0
     }
 }

@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
 
+    static var nibName: String {
+        return "MeshSetupTextInputView"
+    }
+
     internal var callback: ((String) -> ())!
 
     func setup(didEnterPassword: @escaping (String) -> (), networkName: String) {
@@ -16,7 +20,9 @@ class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, 
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.ExistingNetworkPassword.Title
-        textLabel.text = MeshSetupStrings.ExistingNetworkPassword.Text
+        inputTitleLabel.text = MeshSetupStrings.ExistingNetworkPassword.InputTitle
+        noteTitleLabel.text = MeshSetupStrings.ExistingNetworkPassword.NoteTitle
+        noteTextLabel.text = MeshSetupStrings.ExistingNetworkPassword.NoteText
         continueButton.setTitle(MeshSetupStrings.ExistingNetworkPassword.Button, for: .normal)
     }
 

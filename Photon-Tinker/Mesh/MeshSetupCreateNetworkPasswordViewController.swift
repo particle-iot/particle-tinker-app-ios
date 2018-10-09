@@ -7,7 +7,7 @@ import UIKit
 
 class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
 
-    @IBOutlet weak var repeatTextLabel: MeshLabel!
+    @IBOutlet weak var repeatTitleLabel: MeshLabel!
     @IBOutlet weak var repeatPasswordTextField: MeshTextField!
     
     internal var callback: ((String) -> ())!
@@ -22,11 +22,18 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
         self.callback = didEnterNetworkPassword
     }
 
+    //this screen is too big for iphone6 so we don't open keyboard for it
+    override func shouldAutoFocusInput() -> Bool {
+        return MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone6
+    }
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.CreateNetworkPassword.Title
-        textLabel.text = MeshSetupStrings.CreateNetworkPassword.Text
-        repeatTextLabel.text = MeshSetupStrings.CreateNetworkPassword.Repeat
+        inputTitleLabel.text = MeshSetupStrings.CreateNetworkPassword.InputTitle
+        repeatTitleLabel.text = MeshSetupStrings.CreateNetworkPassword.RepeatTitle
+        noteTextLabel.text = MeshSetupStrings.CreateNetworkPassword.NoteText
+        noteTitleLabel.text = MeshSetupStrings.CreateNetworkPassword.NoteTitle
+
 
         continueButton.setTitle(MeshSetupStrings.CreateNetworkPassword.Button, for: .normal)
     }
@@ -46,7 +53,7 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
     override func setStyle() {
         super.setStyle()
 
-        self.repeatTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.repeatTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.InputTitleColor)
         self.repeatPasswordTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
         self.inputTextField.isSecureTextEntry = true

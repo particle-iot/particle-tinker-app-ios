@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupFinishSetupEarlyViewController: MeshSetupSuccessViewController {
 
+//    static var nibName: String {
+//        return "MeshSetupSuccessView"
+//    }
+
     override func setContent() {
         successTitleLabel.text = MeshSetupStrings.FinishSetupEarly.SuccessTitle
         successTextLabel.text = MeshSetupStrings.FinishSetupEarly.SuccessText

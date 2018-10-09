@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Storyboardable {
 
+    static var nibName: String {
+        return "MeshSetupTextInputView"
+    }
+
     internal var callback: ((String) -> ())!
 
     func setup(didEnterName: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
@@ -16,7 +20,9 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.DeviceName.Title
-        textLabel.text = MeshSetupStrings.DeviceName.Text
+        inputTitleLabel.text = MeshSetupStrings.DeviceName.InputTitle
+        noteTitleLabel.text = MeshSetupStrings.DeviceName.NoteTitle
+        noteTextLabel.text = MeshSetupStrings.DeviceName.NoteText
 
         continueButton.setTitle(MeshSetupStrings.DeviceName.Button, for: .normal)
     }

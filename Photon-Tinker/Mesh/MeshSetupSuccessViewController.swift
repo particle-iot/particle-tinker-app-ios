@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
 
+    static var nibName: String {
+        return "MeshSetupSuccessView"
+    }
+
     @IBOutlet weak var successView: UIView!
     @IBOutlet weak var successTitleLabel: MeshLabel!
     @IBOutlet weak var successTextLabel: MeshLabel!

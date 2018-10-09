@@ -16,7 +16,6 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
     }
     
     override func setStyle() {
-        videoView.backgroundColor = MeshSetupStyle.VideoBackgroundColor
         videoView.layer.cornerRadius = 5
         videoView.clipsToBounds = true
         
@@ -39,7 +38,10 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
         hideEmptyLabels()
 
         continueButton.setTitle(MeshSetupStrings.GetCommissionerReady.Button, for: .normal)
-        
+
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+
         initializeVideoPlayerWithVideo(videoFileName: "commissioner_to_listening_mode")
     }
 }
