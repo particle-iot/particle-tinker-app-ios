@@ -788,7 +788,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
             if (result == .NONE) {
-                self.targetDevice.supportsCompressedOTAUpdate = (capability! == SystemCapability.compressedOta)
+                self.targetDevice.supportsCompressedOTAUpdate = (capability! == MeshSetupSystemCapability.compressedOta)
                 self.checkTargetDeviceIsSetupDone()
             } else {
                 self.handleBluetoothErrorResult(result)

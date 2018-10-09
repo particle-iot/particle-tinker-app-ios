@@ -7,10 +7,11 @@ import UIKit
 import SwiftProtobuf
 
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
-typealias CloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
+typealias MeshSetupCloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
 typealias MeshSetupNetworkInterfaceEntry = Particle_Ctrl_InterfaceEntry
 typealias MeshSetupNetworkInterface = Particle_Ctrl_Interface
-typealias SystemCapability = Particle_Ctrl_SystemCapabilityFlag
+typealias MeshSetupSystemCapability = Particle_Ctrl_SystemCapabilityFlag
+
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
@@ -229,7 +230,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendGetConnectionStatus(callback: @escaping (ControlReplyErrorType, CloudConnectionStatus?) -> ()) {
+    func sendGetConnectionStatus(callback: @escaping (ControlReplyErrorType, MeshSetupCloudConnectionStatus?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Cloud_GetConnectionStatusRequest()
 
         let data = self.prepareRequestMessage(type: .GetConnectionStatus, payload: self.serialize(message: requestMsgPayload))
@@ -517,7 +518,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, SystemCapability?) -> ()) {
+    func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, MeshSetupSystemCapability?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemCapabilitiesRequest()
 
         let data = self.prepareRequestMessage(type: .GetSystemCapabilities, payload: self.serialize(message: requestMsgPayload))
