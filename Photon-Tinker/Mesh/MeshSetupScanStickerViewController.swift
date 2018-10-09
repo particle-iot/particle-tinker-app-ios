@@ -160,7 +160,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         if videoCaptureDevice?.hasTorch == true {
             do {
                 try? videoCaptureDevice?.lockForConfiguration()
-                videoCaptureDevice?.torchMode = .on
+                videoCaptureDevice?.torchMode = .auto
                 try? videoCaptureDevice?.unlockForConfiguration()
             }
         }
