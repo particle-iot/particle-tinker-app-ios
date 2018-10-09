@@ -39,6 +39,14 @@ public enum ControlRequestMessageType: UInt16 {
     case FinishFirmwareUpdate = 251
     case CancelFirmwareUpdate = 252
     case FirmwareUpdateData = 253
+
+    case JoinNewWifiNetwork = 500
+    case JoinKnownWifiNetwork = 501
+    case GetKnownWifiNetworks = 502
+    case RemoveKnownWifiNetworkNetworks = 503
+    case ClearKnownWifiNetworksNetworks = 504
+    case GetCurrentWifiNetwork = 505
+    case ScanWifiNetworks = 506
 }
 
 public enum ControlReplyErrorType: Int32 {

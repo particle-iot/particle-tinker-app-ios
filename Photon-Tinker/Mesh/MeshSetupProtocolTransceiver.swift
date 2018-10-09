@@ -12,6 +12,12 @@ typealias MeshSetupNetworkInterfaceEntry = Particle_Ctrl_InterfaceEntry
 typealias MeshSetupNetworkInterface = Particle_Ctrl_Interface
 typealias MeshSetupSystemCapability = Particle_Ctrl_SystemCapabilityFlag
 
+typealias MeshSetupNewWifiNetworkInfo = Particle_Ctrl_Wifi_ScanNetworksReply.Network
+typealias MeshSetupKnownWifiNetworkInfo = Particle_Ctrl_Wifi_GetKnownNetworksReply.Network
+
+typealias MeshSetupWifiNetworkSecurity = Particle_Ctrl_Wifi_Security
+typealias MeshSetupWifiNetworkCredentialsType = Particle_Ctrl_Wifi_CredentialsType
+typealias MeshSetupWifiNetworkCredentials = Particle_Ctrl_Wifi_Credentials
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
@@ -518,6 +524,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
+    //MARK: OTA
     func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, MeshSetupSystemCapability?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemCapabilitiesRequest()
 
@@ -527,7 +534,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetSystemCapabilitiesReply(serializedData: rm.data) as! Particle_Ctrl_GetSystemCapabilitiesReply
                 //`flags` is an OR'ed combination of individual flags defined by `SystemCapabilityFlag`
-                callback(rm.result,  SystemCapability(rawValue: decodedReply.flags == 0 ? 0 : 1))
+                callback(rm.result,  MeshSetupSystemCapability(rawValue: decodedReply.flags == 0 ? 0 : 1))
             } else {
                 callback(.TIMEOUT, nil)
             }
@@ -609,6 +616,128 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                 callback(rm.result)
             } else {
                 callback(.TIMEOUT)
+            }
+        })
+    }
+
+    //MARK: Wifi
+    func sendJoinNewWifiNetworkRequest(network: MeshSetupNewWifiNetworkInfo, password: String?, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_Wifi_JoinNewNetworkRequest()
+        requestMsgPayload.ssid = network.ssid
+        requestMsgPayload.bssid = network.bssid
+        requestMsgPayload.security = network.security
+
+        var credentials = MeshSetupWifiNetworkCredentials()
+        if let password = password {
+            credentials.type = .password
+            credentials.password = password
+        } else {
+            credentials.type = .noCredentials
+        }
+        requestMsgPayload.credentials = credentials
+
+
+        let data = self.prepareRequestMessage(type: .JoinNewWifiNetwork, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Wifi_JoinNewNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_JoinNewNetworkReply
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+    func sendJoinKnownWifiNetworkRequest(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_Wifi_JoinKnownNetworkRequest()
+        requestMsgPayload.ssid = network.ssid
+
+        let data = self.prepareRequestMessage(type: .JoinKnownWifiNetwork, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Wifi_JoinKnownNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_JoinKnownNetworkReply
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+    func sendGetKnownWifiNetworksRequest(callback: @escaping (ControlReplyErrorType, [MeshSetupKnownWifiNetworkInfo]?) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_Wifi_GetKnownNetworksRequest()
+
+        let data = self.prepareRequestMessage(type: .GetKnownWifiNetworks, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Wifi_GetKnownNetworksReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_GetKnownNetworksReply
+                callback(rm.result, decodedReply.networks)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
+    func sendRemoveKnownWifiNetworkRequest(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_Wifi_RemoveKnownNetworkRequest()
+        requestMsgPayload.ssid = network.ssid
+
+        let data = self.prepareRequestMessage(type: .RemoveKnownWifiNetworkNetworks, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Wifi_RemoveKnownNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_RemoveKnownNetworkReply
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+    func sendClearKnownWifiNetworksRequest(callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_Wifi_ClearKnownNetworksRequest()
+
+        let data = self.prepareRequestMessage(type: .ClearKnownWifiNetworksNetworks, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Wifi_ClearKnownNetworksReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_ClearKnownNetworksReply
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+    func sendGetCurrentWifiNetworksRequest(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_Wifi_GetCurrentNetworkRequest()
+
+        let data = self.prepareRequestMessage(type: .GetCurrentWifiNetwork, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Wifi_GetCurrentNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_GetCurrentNetworkReply
+                callback(rm.result, decodedReply.ssid)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
+
+    func sendScanWifiNetworksRequest(callback: @escaping (ControlReplyErrorType, [MeshSetupNewWifiNetworkInfo]?) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_Wifi_ScanNetworksRequest()
+
+        let data = self.prepareRequestMessage(type: .ScanWifiNetworks, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Wifi_ScanNetworksReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_ScanNetworksReply
+                callback(rm.result, decodedReply.networks)
+            } else {
+                callback(.TIMEOUT, nil)
             }
         })
     }
