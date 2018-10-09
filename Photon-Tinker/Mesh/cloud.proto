@@ -15,9 +15,25 @@ enum ConnectionStatus {
 
 // Get the cloud connection status
 message GetConnectionStatusRequest {
-  option (type_id) = 300; // CTRL_REQUEST_GET_CLOUD_CONNECTION_STATUS
+  option (type_id) = 300; // CTRL_REQUEST_CLOUD_GET_CONNECTION_STATUS
 }
 
 message GetConnectionStatusReply {
   ConnectionStatus status = 1;
+}
+
+// Connect to the cloud
+message ConnectRequest {
+  option (type_id) = 301; // CTRL_REQUEST_CLOUD_CONNECT
+}
+
+message ConnectReply {
+}
+
+// Disconnect from the cloud
+message DisconnectRequest {
+  option (type_id) = 302; // CTRL_REQUEST_CLOUD_DISCONNECT
+}
+
+message DisconnectReply {
 }

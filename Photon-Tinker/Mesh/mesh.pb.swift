@@ -37,6 +37,9 @@ struct Particle_Ctrl_Mesh_NetworkInfo {
   /// Channel number
   var channel: UInt32 = 0
 
+  /// network ID
+  var networkID: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -84,6 +87,9 @@ struct Particle_Ctrl_Mesh_CreateNetworkRequest {
   /// Channel number
   var channel: UInt32 = 0
 
+  /// Network ID
+  var networkID: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -119,6 +125,9 @@ struct Particle_Ctrl_Mesh_StartCommissionerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
+
+  /// Time is seconds after which the role is automatically stopped
+  var timeout: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -213,6 +222,9 @@ struct Particle_Ctrl_Mesh_AddJoinerRequest {
   /// Joining device credential
   var password: String = String()
 
+  /// Time is seconds after which the joiner is automatically removed from the commissioner dataset
+  var timeout: UInt32 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -265,6 +277,9 @@ struct Particle_Ctrl_Mesh_JoinNetworkRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
+
+  /// Time in seconds after which the attempt to join is cancelled
+  var timeout: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -378,6 +393,7 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
     2: .standard(proto: "ext_pan_id"),
     3: .standard(proto: "pan_id"),
     4: .same(proto: "channel"),
+    5: .standard(proto: "network_id"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -387,6 +403,7 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
       case 2: try decoder.decodeSingularStringField(value: &self.extPanID)
       case 3: try decoder.decodeSingularUInt32Field(value: &self.panID)
       case 4: try decoder.decodeSingularUInt32Field(value: &self.channel)
+      case 5: try decoder.decodeSingularStringField(value: &self.networkID)
       default: break
       }
     }
@@ -405,6 +422,9 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
     if self.channel != 0 {
       try visitor.visitSingularUInt32Field(value: self.channel, fieldNumber: 4)
     }
+    if !self.networkID.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkID, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -413,6 +433,7 @@ extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.extPanID != rhs.extPanID {return false}
     if lhs.panID != rhs.panID {return false}
     if lhs.channel != rhs.channel {return false}
+    if lhs.networkID != rhs.networkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -472,6 +493,7 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
     1: .same(proto: "name"),
     2: .same(proto: "password"),
     3: .same(proto: "channel"),
+    4: .standard(proto: "network_id"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -480,6 +502,7 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
       case 1: try decoder.decodeSingularStringField(value: &self.name)
       case 2: try decoder.decodeSingularStringField(value: &self.password)
       case 3: try decoder.decodeSingularUInt32Field(value: &self.channel)
+      case 4: try decoder.decodeSingularStringField(value: &self.networkID)
       default: break
       }
     }
@@ -495,6 +518,9 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
     if self.channel != 0 {
       try visitor.visitSingularUInt32Field(value: self.channel, fieldNumber: 3)
     }
+    if !self.networkID.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -502,6 +528,7 @@ extension Particle_Ctrl_Mesh_CreateNetworkRequest: SwiftProtobuf.Message, SwiftP
     if lhs.name != rhs.name {return false}
     if lhs.password != rhs.password {return false}
     if lhs.channel != rhs.channel {return false}
+    if lhs.networkID != rhs.networkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -570,18 +597,28 @@ extension Particle_Ctrl_Mesh_CreateNetworkReply: SwiftProtobuf.Message, SwiftPro
 
 extension Particle_Ctrl_Mesh_StartCommissionerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartCommissionerRequest"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "timeout"),
+  ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.timeout)
+      default: break
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timeout != 0 {
+      try visitor.visitSingularUInt32Field(value: self.timeout, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Particle_Ctrl_Mesh_StartCommissionerRequest, rhs: Particle_Ctrl_Mesh_StartCommissionerRequest) -> Bool {
+    if lhs.timeout != rhs.timeout {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -745,6 +782,7 @@ extension Particle_Ctrl_Mesh_AddJoinerRequest: SwiftProtobuf.Message, SwiftProto
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "eui64"),
     2: .same(proto: "password"),
+    3: .same(proto: "timeout"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -752,6 +790,7 @@ extension Particle_Ctrl_Mesh_AddJoinerRequest: SwiftProtobuf.Message, SwiftProto
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.eui64)
       case 2: try decoder.decodeSingularStringField(value: &self.password)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.timeout)
       default: break
       }
     }
@@ -764,12 +803,16 @@ extension Particle_Ctrl_Mesh_AddJoinerRequest: SwiftProtobuf.Message, SwiftProto
     if !self.password.isEmpty {
       try visitor.visitSingularStringField(value: self.password, fieldNumber: 2)
     }
+    if self.timeout != 0 {
+      try visitor.visitSingularUInt32Field(value: self.timeout, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Particle_Ctrl_Mesh_AddJoinerRequest, rhs: Particle_Ctrl_Mesh_AddJoinerRequest) -> Bool {
     if lhs.eui64 != rhs.eui64 {return false}
     if lhs.password != rhs.password {return false}
+    if lhs.timeout != rhs.timeout {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -844,18 +887,28 @@ extension Particle_Ctrl_Mesh_RemoveJoinerReply: SwiftProtobuf.Message, SwiftProt
 
 extension Particle_Ctrl_Mesh_JoinNetworkRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".JoinNetworkRequest"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "timeout"),
+  ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.timeout)
+      default: break
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timeout != 0 {
+      try visitor.visitSingularUInt32Field(value: self.timeout, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Particle_Ctrl_Mesh_JoinNetworkRequest, rhs: Particle_Ctrl_Mesh_JoinNetworkRequest) -> Bool {
+    if lhs.timeout != rhs.timeout {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
