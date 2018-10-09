@@ -261,10 +261,14 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendCreateNetwork(name: String, password: String, callback: @escaping (ControlReplyErrorType, MeshSetupNetworkInfo?) -> ()) {
+    func sendCreateNetwork(name: String, password: String, networkId:String? = nil, callback: @escaping (ControlReplyErrorType, MeshSetupNetworkInfo?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Mesh_CreateNetworkRequest()
         requestMsgPayload.name = name
         requestMsgPayload.password = password
+
+        if let networkId = networkId {
+            requestMsgPayload.networkID = networkId
+        }
 
         let data = self.prepareRequestMessage(type: .CreateNetwork, payload: self.serialize(message: requestMsgPayload))
         self.sendRequestMessage(data: data, onReply: {
