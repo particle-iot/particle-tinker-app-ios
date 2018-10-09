@@ -7,6 +7,11 @@ import UIKit
 import AVFoundation
 
 class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMetadataOutputObjectsDelegate, Storyboardable {
+
+    static var nibName: String {
+        return "MeshSetupScanStickerView"
+    }
+
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var titleLabel: MeshLabel!
     @IBOutlet weak var textLabel: MeshLabel!
@@ -16,11 +21,6 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     private var captureSession: AVCaptureSession!
     private var videoCaptureDevice: AVCaptureDevice?
     private var previewLayer: AVCaptureVideoPreviewLayer?
-
-
-    static var nibName: String {
-        return "MeshSetupScanStickerView"
-    }
 
     func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
         self.callback = didFindStickerCode

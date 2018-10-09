@@ -8,6 +8,10 @@ import CoreBluetooth
 
 class MeshSetupPairingCommissionerProcessViewController: MeshSetupPairingProcessViewController {
 
+//    static var nibName: String {
+//        return "MeshSetupPairingView"
+//    }
+
     override func setContent() {
         pairingTextLabel.text = MeshSetupStrings.PairingCommissioner.PairingText
         successTitleLabel.text = MeshSetupStrings.PairingCommissioner.SuccessTitle

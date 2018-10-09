@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupScanCommissionerStickerViewController: MeshSetupScanStickerViewController {
 
+//    static var nibName: String {
+//        return "MeshSetupScanStickerView"
+//    }
+
     func setup(didFindStickerCode: @escaping (String) -> ()) {
         self.callback = didFindStickerCode
     }

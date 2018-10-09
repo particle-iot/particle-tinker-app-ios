@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupNetworkCreatedViewController: MeshSetupSuccessViewController {
 
+//    static var nibName: String {
+//        return "MeshSetupSuccessView"
+//    }
+
     override func setContent() {
         successTitleLabel.text = MeshSetupStrings.NetworkCreated.SuccessTitle
         successTextLabel.text = MeshSetupStrings.NetworkCreated.SuccessText

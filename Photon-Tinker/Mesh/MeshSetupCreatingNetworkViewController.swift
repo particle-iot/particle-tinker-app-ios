@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupCreatingNetworkViewController: MeshSetupProgressViewController, Storyboardable {
 
+    static var nibName: String {
+        return "MeshSetupProgressView"
+    }
+
     override func setContent() {
         successTitleLabel.text = MeshSetupStrings.CreatingNetwork.SuccessTitle
         successTextLabel.text = MeshSetupStrings.CreatingNetwork.SuccessText

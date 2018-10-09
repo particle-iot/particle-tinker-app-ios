@@ -21,7 +21,7 @@
         <!--Select Device-->
         <scene sceneID="t1t-6v-FPK">
             <objects>
-                <viewController id="dTr-N9-HaU" customClass="MeshSetupSelectDeviceViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeshSetupSelectDeviceViewController" id="dTr-N9-HaU" customClass="MeshSetupSelectDeviceViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ex8-bK-frE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -322,7 +322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QNp-OY-UrM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5873" y="2583"/>
+            <point key="canvasLocation" x="5839" y="2584"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dXy-db-fVZ">
@@ -362,6 +362,240 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UuM-Uq-NaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8283.75" y="2818.75"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="3aD-ZM-g71">
+            <objects>
+                <viewController id="BWg-b8-j1B" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qri-nj-bSk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Od9-IE-ccU">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: SelectNetwork" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OY9-9R-gvK">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: NetworkList" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bou-rj-9UW">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Od9-IE-ccU" firstAttribute="centerY" secondItem="7KR-mN-Xsz" secondAttribute="centerY" id="97T-l3-yVV"/>
+                            <constraint firstItem="7KR-mN-Xsz" firstAttribute="trailing" secondItem="Od9-IE-ccU" secondAttribute="trailing" constant="20" id="eQg-6h-kut"/>
+                            <constraint firstItem="Od9-IE-ccU" firstAttribute="leading" secondItem="7KR-mN-Xsz" secondAttribute="leading" constant="20" id="tOS-o0-zqY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7KR-mN-Xsz"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8mu-h7-N8C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7571" y="2138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Pb5-OH-29Q">
+            <objects>
+                <viewController id="aP0-Tk-34S" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OdZ-uI-0yS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jS0-Fh-GqY">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: SelectOrCreateNetwork" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQx-jh-G6A">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: NetworkList" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tuu-sE-0fh">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jS0-Fh-GqY" firstAttribute="leading" secondItem="Ic2-fU-ISM" secondAttribute="leading" constant="20" id="InQ-C9-VRc"/>
+                            <constraint firstItem="jS0-Fh-GqY" firstAttribute="centerY" secondItem="Ic2-fU-ISM" secondAttribute="centerY" id="sdH-kv-Y87"/>
+                            <constraint firstItem="Ic2-fU-ISM" firstAttribute="trailing" secondItem="jS0-Fh-GqY" secondAttribute="trailing" constant="20" id="vVx-kX-xPd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ic2-fU-ISM"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2B0-cv-bjg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9036" y="3508"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Bo6-P7-6q0">
+            <objects>
+                <viewController id="hbn-He-52v" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3bh-rx-fpn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wg0-49-0Uo">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: FinishSetupEarly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hd-eI-4Ri">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: SuccessView " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjf-Is-evC">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wg0-49-0Uo" firstAttribute="leading" secondItem="bkW-F6-VVU" secondAttribute="leading" constant="20" id="NPm-gX-6Ns"/>
+                            <constraint firstItem="wg0-49-0Uo" firstAttribute="centerY" secondItem="bkW-F6-VVU" secondAttribute="centerY" id="Rs1-y8-gCt"/>
+                            <constraint firstItem="bkW-F6-VVU" firstAttribute="trailing" secondItem="wg0-49-0Uo" secondAttribute="trailing" constant="20" id="TLS-vF-KQW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bkW-F6-VVU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eGu-Id-xJM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9036" y="2819"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="dQU-24-npc">
+            <objects>
+                <viewController id="jMp-QS-eeB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6yV-tL-4XK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Swc-z6-uhs">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: Success" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3J-Jf-lAM">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: SuccessView " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGR-sK-jtv">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5Si-Ok-9Pk" firstAttribute="trailing" secondItem="Swc-z6-uhs" secondAttribute="trailing" constant="20" id="5kB-Gm-rP2"/>
+                            <constraint firstItem="Swc-z6-uhs" firstAttribute="centerY" secondItem="5Si-Ok-9Pk" secondAttribute="centerY" id="SS2-5K-VuJ"/>
+                            <constraint firstItem="Swc-z6-uhs" firstAttribute="leading" secondItem="5Si-Ok-9Pk" secondAttribute="leading" constant="20" id="XBN-1h-tc1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5Si-Ok-9Pk"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A01-s2-KGX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="13374" y="2138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1gW-FN-UPb">
+            <objects>
+                <viewController id="AXk-Kk-wnw" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aND-40-pTI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aBw-2O-91L">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: NetworkCreated" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKV-gV-OL0">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: SuccessView " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jw-jx-DDC">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oBO-b5-IPA" firstAttribute="trailing" secondItem="aBw-2O-91L" secondAttribute="trailing" constant="20" id="8RW-pI-GiZ"/>
+                            <constraint firstItem="aBw-2O-91L" firstAttribute="leading" secondItem="oBO-b5-IPA" secondAttribute="leading" constant="20" id="8i9-UF-mKl"/>
+                            <constraint firstItem="aBw-2O-91L" firstAttribute="centerY" secondItem="oBO-b5-IPA" secondAttribute="centerY" id="Yqx-LE-S8X"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oBO-b5-IPA"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Lg-YU-pTh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12654" y="3505"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="z34-P2-bil">
+            <objects>
+                <viewController id="22K-48-B0n" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N52-10-HRb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GFR-Cj-9bK">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: CreatingNetwork" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQR-I8-Swf">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: ProgressView " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIN-vD-qmM">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nor-k8-CVn" firstAttribute="trailing" secondItem="GFR-Cj-9bK" secondAttribute="trailing" constant="20" id="C3g-DG-RcS"/>
+                            <constraint firstItem="GFR-Cj-9bK" firstAttribute="centerY" secondItem="nor-k8-CVn" secondAttribute="centerY" id="JJy-hx-BVA"/>
+                            <constraint firstItem="GFR-Cj-9bK" firstAttribute="leading" secondItem="nor-k8-CVn" secondAttribute="leading" constant="20" id="PTW-Nt-Rbh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nor-k8-CVn"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ab-2t-DED" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="11936" y="3505"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ycb-mX-lO8">
@@ -442,6 +676,84 @@
             <point key="canvasLocation" x="11177" y="2138"/>
         </scene>
         <!--View Controller-->
+        <scene sceneID="EeV-EQ-JLl">
+            <objects>
+                <viewController id="dZW-HT-hw5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6u7-ql-2RU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jBo-rS-aXV">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: PairingCommissionerProcess" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcJ-TH-cSd">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: PairingView" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vp-6d-dlA">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="T5J-tG-7Jc" firstAttribute="trailing" secondItem="jBo-rS-aXV" secondAttribute="trailing" constant="20" id="8NZ-fs-lat"/>
+                            <constraint firstItem="jBo-rS-aXV" firstAttribute="centerY" secondItem="T5J-tG-7Jc" secondAttribute="centerY" id="S9A-Uo-6ae"/>
+                            <constraint firstItem="jBo-rS-aXV" firstAttribute="leading" secondItem="T5J-tG-7Jc" secondAttribute="leading" constant="20" id="bAT-7U-HLv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="T5J-tG-7Jc"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Dv-mZ-tIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10455" y="2138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="jn6-XJ-wnF">
+            <objects>
+                <viewController id="vZl-kh-LNT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rZr-z8-vgx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ylV-9Z-eJT">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: PairingProcess" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sYm-Nd-vka">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: PairingView" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0e6-Ht-yPH">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ylV-9Z-eJT" firstAttribute="leading" secondItem="ehI-1W-9sr" secondAttribute="leading" constant="20" id="1bD-lw-4GR"/>
+                            <constraint firstItem="ehI-1W-9sr" firstAttribute="trailing" secondItem="ylV-9Z-eJT" secondAttribute="trailing" constant="20" id="509-ds-Da2"/>
+                            <constraint firstItem="ylV-9Z-eJT" firstAttribute="centerY" secondItem="ehI-1W-9sr" secondAttribute="centerY" id="sU1-yf-Fa2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ehI-1W-9sr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cGt-Od-Pgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6559" y="2583"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="aWQ-xl-PNW">
             <objects>
                 <viewController id="i1D-tp-5X4" sceneMemberID="viewController">
@@ -479,388 +791,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vLr-zm-LLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="10455" y="3508"/>
-        </scene>
-        <!--Mesh Setup Pairing Process View Controller-->
-        <scene sceneID="8Rq-e1-iR5">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupPairingProcessViewController" id="iuj-Hm-exZ" customClass="MeshSetupPairingProcessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DxS-uN-KDk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yv2-3m-yo6" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="157" width="260" height="118"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fRF-za-RNy">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="p2u-hn-amd"/>
-                                            <constraint firstAttribute="width" constant="64" id="pul-Qs-bM9"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-fY-zpj" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DB-d4-I3a" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="101" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="CeB-fY-zpj" firstAttribute="top" secondItem="fRF-za-RNy" secondAttribute="bottom" constant="15" id="0E5-oS-ODP"/>
-                                    <constraint firstItem="fRF-za-RNy" firstAttribute="centerX" secondItem="Yv2-3m-yo6" secondAttribute="centerX" id="2O4-MD-nKa"/>
-                                    <constraint firstItem="3DB-d4-I3a" firstAttribute="top" secondItem="CeB-fY-zpj" secondAttribute="bottom" constant="5" id="5FE-GZ-kYn"/>
-                                    <constraint firstAttribute="trailing" secondItem="CeB-fY-zpj" secondAttribute="trailing" id="6Ib-pd-1q6"/>
-                                    <constraint firstItem="3DB-d4-I3a" firstAttribute="leading" secondItem="Yv2-3m-yo6" secondAttribute="leading" id="ONW-u4-0xI"/>
-                                    <constraint firstItem="CeB-fY-zpj" firstAttribute="leading" secondItem="Yv2-3m-yo6" secondAttribute="leading" id="l5z-Cf-Gud"/>
-                                    <constraint firstItem="fRF-za-RNy" firstAttribute="top" secondItem="Yv2-3m-yo6" secondAttribute="top" id="sMc-ut-Sie"/>
-                                    <constraint firstAttribute="trailing" secondItem="3DB-d4-I3a" secondAttribute="trailing" id="ta9-NZ-4d8"/>
-                                    <constraint firstAttribute="bottom" secondItem="3DB-d4-I3a" secondAttribute="bottom" id="ynL-re-FVV"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVU-wC-365" userLabel="PairingView">
-                                <rect key="frame" x="30" y="184" width="260" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPi-hE-7Ph" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="47" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-ch-x6n">
-                                        <rect key="frame" x="111.5" y="0.0" width="37" height="37"/>
-                                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="bPi-hE-7Ph" firstAttribute="leading" secondItem="iVU-wC-365" secondAttribute="leading" id="Afc-C6-vRH"/>
-                                    <constraint firstAttribute="bottom" secondItem="bPi-hE-7Ph" secondAttribute="bottom" id="Io7-S7-bFA"/>
-                                    <constraint firstItem="bPi-hE-7Ph" firstAttribute="top" secondItem="NLa-ch-x6n" secondAttribute="bottom" constant="10" id="YEO-Hi-DB8"/>
-                                    <constraint firstItem="NLa-ch-x6n" firstAttribute="top" secondItem="iVU-wC-365" secondAttribute="top" id="ZOe-v0-nXp"/>
-                                    <constraint firstAttribute="trailing" secondItem="bPi-hE-7Ph" secondAttribute="trailing" id="aqh-r0-FnR"/>
-                                    <constraint firstItem="NLa-ch-x6n" firstAttribute="centerX" secondItem="iVU-wC-365" secondAttribute="centerX" id="juS-nK-SIV"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="iVU-wC-365" firstAttribute="leading" secondItem="tB4-Xt-v0t" secondAttribute="leading" constant="30" id="NO6-po-ruW"/>
-                            <constraint firstItem="tB4-Xt-v0t" firstAttribute="trailing" secondItem="Yv2-3m-yo6" secondAttribute="trailing" constant="30" id="QOb-l4-2wq"/>
-                            <constraint firstItem="tB4-Xt-v0t" firstAttribute="trailing" secondItem="iVU-wC-365" secondAttribute="trailing" constant="30" id="QY8-y9-nrM"/>
-                            <constraint firstItem="iVU-wC-365" firstAttribute="centerX" secondItem="DxS-uN-KDk" secondAttribute="centerX" id="gXq-Ea-1w0"/>
-                            <constraint firstItem="Yv2-3m-yo6" firstAttribute="leading" secondItem="tB4-Xt-v0t" secondAttribute="leading" constant="30" id="hoK-6X-JeW"/>
-                            <constraint firstItem="Yv2-3m-yo6" firstAttribute="centerY" secondItem="DxS-uN-KDk" secondAttribute="centerY" multiplier="0.9" id="r2t-gW-C6Z"/>
-                            <constraint firstItem="iVU-wC-365" firstAttribute="centerY" secondItem="DxS-uN-KDk" secondAttribute="centerY" multiplier="0.9" id="ydW-nI-Jzy"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="tB4-Xt-v0t"/>
-                    </view>
-                    <connections>
-                        <outlet property="pairingIndicator" destination="NLa-ch-x6n" id="IVH-q2-znd"/>
-                        <outlet property="pairingTextLabel" destination="bPi-hE-7Ph" id="bgt-4L-0bF"/>
-                        <outlet property="pairingView" destination="iVU-wC-365" id="Ko5-ej-JpZ"/>
-                        <outlet property="successTextLabel" destination="3DB-d4-I3a" id="WyI-eL-ZVX"/>
-                        <outlet property="successTitleLabel" destination="CeB-fY-zpj" id="CSd-GI-nBy"/>
-                        <outlet property="successView" destination="Yv2-3m-yo6" id="jeu-L5-b9Z"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bdu-Bw-IyW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6593" y="2583"/>
-        </scene>
-        <!--Mesh Setup Pairing Commissioner Process View Controller-->
-        <scene sceneID="ZB5-0K-3vT">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupPairingCommissionerProcessViewController" id="Avh-WU-kQw" customClass="MeshSetupPairingCommissionerProcessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bfw-V3-BgF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFt-Pg-BgW" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="154" width="260" height="124"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mhV-qK-bSc">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="0Ms-1f-KXB"/>
-                                            <constraint firstAttribute="width" constant="64" id="aMb-tz-zvA"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pT-sM-9Hp" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="20"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XK-38-o6g" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104" width="260" height="20"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="6pT-sM-9Hp" firstAttribute="leading" secondItem="EFt-Pg-BgW" secondAttribute="leading" id="4zE-vn-hvT"/>
-                                    <constraint firstItem="mhV-qK-bSc" firstAttribute="top" secondItem="EFt-Pg-BgW" secondAttribute="top" id="EU6-wS-K5G"/>
-                                    <constraint firstItem="4XK-38-o6g" firstAttribute="top" secondItem="6pT-sM-9Hp" secondAttribute="bottom" constant="5" id="KBP-QS-d7Q"/>
-                                    <constraint firstAttribute="trailing" secondItem="4XK-38-o6g" secondAttribute="trailing" id="Svn-m2-HgW"/>
-                                    <constraint firstItem="4XK-38-o6g" firstAttribute="leading" secondItem="EFt-Pg-BgW" secondAttribute="leading" id="WCR-tn-ThN"/>
-                                    <constraint firstAttribute="trailing" secondItem="6pT-sM-9Hp" secondAttribute="trailing" id="XeW-KV-ibD"/>
-                                    <constraint firstAttribute="bottom" secondItem="4XK-38-o6g" secondAttribute="bottom" id="cSQ-Wr-aap"/>
-                                    <constraint firstItem="6pT-sM-9Hp" firstAttribute="top" secondItem="mhV-qK-bSc" secondAttribute="bottom" constant="15" id="hvu-NV-v3U"/>
-                                    <constraint firstItem="mhV-qK-bSc" firstAttribute="centerX" secondItem="EFt-Pg-BgW" secondAttribute="centerX" id="t7e-m8-N6l"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1d-FR-9pn" userLabel="PairingView">
-                                <rect key="frame" x="30" y="182.5" width="260" height="67"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ej3-2M-jyd" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="47" width="260" height="20"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qhD-oZ-BDD">
-                                        <rect key="frame" x="111.5" y="0.0" width="37" height="37"/>
-                                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Ej3-2M-jyd" firstAttribute="leading" secondItem="j1d-FR-9pn" secondAttribute="leading" id="46O-OJ-iw9"/>
-                                    <constraint firstItem="qhD-oZ-BDD" firstAttribute="top" secondItem="j1d-FR-9pn" secondAttribute="top" id="DWg-7H-HuH"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ej3-2M-jyd" secondAttribute="trailing" id="OIN-HB-SSZ"/>
-                                    <constraint firstItem="qhD-oZ-BDD" firstAttribute="centerX" secondItem="j1d-FR-9pn" secondAttribute="centerX" id="TZW-BP-xC8"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ej3-2M-jyd" secondAttribute="bottom" id="Yvf-Jv-8X5"/>
-                                    <constraint firstItem="Ej3-2M-jyd" firstAttribute="top" secondItem="qhD-oZ-BDD" secondAttribute="bottom" constant="10" id="cLc-8Z-zyV"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="IgV-n7-qun" firstAttribute="trailing" secondItem="j1d-FR-9pn" secondAttribute="trailing" constant="30" id="Lyv-2p-ydQ"/>
-                            <constraint firstItem="EFt-Pg-BgW" firstAttribute="centerY" secondItem="bfw-V3-BgF" secondAttribute="centerY" multiplier="0.9" id="NNS-4K-q2M"/>
-                            <constraint firstItem="j1d-FR-9pn" firstAttribute="leading" secondItem="IgV-n7-qun" secondAttribute="leading" constant="30" id="YeQ-nj-dC1"/>
-                            <constraint firstItem="j1d-FR-9pn" firstAttribute="centerY" secondItem="bfw-V3-BgF" secondAttribute="centerY" multiplier="0.9" id="bDR-PR-Nte"/>
-                            <constraint firstItem="EFt-Pg-BgW" firstAttribute="leading" secondItem="IgV-n7-qun" secondAttribute="leading" constant="30" id="e6e-1M-IMB"/>
-                            <constraint firstItem="IgV-n7-qun" firstAttribute="trailing" secondItem="EFt-Pg-BgW" secondAttribute="trailing" constant="30" id="naq-hf-9s5"/>
-                            <constraint firstItem="j1d-FR-9pn" firstAttribute="centerX" secondItem="bfw-V3-BgF" secondAttribute="centerX" id="zzN-yV-ndY"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="IgV-n7-qun"/>
-                    </view>
-                    <connections>
-                        <outlet property="pairingIndicator" destination="qhD-oZ-BDD" id="cDn-l7-PN3"/>
-                        <outlet property="pairingTextLabel" destination="Ej3-2M-jyd" id="VXn-H5-AMl"/>
-                        <outlet property="pairingView" destination="j1d-FR-9pn" id="JAe-th-VP3"/>
-                        <outlet property="successTextLabel" destination="4XK-38-o6g" id="huh-Go-cwe"/>
-                        <outlet property="successTitleLabel" destination="6pT-sM-9Hp" id="YHM-qT-j2T"/>
-                        <outlet property="successView" destination="EFt-Pg-BgW" id="T08-Az-vF8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="std-cO-gS4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="10455" y="2138"/>
-        </scene>
-        <!--Mesh Setup Select Network View Controller-->
-        <scene sceneID="Hjh-AF-JE6">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupSelectNetworkViewController" id="ZcN-pG-fu2" customClass="MeshSetupSelectNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aec-3r-aOV">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bhn-2V-qyt">
-                                <rect key="frame" x="0.0" y="114" width="320" height="366"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meshNetworkCell" rowHeight="80" id="Naa-pI-AGs" customClass="MeshDeviceCell" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Naa-pI-AGs" id="wYD-fh-OWA">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="79.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaW-J7-N30" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="19.5" width="257" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJO-6X-HAM" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="46.5" width="257" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="TJO-6X-HAM" firstAttribute="leading" secondItem="JaW-J7-N30" secondAttribute="leading" id="3Of-MM-oKl"/>
-                                                <constraint firstItem="wJN-zI-VTP" firstAttribute="trailing" secondItem="TJO-6X-HAM" secondAttribute="trailing" constant="15" id="Mjg-m6-kbf"/>
-                                                <constraint firstItem="JaW-J7-N30" firstAttribute="centerY" secondItem="wYD-fh-OWA" secondAttribute="centerY" constant="-10" id="TVb-j1-VMv"/>
-                                                <constraint firstItem="TJO-6X-HAM" firstAttribute="top" secondItem="JaW-J7-N30" secondAttribute="bottom" constant="6" id="joj-ly-M14"/>
-                                                <constraint firstItem="JaW-J7-N30" firstAttribute="leading" secondItem="wJN-zI-VTP" secondAttribute="leading" constant="15" id="k8w-Xa-LHX"/>
-                                                <constraint firstItem="wJN-zI-VTP" firstAttribute="trailing" secondItem="JaW-J7-N30" secondAttribute="trailing" constant="15" id="mKU-aK-PHg"/>
-                                            </constraints>
-                                            <viewLayoutGuide key="safeArea" id="wJN-zI-VTP"/>
-                                        </tableViewCellContentView>
-                                        <viewLayoutGuide key="safeArea" id="WQC-3p-dJN"/>
-                                        <connections>
-                                            <outlet property="cellSubtitleLabel" destination="TJO-6X-HAM" id="Qv9-4v-YGJ"/>
-                                            <outlet property="cellTitleLabel" destination="JaW-J7-N30" id="346-aF-nlJ"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0W-kF-m2Q" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="35" width="280" height="19"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9SJ-HG-257">
-                                <rect key="frame" x="150" y="64" width="20" height="20"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="o0W-kF-m2Q" firstAttribute="leading" secondItem="fUp-s0-aCh" secondAttribute="leading" constant="20" id="3HG-Q3-4sF"/>
-                            <constraint firstItem="bhn-2V-qyt" firstAttribute="top" secondItem="9SJ-HG-257" secondAttribute="bottom" constant="30" id="4Ux-jT-RMn"/>
-                            <constraint firstItem="bhn-2V-qyt" firstAttribute="leading" secondItem="fUp-s0-aCh" secondAttribute="leading" id="Bdu-pF-wSS"/>
-                            <constraint firstItem="bhn-2V-qyt" firstAttribute="bottom" secondItem="aec-3r-aOV" secondAttribute="bottom" id="IrU-Nq-lrh"/>
-                            <constraint firstItem="9SJ-HG-257" firstAttribute="top" secondItem="o0W-kF-m2Q" secondAttribute="bottom" constant="10" id="NNc-Nw-ibz"/>
-                            <constraint firstItem="o0W-kF-m2Q" firstAttribute="top" secondItem="fUp-s0-aCh" secondAttribute="top" constant="15" id="a6m-5G-EjH"/>
-                            <constraint firstItem="9SJ-HG-257" firstAttribute="centerX" secondItem="aec-3r-aOV" secondAttribute="centerX" id="jzq-2w-KPa"/>
-                            <constraint firstItem="fUp-s0-aCh" firstAttribute="trailing" secondItem="o0W-kF-m2Q" secondAttribute="trailing" constant="20" id="mcG-CH-87s"/>
-                            <constraint firstItem="fUp-s0-aCh" firstAttribute="trailing" secondItem="bhn-2V-qyt" secondAttribute="trailing" id="trV-lb-cqH"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="fUp-s0-aCh"/>
-                    </view>
-                    <connections>
-                        <outlet property="networksTableView" destination="bhn-2V-qyt" id="7X6-ah-cJG"/>
-                        <outlet property="scanActivityIndicator" destination="9SJ-HG-257" id="BfF-GC-SOp"/>
-                        <outlet property="titleLabel" destination="o0W-kF-m2Q" id="Ovg-dq-MXn"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Uz0-Pz-Jo1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7572" y="2138"/>
-        </scene>
-        <!--Mesh Setup Select Or Create Network View Controller-->
-        <scene sceneID="ZFl-aF-RYe">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupSelectOrCreateNetworkViewController" id="ySy-dO-Z8d" customClass="MeshSetupSelectOrCreateNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Yee-Dp-2Ua">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c8s-Py-7NN">
-                                <rect key="frame" x="0.0" y="111" width="320" height="369"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meshNetworkCell" rowHeight="80" id="xKk-GQ-QRi" customClass="MeshDeviceCell" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xKk-GQ-QRi" id="rZh-mk-Rnh">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="79.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcq-fF-fg8" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="19.5" width="257" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bW-AR-kxO" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="46.5" width="257" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Oab-Ig-emZ" firstAttribute="trailing" secondItem="7bW-AR-kxO" secondAttribute="trailing" constant="15" id="078-yu-O8U"/>
-                                                <constraint firstItem="7bW-AR-kxO" firstAttribute="top" secondItem="xcq-fF-fg8" secondAttribute="bottom" constant="6" id="JGk-5h-cAJ"/>
-                                                <constraint firstItem="7bW-AR-kxO" firstAttribute="leading" secondItem="xcq-fF-fg8" secondAttribute="leading" id="Mv2-nf-8m9"/>
-                                                <constraint firstItem="xcq-fF-fg8" firstAttribute="centerY" secondItem="rZh-mk-Rnh" secondAttribute="centerY" constant="-10" id="Qdy-wn-Xcm"/>
-                                                <constraint firstItem="Oab-Ig-emZ" firstAttribute="trailing" secondItem="xcq-fF-fg8" secondAttribute="trailing" constant="15" id="sFa-zl-mtV"/>
-                                                <constraint firstItem="xcq-fF-fg8" firstAttribute="leading" secondItem="Oab-Ig-emZ" secondAttribute="leading" constant="15" id="sGu-4r-PWt"/>
-                                            </constraints>
-                                            <viewLayoutGuide key="safeArea" id="Oab-Ig-emZ"/>
-                                        </tableViewCellContentView>
-                                        <viewLayoutGuide key="safeArea" id="NtF-vO-Cn0"/>
-                                        <connections>
-                                            <outlet property="cellSubtitleLabel" destination="7bW-AR-kxO" id="6Re-yc-zox"/>
-                                            <outlet property="cellTitleLabel" destination="xcq-fF-fg8" id="Wvu-27-Wui"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meshCreateNetworkCell" rowHeight="80" id="dKE-QO-SRJ" customClass="MeshDeviceCell" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108" width="320" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dKE-QO-SRJ" id="4K9-0M-yVe">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="79.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65y-eK-Ufj" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="29.5" width="257" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="65y-eK-Ufj" firstAttribute="leading" secondItem="038-jS-aW5" secondAttribute="leading" constant="15" id="6Uw-4G-Ics"/>
-                                                <constraint firstItem="038-jS-aW5" firstAttribute="trailing" secondItem="65y-eK-Ufj" secondAttribute="trailing" constant="15" id="Bsq-Kt-IsL"/>
-                                                <constraint firstItem="65y-eK-Ufj" firstAttribute="centerY" secondItem="4K9-0M-yVe" secondAttribute="centerY" id="bOZ-Lr-J0h"/>
-                                            </constraints>
-                                            <viewLayoutGuide key="safeArea" id="038-jS-aW5"/>
-                                        </tableViewCellContentView>
-                                        <viewLayoutGuide key="safeArea" id="d2h-GQ-T0U"/>
-                                        <connections>
-                                            <outlet property="cellTitleLabel" destination="65y-eK-Ufj" id="N6e-DP-FxZ"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SN8-tX-G6I" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="35" width="280" height="16"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3VP-Me-32p">
-                                <rect key="frame" x="150" y="61" width="20" height="20"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="SN8-tX-G6I" firstAttribute="leading" secondItem="sl1-bK-Qe4" secondAttribute="leading" constant="20" id="06N-53-2Rj"/>
-                            <constraint firstItem="sl1-bK-Qe4" firstAttribute="trailing" secondItem="SN8-tX-G6I" secondAttribute="trailing" constant="20" id="163-KF-aHY"/>
-                            <constraint firstItem="SN8-tX-G6I" firstAttribute="top" secondItem="sl1-bK-Qe4" secondAttribute="top" constant="15" id="JQa-DZ-5Ws"/>
-                            <constraint firstItem="3VP-Me-32p" firstAttribute="top" secondItem="SN8-tX-G6I" secondAttribute="bottom" constant="10" id="LLF-ES-pYk"/>
-                            <constraint firstItem="3VP-Me-32p" firstAttribute="centerX" secondItem="Yee-Dp-2Ua" secondAttribute="centerX" id="Ptv-Xb-7qS"/>
-                            <constraint firstItem="c8s-Py-7NN" firstAttribute="leading" secondItem="sl1-bK-Qe4" secondAttribute="leading" id="Qu7-GF-KRD"/>
-                            <constraint firstItem="c8s-Py-7NN" firstAttribute="top" secondItem="3VP-Me-32p" secondAttribute="bottom" constant="30" id="as0-uC-nXv"/>
-                            <constraint firstItem="sl1-bK-Qe4" firstAttribute="trailing" secondItem="c8s-Py-7NN" secondAttribute="trailing" id="fT7-hQ-Zbl"/>
-                            <constraint firstItem="c8s-Py-7NN" firstAttribute="bottom" secondItem="Yee-Dp-2Ua" secondAttribute="bottom" id="rVo-iQ-LZM"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="sl1-bK-Qe4"/>
-                    </view>
-                    <connections>
-                        <outlet property="networksTableView" destination="c8s-Py-7NN" id="PZ8-1W-d5Z"/>
-                        <outlet property="scanActivityIndicator" destination="3VP-Me-32p" id="UcE-ow-qwq"/>
-                        <outlet property="titleLabel" destination="SN8-tX-G6I" id="lPX-Yp-3xl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lhn-Sk-CFv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="9036" y="3506"/>
         </scene>
         <!--Mesh Setup Get Commissioner Ready View Controller-->
         <scene sceneID="Qk7-DC-BjZ">
@@ -1135,646 +1065,6 @@
             </objects>
             <point key="canvasLocation" x="11176.875" y="3505"/>
         </scene>
-        <!--Joining Network-->
-        <scene sceneID="Yof-N7-Kii">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupJoiningNetworkViewController" id="ff2-B0-fSJ" customClass="MeshSetupJoiningNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="I4L-f2-Qdj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wM2-fM-rYr" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="157" width="260" height="118"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="USO-j3-udX">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="neF-zk-mCh"/>
-                                            <constraint firstAttribute="width" constant="64" id="qTU-Bu-hg6"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwV-Sq-5JR" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Eb-tx-GLg" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="101" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="LwV-Sq-5JR" secondAttribute="trailing" id="6Or-Hs-DsP"/>
-                                    <constraint firstAttribute="trailing" secondItem="7Eb-tx-GLg" secondAttribute="trailing" id="BdG-p6-p2X"/>
-                                    <constraint firstItem="LwV-Sq-5JR" firstAttribute="top" secondItem="USO-j3-udX" secondAttribute="bottom" constant="15" id="DGm-IG-0id"/>
-                                    <constraint firstItem="USO-j3-udX" firstAttribute="top" secondItem="wM2-fM-rYr" secondAttribute="top" id="Ipy-Ft-eUs"/>
-                                    <constraint firstItem="USO-j3-udX" firstAttribute="centerX" secondItem="wM2-fM-rYr" secondAttribute="centerX" id="UPx-mB-34f"/>
-                                    <constraint firstAttribute="bottom" secondItem="7Eb-tx-GLg" secondAttribute="bottom" id="dJQ-O9-Hic"/>
-                                    <constraint firstItem="7Eb-tx-GLg" firstAttribute="top" secondItem="LwV-Sq-5JR" secondAttribute="bottom" constant="5" id="f5A-fs-Fnx"/>
-                                    <constraint firstItem="7Eb-tx-GLg" firstAttribute="leading" secondItem="wM2-fM-rYr" secondAttribute="leading" id="hNJ-5c-I9V"/>
-                                    <constraint firstItem="LwV-Sq-5JR" firstAttribute="leading" secondItem="wM2-fM-rYr" secondAttribute="leading" id="uhB-88-yUQ"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="E5v-7r-NFm"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Opn-f7-DMU">
-                                <rect key="frame" x="20" y="35" width="280" height="238"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your {{device}} is joining {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W21-BV-auz" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aIn-4a-ISn">
-                                        <rect key="frame" x="130" y="47" width="20" height="20"/>
-                                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IfS-8b-deC" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UP-ez-AKU" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="149" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cci-Q4-Eue" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="206" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="W21-BV-auz" firstAttribute="leading" secondItem="Opn-f7-DMU" secondAttribute="leading" id="4IS-vU-QCm"/>
-                                    <constraint firstAttribute="trailing" secondItem="W21-BV-auz" secondAttribute="trailing" id="6cM-bL-xxX"/>
-                                    <constraint firstAttribute="trailing" secondItem="IfS-8b-deC" secondAttribute="trailing" id="6d0-73-gMM"/>
-                                    <constraint firstItem="aIn-4a-ISn" firstAttribute="centerX" secondItem="Opn-f7-DMU" secondAttribute="centerX" id="7xp-Oo-TiY"/>
-                                    <constraint firstItem="8UP-ez-AKU" firstAttribute="top" secondItem="IfS-8b-deC" secondAttribute="bottom" constant="25" id="Cwe-km-HGg"/>
-                                    <constraint firstAttribute="bottom" secondItem="cci-Q4-Eue" secondAttribute="bottom" id="MoA-Hw-hUO"/>
-                                    <constraint firstAttribute="trailing" secondItem="8UP-ez-AKU" secondAttribute="trailing" id="Og6-cb-YhQ"/>
-                                    <constraint firstItem="aIn-4a-ISn" firstAttribute="top" secondItem="W21-BV-auz" secondAttribute="bottom" constant="15" id="Sd3-Ku-RpN"/>
-                                    <constraint firstAttribute="trailing" secondItem="cci-Q4-Eue" secondAttribute="trailing" id="VtF-r2-D77"/>
-                                    <constraint firstItem="cci-Q4-Eue" firstAttribute="top" secondItem="8UP-ez-AKU" secondAttribute="bottom" constant="25" id="XQf-Ji-OG1"/>
-                                    <constraint firstItem="IfS-8b-deC" firstAttribute="top" secondItem="aIn-4a-ISn" secondAttribute="bottom" constant="25" id="ZFn-lv-Jny"/>
-                                    <constraint firstItem="8UP-ez-AKU" firstAttribute="leading" secondItem="Opn-f7-DMU" secondAttribute="leading" id="cbR-Ta-Ahb"/>
-                                    <constraint firstItem="IfS-8b-deC" firstAttribute="leading" secondItem="Opn-f7-DMU" secondAttribute="leading" id="chZ-vX-2cO"/>
-                                    <constraint firstItem="cci-Q4-Eue" firstAttribute="leading" secondItem="Opn-f7-DMU" secondAttribute="leading" id="jfM-hG-hBQ"/>
-                                    <constraint firstItem="W21-BV-auz" firstAttribute="top" secondItem="Opn-f7-DMU" secondAttribute="top" id="mkx-mU-jkg"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Opn-f7-DMU" firstAttribute="top" secondItem="ddY-eH-Vl5" secondAttribute="top" constant="15" id="2lx-5M-xeo"/>
-                            <constraint firstItem="wM2-fM-rYr" firstAttribute="centerY" secondItem="I4L-f2-Qdj" secondAttribute="centerY" multiplier="0.9" id="BUO-Mn-D5c"/>
-                            <constraint firstItem="Opn-f7-DMU" firstAttribute="leading" secondItem="ddY-eH-Vl5" secondAttribute="leading" constant="20" id="U4i-eM-VrG"/>
-                            <constraint firstItem="ddY-eH-Vl5" firstAttribute="trailing" secondItem="Opn-f7-DMU" secondAttribute="trailing" constant="20" id="bB6-2u-lV4"/>
-                            <constraint firstItem="ddY-eH-Vl5" firstAttribute="trailing" secondItem="wM2-fM-rYr" secondAttribute="trailing" constant="30" id="c4m-5V-cGC"/>
-                            <constraint firstItem="wM2-fM-rYr" firstAttribute="leading" secondItem="ddY-eH-Vl5" secondAttribute="leading" constant="30" id="cOt-a5-AUm"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="ddY-eH-Vl5"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Joining Network" id="Li7-zK-hnT"/>
-                    <connections>
-                        <outlet property="progressIndicator" destination="aIn-4a-ISn" id="GaA-y0-2gw"/>
-                        <outlet property="progressTitleLabel" destination="W21-BV-auz" id="bNR-Qv-ZQu"/>
-                        <outlet property="progressView" destination="Opn-f7-DMU" id="Of2-y3-oNR"/>
-                        <outlet property="successTextLabel" destination="7Eb-tx-GLg" id="qIJ-MU-iLA"/>
-                        <outlet property="successTitleLabel" destination="LwV-Sq-5JR" id="BRW-kH-AMS"/>
-                        <outlet property="successView" destination="wM2-fM-rYr" id="Dzt-xt-YSu"/>
-                        <outletCollection property="progressTextLabels" destination="IfS-8b-deC" collectionClass="NSMutableArray" id="FtU-me-pcx"/>
-                        <outletCollection property="progressTextLabels" destination="8UP-ez-AKU" collectionClass="NSMutableArray" id="BMs-MX-TtR"/>
-                        <outletCollection property="progressTextLabels" destination="cci-Q4-Eue" collectionClass="NSMutableArray" id="NVU-LD-pxW"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LJo-tW-itq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="11937" y="2138"/>
-        </scene>
-        <!--Mesh Setup Creating Network View Controller-->
-        <scene sceneID="JvY-Ef-83J">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupCreatingNetworkViewController" id="hIV-q9-ySM" customClass="MeshSetupCreatingNetworkViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qSB-0b-kw7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSa-E4-VoQ" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="157" width="260" height="118"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="VXz-Nl-gpg">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="c3h-Xn-vpo"/>
-                                            <constraint firstAttribute="width" constant="64" id="cWh-LK-wcX"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LR-NB-Ejf" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBk-Py-gb5" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="101" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="2LR-NB-Ejf" secondAttribute="trailing" id="7m3-7R-rr8"/>
-                                    <constraint firstAttribute="trailing" secondItem="eBk-Py-gb5" secondAttribute="trailing" id="FMD-xp-g6X"/>
-                                    <constraint firstItem="2LR-NB-Ejf" firstAttribute="top" secondItem="VXz-Nl-gpg" secondAttribute="bottom" constant="15" id="KQK-WJ-ZGv"/>
-                                    <constraint firstItem="eBk-Py-gb5" firstAttribute="leading" secondItem="cSa-E4-VoQ" secondAttribute="leading" id="QvI-wn-YL0"/>
-                                    <constraint firstItem="VXz-Nl-gpg" firstAttribute="centerX" secondItem="cSa-E4-VoQ" secondAttribute="centerX" id="Rc7-hZ-GVJ"/>
-                                    <constraint firstItem="VXz-Nl-gpg" firstAttribute="top" secondItem="cSa-E4-VoQ" secondAttribute="top" id="UBP-OX-Xzd"/>
-                                    <constraint firstAttribute="bottom" secondItem="eBk-Py-gb5" secondAttribute="bottom" id="hsI-hW-64z"/>
-                                    <constraint firstItem="eBk-Py-gb5" firstAttribute="top" secondItem="2LR-NB-Ejf" secondAttribute="bottom" constant="5" id="rIm-7M-AWa"/>
-                                    <constraint firstItem="2LR-NB-Ejf" firstAttribute="leading" secondItem="cSa-E4-VoQ" secondAttribute="leading" id="w6W-X3-iZl"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="hvP-HL-aHe"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1oA-Gd-fxC">
-                                <rect key="frame" x="20" y="35" width="280" height="295"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your {{device}} is joining {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoY-ir-n15" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xEn-rS-0FF">
-                                        <rect key="frame" x="130" y="47" width="20" height="20"/>
-                                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0M-46-L5j" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmp-Bx-tty" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="149" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPa-od-Qrp" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="206" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fgx-JR-Lcp" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="263" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Fgx-JR-Lcp" firstAttribute="leading" secondItem="1oA-Gd-fxC" secondAttribute="leading" id="0nd-vE-qwK"/>
-                                    <constraint firstAttribute="trailing" secondItem="Gmp-Bx-tty" secondAttribute="trailing" id="4tk-Tb-XA7"/>
-                                    <constraint firstItem="IPa-od-Qrp" firstAttribute="leading" secondItem="1oA-Gd-fxC" secondAttribute="leading" id="7H0-Fk-20O"/>
-                                    <constraint firstItem="Gmp-Bx-tty" firstAttribute="top" secondItem="R0M-46-L5j" secondAttribute="bottom" constant="25" id="DyO-U1-DL6"/>
-                                    <constraint firstItem="HoY-ir-n15" firstAttribute="leading" secondItem="1oA-Gd-fxC" secondAttribute="leading" id="FjU-KM-v2N"/>
-                                    <constraint firstItem="R0M-46-L5j" firstAttribute="leading" secondItem="1oA-Gd-fxC" secondAttribute="leading" id="KPv-xa-I8H"/>
-                                    <constraint firstAttribute="trailing" secondItem="IPa-od-Qrp" secondAttribute="trailing" id="M8M-Qj-HHA"/>
-                                    <constraint firstItem="Gmp-Bx-tty" firstAttribute="leading" secondItem="1oA-Gd-fxC" secondAttribute="leading" id="Q5N-t1-5QR"/>
-                                    <constraint firstItem="IPa-od-Qrp" firstAttribute="top" secondItem="Gmp-Bx-tty" secondAttribute="bottom" constant="25" id="V9N-gW-rX6"/>
-                                    <constraint firstItem="xEn-rS-0FF" firstAttribute="top" secondItem="HoY-ir-n15" secondAttribute="bottom" constant="15" id="Wzq-ZA-73O"/>
-                                    <constraint firstItem="HoY-ir-n15" firstAttribute="top" secondItem="1oA-Gd-fxC" secondAttribute="top" id="Zf1-rb-a7p"/>
-                                    <constraint firstAttribute="bottom" secondItem="Fgx-JR-Lcp" secondAttribute="bottom" id="b3Z-va-ksM"/>
-                                    <constraint firstAttribute="trailing" secondItem="Fgx-JR-Lcp" secondAttribute="trailing" id="gwk-9g-oEU"/>
-                                    <constraint firstAttribute="trailing" secondItem="HoY-ir-n15" secondAttribute="trailing" id="hml-Jk-DCl"/>
-                                    <constraint firstItem="R0M-46-L5j" firstAttribute="top" secondItem="xEn-rS-0FF" secondAttribute="bottom" constant="25" id="mvq-rd-dWn"/>
-                                    <constraint firstItem="xEn-rS-0FF" firstAttribute="centerX" secondItem="1oA-Gd-fxC" secondAttribute="centerX" id="vZH-RG-pgc"/>
-                                    <constraint firstItem="Fgx-JR-Lcp" firstAttribute="top" secondItem="IPa-od-Qrp" secondAttribute="bottom" constant="25" id="xkV-Fv-72G"/>
-                                    <constraint firstAttribute="trailing" secondItem="R0M-46-L5j" secondAttribute="trailing" id="xui-uy-UYm"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="kHl-bc-eEq" firstAttribute="trailing" secondItem="1oA-Gd-fxC" secondAttribute="trailing" constant="20" id="97J-hR-YjK"/>
-                            <constraint firstItem="1oA-Gd-fxC" firstAttribute="leading" secondItem="kHl-bc-eEq" secondAttribute="leading" constant="20" id="Ozk-Nb-lpJ"/>
-                            <constraint firstItem="cSa-E4-VoQ" firstAttribute="leading" secondItem="kHl-bc-eEq" secondAttribute="leading" constant="30" id="flT-Xf-yfn"/>
-                            <constraint firstItem="1oA-Gd-fxC" firstAttribute="top" secondItem="kHl-bc-eEq" secondAttribute="top" constant="15" id="qwD-kt-YDg"/>
-                            <constraint firstItem="cSa-E4-VoQ" firstAttribute="centerY" secondItem="qSB-0b-kw7" secondAttribute="centerY" multiplier="0.9" id="uZS-FX-Cu7"/>
-                            <constraint firstItem="kHl-bc-eEq" firstAttribute="trailing" secondItem="cSa-E4-VoQ" secondAttribute="trailing" constant="30" id="y4O-Fr-Qjr"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="kHl-bc-eEq"/>
-                    </view>
-                    <connections>
-                        <outlet property="progressIndicator" destination="xEn-rS-0FF" id="vRe-x8-fIC"/>
-                        <outlet property="progressTitleLabel" destination="HoY-ir-n15" id="4lh-fV-UVL"/>
-                        <outlet property="progressView" destination="1oA-Gd-fxC" id="nL1-rn-2sH"/>
-                        <outlet property="successTextLabel" destination="eBk-Py-gb5" id="Nvy-G1-3mD"/>
-                        <outlet property="successTitleLabel" destination="2LR-NB-Ejf" id="SKR-n0-X7M"/>
-                        <outlet property="successView" destination="cSa-E4-VoQ" id="Vgp-gd-702"/>
-                        <outletCollection property="progressTextLabels" destination="R0M-46-L5j" collectionClass="NSMutableArray" id="50J-xl-xhm"/>
-                        <outletCollection property="progressTextLabels" destination="Gmp-Bx-tty" collectionClass="NSMutableArray" id="xRC-Pk-hn5"/>
-                        <outletCollection property="progressTextLabels" destination="IPa-od-Qrp" collectionClass="NSMutableArray" id="cTv-Jj-XJx"/>
-                        <outletCollection property="progressTextLabels" destination="Fgx-JR-Lcp" collectionClass="NSMutableArray" id="6Kp-Kp-A7A"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="idA-GA-5HN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="11936" y="3508"/>
-        </scene>
-        <!--Joining Network-->
-        <scene sceneID="NXb-7G-HX9">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupConnectToInternetViewController" id="lX8-eD-ikN" customClass="MeshSetupConnectToInternetViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1c4-cz-S9v">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGv-eg-jgr" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="157" width="260" height="118"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="d4V-06-43O">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="OSu-La-TsF"/>
-                                            <constraint firstAttribute="width" constant="64" id="RbO-7K-0Rp"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8Y-fC-i5a" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ep0-QD-lbV" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="101" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="d4V-06-43O" firstAttribute="top" secondItem="mGv-eg-jgr" secondAttribute="top" id="72g-K8-lb9"/>
-                                    <constraint firstItem="ep0-QD-lbV" firstAttribute="leading" secondItem="mGv-eg-jgr" secondAttribute="leading" id="N4q-R2-iCJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="F8Y-fC-i5a" secondAttribute="trailing" id="POl-mQ-pPb"/>
-                                    <constraint firstItem="F8Y-fC-i5a" firstAttribute="top" secondItem="d4V-06-43O" secondAttribute="bottom" constant="15" id="YZO-oP-DCV"/>
-                                    <constraint firstItem="ep0-QD-lbV" firstAttribute="top" secondItem="F8Y-fC-i5a" secondAttribute="bottom" constant="5" id="gbs-Yf-wQY"/>
-                                    <constraint firstAttribute="trailing" secondItem="ep0-QD-lbV" secondAttribute="trailing" id="kKl-Xx-CnK"/>
-                                    <constraint firstAttribute="bottom" secondItem="ep0-QD-lbV" secondAttribute="bottom" id="nPd-43-i0g"/>
-                                    <constraint firstItem="d4V-06-43O" firstAttribute="centerX" secondItem="mGv-eg-jgr" secondAttribute="centerX" id="uQp-r6-aGw"/>
-                                    <constraint firstItem="F8Y-fC-i5a" firstAttribute="leading" secondItem="mGv-eg-jgr" secondAttribute="leading" id="wpA-VP-qaU"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="pWu-tJ-dr7"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mLf-s3-FM0">
-                                <rect key="frame" x="20" y="35" width="280" height="181"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your {{device}} is joining {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVQ-CO-uwk" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TRb-QZ-vxO">
-                                        <rect key="frame" x="130" y="47" width="20" height="20"/>
-                                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JY-Qr-LRg" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYZ-np-skr" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="149" width="280" height="32"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="YYZ-np-skr" firstAttribute="top" secondItem="6JY-Qr-LRg" secondAttribute="bottom" constant="25" id="185-R9-TD5"/>
-                                    <constraint firstAttribute="trailing" secondItem="YYZ-np-skr" secondAttribute="trailing" id="CbJ-W5-Z14"/>
-                                    <constraint firstItem="YYZ-np-skr" firstAttribute="leading" secondItem="mLf-s3-FM0" secondAttribute="leading" id="Ey3-ye-IwB"/>
-                                    <constraint firstItem="nVQ-CO-uwk" firstAttribute="leading" secondItem="mLf-s3-FM0" secondAttribute="leading" id="JKV-Eo-jya"/>
-                                    <constraint firstItem="6JY-Qr-LRg" firstAttribute="leading" secondItem="mLf-s3-FM0" secondAttribute="leading" id="MAH-dM-7Yp"/>
-                                    <constraint firstAttribute="bottom" secondItem="YYZ-np-skr" secondAttribute="bottom" id="NmT-cC-KlM"/>
-                                    <constraint firstAttribute="trailing" secondItem="nVQ-CO-uwk" secondAttribute="trailing" id="TPf-h0-wic"/>
-                                    <constraint firstItem="nVQ-CO-uwk" firstAttribute="top" secondItem="mLf-s3-FM0" secondAttribute="top" id="XMQ-Mn-P9o"/>
-                                    <constraint firstItem="6JY-Qr-LRg" firstAttribute="top" secondItem="TRb-QZ-vxO" secondAttribute="bottom" constant="25" id="YSA-dR-KIv"/>
-                                    <constraint firstItem="TRb-QZ-vxO" firstAttribute="top" secondItem="nVQ-CO-uwk" secondAttribute="bottom" constant="15" id="nAf-l9-xKT"/>
-                                    <constraint firstAttribute="trailing" secondItem="6JY-Qr-LRg" secondAttribute="trailing" id="sX3-tY-9r3"/>
-                                    <constraint firstItem="TRb-QZ-vxO" firstAttribute="centerX" secondItem="mLf-s3-FM0" secondAttribute="centerX" id="x1H-dG-Oad"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="mLf-s3-FM0" firstAttribute="leading" secondItem="XmI-Of-PGt" secondAttribute="leading" constant="20" id="EG4-3c-yQI"/>
-                            <constraint firstItem="mLf-s3-FM0" firstAttribute="top" secondItem="XmI-Of-PGt" secondAttribute="top" constant="15" id="LXT-Ym-fhQ"/>
-                            <constraint firstItem="mGv-eg-jgr" firstAttribute="centerY" secondItem="1c4-cz-S9v" secondAttribute="centerY" multiplier="0.9" id="SyU-Lh-AaZ"/>
-                            <constraint firstItem="XmI-Of-PGt" firstAttribute="trailing" secondItem="mLf-s3-FM0" secondAttribute="trailing" constant="20" id="XdL-Bz-nvF"/>
-                            <constraint firstItem="mGv-eg-jgr" firstAttribute="leading" secondItem="XmI-Of-PGt" secondAttribute="leading" constant="30" id="cIw-r8-zhg"/>
-                            <constraint firstItem="XmI-Of-PGt" firstAttribute="trailing" secondItem="mGv-eg-jgr" secondAttribute="trailing" constant="30" id="rgY-nN-rP3"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="XmI-Of-PGt"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Joining Network" id="hbI-uO-wEs"/>
-                    <connections>
-                        <outlet property="progressIndicator" destination="TRb-QZ-vxO" id="2nC-ag-bxv"/>
-                        <outlet property="progressTitleLabel" destination="nVQ-CO-uwk" id="urE-zh-vbW"/>
-                        <outlet property="progressView" destination="mLf-s3-FM0" id="7nv-n5-CbB"/>
-                        <outlet property="successTextLabel" destination="ep0-QD-lbV" id="9nM-Rt-GOM"/>
-                        <outlet property="successTitleLabel" destination="F8Y-fC-i5a" id="xGo-sG-ubt"/>
-                        <outlet property="successView" destination="mGv-eg-jgr" id="zmP-KG-dhT"/>
-                        <outletCollection property="progressTextLabels" destination="6JY-Qr-LRg" collectionClass="NSMutableArray" id="YKQ-xZ-Yn5"/>
-                        <outletCollection property="progressTextLabels" destination="YYZ-np-skr" collectionClass="NSMutableArray" id="hJq-O0-SRV"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="i5P-fK-vRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7572" y="2819"/>
-        </scene>
-        <!--Mesh Setup Success View Controller-->
-        <scene sceneID="sDb-2d-crI">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupSuccessViewController" id="ul3-tR-sYi" customClass="MeshSetupSuccessViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sSp-kp-wev">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding more devices to this network?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddI-Nh-1cc" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="210" width="280" height="32"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lnz-AK-Smi" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="252" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="nzw-rM-HSq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Setup another device">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="setupAnotherButtonTapped:" destination="ul3-tR-sYi" eventType="touchUpInside" id="ga1-SG-Aax"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3v4-1A-RPJ" userLabel="Seperator">
-                                <rect key="frame" x="20" y="327" width="280" height="2"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="e7u-Mw-hzB"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Itching to get started?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfq-CR-uM9" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="364" width="280" height="16"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txH-95-9sz" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="390" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="w5n-Wc-TJk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneButtonTapped:" destination="ul3-tR-sYi" eventType="touchUpInside" id="pyf-wE-gqn"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCH-lo-bXh" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="12" width="260" height="118"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="HLO-6G-csz">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="NEd-SP-gdq"/>
-                                            <constraint firstAttribute="height" constant="64" id="U3B-bQ-Hhj"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbX-Lu-3ck" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{deviceName}} is all set up!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-kJ-1Ej" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="101" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="hbX-Lu-3ck" firstAttribute="top" secondItem="HLO-6G-csz" secondAttribute="bottom" constant="15" id="7Dt-zj-lc1"/>
-                                    <constraint firstItem="hbX-Lu-3ck" firstAttribute="leading" secondItem="rCH-lo-bXh" secondAttribute="leading" id="7oQ-4d-IyS"/>
-                                    <constraint firstItem="HLO-6G-csz" firstAttribute="top" secondItem="rCH-lo-bXh" secondAttribute="top" id="AlB-91-dc5"/>
-                                    <constraint firstAttribute="trailing" secondItem="hbX-Lu-3ck" secondAttribute="trailing" id="LIm-n2-IWU"/>
-                                    <constraint firstItem="HLO-6G-csz" firstAttribute="centerX" secondItem="rCH-lo-bXh" secondAttribute="centerX" id="MOF-76-LOF"/>
-                                    <constraint firstAttribute="trailing" secondItem="IKh-kJ-1Ej" secondAttribute="trailing" id="Rpi-2y-rAO"/>
-                                    <constraint firstItem="IKh-kJ-1Ej" firstAttribute="leading" secondItem="rCH-lo-bXh" secondAttribute="leading" id="lVH-uT-tXs"/>
-                                    <constraint firstAttribute="bottom" secondItem="IKh-kJ-1Ej" secondAttribute="bottom" id="pPs-DV-oEH"/>
-                                    <constraint firstItem="IKh-kJ-1Ej" firstAttribute="top" secondItem="hbX-Lu-3ck" secondAttribute="bottom" constant="5" id="z46-PR-To6"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="YsK-ci-tbj"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="txH-95-9sz" firstAttribute="leading" secondItem="cmO-nJ-cE9" secondAttribute="leading" constant="20" id="6Vk-Fs-V3C"/>
-                            <constraint firstItem="txH-95-9sz" firstAttribute="top" secondItem="bfq-CR-uM9" secondAttribute="bottom" constant="10" id="6b8-iD-96y"/>
-                            <constraint firstItem="Lnz-AK-Smi" firstAttribute="top" secondItem="ddI-Nh-1cc" secondAttribute="bottom" constant="10" id="Caf-un-wLG"/>
-                            <constraint firstItem="cmO-nJ-cE9" firstAttribute="trailing" secondItem="txH-95-9sz" secondAttribute="trailing" constant="20" id="JVx-PI-YHb"/>
-                            <constraint firstItem="cmO-nJ-cE9" firstAttribute="trailing" secondItem="Lnz-AK-Smi" secondAttribute="trailing" constant="20" id="PEV-mb-jhw"/>
-                            <constraint firstItem="ddI-Nh-1cc" firstAttribute="top" secondItem="rCH-lo-bXh" secondAttribute="bottom" constant="80" id="QFH-CF-DRA"/>
-                            <constraint firstItem="bfq-CR-uM9" firstAttribute="leading" secondItem="cmO-nJ-cE9" secondAttribute="leading" constant="20" id="R7W-t0-mP5"/>
-                            <constraint firstItem="bfq-CR-uM9" firstAttribute="top" secondItem="3v4-1A-RPJ" secondAttribute="bottom" constant="35" id="V3X-3i-sLB"/>
-                            <constraint firstItem="Lnz-AK-Smi" firstAttribute="leading" secondItem="cmO-nJ-cE9" secondAttribute="leading" constant="20" id="YGh-kC-yLA"/>
-                            <constraint firstItem="rCH-lo-bXh" firstAttribute="leading" secondItem="cmO-nJ-cE9" secondAttribute="leading" constant="30" id="cF6-KG-CND"/>
-                            <constraint firstItem="3v4-1A-RPJ" firstAttribute="top" secondItem="Lnz-AK-Smi" secondAttribute="bottom" constant="35" id="cVV-eY-HXo"/>
-                            <constraint firstItem="cmO-nJ-cE9" firstAttribute="bottom" secondItem="txH-95-9sz" secondAttribute="bottom" constant="50" id="guS-dG-zwe"/>
-                            <constraint firstItem="cmO-nJ-cE9" firstAttribute="trailing" secondItem="3v4-1A-RPJ" secondAttribute="trailing" constant="20" id="lFe-KH-2mc"/>
-                            <constraint firstItem="cmO-nJ-cE9" firstAttribute="trailing" secondItem="rCH-lo-bXh" secondAttribute="trailing" constant="30" id="qWq-pg-4kJ"/>
-                            <constraint firstItem="3v4-1A-RPJ" firstAttribute="leading" secondItem="cmO-nJ-cE9" secondAttribute="leading" constant="20" id="uAX-1Q-b3D"/>
-                            <constraint firstItem="ddI-Nh-1cc" firstAttribute="trailing" secondItem="cmO-nJ-cE9" secondAttribute="trailing" constant="-20" id="wHq-WD-3uh"/>
-                            <constraint firstItem="cmO-nJ-cE9" firstAttribute="leading" secondItem="ddI-Nh-1cc" secondAttribute="leading" constant="-20" id="wSL-bx-yPg"/>
-                            <constraint firstItem="cmO-nJ-cE9" firstAttribute="trailing" secondItem="bfq-CR-uM9" secondAttribute="trailing" constant="20" id="zBr-Bu-Old"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="cmO-nJ-cE9"/>
-                    </view>
-                    <connections>
-                        <outlet property="continueButton" destination="Lnz-AK-Smi" id="TvR-eo-Yqx"/>
-                        <outlet property="continueLabel" destination="ddI-Nh-1cc" id="Uh3-nx-us4"/>
-                        <outlet property="doneButton" destination="txH-95-9sz" id="i4k-lv-kIX"/>
-                        <outlet property="doneLabel" destination="bfq-CR-uM9" id="EiO-uQ-2H2"/>
-                        <outlet property="splitterView" destination="sSp-kp-wev" id="V70-wo-Shc"/>
-                        <outlet property="successTextLabel" destination="IKh-kJ-1Ej" id="xSc-oZ-fR3"/>
-                        <outlet property="successTitleLabel" destination="hbX-Lu-3ck" id="vhd-Aq-1Bm"/>
-                        <outlet property="successView" destination="rCH-lo-bXh" id="Ny2-zX-FQM"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6nr-Yf-6h9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="13370" y="2138"/>
-        </scene>
-        <!--Mesh Setup Network Created View Controller-->
-        <scene sceneID="rz8-46-zGZ">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupNetworkCreatedViewController" id="QlR-Gj-8P1" customClass="MeshSetupNetworkCreatedViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eFQ-QB-uLB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding more devices to this network?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5b-v0-uVp" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="220" width="280" height="19"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7c-uS-0cy" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="249" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="UUb-A3-53M"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Setup another device">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="setupAnotherButtonTapped:" destination="QlR-Gj-8P1" eventType="touchUpInside" id="R29-Af-jaE"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puh-Mm-UcX" userLabel="Seperator">
-                                <rect key="frame" x="20" y="324" width="280" height="2"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="2LX-Dy-6uh"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Itching to get started?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAO-kf-X0x" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="361" width="280" height="19"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvt-cM-v8s" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="390" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="DOp-Sc-Tfg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneButtonTapped:" destination="QlR-Gj-8P1" eventType="touchUpInside" id="1uy-co-Lel"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM2-Hp-av2" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="16" width="260" height="124"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="AJP-cF-3sO">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="4UR-w9-D9f"/>
-                                            <constraint firstAttribute="width" constant="64" id="KgU-Ee-cvD"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCS-rP-x0T" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="20"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{deviceName}} is all set up!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbV-dk-83T" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104" width="260" height="20"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="AJP-cF-3sO" firstAttribute="top" secondItem="fM2-Hp-av2" secondAttribute="top" id="L1h-bB-Rdg"/>
-                                    <constraint firstItem="qCS-rP-x0T" firstAttribute="leading" secondItem="fM2-Hp-av2" secondAttribute="leading" id="OR9-fJ-rAp"/>
-                                    <constraint firstItem="qCS-rP-x0T" firstAttribute="top" secondItem="AJP-cF-3sO" secondAttribute="bottom" constant="15" id="PIb-6i-lzo"/>
-                                    <constraint firstAttribute="trailing" secondItem="qCS-rP-x0T" secondAttribute="trailing" id="h43-re-EbH"/>
-                                    <constraint firstAttribute="bottom" secondItem="JbV-dk-83T" secondAttribute="bottom" id="oU8-4V-eU9"/>
-                                    <constraint firstItem="JbV-dk-83T" firstAttribute="top" secondItem="qCS-rP-x0T" secondAttribute="bottom" constant="5" id="oWG-8f-Pm8"/>
-                                    <constraint firstAttribute="trailing" secondItem="JbV-dk-83T" secondAttribute="trailing" id="p2a-r2-RhK"/>
-                                    <constraint firstItem="JbV-dk-83T" firstAttribute="leading" secondItem="fM2-Hp-av2" secondAttribute="leading" id="rlI-a2-tDz"/>
-                                    <constraint firstItem="AJP-cF-3sO" firstAttribute="centerX" secondItem="fM2-Hp-av2" secondAttribute="centerX" id="tiS-1x-i2Y"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="XsK-ds-t9P"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="fvt-cM-v8s" firstAttribute="leading" secondItem="zaJ-i3-7G7" secondAttribute="leading" constant="20" id="5Kg-pq-fUO"/>
-                            <constraint firstItem="zaJ-i3-7G7" firstAttribute="trailing" secondItem="QAO-kf-X0x" secondAttribute="trailing" constant="20" id="BtN-Zi-BzV"/>
-                            <constraint firstItem="U7c-uS-0cy" firstAttribute="leading" secondItem="zaJ-i3-7G7" secondAttribute="leading" constant="20" id="FVA-tG-uv1"/>
-                            <constraint firstItem="fvt-cM-v8s" firstAttribute="top" secondItem="QAO-kf-X0x" secondAttribute="bottom" constant="10" id="Kz8-Xa-hSx"/>
-                            <constraint firstItem="V5b-v0-uVp" firstAttribute="trailing" secondItem="zaJ-i3-7G7" secondAttribute="trailing" constant="-20" id="MaA-vN-GIO"/>
-                            <constraint firstItem="zaJ-i3-7G7" firstAttribute="bottom" secondItem="fvt-cM-v8s" secondAttribute="bottom" constant="50" id="SAX-2n-KRL"/>
-                            <constraint firstItem="zaJ-i3-7G7" firstAttribute="trailing" secondItem="fM2-Hp-av2" secondAttribute="trailing" constant="30" id="T0O-C3-cYQ"/>
-                            <constraint firstItem="puh-Mm-UcX" firstAttribute="leading" secondItem="zaJ-i3-7G7" secondAttribute="leading" constant="20" id="U4h-hr-MlQ"/>
-                            <constraint firstItem="V5b-v0-uVp" firstAttribute="top" secondItem="fM2-Hp-av2" secondAttribute="bottom" constant="80" id="VN3-c0-BR0"/>
-                            <constraint firstItem="zaJ-i3-7G7" firstAttribute="trailing" secondItem="puh-Mm-UcX" secondAttribute="trailing" constant="20" id="Xmk-6I-f5F"/>
-                            <constraint firstItem="puh-Mm-UcX" firstAttribute="top" secondItem="U7c-uS-0cy" secondAttribute="bottom" constant="35" id="cPa-yi-5hc"/>
-                            <constraint firstItem="zaJ-i3-7G7" firstAttribute="trailing" secondItem="fvt-cM-v8s" secondAttribute="trailing" constant="20" id="czH-5f-SOw"/>
-                            <constraint firstItem="QAO-kf-X0x" firstAttribute="top" secondItem="puh-Mm-UcX" secondAttribute="bottom" constant="35" id="d1L-V0-K4K"/>
-                            <constraint firstItem="QAO-kf-X0x" firstAttribute="leading" secondItem="zaJ-i3-7G7" secondAttribute="leading" constant="20" id="edq-3M-fnp"/>
-                            <constraint firstItem="U7c-uS-0cy" firstAttribute="top" secondItem="V5b-v0-uVp" secondAttribute="bottom" constant="10" id="gvO-e9-iPs"/>
-                            <constraint firstItem="zaJ-i3-7G7" firstAttribute="leading" secondItem="V5b-v0-uVp" secondAttribute="leading" constant="-20" id="iB1-ya-qVt"/>
-                            <constraint firstItem="fM2-Hp-av2" firstAttribute="leading" secondItem="zaJ-i3-7G7" secondAttribute="leading" constant="30" id="xTY-cr-q62"/>
-                            <constraint firstItem="zaJ-i3-7G7" firstAttribute="trailing" secondItem="U7c-uS-0cy" secondAttribute="trailing" constant="20" id="xjZ-0i-OCU"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="zaJ-i3-7G7"/>
-                    </view>
-                    <connections>
-                        <outlet property="continueButton" destination="U7c-uS-0cy" id="tlJ-gp-ypM"/>
-                        <outlet property="continueLabel" destination="V5b-v0-uVp" id="6jb-IB-xTS"/>
-                        <outlet property="doneButton" destination="fvt-cM-v8s" id="jwP-AW-53q"/>
-                        <outlet property="doneLabel" destination="QAO-kf-X0x" id="oRk-RI-9k6"/>
-                        <outlet property="splitterView" destination="eFQ-QB-uLB" id="SwK-p9-5DB"/>
-                        <outlet property="successTextLabel" destination="JbV-dk-83T" id="itS-zp-4P2"/>
-                        <outlet property="successTitleLabel" destination="qCS-rP-x0T" id="pmP-d3-o7n"/>
-                        <outlet property="successView" destination="fM2-Hp-av2" id="p0j-uj-Cpb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NRG-0F-0FJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="12656" y="3506"/>
-        </scene>
         <!--Pair Assisting Device-->
         <scene sceneID="HE2-1B-NpF">
             <objects>
@@ -1784,31 +1074,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiM-O3-dht" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="82" width="280" height="64"/>
+                                <rect key="frame" x="20" y="69" width="280" height="56"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv7-0e-gf5" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="35" width="280" height="32"/>
+                                <rect key="frame" x="20" y="35" width="280" height="19"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="MeshSetupFindStickerImage" translatesAutoresizingMaskIntoConstraints="NO" id="tHU-6r-7dt">
-                                <rect key="frame" x="30" y="291" width="260" height="89"/>
+                                <rect key="frame" x="30" y="278.5" width="260" height="101.5"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHv-1p-IH0" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="15" y="171" width="290" height="95"/>
+                                <rect key="frame" x="15" y="150" width="290" height="103.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbz-8G-PUF" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="37.5" width="270" height="42.5"/>
+                                        <rect key="frame" x="10" y="39.5" width="270" height="49"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vy1-7y-bT4" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="15" width="270" height="14.5"/>
+                                        <rect key="frame" x="10" y="15" width="270" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1987,19 +1277,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair {{device}} with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOf-fQ-KFJ" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="32.5" y="35" width="255.5" height="16"/>
+                                <rect key="frame" x="50" y="35" width="220" height="19"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of your device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQR-Nd-MQx" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="61" width="280" height="48"/>
+                                <rect key="frame" x="20" y="64" width="280" height="56"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="MeshSetupFindStickerImage" translatesAutoresizingMaskIntoConstraints="NO" id="CCv-k7-G1V">
-                                <rect key="frame" x="30" y="149" width="260" height="231"/>
+                                <rect key="frame" x="30" y="160" width="260" height="220"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7D8-6D-RNu" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="20" y="420" width="280" height="40"/>
@@ -2049,139 +1339,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="evx-dY-F1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5118" y="2583"/>
-        </scene>
-        <!--Mesh Setup Finish Setup Early View Controller-->
-        <scene sceneID="pDs-85-nPe">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupFinishSetupEarlyViewController" id="Nyu-iN-xuf" customClass="MeshSetupFinishSetupEarlyViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Nce-po-h4x">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding more devices to this network?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiT-1O-A44" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="210" width="280" height="32"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdO-cz-7Og" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="252" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="3Cm-Zn-UgD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Setup another device">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="setupAnotherButtonTapped:" destination="Nyu-iN-xuf" eventType="touchUpInside" id="1LV-sS-fdC"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQg-Yh-mbr" userLabel="Seperator">
-                                <rect key="frame" x="20" y="327" width="280" height="2"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="Ruj-KI-1UD"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Itching to get started?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMF-qQ-tBa" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="364" width="280" height="16"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6X-Wt-d1k" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="390" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="eQF-7o-SpZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneButtonTapped:" destination="Nyu-iN-xuf" eventType="touchUpInside" id="gcK-wF-cz2"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u5i-xX-EXf" userLabel="SuccessView">
-                                <rect key="frame" x="30" y="12" width="260" height="118"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="RBv-wn-JTc">
-                                        <rect key="frame" x="98" y="0.0" width="64" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="mlA-lG-24L"/>
-                                            <constraint firstAttribute="width" constant="64" id="tu6-DL-Cra"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYS-Nx-JPd" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="79" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{deviceName}} is all set up!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXc-QT-FIC" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="101" width="260" height="17"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="RBv-wn-JTc" firstAttribute="centerX" secondItem="u5i-xX-EXf" secondAttribute="centerX" id="6cw-J9-0Vh"/>
-                                    <constraint firstItem="RBv-wn-JTc" firstAttribute="top" secondItem="u5i-xX-EXf" secondAttribute="top" id="REO-Fi-vKg"/>
-                                    <constraint firstItem="fXc-QT-FIC" firstAttribute="top" secondItem="jYS-Nx-JPd" secondAttribute="bottom" constant="5" id="Xgb-1C-Zsa"/>
-                                    <constraint firstAttribute="trailing" secondItem="jYS-Nx-JPd" secondAttribute="trailing" id="Ybz-3y-daq"/>
-                                    <constraint firstItem="jYS-Nx-JPd" firstAttribute="top" secondItem="RBv-wn-JTc" secondAttribute="bottom" constant="15" id="a4A-32-MmD"/>
-                                    <constraint firstItem="fXc-QT-FIC" firstAttribute="leading" secondItem="u5i-xX-EXf" secondAttribute="leading" id="erE-9z-H7Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="fXc-QT-FIC" secondAttribute="trailing" id="ngA-Fj-TWQ"/>
-                                    <constraint firstAttribute="bottom" secondItem="fXc-QT-FIC" secondAttribute="bottom" id="tW5-fS-pDc"/>
-                                    <constraint firstItem="jYS-Nx-JPd" firstAttribute="leading" secondItem="u5i-xX-EXf" secondAttribute="leading" id="vg2-5T-BVJ"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="PVF-zI-PSI"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="BMF-qQ-tBa" firstAttribute="top" secondItem="xQg-Yh-mbr" secondAttribute="bottom" constant="35" id="1Pa-zl-Zyz"/>
-                            <constraint firstItem="FRx-1D-5lg" firstAttribute="trailing" secondItem="xQg-Yh-mbr" secondAttribute="trailing" constant="20" id="5II-QZ-M9X"/>
-                            <constraint firstItem="FRx-1D-5lg" firstAttribute="trailing" secondItem="P6X-Wt-d1k" secondAttribute="trailing" constant="20" id="MmI-Hc-5kL"/>
-                            <constraint firstItem="FRx-1D-5lg" firstAttribute="bottom" secondItem="P6X-Wt-d1k" secondAttribute="bottom" constant="50" id="NYM-2E-kSp"/>
-                            <constraint firstItem="FRx-1D-5lg" firstAttribute="trailing" secondItem="u5i-xX-EXf" secondAttribute="trailing" constant="30" id="PGI-I1-Cmx"/>
-                            <constraint firstItem="xQg-Yh-mbr" firstAttribute="leading" secondItem="FRx-1D-5lg" secondAttribute="leading" constant="20" id="SZY-LZ-fjg"/>
-                            <constraint firstItem="GdO-cz-7Og" firstAttribute="leading" secondItem="FRx-1D-5lg" secondAttribute="leading" constant="20" id="Wxg-3h-cAQ"/>
-                            <constraint firstItem="FRx-1D-5lg" firstAttribute="trailing" secondItem="BMF-qQ-tBa" secondAttribute="trailing" constant="20" id="YGX-I6-W7i"/>
-                            <constraint firstItem="P6X-Wt-d1k" firstAttribute="leading" secondItem="FRx-1D-5lg" secondAttribute="leading" constant="20" id="YJM-Ec-Thx"/>
-                            <constraint firstItem="GdO-cz-7Og" firstAttribute="top" secondItem="PiT-1O-A44" secondAttribute="bottom" constant="10" id="e0B-ZS-mt7"/>
-                            <constraint firstItem="FRx-1D-5lg" firstAttribute="leading" secondItem="PiT-1O-A44" secondAttribute="leading" constant="-20" id="hMl-IW-Mch"/>
-                            <constraint firstItem="BMF-qQ-tBa" firstAttribute="leading" secondItem="FRx-1D-5lg" secondAttribute="leading" constant="20" id="kgJ-nT-aJp"/>
-                            <constraint firstItem="u5i-xX-EXf" firstAttribute="leading" secondItem="FRx-1D-5lg" secondAttribute="leading" constant="30" id="lfr-KA-pOj"/>
-                            <constraint firstItem="FRx-1D-5lg" firstAttribute="trailing" secondItem="GdO-cz-7Og" secondAttribute="trailing" constant="20" id="mJg-I2-oS9"/>
-                            <constraint firstItem="PiT-1O-A44" firstAttribute="top" secondItem="u5i-xX-EXf" secondAttribute="bottom" constant="80" id="nqU-C4-P5f"/>
-                            <constraint firstItem="P6X-Wt-d1k" firstAttribute="top" secondItem="BMF-qQ-tBa" secondAttribute="bottom" constant="10" id="pHi-DW-rea"/>
-                            <constraint firstItem="PiT-1O-A44" firstAttribute="trailing" secondItem="FRx-1D-5lg" secondAttribute="trailing" constant="-20" id="xlQ-bf-QvC"/>
-                            <constraint firstItem="xQg-Yh-mbr" firstAttribute="top" secondItem="GdO-cz-7Og" secondAttribute="bottom" constant="35" id="y2I-YY-5vq"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="FRx-1D-5lg"/>
-                    </view>
-                    <connections>
-                        <outlet property="continueButton" destination="GdO-cz-7Og" id="pZR-bt-8dO"/>
-                        <outlet property="continueLabel" destination="PiT-1O-A44" id="ZBQ-JF-biV"/>
-                        <outlet property="doneButton" destination="P6X-Wt-d1k" id="wLE-5s-EZ5"/>
-                        <outlet property="doneLabel" destination="BMF-qQ-tBa" id="iqE-0T-eij"/>
-                        <outlet property="splitterView" destination="Nce-po-h4x" id="WK1-sh-fzS"/>
-                        <outlet property="successTextLabel" destination="fXc-QT-FIC" id="Sbf-qn-nuM"/>
-                        <outlet property="successTitleLabel" destination="jYS-Nx-JPd" id="M0E-uV-pTi"/>
-                        <outlet property="successView" destination="u5i-xX-EXf" id="38L-zy-12W"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="43m-TK-K8c" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="9036" y="2819"/>
         </scene>
         <!--Mesh Setup Billing Info View Controller-->
         <scene sceneID="8JH-NN-yUk">
@@ -2312,12 +1469,89 @@
             </objects>
             <point key="canvasLocation" x="9752" y="2138"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="LhD-NI-GI5">
+            <objects>
+                <viewController id="5rL-Li-eEs" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tGj-Fp-tFW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YEG-b0-Vj7">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: ConnectToInternet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljT-96-lyd">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: ProgressView " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ZE-5z-efU">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YEG-b0-Vj7" firstAttribute="centerY" secondItem="iWd-PK-P3A" secondAttribute="centerY" id="P7e-w3-0gV"/>
+                            <constraint firstItem="YEG-b0-Vj7" firstAttribute="leading" secondItem="iWd-PK-P3A" secondAttribute="leading" constant="20" id="aPt-V5-Glw"/>
+                            <constraint firstItem="iWd-PK-P3A" firstAttribute="trailing" secondItem="YEG-b0-Vj7" secondAttribute="trailing" constant="20" id="cLM-Pf-XZy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iWd-PK-P3A"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rcr-mn-Nli" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7569" y="2819"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="HLx-kf-MDt">
+            <objects>
+                <viewController id="iH3-xf-guj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Ud-Zi-YJp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aby-nx-LoY">
+                                <rect key="frame" x="20" y="229.5" width="280" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VC: JoiningNetwork" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2p-S2-mgb">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NIB: ProgressView " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmA-Ko-E3t">
+                                        <rect key="frame" x="0.0" y="20.5" width="280" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="aby-nx-LoY" firstAttribute="centerY" secondItem="NqR-1J-WU8" secondAttribute="centerY" id="CeO-bh-6gc"/>
+                            <constraint firstItem="NqR-1J-WU8" firstAttribute="trailing" secondItem="aby-nx-LoY" secondAttribute="trailing" constant="20" id="Emk-8x-NwS"/>
+                            <constraint firstItem="aby-nx-LoY" firstAttribute="leading" secondItem="NqR-1J-WU8" secondAttribute="leading" constant="20" id="mny-Zh-zNR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NqR-1J-WU8"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BMY-6q-w7E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="11934" y="2138"/>
+        </scene>
     </scenes>
     <resources>
         <image name="MeshCameraIcon" width="23" height="18"/>
         <image name="MeshCloseIcon" width="20" height="20"/>
         <image name="MeshIcon" width="23" height="22"/>
-        <image name="MeshSetupCompleteIcon" width="70" height="70"/>
         <image name="MeshSetupFindStickerImage" width="270" height="417"/>
         <image name="MeshSetupLockIcon" width="10" height="14"/>
     </resources>

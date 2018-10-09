@@ -7,7 +7,11 @@ import UIKit
 import CoreBluetooth
 
 class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboardable {
-  
+
+    static var nibName: String {
+        return "MeshSetupPairingView"
+    }
+
     @IBOutlet weak var pairingView: UIView!
     @IBOutlet weak var pairingTextLabel: MeshLabel!
     @IBOutlet weak var pairingIndicator: UIActivityIndicatorView!
@@ -17,8 +21,6 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboard
     @IBOutlet weak var successTextLabel: MeshLabel!
 
     internal var callback: (() -> ())!
-
-
 
     func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType?, deviceName: String) {
         self.callback = didFinishScreen

@@ -5,68 +5,32 @@
 
 import UIKit
 
-class MeshSetupSelectNetworkViewController: MeshSetupViewController, Storyboardable, UITableViewDelegate, UITableViewDataSource {
-
-    @IBOutlet weak var networksTableView: UITableView!
-
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var scanActivityIndicator: UIActivityIndicatorView!
+class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
 
     private var networks:[MeshSetupNetworkInfo]?
     private var callback: ((MeshSetupNetworkInfo) -> ())!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        networksTableView.delegate = self
-        networksTableView.dataSource = self
-    }
-
     func setup(didSelectNetwork: @escaping (MeshSetupNetworkInfo) -> ()) {
         self.callback = didSelectNetwork
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        startScanning()
     }
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.Networks.Title
     }
 
-    override func setStyle() {
-        networksTableView.tableFooterView = UIView()
-
-        scanActivityIndicator.color = MeshSetupStyle.NetworkScanActivityIndicatorColor
-        scanActivityIndicator.hidesWhenStopped = true
-
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-    }
-
-    func startScanning() {
-        DispatchQueue.main.async {
-            self.scanActivityIndicator.startAnimating()
-        }
-    }
-
     func setNetworks(networks: [MeshSetupNetworkInfo]) {
         self.networks = networks
 
-        DispatchQueue.main.async {
-            self.scanActivityIndicator.stopAnimating()
-            self.networksTableView.reloadData()
-        }
+        self.stopScanning()
     }
 
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return networks?.count ?? 0
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "meshNetworkCell") as! MeshDeviceCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupMeshNetworkCell") as! MeshDeviceCell
 
         cell.cellTitleLabel.text = networks![indexPath.row].name
         cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
@@ -102,12 +66,4 @@ class MeshSetupSelectNetworkViewController: MeshSetupViewController, Storyboarda
         scanActivityIndicator.stopAnimating()
         callback(networks![indexPath.row])
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
-    }
-
-   
-
-    
 }
