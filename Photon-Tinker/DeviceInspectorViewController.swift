@@ -49,9 +49,9 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
                             alertView.dismiss()
                         }
                 )
-                self.renameDialog!.addTextField("name", placeHolder: self.device!.name!)
+                self.renameDialog!.addTextField("name", placeHolder: self.device!.name ?? "")
                 let tf = self.renameDialog!.getTextFieldWithIdentifier("name")
-                tf?.text = self.device?.name
+                tf?.text = self.device?.name ?? self.getRandomDeviceName()
                 tf?.delegate = self
                 tf?.tag = 100
 
@@ -94,15 +94,16 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         
         
         dialog.show()
-        
-        
-        
-        
-        
     }
+
+    //todo: move this to setup lib?
+    private let randomNames = ["aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "maker", "splendid", "sparkling", "dentist", "doctor", "green", "easter", "ferret", "gerbil", "hacker", "hamster", "wizard", "hobbit", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "burrito", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie"]
+    func getRandomDeviceName() -> String {
+        return "\(randomNames.randomElement()!)_\(randomNames.randomElement()!)"
+    }
+
     
     @IBOutlet weak var deviceOnlineIndicatorImageView: UIImageView!
-    
     @IBOutlet weak var deviceNameLabel: UILabel!
     
     var renameDialog : ZAlertView?
