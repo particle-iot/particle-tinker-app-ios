@@ -76,6 +76,7 @@
 		931C37F8215AAAE70014811C /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37F9215AAB2E0014811C /* Storyboardable.swift */; };
 		93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93522313216CFD4600CF8A69 /* wifi_new.pb.swift */; };
+		9352231B216E34DE00CF8A69 /* MeshSetupFlowHelperDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9352231A216E34DE00CF8A69 /* MeshSetupFlowHelperDefinitions.swift */; };
 		93D36EAE216CC71E0088000C /* MeshSetupSuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */; };
 		93D36EB2216CC8B60088000C /* MeshSetupNetworkListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */; };
 		93D36EB4216CC9940088000C /* MeshSetupProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */; };
@@ -234,6 +235,7 @@
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
 		93522316216CFD4600CF8A69 /* wifi_new.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_new.proto; sourceTree = "<group>"; };
+		9352231A216E34DE00CF8A69 /* MeshSetupFlowHelperDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowHelperDefinitions.swift; sourceTree = "<group>"; };
 		93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupSuccessView.xib; sourceTree = "<group>"; };
 		93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupNetworkListView.xib; sourceTree = "<group>"; };
 		93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupProgressView.xib; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				931C378F215AA3510014811C /* ProtoBuffs */,
 				931C37B4215AA42F0014811C /* MeshSetupFraming.swift */,
 				931C37C3215AA4300014811C /* MeshSetupStyle.swift */,
+				9352231A216E34DE00CF8A69 /* MeshSetupFlowHelperDefinitions.swift */,
 				931C37C0215AA4300014811C /* MeshStrings.swift */,
 			);
 			name = Model;
@@ -916,6 +919,7 @@
 				500B3A161BF6B7B700D83C92 /* ElectronSetupViewController.swift in Sources */,
 				931C37DB215AA4310014811C /* MeshSetupJoiningNetworkViewController.swift in Sources */,
 				931C37D8215AA4310014811C /* MeshSetupEncryptionManager.swift in Sources */,
+				9352231B216E34DE00CF8A69 /* MeshSetupFlowHelperDefinitions.swift in Sources */,
 				931C37CD215AA4310014811C /* MeshSetupPairingProcessViewController.swift in Sources */,
 				931C37D4215AA4310014811C /* MeshSetupProtocolTransceiver.swift in Sources */,
 				5048CD251AE1C3F90097150A /* DeviceTableViewCell.swift in Sources */,
