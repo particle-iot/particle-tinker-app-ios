@@ -27,6 +27,7 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
         noteTextLabel.text = MeshSetupStrings.DeviceName.NoteText
 
         inputTextField.text = currentName ?? MeshSetupStrings.getRandomDeviceName()
+        continueButton.isEnabled = validateInput()
 
         continueButton.setTitle(MeshSetupStrings.DeviceName.Button, for: .normal)
     }
