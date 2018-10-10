@@ -28,6 +28,7 @@
 		50B1254B1AE06CF4003C29DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1254A1AE06CF4003C29DC /* WelcomeViewController.swift */; };
 		50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254C1AE06CF4003C29DC /* Main.storyboard */; };
 		50B125501AE06CF4003C29DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B1254F1AE06CF4003C29DC /* Images.xcassets */; };
+		50B555DD216EB3F100146A1E /* Particle.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 50CF03C01D93420D0019E3F6 /* Particle.entitlements */; };
 		50B6599B1AFC6A2B00606A39 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B6599A1AFC6A2B00606A39 /* SSPieProgressView.m */; };
 		50BBB1531D1E24D10060659B /* ParticleSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BBB1521D1E24D10060659B /* ParticleSpinner.swift */; };
 		50D47F2D1AFAF1A9004AD3AE /* SPKTinkerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D47F2C1AFAF1A9004AD3AE /* SPKTinkerViewController.m */; };
@@ -688,6 +689,9 @@
 							com.apple.Keychain = {
 								enabled = 1;
 							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -738,6 +742,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50B555DD216EB3F100146A1E /* Particle.entitlements in Resources */,
 				93D36EB2216CC8B60088000C /* MeshSetupNetworkListView.xib in Resources */,
 				9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */,
 				93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */,
