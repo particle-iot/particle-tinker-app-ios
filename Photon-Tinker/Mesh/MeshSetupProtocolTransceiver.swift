@@ -541,6 +541,21 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
+    func sendGetNcpFirmwareVersion(callback: @escaping (ControlReplyErrorType, String?, Int?) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_GetNcpFirmwareVersionRequest()
+
+        let data = self.prepareRequestMessage(type: .GetNcpFirmwareVersion, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_GetNcpFirmwareVersionReply(serializedData: rm.data) as! Particle_Ctrl_GetNcpFirmwareVersionReply
+                callback(rm.result, decodedReply.version, Int(decodedReply.moduleVersion))
+            } else {
+                callback(.TIMEOUT, nil, nil)
+            }
+        })
+    }
+
     func sendGetSystemVersion(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemVersionRequest()
 

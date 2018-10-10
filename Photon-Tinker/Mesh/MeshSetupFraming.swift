@@ -33,12 +33,18 @@ public enum ControlRequestMessageType: UInt16 {
     case ScanNetworks = 1011
     case GetInterfaceList = 400
     case GetInterface = 401
+
     case GetSystemCapabilities = 32
+    case GetNcpFirmwareVersion = 31
     case GetSystemVersion = 30
     case StartFirmwareUpdate = 250
     case FinishFirmwareUpdate = 251
     case CancelFirmwareUpdate = 252
     case FirmwareUpdateData = 253
+
+
+
+
 
     case JoinNewWifiNetwork = 500
     case JoinKnownWifiNetwork = 501
