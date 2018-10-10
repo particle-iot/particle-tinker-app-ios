@@ -126,7 +126,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 restartCaptureSession()
             } else {
                 let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
-                pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceName() ?? self.targetDeviceType!.description)
+                pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceBluetoothName() ?? self.targetDeviceType!.description)
                 self.embededNavigationController.pushViewController(pairingVC, animated: true)
             }
         } else {
@@ -287,7 +287,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 restartCaptureSession()
             } else {
                 let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
-                pairingVC.setup(didFinishScreen: commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: flowManager.commissionerDeviceName() ?? deviceType.description)
+                pairingVC.setup(didFinishScreen: commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: flowManager.commissionerDeviceBluetoothName() ?? deviceType.description)
                 self.embededNavigationController.pushViewController(pairingVC, animated: true)
             }
         } else {
@@ -379,7 +379,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         //joiner flow
         DispatchQueue.main.async {
             let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
-            nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType)
+            nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType, currentName: self.flowManager.targetDeviceCloudName())
             self.embededNavigationController.pushViewController(nameVC, animated: true)
         }
     }
@@ -451,7 +451,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func didFinishConnectToInternetScreen() {
         DispatchQueue.main.async {
             let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
-            nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType)
+            nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType, currentName: self.flowManager.targetDeviceCloudName())
             self.embededNavigationController.pushViewController(nameVC, animated: true)
         }
     }

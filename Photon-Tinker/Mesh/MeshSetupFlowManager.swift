@@ -146,6 +146,8 @@ fileprivate struct MeshDevice {
     var type: ParticleDeviceType?
     var deviceId: String?
     var credentials: MeshSetupPeripheralCredentials?
+    var name: String? //name stored in cloud (credentials has name of bluetooth network)
+
 
     var transceiver: MeshSetupProtocolTransceiver?
 
@@ -308,16 +310,24 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     //MARK: public interface
-    func targetDeviceName() -> String? {
+    func targetDeviceBluetoothName() -> String? {
         return targetDevice.credentials?.name
+    }
+
+    func targetDeviceCloudName() -> String? {
+        return targetDevice.name
     }
 
     func targetDeviceType() -> ParticleDeviceType? {
         return targetDevice.type
     }
 
-    func commissionerDeviceName() -> String? {
+    func commissionerDeviceBluetoothName() -> String? {
         return commissionerDevice?.credentials?.name
+    }
+
+    func commissionerDeviceCloudName() -> String? {
+        return commissionerDevice?.name
     }
 
     func commissionerDeviceType() -> ParticleDeviceType? {
@@ -948,6 +958,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 for device in devices {
                     if (device.id == self.targetDevice.deviceId!) {
                         self.log("device belongs to user already")
+                        self.targetDevice.name = device.name
                         self.targetDevice.isClaimed = true
                         self.targetDevice.claimCode = nil
                         self.stepComplete()
@@ -1534,6 +1545,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if let devices = devices {
                 for device in devices {
                     if (device.id == self.targetDevice.deviceId!) {
+                        self.targetDevice.name = device.name
                         self.deviceGotClaimed()
                         return
                     }
@@ -1647,6 +1659,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (error == nil) {
                 device!.rename(name) { error in
                     if error == nil {
+                        self.targetDevice.name = name
                         onComplete(nil)
                         self.stepComplete()
                     } else {
