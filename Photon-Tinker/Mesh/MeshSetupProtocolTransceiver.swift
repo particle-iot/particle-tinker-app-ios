@@ -149,7 +149,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
 
         //we didn't receive the full message yet.
-        if (rxBuffer.count < length + 16) {
+        if (rxBuffer.count < length + ReplyMessage.FRAME_EXTRA_BYTES) {
             return
         }
 
