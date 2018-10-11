@@ -548,148 +548,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.stepComplete()
     }
 
-    //Slave Latency ≤ 30
-    //2 seconds ≤ connSupervisionTimeout ≤ 6 seconds
-    //Interval Min modulo 15 ms == 0
-    //Interval Min ≥ 15 ms
-    //
-    //One of the following:
-    //  Interval Min + 15 ms ≤ Interval Max
-    //  Interval Min == Interval Max == 15 ms
-    //
-    //Interval Max * (Slave Latency + 1) ≤ 2 seconds
-    //Interval Max * (Slave Latency + 1) * 3 <connSupervisionTimeout
-
-    //MARK: EnsureLatestFirmware
-    private func stepEnsureLatestFirmware() {
-        self.targetDevice.transceiver!.sendGetSystemVersion { result, version in
-            self.log("targetDevice.sendGetSystemVersion: \(result.description()), version: \(version as Optional)")
-            if (self.canceled) {
-                return
-            }
-            if (result == .NONE) {
-                //TODO: get the answer from server if firmware should be updated
-                if (version!.range(of: "rc.13") != nil) {
-                    self.stepComplete()
-                } else {
-                    self.checkTargetDeviceSupportsCompressedOTA()
-                }
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-
-    private func checkTargetDeviceSupportsCompressedOTA() {
-        self.targetDevice.transceiver!.sendGetSystemCapabilities { result, capability in
-            self.log("targetDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
-            if (self.canceled) {
-                return
-            }
-            if (result == .NONE) {
-                self.targetDevice.supportsCompressedOTAUpdate = (capability! == MeshSetupSystemCapability.compressedOta)
-                self.checkTargetDeviceIsSetupDone()
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-    private func checkTargetDeviceIsSetupDone() {
-        self.targetDevice.transceiver!.sendIsDeviceSetupDone { result, isSetupDone in
-            self.log("targetDevice.sendIsDeviceSetupDone: \(result.description()), isSetupDone: \(isSetupDone as Optional)")
-            if (self.canceled) {
-                return
-            }
-            if (result == .NONE) {
-                self.targetDevice.isSetupDone = isSetupDone
-                self.startFirmwareUpdate()
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-    private func startFirmwareUpdate() {
-        self.log("Starting firmware update")
-
-        //TODO: get proper firmware binary
-
-        let path = Bundle.main.path(forResource: "tinker-0.8.0-rc.13-xenon", ofType: "bin")
-
-        let firmwareData = try! Data(contentsOf: URL(fileURLWithPath: path!))
-
-        self.currentStepFlags["firmwareData"] = firmwareData
-        self.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
-            self.log("targetDevice.sendStartFirmwareUpdate: \(result.description()), chunkSize: \(chunkSize)")
-            if (self.canceled) {
-                return
-            }
-            if (result == .NONE) {
-                self.currentStepFlags["chunkSize"] = Int(chunkSize)
-                self.currentStepFlags["idx"] = 0
-
-                self.sendFirmwareUpdateChunk()
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-    private func sendFirmwareUpdateChunk() {
-        let chunk = self.currentStepFlags["chunkSize"] as! Int
-        let idx = self.currentStepFlags["idx"] as! Int
-        let firmwareData = self.currentStepFlags["firmwareData"] as! Data
-
-        let start = idx*chunk
-        let bytesLeft = firmwareData.count - start
-
-        self.log("bytesLeft: \(bytesLeft)")
-
-        let subdata = firmwareData.subdata(in: start ..< min(start+chunk, start+bytesLeft))
-        self.targetDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { result in
-            self.log("targetDevice.sendFirmwareUpdateData: \(result.description())")
-            if (self.canceled) {
-                return
-            }
-            if (result == .NONE) {
-                if ((idx+1) * chunk >= firmwareData.count) {
-                    self.finishFirmwareUpdate()
-                } else {
-                    self.currentStepFlags["idx"] = idx + 1
-                    self.sendFirmwareUpdateChunk()
-                }
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-    private func finishFirmwareUpdate() {
-        self.targetDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { result in
-            self.log("targetDevice.sendFinishFirmwareUpdate: \(result.description())")
-            if (self.canceled) {
-                return
-            }
-            if (result == .NONE) {
-                // reconnect to device by jumping back few steps in the sequence
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-                    if (self.canceled) {
-                        return
-                    }
-
-
-                    self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
-                    self.log("returning to step: \(self.currentStep)")
-                    self.runCurrentStep()
-                    self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
-                }
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
 
 
     //MARK: CheckTargetDeviceHasNetworkInterfaces
@@ -1597,6 +1455,224 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.delegate.meshSetupDidCreateNetwork(network: networkInfo!)
 
                 self.stepComplete()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+}
+
+
+
+extension MeshSetupFlowManager {
+    //MARK: BLE OTA Update
+
+
+    //Slave Latency ≤ 30
+    //2 seconds ≤ connSupervisionTimeout ≤ 6 seconds
+    //Interval Min modulo 15 ms == 0
+    //Interval Min ≥ 15 ms
+    //
+    //One of the following:
+    //  Interval Min + 15 ms ≤ Interval Max
+    //  Interval Min == Interval Max == 15 ms
+    //
+    //Interval Max * (Slave Latency + 1) ≤ 2 seconds
+    //Interval Max * (Slave Latency + 1) * 3 <connSupervisionTimeout
+
+    //MARK: EnsureLatestFirmware
+    private func stepEnsureLatestFirmware() {
+        if (self.targetDevice.firmwareVersion != nil) {
+            self.checkTargetDeviceSupportsCompressedOTA()
+            return
+        }
+
+        self.targetDevice.transceiver!.sendGetSystemVersion { result, version in
+            self.log("targetDevice.sendGetSystemVersion: \(result.description()), version: \(version as Optional)")
+            if (self.canceled) {
+                return
+            }
+            if (result == .NONE) {
+                self.targetDevice.firmwareVersion = version!
+                self.checkTargetDeviceSupportsCompressedOTA()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+
+    private func checkTargetDeviceSupportsCompressedOTA() {
+        if (self.targetDevice.supportsCompressedOTAUpdate != nil) {
+            self.checkNcpFirmwareVersion()
+            return
+        }
+
+        self.targetDevice.transceiver!.sendGetSystemCapabilities { result, capability in
+            self.log("targetDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
+            if (self.canceled) {
+                return
+            }
+            if (result == .NONE) {
+                self.targetDevice.supportsCompressedOTAUpdate = (capability! == MeshSetupSystemCapability.compressedOta)
+                self.checkNcpFirmwareVersion()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    private func checkNcpFirmwareVersion() {
+        if (self.targetDevice.ncpVersion != nil && self.targetDevice.ncpModuleVersion != nil) {
+            self.checkTargetDeviceIsSetupDone()
+            return
+        }
+
+        self.targetDevice.transceiver!.sendGetNcpFirmwareVersion { result, version, moduleVersion in
+            self.log("targetDevice.sendGetNcpFirmwareVersion: \(result.description()), version: \(version as Optional), moduleVersion: \(moduleVersion)")
+            if (self.canceled) {
+                return
+            }
+            if (result == .NONE) {
+                self.targetDevice.ncpVersion = version!
+                self.targetDevice.ncpModuleVersion = moduleVersion!
+                self.checkTargetDeviceIsSetupDone()
+            } else if (result == .NOT_SUPPORTED) {
+                self.targetDevice.ncpVersion = nil
+                self.targetDevice.ncpModuleVersion = nil
+                self.checkTargetDeviceIsSetupDone()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    private func checkTargetDeviceIsSetupDone() {
+        //if this has already been checked for this device
+        if (self.targetDevice.isSetupDone != nil) {
+            self.checkNeedsOTAUpdate()
+            return
+        }
+
+        self.targetDevice.transceiver!.sendIsDeviceSetupDone { result, isSetupDone in
+            self.log("targetDevice.sendIsDeviceSetupDone: \(result.description()), isSetupDone: \(isSetupDone as Optional)")
+            if (self.canceled) {
+                return
+            }
+            if (result == .NONE) {
+                self.targetDevice.isSetupDone = isSetupDone
+                self.checkNeedsOTAUpdate()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    private func checkNeedsOTAUpdate() {
+        ParticleCloud.sharedInstance().getNextBinaryURL(targetDevice.type!,
+                currentSystemFirmwareVersion: targetDevice.firmwareVersion!,
+                currentNcpFirmwareVersion: targetDevice.ncpVersion,
+                currentNcpFirmwareModuleVersion: targetDevice.ncpModuleVersion as NSNumber?)
+        { url, error in
+            if (self.canceled) {
+                return
+            }
+
+            NSLog("getNextBinaryURL: \(url), error: \(error)")
+
+            if let url = url {
+                self.targetDevice.nextFirmwareBinaryURL = url
+            } else if (error == nil) {
+                self.stepComplete()
+                return
+            }
+        }
+    }
+
+    private func prepareOTABinary() {
+        //self.startFirmwareUpdate()
+    }
+
+    private func startFirmwareUpdate() {
+        self.log("Starting firmware update")
+
+        //TODO: get proper firmware binary
+
+        let path = Bundle.main.path(forResource: "tinker-0.8.0-rc.13-xenon", ofType: "bin")
+
+        let firmwareData = try! Data(contentsOf: URL(fileURLWithPath: path!))
+
+        self.currentStepFlags["firmwareData"] = firmwareData
+        self.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
+            self.log("targetDevice.sendStartFirmwareUpdate: \(result.description()), chunkSize: \(chunkSize)")
+            if (self.canceled) {
+                return
+            }
+            if (result == .NONE) {
+                self.currentStepFlags["chunkSize"] = Int(chunkSize)
+                self.currentStepFlags["idx"] = 0
+
+                self.sendFirmwareUpdateChunk()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    private func sendFirmwareUpdateChunk() {
+        let chunk = self.currentStepFlags["chunkSize"] as! Int
+        let idx = self.currentStepFlags["idx"] as! Int
+        let firmwareData = self.currentStepFlags["firmwareData"] as! Data
+
+        let start = idx*chunk
+        let bytesLeft = firmwareData.count - start
+
+        self.log("bytesLeft: \(bytesLeft)")
+
+        let subdata = firmwareData.subdata(in: start ..< min(start+chunk, start+bytesLeft))
+        self.targetDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { result in
+            self.log("targetDevice.sendFirmwareUpdateData: \(result.description())")
+            if (self.canceled) {
+                return
+            }
+            if (result == .NONE) {
+                if ((idx+1) * chunk >= firmwareData.count) {
+                    self.finishFirmwareUpdate()
+                } else {
+                    self.currentStepFlags["idx"] = idx + 1
+                    self.sendFirmwareUpdateChunk()
+                }
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    private func finishFirmwareUpdate() {
+        self.targetDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { result in
+            self.log("targetDevice.sendFinishFirmwareUpdate: \(result.description())")
+            if (self.canceled) {
+                return
+            }
+            if (result == .NONE) {
+                //reset all the important flags
+                self.targetDevice.firmwareVersion = nil
+                self.targetDevice.ncpVersion = nil
+                self.targetDevice.ncpModuleVersion = nil
+                self.targetDevice.supportsCompressedOTAUpdate = nil
+
+                // reconnect to device by jumping back few steps in the sequence
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    if (self.canceled) {
+                        return
+                    }
+
+
+                    self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
+                    self.log("returning to step: \(self.currentStep)")
+                    self.runCurrentStep()
+                    self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
+                }
             } else {
                 self.handleBluetoothErrorResult(result)
             }

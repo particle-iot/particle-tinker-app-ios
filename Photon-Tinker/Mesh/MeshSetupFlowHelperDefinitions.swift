@@ -199,6 +199,7 @@ internal struct MeshDevice {
     var isClaimed: Bool?
     var isSetupDone: Bool?
     var supportsCompressedOTAUpdate: Bool?
+    var nextFirmwareBinaryURL: String?
 
     var hasInternetCapableNetworkInterfaces: Bool?
     var hasInternetAddress: Bool?
@@ -208,6 +209,8 @@ internal struct MeshDevice {
 
     var networkInfo: MeshSetupNetworkInfo?
     var networks: [MeshSetupNetworkInfo]?
+
+
 
     func getEthernetInterfaceIdx() -> UInt32? {
         if let interfaces = networkInterfaces {
