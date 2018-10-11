@@ -12,6 +12,7 @@ import Foundation
 protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
+    func meshSetupDidRequestToUpdateFirmware()
     func meshSetupDidPairWithTargetDevice()
 
 
@@ -93,6 +94,9 @@ enum MeshSetupFlowState {
     case JoiningNetworkStep2Done
     case JoiningNetworkCompleted
 
+    case FirmwareUpdateProgress(Double)
+    case FirmwareUpdateFileComplete(Int)
+    case FirmwareUpdateComplete
 
     case CreateNetworkStarted
     case CreateNetworkStep1Done
@@ -113,6 +117,9 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToStartScan
     case FailedToScanBecauseOfTimeout
     case FailedToConnect
+
+
+    case UnableToDownloadFirmwareBinary
 
     //Can happen in any step, inform user about it and repeat the step
     case BluetoothDisabled
@@ -147,6 +154,9 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
                 //these errors are handled instantly
+            case .UnableToDownloadFirmwareBinary : return "Failed to download firmware update. Please try again later."
+
+
             case .WrongNetworkPassword : return "Provided password is incorrect."
             case .PasswordTooShort : return "Network password has to be between 6 and 16 characters."
             case .IllegalOperation : return "Illegal operation."
@@ -189,17 +199,20 @@ internal struct MeshDevice {
     var credentials: MeshSetupPeripheralCredentials?
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
 
+    var transceiver: MeshSetupProtocolTransceiver?
+
+    //flags related to OTA Update
     var firmwareVersion: String?
     var ncpVersion: String?
     var ncpModuleVersion: Int?
-
-    var transceiver: MeshSetupProtocolTransceiver?
+    var supportsCompressedOTAUpdate: Bool?
+    var nextFirmwareBinaryURL: String?
+    var nextFirmwareBinaryFilePath: String?
+    var firmwareFilesFlashed: Int?
 
     var claimCode: String?
     var isClaimed: Bool?
     var isSetupDone: Bool?
-    var supportsCompressedOTAUpdate: Bool?
-    var nextFirmwareBinaryURL: String?
 
     var hasInternetCapableNetworkInterfaces: Bool?
     var hasInternetAddress: Bool?

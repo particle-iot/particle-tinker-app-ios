@@ -11,7 +11,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .GetTargetDeviceInfo,
         .ConnectToTargetDevice,
         //.ResetSetupAndNetwork,
-        //.EnsureLatestFirmware,
+        .EnsureLatestFirmware,
         .EnsureTargetDeviceCanBeClaimed,
         .CheckTargetDeviceHasNetworkInterfaces,
         .SetClaimCode,
@@ -81,6 +81,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var newNetworkPassword: String?
 
     private var userSelectedToLeaveNetwork: Bool?
+    private var userSelectedToUpdateFirmware: Bool?
 
     //to prevent long running actions from executing
     private var canceled = false
@@ -402,6 +403,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
         log("bluetoothConnectionManagerError = \(error), severity = \(severity)")
+        NSLog("self.currentStepFlags[reconnectAfterFirmwareFlash]: \(self.currentStepFlags["reconnectAfterFirmwareFlash"])")
+        NSLog("self.currentStepFlags[reconnectAfterFirmwareFlashRetry]: \(self.currentStepFlags["reconnectAfterFirmwareFlashRetry"])")
+
         if (self.currentCommand == .ConnectToTargetDevice || self.currentCommand == .ConnectToCommissionerDevice) {
             if (error == .DeviceWasConnected) {
                 self.currentStepFlags["reconnect"] = true
@@ -410,8 +414,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.fail(withReason: .DeviceTooFar)
                 //after showing promt, step should be repeated
             } else if (error == .FailedToScanBecauseOfTimeout && self.currentStepFlags["reconnectAfterFirmwareFlash"] != nil) {
-                //coming online after a flash might take a while, if for some reason we timeout, we should retry the step
-                self.stepConnectToTargetDevice()
+                if ((self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] as! Int) < 4) {
+                    self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] = (self.currentStepFlags["reconnectAfterFirmwareFlashRetry"]! as! Int) + 1
+                    //coming online after a flash might take a while, if for some reason we timeout, we should retry the step
+                    self.stepConnectToTargetDevice()
+                } else {
+                    //this is taking way too long.
+                    self.fail(withReason: .FailedToScanBecauseOfTimeout)
+                }
             } else {
                 if (error == .FailedToStartScan) {
                     self.fail(withReason: .FailedToStartScan)
@@ -461,7 +471,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.fail(withReason: .BluetoothConnectionDropped, severity: .Fatal)
             }
         }
-        //if some other connectio was dropped - we dont care
+        //if some other connection was dropped - we dont care
     }
 //}
 
@@ -1569,6 +1579,11 @@ extension MeshSetupFlowManager {
     }
 
     private func checkNeedsOTAUpdate() {
+        if (self.targetDevice.nextFirmwareBinaryURL != nil) {
+            self.binaryURLReady()
+            return
+        }
+
         ParticleCloud.sharedInstance().getNextBinaryURL(targetDevice.type!,
                 currentSystemFirmwareVersion: targetDevice.firmwareVersion!,
                 currentNcpFirmwareVersion: targetDevice.ncpVersion,
@@ -1579,28 +1594,80 @@ extension MeshSetupFlowManager {
             }
 
             NSLog("getNextBinaryURL: \(url), error: \(error)")
-
             if let url = url {
                 self.targetDevice.nextFirmwareBinaryURL = url
+                self.binaryURLReady()
             } else if (error == nil) {
+                if let filesFlashed = self.targetDevice.firmwareFilesFlashed, filesFlashed > 0 {
+                    self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateComplete)
+                }
                 self.stepComplete()
                 return
             }
         }
     }
 
-    private func prepareOTABinary() {
-        //self.startFirmwareUpdate()
+    private func binaryURLReady() {
+        if (self.userSelectedToUpdateFirmware == nil) {
+            self.delegate.meshSetupDidRequestToUpdateFirmware()
+        } else {
+            self.setTargetPerformFirmwareUpdate(update: self.userSelectedToUpdateFirmware!)
+        }
     }
+
+    func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
+        guard currentCommand == .EnsureLatestFirmware else {
+            return .IllegalOperation
+        }
+
+        self.userSelectedToUpdateFirmware = update
+        self.log("userSelectedToUpdateFirmware: \(update)")
+
+        self.prepareOTABinary()
+
+        return nil
+    }
+
+    private func prepareOTABinary() {
+        if (self.targetDevice.nextFirmwareBinaryURL == nil){
+            self.stepComplete()
+            return
+        }
+
+
+        if (self.targetDevice.nextFirmwareBinaryFilePath != nil) {
+            self.startFirmwareUpdate()
+            return
+        }
+
+        ParticleCloud.sharedInstance().getNextBinary(self.targetDevice.nextFirmwareBinaryURL!)
+        { url, error in
+            if (self.canceled) {
+                return
+            }
+
+            NSLog("prepareOTABinary: \(url), error: \(error)")
+
+            guard error == nil else {
+                self.fail(withReason: .UnableToDownloadFirmwareBinary, nsError: error)
+                return
+            }
+
+            if let url = url {
+                self.targetDevice.nextFirmwareBinaryFilePath = url
+                self.startFirmwareUpdate()
+            }
+        }
+    }
+
+    //TODO: set forceListeningModeOnNextBoot to true
 
     private func startFirmwareUpdate() {
         self.log("Starting firmware update")
 
-        //TODO: get proper firmware binary
+        let firmwareData = try! Data(contentsOf: URL(string: self.targetDevice.nextFirmwareBinaryFilePath!)!)
 
-        let path = Bundle.main.path(forResource: "tinker-0.8.0-rc.13-xenon", ofType: "bin")
-
-        let firmwareData = try! Data(contentsOf: URL(fileURLWithPath: path!))
+        NSLog("firmwareData.count = \(firmwareData.count)")
 
         self.currentStepFlags["firmwareData"] = firmwareData
         self.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
@@ -1611,6 +1678,10 @@ extension MeshSetupFlowManager {
             if (result == .NONE) {
                 self.currentStepFlags["chunkSize"] = Int(chunkSize)
                 self.currentStepFlags["idx"] = 0
+
+                if (self.targetDevice.firmwareFilesFlashed == nil) {
+                    self.targetDevice.firmwareFilesFlashed = 0
+                }
 
                 self.sendFirmwareUpdateChunk()
             } else {
@@ -1627,6 +1698,8 @@ extension MeshSetupFlowManager {
         let start = idx*chunk
         let bytesLeft = firmwareData.count - start
 
+        self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress(Double(start) / Double(firmwareData.count)))
+
         self.log("bytesLeft: \(bytesLeft)")
 
         let subdata = firmwareData.subdata(in: start ..< min(start+chunk, start+bytesLeft))
@@ -1638,6 +1711,8 @@ extension MeshSetupFlowManager {
             if (result == .NONE) {
                 if ((idx+1) * chunk >= firmwareData.count) {
                     self.finishFirmwareUpdate()
+                    self.targetDevice.firmwareFilesFlashed! += 1
+                    self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateFileComplete(self.targetDevice.firmwareFilesFlashed!))
                 } else {
                     self.currentStepFlags["idx"] = idx + 1
                     self.sendFirmwareUpdateChunk()
@@ -1660,6 +1735,8 @@ extension MeshSetupFlowManager {
                 self.targetDevice.ncpVersion = nil
                 self.targetDevice.ncpModuleVersion = nil
                 self.targetDevice.supportsCompressedOTAUpdate = nil
+                self.targetDevice.nextFirmwareBinaryURL = nil
+                self.targetDevice.nextFirmwareBinaryFilePath = nil
 
                 // reconnect to device by jumping back few steps in the sequence
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
@@ -1667,11 +1744,11 @@ extension MeshSetupFlowManager {
                         return
                     }
 
-
                     self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
                     self.log("returning to step: \(self.currentStep)")
                     self.runCurrentStep()
                     self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
+                    self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] = 0
                 }
             } else {
                 self.handleBluetoothErrorResult(result)

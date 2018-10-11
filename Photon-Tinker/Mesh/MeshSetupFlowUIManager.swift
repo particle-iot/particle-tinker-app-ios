@@ -134,6 +134,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+    func meshSetupDidRequestToUpdateFirmware() {
+        NSLog("meshSetupDidRequestToUpdateFirmware")
+        self.flowManager.setTargetPerformFirmwareUpdate(update: true)
+    }
+
 
 
     //MARK: Complete preflow, artifial pause for UI to catch up.
