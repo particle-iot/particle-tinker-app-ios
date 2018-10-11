@@ -70,9 +70,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var selectedDevice : ParticleDevice? = nil
     var refreshControlAdded : Bool = false
 
-    private var showMesh: Bool?
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -88,7 +85,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .multipleChoice)
 
-        if ((showMesh ?? false) && ParticleCloud.sharedInstance().isAuthenticated) {
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
             dialog.addButton("Mesh", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
                 dialog.dismiss()
 
@@ -213,7 +210,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         LDClient.sharedInstance().start(config, with: ldUserBuilder)
         LDClient.sharedInstance().delegate = self
-        showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
 
         //lets trigger these early
         NSLog("temp-xenon-in-ios = \(LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false))")
@@ -224,14 +220,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         LDClient.sharedInstance().stop()
-    }
-
-    func featureFlagDidUpdate(_ key: String!) {
-        if (key == "temp-mesh-in-mobile") {
-            showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
-        } else {
-            NSLog("\(key) = \(LDClient.sharedInstance().boolVariation(key, fallback: false))")
-        }
     }
 
     func showTutorial() {
