@@ -85,6 +85,7 @@ public enum ControlReplyErrorType: Int32 {
             case .NONE: return "OK"
             case .INVALID_ARGUMENT: return "Invalid parameter"
             case .TIMEOUT: return "Time out"
+            case .NOT_SUPPORTED: return "Request not supported by this firmware version"
             case .NOT_FOUND: return "Not found"
             case .ALREADY_EXISTS: return "Already exists"
             case .INVALID_STATE: return "Invalid state"
