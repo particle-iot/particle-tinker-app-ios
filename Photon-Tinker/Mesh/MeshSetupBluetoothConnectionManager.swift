@@ -68,11 +68,10 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
                 if let sSelf = self {
                     sSelf.centralManager.stopScan()
-                    sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
                     if (sSelf.state != .Disabled) {
                         sSelf.state = .Ready
                     }
-
+                    sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
                 }
             }
         }
