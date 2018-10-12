@@ -50,11 +50,13 @@ extension ParticleDeviceType : CustomStringConvertible {
     }
 
     init?(serialNumber: String) {
-        if (serialNumber.lowercased().range(of: "xen")?.lowerBound == serialNumber.startIndex) {
+        if (serialNumber.lowercased().range(of: "xenh")?.lowerBound == serialNumber.startIndex) {
             self = .xenon
-        } else if (serialNumber.lowercased().range(of: "arg")?.lowerBound == serialNumber.startIndex) {
+        } else if (serialNumber.lowercased().range(of: "argh")?.lowerBound == serialNumber.startIndex) {
             self = .argon
-        } else if (serialNumber.lowercased().range(of: "brn")?.lowerBound == serialNumber.startIndex) {
+        } else if (serialNumber.lowercased().range(of: "b31k")?.lowerBound == serialNumber.startIndex) {
+            self = .boron
+        } else if (serialNumber.lowercased().range(of: "b40k")?.lowerBound == serialNumber.startIndex) {
             self = .boron
         } else {
             return nil
