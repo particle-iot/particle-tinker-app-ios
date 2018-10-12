@@ -86,6 +86,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //to prevent long running actions from executing
     private var canceled = false
 
+    //allows to pause flow at the end of the step if there's something that UI wants to show.
+    private var pause = false
 
     private var currentFlow: [MeshSetupFlowCommand]!
     private var currentStep: Int = 0
@@ -93,6 +95,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var currentCommand: MeshSetupFlowCommand {
         return currentFlow[currentStep]
     }
+
+
 
     init(delegate: MeshSetupFlowManagerDelegate) {
         self.delegate = delegate
@@ -113,6 +117,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return targetDevice.type
     }
 
+    func targetDeviceFirmwareFlashProgress() -> Double? {
+        return targetDevice.firmwareUpdateProgress
+    }
+
     func commissionerDeviceBluetoothName() -> String? {
         return commissionerDevice?.credentials?.name
     }
@@ -131,6 +139,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         currentFlow = preflow
         currentStep = 0
 
+        self.runCurrentStep()
+    }
+
+    func pauseSetup() {
+        self.pause = true
+    }
+
+    func continueSetup() {
         self.runCurrentStep()
     }
 
@@ -275,18 +291,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         self.currentStep += 1
+
+        if (self.pause) {
+            self.pause = false
+            return
+        }
+
         self.runCurrentStep()
     }
 
 
     //end of preflow
     private func stepChooseFlow() {
-        log("preflow completed")
-        self.delegate.meshSetupDidPairWithTargetDevice()
-    }
-
-    func continueWithMainFlow() {
-
         //jump to new flow
         self.currentStep = 0
         //if there's ethernet and we are not adding more devices to same network
@@ -522,7 +538,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return .IllegalOperation
         }
 
-        self.userSelectedToLeaveNetwork = nil
         self.targetDevice = MeshDevice()
 
         //these flags are used to determine gateway subflow .. if they are set, new network is being created
@@ -531,6 +546,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //network without disconnecting commissioner
         self.newNetworkPassword = nil
         self.newNetworkName = nil
+
+        self.userSelectedToLeaveNetwork = nil
+        self.userSelectedToUpdateFirmware = nil
 
         self.log("dataMatrix: \(dataMatrix)")
         self.targetDevice.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
@@ -697,6 +715,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func targetDeviceLeaveNetwork() {
+        //TODO: send API leave network first.
+
         self.targetDevice.transceiver!.sendLeaveNetwork { result in
             self.log("targetDevice.didReceiveLeaveNetworkReply: \(result.description())")
             if (self.canceled) {
@@ -1667,7 +1687,8 @@ extension MeshSetupFlowManager {
 
         let firmwareData = try! Data(contentsOf: URL(string: self.targetDevice.nextFirmwareBinaryFilePath!)!)
 
-        NSLog("firmwareData.count = \(firmwareData.count)")
+        self.targetDevice.firmwareUpdateProgress = 0
+        self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
 
         self.currentStepFlags["firmwareData"] = firmwareData
         self.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
@@ -1698,7 +1719,9 @@ extension MeshSetupFlowManager {
         let start = idx*chunk
         let bytesLeft = firmwareData.count - start
 
-        self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress(Double(start) / Double(firmwareData.count)))
+
+        self.targetDevice.firmwareUpdateProgress = 100.0 * (Double(start) / Double(firmwareData.count))
+        self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
 
         self.log("bytesLeft: \(bytesLeft)")
 
@@ -1712,7 +1735,7 @@ extension MeshSetupFlowManager {
                 if ((idx+1) * chunk >= firmwareData.count) {
                     self.finishFirmwareUpdate()
                     self.targetDevice.firmwareFilesFlashed! += 1
-                    self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateFileComplete(self.targetDevice.firmwareFilesFlashed!))
+                    self.delegate.meshSetupDidEnterState(state: .FirmwareUpdateFileComplete)
                 } else {
                     self.currentStepFlags["idx"] = idx + 1
                     self.sendFirmwareUpdateChunk()

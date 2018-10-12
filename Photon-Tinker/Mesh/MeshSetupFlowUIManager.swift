@@ -21,15 +21,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private var commissionerDeviceType: ParticleDeviceType?
     private var commissionerDeviceDataMatrixString: String!
-    private var selectedNetworkPassword: String?
 
-
-    //these flags are used to sync up flow & ui
-    private var pairingScreenDone: Bool?
-    private var pairingFlowDone: Bool?
 
     private var selectedNetwork: MeshSetupNetworkInfo?
     private var didSelectNetwork: Bool = false
+    private var selectedNetworkPassword: String?
 
     private var createNetworkName:String?
     private var createNetworkPassword:String?
@@ -73,11 +69,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
-
     //MARK: Get Target Device Info
     func meshSetupDidRequestTargetDeviceInfo() {
         //do nothing here
     }
+
 
     func targetDeviceSelected(type: ParticleDeviceType) {
         log("target device type selected: \(type)")
@@ -85,33 +81,33 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
         DispatchQueue.main.async {
             let getReadyVC = MeshSetupGetReadyViewController.loadedViewController()
-            getReadyVC.setup(didPressReady: self.targetDeviceReady, deviceType: self.targetDeviceType)
+            getReadyVC.setup(didPressReady: self.showTargetDeviceGetReady, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(getReadyVC, animated: true)
         }
     }
 
-    func targetDeviceReady() {
+    func showTargetDeviceGetReady() {
         log("target device ready")
 
         DispatchQueue.main.async {
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
-            findStickerVC.setup(didPressScan: self.targetDeviceStickerFound, deviceType: self.targetDeviceType)
+            findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(findStickerVC, animated: true)
         }
     }
 
-    func targetDeviceStickerFound() {
+    func showTargetDeviceScanSticker() {
         log("sticker found by user")
 
         DispatchQueue.main.async {
             let scanVC = MeshSetupScanStickerViewController.loadedViewController()
-            scanVC.setup(didFindStickerCode: self.targetDeviceCodeFound, deviceType: self.targetDeviceType)
+            scanVC.setup(didFindStickerCode: self.showTargetDevicePairing, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(scanVC, animated: true)
         }
     }
 
     //user successfully scanned target code
-    func targetDeviceCodeFound(dataMatrixString: String) {
+    func showTargetDevicePairing(dataMatrixString: String) {
         log("dataMatrix scanned: \(dataMatrixString)")
         self.targetDeviceDataMatrixString = dataMatrixString
 
@@ -122,9 +118,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             self.targetDeviceType = type
 
             if let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix) {
+                NSLog("error = \(error)")
                 //TODO: show error
                 restartCaptureSession()
             } else {
+                self.flowManager.pauseSetup()
+
                 let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
                 pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceBluetoothName() ?? self.targetDeviceType!.description)
                 self.embededNavigationController.pushViewController(pairingVC, animated: true)
@@ -134,54 +133,49 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+    func targetDevicePairingScreenDone() {
+        self.flowManager.continueSetup()
+    }
+
     func meshSetupDidRequestToUpdateFirmware() {
-        NSLog("meshSetupDidRequestToUpdateFirmware")
+        DispatchQueue.main.async {
+            let scanVC = MeshSetupFirmwareUpdateViewController.loadedViewController()
+            scanVC.setup(didPressContinue: self.didSelectToUpdateFirmware)
+            self.embededNavigationController.pushViewController(scanVC, animated: true)
+        }
+    }
+
+    func didSelectToUpdateFirmware() {
+        DispatchQueue.main.async {
+            let updateFirmwareVC = MeshSetupFirmwareUpdateProgressViewController.loadedViewController()
+            updateFirmwareVC.setup(didFinishScreen: self.targetDeviceFirmwareUpdateScreenDone)
+            self.embededNavigationController.pushViewController(updateFirmwareVC, animated: true)
+        }
+
         self.flowManager.setTargetPerformFirmwareUpdate(update: true)
     }
 
-
-
-    //MARK: Complete preflow, artifial pause for UI to catch up.
-    func meshSetupDidPairWithTargetDevice() {
-        pairingFlowDone = true
-
-        evalContinueMainFlow()
+    func targetDeviceFirmwareUpdateScreenDone() {
+        self.flowManager.continueSetup()
     }
 
 
 
-    func targetDevicePairingScreenDone() {
-        pairingScreenDone = true
-
-        evalContinueMainFlow()
-    }
-
-    private func evalContinueMainFlow() {
-
-        if pairingScreenDone == true, pairingFlowDone == true {
-            pairingScreenDone = nil
-            pairingFlowDone = nil
-
-            flowManager.continueWithMainFlow()
-        }
-
-        //the next thing to happen will be one out of 3:
-        // 1)meshSetupDidRequestToLeaveNetwork callback
-        // 2)meshSetupDidEnterState: TargetDeviceScanningForNetworks
-        // 3)meshSetupDidEnterState: TargetDeviceConnectingToInternet
-
-        // 4)meshSetupDidEnterState: JoiningNetworkStarted
-    }
-
-
-
-
-
-    //MARK: Leave existing network
     //TODO: For spectra we simply leave the current network. No hard feelings
     func meshSetupDidRequestToLeaveNetwork(network: Particle.MeshSetupNetworkInfo) {
         flowManager.setTargetDeviceLeaveNetwork(leave: true)
     }
+
+
+
+
+    //the next thing to happen will be one out of 3:
+    // 2)meshSetupDidEnterState: TargetDeviceScanningForNetworks
+    // 3)meshSetupDidEnterState: TargetDeviceConnectingToInternet
+    // 4)meshSetupDidEnterState: JoiningNetworkStarted //when adding additional devices
+
+
+
 
 
 
@@ -256,29 +250,29 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
         DispatchQueue.main.async {
             let getReadyVC = MeshSetupGetCommissionerReadyViewController.loadedViewController()
-            getReadyVC.setup(didPressReady: self.commissionerDeviceReady, deviceType: self.targetDeviceType, networkName: self.selectedNetwork!.name)
+            getReadyVC.setup(didPressReady: self.showCommissionerDeviceFindSticker, deviceType: self.targetDeviceType, networkName: self.selectedNetwork!.name)
             self.embededNavigationController.pushViewController(getReadyVC, animated: true)
         }
     }
 
-    func commissionerDeviceReady() {
+    func showCommissionerDeviceFindSticker() {
         log("commissioner device ready")
 
         let findStickerVC = MeshSetupFindCommissionerStickerViewController.loadedViewController()
-        findStickerVC.setup(didPressScan: commissionerDeviceStickerFound, deviceType: self.targetDeviceType, networkName: self.selectedNetwork!.name)
+        findStickerVC.setup(didPressScan: showCommissionerDeviceScanSticker, deviceType: self.targetDeviceType, networkName: self.selectedNetwork!.name)
         self.embededNavigationController.pushViewController(findStickerVC, animated: true)
     }
 
-    func commissionerDeviceStickerFound() {
+    func showCommissionerDeviceScanSticker() {
         log("sticker found by user")
 
         let scanVC = MeshSetupScanCommissionerStickerViewController.loadedViewController()
-        scanVC.setup(didFindStickerCode: commissionerDeviceCodeFound)
+        scanVC.setup(didFindStickerCode: showCommissionerDevicePairing)
         self.embededNavigationController.pushViewController(scanVC, animated: true)
     }
 
     //user successfully scanned target code
-    func commissionerDeviceCodeFound(dataMatrixString: String) {
+    func showCommissionerDevicePairing(dataMatrixString: String) {
         log("dataMatrix scanned: \(dataMatrixString)")
         self.commissionerDeviceDataMatrixString = dataMatrixString
 
@@ -288,9 +282,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             self.commissionerDeviceType = deviceType
             if let error = flowManager.setCommissionerDeviceInfo(dataMatrix: matrix) {
+                NSLog("error = \(error)")
                 //TODO: show error
                 restartCaptureSession()
             } else {
+                self.flowManager.pauseSetup()
+
                 let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
                 pairingVC.setup(didFinishScreen: commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: flowManager.commissionerDeviceBluetoothName() ?? deviceType.description)
                 self.embededNavigationController.pushViewController(pairingVC, animated: true)
@@ -312,27 +309,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func commissionerDevicePairingScreenDone() {
-        pairingScreenDone = true
-        evalContinueNetworkJoin()
-
+        self.flowManager.continueSetup()
     }
 
     func meshSetupDidRequestToEnterSelectedNetworkPassword() {
-        pairingFlowDone = true
-        evalContinueNetworkJoin()
-    }
-
-    func evalContinueNetworkJoin() {
-        if pairingScreenDone == true, pairingFlowDone == true {
-            pairingScreenDone = nil
-            pairingFlowDone = nil
-
-            showPasswordPrompt()
-        }
-    }
-
-
-    private func showPasswordPrompt() {
         DispatchQueue.main.async {
             let passwordVC = MeshSetupNetworkPasswordViewController.loadedViewController()
             passwordVC.setup(didEnterPassword: self.didEnterNetworkPassword, networkName: self.selectedNetwork!.name)
@@ -361,36 +341,16 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didFinishJoinNetworkScreen() {
-        pairingScreenDone = true
-        evalContinueEnterName()
+        self.flowManager.continueSetup()
     }
 
     func meshSetupDidRequestToEnterDeviceName() {
-        pairingFlowDone = true
-        evalContinueEnterName()
-    }
-
-    private func evalContinueEnterName() {
-        if pairingScreenDone == true, pairingFlowDone == true {
-            pairingScreenDone = nil
-            pairingFlowDone = nil
-
-            showEnterName()
-        }
-    }
-
-
-    private func showEnterName() {
-        //joiner flow
         DispatchQueue.main.async {
             let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
             nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType, currentName: self.flowManager.targetDeviceCloudName())
             self.embededNavigationController.pushViewController(nameVC, animated: true)
         }
     }
-
-
-
 
     func didEnterName(name: String) {
         self.targetDeviceName = name
@@ -437,7 +397,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             targetDeviceName = nil
 
             let getReadyVC = MeshSetupGetReadyViewController.loadedViewController()
-            getReadyVC.setup(didPressReady: targetDeviceReady, deviceType: self.targetDeviceType)
+            getReadyVC.setup(didPressReady: showTargetDeviceGetReady, deviceType: self.targetDeviceType)
             self.embededNavigationController.setViewControllers([getReadyVC], animated: true)
         }
     }
@@ -445,7 +405,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     //MARK: Connect to internet
-    private func showConnectToInternet() {
+    private func showConnectingToInternet() {
         DispatchQueue.main.async {
             let connectingVC = MeshSetupConnectToInternetViewController.loadedViewController()
             connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
@@ -454,12 +414,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didFinishConnectToInternetScreen() {
-        DispatchQueue.main.async {
-            let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
-            nameVC.setup(didEnterName: self.didEnterName, deviceType: self.targetDeviceType, currentName: self.flowManager.targetDeviceCloudName())
-            self.embededNavigationController.pushViewController(nameVC, animated: true)
-        }
+        self.flowManager.continueSetup()
     }
+
 
     func meshSetupDidRequestToFinishSetupEarly() {
         DispatchQueue.main.async {
@@ -570,9 +527,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.commissionerDeviceType = self.targetDeviceType
         self.commissionerDeviceDataMatrixString = self.targetDeviceDataMatrixString
         self.selectedNetworkPassword = self.createNetworkPassword
-
-        self.pairingScreenDone = nil
-        self.pairingFlowDone = nil
     }
 
     func createNetworkScreenDone() {
@@ -582,6 +536,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func meshSetupDidEnterState(state: MeshSetupFlowState) {
         log("flow setup entered state: \(state)")
+
         switch state {
             case .TargetDeviceReady:
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupPairingProcessViewController {
@@ -596,6 +551,31 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupPairingCommissionerProcessViewController.setSuccess was attempted when it shouldn't be")
                 }
 
+
+            case .FirmwareUpdateProgress:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                    vc.setProgress(progress: Int(round(self.flowManager.targetDeviceFirmwareFlashProgress() ?? 0)))
+                } else {
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setProgress was attempted when it shouldn't be")
+                }
+                break;
+            case .FirmwareUpdateFileComplete:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                    vc.setFileComplete()
+                } else {
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFileComplete was attempted when it shouldn't be")
+                }
+                break;
+            case .FirmwareUpdateComplete:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                    self.flowManager.pauseSetup()
+                    vc.setFirmwareUpdateComplete()
+                } else {
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFirmwareUpdateComplete was attempted when it shouldn't be")
+                }
+                break;
+
+
             case .TargetDeviceScanningForNetworks:
                 showScanNetworks()
             case .TargetGatewayDeviceScanningForNetworks:
@@ -603,9 +583,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
             case .TargetDeviceConnectingToInternetStarted:
-                showConnectToInternet()
+                showConnectingToInternet()
             case .TargetDeviceConnectingToInternetStep1Done, .TargetDeviceConnectingToInternetCompleted:
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectToInternetViewController {
+                    if state == .TargetDeviceConnectingToInternetCompleted {
+                        self.flowManager.pauseSetup()
+                    }
                     vc.setState(state)
                 } else {
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupConnectToInternetViewController.setState was attempted when it shouldn't be")
@@ -616,7 +599,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 showJoiningNetwork()
             case .JoiningNetworkStep1Done, .JoiningNetworkStep2Done, .JoiningNetworkCompleted:
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupJoiningNetworkViewController {
+                    if state == .JoiningNetworkCompleted {
+                        self.flowManager.pauseSetup()
+                    }
+
                     vc.setState(state)
+
                 } else {
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupJoiningNetworkViewController.setState was attempted when it shouldn't be")
                 }
@@ -632,6 +620,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 }
             default:
                 break;
+
+
 
         }
     }

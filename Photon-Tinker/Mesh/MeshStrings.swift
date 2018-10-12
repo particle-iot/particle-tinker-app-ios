@@ -130,6 +130,30 @@ class MeshSetupStrings {
         static let Button = "MeshSetup.FindCommissionerSticker.Button".meshLocalized()
     }
 
+
+    struct UpdateFirmware {
+        static let Title = "MeshSetup.UpdateFirmware.Title".meshLocalized()
+        static let Text = "MeshSetup.UpdateFirmware.Text".meshLocalized()
+
+        static let NoteText = "MeshSetup.UpdateFirmware.NoteText".meshLocalized()
+        static let NoteTitle = "MeshSetup.UpdateFirmware.NoteTitle".meshLocalized()
+
+        static let Button = "MeshSetup.UpdateFirmware.Button".meshLocalized()
+    }
+
+
+    struct UpdateFirmwareProgress {
+        static let Title = "MeshSetup.UpdateFirmwareProgress.Title".meshLocalized()
+        static let TextInstalling = "MeshSetup.UpdateFirmwareProgress.TextInstalling".meshLocalized()
+        static let Text = "MeshSetup.UpdateFirmwareProgress.Text".meshLocalized()
+
+        static let NoteText = "MeshSetup.UpdateFirmwareProgress.NoteText".meshLocalized()
+        static let NoteTitle = "MeshSetup.UpdateFirmwareProgress.NoteTitle".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.UpdateFirmwareProgress.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.UpdateFirmwareProgress.SuccessText".meshLocalized()
+    }
+
     struct ScanSticker {
         static let Title = "MeshSetup.ScanSticker.Title".meshLocalized()
         static let Text = "MeshSetup.ScanSticker.Text".meshLocalized()

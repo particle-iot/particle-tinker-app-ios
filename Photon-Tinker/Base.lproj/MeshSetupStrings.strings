@@ -76,6 +76,28 @@
 
 
 
+"MeshSetup.UpdateFirmware.Title" = "Let’s get your device updated";
+"MeshSetup.UpdateFirmware.Text" = "Update your device to the latest-and-greatest version of Device OS to continue setup";
+"MeshSetup.UpdateFirmware.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.UpdateFirmware.NoteText" = "Your device may receive multiple files as part of this Device OS update. It will reboot in-between each file it receives from Device Cloud.";
+"MeshSetup.UpdateFirmware.Button" = "Begin update";
+
+
+"MeshSetup.UpdateFirmwareProgress.Title" = "Updating Device OS";
+"MeshSetup.UpdateFirmwareProgress.Text" = "Sending part {0} to device — {1}% done";
+"MeshSetup.UpdateFirmwareProgress.TextInstalling" = "Installing part {0} on device";
+
+"MeshSetup.UpdateFirmwareProgress.NoteTitle" = "IMPORTANT!";
+"MeshSetup.UpdateFirmwareProgress.NoteText" = "Please keep your phone awake with this app open during this Device OS update.";
+
+"MeshSetup.UpdateFirmwareProgress.SuccessTitle" = "Congrats!";
+"MeshSetup.UpdateFirmwareProgress.SuccessText" = "Device OS has been successfully updated.";
+
+
+
+
+
+
 
 "MeshSetup.ScanSticker.Title" = "Scan the sticker";
 "MeshSetup.ScanSticker.Text" = "Make sure the sticker is steady and well-lit";

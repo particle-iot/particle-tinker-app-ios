@@ -11,17 +11,15 @@ import Foundation
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
-    func meshSetupDidRequestToUpdateFirmware()
-    func meshSetupDidPairWithTargetDevice()
 
+    func meshSetupDidRequestToUpdateFirmware()
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
 
     func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo])
 
     func meshSetupDidRequestCommissionerDeviceInfo()
+
     func meshSetupDidRequestToEnterSelectedNetworkPassword()
-
-
     func meshSetupDidRequestToEnterDeviceName()
     func meshSetupDidRequestToAddOneMoreDevice()
 
@@ -94,8 +92,8 @@ enum MeshSetupFlowState {
     case JoiningNetworkStep2Done
     case JoiningNetworkCompleted
 
-    case FirmwareUpdateProgress(Double)
-    case FirmwareUpdateFileComplete(Int)
+    case FirmwareUpdateProgress
+    case FirmwareUpdateFileComplete
     case FirmwareUpdateComplete
 
     case CreateNetworkStarted
@@ -209,6 +207,7 @@ internal struct MeshDevice {
     var nextFirmwareBinaryURL: String?
     var nextFirmwareBinaryFilePath: String?
     var firmwareFilesFlashed: Int?
+    var firmwareUpdateProgress: Double?
 
     var claimCode: String?
     var isClaimed: Bool?

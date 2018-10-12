@@ -30,6 +30,9 @@ class MeshSetupStyle {
     static var NoteBackgroundColor = UIColor.colorWithHexString("#F7F7F7")
     static var NoteBorderColor = UIColor.colorWithHexString("#C7C7C7")
 
+    static var ProgressBarProgressColor = UIColor.colorWithHexString("#02ADEF")
+    static var ProgressBarTrackColor = UIColor.colorWithHexString("#F5F5F5")
+
     static var EthernetToggleBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
     static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
 
