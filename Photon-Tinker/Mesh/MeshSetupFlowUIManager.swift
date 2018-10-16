@@ -428,13 +428,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-//    private func showSelectOrCreateNetwork() {
+    private func showSelectOrCreateNetwork() {
 //        DispatchQueue.main.async {
 //            let networksVC = MeshSetupSelectOrCreateNetworkViewController.loadedViewController()
 //            networksVC.setup(didSelectGatewayNetwork: self.didSelectGatewayNetwork)
 //            self.embededNavigationController.pushViewController(networksVC, animated: true)
 //        }
-//    }
+    }
 //
 //
 //    func didSelectGatewayNetwork(network: MeshSetupNetworkInfo?) {
@@ -447,7 +447,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 //
 //
 //
-//    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
 //        NSLog("scan complete")
 //
 //        //if by the time this returned, user has already selected the network, ignore the results of last scan
@@ -466,7 +466,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 //                }
 //            }
 //        }
-//    }
+    }
 
 
 
