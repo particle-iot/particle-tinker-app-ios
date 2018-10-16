@@ -328,7 +328,17 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
         } else if (self.targetDevice.hasInternetInterface() && self.selectedNetworkInfo == nil) {
             //if there's ethernet and we are not adding more devices to same network
-            self.currentFlow = ethernetFlow
+
+            if (targetDevice.hasEthernetInterface) {
+                self.currentFlow = ethernetFlow
+            } else if (targetDevice.hasWifiInterface) {
+                self.currentFlow = wifiFlow
+            } else if (targetDevice.hasCellularInterface) {
+                self.currentFlow = cellularFlow
+            } else {
+                fatalError("wrong state?")
+            }
+
             log("setting gateway flow")
         } else {
             self.currentFlow = joinerFlow
@@ -599,7 +609,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (result == .NONE) {
                 self.targetDevice.hasEthernetInterface = false
                 self.targetDevice.hasWifiInterface = false
-                self.targetDevice.hasCelularInterface = false
+                self.targetDevice.hasCellularInterface = false
 
                 self.targetDevice.networkInterfaces = interfaces!
                 for interface in interfaces! {
@@ -608,9 +618,17 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     } else if (interface.type == .wifi) {
                         self.targetDevice.hasWifiInterface = true
                     } else if (interface.type == .ppp) {
-                        self.targetDevice.hasCelularInterface = true
+                        self.targetDevice.hasCellularInterface = true
                     }
                 }
+
+                //these devices should have this.
+                if (self.targetDevice.type! == .argon) {
+                    self.targetDevice.hasWifiInterface = true
+                } else if (self.targetDevice.type! == .boron) {
+                    self.targetDevice.hasCellularInterface = true
+                }
+
                 self.stepComplete()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -1188,8 +1206,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.log("status: \(status as Optional)")
                 if (status! == .connected) {
                     self.log("device connected to the cloud")
-                    if (self.currentFlow == self.ethernetFlow) {
+                    if (self.currentFlow == self.ethernetFlow || self.currentFlow == self.wifiFlow) {
                         self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
+                    } else if (self.currentFlow == self.cellularFlow) {
+                        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep2Done)
                     }
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                         if (self.canceled) {
@@ -1257,7 +1277,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func deviceGotClaimed() {
         self.log("device was successfully claimed")
-        if (self.currentFlow == self.ethernetFlow) {
+        if (self.currentFlow == self.ethernetFlow || self.currentFlow == self.wifiFlow || self.currentFlow == self.cellularFlow) {
             self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetCompleted)
         } else if (self.currentFlow == self.joinerFlow) {
             self.delegate.meshSetupDidEnterState(state: .JoiningNetworkCompleted)
