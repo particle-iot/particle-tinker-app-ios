@@ -12,8 +12,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .ConnectToTargetDevice,
         .EnsureLatestFirmware,
         .EnsureTargetDeviceCanBeClaimed,
-        .CheckTargetDeviceHasNetworkInterfaces,
         .SetClaimCode,
+        .CheckTargetDeviceHasNetworkInterfaces,
+        .OfferSetupStandAloneOrWithNetwork,
         .ChooseFlow
     ]
 
@@ -21,6 +22,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let joinerFlow: [MeshSetupFlowCommand] = [
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         .GetUserNetworkSelection,
+        //.ShowBillingImpact
         .GetCommissionerDeviceInfo,
         .ConnectToCommissionerDevice,
         .EnsureCommissionerNetworkMatches,
@@ -31,33 +33,52 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .GetNewDeviceName,
         .OfferToAddOneMoreDevice
     ]
+
 
 
 
     private let ethernetFlow: [MeshSetupFlowCommand] = [
         .EnsureTargetDeviceIsNotOnMeshNetwork,
+        //.OfferSelectOrCreateNetwork,
+        //.ShowBillingImpact
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
-        .OfferSelectOrCreateNetwork,
         .ChooseSubflow
     ]
 
-
-    private let joinerSubflow: [MeshSetupFlowCommand] = [
-        .GetCommissionerDeviceInfo,
-        .ConnectToCommissionerDevice,
-        .EnsureCommissionerNetworkMatches,
-        .EnsureCorrectSelectedNetworkPassword,
-        .JoinSelectedNetwork,
-        .FinishJoinSelectedNetwork,
-        .OfferToAddOneMoreDevice
+    private let wifiFlow: [MeshSetupFlowCommand] = [
+        .EnsureTargetDeviceIsNotOnMeshNetwork,
+        //.OfferSelectOrCreateNetwork,
+        //.ShowBillingImpact
     ]
 
+    private let cellularFlow: [MeshSetupFlowCommand] = [
+        .EnsureTargetDeviceIsNotOnMeshNetwork,
+        //.OfferSelectOrCreateNetwork,
+        //.ShowBillingImpact
+    ]
+
+
     private let creatorSubflow: [MeshSetupFlowCommand] = [
+        .GetNewNetworkNameAndPassword,
         .CreateNetwork,
         .OfferToAddOneMoreDevice
     ]
+
+
+    //not used in this version of the app.
+//    private let joinerSubflow: [MeshSetupFlowCommand] = [
+//        .GetCommissionerDeviceInfo,
+//        .ConnectToCommissionerDevice,
+//        .EnsureCommissionerNetworkMatches,
+//        .EnsureCorrectSelectedNetworkPassword,
+//        .JoinSelectedNetwork,
+//        .FinishJoinSelectedNetwork,
+//        .OfferToAddOneMoreDevice
+//    ]
+
+
 
 
 
@@ -80,6 +101,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private var userSelectedToLeaveNetwork: Bool?
     private var userSelectedToUpdateFirmware: Bool?
+    private var userSelectedToSetupMesh: Bool?
+    private var userSelectedToCreateNetwork = true //for this version only
 
     //to prevent long running actions from executing
     private var canceled = false
@@ -170,6 +193,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .ChooseFlow,
                     .OfferToAddOneMoreDevice,
                     .ChooseSubflow,
+                    .GetNewNetworkNameAndPassword,
                     .GetNewDeviceName: //this will be handeled by onCompleteHandler of setDeviceName method
                 break
 
@@ -188,8 +212,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .CheckDeviceGotClaimed,
                     .StopTargetDeviceListening,
                     .FinishJoinSelectedNetwork,
-                    .JoinSelectedNetwork,
-                    .OfferSelectOrCreateNetwork:
+                    //.OfferSelectOrCreateNetwork,
+                    .JoinSelectedNetwork:
+
                 runCurrentStep()
 
             case .EnsureTargetDeviceIsNotOnMeshNetwork:
@@ -230,6 +255,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepEnsureTargetDeviceIsNotOnMeshNetwork()
             case .SetClaimCode:
                 self.stepSetClaimCode()
+
+            case .OfferSetupStandAloneOrWithNetwork:
+                stepOfferSetupStandAloneOrWithNetwork()
+//            case .OfferSelectOrCreateNetwork:
+//                self.stepOfferSelectOrCreateNetwork()
             case .ChooseFlow:
                  self.stepChooseFlow()
 
@@ -260,11 +290,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepStopTargetDeviceListening()
             case .CheckDeviceGotClaimed:
                  self.stepCheckDeviceGotClaimed()
-            case .OfferSelectOrCreateNetwork:
-                self.stepOfferSelectOrCreateNetwork()
             case .ChooseSubflow:
                 self.stepChooseSubflow()
 
+            case .GetNewNetworkNameAndPassword:
+                self.stepGetNewNetworkNameAndPassword()
             case .CreateNetwork:
                 self.stepCreateNetwork()
 
@@ -293,8 +323,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepChooseFlow() {
         //jump to new flow
         self.currentStep = 0
-        //if there's ethernet and we are not adding more devices to same network
-        if (self.targetDevice.hasEthernetInterface! && self.selectedNetworkInfo == nil) {
+
+        if (self.targetDevice.hasInternetInterface() && self.selectedNetworkInfo != nil) {
+            self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
+        } else if (self.targetDevice.hasInternetInterface() && self.selectedNetworkInfo == nil) {
+            //if there's ethernet and we are not adding more devices to same network
             self.currentFlow = ethernetFlow
             log("setting gateway flow")
         } else {
@@ -305,15 +338,23 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func stepChooseSubflow() {
-        self.currentStep = 0
-        if newNetworkPassword != nil && newNetworkPassword != nil {
-            log("subflow: creator")
+
+
+
+        if (self.userSelectedToSetupMesh!) {
+            self.currentStep = 0
             self.currentFlow = creatorSubflow
+//        if (userSelectedToCreateNetwork) {
+//            log("subflow: creator")
+//            self.currentFlow = creatorSubflow
+//        } else {
+//            log("subflow: joiner")
+//            self.currentFlow = joinerSubflow
+//        }
+            self.runCurrentStep()
         } else {
-            log("subflow: joiner")
-            self.currentFlow = joinerSubflow
+            self.delegate.meshSetupDidEnterState(state: .SetupComplete)
         }
-        self.runCurrentStep()
     }
 
     //MARK: Helpers
@@ -516,6 +557,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         self.userSelectedToLeaveNetwork = nil
         self.userSelectedToUpdateFirmware = nil
+        self.userSelectedToSetupMesh = nil
+    }
 
 
 
@@ -633,6 +676,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.stepComplete()
         }
     }
+
 
 
 
@@ -759,8 +803,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         if (self.currentCommand == .GetUserNetworkSelection) {
             self.scanNetworks(onComplete: self.getUserNetworkSelection)
-        } else if (self.currentCommand == .OfferSelectOrCreateNetwork) {
-            self.scanNetworks(onComplete: self.getUserMeshSetupChoice)
+//        } else if (self.currentCommand == .OfferSelectOrCreateNetwork) {
+//            self.scanNetworks(onComplete: self.getUserMeshSetupChoice)
         } else {
             return .IllegalOperation
         }
@@ -1350,60 +1394,68 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
-    //MARK: OfferToFinishSetupEarly
-    private func stepOfferToFinishSetupEarly() {
-        self.delegate.meshSetupDidRequestToFinishSetupEarly()
+    //MARK: OfferSetupStandAloneOrWithNetwork
+    private func stepOfferSetupStandAloneOrWithNetwork() {
+        if (!targetDevice.hasInternetInterface()) {
+            self.userSelectedToSetupMesh = true
+            self.stepComplete()
+        } else {
+            self.delegate.didRequestToSelectStandAloneOrMeshSetup()
+        }
     }
 
-    func setFinishSetupEarly(finish: Bool) -> MeshSetupFlowError? {
-        guard currentCommand == .OfferToFinishSetupEarly else {
+    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {
+        guard currentCommand == .OfferSetupStandAloneOrWithNetwork else {
             return .IllegalOperation
         }
 
-        if (finish) {
-            self.finishSetup()
-        } else {
-            self.stepComplete()
-        }
-
+        self.userSelectedToSetupMesh = meshSetup
+        self.stepComplete()
         return nil
     }
+
 
     //MARK: OfferSelectOrCreateNetwork
-    private func stepOfferSelectOrCreateNetwork() {
-        //we might retry step because scan network failed.. so we only test for this condition and ignore password/name condition
-        //adding more devices to same network
-        if (self.selectedNetworkInfo != nil) {
-            self.stepComplete()
-            return
-        }
+//    private func stepOfferSelectOrCreateNetwork() {
+//        //we might retry step because scan network failed.. so we only test for this condition and ignore password/name condition
+//        //adding more devices to same network
+//        if (self.selectedNetworkInfo != nil) {
+//            self.stepComplete()
+//            return
+//        }
+//
+//        self.delegate.meshSetupDidEnterState(state: .TargetGatewayDeviceScanningForNetworks)
+//        self.scanNetworks(onComplete: self.getUserMeshSetupChoice)
+//    }
+//
+//    private func getUserMeshSetupChoice() {
+//        self.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: self.targetDevice.networks!)
+//    }
+//
+//    func setSelectOrCreateNetwork(selectedNetwork: MeshSetupNetworkInfo?) -> MeshSetupFlowError? {
+////        guard currentCommand == .OfferSelectOrCreateNetwork else {
+////            return .IllegalOperation
+////        }
+////
+////        if let selectedNetwork = selectedNetwork {
+////            self.selectedNetworkInfo = selectedNetwork
+////            self.stepComplete()
+////        } else {
+////            //TODO: split into three steps
+////            self.delegate.meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+////        }
+//
+//        return nil
+//    }
 
-        self.delegate.meshSetupDidEnterState(state: .TargetGatewayDeviceScanningForNetworks)
-        self.scanNetworks(onComplete: self.getUserMeshSetupChoice)
-    }
 
-    private func getUserMeshSetupChoice() {
-        self.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: self.targetDevice.networks!)
-    }
-
-    func setSelectOrCreateNetwork(selectedNetwork: MeshSetupNetworkInfo?) -> MeshSetupFlowError? {
-        guard currentCommand == .OfferSelectOrCreateNetwork else {
-            return .IllegalOperation
-        }
-
-        if let selectedNetwork = selectedNetwork {
-            self.selectedNetworkInfo = selectedNetwork
-            self.stepComplete()
-        } else {
-            //TODO: split into three steps
-            self.delegate.meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-        }
-
-        return nil
+    //MARK: GetNewNetworkNameAndPassword
+    private func stepGetNewNetworkNameAndPassword() {
+        self.delegate.meshSetupDidRequestToEnterNewNetworkNameAndPassword()
     }
 
     func setNewNetwork(name: String, password: String) -> MeshSetupFlowError? {
-        guard currentCommand == .OfferSelectOrCreateNetwork else {
+        guard currentCommand == .GetNewNetworkNameAndPassword else {
             return .IllegalOperation
         }
 

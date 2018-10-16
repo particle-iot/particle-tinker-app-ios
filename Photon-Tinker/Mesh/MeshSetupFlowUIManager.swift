@@ -159,24 +159,29 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.continueSetup()
     }
 
-
-
     //TODO: For spectra we simply leave the current network. No hard feelings
     func meshSetupDidRequestToLeaveNetwork(network: Particle.MeshSetupNetworkInfo) {
         flowManager.setTargetDeviceLeaveNetwork(leave: true)
     }
 
-
-
-
     //the next thing to happen will be one out of 3:
+    // 1)didRequestToSelectStandAloneOrMeshSetup if device has internet capable interfaces
     // 2)meshSetupDidEnterState: TargetDeviceScanningForNetworks
-    // 3)meshSetupDidEnterState: TargetDeviceConnectingToInternet
     // 4)meshSetupDidEnterState: JoiningNetworkStarted //when adding additional devices
 
 
 
+    func didRequestToSelectStandAloneOrMeshSetup() {
+        DispatchQueue.main.async {
+            let setupVC = MeshSetupStandAloneOrMeshSetupViewController.loadedViewController()
+            setupVC.setup(setupMesh: self.didSelectToSetupMesh, deviceType: self.targetDeviceType)
+            self.embededNavigationController.pushViewController(setupVC, animated: true)
+        }
+    }
 
+    func didSelectToSetupMesh(setupMesh: Bool) {
+        flowManager.setSelectStandAloneOrMeshSetup(meshSetup: setupMesh)
+    }
 
 
 
@@ -242,6 +247,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             }
         }
     }
+
 
 
     //MARK: Connect to selected network
@@ -422,42 +428,47 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-    private func showSelectOrCreateNetwork() {
-        DispatchQueue.main.async {
-            let networksVC = MeshSetupSelectOrCreateNetworkViewController.loadedViewController()
-            networksVC.setup(didSelectGatewayNetwork: self.didSelectGatewayNetwork)
-            self.embededNavigationController.pushViewController(networksVC, animated: true)
-        }
-    }
+//    private func showSelectOrCreateNetwork() {
+//        DispatchQueue.main.async {
+//            let networksVC = MeshSetupSelectOrCreateNetworkViewController.loadedViewController()
+//            networksVC.setup(didSelectGatewayNetwork: self.didSelectGatewayNetwork)
+//            self.embededNavigationController.pushViewController(networksVC, animated: true)
+//        }
+//    }
+//
+//
+//    func didSelectGatewayNetwork(network: MeshSetupNetworkInfo?) {
+//        self.didSelectNetwork = true
+//        self.selectedNetwork = network
+//
+//        self.flowManager.setSelectOrCreateNetwork(selectedNetwork: selectedNetwork)
+//    }
+//
+//
+//
+//
+//    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
+//        NSLog("scan complete")
+//
+//        //if by the time this returned, user has already selected the network, ignore the results of last scan
+//        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+//            vc.setNetworks(networks: availableNetworks)
+//
+//            //if no networks found = force instant rescan
+//            if (availableNetworks.count == 0) {
+//                rescanNetworks()
+//            } else {
+//                //rescan in 3seconds
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+//                    [weak self] in
+//                    //only rescan if user hasn't made choice by now
+//                    self?.rescanNetworks()
+//                }
+//            }
+//        }
+//    }
 
-    func didSelectGatewayNetwork(network: MeshSetupNetworkInfo?) {
-        self.didSelectNetwork = true
-        self.selectedNetwork = network
 
-        flowManager.setSelectOrCreateNetwork(selectedNetwork: selectedNetwork)
-    }
-
-
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
-        NSLog("scan complete")
-
-        //if by the time this returned, user has already selected the network, ignore the results of last scan
-        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
-            vc.setNetworks(networks: availableNetworks)
-
-            //if no networks found = force instant rescan
-            if (availableNetworks.count == 0) {
-                rescanNetworks()
-            } else {
-                //rescan in 3seconds
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-                    [weak self] in
-                    //only rescan if user hasn't made choice by now
-                    self?.rescanNetworks()
-                }
-            }
-        }
-    }
 
 
     func meshSetupDidRequestToEnterNewNetworkNameAndPassword() {
@@ -600,6 +611,14 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 } else {
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be")
                 }
+
+
+
+            case .SetupComplete:
+                //TODO: add start building screen
+                //setup done
+                self.flowManager.cancelSetup()
+                self.dismiss(animated: true)
             default:
                 break;
 

@@ -15,6 +15,8 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToUpdateFirmware()
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
 
+    func didRequestToSelectStandAloneOrMeshSetup()
+
     func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo])
 
     func meshSetupDidRequestCommissionerDeviceInfo()
@@ -43,6 +45,7 @@ internal enum MeshSetupFlowCommand {
     case EnsureLatestFirmware
     case EnsureTargetDeviceCanBeClaimed
     case CheckTargetDeviceHasNetworkInterfaces
+    case OfferSetupStandAloneOrWithNetwork
     case ChooseFlow
 
     //main flow
@@ -62,10 +65,10 @@ internal enum MeshSetupFlowCommand {
     case EnsureHasInternetAccess
     case CheckDeviceGotClaimed
     case StopTargetDeviceListening
-    case OfferToFinishSetupEarly
     case OfferSelectOrCreateNetwork
     case ChooseSubflow
 
+    case GetNewNetworkNameAndPassword
     case CreateNetwork
 }
 
@@ -100,6 +103,8 @@ enum MeshSetupFlowState {
     case CreateNetworkStep2Done
     case CreateNetworkStep3Done
     case CreateNetworkCompleted
+
+    case SetupComplete
 }
 
 enum MeshSetupFlowError: Error, CustomStringConvertible {
@@ -115,6 +120,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToScanBecauseOfTimeout
     case FailedToConnect
 
+    case CannotAddGatewayDeviceAsJoiner
 
     case UnableToDownloadFirmwareBinary
 
@@ -152,6 +158,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
         switch self {
                 //these errors are handled instantly
             case .UnableToDownloadFirmwareBinary : return "Failed to download firmware update. Please try again later."
+            case .CannotAddGatewayDeviceAsJoiner : return "Support for adding multiple gateways to a single network is coming soon. Argons, Borons, and Xenons+Ethernet FeatherWings must be set up as a standalone device, or as the first gateway in a new mesh network."
 
 
             case .WrongNetworkPassword : return "Provided password is incorrect."

@@ -97,6 +97,13 @@
 
 
 
+"MeshSetup.StandAloneOrMeshSetup.Title" = "Do you want to use this {{device}} in a mesh network?";
+"MeshSetup.StandAloneOrMeshSetup.Text" = "This {{device}} can act as a gateway to the Internet and create a local wireless mesh network that other devices can join";
+"MeshSetup.StandAloneOrMeshSetup.MeshButton" = "USE IN MESH NETWORK";
+"MeshSetup.StandAloneOrMeshSetup.StandAloneButton" = "DON'T USE IN MESH NETWORK";
+
+
+
 
 
 "MeshSetup.ScanSticker.Title" = "Scan the sticker";

@@ -131,6 +131,15 @@ class MeshSetupStrings {
     }
 
 
+    struct StandAloneOrMeshSetup {
+        static let Title = "MeshSetup.StandAloneOrMeshSetup.Title".meshLocalized()
+        static let Text = "MeshSetup.StandAloneOrMeshSetup.Text".meshLocalized()
+        static let MeshButton = "MeshSetup.StandAloneOrMeshSetup.MeshButton".meshLocalized()
+        static let StandAloneButton = "MeshSetup.StandAloneOrMeshSetup.StandAloneButton".meshLocalized()
+
+    }
+
+
     struct UpdateFirmware {
         static let Title = "MeshSetup.UpdateFirmware.Title".meshLocalized()
         static let Text = "MeshSetup.UpdateFirmware.Text".meshLocalized()
