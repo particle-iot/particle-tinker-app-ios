@@ -1630,10 +1630,11 @@ extension MeshSetupFlowManager {
             return
         }
 
+
         ParticleCloud.sharedInstance().getNextBinaryURL(targetDevice.type!,
                 currentSystemFirmwareVersion: targetDevice.firmwareVersion!,
                 currentNcpFirmwareVersion: targetDevice.ncpVersion,
-                currentNcpFirmwareModuleVersion: targetDevice.ncpModuleVersion as NSNumber?)
+                currentNcpFirmwareModuleVersion: targetDevice.ncpModuleVersion != nil ? NSNumber(value: targetDevice.ncpModuleVersion!) : nil)
         { url, error in
             if (self.canceled) {
                 return
