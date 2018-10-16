@@ -413,7 +413,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     //MARK: Connect to internet
     private func showConnectingToInternet() {
         DispatchQueue.main.async {
-            let connectingVC = MeshSetupConnectToInternetViewController.loadedViewController()
+            let connectingVC = MeshSetupConnectingToInternetEthernetViewController.loadedViewController()
             connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(connectingVC, animated: true)
         }

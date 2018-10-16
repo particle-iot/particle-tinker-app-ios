@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupConnectToInternetViewController: MeshSetupProgressViewController, Storyboardable {
+class MeshSetupConnectingToInternetEthernetViewController: MeshSetupProgressViewController, Storyboardable {
 
     static var nibName: String {
         return "MeshSetupProgressView"

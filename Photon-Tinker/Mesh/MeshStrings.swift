@@ -252,16 +252,6 @@ class MeshSetupStrings {
     }
 
 
-    struct BillingInfo {
-        static let Title = "MeshSetup.BillingInfo.Title".meshLocalized()
-        static let Text1 = "MeshSetup.BillingInfo.Text1".meshLocalized()
-        static let Text2 = "MeshSetup.BillingInfo.Text2".meshLocalized()
-        static let Text3 = "MeshSetup.BillingInfo.Text3".meshLocalized()
-        static let Note = "MeshSetup.BillingInfo.Note".meshLocalized()
-        static let Button = "MeshSetup.BillingInfo.Button".meshLocalized()
-    }
-
-
     struct CreateNetworkName {
         static let Title = "MeshSetup.CreateNetworkName.Title".meshLocalized()
         static let InputTitle = "MeshSetup.CreateNetworkName.InputTitle".meshLocalized()

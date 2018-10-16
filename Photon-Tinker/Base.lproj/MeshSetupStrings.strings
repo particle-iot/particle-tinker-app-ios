@@ -190,16 +190,6 @@
 
 
 
-"MeshSetup.BillingInfo.Title" = "Woo-hoo! Enjoy this new mesh network on us!";
-"MeshSetup.BillingInfo.Text1" = "All new networks begin as Micro Networks";
-"MeshSetup.BillingInfo.Text2" = "Micro Networks include 10 total devices and 1 gateway";
-"MeshSetup.BillingInfo.Text3" = "Your first 10 Micro Networks using a Wi-Fi or Ethernet gateway are FREE";
-"MeshSetup.BillingInfo.Note" = "You have 10 free micro networks";
-"MeshSetup.BillingInfo.Button" = "Sounds good";
-
-
-
-
 "MeshSetup.CreateNetworkName.Title" = "Give your network a name";
 "MeshSetup.CreateNetworkName.InputTitle" = "Network name";
 "MeshSetup.CreateNetworkName.NoteTitle" = "HELPFUL TIP!";
