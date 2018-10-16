@@ -23,7 +23,6 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToEnterDeviceName()
     func meshSetupDidRequestToAddOneMoreDevice()
 
-    func meshSetupDidRequestToFinishSetupEarly() //before setting mesh network
     func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkInfo])
 
     func meshSetupDidRequestToEnterNewNetworkNameAndPassword()

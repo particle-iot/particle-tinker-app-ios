@@ -418,24 +418,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func meshSetupDidRequestToFinishSetupEarly() {
-        DispatchQueue.main.async {
-            //flowManager.setAddOneMoreDevice(addOneMoreDevice: true)
-            let earlyVC = MeshSetupFinishSetupEarlyViewController.loadedViewController()
-            earlyVC.setup(didSelectDone: self.didSelectToFinishEarly, deviceName: self.targetDeviceName!)
-            self.embededNavigationController.pushViewController(earlyVC, animated: true)
-        }
-    }
-
-    func didSelectToFinishEarly(finishEarly: Bool) {
-        flowManager.setFinishSetupEarly(finish: finishEarly )
-
-        if (finishEarly) {
-            //setup done
-            self.dismiss(animated: true)
-        }
-    }
-
 
 
 

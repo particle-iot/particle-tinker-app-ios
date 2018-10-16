@@ -180,13 +180,6 @@
 
 
 
-"MeshSetup.FinishSetupEarly.SuccessTitle" = "Congrats!";
-"MeshSetup.FinishSetupEarly.SuccessText" = "{{deviceName}} is all set up!";
-"MeshSetup.FinishSetupEarly.ContinueSetupLabel" = "Using {{deviceName}} in a mesh network?";
-"MeshSetup.FinishSetupEarly.ContinueSetupButton" = "Continue onto Mesh Setup";
-"MeshSetup.FinishSetupEarly.DoneLabel" = "Using as a standalone device?";
-"MeshSetup.FinishSetupEarly.DoneButton" = "I’m done";
-
 
 
 

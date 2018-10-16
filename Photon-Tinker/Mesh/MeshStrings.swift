@@ -237,21 +237,6 @@ class MeshSetupStrings {
 
 
 
-
-
-    struct FinishSetupEarly {
-        static let SuccessTitle = "MeshSetup.FinishSetupEarly.SuccessTitle".meshLocalized()
-        static let SuccessText = "MeshSetup.FinishSetupEarly.SuccessText".meshLocalized()
-
-        static let ContinueSetupLabel = "MeshSetup.FinishSetupEarly.ContinueSetupLabel".meshLocalized()
-        static let ContinueSetupButton = "MeshSetup.FinishSetupEarly.ContinueSetupButton".meshLocalized()
-
-        static let DoneLabel = "MeshSetup.FinishSetupEarly.DoneLabel".meshLocalized()
-        static let DoneButton = "MeshSetup.FinishSetupEarly.DoneButton".meshLocalized()
-    }
-
-
-
     struct CreateOrSelectNetwork {
         static let Title = "MeshSetup.CreateOrSelectNetwork.Title".meshLocalized()
         static let CreateNetwork = "MeshSetup.CreateOrSelectNetwork.CreateNetwork".meshLocalized()

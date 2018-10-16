@@ -39,7 +39,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
-        .OfferToFinishSetupEarly,
         .OfferSelectOrCreateNetwork,
         .ChooseSubflow
     ]
@@ -171,7 +170,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .ChooseFlow,
                     .OfferToAddOneMoreDevice,
                     .ChooseSubflow,
-                    .OfferToFinishSetupEarly,
                     .GetNewDeviceName: //this will be handeled by onCompleteHandler of setDeviceName method
                 break
 
@@ -262,8 +260,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepStopTargetDeviceListening()
             case .CheckDeviceGotClaimed:
                  self.stepCheckDeviceGotClaimed()
-            case .OfferToFinishSetupEarly:
-                self.stepOfferToFinishSetupEarly()
             case .OfferSelectOrCreateNetwork:
                 self.stepOfferSelectOrCreateNetwork()
             case .ChooseSubflow:
