@@ -10,7 +10,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let preflow: [MeshSetupFlowCommand] = [
         .GetTargetDeviceInfo,
         .ConnectToTargetDevice,
-        //.ResetSetupAndNetwork,
         .EnsureLatestFirmware,
         .EnsureTargetDeviceCanBeClaimed,
         .CheckTargetDeviceHasNetworkInterfaces,
@@ -218,13 +217,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 "currentStep = \(currentStep), currentCommand = \(currentCommand)")
         self.currentStepFlags = [:]
         switch self.currentCommand {
-            case .ResetSetupAndNetwork:
-                #if DEBUG
-                    self.stepResetSetupAndNetwork()
-                #else
-                    fatalError("self.stepResetSetupAndNetwork")
-                #endif
-
             //preflow
             case .GetTargetDeviceInfo:
                 self.stepGetTargetDeviceInfo()
@@ -493,39 +485,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 //extension MeshSetupFlowManager {
 
-
-
-
-
-    //MARK: ResetSetupAndNetwork
-    private func stepResetSetupAndNetwork() {
-        self.targetDevice.transceiver!.sendLeaveNetwork () { result in
-            self.log("targetDevice.sendLeaveNetwork: \(result.description())")
-            if (self.canceled) {
-                return
-            }
-
-            if (result == .NONE) {
-                self.setSetupNotDone()
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-    private func setSetupNotDone() {
-        self.targetDevice.transceiver!.sendDeviceSetupDone(done: false) { result in
-            self.log("targetDevice.sendDeviceSetupDone: \(result.description())")
-            if (self.canceled) {
-                return
-            }
-            if (result == .NONE) {
-                self.log("Device reset complete")
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
 
 
     //MARK: GetTargetDeviceInfo
