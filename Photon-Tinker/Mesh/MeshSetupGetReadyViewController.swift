@@ -73,7 +73,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         videoView.clipsToBounds = true
 
         ethernetToggleBackground.backgroundColor = MeshSetupStyle.EthernetToggleBackgroundColor
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
 
 
         if (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {

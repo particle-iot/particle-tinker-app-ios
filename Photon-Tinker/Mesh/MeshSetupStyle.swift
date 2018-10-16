@@ -36,6 +36,11 @@ class MeshSetupStyle {
     static var EthernetToggleBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
     static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
 
+
+    static var AlternativeButtonColor = UIColor.colorWithHexString("#FFFFFF")
+    static var AlternativeButtonBorderColor = UIColor.colorWithHexString("#02ADEF")
+    static var AlternativeButtonTitleColor = UIColor.colorWithHexString("#02ADEF")
+
     static var ButtonColor = UIColor.colorWithHexString("#02ADEF")
     static var ButtonTitleColor = UIColor.colorWithHexString("#FFFFFF")
 
@@ -82,25 +87,51 @@ class MeshSetupButton : UIButton {
         self.backgroundColor = MeshSetupStyle.ButtonColor
 
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
-//        self.layer.shadowOffset = CGSize(width: 0, height: 1)
-//        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-//        self.layer.shadowOpacity = 1.0
-
     }
 
     override func setTitle(_ title: String?, for state: UIControlState) {
         super.setTitle(title?.uppercased(), for: state)
     }
 
-    func setStyle(font: String, size: Int, color: UIColor) {
+    func setStyle(font: String, size: Int) {
         self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
 
-        self.setTitleColor(color, for: .normal)
-        self.setTitleColor(color, for: .selected)
-        self.setTitleColor(color, for: .highlighted)
-        self.setTitleColor(color.withAlphaComponent(0.5), for: .disabled)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .normal)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .selected)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .highlighted)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
 
-        self.tintColor = color
+        self.tintColor = MeshSetupStyle.ButtonTitleColor
+    }
+}
+
+
+class MeshSetupAlternativeButton : UIButton {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.layer.cornerRadius = 3.0
+        self.backgroundColor = MeshSetupStyle.AlternativeButtonColor
+
+        self.layer.borderColor = MeshSetupStyle.AlternativeButtonBorderColor.cgColor
+        self.layer.borderWidth = 1
+
+        self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
+    }
+
+    override func setTitle(_ title: String?, for state: UIControlState) {
+        super.setTitle(title?.uppercased(), for: state)
+    }
+
+    func setStyle(font: String, size: Int) {
+        self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
+
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor, for: .normal)
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor, for: .selected)
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor, for: .highlighted)
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
+
+        self.tintColor = MeshSetupStyle.AlternativeButtonTitleColor
     }
 }
 
