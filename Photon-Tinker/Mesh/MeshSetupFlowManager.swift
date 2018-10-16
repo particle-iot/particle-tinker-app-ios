@@ -366,6 +366,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
         if self.canceled == false {
+            self.cancelSetup()
+
             log("error: \(reason.description), nsError: \(nsError?.localizedDescription as Optional)")
             self.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
         }
@@ -512,6 +514,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if self.currentStepFlags["reconnect"] != nil && (self.currentCommand == .ConnectToTargetDevice || self.currentCommand == .ConnectToCommissionerDevice) {
                 self.currentStepFlags["reconnect"] = nil
                 self.runCurrentStep()
+            } else if self.currentCommand == .EnsureLatestFirmware,
+                      let chunk = self.currentStepFlags["chunkSize"] as? Int,
+                      let idx = self.currentStepFlags["idx"] as? Int,
+                      let firmwareData = self.currentStepFlags["firmwareData"] as? Data,
+                      ((idx+1) * chunk >= firmwareData.count) {
+                NSLog("Connection was dropped, but it's fine.")
+                //this is fine.
             } else {
                 self.fail(withReason: .BluetoothConnectionDropped, severity: .Fatal)
             }
