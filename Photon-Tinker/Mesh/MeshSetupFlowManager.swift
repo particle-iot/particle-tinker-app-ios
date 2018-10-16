@@ -539,16 +539,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         self.targetDevice = MeshDevice()
-
-        //these flags are used to determine gateway subflow .. if they are set, new network is being created
-        //otherwise gateway is joining the existing network so it is important to clear them
-        //we cant use selected network, because that part might be reused if multiple devices are connected to same
-        //network without disconnecting commissioner
-        self.newNetworkPassword = nil
-        self.newNetworkName = nil
-
-        self.userSelectedToLeaveNetwork = nil
-        self.userSelectedToUpdateFirmware = nil
+        self.resetFlowFlags()
 
         self.log("dataMatrix: \(dataMatrix)")
         self.targetDevice.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
@@ -559,6 +550,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         return nil
     }
+
+    private func resetFlowFlags() {
+        //these flags are used to determine gateway subflow .. if they are set, new network is being created
+        //otherwise gateway is joining the existing network so it is important to clear them
+        //we cant use selected network, because that part might be reused if multiple devices are connected to same
+        //network without disconnecting commissioner
+        self.newNetworkPassword = nil
+        self.newNetworkName = nil
+
+        self.userSelectedToLeaveNetwork = nil
+        self.userSelectedToUpdateFirmware = nil
+
+
 
     //MARK: ConnectToTargetDevice
     private func stepConnectToTargetDevice() {
@@ -1753,13 +1757,7 @@ extension MeshSetupFlowManager {
                 return
             }
             if (result == .NONE) {
-                //reset all the important flags
-                self.targetDevice.firmwareVersion = nil
-                self.targetDevice.ncpVersion = nil
-                self.targetDevice.ncpModuleVersion = nil
-                self.targetDevice.supportsCompressedOTAUpdate = nil
-                self.targetDevice.nextFirmwareBinaryURL = nil
-                self.targetDevice.nextFirmwareBinaryFilePath = nil
+                self.resetFirmwareFlashFlags()
 
                 // reconnect to device by jumping back few steps in the sequence
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
@@ -1777,5 +1775,16 @@ extension MeshSetupFlowManager {
                 self.handleBluetoothErrorResult(result)
             }
         }
+    }
+
+    private func resetFirmwareFlashFlags() {
+        //reset all the important flags
+        self.targetDevice.firmwareVersion = nil
+        self.targetDevice.ncpVersion = nil
+        self.targetDevice.ncpModuleVersion = nil
+        self.targetDevice.supportsCompressedOTAUpdate = nil
+        self.targetDevice.nextFirmwareBinaryURL = nil
+        self.targetDevice.nextFirmwareBinaryFilePath = nil
+
     }
 }
