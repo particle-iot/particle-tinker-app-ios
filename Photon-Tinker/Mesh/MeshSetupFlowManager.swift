@@ -298,7 +298,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //jump to new flow
         self.currentStep = 0
         //if there's ethernet and we are not adding more devices to same network
-        if (self.targetDevice.hasInternetCapableNetworkInterfaces! && self.selectedNetworkInfo == nil) {
+        if (self.targetDevice.hasEthernetInterface! && self.selectedNetworkInfo == nil) {
             self.currentFlow = ethernetFlow
             log("setting gateway flow")
         } else {
@@ -549,12 +549,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
             if (result == .NONE) {
-                self.targetDevice.hasInternetCapableNetworkInterfaces = false
+                self.targetDevice.hasEthernetInterface = false
+                self.targetDevice.hasWifiInterface = false
+                self.targetDevice.hasCelularInterface = false
+
                 self.targetDevice.networkInterfaces = interfaces!
                 for interface in interfaces! {
-                    if (interface.type == .ethernet || interface.type == .wifi || interface.type == .ppp) {
-                        self.targetDevice.hasInternetCapableNetworkInterfaces = true
-                        break
+                    if (interface.type == .ethernet) {
+                        self.targetDevice.hasEthernetInterface = true
+                    } else if (interface.type == .wifi) {
+                        self.targetDevice.hasWifiInterface = true
+                    } else if (interface.type == .ppp) {
+                        self.targetDevice.hasCelularInterface = true
                     }
                 }
                 self.stepComplete()
