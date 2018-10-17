@@ -19,6 +19,10 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupNetworkListViewCont
     }
 
     func setNetworks(networks: [MeshSetupNetworkInfo]) {
+        var networks = networks
+        networks.sort { info, info2 in
+            return info.name < info2.name
+        }
         self.networks = networks
 
         self.stopScanning()
