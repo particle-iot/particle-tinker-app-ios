@@ -204,6 +204,12 @@ class MeshSetupStrings {
         static let Button = "MeshSetup.ExistingNetworkPassword.Button".meshLocalized()
     }
 
+    struct WifiNetworkPassword {
+        static let Title = "MeshSetup.WifiNetworkPassword.Title".meshLocalized()
+        static let InputTitle = "MeshSetup.WifiNetworkPassword.InputTitle".meshLocalized()
+        static let Button = "MeshSetup.WifiNetworkPassword.Button".meshLocalized()
+    }
+
 
     struct JoiningNetwork {
         static let Title = "MeshSetup.JoiningNetwork.Title".meshLocalized()

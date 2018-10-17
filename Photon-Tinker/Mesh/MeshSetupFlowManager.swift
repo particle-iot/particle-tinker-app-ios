@@ -21,6 +21,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private let joinerFlow: [MeshSetupFlowCommand] = [
         .EnsureTargetDeviceIsNotOnMeshNetwork,
+        //.ShowGatewayInfo,
         .GetUserNetworkSelection,
         //.ShowBillingImpact
         .GetCommissionerDeviceInfo,
@@ -54,7 +55,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //.ShowWifiBillingImpact
         .ShowGatewayInfo,
         .GetUserWifiNetworkSelection,
-        //.EnsureCorrectWifiPassword
+        .EnsureCorrectSelectedWifiNetworkPassword,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
@@ -106,7 +107,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //for joining flow
     private var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
-    private var selectedWifiNetworkPassword: String?
 
 
     private var selectedNetworkInfo: MeshSetupNetworkInfo?
@@ -212,6 +212,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .ShowGatewayInfo,
                     .ChooseSubflow,
                     .GetNewNetworkNameAndPassword,
+                    .OfferSetupStandAloneOrWithNetwork,
                     .GetNewDeviceName: //this will be handeled by onCompleteHandler of setDeviceName method
                 break
 
@@ -226,6 +227,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .SetClaimCode,
                     .EnsureCommissionerNetworkMatches, //if there's a connection error in this step, we try to recover, but if networks do not match, flow has to be restarted
                     .EnsureCorrectSelectedNetworkPassword,
+                    .EnsureCorrectSelectedWifiNetworkPassword,
                     .CreateNetwork,
                     .EnsureHasInternetAccess,
                     .CheckDeviceGotClaimed,
@@ -242,9 +244,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 } else {
                     setTargetDeviceLeaveNetwork(leave: self.userSelectedToLeaveNetwork!)
                 }
-
-            default:
-                break;
         }
     }
 
@@ -307,6 +306,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepGetUserWifiNetworkSelection()
             case .ShowGatewayInfo:
                 self.stepShowGatewayInfo()
+            case .EnsureCorrectSelectedWifiNetworkPassword:
+                self.stepEnsureCorrectSelectedWifiNetworkPassword()
             case .EnsureHasInternetAccess:
                 self.stepEnsureHasInternetAccess()
             case .StopTargetDeviceListening:
@@ -441,6 +442,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: Input validators
     private func validateNetworkPassword(_ password: String) -> Bool {
         return password.count >= 6
+    }
+
+    private func validateWifiNetworkPassword(_ password: String) -> Bool {
+        return password.count >= 2
     }
 
     private func validateNetworkName(_ networkName: String) -> Bool {
@@ -1105,6 +1110,47 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         }
     }
+
+
+
+
+    //MARK: EnsureCorrectSelectedWifiNetworkPassword
+    private func stepEnsureCorrectSelectedWifiNetworkPassword() {
+        self.delegate.meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
+    }
+
+    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+        guard currentCommand == .EnsureCorrectSelectedWifiNetworkPassword else {
+            onComplete(.IllegalOperation)
+            return
+        }
+
+        guard self.validateWifiNetworkPassword(password) else {
+            onComplete(.WifiPasswordTooShort)
+            return
+        }
+
+        self.log("trying password: \(password)")
+        self.targetDevice!.transceiver?.sendJoinNewWifiNetwork(network: self.selectedWifiNetworkInfo!, password: password) {
+            result in
+
+            if (self.canceled) {
+                return
+            }
+
+            self.log("targetDevice.sendJoinNewWifiNetwork: \(result.description())")
+            if (result == .NONE) {
+                onComplete(nil)
+                self.stepComplete()
+            } else if (result == .NOT_FOUND) {
+                onComplete(.WrongNetworkPassword)
+            } else {
+                onComplete(.BluetoothTimeout)
+            }
+        }
+    }
+
+
 
 
     //MARK: JoinSelectedNetwork

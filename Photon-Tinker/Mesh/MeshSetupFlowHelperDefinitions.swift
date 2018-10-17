@@ -24,6 +24,7 @@ protocol MeshSetupFlowManagerDelegate {
 
     func meshSetupDidRequestCommissionerDeviceInfo()
 
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
     func meshSetupDidRequestToEnterSelectedNetworkPassword()
     func meshSetupDidRequestToEnterDeviceName()
     func meshSetupDidRequestToAddOneMoreDevice()
@@ -40,7 +41,6 @@ protocol MeshSetupFlowManagerDelegate {
 
 
 internal enum MeshSetupFlowCommand {
-    case ResetSetupAndNetwork
 
     //preflow
     case GetTargetDeviceInfo
@@ -67,10 +67,11 @@ internal enum MeshSetupFlowCommand {
     //gateway
     case GetUserWifiNetworkSelection
     case ShowGatewayInfo
+    case EnsureCorrectSelectedWifiNetworkPassword
     case EnsureHasInternetAccess
     case CheckDeviceGotClaimed
     case StopTargetDeviceListening
-    case OfferSelectOrCreateNetwork
+    //case OfferSelectOrCreateNetwork
     case ChooseSubflow
 
 
@@ -145,6 +146,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case CommissionerNetworkDoesNotMatch
     case WrongNetworkPassword
     case PasswordTooShort
+    case WifiPasswordTooShort
 
     case SameDeviceScannedTwice
 
@@ -173,6 +175,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
 
             case .WrongNetworkPassword : return "Provided password is incorrect."
+            case .WifiPasswordTooShort : return "Provided password is too short."
             case .PasswordTooShort : return "Network password has to be between 6 and 16 characters."
             case .IllegalOperation : return "Illegal operation."
             case .UnableToRenameDevice : return "Unable to rename device at this time. Please try again later."

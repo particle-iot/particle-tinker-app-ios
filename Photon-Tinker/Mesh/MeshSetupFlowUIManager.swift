@@ -269,6 +269,34 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
+
+    //MARK: Wifi network password
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword() {
+        DispatchQueue.main.async {
+            let passwordVC = MeshSetupWifiNetworkPasswordViewController.loadedViewController()
+            passwordVC.setup(didEnterPassword: self.didEnterWifiNetworkPassword, networkName: self.selectedWifiNetwork!.ssid)
+            self.embededNavigationController.pushViewController(passwordVC, animated: true)
+        }
+    }
+
+    func didEnterWifiNetworkPassword(password: String) {
+        flowManager.setSelectedWifiNetworkPassword(password) { error in
+            if error == nil {
+                //this will happen automatically
+            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupWifiNetworkPasswordViewController {
+                vc.setWrongInput(message: error!.description)
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
     //MARK: Scan networks
     private func showScanNetworks() {
         DispatchQueue.main.async {
