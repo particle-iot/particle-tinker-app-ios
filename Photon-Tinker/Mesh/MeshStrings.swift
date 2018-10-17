@@ -187,8 +187,12 @@ class MeshSetupStrings {
         static let SuccessText = "MeshSetup.PairingCommissioner.SuccessText".meshLocalized()
     }
 
-    struct Networks {
-        static let Title = "MeshSetup.Networks.Title".meshLocalized()
+    struct SelectNetwork {
+        static let Title = "MeshSetup.SelectNetwork.Title".meshLocalized()
+    }
+
+    struct SelectWifiNetwork {
+        static let Title = "MeshSetup.SelectWifiNetwork.Title".meshLocalized()
     }
 
 

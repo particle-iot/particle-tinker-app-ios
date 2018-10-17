@@ -15,7 +15,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.Networks.Title
+        titleLabel.text = MeshSetupStrings.SelectNetwork.Title
     }
 
     func setNetworks(networks: [MeshSetupNetworkInfo]) {

@@ -125,8 +125,9 @@
 
 
 
+"MeshSetup.SelectWifiNetwork.Title" = "Your Argon is scanning for Wi-Fi networks to join";
 
-"MeshSetup.Networks.Title" = "Select mesh network to join";
+"MeshSetup.SelectNetwork.Title" = "Select mesh network to join";
 
 
 
