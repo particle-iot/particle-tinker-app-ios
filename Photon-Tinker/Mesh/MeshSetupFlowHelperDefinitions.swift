@@ -117,6 +117,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     //ConnectToTargetDevice && ConnectToCommissionerDevice
     case DeviceTooFar
     case FailedToStartScan
+    case FailedToFlashBecauseOfTimeout
     case FailedToScanBecauseOfTimeout
     case FailedToConnect
 
@@ -157,6 +158,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
                 //these errors are handled instantly
+            case .FailedToFlashBecauseOfTimeout : return "It seems that device has exited the listening mode. Please put it in listening mode again (blinking blue) and retry."
+
             case .UnableToDownloadFirmwareBinary : return "Failed to download firmware update. Please try again later."
             case .CannotAddGatewayDeviceAsJoiner : return "Support for adding multiple gateways to a single network is coming soon. Argons, Borons, and Xenons+Ethernet FeatherWings must be set up as a standalone device, or as the first gateway in a new mesh network."
 

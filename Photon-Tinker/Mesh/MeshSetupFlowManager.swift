@@ -376,7 +376,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
         if self.canceled == false {
-            self.cancelSetup()
+            if (severity == .Fatal) {
+                self.cancelSetup()
+            }
 
             log("error: \(reason.description), nsError: \(nsError?.localizedDescription as Optional)")
             self.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
@@ -477,7 +479,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     self.stepConnectToTargetDevice()
                 } else {
                     //this is taking way too long.
-                    self.fail(withReason: .FailedToScanBecauseOfTimeout)
+                    self.fail(withReason: .FailedToFlashBecauseOfTimeout)
                 }
             } else {
                 if (error == .FailedToStartScan) {
