@@ -641,8 +641,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     func sendJoinNewWifiNetwork(network: MeshSetupNewWifiNetworkInfo, password: String?, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_JoinNewNetworkRequest()
         requestMsgPayload.ssid = network.ssid
-        requestMsgPayload.bssid = network.bssid
-        requestMsgPayload.security = network.security
+//        requestMsgPayload.bssid = network.bssid
+//        requestMsgPayload.security = network.security
 
         var credentials = MeshSetupWifiNetworkCredentials()
         if let password = password {
