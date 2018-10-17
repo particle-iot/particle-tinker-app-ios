@@ -12,12 +12,15 @@ import Foundation
 protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
 
+    func meshSetupDidRequestToShowGatewayInfo()
+
     func meshSetupDidRequestToUpdateFirmware()
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
 
     func didRequestToSelectStandAloneOrMeshSetup()
 
     func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo])
+    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
 
     func meshSetupDidRequestCommissionerDeviceInfo()
 
@@ -62,11 +65,14 @@ internal enum MeshSetupFlowCommand {
     case OfferToAddOneMoreDevice
 
     //gateway
+    case GetUserWifiNetworkSelection
+    case ShowGatewayInfo
     case EnsureHasInternetAccess
     case CheckDeviceGotClaimed
     case StopTargetDeviceListening
     case OfferSelectOrCreateNetwork
     case ChooseSubflow
+
 
     case GetNewNetworkNameAndPassword
     case CreateNetwork
@@ -80,9 +86,11 @@ enum MeshSetupFlowState {
 
     case TargetDeviceScanningForNetworks
     case TargetGatewayDeviceScanningForNetworks
+    case TargetDeviceScanningForWifiNetworks
 
     case TargetDeviceConnectingToInternetStarted
     case TargetDeviceConnectingToInternetStep1Done
+    case TargetDeviceConnectingToInternetStep2Done
     case TargetDeviceConnectingToInternetCompleted
 
     case CommissionerDeviceConnecting
@@ -233,6 +241,8 @@ internal struct MeshDevice {
 
     var networkInfo: MeshSetupNetworkInfo?
     var networks: [MeshSetupNetworkInfo]?
+
+    var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
 
     func hasInternetInterface() -> Bool {
         return hasEthernetInterface || hasWifiInterface || hasCellularInterface

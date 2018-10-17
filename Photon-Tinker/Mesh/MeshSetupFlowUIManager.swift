@@ -23,9 +23,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     private var commissionerDeviceDataMatrixString: String!
 
 
-    private var selectedNetwork: MeshSetupNetworkInfo?
     private var didSelectNetwork: Bool = false
+    private var selectedNetwork: MeshSetupNetworkInfo?
+    private var selectedWifiNetwork: MeshSetupNewWifiNetworkInfo?
+
     private var selectedNetworkPassword: String?
+
+    private var setupMesh:Bool = false
 
     private var createNetworkName:String?
     private var createNetworkPassword:String?
@@ -180,9 +184,87 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func didSelectToSetupMesh(setupMesh: Bool) {
+        self.setupMesh = setupMesh
         flowManager.setSelectStandAloneOrMeshSetup(meshSetup: setupMesh)
     }
 
+
+
+    //MARK: Gateway Info
+    func meshSetupDidRequestToShowGatewayInfo() {
+        switch targetDeviceType! {
+            case .xenon:
+                break
+            case .argon:
+                DispatchQueue.main.async {
+                    let infoVC = MeshSetupGatewayInfoArgonViewController.loadedViewController()
+                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.setupMesh)
+                    self.embededNavigationController.pushViewController(infoVC, animated: true)
+                }
+                break
+            case .boron:
+                break
+            default:
+                break
+        }
+    }
+
+    func didFinishInfoScreen() {
+        self.flowManager.setGatewayInfoDone()
+    }
+
+
+
+    //MARK: Scan WIFI networks
+    private func showScanWifiNetworks() {
+        DispatchQueue.main.async {
+            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+                //do nothing
+            } else {
+                let networksVC = MeshSetupSelectWifiNetworkViewController.loadedViewController()
+                networksVC.setup(didSelectNetwork: self.didSelectWifiNetwork)
+                self.embededNavigationController.pushViewController(networksVC, animated: true)
+            }
+        }
+    }
+
+    func didSelectWifiNetwork(network: MeshSetupNewWifiNetworkInfo) {
+        self.selectedWifiNetwork = network
+        flowManager.setSelectedWifiNetwork(selectedNetwork: network)
+    }
+
+    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo]) {
+        NSLog("scan complete")
+
+        //if by the time this returned, user has already selected the network, ignore the results of last scan
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+            vc.setNetworks(networks: availableNetworks)
+
+            //if no networks found = force instant rescan
+            if (availableNetworks.count == 0) {
+                rescanWifiNetworks()
+            } else {
+                //rescan in 3seconds
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    [weak self] in
+                    //only rescan if user hasn't made choice by now
+                    self?.rescanWifiNetworks()
+                }
+            }
+        }
+    }
+
+    private func rescanWifiNetworks() {
+        if self.selectedWifiNetwork == nil {
+            if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+                if (flowManager.rescanWifiNetworks() == nil) {
+                    vc.startScanning()
+                } else {
+                    NSLog("rescanNetworks was attempted when it shouldn't be")
+                }
+            }
+        }
+    }
 
 
 
@@ -569,6 +651,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 break;
 
 
+            case .TargetDeviceScanningForWifiNetworks:
+                showScanWifiNetworks()
             case .TargetDeviceScanningForNetworks:
                 showScanNetworks()
             case .TargetGatewayDeviceScanningForNetworks:
@@ -577,8 +661,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             case .TargetDeviceConnectingToInternetStarted:
                 showConnectingToInternet()
-            case .TargetDeviceConnectingToInternetStep1Done, .TargetDeviceConnectingToInternetCompleted:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectToInternetViewController {
+            case .TargetDeviceConnectingToInternetStep1Done, .TargetDeviceConnectingToInternetStep2Done, .TargetDeviceConnectingToInternetCompleted:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetEthernetViewController {
                     if state == .TargetDeviceConnectingToInternetCompleted {
                         self.flowManager.pauseSetup()
                     }

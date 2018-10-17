@@ -40,7 +40,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let ethernetFlow: [MeshSetupFlowCommand] = [
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
-        //.ShowBillingImpact
+        //.ShowEthernetBillingImpact
+        //.ShowGatewayInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
@@ -50,13 +51,25 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let wifiFlow: [MeshSetupFlowCommand] = [
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
-        //.ShowBillingImpact
+        //.ShowWifiBillingImpact
+        .ShowGatewayInfo,
+        .GetUserWifiNetworkSelection,
+        //.EnsureCorrectWifiPassword
+        .EnsureHasInternetAccess,
+        .CheckDeviceGotClaimed,
+        .GetNewDeviceName,
+        .ChooseSubflow
     ]
 
     private let cellularFlow: [MeshSetupFlowCommand] = [
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
         //.ShowBillingImpact
+        //.ShowGatewayInfo,
+        .EnsureHasInternetAccess,
+        .CheckDeviceGotClaimed,
+        .GetNewDeviceName,
+        .ChooseSubflow
     ]
 
 
@@ -92,6 +105,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var commissionerDevice: MeshDevice?
 
     //for joining flow
+    private var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
+    private var selectedWifiNetworkPassword: String?
+
+
     private var selectedNetworkInfo: MeshSetupNetworkInfo?
     private var selectedNetworkPassword: String?
 
@@ -192,6 +209,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .GetCommissionerDeviceInfo,
                     .ChooseFlow,
                     .OfferToAddOneMoreDevice,
+                    .ShowGatewayInfo,
                     .ChooseSubflow,
                     .GetNewNetworkNameAndPassword,
                     .GetNewDeviceName: //this will be handeled by onCompleteHandler of setDeviceName method
@@ -203,6 +221,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .EnsureLatestFirmware,
                     .EnsureTargetDeviceCanBeClaimed,
                     .GetUserNetworkSelection,
+                    .GetUserWifiNetworkSelection,
                     .CheckTargetDeviceHasNetworkInterfaces,
                     .SetClaimCode,
                     .EnsureCommissionerNetworkMatches, //if there's a connection error in this step, we try to recover, but if networks do not match, flow has to be restarted
@@ -284,6 +303,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepOfferToAddOneMoreDevice()
 
             //gateway
+            case .GetUserWifiNetworkSelection:
+                self.stepGetUserWifiNetworkSelection()
+            case .ShowGatewayInfo:
+                self.stepShowGatewayInfo()
             case .EnsureHasInternetAccess:
                 self.stepEnsureHasInternetAccess()
             case .StopTargetDeviceListening:
@@ -326,6 +349,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         if (self.targetDevice.hasInternetInterface() && self.selectedNetworkInfo != nil) {
             self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
+            return
         } else if (self.targetDevice.hasInternetInterface() && self.selectedNetworkInfo == nil) {
             //if there's ethernet and we are not adding more devices to same network
 
@@ -392,6 +416,21 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         for network in networks {
             if (!ids.contains(network.extPanID)) {
                 ids.insert(network.extPanID)
+                filtered.append(network)
+            }
+        }
+
+        return filtered
+    }
+
+
+    private func removeRepeatedNetworks(_ networks: [MeshSetupNewWifiNetworkInfo]) -> [MeshSetupNewWifiNetworkInfo] {
+        var ids:Set<String> = []
+        var filtered:[MeshSetupNewWifiNetworkInfo] = []
+
+        for network in networks {
+            if (!ids.contains(network.ssid)) {
+                ids.insert(network.ssid)
                 filtered.append(network)
             }
         }
@@ -746,7 +785,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             //forcing this command on devices with no network info helps with the joining process
             self.targetDeviceLeaveNetwork()
         } else {
-            fatalError("this is not implemented")
+            self.delegate.meshSetupDidEnterState(state: .SetupComplete)
         }
 
         return nil
@@ -789,6 +828,69 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.stepComplete()
         }
     }
+
+
+
+    //MARK: GetUserWifiNetworkSelection
+    private func stepGetUserWifiNetworkSelection() {
+        self.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForWifiNetworks)
+        self.scanWifiNetworks()
+    }
+
+    private func scanWifiNetworks() {
+        self.targetDevice.transceiver!.sendScanWifiNetworks { result, networks in
+            self.log("sendScanWifiNetworks: \(result.description()), networksCount: \(networks?.count as Optional)")
+            if (MeshSetup.LogFlowManager) {
+                print("\(networks as Optional)")
+            }
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                self.targetDevice.wifiNetworks = self.removeRepeatedNetworks(networks!)
+                self.getUserWifiNetworkSelection()
+            } else {
+                //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
+                self.targetDevice.wifiNetworks = []
+                self.getUserWifiNetworkSelection()
+            }
+        }
+    }
+
+    func rescanWifiNetworks() -> MeshSetupFlowError? {
+        //only allow to rescan if current step asks for it and transceiver is free to be used
+        guard let isBusy = targetDevice.transceiver?.isBusy, isBusy == false else {
+            return .IllegalOperation
+        }
+
+        if (self.currentCommand == .GetUserWifiNetworkSelection) {
+            self.scanWifiNetworks()
+        } else {
+            return .IllegalOperation
+        }
+
+        return nil
+    }
+
+
+    private func getUserWifiNetworkSelection() {
+        self.delegate.meshSetupDidRequestToSelectWifiNetwork(availableNetworks: self.targetDevice.wifiNetworks!)
+    }
+
+    func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError? {
+        guard currentCommand == .GetUserWifiNetworkSelection else {
+            return .IllegalOperation
+        }
+
+        self.selectedWifiNetworkInfo = selectedNetwork
+        self.stepComplete()
+
+        return nil
+    }
+
+
+
 
 
 
@@ -1100,6 +1202,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                         }
 
                         self.fail(withReason: reason)
+                        return
                     }
                 }
 
@@ -1115,6 +1218,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                         //if there's one more error here, do not display message cause that
                         //most likely won't be handeled properly anyway
                         self.fail(withReason: reason)
+                        return
                     }
                 }
             }
@@ -1288,27 +1392,29 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
+    //MARK: ShowGatewayInfo
+    private func stepShowGatewayInfo() {
+        self.delegate.meshSetupDidRequestToShowGatewayInfo()
+    }
+
+    func setGatewayInfoDone() {
+        self.stepComplete()
+    }
 
     //MARK: EnsureHasInternetAccess
     private func stepEnsureHasInternetAccess() {
-        //we only use ethernet!!!
-        if let _ = self.targetDevice.getEthernetInterfaceIdx() {
-            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStarted)
+        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStarted)
 
-            self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
-                self.log("targetDevice.transceiver!.sendDeviceSetupDone: \(result.description())")
-                if (self.canceled) {
-                    return
-                }
-                if (result == .NONE) {
-                    self.stopTargetDeviceListening(onComplete: self.checkDeviceHasIP)
-                } else {
-                    self.handleBluetoothErrorResult(result)
-                }
+        self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
+            self.log("targetDevice.transceiver!.sendDeviceSetupDone: \(result.description())")
+            if (self.canceled) {
+                return
             }
-        } else {
-            self.fail(withReason: .FailedToObtainIp)
-            return
+            if (result == .NONE) {
+                self.stopTargetDeviceListening(onComplete: self.checkDeviceHasIP)
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
         }
     }
 
@@ -1324,6 +1430,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
+        //TODO: redo for wifi / lte
         self.targetDevice.transceiver!.sendGetInterface(interfaceIndex: self.targetDevice.getEthernetInterfaceIdx()!) { result, interface in
             self.log("result: \(result.description()), networkInfo: \(interface as Optional)")
             if (self.canceled) {
@@ -1560,6 +1667,8 @@ extension MeshSetupFlowManager {
 
     //MARK: EnsureLatestFirmware
     private func stepEnsureLatestFirmware() {
+
+
         if (self.targetDevice.firmwareVersion != nil) {
             self.checkTargetDeviceSupportsCompressedOTA()
             return
