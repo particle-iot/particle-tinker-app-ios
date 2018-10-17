@@ -1015,6 +1015,7 @@
                         <outlet property="inputTitleLabel" destination="gzE-Dn-WNf" id="wT4-sT-Qn7"/>
                         <outlet property="noteTextLabel" destination="fza-kU-P9N" id="tXO-6M-qBt"/>
                         <outlet property="noteTitleLabel" destination="0XQ-bQ-JtA" id="0eG-0a-JAP"/>
+                        <outlet property="noteView" destination="6Q1-NW-JWm" id="lsD-QQ-A8n"/>
                         <outlet property="repeatPasswordTextField" destination="fpo-2k-BR6" id="6rB-cQ-NvR"/>
                         <outlet property="repeatTitleLabel" destination="wDt-ls-rnb" id="Soh-oa-Krs"/>
                         <outlet property="titleLabel" destination="P01-DH-5bJ" id="oBp-ca-K2V"/>
