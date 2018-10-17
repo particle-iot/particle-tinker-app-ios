@@ -296,4 +296,42 @@ class MeshSetupStrings {
         static let DoneLabel = "MeshSetup.NetworkCreated.DoneLabel".meshLocalized()
         static let DoneButton = "MeshSetup.NetworkCreated.DoneButton".meshLocalized()
     }
+
+
+
+
+    struct GatewayInfoArgonStandalone {
+        static let Title = "MeshSetup.GatewayInfoArgonStandalone.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoArgonStandalone.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoArgonStandalone.Text2".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoArgonStandalone.Button".meshLocalized()
+    }
+
+    struct GatewayInfoArgonMesh {
+        static let Title = "MeshSetup.GatewayInfoArgonMesh.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoArgonMesh.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoArgonMesh.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.GatewayInfoArgonMesh.Text3".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoArgonMesh.Button".meshLocalized()
+    }
+
+
+    struct GatewayInfoBoronStandalone {
+        static let Title = "MeshSetup.GatewayInfoBoronStandalone.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoBoronStandalone.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoBoronStandalone.Text2".meshLocalized()
+        static let Text2Text2Activate = "MeshSetup.GatewayInfoBoronStandalone.Text2Activate".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoBoronStandalone.Button".meshLocalized()
+        static let ButtonActivate = "MeshSetup.GatewayInfoBoronStandalone.ButtonActivate".meshLocalized()
+    }
+
+    struct GatewayInfoBoronMesh {
+        static let Title = "MeshSetup.GatewayInfoBoronMesh.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoBoronMesh.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoBoronMesh.Text2".meshLocalized()
+        static let Text2Activate = "MeshSetup.GatewayInfoBoronMesh.Text2Activate".meshLocalized()
+        static let Text3 = "MeshSetup.GatewayInfoBoronMesh.Text3".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoBoronMesh.Button".meshLocalized()
+        static let ButtonActivate = "MeshSetup.GatewayInfoBoronMesh.ButtonActivate".meshLocalized()
+    }
 }

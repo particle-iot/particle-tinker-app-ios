@@ -227,3 +227,51 @@
 "MeshSetup.NetworkCreated.ContinueSetupButton" = "Set up next device";
 "MeshSetup.NetworkCreated.DoneLabel" = "Itching to get started?";
 "MeshSetup.NetworkCreated.DoneButton" = "I’m done";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"MeshSetup.GatewayInfoArgonStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoArgonStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoArgonStandalone.Text2" = "To connect, you will send the Argon Wi-Fi network credentials";
+"MeshSetup.GatewayInfoArgonStandalone.Button" = "Next";
+
+
+"MeshSetup.GatewayInfoArgonMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoArgonMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoArgonMesh.Text2" = "To connect, you will send the Argon Wi-Fi network credentials";
+"MeshSetup.GatewayInfoArgonMesh.Text3" = "Once connected, you can create or join a mesh network using this Argon";
+"MeshSetup.GatewayInfoArgonMesh.Button" = "Next";
+
+
+
+
+"MeshSetup.GatewayInfoBoronStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoBoronStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoBoronStandalone.Text2" = "To connect, the device will use the Particle SIM inside your Boron, which has already been activated";
+"MeshSetup.GatewayInfoBoronStandalone.Button" = "Connect to Device Cloud";
+"MeshSetup.GatewayInfoBoronStandalone.Text2Activate" = "To connect, we’ll activate the Particle SIM inside your Boron";
+"MeshSetup.GatewayInfoBoronStandalone.ButtonActivate" = "Activate SIM & Connect";
+
+
+"MeshSetup.GatewayInfoBoronMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoBoronMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoBoronMesh.Text2" = "To connect, the device will use the Particle SIM inside your Boron, which has already been activated ";
+"MeshSetup.GatewayInfoBoronMesh.Text3" = "Once connected, you can create or join a mesh network using this Boron";
+"MeshSetup.GatewayInfoBoronMesh.Button" = "Connect to Device Cloud";
+"MeshSetup.GatewayInfoBoronMesh.Text2Activate" = "To connect, we’ll activate the Particle SIM inside your Boron";
+"MeshSetup.GatewayInfoBoronStandalone.ButtonActivate" = "Activate SIM & Connect";
