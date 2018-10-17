@@ -85,6 +85,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         // add to state machine dict to know which type of reply to deserialize
         //self.replyRequestTypeDict[requestMsg.id] = requestMsg.type
 
+        log("Preparing message: \(self.requestMessageId), type: \(type)")
         let response = (self.requestMessageId, encryptionManager.encrypt(requestMsg))
 
         self.requestMessageId += 1
@@ -121,6 +122,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         if self.pendingMessages.count > 0, self.waitingForReply == false {
             self.waitingForReply = true
             let message = self.pendingMessages.first!
+            log("Sending message: \(message.messageId)")
             self.bluetoothConnection.send(data: message.data, writeType: message.writeWithResponse ? .withResponse : .withoutResponse)
         }
     }
