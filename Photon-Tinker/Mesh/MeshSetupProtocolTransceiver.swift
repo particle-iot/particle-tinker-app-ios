@@ -636,7 +636,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     //MARK: Wifi
-    func sendJoinNewWifiNetworkRequest(network: MeshSetupNewWifiNetworkInfo, password: String?, callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendJoinNewWifiNetwork(network: MeshSetupNewWifiNetworkInfo, password: String?, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_JoinNewNetworkRequest()
         requestMsgPayload.ssid = network.ssid
         requestMsgPayload.bssid = network.bssid
@@ -664,7 +664,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendJoinKnownWifiNetworkRequest(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendJoinKnownWifiNetwork(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_JoinKnownNetworkRequest()
         requestMsgPayload.ssid = network.ssid
 
@@ -680,7 +680,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetKnownWifiNetworksRequest(callback: @escaping (ControlReplyErrorType, [MeshSetupKnownWifiNetworkInfo]?) -> ()) {
+    func sendGetKnownWifiNetworks(callback: @escaping (ControlReplyErrorType, [MeshSetupKnownWifiNetworkInfo]?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_GetKnownNetworksRequest()
 
         let data = self.prepareRequestMessage(type: .GetKnownWifiNetworks, payload: self.serialize(message: requestMsgPayload))
@@ -695,7 +695,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendRemoveKnownWifiNetworkRequest(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendRemoveKnownWifiNetwork(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_RemoveKnownNetworkRequest()
         requestMsgPayload.ssid = network.ssid
 
@@ -711,7 +711,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendClearKnownWifiNetworksRequest(callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendClearKnownWifiNetworks(callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_ClearKnownNetworksRequest()
 
         let data = self.prepareRequestMessage(type: .ClearKnownWifiNetworksNetworks, payload: self.serialize(message: requestMsgPayload))
@@ -726,7 +726,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetCurrentWifiNetworksRequest(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
+    func sendGetCurrentWifiNetworks(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_GetCurrentNetworkRequest()
 
         let data = self.prepareRequestMessage(type: .GetCurrentWifiNetwork, payload: self.serialize(message: requestMsgPayload))
@@ -742,7 +742,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendScanWifiNetworksRequest(callback: @escaping (ControlReplyErrorType, [MeshSetupNewWifiNetworkInfo]?) -> ()) {
+    func sendScanWifiNetworks(callback: @escaping (ControlReplyErrorType, [MeshSetupNewWifiNetworkInfo]?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_ScanNetworksRequest()
 
         let data = self.prepareRequestMessage(type: .ScanWifiNetworks, payload: self.serialize(message: requestMsgPayload))
