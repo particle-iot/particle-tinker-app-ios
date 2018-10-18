@@ -1448,6 +1448,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: ShowGatewayInfo
     private func stepShowInfo() {
+        if (self.selectedNetworkInfo != nil) {
+            self.stepComplete()
+            return;
+        }
         self.delegate.meshSetupDidRequestToShowInfo(gatewayFlow: self.targetDevice.hasActiveInternetInterface())
     }
 
