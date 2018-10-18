@@ -258,7 +258,7 @@ to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.JoinerInfo.Title" = "OK—Let’s get this mesh node connected to the Device Cloud";
 "MeshSetup.JoinerInfo.Text1" = "Mesh nodes require a connection to the Device Cloud via a local mesh network to securely talk to the Internet";
 "MeshSetup.JoinerInfo.Text2" = "To connect, you will send the {{device}} mesh network credentials";
-"MeshSetup.JoinerInfo.Text3" = "Once connected, this decice can communicate with the Device Cloud via a mesh gateway, and locally with other devices in the mesh network";
+"MeshSetup.JoinerInfo.Text3" = "Once connected, this device can communicate with the Device Cloud via a mesh gateway, and locally with other devices in the mesh network";
 "MeshSetup.JoinerInfo.Button" = "Next";
 
 
