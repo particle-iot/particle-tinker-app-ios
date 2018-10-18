@@ -126,9 +126,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             } else {
                 self.flowManager.pauseSetup()
 
-                let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
-                pairingVC.setup(didFinishScreen: targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: flowManager.targetDeviceBluetoothName() ?? self.targetDeviceType!.description)
-                self.embededNavigationController.pushViewController(pairingVC, animated: true)
+                DispatchQueue.main.async {
+                    let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
+                    pairingVC.setup(didFinishScreen: self.targetDevicePairingScreenDone, deviceType: self.targetDeviceType, deviceName: self.flowManager.targetDeviceBluetoothName() ?? self.targetDeviceType!.description)
+                    self.embededNavigationController.pushViewController(pairingVC, animated: true)
+                }
             }
         } else {
             //show error where selected device type mismatch
@@ -404,17 +406,21 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func showCommissionerDeviceFindSticker() {
         log("commissioner device ready")
 
-        let findStickerVC = MeshSetupFindCommissionerStickerViewController.loadedViewController()
-        findStickerVC.setup(didPressScan: showCommissionerDeviceScanSticker, deviceType: self.targetDeviceType, networkName: self.selectedNetwork!.name)
-        self.embededNavigationController.pushViewController(findStickerVC, animated: true)
+        DispatchQueue.main.async {
+            let findStickerVC = MeshSetupFindCommissionerStickerViewController.loadedViewController()
+            findStickerVC.setup(didPressScan: self.showCommissionerDeviceScanSticker, deviceType: self.targetDeviceType, networkName: self.selectedNetwork!.name)
+            self.embededNavigationController.pushViewController(findStickerVC, animated: true)
+        }
     }
 
     func showCommissionerDeviceScanSticker() {
         log("sticker found by user")
 
-        let scanVC = MeshSetupScanCommissionerStickerViewController.loadedViewController()
-        scanVC.setup(didFindStickerCode: showCommissionerDevicePairing)
-        self.embededNavigationController.pushViewController(scanVC, animated: true)
+        DispatchQueue.main.async {
+            let scanVC = MeshSetupScanCommissionerStickerViewController.loadedViewController()
+            scanVC.setup(didFindStickerCode: self.showCommissionerDevicePairing)
+            self.embededNavigationController.pushViewController(scanVC, animated: true)
+        }
     }
 
     //user successfully scanned target code
@@ -440,9 +446,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             } else {
                 self.flowManager.pauseSetup()
 
-                let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
-                pairingVC.setup(didFinishScreen: commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: flowManager.commissionerDeviceBluetoothName() ?? deviceType.description)
-                self.embededNavigationController.pushViewController(pairingVC, animated: true)
+                DispatchQueue.main.async {
+                    let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
+                    pairingVC.setup(didFinishScreen: self.commissionerDevicePairingScreenDone, deviceType: deviceType, deviceName: self.flowManager.commissionerDeviceBluetoothName() ?? deviceType.description)
+                    self.embededNavigationController.pushViewController(pairingVC, animated: true)
+                }
             }
         } else {
             restartCaptureSession()
