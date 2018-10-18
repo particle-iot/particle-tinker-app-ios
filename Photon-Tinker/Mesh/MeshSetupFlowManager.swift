@@ -575,7 +575,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                       let firmwareData = self.currentStepFlags["firmwareData"] as? Data,
                       ((idx+1) * chunk >= firmwareData.count) {
                 NSLog("Connection was dropped, but it's fine.")
-                //this is fine.
+
+                //lets try reconnecting to the device by moving few steps back
+                self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
+                self.log("returning to step: \(self.currentStep)")
+                self.runCurrentStep()
+                self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
+                self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] = 0
+
             } else {
                 self.fail(withReason: .BluetoothConnectionDropped, severity: .Fatal)
             }
@@ -1984,19 +1991,7 @@ extension MeshSetupFlowManager {
             }
             if (result == .NONE) {
                 self.resetFirmwareFlashFlags()
-
-                // reconnect to device by jumping back few steps in the sequence
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-                    if (self.canceled) {
-                        return
-                    }
-
-                    self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
-                    self.log("returning to step: \(self.currentStep)")
-                    self.runCurrentStep()
-                    self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
-                    self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] = 0
-                }
+                // reconnect to device by jumping back few steps in connection dropped handler
             } else {
                 self.handleBluetoothErrorResult(result)
             }
