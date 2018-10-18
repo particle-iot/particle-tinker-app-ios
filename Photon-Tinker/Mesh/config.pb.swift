@@ -128,17 +128,17 @@ extension Particle_Ctrl_ServerProtocolType: CaseIterable {
 /// Device mode
 enum Particle_Ctrl_DeviceMode: SwiftProtobuf.Enum {
   typealias RawValue = Int
-  case other // = 0
+  case normalMode // = 0
   case listeningMode // = 1
   case UNRECOGNIZED(Int)
 
   init() {
-    self = .other
+    self = .normalMode
   }
 
   init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .other
+    case 0: self = .normalMode
     case 1: self = .listeningMode
     default: self = .UNRECOGNIZED(rawValue)
     }
@@ -146,7 +146,7 @@ enum Particle_Ctrl_DeviceMode: SwiftProtobuf.Enum {
 
   var rawValue: Int {
     switch self {
-    case .other: return 0
+    case .normalMode: return 0
     case .listeningMode: return 1
     case .UNRECOGNIZED(let i): return i
     }
@@ -159,7 +159,7 @@ enum Particle_Ctrl_DeviceMode: SwiftProtobuf.Enum {
 extension Particle_Ctrl_DeviceMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Particle_Ctrl_DeviceMode] = [
-    .other,
+    .normalMode,
     .listeningMode,
   ]
 }
@@ -605,7 +605,7 @@ struct Particle_Ctrl_GetDeviceModeReply {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var mode: Particle_Ctrl_DeviceMode = .other
+  var mode: Particle_Ctrl_DeviceMode = .normalMode
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -656,6 +656,28 @@ struct Particle_Ctrl_IsDeviceSetupDoneReply {
   init() {}
 }
 
+struct Particle_Ctrl_SetStartupModeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var mode: Particle_Ctrl_DeviceMode = .normalMode
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_SetStartupModeReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "particle.ctrl"
@@ -682,7 +704,7 @@ extension Particle_Ctrl_ServerProtocolType: SwiftProtobuf._ProtoNameProviding {
 
 extension Particle_Ctrl_DeviceMode: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "DEVICE_MODE_OTHER"),
+    0: .same(proto: "NORMAL_MODE"),
     1: .same(proto: "LISTENING_MODE"),
   ]
 }
@@ -1533,7 +1555,7 @@ extension Particle_Ctrl_GetDeviceModeReply: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.mode != .other {
+    if self.mode != .normalMode {
       try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -1637,6 +1659,54 @@ extension Particle_Ctrl_IsDeviceSetupDoneReply: SwiftProtobuf.Message, SwiftProt
 
   static func ==(lhs: Particle_Ctrl_IsDeviceSetupDoneReply, rhs: Particle_Ctrl_IsDeviceSetupDoneReply) -> Bool {
     if lhs.done != rhs.done {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_SetStartupModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetStartupModeRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "mode"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.mode)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.mode != .normalMode {
+      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_SetStartupModeRequest, rhs: Particle_Ctrl_SetStartupModeRequest) -> Bool {
+    if lhs.mode != rhs.mode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_SetStartupModeReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetStartupModeReply"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_SetStartupModeReply, rhs: Particle_Ctrl_SetStartupModeReply) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

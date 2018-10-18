@@ -26,7 +26,7 @@ enum ServerProtocolType {
 
 // Device mode
 enum DeviceMode {
-  DEVICE_MODE_OTHER = 0;
+  NORMAL_MODE = 0;
   LISTENING_MODE = 1;
 }
 
@@ -199,4 +199,12 @@ message IsDeviceSetupDoneRequest {
 
 message IsDeviceSetupDoneReply {
   bool done = 1;
+}
+
+message SetStartupModeRequest {
+  option (type_id) = 75; // CTRL_REQUEST_SET_STARTUP_MODE
+  DeviceMode mode = 1;
+}
+
+message SetStartupModeReply {
 }
