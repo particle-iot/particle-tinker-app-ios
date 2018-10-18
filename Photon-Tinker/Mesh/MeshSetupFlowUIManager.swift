@@ -163,9 +163,20 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.continueSetup()
     }
 
-    //TODO: For spectra we simply leave the current network. No hard feelings
     func meshSetupDidRequestToLeaveNetwork(network: Particle.MeshSetupNetworkInfo) {
-        flowManager.setTargetDeviceLeaveNetwork(leave: true)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: MeshSetupStrings.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.LeaveNetwork, style: .default) { action in
+                self.flowManager.setTargetDeviceLeaveNetwork(leave: true)
+            })
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.DontLeaveNetwork, style: .cancel) { action in
+                self.flowManager.setTargetDeviceLeaveNetwork(leave: false)
+            })
+
+            self.present(alert, animated: true)
+        }
     }
 
     //the next thing to happen will be one out of 3:
@@ -762,9 +773,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             case .SetupComplete:
                 //TODO: add start building screen
-                //setup done
-                self.flowManager.cancelSetup()
-                self.dismiss(animated: true)
+                self.cancelTapped(self)
+            case .SetupCanceled:
+                self.cancelTapped(self)
             default:
                 break;
 

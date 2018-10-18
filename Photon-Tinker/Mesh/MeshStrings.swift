@@ -64,6 +64,9 @@ class MeshSetupStrings {
         static let ErrorTitle = "MeshSetup.Prompt.ErrorTitle".meshLocalized()
         static let CancelSetupTitle = "MeshSetup.Prompt.CancelSetupTitle".meshLocalized()
         static let CancelSetupText = "MeshSetup.Prompt.CancelSetupText".meshLocalized()
+
+        static let LeaveNetworkTitle = "MeshSetup.Prompt.LeaveNetworkTitle".meshLocalized()
+        static let LeaveNetworkText = "MeshSetup.Prompt.LeaveNetworkText".meshLocalized()
     }
 
     struct Action {
@@ -73,6 +76,8 @@ class MeshSetupStrings {
         static let Retry = "MeshSetup.Action.Retry".meshLocalized()
         static let Continue = "MeshSetup.Action.Continue".meshLocalized()
         static let ContinueSetup = "MeshSetup.Action.ContinueSetup".meshLocalized()
+        static let LeaveNetwork = "MeshSetup.Action.LeaveNetwork".meshLocalized()
+        static let DontLeaveNetwork = "MeshSetup.Action.DontLeaveNetwork".meshLocalized()
     }
 
 

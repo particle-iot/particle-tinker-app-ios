@@ -11,6 +11,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .GetTargetDeviceInfo,
         .ConnectToTargetDevice,
         .EnsureLatestFirmware,
+        .EnsureTargetDeviceIsNotOnMeshNetwork,
         .EnsureTargetDeviceCanBeClaimed,
         .SetClaimCode,
         .CheckTargetDeviceHasNetworkInterfaces,
@@ -20,7 +21,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private let joinerFlow: [MeshSetupFlowCommand] = [
-        .EnsureTargetDeviceIsNotOnMeshNetwork,
         .ShowInfo,
         .GetUserNetworkSelection,
         //.ShowBillingImpact
@@ -39,7 +39,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private let ethernetFlow: [MeshSetupFlowCommand] = [
-        .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
         //.ShowEthernetBillingImpact
         .ShowInfo,
@@ -50,7 +49,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     ]
 
     private let wifiFlow: [MeshSetupFlowCommand] = [
-        .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
         //.ShowWifiBillingImpact
         .ShowInfo,
@@ -63,7 +61,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     ]
 
     private let cellularFlow: [MeshSetupFlowCommand] = [
-        .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
         //.ShowBillingImpact
         //.ShowGatewayInfo,
@@ -822,7 +819,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             //forcing this command on devices with no network info helps with the joining process
             self.targetDeviceLeaveNetwork()
         } else {
-            self.delegate.meshSetupDidEnterState(state: .SetupComplete)
+            NSLog("stopping lisnening mode?")
+            self.stopTargetDeviceListening(onComplete: {
+                self.delegate.meshSetupDidEnterState(state: .SetupCanceled)
+            })
         }
 
         return nil

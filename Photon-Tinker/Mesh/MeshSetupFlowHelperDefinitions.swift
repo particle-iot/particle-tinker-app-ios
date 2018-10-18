@@ -114,6 +114,7 @@ enum MeshSetupFlowState {
     case CreateNetworkCompleted
 
     case SetupComplete
+    case SetupCanceled
 }
 
 enum MeshSetupFlowError: Error, CustomStringConvertible {

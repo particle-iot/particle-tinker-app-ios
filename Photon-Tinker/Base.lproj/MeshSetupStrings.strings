@@ -9,7 +9,8 @@
 "MeshSetup.Prompt.ErrorTitle" = "Error";
 "MeshSetup.Prompt.CancelSetupTitle" = "Cancel setup";
 "MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to cancel setup?";
-
+"MeshSetup.Prompt.LeaveNetworkTitle" = "Leave current network?";
+"MeshSetup.Prompt.LeaveNetworkText" = "The device you are trying to set up is already part of a mesh network. Would you like to have the device leave its current mesh network to continue setup?";
 
 
 
@@ -18,6 +19,8 @@
 "MeshSetup.Action.Cancel" = "Cancel";
 "MeshSetup.Action.Retry" = "Retry";
 "MeshSetup.Action.Continue" = "Continue";
+"MeshSetup.Action.LeaveNetwork" = "Leave Network";
+"MeshSetup.Action.DontLeaveNetwork" = "Cancel Setup";
 "MeshSetup.Action.CancelSetup" = "Cancel";
 "MeshSetup.Action.ContinueSetup" = "Don't Cancel";
 
