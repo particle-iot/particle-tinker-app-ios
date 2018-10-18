@@ -1855,9 +1855,27 @@ extension MeshSetupFlowManager {
         self.userSelectedToUpdateFirmware = update
         self.log("userSelectedToUpdateFirmware: \(update)")
 
-        self.prepareOTABinary()
+        self.setModeForNextBoot()
 
         return nil
+    }
+
+    private func setModeForNextBoot() {
+        self.targetDevice.transceiver?.sendSetStartupMode(startInListeningMode: true) { result in
+            self.log("targetDevice.sendSetStartupMode: \(result.description())")
+
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                self.prepareOTABinary()
+            } else if (result == .NOT_SUPPORTED) {
+                self.prepareOTABinary()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
     }
 
     private func prepareOTABinary() {

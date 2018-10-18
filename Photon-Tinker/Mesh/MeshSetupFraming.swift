@@ -42,9 +42,7 @@ public enum ControlRequestMessageType: UInt16 {
     case CancelFirmwareUpdate = 252
     case FirmwareUpdateData = 253
 
-
-
-
+    case SetStartupMode = 75
 
     case JoinNewWifiNetwork = 500
     case JoinKnownWifiNetwork = 501

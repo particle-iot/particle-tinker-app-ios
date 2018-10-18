@@ -224,6 +224,23 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
+
+    func sendSetStartupMode(startInListeningMode: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_SetStartupModeRequest()
+        requestMsgPayload.mode = startInListeningMode ? .listeningMode : .normalMode
+
+        let data = self.prepareRequestMessage(type: .SetStartupMode, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+
     func sendGetSerialNumber(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_GetSerialNumberRequest()
 
