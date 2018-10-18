@@ -19,6 +19,8 @@ typealias MeshSetupWifiNetworkSecurity = Particle_Ctrl_Wifi_Security
 typealias MeshSetupWifiNetworkCredentialsType = Particle_Ctrl_Wifi_CredentialsType
 typealias MeshSetupWifiNetworkCredentials = Particle_Ctrl_Wifi_Credentials
 
+typealias MeshSetupNetworkInterfaceType = Particle_Ctrl_InterfaceType
+
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
     private struct PendingMessage {

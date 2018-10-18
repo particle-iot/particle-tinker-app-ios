@@ -233,10 +233,8 @@ internal struct MeshDevice {
     var isClaimed: Bool?
     var isSetupDone: Bool?
 
-    var hasEthernetInterface: Bool = false
-    var hasWifiInterface: Bool = false
-    var hasCellularInterface: Bool = false
 
+    var activeInternetInterface: MeshSetupNetworkInterfaceType?
     var hasInternetAddress: Bool?
 
     var networkInterfaces: [MeshSetupNetworkInterfaceEntry]?
@@ -247,14 +245,14 @@ internal struct MeshDevice {
 
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
 
-    func hasInternetInterface() -> Bool {
-        return hasEthernetInterface || hasWifiInterface || hasCellularInterface
+    func hasActiveInternetInterface() -> Bool {
+        return activeInternetInterface != nil
     }
 
-    func getEthernetInterfaceIdx() -> UInt32? {
-        if let interfaces = networkInterfaces {
+    func getActiveNetworkInterfaceIdx() -> UInt32? {
+        if let activeInterface = activeInternetInterface, let interfaces = networkInterfaces {
             for interface in interfaces {
-                if interface.type == .ethernet {
+                if interface.type == activeInterface {
                     return interface.index
                 }
             }

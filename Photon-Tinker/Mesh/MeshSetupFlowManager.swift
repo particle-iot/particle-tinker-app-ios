@@ -348,17 +348,19 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //jump to new flow
         self.currentStep = 0
 
-        if (self.targetDevice.hasInternetInterface() && self.selectedNetworkInfo != nil) {
+        if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkInfo != nil) {
             self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
             return
-        } else if (self.targetDevice.hasInternetInterface() && self.selectedNetworkInfo == nil) {
-            //if there's ethernet and we are not adding more devices to same network
+        } else if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkInfo == nil) {
+            //if there's internet and we are not adding more devices to same network
 
-            if (targetDevice.hasEthernetInterface) {
+
+
+            if (targetDevice.activeInternetInterface! == .ethernet) {
                 self.currentFlow = ethernetFlow
-            } else if (targetDevice.hasWifiInterface) {
+            } else if (targetDevice.activeInternetInterface! == .wifi) {
                 self.currentFlow = wifiFlow
-            } else if (targetDevice.hasCellularInterface) {
+            } else if (targetDevice.activeInternetInterface! == .ppp) {
                 self.currentFlow = cellularFlow
             } else {
                 fatalError("wrong state?")
@@ -653,26 +655,25 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
             if (result == .NONE) {
-                self.targetDevice.hasEthernetInterface = false
-                self.targetDevice.hasWifiInterface = false
-                self.targetDevice.hasCellularInterface = false
+                self.targetDevice.activeInternetInterface = nil
 
                 self.targetDevice.networkInterfaces = interfaces!
                 for interface in interfaces! {
                     if (interface.type == .ethernet) {
-                        self.targetDevice.hasEthernetInterface = true
+                        //top priority
+                        self.targetDevice.activeInternetInterface = .ethernet
+                        break
                     } else if (interface.type == .wifi) {
-                        self.targetDevice.hasWifiInterface = true
+                        //has priority over .ppp, but not over .ethernet
+                        if (self.targetDevice.activeInternetInterface == nil || self.targetDevice.activeInternetInterface == .ppp) {
+                            self.targetDevice.activeInternetInterface = .wifi
+                        }
                     } else if (interface.type == .ppp) {
-                        self.targetDevice.hasCellularInterface = true
+                        //lowest priority, only set if there's no other interface
+                        if (self.targetDevice.activeInternetInterface == nil) {
+                            self.targetDevice.activeInternetInterface = .ppp
+                        }
                     }
-                }
-
-                //these devices should have this.
-                if (self.targetDevice.type! == .argon) {
-                    self.targetDevice.hasWifiInterface = true
-                } else if (self.targetDevice.type! == .boron) {
-                    self.targetDevice.hasCellularInterface = true
                 }
 
                 self.stepComplete()
@@ -1476,8 +1477,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
-        //TODO: redo for wifi / lte
-        self.targetDevice.transceiver!.sendGetInterface(interfaceIndex: self.targetDevice.getEthernetInterfaceIdx()!) { result, interface in
+        self.targetDevice.transceiver!.sendGetInterface(interfaceIndex: self.targetDevice.getActiveNetworkInterfaceIdx()!) { result, interface in
             self.log("result: \(result.description()), networkInfo: \(interface as Optional)")
             if (self.canceled) {
                 return
@@ -1580,7 +1580,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: OfferSetupStandAloneOrWithNetwork
     private func stepOfferSetupStandAloneOrWithNetwork() {
-        if (!targetDevice.hasInternetInterface()) {
+        if (!targetDevice.hasActiveInternetInterface()) {
             self.userSelectedToSetupMesh = true
             self.stepComplete()
         } else {
