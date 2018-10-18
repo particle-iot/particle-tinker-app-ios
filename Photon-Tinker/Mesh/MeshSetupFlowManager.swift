@@ -508,9 +508,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
         log("bluetoothConnectionManagerError = \(error), severity = \(severity)")
-        NSLog("self.currentStepFlags[reconnectAfterFirmwareFlash]: \(self.currentStepFlags["reconnectAfterFirmwareFlash"])")
-        NSLog("self.currentStepFlags[reconnectAfterFirmwareFlashRetry]: \(self.currentStepFlags["reconnectAfterFirmwareFlashRetry"])")
-
         if (self.currentCommand == .ConnectToTargetDevice || self.currentCommand == .ConnectToCommissionerDevice) {
             if (error == .DeviceWasConnected) {
                 self.currentStepFlags["reconnect"] = true
