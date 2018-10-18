@@ -203,9 +203,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if let username = ParticleCloud.sharedInstance().loggedInUsername {
             ldUserBuilder.key = "user:\(username)"
             ldUserBuilder.email = username
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                ldUserBuilder.customDictionary = ["version": version]
-                NSLog("version = \(version)")
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                ldUserBuilder.customDictionary = ["version": "\(version)b\(build)"]
+                NSLog("version = \(ldUserBuilder.customDictionary!["version"])")
             }
         }
         LDClient.sharedInstance().start(config, with: ldUserBuilder)
