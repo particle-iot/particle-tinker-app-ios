@@ -122,8 +122,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             self.targetDeviceType = type
 
             if let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix) {
-                NSLog("error = \(error)")
-                //TODO: show error
                 restartCaptureSession()
             } else {
                 self.flowManager.pauseSetup()
@@ -133,7 +131,16 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 self.embededNavigationController.pushViewController(pairingVC, animated: true)
             }
         } else {
-            restartCaptureSession()
+            //show error where selected device type mismatch
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.WrongDeviceType.description.replaceMeshSetupStrings(deviceType: self.targetDeviceType!.description), preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                    self.restartCaptureSession()
+                })
+
+                self.present(alert, animated: true)
+            }
         }
     }
 
@@ -421,9 +428,15 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             self.commissionerDeviceType = deviceType
             if let error = flowManager.setCommissionerDeviceInfo(dataMatrix: matrix) {
-                NSLog("error = \(error)")
-                //TODO: show error
-                restartCaptureSession()
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
+
+                    alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                        self.restartCaptureSession()
+                    })
+
+                    self.present(alert, animated: true)
+                }
             } else {
                 self.flowManager.pauseSetup()
 

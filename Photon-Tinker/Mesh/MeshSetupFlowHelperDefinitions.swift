@@ -150,6 +150,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case WifiPasswordTooShort
 
     case SameDeviceScannedTwice
+    case WrongDeviceType //temp error
 
     //EnsureHasInternetAccess
     case FailedToObtainIp
@@ -192,7 +193,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .BluetoothTimeout : return "Sending bluetooth message failed. Please try again."
             case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the the setup process and try again."
             case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
-            case .SameDeviceScannedTwice : return "You scanned the same device sticker twice."
+            case .SameDeviceScannedTwice : return "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join."
+            case .WrongDeviceType : return "This is not {{device}}. Please scan {{device}} sticker or restart the setup and choose different device type."
             case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure the ethernet cable is connected securely to the Ethernet FeatherWing."
 
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the setup and try again."
