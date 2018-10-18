@@ -38,7 +38,7 @@ class MeshSetupWifiNetworkPasswordViewController: MeshSetupTextInputViewControll
     }
 
     override func validateInput() -> Bool {
-        if let text = inputTextField.text, text.count >= 2 {
+        if let text = inputTextField.text, text.count >= 8 {
             return true
         } else {
             return false

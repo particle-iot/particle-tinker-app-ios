@@ -447,7 +447,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func validateWifiNetworkPassword(_ password: String) -> Bool {
-        return password.count >= 2
+        return password.count >= 8
     }
 
     private func validateNetworkName(_ networkName: String) -> Bool {
