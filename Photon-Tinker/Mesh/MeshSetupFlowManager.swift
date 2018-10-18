@@ -349,13 +349,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.currentStep = 0
 
         if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkInfo != nil) {
-            self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
-            return
+            self.log("_!_!_!_!_!_!_ we should never get to this state!!!!")
         } else if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkInfo == nil) {
             //if there's internet and we are not adding more devices to same network
-
-
-
             if (targetDevice.activeInternetInterface! == .ethernet) {
                 self.currentFlow = ethernetFlow
             } else if (targetDevice.activeInternetInterface! == .wifi) {
@@ -676,7 +672,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     }
                 }
 
-                self.stepComplete()
+                //for this release we are not supporting multiple gateways in the same network, so if user has scanned
+                //gateway device for "add one more device" option, we stop right here.
+                if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkInfo != nil) {
+                    self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
+                    return
+                } else {
+                    self.stepComplete()
+                }
             } else {
                 self.handleBluetoothErrorResult(result)
             }
