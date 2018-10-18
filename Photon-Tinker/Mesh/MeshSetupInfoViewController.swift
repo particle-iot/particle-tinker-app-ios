@@ -35,7 +35,7 @@ class MeshSetupInfoViewController: MeshSetupViewController {
         }
     }
 
-    internal func setProgressLabelValues() {
+    internal func setLabelValues() {
         let tfCount = textLabels.count
         let valueCount = textLabelValues.count
 

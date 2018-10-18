@@ -111,10 +111,11 @@
 		C810B3241C5AEA9FE0273D8A /* MeshSetupFirmwareUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDFBB870A452DFE60AD0 /* MeshSetupFirmwareUpdateViewController.swift */; };
 		C810B4F84F91FF574E316EDC /* MeshSetupWifiNetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C810B144D6FEAB8614A35CFB /* MeshSetupWifiNetworkCell.xib */; };
 		C810B570E40A50EBA524D8A8 /* MeshSetupFirmwareUpdateProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B52756160C0789CEB88B /* MeshSetupFirmwareUpdateProgressViewController.swift */; };
+		C810B57D6A8BC308730D1761 /* MeshSetupConnectingToInternetViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B11BCA49A4ECBF15A272 /* MeshSetupConnectingToInternetViewControllers.swift */; };
 		C810B6B490B3E0F0DEE3A09E /* MeshSetupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8843593B1542D03BA54 /* MeshSetupProgressViewController.swift */; };
 		C810B6C51E6C09579DB3C318 /* MeshSetupSelectOrCreateNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B57F9293CD20B706630B /* MeshSetupSelectOrCreateNetworkViewController.swift */; };
 		C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */; };
-		C810B7796877EC207CAEBE48 /* MeshSetupGatewayInfoArgonStandAloneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2135A9D3D18E382E065 /* MeshSetupGatewayInfoArgonStandAloneViewController.swift */; };
+		C810B7796877EC207CAEBE48 /* MeshSetupInfoViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2135A9D3D18E382E065 /* MeshSetupInfoViewControllers.swift */; };
 		C810B8CAFDD632F1B0E587C4 /* MeshSetupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2A2C9E4F1B4BC7B9BC6 /* MeshSetupInfoViewController.swift */; };
 		C810BA5F90B06FCDCF3F21BA /* MeshSetupCreatingNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB55059C80151EC1FE89 /* MeshSetupCreatingNetworkViewController.swift */; };
 		C810BA6340DA15524FDDA962 /* ScanBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C810BBF99BF4AC32D496472A /* ScanBarcodeViewController.m */; };
@@ -125,7 +126,6 @@
 		C810BDA4D0D091E67587C94D /* MeshSetupWifiNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B35128237699826532CD /* MeshSetupWifiNetworkPasswordViewController.swift */; };
 		C810BE60B24E156C4C7E55CC /* MeshSetupCreateNetworkNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B000C6D32132595A7F41 /* MeshSetupCreateNetworkNameViewController.swift */; };
 		C810BEE1EA84551AB5C1B56F /* MeshSetupStandAloneOrMeshSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD00BB9C3D20CF1CB23B /* MeshSetupStandAloneOrMeshSetupViewController.swift */; };
-		C810BF7DF02A7DC4F7AF53BF /* MeshSetupConnectingToInternetEthernetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BED45F56ADDF578D427C /* MeshSetupConnectingToInternetEthernetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,9 +278,10 @@
 		93FFD5CD215E7FCA005A469D /* DeviceVariableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceVariableTableViewCell.swift; sourceTree = "<group>"; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
 		C810B000C6D32132595A7F41 /* MeshSetupCreateNetworkNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreateNetworkNameViewController.swift; sourceTree = "<group>"; };
+		C810B11BCA49A4ECBF15A272 /* MeshSetupConnectingToInternetViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupConnectingToInternetViewControllers.swift; sourceTree = "<group>"; };
 		C810B12F2906E63F800327E1 /* MeshSetupNetworkCreatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkCreatedViewController.swift; sourceTree = "<group>"; };
 		C810B144D6FEAB8614A35CFB /* MeshSetupWifiNetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupWifiNetworkCell.xib; sourceTree = "<group>"; };
-		C810B2135A9D3D18E382E065 /* MeshSetupGatewayInfoArgonStandAloneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGatewayInfoArgonStandAloneViewController.swift; sourceTree = "<group>"; };
+		C810B2135A9D3D18E382E065 /* MeshSetupInfoViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupInfoViewControllers.swift; sourceTree = "<group>"; };
 		C810B2A2C9E4F1B4BC7B9BC6 /* MeshSetupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupInfoViewController.swift; sourceTree = "<group>"; };
 		C810B35128237699826532CD /* MeshSetupWifiNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupWifiNetworkPasswordViewController.swift; sourceTree = "<group>"; };
 		C810B4E9298B8E338B5D6FB9 /* ScanBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanBarcodeViewController.h; sourceTree = "<group>"; };
@@ -297,7 +298,6 @@
 		C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupTextInputViewController.swift; sourceTree = "<group>"; };
 		C810BDA797852B52EAA154A4 /* MeshSetupInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupInfoView.xib; sourceTree = "<group>"; };
 		C810BDFBB870A452DFE60AD0 /* MeshSetupFirmwareUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFirmwareUpdateViewController.swift; sourceTree = "<group>"; };
-		C810BED45F56ADDF578D427C /* MeshSetupConnectingToInternetEthernetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupConnectingToInternetEthernetViewController.swift; sourceTree = "<group>"; };
 		C810BF96B80E35D10BB3B8AF /* MeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupViewController.swift; sourceTree = "<group>"; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -567,7 +567,6 @@
 			children = (
 				C810B6481F30B822962912B8 /* AbstractViewController */,
 				931C37EA215AA54E0014811C /* Controls */,
-				C810BED45F56ADDF578D427C /* MeshSetupConnectingToInternetEthernetViewController.swift */,
 				C810B000C6D32132595A7F41 /* MeshSetupCreateNetworkNameViewController.swift */,
 				C810B53B3FF656161F206C4A /* MeshSetupCreateNetworkPasswordViewController.swift */,
 				C810BB55059C80151EC1FE89 /* MeshSetupCreatingNetworkViewController.swift */,
@@ -590,9 +589,10 @@
 				C810B57F9293CD20B706630B /* MeshSetupSelectOrCreateNetworkViewController.swift */,
 				C810BD00BB9C3D20CF1CB23B /* MeshSetupStandAloneOrMeshSetupViewController.swift */,
 				931C37B7215AA42F0014811C /* MeshSetupSuccessViewController.swift */,
-				C810B2135A9D3D18E382E065 /* MeshSetupGatewayInfoArgonStandAloneViewController.swift */,
+				C810B2135A9D3D18E382E065 /* MeshSetupInfoViewControllers.swift */,
 				C810B756B2B9F5038244B8B1 /* MeshSetupSelectWifiNetworkViewController.swift */,
 				C810B35128237699826532CD /* MeshSetupWifiNetworkPasswordViewController.swift */,
+				C810B11BCA49A4ECBF15A272 /* MeshSetupConnectingToInternetViewControllers.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -985,7 +985,6 @@
 				C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */,
 				C810B6B490B3E0F0DEE3A09E /* MeshSetupProgressViewController.swift in Sources */,
 				C810BA6340DA15524FDDA962 /* ScanBarcodeViewController.m in Sources */,
-				C810BF7DF02A7DC4F7AF53BF /* MeshSetupConnectingToInternetEthernetViewController.swift in Sources */,
 				C810BA5F90B06FCDCF3F21BA /* MeshSetupCreatingNetworkViewController.swift in Sources */,
 				C810BE60B24E156C4C7E55CC /* MeshSetupCreateNetworkNameViewController.swift in Sources */,
 				C810B1F59C14C1DF6729D6B2 /* MeshSetupCreateNetworkPasswordViewController.swift in Sources */,
@@ -999,9 +998,10 @@
 				C810B570E40A50EBA524D8A8 /* MeshSetupFirmwareUpdateProgressViewController.swift in Sources */,
 				C810BEE1EA84551AB5C1B56F /* MeshSetupStandAloneOrMeshSetupViewController.swift in Sources */,
 				C810B8CAFDD632F1B0E587C4 /* MeshSetupInfoViewController.swift in Sources */,
-				C810B7796877EC207CAEBE48 /* MeshSetupGatewayInfoArgonStandAloneViewController.swift in Sources */,
+				C810B7796877EC207CAEBE48 /* MeshSetupInfoViewControllers.swift in Sources */,
 				C810BBDCF3C37E4E5BB24613 /* MeshSetupSelectWifiNetworkViewController.swift in Sources */,
 				C810BDA4D0D091E67587C94D /* MeshSetupWifiNetworkPasswordViewController.swift in Sources */,
+				C810B57D6A8BC308730D1761 /* MeshSetupConnectingToInternetViewControllers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

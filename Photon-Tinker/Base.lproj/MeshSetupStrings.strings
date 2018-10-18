@@ -192,13 +192,18 @@ to allow your {{device}} to join the {{network}} mesh network";
 
 
 
-"MeshSetup.ConnectToInternet.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
-"MeshSetup.ConnectToInternet.Text1" = "Connecting to the internet via Ethernet";
-"MeshSetup.ConnectToInternet.Text2" = "Starting a secure session with the Particle Device Cloud";
-"MeshSetup.ConnectToInternet.SuccessTitle" = "Congrats!";
-"MeshSetup.ConnectToInternet.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetEthernet.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetEthernet.Text1" = "Connecting to the internet via Ethernet";
+"MeshSetup.ConnectingToInternetEthernet.Text2" = "Starting a secure session with the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetEthernet.SuccessTitle" = "Congrats!";
+"MeshSetup.ConnectingToInternetEthernet.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
 
 
+"MeshSetup.ConnectingToInternetWifi.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetWifi.Text1" = "Connecting to the Intenet via Wi-Fi";
+"MeshSetup.ConnectingToInternetWifi.Text2" = "Starting a secure session with the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetWifi.SuccessTitle" = "Congrats!";
+"MeshSetup.ConnectingToInternetWifi.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
 
 
 
@@ -247,45 +252,54 @@ to allow your {{device}} to join the {{network}} mesh network";
 
 
 
+"MeshSetup.JoinerInfo.Title" = "OK—Let’s get this mesh node connected to the Device Cloud";
+"MeshSetup.JoinerInfo.Text1" = "Mesh nodes require a connection to the Device Cloud via a local mesh network to securely talk to the Internet";
+"MeshSetup.JoinerInfo.Text2" = "To connect, you will send the {{device}} mesh network credentials";
+"MeshSetup.JoinerInfo.Text3" = "Once connected, this decice can communicate with the Device Cloud via a mesh gateway, and locally with other devices in the mesh network";
+"MeshSetup.JoinerInfo.Button" = "Next";
 
 
 
+"MeshSetup.GatewayInfoEthernetStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoEthernetStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoEthernetStandalone.Text2" = "To connect, your {{device}} will use an Ethernet connection";
+"MeshSetup.GatewayInfoEthernetStandalone.Button" = "Next";
+
+
+"MeshSetup.GatewayInfoEthernetMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoEthernetMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoEthernetMesh.Text2" = "To connect, your {{device}} will use an Ethernet connection";
+"MeshSetup.GatewayInfoEthernetMesh.Text3" = "Once connected you can create or join a mesh network using this {{device}}";
+"MeshSetup.GatewayInfoEthernetMesh.Button" = "Next";
 
 
 
+"MeshSetup.GatewayInfoWifiStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoWifiStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoWifiStandalone.Text2" = "To connect you will send the {{device}} Wi-Fi network credentials";
+"MeshSetup.GatewayInfoWifiStandalone.Button" = "Next";
+
+
+"MeshSetup.GatewayInfoWifiMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoWifiMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoWifiMesh.Text2" = "To connect you will send the {{device}} Wi-Fi network credentials";
+"MeshSetup.GatewayInfoWifiMesh.Text3" = "Once connected you can create or join a mesh network using this {{device}}";
+"MeshSetup.GatewayInfoWifiMesh.Button" = "Next";
 
 
 
+"MeshSetup.GatewayInfoCellularStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoCellularStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoCellularStandalone.Text2" = "To connect the device will use the Particle SIM inside your {{device}} which has already been activated";
+"MeshSetup.GatewayInfoCellularStandalone.Button" = "Connect to Device Cloud";
+"MeshSetup.GatewayInfoCellularStandalone.Text2Activate" = "To connect we’ll activate the Particle SIM inside your {{device}}";
+"MeshSetup.GatewayInfoCellularStandalone.ButtonActivate" = "Activate SIM & Connect";
 
 
-
-"MeshSetup.GatewayInfoArgonStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
-"MeshSetup.GatewayInfoArgonStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
-"MeshSetup.GatewayInfoArgonStandalone.Text2" = "To connect you will send the Argon Wi-Fi network credentials";
-"MeshSetup.GatewayInfoArgonStandalone.Button" = "Next";
-
-
-"MeshSetup.GatewayInfoArgonMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
-"MeshSetup.GatewayInfoArgonMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
-"MeshSetup.GatewayInfoArgonMesh.Text2" = "To connect you will send the Argon Wi-Fi network credentials";
-"MeshSetup.GatewayInfoArgonMesh.Text3" = "Once connected you can create or join a mesh network using this Argon";
-"MeshSetup.GatewayInfoArgonMesh.Button" = "Next";
-
-
-
-
-"MeshSetup.GatewayInfoBoronStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
-"MeshSetup.GatewayInfoBoronStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
-"MeshSetup.GatewayInfoBoronStandalone.Text2" = "To connect the device will use the Particle SIM inside your Boron which has already been activated";
-"MeshSetup.GatewayInfoBoronStandalone.Button" = "Connect to Device Cloud";
-"MeshSetup.GatewayInfoBoronStandalone.Text2Activate" = "To connect we’ll activate the Particle SIM inside your Boron";
-"MeshSetup.GatewayInfoBoronStandalone.ButtonActivate" = "Activate SIM & Connect";
-
-
-"MeshSetup.GatewayInfoBoronMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
-"MeshSetup.GatewayInfoBoronMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
-"MeshSetup.GatewayInfoBoronMesh.Text2" = "To connect the device will use the Particle SIM inside your Boron which has already been activated ";
-"MeshSetup.GatewayInfoBoronMesh.Text3" = "Once connected you can create or join a mesh network using this Boron";
-"MeshSetup.GatewayInfoBoronMesh.Button" = "Connect to Device Cloud";
-"MeshSetup.GatewayInfoBoronMesh.Text2Activate" = "To connect we’ll activate the Particle SIM inside your Boron";
-"MeshSetup.GatewayInfoBoronStandalone.ButtonActivate" = "Activate SIM & Connect";
+"MeshSetup.GatewayInfoCellularMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoCellularMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoCellularMesh.Text2" = "To connect the device will use the Particle SIM inside your {{device}} which has already been activated ";
+"MeshSetup.GatewayInfoCellularMesh.Text3" = "Once connected you can create or join a mesh network using this {{device}}";
+"MeshSetup.GatewayInfoCellularMesh.Button" = "Connect to Device Cloud";
+"MeshSetup.GatewayInfoCellularMesh.Text2Activate" = "To connect we’ll activate the Particle SIM inside your {{device}}";
+"MeshSetup.GatewayInfoCellularStandalone.ButtonActivate" = "Activate SIM & Connect";

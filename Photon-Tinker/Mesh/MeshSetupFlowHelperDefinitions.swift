@@ -12,7 +12,7 @@ import Foundation
 protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
 
-    func meshSetupDidRequestToShowGatewayInfo()
+    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
 
     func meshSetupDidRequestToUpdateFirmware()
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
@@ -66,7 +66,7 @@ internal enum MeshSetupFlowCommand {
 
     //gateway
     case GetUserWifiNetworkSelection
-    case ShowGatewayInfo
+    case ShowInfo
     case EnsureCorrectSelectedWifiNetworkPassword
     case EnsureHasInternetAccess
     case CheckDeviceGotClaimed

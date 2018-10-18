@@ -21,7 +21,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private let joinerFlow: [MeshSetupFlowCommand] = [
         .EnsureTargetDeviceIsNotOnMeshNetwork,
-        //.ShowGatewayInfo,
+        .ShowInfo,
         .GetUserNetworkSelection,
         //.ShowBillingImpact
         .GetCommissionerDeviceInfo,
@@ -42,7 +42,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
         //.ShowEthernetBillingImpact
-        //.ShowGatewayInfo,
+        .ShowInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .GetNewDeviceName,
@@ -53,7 +53,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         //.OfferSelectOrCreateNetwork,
         //.ShowWifiBillingImpact
-        .ShowGatewayInfo,
+        .ShowInfo,
         .GetUserWifiNetworkSelection,
         .EnsureCorrectSelectedWifiNetworkPassword,
         .EnsureHasInternetAccess,
@@ -155,6 +155,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return targetDevice.type
     }
 
+    func targetDeviceActiveInternetInterface() -> MeshSetupNetworkInterfaceType? {
+        return targetDevice.activeInternetInterface
+    }
+
     func targetDeviceFirmwareFlashProgress() -> Double? {
         return targetDevice.firmwareUpdateProgress
     }
@@ -209,7 +213,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .GetCommissionerDeviceInfo,
                     .ChooseFlow,
                     .OfferToAddOneMoreDevice,
-                    .ShowGatewayInfo,
+                    .ShowInfo,
                     .ChooseSubflow,
                     .GetNewNetworkNameAndPassword,
                     .OfferSetupStandAloneOrWithNetwork,
@@ -304,8 +308,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             //gateway
             case .GetUserWifiNetworkSelection:
                 self.stepGetUserWifiNetworkSelection()
-            case .ShowGatewayInfo:
-                self.stepShowGatewayInfo()
+            case .ShowInfo:
+                self.stepShowInfo()
             case .EnsureCorrectSelectedWifiNetworkPassword:
                 self.stepEnsureCorrectSelectedWifiNetworkPassword()
             case .EnsureHasInternetAccess:
@@ -661,7 +665,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                         break
                     } else if (interface.type == .wifi) {
                         //has priority over .ppp, but not over .ethernet
-                        if (self.targetDevice.activeInternetInterface == nil || self.targetDevice.activeInternetInterface == .ppp) {
+                        if (self.targetDevice.activeInternetInterface == nil || self.targetDevice.activeInternetInterface! == .ppp) {
                             self.targetDevice.activeInternetInterface = .wifi
                         }
                     } else if (interface.type == .ppp) {
@@ -1443,11 +1447,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     //MARK: ShowGatewayInfo
-    private func stepShowGatewayInfo() {
-        self.delegate.meshSetupDidRequestToShowGatewayInfo()
+    private func stepShowInfo() {
+        self.delegate.meshSetupDidRequestToShowInfo(gatewayFlow: self.targetDevice.hasActiveInternetInterface())
     }
 
-    func setGatewayInfoDone() {
+    func setInfoDone() {
         self.stepComplete()
     }
 

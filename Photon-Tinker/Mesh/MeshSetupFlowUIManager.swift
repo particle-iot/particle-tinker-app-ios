@@ -191,26 +191,38 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     //MARK: Gateway Info
-    func meshSetupDidRequestToShowGatewayInfo() {
-        switch targetDeviceType! {
-            case .xenon:
-                break
-            case .argon:
-                DispatchQueue.main.async {
-                    let infoVC = MeshSetupGatewayInfoArgonViewController.loadedViewController()
-                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.setupMesh)
-                    self.embededNavigationController.pushViewController(infoVC, animated: true)
-                }
-                break
-            case .boron:
-                break
-            default:
-                break
+    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool) {
+        if (!gatewayFlow) {
+            DispatchQueue.main.async {
+                let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
+                infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.setupMesh, deviceType: self.targetDeviceType!)
+                self.embededNavigationController.pushViewController(infoVC, animated: true)
+            }
+        } else {
+            switch self.flowManager.targetDeviceActiveInternetInterface()! {
+                case .ethernet:
+                    DispatchQueue.main.async {
+                        let infoVC = MeshSetupInfoEthernetViewController.loadedViewController()
+                        infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.setupMesh, deviceType: self.targetDeviceType!)
+                        self.embededNavigationController.pushViewController(infoVC, animated: true)
+                    }
+                case .wifi:
+                    DispatchQueue.main.async {
+                        let infoVC = MeshSetupInfoWifiViewController.loadedViewController()
+                        infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.setupMesh, deviceType: self.targetDeviceType!)
+                        self.embededNavigationController.pushViewController(infoVC, animated: true)
+                    }
+                case .ppp:
+                    break
+                default:
+                    //others are not interesting
+                    break
+            }
         }
     }
 
     func didFinishInfoScreen() {
-        self.flowManager.setGatewayInfoDone()
+        self.flowManager.setInfoDone()
     }
 
 
@@ -522,11 +534,28 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     //MARK: Connect to internet
     private func showConnectingToInternet() {
-        DispatchQueue.main.async {
-            let connectingVC = MeshSetupConnectingToInternetEthernetViewController.loadedViewController()
-            connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
-            self.embededNavigationController.pushViewController(connectingVC, animated: true)
+        switch self.flowManager.targetDeviceActiveInternetInterface()! {
+            case .ethernet:
+                DispatchQueue.main.async {
+                    let connectingVC = MeshSetupConnectingToInternetEthernetViewController.loadedViewController()
+                    connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
+                    self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                }
+            case .wifi:
+                DispatchQueue.main.async {
+                    let connectingVC = MeshSetupConnectingToInternetWifiViewController.loadedViewController()
+                    connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
+                    self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                }
+            case .ppp:
+                break
+            default:
+                //others are not interesting
+                break
         }
+
+
+
     }
 
     func didFinishConnectToInternetScreen() {
@@ -695,8 +724,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                         self.flowManager.pauseSetup()
                     }
                     vc.setState(state)
+                } else if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetWifiViewController {
+                    if state == .TargetDeviceConnectingToInternetCompleted {
+                        self.flowManager.pauseSetup()
+                    }
+                    vc.setState(state)
                 } else {
-                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupConnectToInternetViewController.setState was attempted when it shouldn't be")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupConnectToInternetViewController.setState was attempted when it shouldn't be: \(state)")
                 }
 
 
@@ -711,7 +745,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     vc.setState(state)
 
                 } else {
-                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupJoiningNetworkViewController.setState was attempted when it shouldn't be")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupJoiningNetworkViewController.setState was attempted when it shouldn't be: \(state)")
                 }
 
 
@@ -721,7 +755,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupCreatingNetworkViewController {
                     vc.setState(state)
                 } else {
-                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be")
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be: \(state)")
                 }
 
 
