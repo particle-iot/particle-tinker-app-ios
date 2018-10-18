@@ -487,6 +487,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: BluetoothConnectionManagerDelegate
     func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState) {
+        if (self.canceled) {
+            return
+        }
+
         log("bluetoothConnectionManagerStateChanged = \(state)")
         if (self.bluetoothManager.state == .Ready) {
             self.bluetoothReady = true
@@ -507,6 +511,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
+        if (self.canceled) {
+            return
+        }
+
         log("bluetoothConnectionManagerError = \(error), severity = \(severity)")
         if (self.currentCommand == .ConnectToTargetDevice || self.currentCommand == .ConnectToCommissionerDevice) {
             if (error == .DeviceWasConnected) {
@@ -540,6 +548,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+        if (self.canceled) {
+            return
+        }
+
         if (self.currentCommand == .ConnectToTargetDevice) {
             self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnected)
         } else if (self.currentCommand == .ConnectToCommissionerDevice) {
@@ -551,6 +563,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+        if (self.canceled) {
+            return
+        }
+
         if (self.currentCommand == .ConnectToTargetDevice) {
             self.delegate.meshSetupDidEnterState(state: .TargetDeviceReady)
             self.targetDeviceConnected(connection: connection)
@@ -564,6 +580,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+        if (self.canceled) {
+            return
+        }
+
         log("bluetoothConnectionManagerConnectionDropped = \(connection)")
         if (connection == self.targetDevice.transceiver?.connection || connection == self.commissionerDevice?.transceiver?.connection) {
             if self.currentStepFlags["reconnect"] != nil && (self.currentCommand == .ConnectToTargetDevice || self.currentCommand == .ConnectToCommissionerDevice) {
