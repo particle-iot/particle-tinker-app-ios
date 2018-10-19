@@ -52,6 +52,7 @@ internal enum MeshSetupFlowCommand {
     case ChooseFlow
 
     //main flow
+    case GetAPINetworks
     case SetClaimCode
     case EnsureTargetDeviceIsNotOnMeshNetwork
     case GetUserNetworkSelection
@@ -156,6 +157,11 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToObtainIp
 
     //GetNewDeviceName
+    case UnableToJoinNetwork
+    case UnableToJoinOldNetwork
+    case UnableToRetrieveNetworks
+    case UnableToLeaveNetwork
+    case UnableToCreateNetwork
     case UnableToRenameDevice
     case NameTooShort
 
@@ -184,6 +190,11 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .NameTooShort : return "Device name cannot be empty."
 
                 //user facing errors
+            case .UnableToLeaveNetwork : return "There was an error while removing device from mesh network on Particle Device Cloud."
+            case .UnableToJoinNetwork : return "There was an error while adding device to mesh network on Particle Device Cloud."
+            case .UnableToJoinOldNetwork : return "Network you are trying to join, was created locally with test version of the app. Please create new network."
+            case .UnableToRetrieveNetworks : return "There was an error while accessing mesh network information on Particle Device Cloud."
+            case .UnableToCreateNetwork : return "There was an error while registering new network with Particle Device Cloud."
             case .UnableToGenerateClaimCode : return "There was an error attempting to claim this device to your account."
             case .DeviceTooFar : return "Your mesh device is too far away from your phone. Please hold your phone closer and try again."
             case .FailedToStartScan : return "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again."
@@ -217,6 +228,7 @@ enum MeshSetupErrorSeverity {
 internal struct MeshDevice {
     var type: ParticleDeviceType?
     var deviceId: String?
+    var deviceICCID: String?
     var credentials: MeshSetupPeripheralCredentials?
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
 
@@ -243,8 +255,10 @@ internal struct MeshDevice {
     var networkInterfaces: [MeshSetupNetworkInterfaceEntry]?
     var joinerCredentials: (eui64: String, password: String)?
 
-    var networkInfo: MeshSetupNetworkInfo?
-    var networks: [MeshSetupNetworkInfo]?
+    var meshNetworkInfo: MeshSetupNetworkInfo?
+
+    var meshNetworks: [MeshSetupNetworkInfo]?
+    var apiNetworks: [ParticleNetwork]?
 
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
 
