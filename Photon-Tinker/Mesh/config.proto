@@ -36,6 +36,12 @@ enum SystemCapabilityFlag {
   COMPRESSED_OTA = 0x01;
 }
 
+// System features
+enum Feature {
+  INVALID_FEATURE = 0;
+  ETHERNET_DETECTION = 1;
+}
+
 // Get the device ID
 message GetDeviceIdRequest {
   option (type_id) = 20; // CTRL_REQUEST_DEVICE_ID
@@ -207,4 +213,29 @@ message SetStartupModeRequest {
 }
 
 message SetStartupModeReply {
+}
+
+message SystemResetRequest {
+  option (type_id) = 40; // CTRL_REQUEST_RESET
+}
+
+message SystemResetReply {
+}
+
+message SetFeatureRequest {
+  option (type_id) = 33; // CTRL_REQUEST_SET_FEATURE
+  Feature feature = 1;
+  bool enabled = 2;
+}
+
+message SetFeatureReply {
+}
+
+message GetFeatureRequest {
+  option (type_id) = 34; // CTRL_REQUEST_GET_FEATURE
+  Feature feature = 1;
+}
+
+message GetFeatureReply {
+  bool enabled = 1;
 }
