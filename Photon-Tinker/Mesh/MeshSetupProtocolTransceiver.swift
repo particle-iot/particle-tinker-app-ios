@@ -20,6 +20,7 @@ typealias MeshSetupWifiNetworkCredentialsType = Particle_Ctrl_Wifi_CredentialsTy
 typealias MeshSetupWifiNetworkCredentials = Particle_Ctrl_Wifi_Credentials
 
 typealias MeshSetupNetworkInterfaceType = Particle_Ctrl_InterfaceType
+typealias MeshSetupSystemFeature = Particle_Ctrl_Feature
 
 class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
 
@@ -546,6 +547,55 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     //MARK: OTA
+    func sendSystemReset(callback: @escaping (ControlReplyErrorType) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_SystemResetRequest()
+
+        let data = self.prepareRequestMessage(type: .SystemReset, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+
+    func sendSetFeature(feature:MeshSetupSystemFeature, enabled: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_SetFeatureRequest()
+        requestMsgPayload.feature = feature
+        requestMsgPayload.enabled = enabled
+
+        let data = self.prepareRequestMessage(type: .SetFeature, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+
+    func sendGetFeature(feature: MeshSetupSystemFeature, callback: @escaping (ControlReplyErrorType, Bool?) -> ()) {
+        var requestMsgPayload = Particle_Ctrl_GetFeatureRequest()
+        requestMsgPayload.feature = feature
+
+        let data = self.prepareRequestMessage(type: .GetFeature, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_GetFeatureReply(serializedData: rm.data) as! Particle_Ctrl_GetFeatureReply
+                callback(rm.result,  decodedReply.enabled)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
+
     func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, MeshSetupSystemCapability?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemCapabilitiesRequest()
 

@@ -34,6 +34,11 @@ public enum ControlRequestMessageType: UInt16 {
     case GetInterfaceList = 400
     case GetInterface = 401
 
+
+    case SystemReset = 40
+    case SetFeature = 33
+    case GetFeature = 34
+
     case GetSystemCapabilities = 32
     case GetNcpFirmwareVersion = 31
     case GetSystemVersion = 30
@@ -51,6 +56,7 @@ public enum ControlRequestMessageType: UInt16 {
     case ClearKnownWifiNetworksNetworks = 504
     case GetCurrentWifiNetwork = 505
     case ScanWifiNetworks = 506
+
 }
 
 public enum ControlReplyErrorType: Int32 {

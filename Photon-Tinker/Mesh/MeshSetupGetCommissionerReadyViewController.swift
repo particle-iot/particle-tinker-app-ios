@@ -8,11 +8,16 @@ import UIKit
 class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewController {
 
 
+    private var callback: (() -> ())!
 
     func setup(didPressReady: @escaping () -> (), deviceType: ParticleDeviceType!, networkName: String) {
         self.callback = didPressReady
         self.deviceType = deviceType
         self.networkName = networkName
+    }
+
+    @IBAction override func nextButtonTapped(_ sender: Any) {
+        callback()
     }
     
     override func setStyle() {

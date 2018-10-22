@@ -31,9 +31,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBOutlet weak var contentStackView: UIStackView!
     
     
-    internal var callback: (() -> ())!
+    private var callback: ((Bool) -> ())!
     
-    func setup(didPressReady: @escaping () -> (), deviceType: ParticleDeviceType?) {
+    func setup(didPressReady: @escaping (Bool) -> (), deviceType: ParticleDeviceType?) {
         self.callback = didPressReady
         self.deviceType = deviceType
     }
@@ -150,7 +150,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     @IBAction func nextButtonTapped(_ sender: Any) {
-        callback()
+        callback(self.setupSwitch.isOn)
     }
 
     func initializeVideoPlayerWithVideo(videoFileName: String) {

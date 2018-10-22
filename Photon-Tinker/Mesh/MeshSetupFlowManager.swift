@@ -10,6 +10,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let preflow: [MeshSetupFlowCommand] = [
         .GetTargetDeviceInfo,
         .ConnectToTargetDevice,
+        .EnsureCorrectEthernetFeatureStatus,
         .EnsureLatestFirmware,
         .GetAPINetworks,
         .EnsureTargetDeviceCanBeClaimed,
@@ -226,6 +227,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .EnsureTargetDeviceCanBeClaimed,
                     .GetUserNetworkSelection,
                     .GetAPINetworks,
+                    .EnsureCorrectEthernetFeatureStatus,
                     .GetUserWifiNetworkSelection,
                     .CheckTargetDeviceHasNetworkInterfaces,
                     .SetClaimCode,
@@ -277,6 +279,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepEnsureTargetDeviceIsNotOnMeshNetwork()
             case .SetClaimCode:
                 self.stepSetClaimCode()
+            case .EnsureCorrectEthernetFeatureStatus:
+                self.stepEnsureCorrectEthernetFeatureStatus()
 
             case .GetAPINetworks:
                 self.stepGetAPINetworks()
@@ -333,6 +337,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 log("Unknown command: \(currentFlow[currentStep])")
             }
     }
+
 
     private func stepComplete() {
         if (self.canceled) {
@@ -526,9 +531,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             } else if (error == .DeviceTooFar) {
                 self.fail(withReason: .DeviceTooFar)
                 //after showing promt, step should be repeated
-            } else if (error == .FailedToScanBecauseOfTimeout && self.currentStepFlags["reconnectAfterFirmwareFlash"] != nil) {
-                if ((self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] as! Int) < 4) {
-                    self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] = (self.currentStepFlags["reconnectAfterFirmwareFlashRetry"]! as! Int) + 1
+            } else if (error == .FailedToScanBecauseOfTimeout && self.currentStepFlags["reconnectAfterForcedReboot"] != nil) {
+                if ((self.currentStepFlags["reconnectAfterForcedRebootRetry"] as! Int) < 4) {
+                    self.currentStepFlags["reconnectAfterForcedRebootRetry"] = (self.currentStepFlags["reconnectAfterForcedRebootRetry"]! as! Int) + 1
                     //coming online after a flash might take a while, if for some reason we timeout, we should retry the step
                     self.stepConnectToTargetDevice()
                 } else {
@@ -597,20 +602,24 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                       let idx = self.currentStepFlags["idx"] as? Int,
                       let firmwareData = self.currentStepFlags["firmwareData"] as? Data,
                       ((idx+1) * chunk >= firmwareData.count) {
-                NSLog("Connection was dropped, but it's fine.")
-
-                //lets try reconnecting to the device by moving few steps back
-                self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
-                self.log("returning to step: \(self.currentStep)")
-                self.runCurrentStep()
-                self.currentStepFlags["reconnectAfterFirmwareFlash"] = true
-                self.currentStepFlags["reconnectAfterFirmwareFlashRetry"] = 0
-
+                self.reconnectHandler()
+            } else if self.currentCommand == .EnsureCorrectEthernetFeatureStatus {
+                self.reconnectHandler()
             } else {
                 self.fail(withReason: .BluetoothConnectionDropped, severity: .Fatal)
             }
         }
         //if some other connection was dropped - we dont care
+    }
+
+    func reconnectHandler() {
+        NSLog("Connection was dropped, but it's fine.")
+        //lets try reconnecting to the device by moving few steps back
+        self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
+        self.log("returning to step: \(self.currentStep)")
+        self.runCurrentStep()
+        self.currentStepFlags["reconnectAfterForcedReboot"] = true
+        self.currentStepFlags["reconnectAfterForcedRebootRetry"] = 0
     }
 //}
 
@@ -623,7 +632,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestTargetDeviceInfo()
     }
 
-    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
+    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
         guard currentCommand == .GetTargetDeviceInfo else {
             return .IllegalOperation
         }
@@ -632,6 +641,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.resetFlowFlags()
 
         self.log("dataMatrix: \(dataMatrix)")
+        self.targetDevice.enableEthernetFeature = useEthernet
         self.targetDevice.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
         self.log("self.targetDevice.type?.description = \(self.targetDevice.type?.description as Optional)")
         self.targetDevice.credentials = MeshSetupPeripheralCredentials(name: self.targetDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
@@ -1876,8 +1886,80 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.commissionerDevice = self.targetDevice
         self.targetDevice = MeshDevice()
     }
-}
 
+
+
+    //MARK: EnsureCorrectEthernetFeatureStatus
+    func stepEnsureCorrectEthernetFeatureStatus() {
+        self.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { result, enabled in
+            self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled)")
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                if (self.targetDevice.enableEthernetFeature == enabled) {
+                    self.stepComplete()
+                } else {
+                    self.setCorrectEthernetFeatureStatus()
+                }
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    func setCorrectEthernetFeatureStatus() {
+        self.targetDevice.transceiver!.sendSetFeature(feature: .ethernetDetection, enabled: self.targetDevice.enableEthernetFeature!) { result  in
+            self.log("targetDevice.sendSetFeature: \(result.description())")
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                self.prepareForTargetDeviceReboot {
+                    self.sendDeviceReset()
+                }
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+
+    func prepareForTargetDeviceReboot(onComplete: @escaping () -> ()) {
+        self.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { result in
+            self.log("targetDevice.sendSetStartupMode: \(result.description())")
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                onComplete()
+            } else if (result == .NOT_SUPPORTED) {
+                onComplete()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    func sendDeviceReset() {
+        self.targetDevice.transceiver!.sendSystemReset() { result  in
+            self.log("targetDevice.sendSystemReset: \(result.description())")
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                //if all is fine, connection will be dropped and the setup will return few steps in dropped connection handler
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+
+    }
+}
 
 
 extension MeshSetupFlowManager {
@@ -2034,27 +2116,11 @@ extension MeshSetupFlowManager {
         self.userSelectedToUpdateFirmware = update
         self.log("userSelectedToUpdateFirmware: \(update)")
 
-        self.setModeForNextBoot()
+        self.prepareForTargetDeviceReboot {
+            self.prepareOTABinary()
+        }
 
         return nil
-    }
-
-    private func setModeForNextBoot() {
-        self.targetDevice.transceiver?.sendSetStartupMode(startInListeningMode: true) { result in
-            self.log("targetDevice.sendSetStartupMode: \(result.description())")
-
-            if (self.canceled) {
-                return
-            }
-
-            if (result == .NONE) {
-                self.prepareOTABinary()
-            } else if (result == .NOT_SUPPORTED) {
-                self.prepareOTABinary()
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
     }
 
     private func prepareOTABinary() {
@@ -2163,7 +2229,7 @@ extension MeshSetupFlowManager {
             }
             if (result == .NONE) {
                 self.resetFirmwareFlashFlags()
-                // reconnect to device by jumping back few steps in connection dropped handler
+                //reconnect to device by jumping back few steps in connection dropped handler
             } else {
                 self.handleBluetoothErrorResult(result)
             }

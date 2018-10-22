@@ -45,6 +45,7 @@ internal enum MeshSetupFlowCommand {
     //preflow
     case GetTargetDeviceInfo
     case ConnectToTargetDevice
+    case EnsureCorrectEthernetFeatureStatus
     case EnsureLatestFirmware
     case EnsureTargetDeviceCanBeClaimed
     case CheckTargetDeviceHasNetworkInterfaces
@@ -245,6 +246,7 @@ internal struct MeshDevice {
     var nextFirmwareBinaryFilePath: String?
     var firmwareFilesFlashed: Int?
     var firmwareUpdateProgress: Double?
+    var enableEthernetFeature: Bool?
 
     var claimCode: String?
     var isClaimed: Bool?
@@ -263,6 +265,8 @@ internal struct MeshDevice {
     var apiNetworks: [ParticleNetwork]?
 
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
+
+
 
     func hasActiveInternetInterface() -> Bool {
         return activeInternetInterface != nil

@@ -18,6 +18,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     private var targetDeviceType: ParticleDeviceType?
     private var targetDeviceDataMatrixString: String!
     private var targetDeviceName:String?
+    private var targetDeviceUseEthernet:Bool?
 
     private var commissionerDeviceType: ParticleDeviceType?
     private var commissionerDeviceDataMatrixString: String!
@@ -33,6 +34,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private var createNetworkName:String?
     private var createNetworkPassword:String?
+
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -90,9 +93,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
-    func showTargetDeviceGetReady() {
+    func showTargetDeviceGetReady(useEthernet: Bool) {
         log("target device ready")
 
+        self.targetDeviceUseEthernet = useEthernet
         DispatchQueue.main.async {
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
             findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker, deviceType: self.targetDeviceType)
@@ -121,7 +125,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
            self.targetDeviceType == nil || type == self.targetDeviceType {
             self.targetDeviceType = type
 
-            if let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix) {
+            if let error = flowManager.setTargetDeviceInfo(dataMatrix: matrix, useEthernet: self.targetDeviceUseEthernet!) {
                 restartCaptureSession()
             } else {
                 self.flowManager.pauseSetup()
@@ -555,6 +559,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             targetDeviceType = nil
             targetDeviceDataMatrixString = nil
             targetDeviceName = nil
+            targetDeviceUseEthernet = nil
 
             let getReadyVC = MeshSetupGetReadyViewController.loadedViewController()
             getReadyVC.setup(didPressReady: showTargetDeviceGetReady, deviceType: self.targetDeviceType)
