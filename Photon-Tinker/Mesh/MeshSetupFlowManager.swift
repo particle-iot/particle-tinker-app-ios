@@ -2012,6 +2012,8 @@ extension MeshSetupFlowManager {
                 }
                 self.stepComplete()
                 return
+            } else {
+                self.fail(withReason: .FailedToUpdateDeviceOS, nsError: error)
             }
         }
     }

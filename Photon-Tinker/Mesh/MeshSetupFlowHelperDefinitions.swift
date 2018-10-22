@@ -155,6 +155,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
     //EnsureHasInternetAccess
     case FailedToObtainIp
+    case FailedToUpdateDeviceOS
 
     //GetNewDeviceName
     case UnableToJoinNetwork
@@ -176,6 +177,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
                 //these errors are handled instantly
+            case .FailedToUpdateDeviceOS : return "There was an error while performing DeviceOS update."
             case .FailedToFlashBecauseOfTimeout : return "It seems that device has exited the listening mode. Please put it in listening mode again (blinking blue) and retry."
 
             case .UnableToDownloadFirmwareBinary : return "Failed to download firmware update. Please try again later."
