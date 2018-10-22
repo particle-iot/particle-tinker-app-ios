@@ -849,25 +849,20 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func targetDeviceLeaveAPINetwork() {
-        if let networkId = self.targetDevice.meshNetworkInfo?.networkID, networkId.count > 0 {
-            ParticleCloud.sharedInstance().removeDevice(self.targetDevice.deviceId!, fromNetwork: networkId) {
-                error in
+        ParticleCloud.sharedInstance().removeDeviceNetworkInfo(self.targetDevice.deviceId!) {
+            error in
 
-                if (self.canceled) {
-                    return
-                }
-
-                //TODO: see what happens if this is called multiple times due to BT timeouts
-                NSLog("removeDevice error: \(error)")
-                guard error == nil else {
-                    self.fail(withReason: .UnableToLeaveNetwork, nsError: error)
-                    return
-                }
-
-                self.targetDeviceLeaveMeshNetwork(reloadAPINetworks: true)
+            if (self.canceled) {
+                return
             }
-        } else {
-            self.targetDeviceLeaveMeshNetwork(reloadAPINetworks: false)
+
+            NSLog("removeDevice error: \(error)")
+            guard error == nil else {
+                self.fail(withReason: .UnableToLeaveNetwork, nsError: error)
+                return
+            }
+
+            self.targetDeviceLeaveMeshNetwork(reloadAPINetworks: true)
         }
     }
 
