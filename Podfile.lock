@@ -68,7 +68,7 @@ PODS:
     - ParticleSetup/Comm
   - PPTopMostController (0.0.1)
   - PullToRefreshCoreText (0.2)
-  - Reveal-SDK (15)
+  - Reveal-SDK (18)
   - RMessage (2.3.2):
     - HexColors (~> 4.0)
     - PPTopMostController
@@ -158,7 +158,7 @@ SPEC CHECKSUMS:
   ParticleSetup: 8a0b767d26c5c5d355f8b9929ba2d65a3a498313
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
-  Reveal-SDK: 25e21896c478b60b948f876043f91570d368d23d
+  Reveal-SDK: cce79388da3fd0bbb6ae19d769b906cfc3a33a89
   RMessage: 761f8ff71247b8d72d0c4a0be5a8e6ce8dfdedd0
   Segment-Firebase: 05a04c7a69901841d2f6b6670e5be2e20d56b2d6
   SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f

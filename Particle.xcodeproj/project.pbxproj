@@ -905,7 +905,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer-15/iOS/RevealServer.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-18/iOS/RevealServer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
