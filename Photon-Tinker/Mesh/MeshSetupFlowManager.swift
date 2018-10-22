@@ -12,8 +12,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .ConnectToTargetDevice,
         .EnsureLatestFirmware,
         .GetAPINetworks,
-        .EnsureTargetDeviceIsNotOnMeshNetwork,
         .EnsureTargetDeviceCanBeClaimed,
+        .EnsureTargetDeviceIsNotOnMeshNetwork,
         .SetClaimCode,
         .CheckTargetDeviceHasNetworkInterfaces,
         .OfferSetupStandAloneOrWithNetwork,
@@ -1148,6 +1148,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             if (self.selectedNetworkMeshInfo?.extPanID == self.commissionerDevice!.meshNetworkInfo?.extPanID) {
+                self.selectedNetworkMeshInfo = self.commissionerDevice!.meshNetworkInfo
                 self.targetDevice.meshNetworkInfo = self.commissionerDevice!.meshNetworkInfo
 
                 if let networkId = self.targetDevice.meshNetworkInfo?.networkID, networkId.count > 0 {
