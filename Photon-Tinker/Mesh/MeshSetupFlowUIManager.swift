@@ -829,7 +829,14 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
+
+            var message = error.description
+
+            if let apiError = nsError as? NSError {
+                message = apiError.localizedDescription
+            }
+
+            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
 
             if (severity == .Fatal) {
                 alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
