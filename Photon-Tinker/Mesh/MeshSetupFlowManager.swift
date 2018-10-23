@@ -33,6 +33,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .JoinSelectedNetwork,
         .FinishJoinSelectedNetwork,
         .CheckDeviceGotClaimed,
+        .PublishDeviceSetupDoneEvent,
         .GetNewDeviceName,
         .OfferToAddOneMoreDevice
     ]
@@ -46,6 +47,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .ShowInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
+        .PublishDeviceSetupDoneEvent,
         .GetNewDeviceName,
         .ChooseSubflow
     ]
@@ -58,6 +60,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureCorrectSelectedWifiNetworkPassword,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
+        .PublishDeviceSetupDoneEvent,
         .GetNewDeviceName,
         .ChooseSubflow
     ]
@@ -68,6 +71,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //.ShowGatewayInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
+        .PublishDeviceSetupDoneEvent,
         .GetNewDeviceName,
         .ChooseSubflow
     ]
@@ -239,6 +243,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .EnsureCorrectSelectedWifiNetworkPassword,
                     .CreateNetwork,
                     .EnsureHasInternetAccess,
+                    .PublishDeviceSetupDoneEvent,
                     .CheckDeviceGotClaimed,
                     .StopTargetDeviceListening,
                     .FinishJoinSelectedNetwork,
@@ -285,6 +290,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             case .EnsureCorrectEthernetFeatureStatus:
                 self.stepEnsureCorrectEthernetFeatureStatus()
 
+            case .PublishDeviceSetupDoneEvent:
+                self.stepPublishDeviceSetupDoneEvent();
             case .GetAPINetworks:
                 self.stepGetAPINetworks()
 
@@ -978,7 +985,24 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
 
+    //MARK: PublishDeviceSetupDoneEvent
+    private func stepPublishDeviceSetupDoneEvent() {
+        self.log("publishing device setup done")
+        ParticleCloud.sharedInstance().publishEvent(withName: "mesh-device-setup-complete", data: self.targetDevice.deviceId!, isPrivate: true, ttl: 60) {
+            error in
+            if (self.canceled) {
+                return
+            }
 
+            self.log("stepPublishDeviceSetupDoneEvent error: \(error)")
+            guard error == nil else {
+                self.fail(withReason: .UnableToPublishDeviceSetupEvent, nsError: error)
+                return
+            }
+
+            self.stepComplete()
+        }
+    }
 
     //MARK: GetAPINetworks
     private func stepGetAPINetworks() {

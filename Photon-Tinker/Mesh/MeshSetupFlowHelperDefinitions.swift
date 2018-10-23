@@ -65,6 +65,7 @@ internal enum MeshSetupFlowCommand {
     case FinishJoinSelectedNetwork
     case GetNewDeviceName
     case OfferToAddOneMoreDevice
+    case PublishDeviceSetupDoneEvent
 
     //gateway
     case GetUserWifiNetworkSelection
@@ -159,6 +160,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToUpdateDeviceOS
 
     //GetNewDeviceName
+    case UnableToPublishDeviceSetupEvent
     case UnableToJoinNetwork
     case UnableToJoinOldNetwork
     case UnableToRetrieveNetworks
@@ -193,6 +195,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .NameTooShort : return "Device name cannot be empty."
 
                 //user facing errors
+            case .UnableToPublishDeviceSetupEvent : return "There was an error while notifying Particle Device Cloud about successful device setup. Please try again."
             case .UnableToLeaveNetwork : return "There was an error while removing device from mesh network on Particle Device Cloud."
             case .UnableToJoinNetwork : return "There was an error while adding device to mesh network on Particle Device Cloud."
             case .UnableToJoinOldNetwork : return "Network you are trying to join, was created locally with test version of the app. Please create new network."
