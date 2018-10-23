@@ -35,6 +35,9 @@ public enum ControlRequestMessageType: UInt16 {
     case GetInterface = 401
 
 
+    case GetIccid = 554
+
+
     case SystemReset = 40
     case SetFeature = 33
     case GetFeature = 34

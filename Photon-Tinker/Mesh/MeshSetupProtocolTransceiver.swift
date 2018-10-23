@@ -546,6 +546,22 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
+
+    func sendGetIccid(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_Cellular_GetIccidRequest()
+
+        let data = self.prepareRequestMessage(type: .GetIccid, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Cellular_GetIccidReply(serializedData: rm.data) as! Particle_Ctrl_Cellular_GetIccidReply
+                callback(rm.result,  decodedReply.iccid)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
     //MARK: OTA
     func sendSystemReset(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_SystemResetRequest()
