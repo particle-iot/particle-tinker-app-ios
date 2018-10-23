@@ -189,7 +189,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func continueSetup() {
-        self.runCurrentStep()
+        if (self.pause) {
+            self.pause = false
+            self.runCurrentStep()
+        }
     }
 
     func cancelSetup() {
@@ -347,7 +350,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.currentStep += 1
 
         if (self.pause) {
-            self.pause = false
             return
         }
 
