@@ -615,7 +615,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func reconnectHandler() {
-        NSLog("Connection was dropped, but it's fine.")
+        self.log("Connection was dropped, but it's fine.")
         //lets try reconnecting to the device by moving few steps back
         self.currentStep = self.preflow.index(of: .ConnectToTargetDevice)!
         self.log("returning to step: \(self.currentStep)")
@@ -749,10 +749,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private func checkTargetDeviceIsClaimed() {
+        self.log("sending get devices")
         ParticleCloud.sharedInstance().getDevices { devices, error in
             if (self.canceled) {
                 return
             }
+
+            self.log("get devices completed")
 
             guard error == nil else {
                 self.fail(withReason: .UnableToGenerateClaimCode, nsError: error)
@@ -809,9 +812,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func getTargetDeviceMeshNetworkInfo() {
         self.targetDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
             self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
+            self.log(result)
             if (self.canceled) {
                 return
             }
+
             if (result == .NOT_FOUND) {
                 self.targetDevice.meshNetworkInfo = nil
                 let _ = self.setTargetDeviceLeaveNetwork(leave: true)
@@ -841,7 +846,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.targetDeviceLeaveAPINetwork()
         } else {
             //user decided to cancel setup, and we want to get his device in normal mode.
-            NSLog("stopping listening mode?")
+            self.log("stopping listening mode?")
             self.stopTargetDeviceListening(onComplete: {
                 self.delegate.meshSetupDidEnterState(state: .SetupCanceled)
             })
@@ -851,6 +856,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func targetDeviceLeaveAPINetwork() {
+        self.log("sening remove device network info to API")
         ParticleCloud.sharedInstance().removeDeviceNetworkInfo(self.targetDevice.deviceId!) {
             error in
 
@@ -858,7 +864,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
-            NSLog("removeDevice error: \(error)")
+            self.log("removeDevice error: \(error)")
             guard error == nil else {
                 self.fail(withReason: .UnableToLeaveNetwork, nsError: error)
                 return
@@ -906,6 +912,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 }
             }
         } else {
+            self.log("skipping step as device belongs to user")
             self.stepComplete()
         }
     }
@@ -975,12 +982,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: GetAPINetworks
     private func stepGetAPINetworks() {
+        self.log("sening get networks")
         ParticleCloud.sharedInstance().getNetworks { networks, error in
             if (self.canceled) {
                 return
             }
 
-            NSLog("getNetworks: \(networks), error: \(error)")
+            self.log("getNetworks: \(networks), error: \(error)")
             guard error == nil else {
                 self.fail(withReason: .UnableToRetrieveNetworks, nsError: error)
                 return
@@ -1398,7 +1406,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             //TODO: see what happens if this is called multiple times due to BT timeouts
-            NSLog("addDevice error: \(error)")
+            self.log("addDevice error: \(error)")
             guard error == nil else {
                 self.fail(withReason: .UnableToJoinNetwork, nsError: error)
                 return
@@ -1834,7 +1842,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
-            NSLog("createNetwork: \(network), error: \(error)")
+            self.log("createNetwork: \(network), error: \(error)")
             guard error == nil else {
                 self.fail(withReason: .UnableToCreateNetwork, nsError: error)
                 return
@@ -1890,6 +1898,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     func stepEnsureCorrectEthernetFeatureStatus() {
         self.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { result, enabled in
             self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled)")
+            self.log("self.targetDevice.enableEthernetFeature = \(self.targetDevice.enableEthernetFeature)")
             if (self.canceled) {
                 return
             }
@@ -2081,7 +2090,7 @@ extension MeshSetupFlowManager {
                 return
             }
 
-            NSLog("getNextBinaryURL: \(url), error: \(error)")
+            self.log("getNextBinaryURL: \(url), error: \(error)")
             if let url = url {
                 self.targetDevice.nextFirmwareBinaryURL = url
                 self.binaryURLReady()
@@ -2138,7 +2147,7 @@ extension MeshSetupFlowManager {
                 return
             }
 
-            NSLog("prepareOTABinary: \(url), error: \(error)")
+            self.log("prepareOTABinary: \(url), error: \(error)")
 
             guard error == nil else {
                 self.fail(withReason: .UnableToDownloadFirmwareBinary, nsError: error)
