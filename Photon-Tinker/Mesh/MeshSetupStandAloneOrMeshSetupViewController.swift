@@ -37,9 +37,35 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
 
     @IBAction func meshButtonTapped(_ sender: Any) {
         callback(true)
+
+        ParticleSpinner.show(view)
+        fadeContent()
     }
 
     @IBAction func standAloneButtonTapped(_ sender: Any) {
         callback(false)
+
+        ParticleSpinner.show(view)
+        fadeContent()
+    }
+
+    internal func fadeContent() {
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.titleLabel.alpha = 0.5
+            self.textLabel.alpha = 0.5
+
+            self.meshButton.alpha = 0.5
+            self.standaloneButton.alpha = 0.5
+        }
+    }
+
+    internal func unfadeContent() {
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.titleLabel.alpha = 1
+            self.textLabel.alpha = 1
+
+            self.meshButton.alpha = 1
+            self.standaloneButton.alpha = 1
+        }
     }
 }
