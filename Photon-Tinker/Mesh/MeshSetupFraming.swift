@@ -36,6 +36,7 @@ public enum ControlRequestMessageType: UInt16 {
 
 
     case GetIccid = 554
+    case SetActiveSim = 552
 
 
     case SystemReset = 40
