@@ -25,7 +25,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let joinerFlow: [MeshSetupFlowCommand] = [
         .ShowInfo,
         .GetUserNetworkSelection,
-        //.ShowBillingImpact
+        //.ShowPricingImpact
         .GetCommissionerDeviceInfo,
         .ConnectToCommissionerDevice,
         .EnsureCommissionerNetworkMatches,
@@ -43,7 +43,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private let ethernetFlow: [MeshSetupFlowCommand] = [
         //.OfferSelectOrCreateNetwork,
-        //.ShowEthernetBillingImpact
+        .ShowPricingImpact,
         .ShowInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
@@ -54,7 +54,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private let wifiFlow: [MeshSetupFlowCommand] = [
         //.OfferSelectOrCreateNetwork,
-        //.ShowWifiBillingImpact
+        .ShowPricingImpact,
         .ShowInfo,
         .GetUserWifiNetworkSelection,
         .EnsureCorrectSelectedWifiNetworkPassword,
@@ -67,8 +67,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private let cellularFlow: [MeshSetupFlowCommand] = [
         //.OfferSelectOrCreateNetwork,
-        //.ShowBillingImpact
-        //.ShowGatewayInfo,
+        .ShowPricingImpact,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
@@ -111,6 +110,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //for joining flow
     private var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
 
+    private var pricingRequirementsAreMet: Bool?
 
     private var selectedNetworkMeshInfo: MeshSetupNetworkInfo?
     private var selectedNetworkPassword: String?
@@ -242,6 +242,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .EnsureCorrectSelectedNetworkPassword,
                     .EnsureCorrectSelectedWifiNetworkPassword,
                     .CreateNetwork,
+                    .ShowPricingImpact,
                     .EnsureHasInternetAccess,
                     .PublishDeviceSetupDoneEvent,
                     .CheckDeviceGotClaimed,
@@ -289,6 +290,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepSetClaimCode()
             case .EnsureCorrectEthernetFeatureStatus:
                 self.stepEnsureCorrectEthernetFeatureStatus()
+            case .ShowPricingImpact:
+                self.stepShowPricingImpact()
 
             case .PublishDeviceSetupDoneEvent:
                 self.stepPublishDeviceSetupDoneEvent();
@@ -392,10 +395,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func stepChooseSubflow() {
-
-
-
-        if (self.userSelectedToSetupMesh!) {
+       if (self.userSelectedToSetupMesh!) {
             self.currentStep = 0
             self.currentFlow = creatorSubflow
 //        if (userSelectedToCreateNetwork) {
@@ -819,7 +819,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func getTargetDeviceMeshNetworkInfo() {
         self.targetDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
             self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
-            self.log(result)
+            self.log("\(networkInfo as Optional)");
             if (self.canceled) {
                 return
             }
@@ -871,7 +871,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
-            self.log("removeDevice error: \(error)")
+            self.log("removeDevice error: \(error as Optional)")
             guard error == nil else {
                 self.fail(withReason: .UnableToLeaveNetwork, nsError: error)
                 return
@@ -994,7 +994,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
-            self.log("stepPublishDeviceSetupDoneEvent error: \(error)")
+            self.log("stepPublishDeviceSetupDoneEvent error: \(error as Optional)")
             guard error == nil else {
                 self.fail(withReason: .UnableToPublishDeviceSetupEvent, nsError: error)
                 return
@@ -1012,7 +1012,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
-            self.log("getNetworks: \(networks), error: \(error)")
+            self.log("getNetworks: \(networks as Optional), error: \(error as Optional)")
             guard error == nil else {
                 self.fail(withReason: .UnableToRetrieveNetworks, nsError: error)
                 return
@@ -1429,8 +1429,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
-            //TODO: see what happens if this is called multiple times due to BT timeouts
-            self.log("addDevice error: \(error)")
+            self.log("addDevice error: \(error as Optional)")
             guard error == nil else {
                 self.fail(withReason: .UnableToJoinNetwork, nsError: error)
                 return
@@ -1866,7 +1865,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
-            self.log("createNetwork: \(network), error: \(error)")
+            self.log("createNetwork: \(network as Optional), error: \(error as Optional)")
             guard error == nil else {
                 self.fail(withReason: .UnableToCreateNetwork, nsError: error)
                 return
@@ -1921,7 +1920,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: EnsureCorrectEthernetFeatureStatus
     func stepEnsureCorrectEthernetFeatureStatus() {
         self.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { result, enabled in
-            self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled)")
+            self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled as Optional)")
             self.log("self.targetDevice.enableEthernetFeature = \(self.targetDevice.enableEthernetFeature)")
             if (self.canceled) {
                 return
@@ -1933,6 +1932,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 } else {
                     self.setCorrectEthernetFeatureStatus()
                 }
+            } else if (result == .NOT_SUPPORTED) {
+                self.stepComplete()
             } else {
                 self.handleBluetoothErrorResult(result)
             }
@@ -1987,7 +1988,84 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.handleBluetoothErrorResult(result)
             }
         }
+    }
 
+    //MARK: ShowPricingImpact
+    private func stepShowPricingImpact() {
+        //if it's boron, get iccid first
+        if (self.targetDevice.type! == .boron && self.targetDevice.deviceICCID == nil) {
+            self.getTargetDeviceICCID()
+            return
+        }
+
+        self.getPricingImpact()
+    }
+
+    private func getTargetDeviceICCID() {
+        self.targetDevice.transceiver!.sendGetIccid () { result, iccid in
+            self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                self.targetDevice.deviceICCID = iccid!
+                self.getPricingImpact()
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
+    }
+
+    private func getPricingImpact() {
+        //if standalone or joiner
+
+        var action = ParticlePricingImpactAction.addNetworkDevice
+        if (self.userSelectedToSetupMesh != nil){
+            action = self.userSelectedToSetupMesh! ? .createNetwork : .addUserDevice
+        }
+        let networkType = (self.targetDevice.type! == .boron) ? ParticlePricingImpactNetworkType.cellular : ParticlePricingImpactNetworkType.wifi
+
+        ParticleCloud.sharedInstance().getPricingImpact(action,
+                deviceID: self.targetDevice.deviceId!,
+                networkID: self.selectedNetworkMeshInfo?.networkID,
+                networkType: networkType,
+                iccid: self.targetDevice.deviceICCID)
+        {
+            pricingInfo, error in
+
+            if (self.canceled) {
+                return
+            }
+
+            self.log("getPricingImpact: \(pricingInfo), error: \(error)")
+
+            if (error != nil) {
+                self.fail(withReason: .UnableToGetPricingInformation, nsError: error)
+                return
+            }
+
+            if (pricingInfo!.chargeable == false) {
+                self.pricingRequirementsAreMet = true
+            } else {
+                self.pricingRequirementsAreMet = pricingInfo!.ccOnFile == true
+            }
+
+            self.delegate.meshSetupDidRequestToShowPricingInfo(info: pricingInfo!)
+        }
+    }
+
+    func setPricingImpactDone() -> MeshSetupFlowError? {
+        guard currentCommand == .ShowPricingImpact else {
+            return .IllegalOperation
+        }
+
+        if (!(self.pricingRequirementsAreMet ?? false)) {
+            return .CCMissing
+        }
+
+        self.stepComplete()
+        return nil
     }
 }
 
@@ -2066,10 +2144,12 @@ extension MeshSetupFlowManager {
             if (result == .NONE) {
                 self.targetDevice.ncpVersion = version!
                 self.targetDevice.ncpModuleVersion = moduleVersion!
+
                 self.checkTargetDeviceIsSetupDone()
             } else if (result == .NOT_SUPPORTED) {
                 self.targetDevice.ncpVersion = nil
                 self.targetDevice.ncpModuleVersion = nil
+
                 self.checkTargetDeviceIsSetupDone()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -2184,8 +2264,6 @@ extension MeshSetupFlowManager {
             }
         }
     }
-
-    //TODO: set forceListeningModeOnNextBoot to true
 
     private func startFirmwareUpdate() {
         self.log("Starting firmware update")

@@ -306,3 +306,48 @@ to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.GatewayInfoCellularMesh.Button" = "Connect to Device Cloud";
 "MeshSetup.GatewayInfoCellularMesh.Text2Activate" = "To connect we’ll activate the Particle SIM inside your {{device}}";
 "MeshSetup.GatewayInfoCellularStandalone.ButtonActivate" = "Activate SIM & Connect";
+
+
+
+
+
+
+
+
+
+"MeshSetup.PricingInfo.FreeNetworkTitle" = "Woo-hoo! Enjoy this new mesh network on us";
+"MeshSetup.PricingInfo.PaidNetworkTitle" = "To create a new mesh network, please enroll in a Device Cloud subscription";
+
+"MeshSetup.PricingInfo.FreeGatewayDeviceTitle" = "Woo-hoo! Enjoy Device Cloud access for this device on us";
+"MeshSetup.PricingInfo.PaidGatewayDeviceTitle" = "To activate this device, please enroll in a Device Cloud subscription";
+
+"MeshSetup.PricingInfo.DeviceCloudPlanTitle" = "DEVICE CLOUD";
+"MeshSetup.PricingInfo.MicroNetworkPlanTitle" = "MICRO NETWORK";
+
+"MeshSetup.PricingInfo.WifiDeviceText" = "Wi-Fi/Ethernet device";
+"MeshSetup.PricingInfo.WifiGatewayText" = "Wi-Fi/Ethernet Gateway";
+
+"MeshSetup.PricingInfo.CellularDeviceText" = "Cellular device";
+"MeshSetup.PricingInfo.CellularGatewayText" = "Cellular Gateway";
+
+
+"MeshSetup.PricingInfo.FreeDevicesText" = "First {{0}} devices FREE";
+"MeshSetup.PricingInfo.FreeNetworksText" = "First {{0}} networks FREE";
+"MeshSetup.PricingInfo.FreeMonthsText" = "FREE for {{0}} months";
+
+"MeshSetup.PricingInfo.PriceText" = "${{0}}";
+"MeshSetup.PricingInfo.PriceNoteText" = "per mo.";
+
+"MeshSetup.PricingInfo.DeviceCloudFeatures" = "DEVICE CLOUD INCLUDES";
+"MeshSetup.PricingInfo.MeshNetworkFeatures" = "MESH NETWORK INCLUDES";
+
+"MeshSetup.PricingInfo.FeaturesDeviceCloud" = "Device Cloud Features +";
+"MeshSetup.PricingInfo.FeaturesMaxDevices" ="{{0}} total devices";
+"MeshSetup.PricingInfo.FeaturesMaxGateways" = "up to {{0}} gateway";
+"MeshSetup.PricingInfo.FeaturesDataAllowence" = "{{0}}MB of cellular data/mo.\naddnl. MBs start at ${{1}}";
+"MeshSetup.PricingInfo.FeaturesStandardSupport" = "Standard support";
+
+"MeshSetup.PricingInfo.ButtonNext" = "Next";
+"MeshSetup.PricingInfo.ButtonEnroll" = "Enroll in subscription";
+
+

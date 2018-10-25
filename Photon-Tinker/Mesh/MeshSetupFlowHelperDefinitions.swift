@@ -36,6 +36,8 @@ protocol MeshSetupFlowManagerDelegate {
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
+    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
+
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
@@ -53,6 +55,7 @@ internal enum MeshSetupFlowCommand {
     case ChooseFlow
 
     //main flow
+    case ShowPricingImpact
     case GetAPINetworks
     case SetClaimCode
     case EnsureTargetDeviceIsNotOnMeshNetwork
@@ -160,6 +163,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToUpdateDeviceOS
 
     //GetNewDeviceName
+    case CCMissing
+    case UnableToGetPricingInformation
     case UnableToPublishDeviceSetupEvent
     case UnableToJoinNetwork
     case UnableToJoinOldNetwork
@@ -195,6 +200,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .NameTooShort : return "Device name cannot be empty."
 
                 //user facing errors
+            case .CCMissing : return "You need to add a credit card to your account to continue. Please visit https://console.particle.io/billing/edit-card to add a card and return here when you’re done."
+            case .UnableToGetPricingInformation : return "There was an error while retrieving pricing information. Please try again."
             case .UnableToPublishDeviceSetupEvent : return "There was an error while notifying Particle Device Cloud about successful device setup. Please try again."
             case .UnableToLeaveNetwork : return "There was an error while removing device from mesh network on Particle Device Cloud."
             case .UnableToJoinNetwork : return "There was an error while adding device to mesh network on Particle Device Cloud."
