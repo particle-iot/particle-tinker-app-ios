@@ -1993,7 +1993,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: ShowPricingImpact
     private func stepShowPricingImpact() {
         //if it's boron, get iccid first
-        if (self.targetDevice.type! == .boron && self.targetDevice.deviceICCID == nil) {
+        if (self.targetDevice.type! == .boron &&
+                self.targetDevice.activeInternetInterface != nil &&
+                self.targetDevice.activeInternetInterface! == .ppp &&
+                self.targetDevice.deviceICCID == nil) {
             self.getTargetDeviceICCID()
             return
         }

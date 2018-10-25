@@ -114,7 +114,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         ethernetToggleTitle?.text = MeshSetupStrings.GetReady.EthernetToggleTitle
         ethernetToggleText?.text = MeshSetupStrings.GetReady.EthernetToggleText
 
-        switch (self.deviceType!) {
+        switch (self.deviceType ?? .xenon) {
             case .xenon:
                 initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
             case .argon:
@@ -122,10 +122,10 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
             case .boron:
                 initializeVideoPlayerWithVideo(videoFileName: "boron_power_on")
             default:
-                //do nothing
+                initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
                 break
         }
-        
+
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
