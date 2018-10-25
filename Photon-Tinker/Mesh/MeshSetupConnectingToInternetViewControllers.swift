@@ -79,3 +79,42 @@ class MeshSetupConnectingToInternetWifiViewController: MeshSetupProgressViewCont
         }
     }
 }
+
+class MeshSetupConnectingToInternetCellularViewController: MeshSetupProgressViewController, Storyboardable {
+
+    static var nibName: String {
+        return "MeshSetupProgressView"
+    }
+
+    override func setContent() {
+        successTitleLabel.text = MeshSetupStrings.ConnectingToInternetCellular.SuccessTitle
+        successTextLabel.text = MeshSetupStrings.ConnectingToInternetCellular.SuccessText
+
+        progressTitleLabel.text = MeshSetupStrings.ConnectingToInternetCellular.Title
+
+        self.progressTextLabelValues = [
+            MeshSetupStrings.ConnectingToInternetCellular.Text1,
+            MeshSetupStrings.ConnectingToInternetCellular.Text2,
+            MeshSetupStrings.ConnectingToInternetCellular.Text3
+        ]
+
+        setProgressLabelValues()
+    }
+
+    func setState(_ state: MeshSetupFlowState) {
+        DispatchQueue.main.async {
+            switch state {
+                case .TargetDeviceConnectingToInternetStarted:
+                    self.setStep(0)
+                case .TargetDeviceConnectingToInternetStep1Done:
+                    self.setStep(1)
+                case .TargetDeviceConnectingToInternetStep2Done:
+                    self.setStep(2)
+                case .TargetDeviceConnectingToInternetCompleted:
+                    self.setStep(3)
+                default:
+                    fatalError("this should never happen")
+            }
+        }
+    }
+}

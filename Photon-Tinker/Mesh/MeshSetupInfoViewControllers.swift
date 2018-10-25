@@ -7,6 +7,59 @@ import Foundation
 
 
 
+class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboardable {
+    static var nibName: String {
+        return "MeshSetupInfoView"
+    }
+
+    internal var simActive:Bool!
+
+    func setup(didFinishScreen: @escaping () -> (), setupMesh:Bool, simActive:Bool, networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
+        self.callback = didFinishScreen
+
+        self.networkName = networkName
+        self.deviceType = deviceType
+        self.deviceName = deviceName
+
+        self.setupMesh = setupMesh
+        self.simActive = simActive
+    }
+
+    override func setContent() {
+        if (self.setupMesh) {
+            showGatewayMeshContent()
+        } else {
+            showGatewayStandAloneContent()
+        }
+
+        setLabelValues()
+    }
+
+    private func showGatewayStandAloneContent() {
+        titleLabel.text = MeshSetupStrings.GatewayInfoCellularStandalone.Title
+
+        self.textLabelValues = [
+            MeshSetupStrings.GatewayInfoCellularStandalone.Text1,
+            simActive ? MeshSetupStrings.GatewayInfoCellularStandalone.Text2 : MeshSetupStrings.GatewayInfoCellularStandalone.Text2Activate
+        ]
+
+        continueButton.setTitle(simActive ? MeshSetupStrings.GatewayInfoCellularStandalone.Button : MeshSetupStrings.GatewayInfoCellularStandalone.ButtonActivate, for: .normal)
+    }
+
+    private func showGatewayMeshContent() {
+        titleLabel.text = MeshSetupStrings.GatewayInfoCellularMesh.Title
+
+        self.textLabelValues = [
+            MeshSetupStrings.GatewayInfoCellularMesh.Text1,
+            simActive ? MeshSetupStrings.GatewayInfoCellularMesh.Text2 : MeshSetupStrings.GatewayInfoCellularMesh.Text2Activate,
+            MeshSetupStrings.GatewayInfoCellularMesh.Text3
+        ]
+
+        continueButton.setTitle(simActive ? MeshSetupStrings.GatewayInfoCellularMesh.Button : MeshSetupStrings.GatewayInfoCellularMesh.ButtonActivate, for: .normal)
+    }
+}
+
+
 
 class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {

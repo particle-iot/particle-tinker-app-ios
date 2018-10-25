@@ -286,6 +286,19 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool) {
+        DispatchQueue.main.async {
+            let cellularInfoVC = MeshSetupCellularInfoViewController.loadedViewController()
+            cellularInfoVC.setup(didFinishScreen: self.didFinishCellularInfoScreen, setupMesh: self.setupMesh, simActive: simActivated)
+            self.embededNavigationController.pushViewController(cellularInfoVC, animated: true)
+        }
+    }
+
+    func didFinishCellularInfoScreen() {
+        self.flowManager.setCellularInfoDone()
+    }
+
+
     //MARK: Scan WIFI networks
     private func showScanWifiNetworks() {
         DispatchQueue.main.async {
@@ -620,7 +633,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     self.embededNavigationController.pushViewController(connectingVC, animated: true)
                 }
             case .ppp:
-                break
+                DispatchQueue.main.async {
+                    let connectingVC = MeshSetupConnectingToInternetCellularViewController.loadedViewController()
+                    connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
+                    self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                }
             default:
                 //others are not interesting
                 break

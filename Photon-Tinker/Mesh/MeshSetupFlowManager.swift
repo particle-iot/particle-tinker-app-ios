@@ -68,6 +68,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let cellularFlow: [MeshSetupFlowCommand] = [
         //.OfferSelectOrCreateNetwork,
         .ShowPricingImpact,
+        .ShowCellularInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
@@ -242,6 +243,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     .EnsureCorrectSelectedNetworkPassword,
                     .EnsureCorrectSelectedWifiNetworkPassword,
                     .CreateNetwork,
+                    .ShowCellularInfo,
                     .ShowPricingImpact,
                     .EnsureHasInternetAccess,
                     .PublishDeviceSetupDoneEvent,
@@ -330,6 +332,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.stepGetUserWifiNetworkSelection()
             case .ShowInfo:
                 self.stepShowInfo()
+            case .ShowCellularInfo:
+                self.stepShowCellularInfo()
             case .EnsureCorrectSelectedWifiNetworkPassword:
                 self.stepEnsureCorrectSelectedWifiNetworkPassword()
             case .EnsureHasInternetAccess:
@@ -1616,6 +1620,46 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.stepComplete()
     }
 
+    //MARK: ShowCellularInfo
+    private func stepShowCellularInfo() {
+        if (self.targetDevice.simActive != nil) {
+            self.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.targetDevice.simActive!)
+            return
+        }
+
+        self.getSimInfo()
+    }
+
+    private func getSimInfo() {
+        ParticleCloud.sharedInstance().checkSim(self.targetDevice.deviceICCID!) { simStatus, error in
+            if (self.canceled) {
+                return
+            }
+
+            self.log("simStatus: \(simStatus.rawValue), error: \(error)")
+
+            if (error != nil) {
+                self.fail(withReason: .UnableToGetSimStatus, nsError: error)
+            } else {
+                if simStatus == ParticleSimStatus.OK {
+                    self.targetDevice.simActive = false
+                    self.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.targetDevice.simActive!)
+                } else if simStatus == ParticleSimStatus.activated || simStatus == ParticleSimStatus.activatedFree {
+                    self.targetDevice.simActive = true
+                    self.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.targetDevice.simActive!)
+                } else {
+                    self.fail(withReason: .UnableToGetSimStatus)
+                }
+            }
+        }
+    }
+
+    func setCellularInfoDone() {
+        self.stepComplete()
+    }
+
+
+
     //MARK: EnsureHasInternetAccess
     private func stepEnsureHasInternetAccess() {
         self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStarted)
@@ -1626,12 +1670,63 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
             if (result == .NONE) {
-                self.stopTargetDeviceListening {
-                    self.checkDeviceHasIP()
+                if self.currentFlow == self.cellularFlow {
+                    self.activateSim()
+                } else {
+                    self.activateSimDone()
                 }
             } else {
                 self.handleBluetoothErrorResult(result)
             }
+        }
+    }
+
+    private func activateSim() {
+        if (self.targetDevice.simActive ?? false) {
+            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
+            self.activateSimDone()
+            return
+        }
+
+        if (self.currentStepFlags["checkSimActiveRetryCount"] == nil) {
+            self.currentStepFlags["checkSimActiveRetryCount"] = 0
+        } else {
+            self.currentStepFlags["checkSimActiveRetryCount"] = (self.currentStepFlags["checkSimActiveRetryCount"] as! Int) + 1
+        }
+
+        let retries = self.currentStepFlags["checkSimActiveRetryCount"] as! Int
+
+        if (retries > MeshSetup.activateSimRetryCount) {
+            self.currentStepFlags["checkSimActiveRetryCount"] = nil
+            self.fail(withReason: .FailedToActivateSim)
+            return
+        }
+
+        ParticleCloud.sharedInstance().updateSim(self.targetDevice.deviceICCID!, action: .activate, dataLimit: nil, countryCode: nil, cardToken: nil) {
+            error in
+
+            if (self.canceled) {
+                return
+            }
+
+            if let nsError = error as? NSError, nsError.code == 504 {
+                 self.log("activate sim returned 504, but that is fine :(")
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                    self.activateSim()
+                }
+            } else if (error != nil) {
+                self.fail(withReason: .FailedToActivateSim, nsError: error!)
+                return
+            } else {
+                self.targetDevice.simActive = true
+                self.activateSimDone()
+            }
+        }
+    }
+
+    private func activateSimDone() {
+        self.stopTargetDeviceListening {
+            self.checkDeviceHasIP()
         }
     }
 
@@ -2005,6 +2100,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func getTargetDeviceICCID() {
+        self.log("getting iccid")
         self.targetDevice.transceiver!.sendGetIccid () { result, iccid in
             self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
             if (self.canceled) {

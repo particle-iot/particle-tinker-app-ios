@@ -209,6 +209,13 @@ to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.ConnectingToInternetWifi.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
 
 
+"MeshSetup.ConnectingToInternetCellular.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetCellular.Text1" = "Activating Particle SIM";
+"MeshSetup.ConnectingToInternetCellular.Text2" = "Connecting to the Intenet via cellular";
+"MeshSetup.ConnectingToInternetCellular.Text3" = "Starting a secure session with the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetCellular.SuccessTitle" = "Congrats!";
+"MeshSetup.ConnectingToInternetCellular.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
+
 
 
 
@@ -305,7 +312,7 @@ to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.GatewayInfoCellularMesh.Text3" = "Once connected you can create or join a mesh network using this {{device}}";
 "MeshSetup.GatewayInfoCellularMesh.Button" = "Connect to Device Cloud";
 "MeshSetup.GatewayInfoCellularMesh.Text2Activate" = "To connect we’ll activate the Particle SIM inside your {{device}}";
-"MeshSetup.GatewayInfoCellularStandalone.ButtonActivate" = "Activate SIM & Connect";
+"MeshSetup.GatewayInfoCellularMesh.ButtonActivate" = "Activate SIM & Connect";
 
 
 

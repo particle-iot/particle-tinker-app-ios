@@ -266,6 +266,16 @@ class MeshSetupStrings {
         static let SuccessText = "MeshSetup.ConnectingToInternetWifi.SuccessText".meshLocalized()
     }
 
+    struct ConnectingToInternetCellular {
+        static let Title = "MeshSetup.ConnectingToInternetCellular.Title".meshLocalized()
+        static let Text1 = "MeshSetup.ConnectingToInternetCellular.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.ConnectingToInternetCellular.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.ConnectingToInternetCellular.Text3".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.ConnectingToInternetCellular.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.ConnectingToInternetCellular.SuccessText".meshLocalized()
+    }
+
 
 
 
@@ -369,7 +379,7 @@ class MeshSetupStrings {
         static let Title = "MeshSetup.GatewayInfoCellularStandalone.Title".meshLocalized()
         static let Text1 = "MeshSetup.GatewayInfoCellularStandalone.Text1".meshLocalized()
         static let Text2 = "MeshSetup.GatewayInfoCellularStandalone.Text2".meshLocalized()
-        static let Text2Text2Activate = "MeshSetup.GatewayInfoCellularStandalone.Text2Activate".meshLocalized()
+        static let Text2Activate = "MeshSetup.GatewayInfoCellularStandalone.Text2Activate".meshLocalized()
         static let Button = "MeshSetup.GatewayInfoCellularStandalone.Button".meshLocalized()
         static let ButtonActivate = "MeshSetup.GatewayInfoCellularStandalone.ButtonActivate".meshLocalized()
     }

@@ -13,6 +13,7 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
 
     func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
+    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
 
     func meshSetupDidRequestToUpdateFirmware()
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
@@ -72,6 +73,7 @@ internal enum MeshSetupFlowCommand {
 
     //gateway
     case GetUserWifiNetworkSelection
+    case ShowCellularInfo
     case ShowInfo
     case EnsureCorrectSelectedWifiNetworkPassword
     case EnsureHasInternetAccess
@@ -163,9 +165,11 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToUpdateDeviceOS
 
     //GetNewDeviceName
+    case FailedToActivateSim
     case CCMissing
     case UnableToGetPricingInformation
     case UnableToPublishDeviceSetupEvent
+    case UnableToGetSimStatus
     case UnableToJoinNetwork
     case UnableToJoinOldNetwork
     case UnableToRetrieveNetworks
@@ -200,8 +204,10 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .NameTooShort : return "Device name cannot be empty."
 
                 //user facing errors
+            case .FailedToActivateSim : return "SIM activation is taking longer than expected. Please retry your SIM activation. If you have retried many times, please contact support."
             case .CCMissing : return "You need to add a credit card to your account to continue. Please visit https://console.particle.io/billing/edit-card to add a card and return here when you’re done."
             case .UnableToGetPricingInformation : return "There was an error while retrieving pricing information. Please try again."
+            case .UnableToGetSimStatus : return "There was an error while reading internal SIM card status. Please try again."
             case .UnableToPublishDeviceSetupEvent : return "There was an error while notifying Particle Device Cloud about successful device setup. Please try again."
             case .UnableToLeaveNetwork : return "There was an error while removing device from mesh network on Particle Device Cloud."
             case .UnableToJoinNetwork : return "There was an error while adding device to mesh network on Particle Device Cloud."
@@ -242,6 +248,7 @@ internal struct MeshDevice {
     var type: ParticleDeviceType?
     var deviceId: String?
     var deviceICCID: String?
+    var simActive: Bool?
     var credentials: MeshSetupPeripheralCredentials?
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
 
