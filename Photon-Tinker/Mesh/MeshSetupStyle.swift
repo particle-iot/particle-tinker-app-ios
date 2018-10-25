@@ -18,10 +18,14 @@ class MeshSetupStyle {
     static var RegularSize = 16
     static var LargeSize = 18
     static var ExtraLargeSize = 22
+    static var PriceSize = 48
 
     //colors
     static var PrimaryTextColor = UIColor.colorWithHexString("#333333")
     static var SecondaryTextColor = UIColor.colorWithHexString("#B1B1B1")
+
+    static var BillingTextColor = UIColor.colorWithHexString("#76777A")
+    static var StrikeThroughColor = UIColor.colorWithHexString("#002F87")
 
     static var DisabledTextColor = UIColor.colorWithHexString("#A9A9A9")
     static var PlaceHolderTextColor = UIColor.colorWithHexString("#A9A9A9")

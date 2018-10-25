@@ -251,6 +251,41 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
+    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo) {
+        DispatchQueue.main.async {
+            if let vc = self.embededNavigationController.topViewController as? MeshSetupPricingInfoViewController {
+                //the call has been retried and if cc was added it should pass this time
+                self.didFinishPricingInfo()
+            } else {
+                let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
+                pricingInfoVC.setup(didPressContinue: self.didFinishPricingInfo, pricingInfo: info)
+                self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
+            }
+        }
+    }
+
+    private func didFinishPricingInfo() {
+        if let error = self.flowManager.setPricingImpactDone() {
+            DispatchQueue.main.async {
+                var message = error.description
+
+                let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                    //reload pricing impact endpoint
+                    self.flowManager.retryLastAction()
+                })
+
+                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                    //do nothing
+                    self.cancelTapped(self)
+                })
+
+                self.present(alert, animated: true)
+            }
+        }
+    }
+
     //MARK: Scan WIFI networks
     private func showScanWifiNetworks() {
         DispatchQueue.main.async {

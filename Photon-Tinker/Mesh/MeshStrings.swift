@@ -383,4 +383,41 @@ class MeshSetupStrings {
         static let Button = "MeshSetup.GatewayInfoCellularMesh.Button".meshLocalized()
         static let ButtonActivate = "MeshSetup.GatewayInfoCellularMesh.ButtonActivate".meshLocalized()
     }
+
+
+    struct PricingInfo {
+        static let FreeNetworkTitle = "MeshSetup.PricingInfo.FreeNetworkTitle".meshLocalized()
+        static let PaidNetworkTitle = "MeshSetup.PricingInfo.PaidNetworkTitle".meshLocalized()
+
+        static let FreeGatewayDeviceTitle = "MeshSetup.PricingInfo.FreeGatewayDeviceTitle".meshLocalized()
+        static let PaidGatewayDeviceTitle = "MeshSetup.PricingInfo.PaidGatewayDeviceTitle".meshLocalized()
+
+        static let DeviceCloudPlanTitle = "MeshSetup.PricingInfo.DeviceCloudPlanTitle".meshLocalized()
+        static let MicroNetworkPlanTitle = "MeshSetup.PricingInfo.MicroNetworkPlanTitle".meshLocalized()
+
+        static let WifiDeviceText = "MeshSetup.PricingInfo.WifiDeviceText".meshLocalized()
+        static let WifiGatewayText = "MeshSetup.PricingInfo.WifiGatewayText".meshLocalized()
+
+        static let CellularDeviceText = "MeshSetup.PricingInfo.CellularDeviceText".meshLocalized()
+        static let CellularGatewayText = "MeshSetup.PricingInfo.CellularGatewayText".meshLocalized()
+
+        static let FreeDevicesText = "MeshSetup.PricingInfo.FreeDevicesText".meshLocalized()
+        static let FreeNetworksText = "MeshSetup.PricingInfo.FreeNetworksText".meshLocalized()
+        static let FreeMonthsText = "MeshSetup.PricingInfo.FreeMonthsText".meshLocalized()
+
+        static let PriceText = "MeshSetup.PricingInfo.PriceText".meshLocalized()
+        static let PriceNoteText = "MeshSetup.PricingInfo.PriceNoteText".meshLocalized()
+
+        static let DeviceCloudFeatures = "MeshSetup.PricingInfo.DeviceCloudFeatures".meshLocalized()
+        static let MeshNetworkFeatures = "MeshSetup.PricingInfo.MeshNetworkFeatures".meshLocalized()
+
+        static let FeaturesDeviceCloud = "MeshSetup.PricingInfo.FeaturesDeviceCloud".meshLocalized()
+        static let FeaturesMaxDevices = "MeshSetup.PricingInfo.FeaturesMaxDevices".meshLocalized()
+        static let FeaturesMaxGateways = "MeshSetup.PricingInfo.FeaturesMaxGateways".meshLocalized()
+        static let FeaturesDataAllowence = "MeshSetup.PricingInfo.FeaturesDataAllowence".meshLocalized()
+        static let FeaturesStandardSupport = "MeshSetup.PricingInfo.FeaturesStandardSupport".meshLocalized()
+
+        static let ButtonNext = "MeshSetup.PricingInfo.ButtonNext".meshLocalized()
+        static let ButtonEnroll = "MeshSetup.PricingInfo.ButtonEnroll".meshLocalized()
+    }
 }
