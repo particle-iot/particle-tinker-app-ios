@@ -818,6 +818,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                         self.flowManager.pauseSetup()
                     }
                     vc.setState(state)
+                } else if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetCellularViewController {
+                    if state == .TargetDeviceConnectingToInternetCompleted {
+                        self.flowManager.pauseSetup()
+                    }
+                    vc.setState(state)
                 } else {
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupConnectToInternetViewController.setState was attempted when it shouldn't be: \(state)")
                 }
