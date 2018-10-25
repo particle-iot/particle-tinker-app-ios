@@ -105,7 +105,10 @@ class MeshSetupButton : UIButton {
         self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .highlighted)
         self.setTitleColor(MeshSetupStyle.ButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
 
-        self.tintColor = MeshSetupStyle.ButtonTitleColor
+        DispatchQueue.main.async{
+            self.tintColor = MeshSetupStyle.ButtonTitleColor
+            self.imageView?.tintColor = MeshSetupStyle.ButtonTitleColor
+        }
     }
 }
 
@@ -135,7 +138,10 @@ class MeshSetupAlternativeButton : UIButton {
         self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor, for: .highlighted)
         self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
 
-        self.tintColor = MeshSetupStyle.AlternativeButtonTitleColor
+        DispatchQueue.main.async{
+            self.tintColor = MeshSetupStyle.AlternativeButtonTitleColor
+            self.imageView?.tintColor = MeshSetupStyle.AlternativeButtonTitleColor
+        }
     }
 }
 
