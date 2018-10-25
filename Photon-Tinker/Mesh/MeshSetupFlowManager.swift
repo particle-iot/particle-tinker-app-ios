@@ -2024,7 +2024,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         if (self.userSelectedToSetupMesh != nil){
             action = self.userSelectedToSetupMesh! ? .createNetwork : .addUserDevice
         }
-        let networkType = (self.targetDevice.type! == .boron) ? ParticlePricingImpactNetworkType.cellular : ParticlePricingImpactNetworkType.wifi
+
+        var networkType = ParticlePricingImpactNetworkType.wifi
+        if let interface = self.targetDevice.activeInternetInterface, interface == .ppp {
+            networkType = ParticlePricingImpactNetworkType.cellular
+        }
 
         ParticleCloud.sharedInstance().getPricingImpact(action,
                 deviceID: self.targetDevice.deviceId!,
