@@ -225,7 +225,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
             case .SameDeviceScannedTwice : return "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join."
             case .WrongDeviceType : return "This is not {{device}}. Please scan {{device}} sticker or restart the setup and choose different device type."
-            case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure the ethernet cable is connected securely to the Ethernet FeatherWing."
+            case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure device has internet access."
 
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the setup and try again."
 
