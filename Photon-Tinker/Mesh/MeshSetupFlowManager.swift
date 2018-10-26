@@ -1683,7 +1683,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func activateSim() {
         if (self.targetDevice.simActive ?? false) {
-            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
             self.activateSimDone()
             return
         }
@@ -1709,6 +1708,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 return
             }
 
+            self.log("updateSim error: \(error)")
+
             if let nsError = error as? NSError, nsError.code == 504 {
                  self.log("activate sim returned 504, but that is fine :(")
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
@@ -1725,6 +1726,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func activateSimDone() {
+        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
         self.stopTargetDeviceListening {
             self.checkDeviceHasIP()
         }
