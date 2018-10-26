@@ -622,21 +622,33 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         switch self.flowManager.targetDeviceActiveInternetInterface()! {
             case .ethernet:
                 DispatchQueue.main.async {
-                    let connectingVC = MeshSetupConnectingToInternetEthernetViewController.loadedViewController()
-                    connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
-                    self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                    if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetEthernetViewController {
+                        vc.setState(.TargetDeviceConnectingToInternetStarted)
+                    } else {
+                        let connectingVC = MeshSetupConnectingToInternetEthernetViewController.loadedViewController()
+                        connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
+                        self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                    }
                 }
             case .wifi:
                 DispatchQueue.main.async {
-                    let connectingVC = MeshSetupConnectingToInternetWifiViewController.loadedViewController()
-                    connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
-                    self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                    if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetWifiViewController {
+                        vc.setState(.TargetDeviceConnectingToInternetStarted)
+                    } else {
+                        let connectingVC = MeshSetupConnectingToInternetWifiViewController.loadedViewController()
+                        connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
+                        self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                    }
                 }
             case .ppp:
                 DispatchQueue.main.async {
-                    let connectingVC = MeshSetupConnectingToInternetCellularViewController.loadedViewController()
-                    connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
-                    self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                    if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetCellularViewController {
+                        vc.setState(.TargetDeviceConnectingToInternetStarted)
+                    } else {
+                        let connectingVC = MeshSetupConnectingToInternetCellularViewController.loadedViewController()
+                        connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.targetDeviceType)
+                        self.embededNavigationController.pushViewController(connectingVC, animated: true)
+                    }
                 }
             default:
                 //others are not interesting
