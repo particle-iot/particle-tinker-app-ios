@@ -27,8 +27,13 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     @IBOutlet weak var eventFilterSearchBar: UISearchBar!
     
     func subscribeToDeviceEvents() {
-        
-        self.subscribeId = ParticleCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: nil, deviceID: self.device!.id, handler: {[weak self] (event:ParticleEvent?, error:Error?) in
+        guard let deviceId = self.device?.id else {
+            //TODO: investigate why this is nil
+            // there's crash related to device being nil. Not sure why this is happening, just want to prevent crashes
+            // at this point
+            return;
+        }
+        self.subscribeId = ParticleCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: nil, deviceID: deviceId, handler: {[weak self] (event:ParticleEvent?, error:Error?) in
             if let _ = error {
                 print ("could not subscribe to events to show in events inspector...")
             } else {
@@ -245,12 +250,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         return 0.0
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    @objc func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         return 105.0
     }
     
     
-    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
+    @objc func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
         
         let cell : DeviceEventTableViewCell? = self.deviceEventsTableView.dequeueReusableCell(withIdentifier: "eventCell") as? DeviceEventTableViewCell
         
