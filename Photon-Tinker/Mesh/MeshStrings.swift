@@ -110,6 +110,10 @@ class MeshSetupStrings {
 
         static let EthernetToggleTitle = "MeshSetup.GetReady.EthernetToggleTitle".meshLocalized()
         static let EthernetToggleText = "MeshSetup.GetReady.EthernetToggleText".meshLocalized()
+
+        static let WifiCheckboxText = "MeshSetup.GetReady.WifiCheckboxText".meshLocalized()
+        static let CellularCheckboxText = "MeshSetup.GetReady.CellularCheckboxText".meshLocalized()
+
     }
 
     struct GetCommissionerReady {

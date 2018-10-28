@@ -180,6 +180,23 @@ class MeshSetupNoteView: UIView {
     }
 }
 
+class MeshCheckBoxButton : UIButton {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.imageEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: 15)
+        self.setBackgroundImage(UIImage(named: "MeshCheckBox"), for: .normal)
+        self.setBackgroundImage(UIImage(named: "MeshCheckBoxSelected"), for: .selected)
+        self.setBackgroundImage(UIImage(named: "MeshCheckBoxSelected"), for: .highlighted)
+
+        self.tintColor = .clear
+    }
+
+    override func backgroundRect(forBounds bounds: CGRect) -> CGRect {
+        return CGRect(x: 0, y: (bounds.height-20)/2, width: 20, height: 20)
+    }
+}
+
 extension UIColor {
     static func colorWithHexString(_ hexString: String, alpha:CGFloat? = 1.0) -> UIColor {
         // Convert hex string to an integer
@@ -203,5 +220,15 @@ extension UIColor {
         // Scan hex value
         scanner.scanHexInt32(&hexInt)
         return hexInt
+    }
+}
+
+extension UIView {
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.duration = 0.3
+        animation.values = [-15, 15, -7.5, 7.5, 0]
+        self.layer.add(animation, forKey: "shake")
     }
 }

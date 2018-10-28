@@ -56,6 +56,9 @@
 "MeshSetup.GetReady.EthernetToggleTitle" = "USE WITH ETHERNET?";
 "MeshSetup.GetReady.EthernetToggleText" = "Toggle ethernet featherwing setup";
 
+"MeshSetup.GetReady.WifiCheckboxText" = "I have attached the Wi-Fi antenna and see that the device is blinking blue";
+"MeshSetup.GetReady.CellularCheckboxText" = "I have attached the cellular antenna and see that the device is blinking blue";
+
 
 "MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";

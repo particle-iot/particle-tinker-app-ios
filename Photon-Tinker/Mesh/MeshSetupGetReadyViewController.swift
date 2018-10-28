@@ -9,6 +9,13 @@ import AVFoundation
 
 class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
+    @IBOutlet weak var videoToButtonConstraint: NSLayoutConstraint?
+    @IBOutlet weak var videoToCheckboxConstraint: NSLayoutConstraint?
+    
+    @IBOutlet weak var checkboxView: UIView?
+    @IBOutlet weak var checkboxButton: MeshCheckBoxButton?
+    @IBOutlet weak var checkboxLabel: MeshLabel?
+    
     internal var videoPlayer: AVPlayer?
     internal var layer: AVPlayerLayer?
     internal var gatewayVideo : AVPlayerItem?
@@ -44,6 +51,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         //contentStackView.alpha = 0
         titleLabel.alpha = 0
         videoView.alpha = 0
+
         setViewContent()
     }
 
@@ -54,6 +62,14 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         } else {
             setDefaultContent()
             self.videoPlayer?.replaceCurrentItem(with: defaultVideo)
+        }
+
+        if let checkbox = checkboxView, checkbox.isHidden {
+            self.videoToCheckboxConstraint?.isActive = false
+            self.videoToButtonConstraint?.isActive = true
+        } else {
+            self.videoToCheckboxConstraint?.isActive = true
+            self.videoToButtonConstraint?.isActive = false
         }
 
         self.view.setNeedsLayout()
@@ -90,6 +106,8 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
             ethernetToggleTitle?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
             ethernetToggleText?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            checkboxLabel?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
         } else {
             //contentStackView.spacing = 20
 
@@ -102,6 +120,8 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
             ethernetToggleTitle?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
             ethernetToggleText?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            checkboxLabel?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
         }
     }
 
@@ -115,17 +135,31 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         ethernetToggleText?.text = MeshSetupStrings.GetReady.EthernetToggleText
 
         switch (self.deviceType ?? .xenon) {
-            case .xenon:
-                initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
             case .argon:
                 initializeVideoPlayerWithVideo(videoFileName: "argon_power_on")
+
+                checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
+                checkboxView?.isHidden = false
             case .boron:
                 initializeVideoPlayerWithVideo(videoFileName: "boron_power_on")
-            default:
+
+                checkboxLabel?.text = MeshSetupStrings.GetReady.CellularCheckboxText
+                checkboxView?.isHidden = false
+            default: //.xenon
                 initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
-                break
+
+                checkboxView?.isHidden = true
         }
 
+        if let checkbox = checkboxView, checkbox.isHidden {
+            self.videoToCheckboxConstraint?.isActive = false
+            self.videoToButtonConstraint?.isActive = true
+        } else {
+            self.videoToCheckboxConstraint?.isActive = true
+            self.videoToButtonConstraint?.isActive = false
+        }
+
+        NSLog("setting content")
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
@@ -139,6 +173,17 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         replacePlaceHolderStrings()
 //        hideEmptyLabels()
+
+        switch (self.deviceType ?? .xenon) {
+            case .argon:
+                checkboxView?.isHidden = false
+            case .boron:
+                checkboxView?.isHidden = false
+            default: //.xenon
+                checkboxView?.isHidden = true
+        }
+
+        NSLog("setting default content")
     }
 
     private func setEthernetContent() {
@@ -150,6 +195,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         replacePlaceHolderStrings()
 //        hideEmptyLabels()
+        checkboxView?.isHidden = true
     }
 
 
@@ -160,8 +206,22 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 //        textLabel4.isHidden = (textLabel4.text?.count ?? 0) == 0
 //    }
 
+    @IBAction func checkboxTapped(_ sender: MeshCheckBoxButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    
     @IBAction func nextButtonTapped(_ sender: Any) {
-        callback(self.setupSwitch.isOn)
+        if let checkbox = self.checkboxButton {
+            if checkbox.isSelected {
+                callback(self.setupSwitch.isOn)
+            } else {
+                self.checkboxView?.shake()
+            }
+
+        } else {
+            callback(self.setupSwitch.isOn)
+        }
     }
 
     func initializeVideoPlayerWithVideo(videoFileName: String) {
