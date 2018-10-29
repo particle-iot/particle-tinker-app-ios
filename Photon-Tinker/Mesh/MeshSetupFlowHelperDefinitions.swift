@@ -348,17 +348,15 @@ extension ParticleDeviceType : CustomStringConvertible {
     }
 
     init?(serialNumber: String) {
-        if (serialNumber.lowercased().range(of: "xenh")?.lowerBound == serialNumber.startIndex) {
+        func isSNPrefix(prefix : String) -> Bool {
+            return (serialNumber.lowercased().range(of: prefix)?.lowerBound == serialNumber.startIndex)
+        }
+        
+        if isSNPrefix(prefix: "xenh") || isSNPrefix(prefix: "xenk") {
             self = .xenon
-        } else if (serialNumber.lowercased().range(of: "argh")?.lowerBound == serialNumber.startIndex) {
+        } else if isSNPrefix(prefix: "arnh") || isSNPrefix(prefix: "arnk") || isSNPrefix(prefix: "argh") {
             self = .argon
-        } else if (serialNumber.lowercased().range(of: "arnh")?.lowerBound == serialNumber.startIndex) {
-            self = .argon
-        } else if (serialNumber.lowercased().range(of: "arnk")?.lowerBound == serialNumber.startIndex) {
-            self = .argon
-        } else if (serialNumber.lowercased().range(of: "b31k")?.lowerBound == serialNumber.startIndex) {
-            self = .boron
-        } else if (serialNumber.lowercased().range(of: "b40k")?.lowerBound == serialNumber.startIndex) {
+        } else if isSNPrefix(prefix: "b40h") || isSNPrefix(prefix: "b31h") || isSNPrefix(prefix: "b40k") || isSNPrefix(prefix: "b31k") {
             self = .boron
         } else {
             return nil
