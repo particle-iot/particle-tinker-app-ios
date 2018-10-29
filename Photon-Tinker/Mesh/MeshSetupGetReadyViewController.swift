@@ -212,13 +212,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        if let checkbox = self.checkboxButton {
+        if let checkbox = self.checkboxButton, let checkBoxView = self.checkboxView, checkBoxView.isHidden == false {
             if checkbox.isSelected {
                 callback(self.setupSwitch.isOn)
             } else {
                 self.checkboxView?.shake()
             }
-
         } else {
             callback(self.setupSwitch.isOn)
         }
