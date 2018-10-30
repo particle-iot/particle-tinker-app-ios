@@ -221,7 +221,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .FailedToConnect : return "You phone failed to connect to your mesh device. Please try again."
             case .BluetoothDisabled : return "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again."
             case .BluetoothTimeout : return "Sending bluetooth message failed. Please try again."
-            case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the the setup process and try again."
+            case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the setup process and try again."
             case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
             case .SameDeviceScannedTwice : return "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join."
             case .WrongDeviceType : return "This is not {{device}}. Please scan {{device}} sticker or restart the setup and choose different device type."
