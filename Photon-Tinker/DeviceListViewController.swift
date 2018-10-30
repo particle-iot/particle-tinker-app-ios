@@ -17,7 +17,7 @@ let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
 let kDefaultElectronFlashingTime : Int = 15
 
-class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate, ClientDelegate {
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate {
 
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -196,33 +196,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        let config = LDConfig(mobileKey: launchDarkly)
-        var ldUserBuilder = LDUserBuilder()
-
-        if let username = ParticleCloud.sharedInstance().loggedInUsername {
-            ldUserBuilder.key = "user:\(username)"
-            ldUserBuilder.email = username
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-                ldUserBuilder.customDictionary = ["version": "\(version)b\(build)"]
-                NSLog("version = \(ldUserBuilder.customDictionary!["version"])")
-            }
-        }
-        LDClient.sharedInstance().start(config, with: ldUserBuilder)
-        LDClient.sharedInstance().delegate = self
-
-        //lets trigger these early
-        NSLog("temp-xenon-in-ios = \(LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false))")
-        NSLog("temp-argon-in-ios = \(LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false))")
-        NSLog("temp-boron-in-ios = \(LDClient.sharedInstance().boolVariation("temp-boron-in-ios", fallback: false))")
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        LDClient.sharedInstance().stop()
-    }
 
     func showTutorial() {
         

@@ -14,7 +14,6 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
     private let deviceTypes = [ ParticleDeviceType.xenon.description, ParticleDeviceType.argon.description, ParticleDeviceType.boron.description ]
     private let deviceDescriptionTypes = [MeshSetupStrings.SelectDevice.MeshOnly, MeshSetupStrings.SelectDevice.MeshAndWifi, MeshSetupStrings.SelectDevice.MeshAndCellular ]
     private let secondaryAccessoryImages = [nil, "MeshWifiIcon", "MeshLTEIcon"]
-    private var enabledCells: [Bool]!
 
     private var callback: ((ParticleDeviceType) -> ())!
 
@@ -36,21 +35,9 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
         deviceTypeTableView.tableFooterView = UIView()
         deviceTypeTableView.backgroundColor = MeshSetupStyle.ViewBackgroundColor
         deviceTypeTableView.separatorColor = MeshSetupStyle.CellSeparatorColor
-
-        enabledCells = [
-            LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false),
-            LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false),
-            LDClient.sharedInstance().boolVariation("temp-boron-in-ios", fallback: false)
-        ]
     }
 
     override func setContent() {
-        enabledCells = [
-            LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false),
-            LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false),
-            LDClient.sharedInstance().boolVariation("temp-boron-in-ios", fallback: false)
-        ]
-
         titleLabel.text = MeshSetupStrings.SelectDevice.Title
     }
 
@@ -65,20 +52,18 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "meshDeviceCell") as! MeshDeviceCell
 
-        var enabled = enabledCells[indexPath.row]
-
         cell.cellTitleLabel.text = deviceTypes[indexPath.row]
-        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.ExtraLargeSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DisabledTextColor)
+        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.ExtraLargeSize, color: MeshSetupStyle.PrimaryTextColor)
 
         cell.cellSubtitleLabel.text = deviceDescriptionTypes[indexPath.row]
-        cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DisabledTextColor)
+        cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
 
         cell.cellImageView.image = UIImage.init(named: "imgDevice" + deviceTypes[indexPath.row])
-        cell.cellAccessoryImageView.alpha = enabled ? 1 : 0.5
+        cell.cellAccessoryImageView.alpha = 1
 
         if let icon = secondaryAccessoryImages[indexPath.row] {
             cell.cellSecondaryAccessoryImageView.image = UIImage.init(named: icon)
-            cell.cellSecondaryAccessoryImageView.alpha = enabled ? 1 : 0.5
+            cell.cellSecondaryAccessoryImageView.alpha = 1
         } else {
             cell.cellSecondaryAccessoryImageView.image = nil
         }
@@ -96,10 +81,6 @@ class MeshSetupSelectDeviceViewController: MeshSetupViewController, UITableViewD
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0
-    }
-
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return enabledCells[indexPath.row]
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
