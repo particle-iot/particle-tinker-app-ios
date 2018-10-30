@@ -1752,16 +1752,21 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (self.canceled) {
                 return
             }
-            if (interface?.ipv4Config.addresses.first != nil) {
-                self.targetDevice.hasInternetAddress = true
-                self.stepComplete()
-            } else {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                    if (self.canceled) {
-                        return
+
+            if (result == .NONE) {
+                if (interface?.ipv4Config.addresses.first != nil) {
+                    self.targetDevice.hasInternetAddress = true
+                    self.stepComplete()
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                        if (self.canceled) {
+                            return
+                        }
+                        self.checkDeviceHasIP()
                     }
-                    self.checkDeviceHasIP()
                 }
+            } else {
+                self.handleBluetoothErrorResult(result)
             }
         }
     }
