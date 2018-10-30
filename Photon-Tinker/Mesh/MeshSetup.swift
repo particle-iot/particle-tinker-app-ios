@@ -12,8 +12,8 @@ class MeshSetup {
     static let LogBluetoothHandshakeManager = false
     static let LogBluetoothConnectionManager = false
     static let LogBluetoothConnection = false
-    static let LogTransceiver = false
-    static let LogUIManager = false
+    static let LogTransceiver = true
+    static let LogUIManager = true
     static let LogFlowManager = true
 
     static let bluetoothScanTimeoutValue: DispatchTimeInterval = .seconds(10)

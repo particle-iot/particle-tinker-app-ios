@@ -5,6 +5,7 @@
 
 import UIKit
 import SwiftProtobuf
+import Crashlytics
 
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias MeshSetupCloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
@@ -79,6 +80,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private func log(_ message: String) {
         if (MeshSetup.LogTransceiver) {
             NSLog("MeshSetupTransceiverDelegate: \(message)")
+            CLSLogv("MeshSetupTransceiverDelegate: %@", getVaList([message]))
         }
     }
 

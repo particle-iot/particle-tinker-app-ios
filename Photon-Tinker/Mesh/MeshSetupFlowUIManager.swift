@@ -5,6 +5,7 @@
 
 import Foundation
 import UIKit
+import Crashlytics
 
 class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate {
 
@@ -73,6 +74,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     private func log(_ message: String) {
         if (MeshSetup.LogUIManager) {
             NSLog("MeshSetupFlowUI: \(message)")
+            CLSLogv("MeshSetupFlowUI: %@", getVaList([message]))
         }
     }
 

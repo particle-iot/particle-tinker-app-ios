@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Crashlytics
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
 
@@ -419,6 +420,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func log(_ message: String) {
         if (MeshSetup.LogFlowManager) {
             NSLog("MeshSetupFlow: \(message)")
+            CLSLogv("MeshSetupFlow: %@", getVaList([message]))
         }
     }
 
