@@ -36,8 +36,15 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     
     @IBOutlet weak var continueButton: MeshSetupButton!
     //@IBOutlet weak var contentStackView: UIStackView!
-    
-    
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        //so that constraints are properly disabled
+        setContent()
+    }
+
     private var callback: ((Bool) -> ())!
     
     func setup(didPressReady: @escaping (Bool) -> (), deviceType: ParticleDeviceType?) {
@@ -224,6 +231,10 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     func initializeVideoPlayerWithVideo(videoFileName: String) {
+        if (self.videoPlayer != nil) {
+            return
+        }
+
         // Create a new AVPlayerItem with the asset and an
         // array of asset keys to be automatically loaded
         let gatewayVideoString:String? = Bundle.main.path(forResource: "featherwing_power_on", ofType: "mov")
@@ -239,6 +250,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         layer!.frame = videoView.bounds
         layer!.videoGravity = AVLayerVideoGravity.resizeAspect
 
+        NSLog("initializing layer?")
         videoView.layer.addSublayer(layer!)
         setVideoLoopObserver()
         videoPlayer?.play()

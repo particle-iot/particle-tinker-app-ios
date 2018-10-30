@@ -24,9 +24,6 @@ class MeshSetupViewController: UIViewController {
 
         setCommonStyle()
         setStyle()
-
-        //so that constraints are properly disabled
-        setContent()
     }
 
     private func setCommonStyle() {
