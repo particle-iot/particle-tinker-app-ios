@@ -502,6 +502,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         } else if (result == .TIMEOUT) {
             self.fail(withReason: .BluetoothTimeout)
             return
+        } else if (result == .INVALID_STATE) {
+            self.fail(withReason: .InvalidDeviceState, severity: .Fatal)
         } else {
             self.fail(withReason: .BluetoothError)
             return

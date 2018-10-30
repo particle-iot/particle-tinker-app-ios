@@ -164,6 +164,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToObtainIp
     case FailedToUpdateDeviceOS
 
+    case InvalidDeviceState
+
     //GetNewDeviceName
     case FailedToActivateSim
     case CCMissing
@@ -189,6 +191,9 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
     public var description: String {
         switch self {
+            //unproofread
+            case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
+
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."
             case .FailedToFlashBecauseOfTimeout : return "It seems that your device has exited listening mode. Please put your device in listening mode (blinking blue) and retry."
