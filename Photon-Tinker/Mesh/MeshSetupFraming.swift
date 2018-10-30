@@ -65,6 +65,7 @@ public enum ControlRequestMessageType: UInt16 {
 
 public enum ControlReplyErrorType: Int32 {
     case NONE = 0
+    case UNKNOWN_ERROR = -1
     case UNKNOWN = -100
     case BUSY = -110
     case NOT_SUPPORTED = -120
