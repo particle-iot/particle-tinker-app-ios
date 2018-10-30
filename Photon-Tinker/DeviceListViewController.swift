@@ -145,7 +145,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier == "tinker" {
             if let vc = segue.destination as? SPKTinkerViewController {
-                vc.device = self.selectedDevice
+                let indexPath = sender as! IndexPath
+                vc.device = self.devices[indexPath.row]
                 
                 SEGAnalytics.shared().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 
@@ -154,7 +155,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier == "deviceInspector" {
             if let vc = segue.destination as? DeviceInspectorViewController {
-                vc.device = self.selectedDevice
+                let indexPath = sender as! IndexPath
+                vc.device = self.devices[indexPath.row]
                 
                 SEGAnalytics.shared().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
                 
@@ -682,11 +684,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             RMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning, customTypeName: nil, callback: nil)
         } else if device.connected && device.isRunningTinker() {
-            self.selectedDevice = self.devices[(indexPath as NSIndexPath).row]
-            self.performSegue(withIdentifier: "tinker", sender: self)
+            self.selectedDevice = self.devices[indexPath.row]
+            self.performSegue(withIdentifier: "tinker", sender: indexPath)
         } else {
-            self.selectedDevice = self.devices[(indexPath as NSIndexPath).row]
-            self.performSegue(withIdentifier: "deviceInspector", sender: self)
+            self.selectedDevice = self.devices[indexPath.row]
+            self.performSegue(withIdentifier: "deviceInspector", sender: indexPath)
         }
     }
     
