@@ -148,7 +148,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                 checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
             case .boron:
-                initializeVideoPlayerWithVideo(videoFileName: "boron_power_on")
+                initializeVideoPlayerWithVideo(videoFileName: "boron_power_on_battery")
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.CellularCheckboxText
                 checkboxView?.isHidden = false
