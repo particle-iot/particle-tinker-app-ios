@@ -2046,8 +2046,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.selectedNetworkMeshInfo = networkInfo!
                 self.selectedNetworkPassword = self.newNetworkPassword
 
-//              self.delegate.meshSetupDidEnterState(state: .CreateNetworkStep2Done)
-//              self.delegate.meshSetupDidEnterState(state: .CreateNetworkStep3Done)
                 self.delegate.meshSetupDidCreateNetwork(network: networkInfo!)
 
                 self.setTargetDeviceSetupDone {

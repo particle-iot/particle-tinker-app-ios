@@ -864,7 +864,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             case .CreateNetworkStarted:
                 showCreateNetwork()
-            case .CreateNetworkStep1Done, .CreateNetworkStep2Done, .CreateNetworkStep3Done, .CreateNetworkCompleted:
+            case .CreateNetworkStep1Done, .CreateNetworkCompleted:
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupCreatingNetworkViewController {
                     vc.setState(state)
                 } else {

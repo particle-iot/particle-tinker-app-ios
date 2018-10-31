@@ -19,9 +19,7 @@ class MeshSetupCreatingNetworkViewController: MeshSetupProgressViewController, S
 
         self.progressTextLabelValues = [
             MeshSetupStrings.CreatingNetwork.Text1,
-            MeshSetupStrings.CreatingNetwork.Text2,
-            MeshSetupStrings.CreatingNetwork.Text3,
-            MeshSetupStrings.CreatingNetwork.Text4,
+            MeshSetupStrings.CreatingNetwork.Text2
         ]
 
         setProgressLabelValues()
@@ -34,12 +32,8 @@ class MeshSetupCreatingNetworkViewController: MeshSetupProgressViewController, S
                     self.setStep(0)
                 case .CreateNetworkStep1Done:
                     self.setStep(1)
-                case .CreateNetworkStep2Done:
-                    self.setStep(2)
-                case .CreateNetworkStep3Done:
-                    self.setStep(3)
                 case .CreateNetworkCompleted:
-                    self.setStep(4)
+                    self.setStep(2)
                 default:
                     fatalError("this should never happen")
             }

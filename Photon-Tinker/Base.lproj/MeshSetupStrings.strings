@@ -243,10 +243,8 @@ to allow your {{device}} to join the {{network}} mesh network";
 
 
 "MeshSetup.CreatingNetwork.Title" = "Creating network";
-"MeshSetup.CreatingNetwork.Text1" = "Sending network credentials to your {{device}}";
+"MeshSetup.CreatingNetwork.Text1" = "Registering the mesh network with the Particle Device Cloud";
 "MeshSetup.CreatingNetwork.Text2" = "{{deviceName}} creating the mesh network locally";
-"MeshSetup.CreatingNetwork.Text3" = "Registering the mesh network with the Particle Device Cloud";
-"MeshSetup.CreatingNetwork.Text4" = "Activating {{deviceName}} as a gateway in the mesh network";
 "MeshSetup.CreatingNetwork.SuccessTitle" = "Congrats!";
 "MeshSetup.CreatingNetwork.SuccessText" = "Your network has been created!";
 

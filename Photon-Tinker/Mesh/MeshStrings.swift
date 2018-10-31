@@ -316,8 +316,6 @@ class MeshSetupStrings {
         static let Title = "MeshSetup.CreatingNetwork.Title".meshLocalized()
         static let Text1 = "MeshSetup.CreatingNetwork.Text1".meshLocalized()
         static let Text2 = "MeshSetup.CreatingNetwork.Text2".meshLocalized()
-        static let Text3 = "MeshSetup.CreatingNetwork.Text3".meshLocalized()
-        static let Text4 = "MeshSetup.CreatingNetwork.Text4".meshLocalized()
 
         static let SuccessTitle = "MeshSetup.CreatingNetwork.SuccessTitle".meshLocalized()
         static let SuccessText = "MeshSetup.CreatingNetwork.SuccessText".meshLocalized()
