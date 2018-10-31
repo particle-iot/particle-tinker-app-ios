@@ -179,6 +179,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case UnableToCreateNetwork
     case UnableToRenameDevice
     case NameTooShort
+    case NameInUse
 
     case DeviceIsNotAllowedToJoinNetwork
     case DeviceIsUnableToFindNetworkToJoin
@@ -193,6 +194,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
         switch self {
             //unproofread
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
+            case .NameInUse : return "You already own a network with this name. Please use different name."
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."
@@ -276,13 +278,9 @@ internal struct MeshDevice {
     var joinerCredentials: (eui64: String, password: String)?
 
     var meshNetworkInfo: MeshSetupNetworkInfo?
-
     var meshNetworks: [MeshSetupNetworkInfo]?
-    var apiNetworks: [ParticleNetwork]?
 
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
-
-
 
     func hasActiveInternetInterface() -> Bool {
         return activeInternetInterface != nil

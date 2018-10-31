@@ -127,6 +127,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var userSelectedToSetupMesh: Bool?
     private var userSelectedToCreateNetwork = true //for this version only
 
+    private var apiNetworks: [ParticleNetwork]?
+
     //to prevent long running actions from executing
     private var canceled = false
 
@@ -677,6 +679,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.newNetworkName = nil
         self.newNetworkId = nil
 
+        self.apiNetworks = nil
+
         self.userSelectedToLeaveNetwork = nil
         self.userSelectedToUpdateFirmware = nil
         self.userSelectedToSetupMesh = nil
@@ -1027,9 +1031,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             if let networks = networks {
-                self.targetDevice.apiNetworks = networks
+                self.apiNetworks = networks
             } else {
-                self.targetDevice.apiNetworks = []
+                self.apiNetworks = []
             }
 
             self.stepComplete()
@@ -1930,7 +1934,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.delegate.meshSetupDidRequestToEnterNewNetworkNameAndPassword()
     }
 
-    func setNewNetwork(name: String, password: String) -> MeshSetupFlowError? {
+
+    func setNewNetworkName(name: String) -> MeshSetupFlowError? {
         guard currentCommand == .GetNewNetworkNameAndPassword else {
             return .IllegalOperation
         }
@@ -1939,15 +1944,41 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return .NameTooShort
         }
 
+        if let networks =  self.apiNetworks {
+            for network in networks {
+                if (network.name.lowercased() == name.lowercased()) {
+                    return .NameInUse
+                }
+            }
+        }
+
+
+        self.log("set network name: \(name)")
+        self.newNetworkName = name
+
+        if (self.newNetworkName != nil && self.newNetworkPassword != nil) {
+            self.stepComplete()
+        }
+
+        return nil
+    }
+
+
+    func setNewNetworkPassword(password: String) -> MeshSetupFlowError? {
+        guard currentCommand == .GetNewNetworkNameAndPassword else {
+            return .IllegalOperation
+        }
+
         guard self.validateNetworkPassword(password) else {
             return .PasswordTooShort
         }
 
-        self.log("set network name: \(name) password: \(password)")
-        self.newNetworkName = name
+        self.log("set network password: \(password)")
         self.newNetworkPassword = password
 
-        self.stepComplete()
+        if (self.newNetworkName != nil && self.newNetworkPassword != nil) {
+            self.stepComplete()
+        }
 
         return nil
     }

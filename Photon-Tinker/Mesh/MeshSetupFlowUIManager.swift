@@ -724,7 +724,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func didEnterCreateNetworkName(networkName: String) {
         self.createNetworkName = networkName
 
-        showCreateNetworkPassword()
+        if let error = self.flowManager.setNewNetworkName(name: self.createNetworkName!),
+           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkNameViewController {
+            vc.setWrongInput(message: error.description)
+        } else {
+            showCreateNetworkPassword()
+        }
     }
 
 
@@ -739,7 +744,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func didEnterCreateNetworkPassword(networkPassword: String) {
         self.createNetworkPassword = networkPassword
 
-        if let error = self.flowManager.setNewNetwork(name: self.createNetworkName!, password: self.createNetworkPassword!),
+        if let error = self.flowManager.setNewNetworkPassword(password: self.createNetworkPassword!),
            let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkPasswordViewController{
             vc.setWrongInput(message: error.description)
         }
