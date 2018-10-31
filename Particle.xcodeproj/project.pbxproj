@@ -82,7 +82,6 @@
 		93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */; };
 		93B0F85F2182236F00D8F8C0 /* featherwing_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */; };
 		93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */; };
-		93B0F8612182236F00D8F8C0 /* boron_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F85B2182236F00D8F8C0 /* boron_power_on.mov */; };
 		93D36EAE216CC71E0088000C /* MeshSetupSuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */; };
 		93D36EB2216CC8B60088000C /* MeshSetupNetworkListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */; };
 		93D36EB4216CC9940088000C /* MeshSetupProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */; };
@@ -253,7 +252,6 @@
 		93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = boron_power_on_battery.mov; path = Resources/boron_power_on_battery.mov; sourceTree = "<group>"; };
 		93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = featherwing_power_on.mov; path = Resources/featherwing_power_on.mov; sourceTree = "<group>"; };
 		93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = xenon_power_on.mov; path = Resources/xenon_power_on.mov; sourceTree = "<group>"; };
-		93B0F85B2182236F00D8F8C0 /* boron_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = boron_power_on.mov; path = Resources/boron_power_on.mov; sourceTree = "<group>"; };
 		93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupSuccessView.xib; sourceTree = "<group>"; };
 		93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupNetworkListView.xib; sourceTree = "<group>"; };
 		93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupProgressView.xib; sourceTree = "<group>"; };
@@ -471,7 +469,6 @@
 			children = (
 				93B0F8562182236E00D8F8C0 /* argon_power_on.mov */,
 				93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */,
-				93B0F85B2182236F00D8F8C0 /* boron_power_on.mov */,
 				93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */,
 				93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */,
 				93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */,
@@ -798,7 +795,6 @@
 				93FFD5B4215E7EDB005A469D /* FiraMono-Regular.ttf in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
-				93B0F8612182236F00D8F8C0 /* boron_power_on.mov in Resources */,
 				93D36EAE216CC71E0088000C /* MeshSetupSuccessView.xib in Resources */,
 				931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */,
 				93D36EB6216CCAE10088000C /* MeshSetupPairingView.xib in Resources */,
