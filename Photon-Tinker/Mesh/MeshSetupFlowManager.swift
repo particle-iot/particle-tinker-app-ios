@@ -1966,7 +1966,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func createNetworkInAPI() {
-        ParticleCloud.sharedInstance().createNetwork(self.newNetworkName!, gatewayDeviceID: self.targetDevice.deviceId!, gatewayDeviceICCID: self.targetDevice.deviceICCID) {
+
+        var networkType = ParticleNetworkType.microWifi
+        if let interface = self.targetDevice.activeInternetInterface, interface == .ppp {
+            networkType = ParticleNetworkType.microCellular
+        }
+
+        ParticleCloud.sharedInstance().createNetwork(self.newNetworkName!,
+                gatewayDeviceID: self.targetDevice.deviceId!,
+                gatewayDeviceICCID: networkType == .microCellular ? self.targetDevice.deviceICCID : nil,
+                networkType: networkType) {
             network, error in
             if (self.canceled) {
                 return
