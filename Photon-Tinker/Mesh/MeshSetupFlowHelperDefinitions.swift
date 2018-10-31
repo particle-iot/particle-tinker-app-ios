@@ -162,6 +162,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
     //EnsureHasInternetAccess
     case FailedToObtainIp
+    case FailedToObtainIpBoron
     case FailedToUpdateDeviceOS
 
     case InvalidDeviceState
@@ -195,6 +196,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             //unproofread
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
             case .NameInUse : return "You already own a network with this name. Please use different name."
+            case .FailedToObtainIpBoron : return "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area."
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."

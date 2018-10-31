@@ -1749,7 +1749,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         let limit = (self.currentFlow == self.cellularFlow) ? MeshSetup.deviceObtainedIPCellularTimeout : MeshSetup.deviceObtainedIPTimeout
         if (diff > limit) {
             self.currentStepFlags["checkDeviceHasIPStartTime"] = nil
-            self.fail(withReason: .FailedToObtainIp)
+
+            if let interface = self.targetDevice.activeInternetInterface, interface == .ppp {
+                self.fail(withReason: .FailedToObtainIpBoron)
+            } else {
+                self.fail(withReason: .FailedToObtainIp)
+            }
             return
         }
 
