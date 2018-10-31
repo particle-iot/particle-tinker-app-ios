@@ -25,12 +25,12 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .multipleChoice)
         
 
-        
-        dialog.addButton("Reflash Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            
-            dialog.dismiss()
-            self.reflashTinker()
-            
+        if (self.device!.type == .photon || self.device!.type == .electron) {
+            dialog.addButton("Reflash Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
+                dialog.dismiss()
+                self.reflashTinker()
+
+            }
         }
         
         
@@ -325,6 +325,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     
     // 2
     func reflashTinker() {
+        //TODO: this is crashing for CORE devices
 
 //        if !self.device!.connected {
 //            TSMessage.showNotificationWithTitle("Device offline", subtitle: "Device must be online to be flashed", type: .Error)
