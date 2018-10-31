@@ -117,7 +117,7 @@ class MeshSetupEncryptionManager: NSObject {
         //get type
         rm.result = ControlReplyErrorType(rawValue: decryptedData.withUnsafeBytes { (pointer: UnsafePointer<Int32>) -> Int32 in
             return Int32(pointer[0])
-        })!
+        }) ?? ControlReplyErrorType.INVALID_UNKNOWN
         decryptedData.removeSubrange(0..<4)
 
         //get data

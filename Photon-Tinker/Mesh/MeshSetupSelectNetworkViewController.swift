@@ -15,10 +15,14 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.Networks.Title
+        titleLabel.text = MeshSetupStrings.SelectNetwork.Title
     }
 
     func setNetworks(networks: [MeshSetupNetworkInfo]) {
+        var networks = networks
+        networks.sort { info, info2 in
+            return info.name < info2.name
+        }
         self.networks = networks
 
         self.stopScanning()

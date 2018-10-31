@@ -24,6 +24,7 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
 
         networksTableView.register(UINib.init(nibName: "MeshSetupMeshNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupMeshNetworkCell")
         networksTableView.register(UINib.init(nibName: "MeshSetupCreateNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupCreateNetworkCell")
+        networksTableView.register(UINib.init(nibName: "MeshSetupWifiNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupWifiNetworkCell")
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -17,7 +17,7 @@ let kDefaultCoreFlashingTime : Int = 30
 let kDefaultPhotonFlashingTime : Int = 15
 let kDefaultElectronFlashingTime : Int = 15
 
-class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate, ClientDelegate {
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate {
 
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -70,9 +70,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var selectedDevice : ParticleDevice? = nil
     var refreshControlAdded : Bool = false
 
-    private var showMesh: Bool?
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -88,7 +85,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .multipleChoice)
 
-        if ((showMesh ?? false) && ParticleCloud.sharedInstance().isAuthenticated) {
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
             dialog.addButton("Mesh", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
                 dialog.dismiss()
 
@@ -148,7 +145,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier == "tinker" {
             if let vc = segue.destination as? SPKTinkerViewController {
-                vc.device = self.selectedDevice
+                let indexPath = sender as! IndexPath
+                vc.device = self.devices[indexPath.row]
                 
                 SEGAnalytics.shared().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 
@@ -157,7 +155,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier == "deviceInspector" {
             if let vc = segue.destination as? DeviceInspectorViewController {
-                vc.device = self.selectedDevice
+                let indexPath = sender as! IndexPath
+                vc.device = self.devices[indexPath.row]
                 
                 SEGAnalytics.shared().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
                 
@@ -197,42 +196,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        let config = LDConfig(mobileKey: launchDarkly)
-        var ldUserBuilder = LDUserBuilder()
-
-        if let username = ParticleCloud.sharedInstance().loggedInUsername {
-            ldUserBuilder.key = "user:\(username)"
-            ldUserBuilder.email = username
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                ldUserBuilder.customDictionary = ["version": version]
-                NSLog("version = \(version)")
-            }
-        }
-        LDClient.sharedInstance().start(config, with: ldUserBuilder)
-        LDClient.sharedInstance().delegate = self
-        showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
-
-        //lets trigger these early
-        NSLog("temp-xenon-in-ios = \(LDClient.sharedInstance().boolVariation("temp-xenon-in-ios", fallback: false))")
-        NSLog("temp-argon-in-ios = \(LDClient.sharedInstance().boolVariation("temp-argon-in-ios", fallback: false))")
-        NSLog("temp-boron-in-ios = \(LDClient.sharedInstance().boolVariation("temp-boron-in-ios", fallback: false))")
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        LDClient.sharedInstance().stop()
-    }
-
-    func featureFlagDidUpdate(_ key: String!) {
-        if (key == "temp-mesh-in-mobile") {
-            showMesh = LDClient.sharedInstance().boolVariation("temp-mesh-in-mobile", fallback: false)
-        } else {
-            NSLog("\(key) = \(LDClient.sharedInstance().boolVariation(key, fallback: false))")
-        }
-    }
 
     func showTutorial() {
         
@@ -694,11 +657,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             RMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning, customTypeName: nil, callback: nil)
         } else if device.connected && device.isRunningTinker() {
-            self.selectedDevice = self.devices[(indexPath as NSIndexPath).row]
-            self.performSegue(withIdentifier: "tinker", sender: self)
+            self.selectedDevice = self.devices[indexPath.row]
+            self.performSegue(withIdentifier: "tinker", sender: indexPath)
         } else {
-            self.selectedDevice = self.devices[(indexPath as NSIndexPath).row]
-            self.performSegue(withIdentifier: "deviceInspector", sender: self)
+            self.selectedDevice = self.devices[indexPath.row]
+            self.performSegue(withIdentifier: "deviceInspector", sender: indexPath)
         }
     }
     

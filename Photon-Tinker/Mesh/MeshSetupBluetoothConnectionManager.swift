@@ -68,11 +68,10 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
                 if let sSelf = self {
                     sSelf.centralManager.stopScan()
-                    sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
                     if (sSelf.state != .Disabled) {
                         sSelf.state = .Ready
                     }
-
+                    sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
                 }
             }
         }
@@ -248,11 +247,6 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        guard error == nil else {
-            log("Failed to disconnect from to an unknown device: \(error)")
-            return
-        }
-
         if let name = peripheral.name {
             log("Disconnected from: \(name)")
         } else {

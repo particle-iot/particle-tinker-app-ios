@@ -12,10 +12,12 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
     }
 
     internal var callback: ((String) -> ())!
+    private var currentName: String?
 
-    func setup(didEnterName: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
+    func setup(didEnterName: @escaping (String) -> (), deviceType: ParticleDeviceType?, currentName: String? = nil) {
         self.callback = didEnterName
         self.deviceType = deviceType
+        self.currentName = currentName
     }
 
     override func setContent() {
@@ -23,6 +25,9 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
         inputTitleLabel.text = MeshSetupStrings.DeviceName.InputTitle
         noteTitleLabel.text = MeshSetupStrings.DeviceName.NoteTitle
         noteTextLabel.text = MeshSetupStrings.DeviceName.NoteText
+
+        inputTextField.text = currentName ?? MeshSetupStrings.getRandomDeviceName()
+        continueButton.isEnabled = validateInput()
 
         continueButton.setTitle(MeshSetupStrings.DeviceName.Button, for: .normal)
     }

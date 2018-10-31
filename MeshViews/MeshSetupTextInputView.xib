@@ -26,6 +26,7 @@
                 <outlet property="inputTitleLabel" destination="sC1-dN-Nic" id="WSG-5Y-2ev"/>
                 <outlet property="noteTextLabel" destination="uQY-p8-53i" id="5Qw-2z-bN2"/>
                 <outlet property="noteTitleLabel" destination="Tpg-xy-IQf" id="MyR-aW-5fT"/>
+                <outlet property="noteView" destination="bvA-g3-vaD" id="aSq-yp-xr7"/>
                 <outlet property="titleLabel" destination="UnX-o6-r2M" id="fL2-j8-Rqc"/>
                 <outlet property="view" destination="XEB-96-QjT" id="CE7-R0-sP7"/>
                 <outletCollection property="buttonSideConstraints" destination="S52-wI-PMw" collectionClass="NSMutableArray" id="d6q-No-cur"/>

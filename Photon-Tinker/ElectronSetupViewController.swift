@@ -259,10 +259,15 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                 //print (JSONDictionary?.description)
                 DispatchQueue.main.async {
                     if JSONDictionary != nil {
+                        //crash is happening here, because unable to unwrap title/message. This is to prevent the crash
+                        //TODO: investigate why this is nil
+                        let title: String? = JSONDictionary!["title"] as? String
+                        let message: String? = JSONDictionary!["message"] as? String
+
                         if JSONDictionary!["level"] as! String == "info" {
-                            RMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String, subtitle: JSONDictionary!["message"] as! String, type: .success, customTypeName: nil, callback: nil)
+                            RMessage.showNotification(in: self, title: title ?? "", subtitle: message ?? "", type: .success, customTypeName: nil, callback: nil)
                         } else {
-                            RMessage.showNotification(in: self, title: JSONDictionary!["title"] as! String, subtitle: JSONDictionary!["message"] as! String, type: .error, customTypeName: nil, callback: nil)
+                            RMessage.showNotification(in: self, title: title ?? "", subtitle: message ?? "", type: .error, customTypeName: nil, callback: nil)
                         }
                     }
                 }

@@ -40,13 +40,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding more devices to this network?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWy-dL-Get" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                    <rect key="frame" x="20" y="413" width="335" height="16"/>
+                    <rect key="frame" x="20" y="414" width="335" height="16"/>
                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13a-XW-hyP" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                    <rect key="frame" x="20" y="439" width="335" height="40"/>
+                    <rect key="frame" x="20" y="440" width="335" height="40"/>
                     <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="JxS-Kd-rnU"/>
@@ -61,10 +61,10 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WvW-we-AhF" userLabel="Seperator">
-                    <rect key="frame" x="20" y="514" width="335" height="2"/>
-                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="50" y="515" width="275" height="1"/>
+                    <color key="backgroundColor" red="0.80784313725490198" green="0.80784313725490198" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="2" id="abs-vg-OLH"/>
+                        <constraint firstAttribute="height" constant="1" id="abs-vg-OLH"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Itching to get started?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n51-gs-K6q" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
@@ -89,7 +89,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PA6-Aj-DKL" userLabel="SuccessView">
-                    <rect key="frame" x="30" y="215" width="315" height="118"/>
+                    <rect key="frame" x="30" y="216" width="315" height="118"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="XjN-cB-amI">
                             <rect key="frame" x="125.5" y="0.0" width="64" height="64"/>
@@ -138,11 +138,11 @@
                 <constraint firstItem="eWi-zW-8Qy" firstAttribute="top" secondItem="n51-gs-K6q" secondAttribute="bottom" constant="10" id="Ygi-2L-F5m"/>
                 <constraint firstItem="eWi-zW-8Qy" firstAttribute="leading" secondItem="iCN-Ah-Wzf" secondAttribute="leading" constant="20" id="Zbl-Qr-8VC"/>
                 <constraint firstItem="BWy-dL-Get" firstAttribute="top" secondItem="PA6-Aj-DKL" secondAttribute="bottom" constant="80" id="dXW-3c-UEq"/>
-                <constraint firstItem="WvW-we-AhF" firstAttribute="leading" secondItem="iCN-Ah-Wzf" secondAttribute="leading" constant="20" id="ez8-pj-jim"/>
+                <constraint firstItem="WvW-we-AhF" firstAttribute="leading" secondItem="iCN-Ah-Wzf" secondAttribute="leading" constant="50" id="ez8-pj-jim"/>
                 <constraint firstItem="n51-gs-K6q" firstAttribute="top" secondItem="WvW-we-AhF" secondAttribute="bottom" constant="35" id="hsY-C8-uUr"/>
                 <constraint firstItem="iCN-Ah-Wzf" firstAttribute="trailing" secondItem="eWi-zW-8Qy" secondAttribute="trailing" constant="20" id="kuL-Af-Axm"/>
                 <constraint firstItem="WvW-we-AhF" firstAttribute="top" secondItem="13a-XW-hyP" secondAttribute="bottom" constant="35" id="lGD-Hr-6Db"/>
-                <constraint firstItem="iCN-Ah-Wzf" firstAttribute="trailing" secondItem="WvW-we-AhF" secondAttribute="trailing" constant="20" id="miL-iU-TTj"/>
+                <constraint firstItem="iCN-Ah-Wzf" firstAttribute="trailing" secondItem="WvW-we-AhF" secondAttribute="trailing" constant="50" id="miL-iU-TTj"/>
                 <constraint firstItem="iCN-Ah-Wzf" firstAttribute="bottom" secondItem="eWi-zW-8Qy" secondAttribute="bottom" constant="50" id="rDK-cX-7ft"/>
                 <constraint firstItem="iCN-Ah-Wzf" firstAttribute="trailing" secondItem="13a-XW-hyP" secondAttribute="trailing" constant="20" id="rbF-xw-NCI"/>
                 <constraint firstItem="iCN-Ah-Wzf" firstAttribute="trailing" secondItem="n51-gs-K6q" secondAttribute="trailing" constant="20" id="wus-o1-iJQ"/>

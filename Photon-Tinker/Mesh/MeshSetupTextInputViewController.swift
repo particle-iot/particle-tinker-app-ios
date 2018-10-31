@@ -9,6 +9,8 @@ import UIKit
 class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: MeshLabel!
+
+    @IBOutlet weak var noteView: UIView!
     @IBOutlet weak var noteTitleLabel: MeshLabel!
     @IBOutlet weak var noteTextLabel: MeshLabel!
 
@@ -54,7 +56,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
         noteTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.PrimaryTextColor)
 
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
         inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
         inputTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.InputTitleColor)
     }

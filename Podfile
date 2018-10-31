@@ -15,7 +15,6 @@ target 'Particle' do
     pod 'YCTutorialBox'
     pod 'Crashlytics'
     pod 'Analytics'
-    pod 'LaunchDarkly', '2.13.4'
     pod 'Segment-Firebase'
     pod 'Reveal-SDK', :configurations => ['Debug']
 end

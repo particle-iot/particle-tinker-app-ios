@@ -26,7 +26,7 @@ enum ServerProtocolType {
 
 // Device mode
 enum DeviceMode {
-  DEVICE_MODE_OTHER = 0;
+  NORMAL_MODE = 0;
   LISTENING_MODE = 1;
 }
 
@@ -34,6 +34,12 @@ enum DeviceMode {
 enum SystemCapabilityFlag {
   NO_SYSTEM_CAPABILITY_FLAGS = 0;
   COMPRESSED_OTA = 0x01;
+}
+
+// System features
+enum Feature {
+  INVALID_FEATURE = 0;
+  ETHERNET_DETECTION = 1;
 }
 
 // Get the device ID
@@ -199,4 +205,37 @@ message IsDeviceSetupDoneRequest {
 
 message IsDeviceSetupDoneReply {
   bool done = 1;
+}
+
+message SetStartupModeRequest {
+  option (type_id) = 75; // CTRL_REQUEST_SET_STARTUP_MODE
+  DeviceMode mode = 1;
+}
+
+message SetStartupModeReply {
+}
+
+message SystemResetRequest {
+  option (type_id) = 40; // CTRL_REQUEST_RESET
+}
+
+message SystemResetReply {
+}
+
+message SetFeatureRequest {
+  option (type_id) = 33; // CTRL_REQUEST_SET_FEATURE
+  Feature feature = 1;
+  bool enabled = 2;
+}
+
+message SetFeatureReply {
+}
+
+message GetFeatureRequest {
+  option (type_id) = 34; // CTRL_REQUEST_GET_FEATURE
+  Feature feature = 1;
+}
+
+message GetFeatureReply {
+  bool enabled = 1;
 }

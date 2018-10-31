@@ -18,10 +18,14 @@ class MeshSetupStyle {
     static var RegularSize = 16
     static var LargeSize = 18
     static var ExtraLargeSize = 22
+    static var PriceSize = 48
 
     //colors
     static var PrimaryTextColor = UIColor.colorWithHexString("#333333")
     static var SecondaryTextColor = UIColor.colorWithHexString("#B1B1B1")
+
+    static var BillingTextColor = UIColor.colorWithHexString("#76777A")
+    static var StrikeThroughColor = UIColor.colorWithHexString("#002F87")
 
     static var DisabledTextColor = UIColor.colorWithHexString("#A9A9A9")
     static var PlaceHolderTextColor = UIColor.colorWithHexString("#A9A9A9")
@@ -30,8 +34,16 @@ class MeshSetupStyle {
     static var NoteBackgroundColor = UIColor.colorWithHexString("#F7F7F7")
     static var NoteBorderColor = UIColor.colorWithHexString("#C7C7C7")
 
+    static var ProgressBarProgressColor = UIColor.colorWithHexString("#02ADEF")
+    static var ProgressBarTrackColor = UIColor.colorWithHexString("#F5F5F5")
+
     static var EthernetToggleBackgroundColor = UIColor.colorWithHexString("#F5F5F5")
     static var ViewBackgroundColor = UIColor.colorWithHexString("#FFFFFF")
+
+
+    static var AlternativeButtonColor = UIColor.colorWithHexString("#FFFFFF")
+    static var AlternativeButtonBorderColor = UIColor.colorWithHexString("#02ADEF")
+    static var AlternativeButtonTitleColor = UIColor.colorWithHexString("#02ADEF")
 
     static var ButtonColor = UIColor.colorWithHexString("#02ADEF")
     static var ButtonTitleColor = UIColor.colorWithHexString("#FFFFFF")
@@ -79,25 +91,57 @@ class MeshSetupButton : UIButton {
         self.backgroundColor = MeshSetupStyle.ButtonColor
 
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
-//        self.layer.shadowOffset = CGSize(width: 0, height: 1)
-//        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-//        self.layer.shadowOpacity = 1.0
-
     }
 
     override func setTitle(_ title: String?, for state: UIControlState) {
         super.setTitle(title?.uppercased(), for: state)
     }
 
-    func setStyle(font: String, size: Int, color: UIColor) {
+    func setStyle(font: String, size: Int) {
         self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
 
-        self.setTitleColor(color, for: .normal)
-        self.setTitleColor(color, for: .selected)
-        self.setTitleColor(color, for: .highlighted)
-        self.setTitleColor(color.withAlphaComponent(0.5), for: .disabled)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .normal)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .selected)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor, for: .highlighted)
+        self.setTitleColor(MeshSetupStyle.ButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
 
-        self.tintColor = color
+        DispatchQueue.main.async{
+            self.tintColor = MeshSetupStyle.ButtonTitleColor
+            self.imageView?.tintColor = MeshSetupStyle.ButtonTitleColor
+        }
+    }
+}
+
+
+class MeshSetupAlternativeButton : UIButton {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.layer.cornerRadius = 3.0
+        self.backgroundColor = MeshSetupStyle.AlternativeButtonColor
+
+        self.layer.borderColor = MeshSetupStyle.AlternativeButtonBorderColor.cgColor
+        self.layer.borderWidth = 1
+
+        self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
+    }
+
+    override func setTitle(_ title: String?, for state: UIControlState) {
+        super.setTitle(title?.uppercased(), for: state)
+    }
+
+    func setStyle(font: String, size: Int) {
+        self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
+
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor, for: .normal)
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor, for: .selected)
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor, for: .highlighted)
+        self.setTitleColor(MeshSetupStyle.AlternativeButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
+
+        DispatchQueue.main.async{
+            self.tintColor = MeshSetupStyle.AlternativeButtonTitleColor
+            self.imageView?.tintColor = MeshSetupStyle.AlternativeButtonTitleColor
+        }
     }
 }
 
@@ -136,6 +180,23 @@ class MeshSetupNoteView: UIView {
     }
 }
 
+class MeshCheckBoxButton : UIButton {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.imageEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: 15)
+        self.setBackgroundImage(UIImage(named: "MeshCheckBox"), for: .normal)
+        self.setBackgroundImage(UIImage(named: "MeshCheckBoxSelected"), for: .selected)
+        self.setBackgroundImage(UIImage(named: "MeshCheckBoxSelected"), for: .highlighted)
+
+        self.tintColor = .clear
+    }
+
+    override func backgroundRect(forBounds bounds: CGRect) -> CGRect {
+        return CGRect(x: 0, y: (bounds.height-20)/2, width: 20, height: 20)
+    }
+}
+
 extension UIColor {
     static func colorWithHexString(_ hexString: String, alpha:CGFloat? = 1.0) -> UIColor {
         // Convert hex string to an integer
@@ -159,5 +220,15 @@ extension UIColor {
         // Scan hex value
         scanner.scanHexInt32(&hexInt)
         return hexInt
+    }
+}
+
+extension UIView {
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.duration = 0.3
+        animation.values = [-15, 15, -7.5, 7.5, 0]
+        self.layer.add(animation, forKey: "shake")
     }
 }

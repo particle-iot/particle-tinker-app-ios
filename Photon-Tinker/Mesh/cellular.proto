@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package particle.ctrl.cellular;
+option java_package = "io.particle.firmwareprotos.ctrl.cellular";
+
+import "extensions.proto";
+import "common.proto";
+
+/**
+ * SIM card types.
+ *
+ * Note: The values of this enum should match the values defined by the `SimType` enum in the firmware.
+ */
+enum SimType {
+  INVALID_SIM_TYPE = 0;
+  INTERNAL = 1;
+  EXTERNAL = 2;
+}
+
+/**
+ * Access point settings.
+ */
+message AccessPoint {
+  string apn = 1;
+  string user = 2;
+  string password = 3;
+  bool use_defaults = 4;
+}
+
+/**
+ * Set access point settings.
+ */
+message SetAccessPointRequest {
+  option (type_id) = 550; // CTRL_REQUEST_CELLULAR_SET_ACCESS_POINT
+  SimType sim_type = 1;
+  AccessPoint access_point = 2;
+}
+
+message SetAccessPointReply {
+}
+
+/**
+ * Get access point settings.
+ */
+message GetAccessPointRequest {
+  option (type_id) = 551; // CTRL_REQUEST_CELLULAR_GET_ACCESS_POINT
+  SimType sim_type = 1;
+}
+
+message GetAccessPointReply {
+  AccessPoint access_point = 1;
+}
+
+/**
+ * Set active SIM card.
+ *
+ * Note: The device needs to be reset in order for the settings to take effect.
+ */
+message SetActiveSimRequest {
+  option (type_id) = 552; // CTRL_REQUEST_CELLULAR_SET_ACTIVE_SIM
+  SimType sim_type = 1;
+}
+
+message SetActiveSimReply {
+}
+
+/**
+ * Get active SIM card.
+ */
+message GetActiveSimRequest {
+  option (type_id) = 553; // CTRL_REQUEST_CELLULAR_GET_ACTIVE_SIM
+}
+
+message GetActiveSimReply {
+  SimType sim_type = 1;
+}
+
+/**
+ * Get ICCID.
+ */
+message GetIccidRequest {
+  option (type_id) = 554; // CTRL_REQUEST_CELLULAR_GET_ICCID
+}
+
+message GetIccidReply {
+  string iccid = 1;
+}
