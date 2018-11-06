@@ -20,7 +20,7 @@ protocol MeshSetupFlowManagerDelegate {
 
     func didRequestToSelectStandAloneOrMeshSetup()
 
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkInfo])
+    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
     func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
 
     func meshSetupDidRequestCommissionerDeviceInfo()
@@ -30,10 +30,10 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToEnterDeviceName()
     func meshSetupDidRequestToAddOneMoreDevice()
 
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkInfo])
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 
     func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-    func meshSetupDidCreateNetwork(network: MeshSetupNetworkInfo)
+    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
@@ -238,6 +238,13 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try again."
         }
     }
+}
+
+internal struct MeshSetupNetworkCellInfo {
+    var name: String
+    var extPanID: String
+    var userOwned: Bool = false
+    var deviceCount: UInt? = nil
 }
 
 enum MeshSetupErrorSeverity {

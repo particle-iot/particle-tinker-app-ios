@@ -26,7 +26,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     private var didSelectNetwork: Bool = false
-    private var selectedNetwork: MeshSetupNetworkInfo?
+    private var selectedNetwork: MeshSetupNetworkCellInfo?
     private var selectedWifiNetwork: MeshSetupNewWifiNetworkInfo?
 
     private var selectedNetworkPassword: String?
@@ -178,7 +178,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.continueSetup()
     }
 
-    func meshSetupDidRequestToLeaveNetwork(network: Particle.MeshSetupNetworkInfo) {
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: MeshSetupStrings.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
 
@@ -397,15 +397,15 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func didSelectNetwork(network: MeshSetupNetworkInfo) {
+    func didSelectNetwork(network: MeshSetupNetworkCellInfo) {
         self.didSelectNetwork = true
         self.selectedNetwork = network
 
-        flowManager.setSelectedNetwork(selectedNetwork: selectedNetwork!)
+        flowManager.setSelectedNetwork(selectedNetworkExtPanID: selectedNetwork!.extPanID)
     }
 
 
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
+    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo]) {
         NSLog("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
@@ -679,7 +679,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 //
 //
-//    func didSelectGatewayNetwork(network: MeshSetupNetworkInfo?) {
+//    func didSelectGatewayNetwork(network: MeshSetupNetworkCellInfo?) {
 //        self.didSelectNetwork = true
 //        self.selectedNetwork = network
 //
@@ -689,7 +689,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 //
 //
 //
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [Particle.MeshSetupNetworkInfo]) {
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo]) {
 //        NSLog("scan complete")
 //
 //        //if by the time this returned, user has already selected the network, ignore the results of last scan
@@ -759,7 +759,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
-    func meshSetupDidCreateNetwork(network: MeshSetupNetworkInfo) {
+    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo) {
         //make target device into a commissioner
         self.selectedNetwork = network
         self.didSelectNetwork = true

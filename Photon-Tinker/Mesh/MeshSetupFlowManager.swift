@@ -1097,15 +1097,36 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private func getUserNetworkSelection() {
-        self.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: self.targetDevice.meshNetworks!)
+        var networks = [String: MeshSetupNetworkCellInfo]()
+
+        for network in self.targetDevice.meshNetworks! {
+            networks[network.extPanID] = MeshSetupNetworkCellInfo(name: network.name, extPanID: network.extPanID, userOwned: false, deviceCount: nil)
+        }
+
+        for apiNetwork in self.apiNetworks! {
+            if let xpanId = apiNetwork.xpanId, var meshNetwork = networks[xpanId] {
+                meshNetwork.userOwned = true
+                meshNetwork.deviceCount = apiNetwork.deviceCount
+                networks[xpanId] = meshNetwork
+            }
+        }
+
+        self.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: Array(networks.values))
     }
 
-    func setSelectedNetwork(selectedNetwork: MeshSetupNetworkInfo) -> MeshSetupFlowError? {
+    func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError? {
         guard currentCommand == .GetUserNetworkSelection else {
             return .IllegalOperation
         }
 
-        self.selectedNetworkMeshInfo = selectedNetwork
+        self.selectedNetworkMeshInfo = nil
+        for network in self.targetDevice.meshNetworks! {
+            if network.extPanID == selectedNetworkExtPanID {
+                self.selectedNetworkMeshInfo = network
+                break
+            }
+        }
+
         self.stepComplete()
 
         return nil
@@ -1901,22 +1922,17 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 //    }
 //
 //    private func getUserMeshSetupChoice() {
+//      //TODO: merge api networks with device mesh networks
 //        self.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: self.targetDevice.networks!)
 //    }
 //
-//    func setSelectOrCreateNetwork(selectedNetwork: MeshSetupNetworkInfo?) -> MeshSetupFlowError? {
+//    func setSelectOrCreateNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {
 ////        guard currentCommand == .OfferSelectOrCreateNetwork else {
 ////            return .IllegalOperation
 ////        }
 ////
 ////        if let selectedNetwork = selectedNetwork {
 ////            self.selectedNetworkInfo = selectedNetwork
-
-//for network in self.targetDevice.apiNetworks! {
-//    if (network.id == selectedNetwork.networkID) {
-//        self.selectedNetworkAPIInfo = network
-//        break
-//    }
 //}
 //
 //if (self.selectedNetworkAPIInfo == nil){
@@ -2046,7 +2062,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.selectedNetworkMeshInfo = networkInfo!
                 self.selectedNetworkPassword = self.newNetworkPassword
 
-                self.delegate.meshSetupDidCreateNetwork(network: networkInfo!)
+                self.delegate.meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
 
                 self.setTargetDeviceSetupDone {
                     self.setTargetDeviceAsCommissioner()

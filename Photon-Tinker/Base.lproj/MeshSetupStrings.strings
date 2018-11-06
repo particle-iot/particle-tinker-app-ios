@@ -136,6 +136,8 @@ to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.SelectWifiNetwork.Title" = "Your Argon is scanning for Wi-Fi networks to join";
 
 "MeshSetup.SelectNetwork.Title" = "Select mesh network to join";
+"MeshSetup.SelectNetwork.DevicesSingular" = "1 device on network";
+"MeshSetup.SelectNetwork.DevicesPlural" = "{{0}} devices on network";
 
 
 
@@ -194,6 +196,8 @@ to allow your {{device}} to join the {{network}} mesh network";
 
 "MeshSetup.CreateOrSelectNetwork.Title" = "Your Xenon + Ethernet Featherwing will act as a gateway in a mesh network";
 "MeshSetup.CreateOrSelectNetwork.CreateNetwork" = "Create new network...";
+"MeshSetup.CreateOrSelectNetwork.DevicesSingular" = "1 device on network";
+"MeshSetup.CreateOrSelectNetwork.DevicesPlural" = "{{0}} devices on network";
 
 
 
