@@ -111,6 +111,7 @@
 		C810B18620497AAC8EF99E79 /* MeshSetupInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C810BDA797852B52EAA154A4 /* MeshSetupInfoView.xib */; };
 		C810B1CD597F61237C015344 /* MeshScreenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4F737B7827436F2694E /* MeshScreenUtils.swift */; };
 		C810B1F59C14C1DF6729D6B2 /* MeshSetupCreateNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B53B3FF656161F206C4A /* MeshSetupCreateNetworkPasswordViewController.swift */; };
+		C810B2D9ECD474E60DFA4A74 /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BFF8D422E5CAA27D1E65 /* LogListViewController.swift */; };
 		C810B3241C5AEA9FE0273D8A /* MeshSetupFirmwareUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDFBB870A452DFE60AD0 /* MeshSetupFirmwareUpdateViewController.swift */; };
 		C810B4F84F91FF574E316EDC /* MeshSetupWifiNetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C810B144D6FEAB8614A35CFB /* MeshSetupWifiNetworkCell.xib */; };
 		C810B570E40A50EBA524D8A8 /* MeshSetupFirmwareUpdateProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B52756160C0789CEB88B /* MeshSetupFirmwareUpdateProgressViewController.swift */; };
@@ -308,6 +309,7 @@
 		C810BDA797852B52EAA154A4 /* MeshSetupInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupInfoView.xib; sourceTree = "<group>"; };
 		C810BDFBB870A452DFE60AD0 /* MeshSetupFirmwareUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFirmwareUpdateViewController.swift; sourceTree = "<group>"; };
 		C810BF96B80E35D10BB3B8AF /* MeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupViewController.swift; sourceTree = "<group>"; };
+		C810BFF8D422E5CAA27D1E65 /* LogListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -341,6 +343,7 @@
 				502E9BBF1B194DF800D2C45B /* HelpViewController.swift */,
 				C810BBF99BF4AC32D496472A /* ScanBarcodeViewController.m */,
 				C810B4E9298B8E338B5D6FB9 /* ScanBarcodeViewController.h */,
+				C810BFF8D422E5CAA27D1E65 /* LogListViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 				C810BDA4D0D091E67587C94D /* MeshSetupWifiNetworkPasswordViewController.swift in Sources */,
 				C810B57D6A8BC308730D1761 /* MeshSetupConnectingToInternetViewControllers.swift in Sources */,
 				C810B6F1E2651913E90CE4A6 /* MeshSetupPricingInfoViewController.swift in Sources */,
+				C810B2D9ECD474E60DFA4A74 /* LogListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

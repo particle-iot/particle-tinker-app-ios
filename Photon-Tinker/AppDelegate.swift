@@ -35,7 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         IQKeyboardManager.shared().toolbarManageBehaviour = .byTag
 
+        LogList.clearStaleLogs()
+        #if !DEBUG
+            LogList.startLogging()
+        #endif
+
         return true
+
     }
 }
 

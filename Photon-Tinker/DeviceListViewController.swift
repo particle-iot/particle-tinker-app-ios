@@ -19,6 +19,7 @@ let kDefaultElectronFlashingTime : Int = 15
 
 class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate {
 
+
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -79,7 +80,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var photonSelectionTableView: UITableView!
     
     @IBAction func setupNewDeviceButtonTapped(_ sender: UIButton) {
-        
+        yourDevicesTappedCount = 0
         // heading
         // TODO: format with Particle cyan and Gotham font!
 
@@ -140,13 +141,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.selectedDevice)
-        
         if segue.identifier == "tinker" {
             if let vc = segue.destination as? SPKTinkerViewController {
                 let indexPath = sender as! IndexPath
                 vc.device = self.devices[indexPath.row]
+
+                let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
                 
                 SEGAnalytics.shared().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 
@@ -157,7 +157,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             if let vc = segue.destination as? DeviceInspectorViewController {
                 let indexPath = sender as! IndexPath
                 vc.device = self.devices[indexPath.row]
-                
+
+                let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
+
                 SEGAnalytics.shared().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
                 
             }
@@ -169,7 +171,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var statusEventID : AnyObject? // TODO: remove
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        yourDevicesTappedCount = 0
+
         if let d = self.selectedDevice {
             d.delegate = self // reassign Device delegate to this VC to receive system events (in case some other VC down the line reassigned it)
         }
@@ -234,9 +237,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         NotificationCenter.default.removeObserver(self)
-        
     }
     
     
@@ -646,6 +647,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        yourDevicesTappedCount = 0
+
         RMessage.dismissActiveNotification()
         tableView.deselectRow(at: indexPath, animated: true)
         let device = self.devices[(indexPath as NSIndexPath).row]
@@ -664,8 +667,20 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.performSegue(withIdentifier: "deviceInspector", sender: indexPath)
         }
     }
-    
-    
+
+
+    private var yourDevicesTappedCount = 0
+    @IBAction func yourDevicesTapped(_ sender: Any) {
+        yourDevicesTappedCount += 1
+
+        if yourDevicesTappedCount >= 10 {
+            yourDevicesTappedCount = 0
+            self.performSegue(withIdentifier: "logList", sender: self)
+        }
+    }
+
+
+
 
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -675,6 +690,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
+        yourDevicesTappedCount = 0
+
         //this method is can be triggered by Log In button therefore we have to have else clause
         if (ParticleCloud.sharedInstance().isAuthenticated) {
             let alert = UIAlertController(title: "Log out", message: "Are you sure you want to log out?", preferredStyle: .alert)
