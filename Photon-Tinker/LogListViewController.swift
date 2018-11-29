@@ -4,19 +4,46 @@
 //
 
 import UIKit
+import Crashlytics
 
 class LogList {
+    static var file: FileHandle?
 
     static func startLogging() {
         //start logging
         var df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd HH:mm"
+        df.dateFormat = "yyyy-MM-dd HH-mm"
 
         var paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
         let fileName = "\(df.string(from: Date())).log"
         let logFilePath = (documentsDirectory as NSString).appendingPathComponent(fileName)
-        freopen(logFilePath.cString(using: String.Encoding.ascii)!, "a+", stderr)
+
+        if (!FileManager.default.fileExists(atPath: logFilePath)) {
+            FileManager.default.createFile(atPath: logFilePath, contents: Data())
+        }
+
+        if let file = FileHandle.init(forWritingAtPath: logFilePath) {
+            file.seekToEndOfFile()
+            self.file = file
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLog), name: NSNotification.Name.ParticleLog, object: nil)
+    }
+
+    @objc static func handleLog(notification: Notification) {
+        let component = (notification.object as? String) ?? "Unknown"
+        let typeInt =  notification.userInfo?[ParticleLogNotificationTypeKey] as? Int32 ?? -1
+        let typeString = ParticleLogger.logTypeString(from: typeInt)
+        let message = notification.userInfo?[ParticleLogNotificationMessageKey] as? String ?? ""
+
+        var formattedMessage = "(\(component) \(typeString)) \(message)"
+        CLSLogv(formattedMessage, getVaList([]))
+
+        if let file = file {
+            file.write(Data("\n\(Date()): ".utf8))
+            file.write(Data(formattedMessage.utf8))
+        }
     }
 
     static func clearAllLogs() {
