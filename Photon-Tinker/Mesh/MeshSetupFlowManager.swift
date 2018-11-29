@@ -424,6 +424,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             NSLog("MeshSetupFlow: \(message)")
             CLSLogv("MeshSetupFlow: %@", getVaList([message]))
         }
+
     }
 
     private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
@@ -1786,7 +1787,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             if (result == .NONE) {
-                if (interface?.ipv4Config.addresses.first != nil) {
+                if (interface?.ipv4Config.addresses.first != nil || interface?.ipv6Config.addresses.first != nil) {
                     self.targetDevice.hasInternetAddress = true
                     self.stepComplete()
                 } else {
