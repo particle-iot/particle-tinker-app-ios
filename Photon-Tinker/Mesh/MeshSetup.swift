@@ -9,13 +9,6 @@ import CoreBluetooth
 
 
 class MeshSetup {
-    static let LogBluetoothHandshakeManager = false
-    static let LogBluetoothConnectionManager = false
-    static let LogBluetoothConnection = false
-    static let LogTransceiver = true
-    static let LogUIManager = true
-    static let LogFlowManager = true
-
     static let bluetoothScanTimeoutValue: DispatchTimeInterval = .seconds(10)
     static let bluetoothSendTimeoutValue: DispatchTimeInterval = .seconds(15)
     static let deviceObtainedIPTimeout: Double = 15.0

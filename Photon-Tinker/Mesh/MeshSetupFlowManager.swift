@@ -420,11 +420,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: Helpers
     private func log(_ message: String) {
-        if (MeshSetup.LogFlowManager) {
-            NSLog("MeshSetupFlow: \(message)")
-            CLSLogv("MeshSetupFlow: %@", getVaList([message]))
-        }
-
+        ParticleLogger.logInfo("MeshSetupFlow", format: message, withParameters: getVaList([]))
     }
 
     private func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
@@ -947,10 +943,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     private func scanWifiNetworks() {
         self.targetDevice.transceiver!.sendScanWifiNetworks { result, networks in
-            self.log("sendScanWifiNetworks: \(result.description()), networksCount: \(networks?.count as Optional)")
-            if (MeshSetup.LogFlowManager) {
-                print("\(networks as Optional)")
-            }
+            self.log("sendScanWifiNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
+
             if (self.canceled) {
                 return
             }

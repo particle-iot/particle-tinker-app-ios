@@ -78,10 +78,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     private func log(_ message: String) {
-        if (MeshSetup.LogTransceiver) {
-            NSLog("MeshSetupTransceiverDelegate: \(message)")
-            CLSLogv("MeshSetupTransceiverDelegate: %@", getVaList([message]))
-        }
+        ParticleLogger.logInfo("MeshSetupTransceiverDelegate", format: message, withParameters: getVaList([]))
     }
 
     private func prepareRequestMessage(type: ControlRequestMessageType, payload: Data) -> (UInt16, Data) {

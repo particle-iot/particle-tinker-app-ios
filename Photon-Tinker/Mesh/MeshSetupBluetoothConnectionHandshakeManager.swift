@@ -70,9 +70,8 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     }
 
     private func log(_ message: String) {
-        if (MeshSetup.LogBluetoothHandshakeManager) {
-            NSLog("HandshakeManager: \(message)")
-        }
+        ParticleLogger.logInfo("HandshakeManager", format: message, withParameters: getVaList([]))
+
     }
 
     private func fail(withReason reason: HandshakeManagerError) {

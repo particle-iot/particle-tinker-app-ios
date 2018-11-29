@@ -76,10 +76,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     private func log(_ message: String) {
-        if (MeshSetup.LogUIManager) {
-            NSLog("MeshSetupFlowUI: \(message)")
-            CLSLogv("MeshSetupFlowUI: %@", getVaList([message]))
-        }
+        ParticleLogger.logInfo("MeshSetupFlowUI", format: message, withParameters: getVaList([]))
     }
 
     //MARK: Get Target Device Info

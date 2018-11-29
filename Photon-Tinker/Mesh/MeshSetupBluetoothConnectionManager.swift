@@ -101,9 +101,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
 
     private func log(_ message: String) {
-        if (MeshSetup.LogBluetoothConnectionManager) {
-            NSLog("MeshSetupBluetoothConnectionManager: \(message)")
-        }
+        ParticleLogger.logInfo("MeshSetupBluetoothConnectionManager", format: message, withParameters: getVaList([]))
     }
 
 
