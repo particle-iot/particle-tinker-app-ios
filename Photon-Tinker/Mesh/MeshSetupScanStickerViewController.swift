@@ -15,7 +15,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var titleLabel: MeshLabel!
     @IBOutlet weak var textLabel: MeshLabel!
-
+    @IBOutlet weak var imageView: UIImageView!
+    
     internal var callback: ((String) -> ())!
 
     private var captureSession: AVCaptureSession!
@@ -132,6 +133,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+
+            showSpinner()
             callback(stringValue)
         }
     }
@@ -165,4 +168,34 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             }
         }
     }
+
+    func showSpinner() {
+        fadeContent()
+        ParticleSpinner.show(view)
+    }
+
+    func hideSpinner() {
+        unfadeContent()
+        ParticleSpinner.hide(view)
+    }
+
+    internal func fadeContent() {
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.titleLabel.alpha = 0.5
+            self.textLabel.alpha = 0.5
+            self.imageView.alpha = 0.5
+            self.cameraView.alpha = 0.5
+        }
+    }
+
+    internal func unfadeContent() {
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.titleLabel.alpha = 1
+            self.textLabel.alpha = 1
+            self.imageView.alpha = 1
+            self.cameraView.alpha = 1
+        }
+    }
+
+
 }

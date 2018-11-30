@@ -21,6 +21,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupScanStickerViewController" customModule="Particle" customModuleProvider="target">
             <connections>
                 <outlet property="cameraView" destination="sOJ-0C-E4V" id="AqP-YY-rXC"/>
+                <outlet property="imageView" destination="Snp-Lx-HdN" id="A8m-1Q-QQQ"/>
                 <outlet property="textLabel" destination="hMW-KC-Qkt" id="loB-Ws-8eb"/>
                 <outlet property="titleLabel" destination="mix-AT-vYR" id="V3D-0k-T6X"/>
                 <outlet property="view" destination="qEZ-jt-cwe" id="HOc-Sm-r7c"/>
