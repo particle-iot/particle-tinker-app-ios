@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         #if DEBUG
             ParticleLogger.setLoggerLevel(.debug)
-            //ParticleLogger.setIgnoreControls(["ParticleDevice", "BluetoothHandshakeManager", "BluetoothConnectionManager", "BluetoothConnection"])
+            ParticleLogger.setIgnoreControls(["ParticleDevice", "BluetoothHandshakeManager", "BluetoothConnectionManager", "BluetoothConnection", "Particle.DeviceListViewController"])
         #endif
     
         LogList.startLogging()
