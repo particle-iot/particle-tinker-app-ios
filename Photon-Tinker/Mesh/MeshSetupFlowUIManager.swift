@@ -134,7 +134,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             } else {
                 matrix.attemptMobileSecretRecovery { recoveredMatrixString, error in
                     if let recoveredString = recoveredMatrixString {
-                        self.validateMatrix(dataMatrixString: recoveredString, targetDevice: targetDevice)
+                        self.validateMatrix(recoveredString, targetDevice: targetDevice)
                     } else if let nserror = error as? NSError, nserror.code == 200 {
                         self.showFailedMatrixRecoveryError(dataMatrix: matrix)
                     } else {
@@ -146,7 +146,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                             })
 
                             alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                                self.validateMatrix(dataMatrixString: dataMatrixString, targetDevice)
+                                self.validateMatrix(dataMatrixString, targetDevice: targetDevice)
                             })
 
                             self.present(alert, animated: true)
