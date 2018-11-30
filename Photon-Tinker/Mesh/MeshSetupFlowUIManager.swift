@@ -6,8 +6,9 @@
 import Foundation
 import UIKit
 import Crashlytics
+import MessageUI
 
-class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate {
+class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate, MFMailComposeViewControllerDelegate {
 
 
 
@@ -112,14 +113,119 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
         DispatchQueue.main.async {
             let scanVC = MeshSetupScanStickerViewController.loadedViewController()
-            scanVC.setup(didFindStickerCode: self.showTargetDevicePairing, deviceType: self.targetDeviceType)
+            scanVC.setup(didFindStickerCode: self.setTargetDeviceStickerString, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(scanVC, animated: true)
+        }
+    }
+
+    func setTargetDeviceStickerString(dataMatrixString:String) {
+        log("dataMatrix scanned: \(dataMatrixString)")
+        self.validateMatrix(dataMatrixString, targetDevice: true)
+    }
+
+    private func validateMatrix(_ dataMatrixString: String, targetDevice: Bool) {
+        if let matrix = MeshSetupDataMatrix(dataMatrixString: dataMatrixString) {
+            if (matrix.isMobileSecretValid()) {
+                if (targetDevice) {
+                    self.showTargetDevicePairing(dataMatrixString: dataMatrixString)
+                } else {
+                    self.showCommissionerDevicePairing(dataMatrixString: dataMatrixString)
+                }
+            } else {
+                matrix.attemptMobileSecretRecovery { recoveredMatrixString, error in
+                    if let recoveredString = recoveredMatrixString {
+                        self.validateMatrix(dataMatrixString: recoveredString, targetDevice: targetDevice)
+                    } else if let nserror = error as? NSError, nserror.code == 200 {
+                        self.showFailedMatrixRecoveryError(dataMatrix: matrix)
+                    } else {
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
+
+                            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                                self.cancelTapped(self)
+                            })
+
+                            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                                self.validateMatrix(dataMatrixString: dataMatrixString, targetDevice)
+                            })
+
+                            self.present(alert, animated: true)
+                        }
+                    }
+                }
+            }
+        } else {
+            showWrongMatrixError(useTargetDevice: true)
+        }
+
+    }
+
+    private func showFailedMatrixRecoveryError(dataMatrix: MeshSetupDataMatrix) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.StickerError.description, preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                self.restartCaptureSession()
+            })
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContactSupport, style: .default) { action in
+                self.openEmailClient(dataMatrix: dataMatrix)
+                self.restartCaptureSession()
+            })
+
+            self.present(alert, animated: true)
+        }
+    }
+
+    private func openEmailClient(dataMatrix: MeshSetupDataMatrix) {
+        if !MFMailComposeViewController.canSendMail() {
+            print("Mail services are not available")
+            return
+        }
+
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+
+        composeVC.setToRecipients(["hello@particle.io"])
+        composeVC.setSubject("3rd generation sticker problem")
+        composeVC.setMessageBody("""
+                                -- BEFORE SENDING Please attach a picture of the device sticker! --
+
+                                Hi Particle! My sticker barcode has an issue.
+
+                                Serial number: \(dataMatrix.serialNumber)
+                                Full scan results: \(dataMatrix.serialNumber) \(dataMatrix.mobileSecret)
+                                """, isHTML: false)
+
+        self.present(composeVC, animated: true)
+    }
+
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+
+
+
+
+    func showWrongMatrixError(useTargetDevice: Bool) {
+        //show error where selected device type mismatch
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
+                    message: MeshSetupFlowError.WrongDeviceType.description.replaceMeshSetupStrings(deviceType: useTargetDevice ? self.targetDeviceType!.description : self.commissionerDeviceType?.description),
+                    preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                self.restartCaptureSession()
+            })
+
+            self.present(alert, animated: true)
         }
     }
 
     //user successfully scanned target code
     func showTargetDevicePairing(dataMatrixString: String) {
-        log("dataMatrix scanned: \(dataMatrixString)")
+        log("dataMatrix validated: \(dataMatrixString)")
         self.targetDeviceDataMatrixString = dataMatrixString
 
         //make sure the scanned device is of the same type as user requested in the first screen
@@ -140,16 +246,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 }
             }
         } else {
-            //show error where selected device type mismatch
-            DispatchQueue.main.async {
-                let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.WrongDeviceType.description.replaceMeshSetupStrings(deviceType: self.targetDeviceType!.description), preferredStyle: .alert)
-
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
-                    self.restartCaptureSession()
-                })
-
-                self.present(alert, animated: true)
-            }
+            showWrongMatrixError(useTargetDevice: true)
         }
     }
 
@@ -475,14 +572,20 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
         DispatchQueue.main.async {
             let scanVC = MeshSetupScanCommissionerStickerViewController.loadedViewController()
-            scanVC.setup(didFindStickerCode: self.showCommissionerDevicePairing)
+            scanVC.setup(didFindStickerCode: self.setCommissionerDeviceStickerString)
             self.embededNavigationController.pushViewController(scanVC, animated: true)
         }
     }
 
+    func setCommissionerDeviceStickerString(dataMatrixString:String) {
+        log("dataMatrix scanned: \(dataMatrixString)")
+        self.validateMatrix(dataMatrixString, targetDevice: false)
+    }
+
+
     //user successfully scanned target code
     func showCommissionerDevicePairing(dataMatrixString: String) {
-        log("dataMatrix scanned: \(dataMatrixString)")
+        log("dataMatrix validated: \(dataMatrixString)")
         self.commissionerDeviceDataMatrixString = dataMatrixString
 
         //make sure the scanned device is of the same type as user requested in the first screen
@@ -518,8 +621,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     private func restartCaptureSession() {
         if let vc = self.embededNavigationController.topViewController as? MeshSetupScanCommissionerStickerViewController {
             vc.startCaptureSession()
+            vc.hideSpinner()
         } else if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
             vc.startCaptureSession()
+            vc.hideSpinner()
         } else {
             NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController / MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
         }

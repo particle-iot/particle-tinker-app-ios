@@ -23,6 +23,7 @@
 "MeshSetup.Action.DontLeaveNetwork" = "Cancel Setup";
 "MeshSetup.Action.CancelSetup" = "Cancel";
 "MeshSetup.Action.ContinueSetup" = "Don't Cancel";
+"MeshSetup.Action.ContactSupport" = "Contact Support";
 
 
 

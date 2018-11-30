@@ -78,6 +78,7 @@ class MeshSetupStrings {
         static let ContinueSetup = "MeshSetup.Action.ContinueSetup".meshLocalized()
         static let LeaveNetwork = "MeshSetup.Action.LeaveNetwork".meshLocalized()
         static let DontLeaveNetwork = "MeshSetup.Action.DontLeaveNetwork".meshLocalized()
+        static let ContactSupport = "MeshSetup.Action.ContactSupport".meshLocalized()
     }
 
 

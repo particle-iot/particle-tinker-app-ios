@@ -166,6 +166,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case InvalidDeviceState
 
     //GetNewDeviceName
+    case StickerError
+    case NetworkError
     case FailedToActivateSim
     case CCMissing
     case UnableToGetPricingInformation
@@ -192,6 +194,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
             //unproofread
+            case .StickerError : return "There is a problem with the sticker on your device. Please contact support for a solution."
+            case .NetworkError : return "There was a network error communicating to Particle Device Cloud."
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
             case .NameInUse : return "You already own a network with this name. Please use different name."
             case .FailedToObtainIpBoron : return "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area."
@@ -310,12 +314,13 @@ internal struct MeshSetupPeripheralCredentials {
     var mobileSecret: String
 }
 
+//this has to be class because mutating keyword cannot be used together with @escaping closures.
 internal struct MeshSetupDataMatrix {
     var serialNumber: String
     var mobileSecret: String
 
     init?(dataMatrixString: String) {
-        let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{15})")
+        let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{12,15})")
         let nsString = dataMatrixString as NSString
         let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
 
@@ -325,6 +330,20 @@ internal struct MeshSetupDataMatrix {
             mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
         } else {
             return nil
+        }
+    }
+
+    func isMobileSecretValid() -> Bool {
+        return mobileSecret.count == 15
+    }
+
+    func attemptMobileSecretRecovery(completion: @escaping (String?, Error?) -> ()) {
+        ParticleCloud.sharedInstance().getRecoveryMobileSecret(serialNumber, mobileSecret: mobileSecret) { mobileSecret, error in
+            if let mobileSecret = mobileSecret {
+                completion("\(self.serialNumber) \(mobileSecret)", nil)
+            } else {
+                completion(nil, error)
+            }
         }
     }
 }
