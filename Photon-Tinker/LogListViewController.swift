@@ -31,6 +31,12 @@ class LogList {
         NotificationCenter.default.addObserver(self, selector: #selector(handleLog), name: NSNotification.Name.ParticleLog, object: nil)
     }
 
+    static var timeFormatter:DateFormatter = {
+        let tf = DateFormatter()
+        tf.dateFormat = "HH:mm:ss"
+        return tf
+    }()
+
     @objc static func handleLog(notification: Notification) {
         let component = (notification.object as? String) ?? "Unknown"
         let typeInt =  notification.userInfo?[ParticleLogNotificationTypeKey] as? Int32 ?? -1
@@ -41,7 +47,7 @@ class LogList {
         CLSLogv(formattedMessage, getVaList([]))
 
         if let file = file {
-            file.write(Data("\n\(Date()): ".utf8))
+            file.write(Data("\n\(timeFormatter.string(from: Date())): ".utf8))
             file.write(Data(formattedMessage.utf8))
         }
     }
@@ -71,10 +77,8 @@ class LogList {
 
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         if var fileURLs = try? fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil) {
-            if (fileURLs.count > 3) {
-                fileURLs = fileURLs.sorted { url, url2 in
-                    return url.absoluteString > url2.absoluteString
-                }
+            fileURLs = fileURLs.sorted { url, url2 in
+                return url.absoluteString > url2.absoluteString
             }
             return fileURLs
         }
