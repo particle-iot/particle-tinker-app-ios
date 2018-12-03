@@ -87,7 +87,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .multipleChoice)
 
         if (ParticleCloud.sharedInstance().isAuthenticated) {
-            dialog.addButton("Mesh", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
+            dialog.addButton("Argon / Boron / Xenon", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
                 dialog.dismiss()
                 ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh setup started", withParameters: getVaList([]))
                 self.invokeMeshDeviceSetup()
@@ -103,7 +103,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.invokePhotonDeviceSetup()
             
         }
-        dialog.addButton("Electron/SIM", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
+        dialog.addButton("Electron / SIM", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
             if ParticleCloud.sharedInstance().loggedInUsername != nil {
