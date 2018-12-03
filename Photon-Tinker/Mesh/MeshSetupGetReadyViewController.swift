@@ -5,6 +5,7 @@
 
 import UIKit
 import AVFoundation
+import AVKit
 
 
 class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
@@ -18,13 +19,17 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     
     internal var videoPlayer: AVPlayer?
     internal var layer: AVPlayerLayer?
-    internal var gatewayVideo : AVPlayerItem?
+    internal var ethernetVideo: AVPlayerItem?
     internal var defaultVideo : AVPlayerItem?
+
+    internal var defaultVideoURL: URL!
+    internal var ethernetVideoURL: URL!
+
 
     @IBOutlet weak var ethernetToggleBackground: UIView!
     
     @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var videoView: UIView!
+    @IBOutlet weak var videoView: UIControl!
 
     @IBOutlet weak var textLabel1: MeshLabel!
     @IBOutlet weak var textLabel2: MeshLabel!
@@ -65,7 +70,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     private func setViewContent() {
         if self.setupSwitch.isOn {
             setEthernetContent()
-            self.videoPlayer?.replaceCurrentItem(with: gatewayVideo)
+            self.videoPlayer?.replaceCurrentItem(with: ethernetVideo)
         } else {
             setDefaultContent()
             self.videoPlayer?.replaceCurrentItem(with: defaultVideo)
@@ -166,9 +171,22 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
             self.videoToButtonConstraint?.isActive = false
         }
 
+        videoView.addTarget(self, action: #selector(videoViewTapped), for: .touchUpInside)
+
         NSLog("setting content")
         view.setNeedsLayout()
         view.layoutIfNeeded()
+    }
+
+    @objc public func videoViewTapped(sender: UIControl) {
+        let player = AVPlayer(url: self.setupSwitch.isOn ? ethernetVideoURL : defaultVideoURL)
+
+        let playerController = AVPlayerViewController()
+        playerController.player = player
+
+        present(playerController, animated: true) {
+            player.play()
+        }
     }
 
     private func setDefaultContent() {
@@ -237,13 +255,13 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         // Create a new AVPlayerItem with the asset and an
         // array of asset keys to be automatically loaded
-        let gatewayVideoString:String? = Bundle.main.path(forResource: "featherwing_power_on", ofType: "mov")
-        let gatewayVideoUrl = URL(fileURLWithPath: gatewayVideoString!)
-        gatewayVideo = AVPlayerItem(url: gatewayVideoUrl)
+        let ethernetVideoString:String? = Bundle.main.path(forResource: "featherwing_power_on", ofType: "mov")
+        ethernetVideoURL = URL(fileURLWithPath: ethernetVideoString!)
+        ethernetVideo = AVPlayerItem(url: ethernetVideoURL)
 
         let defaultVideoString:String? = Bundle.main.path(forResource: videoFileName, ofType: "mov")
-        let defaultVideoUrl = URL(fileURLWithPath: defaultVideoString!)
-        defaultVideo = AVPlayerItem(url: defaultVideoUrl)
+        defaultVideoURL = URL(fileURLWithPath: defaultVideoString!)
+        defaultVideo = AVPlayerItem(url: defaultVideoURL)
         
         self.videoPlayer = AVPlayer(playerItem: defaultVideo)
         layer = AVPlayerLayer(player: videoPlayer)
@@ -252,8 +270,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         NSLog("initializing layer?")
         videoView.layer.addSublayer(layer!)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         setVideoLoopObserver()
-        videoPlayer?.play()
     }
 
     override func viewDidLayoutSubviews() {
@@ -269,6 +291,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     func desetVideoLoopObserver() {
+        self.videoPlayer?.pause()
         NotificationCenter.default.removeObserver(self.videoPlayer?.currentItem)
     }
     
@@ -277,6 +300,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
             self.videoPlayer?.seek(to: kCMTimeZero)
             self.videoPlayer?.play()
         }
+
+        self.videoPlayer?.seek(to: kCMTimeZero)
+        self.videoPlayer?.play()
     }
     
 }
