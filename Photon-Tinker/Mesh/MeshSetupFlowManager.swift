@@ -688,7 +688,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: ConnectToTargetDevice
     private func stepConnectToTargetDevice() {
         if (self.bluetoothManager.state != .Ready) {
-            self.fail(withReason: .BluetoothDisabled)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                self.fail(withReason: .BluetoothDisabled)
+            }
             return
         }
 
@@ -1183,7 +1185,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         if (self.bluetoothManager.state != .Ready) {
-            self.fail(withReason: .BluetoothDisabled)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                self.fail(withReason: .BluetoothDisabled)
+            }
             return
         }
 
