@@ -56,7 +56,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         self.callback = didPressReady
         self.deviceType = deviceType
     }
-    @IBOutlet weak var setupSwitch: UISwitch!
+    @IBOutlet weak var setupSwitch: UISwitch?
     
     @IBAction func setupSwitchChanged(_ sender: Any) {
         continueButton.isUserInteractionEnabled = false
@@ -68,7 +68,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private func setViewContent() {
-        if self.setupSwitch.isOn {
+        if self.setupSwitch!.isOn {
             setEthernetContent()
             self.videoPlayer?.replaceCurrentItem(with: ethernetVideo)
         } else {
@@ -179,7 +179,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     @objc public func videoViewTapped(sender: UIControl) {
-        let player = AVPlayer(url: self.setupSwitch.isOn ? ethernetVideoURL : defaultVideoURL)
+        let player = AVPlayer(url: (self.setupSwitch?.isOn ?? false) ? ethernetVideoURL : defaultVideoURL)
 
         let playerController = AVPlayerViewController()
         playerController.player = player
@@ -239,12 +239,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBAction func nextButtonTapped(_ sender: Any) {
         if let checkbox = self.checkboxButton, let checkBoxView = self.checkboxView, checkBoxView.isHidden == false {
             if checkbox.isSelected {
-                callback(self.setupSwitch.isOn)
+                callback(self.setupSwitch!.isOn)
             } else {
                 self.checkboxView?.shake()
             }
         } else {
-            callback(self.setupSwitch.isOn)
+            callback(self.setupSwitch!.isOn)
         }
     }
 
