@@ -65,8 +65,8 @@ class LogList {
         let fileManager = FileManager.default
         let fileURLs = getLogs()
 
-        if (fileURLs.count > 3) {
-            for i in 3..<fileURLs.count {
+        if (fileURLs.count > 10) {
+            for i in 10..<fileURLs.count {
                 try? fileManager.removeItem(at: fileURLs[i])
             }
         }

@@ -80,7 +80,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var photonSelectionTableView: UITableView!
     
     @IBAction func setupNewDeviceButtonTapped(_ sender: UIButton) {
-        yourDevicesTappedCount = 0
         // heading
         // TODO: format with Particle cyan and Gotham font!
 
@@ -178,8 +177,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var statusEventID : AnyObject? // TODO: remove
     
     override func viewWillAppear(_ animated: Bool) {
-        yourDevicesTappedCount = 0
-
         if let d = self.selectedDevice {
             d.delegate = self // reassign Device delegate to this VC to receive system events (in case some other VC down the line reassigned it)
         }
@@ -681,7 +678,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Selected indexPath: %i", withParameters: getVaList([indexPath.row]))
 
-        yourDevicesTappedCount = 0
 
         RMessage.dismissActiveNotification()
         tableView.deselectRow(at: indexPath, animated: true)
@@ -705,28 +701,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
-    private var yourDevicesTappedCount = 0
-    @IBAction func yourDevicesTapped(_ sender: Any) {
-        yourDevicesTappedCount += 1
-
-        if yourDevicesTappedCount >= 10 {
-            yourDevicesTappedCount = 0
-            self.performSegue(withIdentifier: "logList", sender: self)
-        }
-    }
-
-
-
-
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
 
-
+    @IBAction func consolleTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "logList", sender: self)
+    }
+    
 
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
-        yourDevicesTappedCount = 0
 
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Logout tapped", withParameters: getVaList([]))
         //this method is can be triggered by Log In button therefore we have to have else clause

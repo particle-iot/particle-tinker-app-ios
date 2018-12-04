@@ -120,7 +120,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No devices)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSb-Q2-MhK">
-                                <rect key="frame" x="111.66666666666667" y="423" width="151.66666666666663" height="26"/>
+                                <rect key="frame" x="121.33333333333333" y="421" width="132.66666666666669" height="30"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="24"/>
                                 <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -141,7 +141,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNA-WJ-NA0" userLabel="logoutButton">
-                                        <rect key="frame" x="16" y="52.666666666666657" width="59" height="27"/>
+                                        <rect key="frame" x="16" y="51" width="52" height="30"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Log out">
@@ -164,15 +164,21 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR DEVICES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7w-cb-MbB">
-                                        <rect key="frame" x="116.66666666666667" y="51" width="141.66666666666663" height="30"/>
+                                        <rect key="frame" x="122.33333333333333" y="55.666666666666657" width="130.66666666666669" height="21"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOI-uK-m99">
-                                        <rect key="frame" x="116.66666666666667" y="51" width="141.66666666666663" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kl-B5-twK" userLabel="Setup new device">
+                                        <rect key="frame" x="287" y="48" width="36" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="RTL-a1-XEo"/>
+                                            <constraint firstAttribute="height" constant="36" id="Vxo-zc-kdi"/>
+                                        </constraints>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="imgConsole"/>
                                         <connections>
-                                            <action selector="yourDevicesTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="snB-iA-ye4"/>
+                                            <action selector="consolleTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="FsK-zQ-jfM"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -181,16 +187,14 @@
                                     <constraint firstItem="D7w-cb-MbB" firstAttribute="centerY" secondItem="xB3-Ur-rz3" secondAttribute="bottom" constant="-22" id="4mL-iv-s0W"/>
                                     <constraint firstItem="D7w-cb-MbB" firstAttribute="centerX" secondItem="xB3-Ur-rz3" secondAttribute="centerX" id="60g-fg-Hca"/>
                                     <constraint firstItem="D7w-cb-MbB" firstAttribute="centerY" secondItem="kNA-WJ-NA0" secondAttribute="centerY" id="9hz-Eh-QC6"/>
-                                    <constraint firstItem="WOI-uK-m99" firstAttribute="trailing" secondItem="D7w-cb-MbB" secondAttribute="trailing" id="B8q-qG-vqJ"/>
                                     <constraint firstItem="kNA-WJ-NA0" firstAttribute="leading" secondItem="ahE-YY-IaF" secondAttribute="leading" constant="16" id="Fm5-2Q-B07"/>
                                     <constraint firstItem="ahE-YY-IaF" firstAttribute="trailing" secondItem="4Cw-AT-ACb" secondAttribute="trailing" constant="8" id="H2d-31-kc6"/>
                                     <constraint firstItem="Ffd-Uz-IIB" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="top" id="MUY-8q-AOp"/>
-                                    <constraint firstItem="WOI-uK-m99" firstAttribute="top" secondItem="D7w-cb-MbB" secondAttribute="top" id="MlF-iq-oDJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Ffd-Uz-IIB" secondAttribute="trailing" id="UHD-Wv-mR3"/>
                                     <constraint firstAttribute="bottom" secondItem="Ffd-Uz-IIB" secondAttribute="bottom" id="W9u-lT-ufy"/>
-                                    <constraint firstItem="WOI-uK-m99" firstAttribute="leading" secondItem="D7w-cb-MbB" secondAttribute="leading" id="b89-iU-iMy"/>
+                                    <constraint firstItem="4Cw-AT-ACb" firstAttribute="leading" secondItem="7Kl-B5-twK" secondAttribute="trailing" constant="8" id="Yud-yI-w8h"/>
                                     <constraint firstItem="4Cw-AT-ACb" firstAttribute="centerY" secondItem="kNA-WJ-NA0" secondAttribute="centerY" id="e3a-5H-dDW"/>
-                                    <constraint firstItem="WOI-uK-m99" firstAttribute="bottom" secondItem="D7w-cb-MbB" secondAttribute="bottom" id="lAh-Uh-YaU"/>
+                                    <constraint firstItem="7Kl-B5-twK" firstAttribute="centerY" secondItem="4Cw-AT-ACb" secondAttribute="centerY" id="oPf-Rg-VaL"/>
                                     <constraint firstAttribute="trailing" secondItem="G5g-NQ-f2Y" secondAttribute="trailing" id="q6h-hB-JW7"/>
                                     <constraint firstAttribute="bottom" secondItem="G5g-NQ-f2Y" secondAttribute="bottom" id="spX-Z6-5aN"/>
                                     <constraint firstItem="Ffd-Uz-IIB" firstAttribute="leading" secondItem="xB3-Ur-rz3" secondAttribute="leading" id="wY9-bI-awY"/>
@@ -1948,6 +1952,7 @@
         <image name="imgChevronLeft" width="64" height="64"/>
         <image name="imgCircle" width="85" height="85"/>
         <image name="imgCloseIcon" width="170" height="170"/>
+        <image name="imgConsole" width="16" height="16"/>
         <image name="imgCopyToClipboard" width="400" height="400"/>
         <image name="imgDeviceFamily" width="424" height="383"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
