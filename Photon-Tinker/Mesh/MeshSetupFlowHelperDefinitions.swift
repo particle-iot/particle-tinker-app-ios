@@ -374,6 +374,14 @@ extension ParticleDeviceType : CustomStringConvertible {
         }
     }
 
+    static func requiresBattery(serialNumber: String) -> Bool {
+        func isSNPrefix(prefix : String) -> Bool {
+            return (serialNumber.lowercased().range(of: prefix)?.lowerBound == serialNumber.startIndex)
+        }
+
+        return isSNPrefix(prefix: "b31")
+    }
+
     init?(serialNumber: String) {
         func isSNPrefix(prefix : String) -> Bool {
             return (serialNumber.lowercased().range(of: prefix)?.lowerBound == serialNumber.startIndex)

@@ -207,7 +207,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func showTargetDeviceGetReady() {
         DispatchQueue.main.async {
             let getReadyVC = MeshSetupGetReadyViewController.loadedViewController()
-            getReadyVC.setup(didPressReady: self.showTargetDevicePairing, deviceType: self.targetDeviceType)
+            getReadyVC.setup(didPressReady: self.showTargetDevicePairing, dataMatrixString: self.targetDeviceDataMatrixString, deviceType: self.targetDeviceType)
             self.embededNavigationController.pushViewController(getReadyVC, animated: true)
         }
     }
