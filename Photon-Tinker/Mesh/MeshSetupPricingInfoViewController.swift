@@ -36,27 +36,56 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
     }
 
     override func setStyle() {
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        if (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {
+            planFeatureStackView.spacing = 10
 
-        planTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
-        planTextLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
+            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
-        priceFreeLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+            planTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
+            planTextLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
 
-        priceLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.PriceSize, color: MeshSetupStyle.PrimaryTextColor)
-        priceNoteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.BillingTextColor)
+            priceFreeLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
-        priceStrikethroughView.backgroundColor = MeshSetupStyle.StrikeThroughColor
+            priceLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.PriceSize - 10, color: MeshSetupStyle.PrimaryTextColor)
+            priceNoteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.BillingTextColor)
 
-        planFeaturesTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.SecondaryTextColor)
-        planTitleLine1.backgroundColor = MeshSetupStyle.SecondaryTextColor
-        planTitleLine2.backgroundColor = MeshSetupStyle.SecondaryTextColor
+            priceStrikethroughView.backgroundColor = MeshSetupStyle.StrikeThroughColor
 
-        for label in planFeatureLables {
-            label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            planFeaturesTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.SecondaryTextColor)
+            planTitleLine1.backgroundColor = MeshSetupStyle.SecondaryTextColor
+            planTitleLine2.backgroundColor = MeshSetupStyle.SecondaryTextColor
+
+            for label in planFeatureLables {
+                label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            }
+
+            continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+
+        } else {
+            planFeatureStackView.spacing = 15
+
+            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            planTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
+            planTextLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
+
+            priceFreeLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            priceLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.PriceSize, color: MeshSetupStyle.PrimaryTextColor)
+            priceNoteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.BillingTextColor)
+
+            priceStrikethroughView.backgroundColor = MeshSetupStyle.StrikeThroughColor
+
+            planFeaturesTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.SecondaryTextColor)
+            planTitleLine1.backgroundColor = MeshSetupStyle.SecondaryTextColor
+            planTitleLine2.backgroundColor = MeshSetupStyle.SecondaryTextColor
+
+            for label in planFeatureLables {
+                label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            }
+
+            continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
         }
-
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
     }
 
     override func setContent() {
