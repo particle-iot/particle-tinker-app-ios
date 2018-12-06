@@ -80,47 +80,54 @@ class MeshSetupViewController: UIViewController {
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let constraint = buttonBottomConstraint {
-            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                let keyboardHeight = keyboardSize.height
+        //TODO: if we add ipad support, review this
+        if (MeshScreenUtils.getPhoneScreenSizeClass() >= .iPhone5) {
+            if let constraint = buttonBottomConstraint {
+                if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                    let keyboardHeight = keyboardSize.height
 
-                var safeAreaBottomMargin:CGFloat = 0
-                var safeAreaSideMargin:CGFloat = 0
+                    var safeAreaBottomMargin:CGFloat = 0
+                    var safeAreaSideMargin:CGFloat = 0
 
-                if #available(iOS 11.0, *) {
-                    safeAreaBottomMargin = view.safeAreaInsets.bottom
-                    safeAreaSideMargin = max(view.safeAreaInsets.left, view.safeAreaInsets.right)
-                }
-                safeAreaSideMargin += 5 //to compensate rounded corners of the button
-
-                constraint.constant = keyboardSize.height - safeAreaBottomMargin - 1
-
-                if let sideConstraints = buttonSideConstraints {
-                    for sideConstraint in sideConstraints {
-                        sideConstraint.constant = -safeAreaSideMargin
+                    if #available(iOS 11.0, *) {
+                        safeAreaBottomMargin = view.safeAreaInsets.bottom
+                        safeAreaSideMargin = max(view.safeAreaInsets.left, view.safeAreaInsets.right)
                     }
-                }
+                    safeAreaSideMargin += 5 //to compensate rounded corners of the button
+
+                    constraint.constant = keyboardSize.height - safeAreaBottomMargin - 1
+
+                    if let sideConstraints = buttonSideConstraints {
+                        for sideConstraint in sideConstraints {
+                            sideConstraint.constant = -safeAreaSideMargin
+                        }
+                    }
 
 
-                UIView.animate(withDuration: 0.25) { () -> Void in
-                    self.view.layoutIfNeeded()
+                    UIView.animate(withDuration: 0.25) { () -> Void in
+                        self.view.layoutIfNeeded()
+                    }
                 }
             }
         }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let constraint = buttonBottomConstraint {
-            constraint.constant = bottomConstraintConstant!
+        //TODO: if we add ipad support, review this
+        //on iphone 4s, the button covers the input, so lets keep it snapped to the bottom of the screen.
+        if (MeshScreenUtils.getPhoneScreenSizeClass() >= .iPhone5) {
+            if let constraint = buttonBottomConstraint {
+                constraint.constant = bottomConstraintConstant!
 
-            if let sideConstraints = buttonSideConstraints {
-                for sideConstraint in sideConstraints {
-                    sideConstraint.constant = sideConstraintConstant!
+                if let sideConstraints = buttonSideConstraints {
+                    for sideConstraint in sideConstraints {
+                        sideConstraint.constant = sideConstraintConstant!
+                    }
                 }
-            }
 
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.view.layoutIfNeeded()
+                UIView.animate(withDuration: 0.25) { () -> Void in
+                    self.view.layoutIfNeeded()
+                }
             }
         }
     }
