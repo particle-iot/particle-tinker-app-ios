@@ -166,6 +166,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case InvalidDeviceState
 
     //GetNewDeviceName
+    case SimBelongsToOtherAccount
+    case ExternalSimNotSupported
     case StickerError
     case NetworkError
     case FailedToActivateSim
@@ -194,6 +196,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
             //unproofread
+            case .SimBelongsToOtherAccount : return "The SIM you are trying to interact with is owned by a different user account."
+            case .ExternalSimNotSupported : return "We detected that you are using external sim card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
             case .StickerError : return "There is a problem with the sticker on your device. Please contact support for a solution."
             case .NetworkError : return "There was a network error communicating to Particle Device Cloud."
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
