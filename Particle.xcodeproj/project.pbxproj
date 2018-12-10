@@ -72,7 +72,6 @@
 		931C37E0215AA4310014811C /* MeshSetupGetCommissionerReadyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C4215AA4300014811C /* MeshSetupGetCommissionerReadyViewController.swift */; };
 		931C37E1215AA4310014811C /* MeshSetupFindStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C5215AA4300014811C /* MeshSetupFindStickerViewController.swift */; };
 		931C37E2215AA4310014811C /* MeshSetupBluetoothConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C6215AA4300014811C /* MeshSetupBluetoothConnectionManager.swift */; };
-		931C37E3215AA4310014811C /* MeshSetupSelectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */; };
 		931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */; };
 		931C37F8215AAAE70014811C /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37F9215AAB2E0014811C /* Storyboardable.swift */; };
@@ -244,7 +243,6 @@
 		931C37C4215AA4300014811C /* MeshSetupGetCommissionerReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetCommissionerReadyViewController.swift; sourceTree = "<group>"; };
 		931C37C5215AA4300014811C /* MeshSetupFindStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFindStickerViewController.swift; sourceTree = "<group>"; };
 		931C37C6215AA4300014811C /* MeshSetupBluetoothConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionManager.swift; sourceTree = "<group>"; };
-		931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectDeviceViewController.swift; sourceTree = "<group>"; };
 		931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionHandshakeManager.swift; sourceTree = "<group>"; };
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
@@ -603,7 +601,6 @@
 				931C37B1215AA42E0014811C /* MeshSetupPairingProcessViewController.swift */,
 				931C37AF215AA42E0014811C /* MeshSetupScanCommissionerStickerViewController.swift */,
 				931C37C2215AA4300014811C /* MeshSetupScanStickerViewController.swift */,
-				931C37C7215AA4300014811C /* MeshSetupSelectDeviceViewController.swift */,
 				931C37BA215AA42F0014811C /* MeshSetupSelectNetworkViewController.swift */,
 				C810B57F9293CD20B706630B /* MeshSetupSelectOrCreateNetworkViewController.swift */,
 				C810BD00BB9C3D20CF1CB23B /* MeshSetupStandAloneOrMeshSetupViewController.swift */,
@@ -988,7 +985,6 @@
 				931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */,
 				931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */,
 				93FFD5AC215E7A6F005A469D /* config.pb.swift in Sources */,
-				931C37E3215AA4310014811C /* MeshSetupSelectDeviceViewController.swift in Sources */,
 				93FFD5CA215E7FA9005A469D /* DeviceInspectorViewController.swift in Sources */,
 				93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */,
 				50EB76161AE6EF2900C925A9 /* DevicePin.m in Sources */,
