@@ -34,9 +34,9 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupNetworkListViewCont
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: MeshDeviceCell!
+        var cell: MeshCell!
         if (indexPath.row == 0) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshDeviceCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
 
             cell.cellTitleLabel.text = MeshSetupStrings.CreateOrSelectNetwork.CreateNetwork
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
@@ -44,7 +44,7 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupNetworkListViewCont
             let network = networks![indexPath.row-1]
 
             if (network.userOwned) {
-                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupMeshNetworkCell") as! MeshDeviceCell
+                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupMeshNetworkCell") as! MeshCell
 
                 var devicesString = (network.deviceCount! == 1) ? MeshSetupStrings.CreateOrSelectNetwork.DevicesSingular : MeshSetupStrings.CreateOrSelectNetwork.DevicesPlural
                 devicesString = devicesString.replacingOccurrences(of: "{{0}}", with: String(network.deviceCount!))
@@ -52,7 +52,7 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupNetworkListViewCont
                 cell.cellSubtitleLabel.text = devicesString
                 cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
             } else {
-                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshDeviceCell
+                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
             }
 
             cell.cellTitleLabel.text = network.name

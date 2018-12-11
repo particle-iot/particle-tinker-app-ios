@@ -27,6 +27,7 @@
                 <outletCollection property="textLabels" destination="HLo-Gx-ffn" collectionClass="NSMutableArray" id="Ifl-7a-PZT"/>
                 <outletCollection property="textLabels" destination="F1s-fL-vln" collectionClass="NSMutableArray" id="P3a-K8-SoE"/>
                 <outletCollection property="textLabels" destination="qtV-CW-ki7" collectionClass="NSMutableArray" id="SYX-e4-lWn"/>
+                <outletCollection property="constraintsToShrinkOnSmallScreens" destination="t4J-UR-Vvq" collectionClass="NSMutableArray" id="O8W-dj-MnH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

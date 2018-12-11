@@ -33,7 +33,7 @@ class MeshScreenUtils {
         let screenSize = UIScreen.main.bounds.size
         let maxLength = max(screenSize.width, screenSize.height)
 
-        if (maxLength <= 320) {
+        if (maxLength <= 480) {
             return .iPhone4
         } else if (maxLength <= 568) {
             return .iPhone5

@@ -47,6 +47,8 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
         view.setNeedsLayout()
         view.layoutIfNeeded()
 
+        videoView.addTarget(self, action: #selector(videoViewTapped), for: .touchUpInside)
+
         initializeVideoPlayerWithVideo(videoFileName: "commissioner_to_listening_mode")
     }
 }

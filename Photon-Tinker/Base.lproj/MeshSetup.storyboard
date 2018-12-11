@@ -18,117 +18,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Select Device-->
-        <scene sceneID="t1t-6v-FPK">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupSelectDeviceViewController" id="dTr-N9-HaU" customClass="MeshSetupSelectDeviceViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ex8-bK-frE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ds-JB-Lju">
-                                <rect key="frame" x="0.0" y="46" width="320" height="370"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meshDeviceCell" rowHeight="80" id="xnX-ON-dSo" customClass="MeshDeviceCell" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xnX-ON-dSo" id="7g4-FD-gl1">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="79.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vyF-ma-vpj">
-                                                    <rect key="frame" x="15" y="10" width="60" height="60"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="65q-eX-dXu"/>
-                                                        <constraint firstAttribute="height" constant="60" id="WUC-Ds-rwS"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rz-HK-Nvs" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                                    <rect key="frame" x="90" y="19.5" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqS-Zr-1wr" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                                    <rect key="frame" x="90" y="46.5" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshIcon" translatesAutoresizingMaskIntoConstraints="NO" id="3cr-6e-4eW">
-                                                    <rect key="frame" x="138" y="18.5" width="23" height="23"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="Eqs-GK-hJJ"/>
-                                                        <constraint firstAttribute="width" constant="23" id="lqL-4c-8PB"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fOv-kZ-bCc">
-                                                    <rect key="frame" x="166" y="18.5" width="23" height="23"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="23" id="Dq5-SX-weh"/>
-                                                        <constraint firstAttribute="height" constant="23" id="kMK-DJ-6uU"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="vyF-ma-vpj" firstAttribute="leading" secondItem="aWX-Aa-ylz" secondAttribute="leading" constant="15" id="27B-l5-DXG"/>
-                                                <constraint firstItem="SqS-Zr-1wr" firstAttribute="leading" secondItem="7rz-HK-Nvs" secondAttribute="leading" id="4tY-BH-SvL"/>
-                                                <constraint firstItem="7rz-HK-Nvs" firstAttribute="leading" secondItem="vyF-ma-vpj" secondAttribute="trailing" constant="15" id="5qh-hy-kWu"/>
-                                                <constraint firstItem="fOv-kZ-bCc" firstAttribute="centerY" secondItem="3cr-6e-4eW" secondAttribute="centerY" id="Ukx-r1-AgS"/>
-                                                <constraint firstItem="3cr-6e-4eW" firstAttribute="centerY" secondItem="7rz-HK-Nvs" secondAttribute="centerY" id="VFQ-Xg-eN4"/>
-                                                <constraint firstItem="3cr-6e-4eW" firstAttribute="leading" secondItem="7rz-HK-Nvs" secondAttribute="trailing" constant="6" id="WAG-cr-0ER"/>
-                                                <constraint firstItem="7rz-HK-Nvs" firstAttribute="centerY" secondItem="vyF-ma-vpj" secondAttribute="centerY" constant="-10" id="Z3h-Se-VBK"/>
-                                                <constraint firstAttribute="bottom" secondItem="vyF-ma-vpj" secondAttribute="bottom" priority="999" constant="10" id="aTU-pO-w3W"/>
-                                                <constraint firstItem="SqS-Zr-1wr" firstAttribute="top" secondItem="7rz-HK-Nvs" secondAttribute="bottom" constant="6" id="adL-ep-iHU"/>
-                                                <constraint firstItem="vyF-ma-vpj" firstAttribute="top" secondItem="7g4-FD-gl1" secondAttribute="top" constant="10" id="dRI-xr-NdQ"/>
-                                                <constraint firstItem="fOv-kZ-bCc" firstAttribute="leading" secondItem="3cr-6e-4eW" secondAttribute="trailing" constant="5" id="rfc-CX-aGv"/>
-                                            </constraints>
-                                            <viewLayoutGuide key="safeArea" id="aWX-Aa-ylz"/>
-                                        </tableViewCellContentView>
-                                        <viewLayoutGuide key="safeArea" id="rF8-cg-KJi"/>
-                                        <connections>
-                                            <outlet property="cellAccessoryImageView" destination="3cr-6e-4eW" id="Gpf-uT-tnp"/>
-                                            <outlet property="cellImageView" destination="vyF-ma-vpj" id="6Ej-P9-ukb"/>
-                                            <outlet property="cellSecondaryAccessoryImageView" destination="fOv-kZ-bCc" id="JfM-lT-ifw"/>
-                                            <outlet property="cellSubtitleLabel" destination="SqS-Zr-1wr" id="GBN-c1-vo9"/>
-                                            <outlet property="cellTitleLabel" destination="7rz-HK-Nvs" id="jnp-Ay-hwm"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <sections/>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeshSetup.SelectDevice.Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAJ-W3-nZa" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="15" width="280" height="16"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="2ds-JB-Lju" firstAttribute="top" secondItem="cAJ-W3-nZa" secondAttribute="bottom" constant="15" id="0eo-uc-Ewg"/>
-                            <constraint firstItem="cAJ-W3-nZa" firstAttribute="leading" secondItem="Efw-BI-btU" secondAttribute="leading" constant="20" id="ALa-Lk-gKI"/>
-                            <constraint firstItem="cAJ-W3-nZa" firstAttribute="top" secondItem="Efw-BI-btU" secondAttribute="top" constant="15" id="Khq-ax-gfg"/>
-                            <constraint firstItem="Efw-BI-btU" firstAttribute="trailing" secondItem="cAJ-W3-nZa" secondAttribute="trailing" constant="20" id="TeQ-6c-xqb"/>
-                            <constraint firstItem="2ds-JB-Lju" firstAttribute="leading" secondItem="ex8-bK-frE" secondAttribute="leading" id="ov3-h4-Wo7"/>
-                            <constraint firstAttribute="bottom" secondItem="2ds-JB-Lju" secondAttribute="bottom" id="si3-nz-vVB"/>
-                            <constraint firstAttribute="trailing" secondItem="2ds-JB-Lju" secondAttribute="trailing" id="zqC-5K-M2w"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Efw-BI-btU"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Select Device" id="uHx-rz-ImG">
-                        <barButtonItem key="backBarButtonItem" title=" " id="fAL-9y-dFg"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="deviceTypeTableView" destination="2ds-JB-Lju" id="u8T-Rp-Ro5"/>
-                        <outlet property="titleLabel" destination="cAJ-W3-nZa" id="6oK-KF-1Ya"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y0g-Ha-lKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1526" y="2541"/>
-        </scene>
         <!--Mesh Setup Get Ready View Controller-->
         <scene sceneID="ccT-wG-kqg">
             <objects>
@@ -173,24 +62,9 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ImC-3i-gg4" customClass="UIControl">
-                                <rect key="frame" x="20" y="87" width="280" height="192"/>
+                                <rect key="frame" x="20" y="87" width="280" height="201.5"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNC-n0-nhp" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="339" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Z2Y-c2-QNm"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
-                                <state key="normal" title="Device is blinking blue">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextButtonTapped:" destination="jX6-kC-4wJ" eventType="touchUpInside" id="n3E-Qk-yb0"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVW-YV-nr5">
                                 <rect key="frame" x="0.0" y="404" width="320" height="76"/>
                                 <subviews>
@@ -228,10 +102,10 @@
                                 <viewLayoutGuide key="safeArea" id="RV6-x1-QSE"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hf4-bB-dke">
-                                <rect key="frame" x="20" y="294" width="280" height="30"/>
+                                <rect key="frame" x="20" y="303.5" width="280" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-ns-lzw" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="0.0" width="250" height="30"/>
+                                        <rect key="frame" x="30" y="0.0" width="250" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -257,6 +131,21 @@
                                     <constraint firstItem="ObB-ns-lzw" firstAttribute="top" secondItem="Hf4-bB-dke" secondAttribute="top" id="u7b-1o-hsj"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNC-n0-nhp" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="339" width="280" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Z2Y-c2-QNm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                <state key="normal" title="Device is blinking blue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonTapped:" destination="jX6-kC-4wJ" eventType="touchUpInside" id="n3E-Qk-yb0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -321,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sux-bg-qbC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2242.5" y="2540"/>
+            <point key="canvasLocation" x="3660" y="2520"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Dmk-hG-cbZ">
@@ -360,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QNp-OY-UrM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3692" y="2541"/>
+            <point key="canvasLocation" x="2889" y="2540"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dXy-db-fVZ">
@@ -944,21 +833,6 @@
                                     <constraint firstItem="iK0-vu-5ve" firstAttribute="leading" secondItem="6Q1-NW-JWm" secondAttribute="leading" constant="15" id="vFd-XJ-iAW"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUz-7R-LZp" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="420" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="eHw-zV-g6V"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Join Network">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="continueButtonTapped:" destination="NPp-3h-3nd" eventType="touchUpInside" id="Isx-MX-TiW"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZHk-2G-BL4">
                                 <rect key="frame" x="15" y="87" width="290" height="46"/>
                                 <subviews>
@@ -1025,6 +899,21 @@
                                     <constraint firstAttribute="bottom" secondItem="fpo-2k-BR6" secondAttribute="bottom" id="sD3-6x-msU"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUz-7R-LZp" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="420" width="280" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eHw-zV-g6V"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Join Network">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueButtonTapped:" destination="NPp-3h-3nd" eventType="touchUpInside" id="Isx-MX-TiW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1260,9 +1149,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="dTr-N9-HaU" kind="relationship" relationship="rootViewController" id="T2J-cp-JI8"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ud6-BA-eOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1338,7 +1224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="evx-dY-F1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2970" y="2540"/>
+            <point key="canvasLocation" x="2168" y="2540"/>
         </scene>
         <!--Mesh Setup Scan Commissioner Sticker View Controller-->
         <scene sceneID="ehK-wz-Abt">
@@ -1581,21 +1467,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDb-zX-d59" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="420" width="280" height="40"/>
-                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="zGb-SV-vBH"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Scan assisting device">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="continueButtonTapped:" destination="UkR-Er-JxN" eventType="touchUpInside" id="fBe-9N-Rjg"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MICRO NETWORK" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9tg-fV-a7H" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="20" y="92" width="280" height="16"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
@@ -1722,6 +1593,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDb-zX-d59" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="420" width="280" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="zGb-SV-vBH"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Scan assisting device">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueButtonTapped:" destination="UkR-Er-JxN" eventType="touchUpInside" id="fBe-9N-Rjg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -2006,7 +1892,6 @@
     <resources>
         <image name="MeshCameraIcon" width="23" height="18"/>
         <image name="MeshCloseIcon" width="20" height="20"/>
-        <image name="MeshIcon" width="23" height="22"/>
         <image name="MeshSetupCompleteIcon" width="70" height="70"/>
         <image name="MeshSetupFindStickerImage" width="270" height="417"/>
         <image name="MeshSetupFirmwareUpdateImage" width="280" height="304"/>

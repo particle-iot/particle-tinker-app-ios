@@ -1667,7 +1667,13 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.log("simStatus: \(simStatus.rawValue), error: \(error)")
 
             if (error != nil) {
-                self.fail(withReason: .UnableToGetSimStatus, nsError: error)
+                if simStatus == ParticleSimStatus.notFound {
+                    self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal, nsError: error)
+                } else if simStatus == ParticleSimStatus.notOwnedByUser {
+                    self.fail(withReason: .SimBelongsToOtherAccount, severity: .Fatal, nsError: error)
+                } else {
+                    self.fail(withReason: .UnableToGetSimStatus, nsError: error)
+                }
             } else {
                 if simStatus == ParticleSimStatus.OK {
                     self.targetDevice.simActive = false

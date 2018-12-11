@@ -51,12 +51,14 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private var callback: ((Bool) -> ())!
-    
-    func setup(didPressReady: @escaping (Bool) -> (), deviceType: ParticleDeviceType?) {
+    private var dataMatrixString: String!
+
+    func setup(didPressReady: @escaping (Bool) -> (), dataMatrixString: String, deviceType: ParticleDeviceType?) {
         self.callback = didPressReady
         self.deviceType = deviceType
+        self.dataMatrixString = dataMatrixString
     }
-    @IBOutlet weak var setupSwitch: UISwitch!
+    @IBOutlet weak var setupSwitch: UISwitch?
     
     @IBAction func setupSwitchChanged(_ sender: Any) {
         continueButton.isUserInteractionEnabled = false
@@ -68,7 +70,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private func setViewContent() {
-        if self.setupSwitch.isOn {
+        if self.setupSwitch!.isOn {
             setEthernetContent()
             self.videoPlayer?.replaceCurrentItem(with: ethernetVideo)
         } else {
@@ -153,7 +155,13 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                 checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
             case .boron:
-                initializeVideoPlayerWithVideo(videoFileName: "boron_power_on_battery")
+                let matrix = MeshSetupDataMatrix(dataMatrixString: self.dataMatrixString)
+
+                if (ParticleDeviceType.requiresBattery(serialNumber: matrix!.serialNumber)) {
+                    initializeVideoPlayerWithVideo(videoFileName: "boron_power_on_battery")
+                } else {
+                    initializeVideoPlayerWithVideo(videoFileName: "boron_power_on")
+                }
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.CellularCheckboxText
                 checkboxView?.isHidden = false
@@ -179,7 +187,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     @objc public func videoViewTapped(sender: UIControl) {
-        let player = AVPlayer(url: self.setupSwitch.isOn ? ethernetVideoURL : defaultVideoURL)
+        let player = AVPlayer(url: (self.setupSwitch?.isOn ?? false) ? ethernetVideoURL : defaultVideoURL)
 
         let playerController = AVPlayerViewController()
         playerController.player = player
@@ -239,12 +247,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBAction func nextButtonTapped(_ sender: Any) {
         if let checkbox = self.checkboxButton, let checkBoxView = self.checkboxView, checkBoxView.isHidden == false {
             if checkbox.isSelected {
-                callback(self.setupSwitch.isOn)
+                callback(self.setupSwitch!.isOn)
             } else {
                 self.checkboxView?.shake()
             }
         } else {
-            callback(self.setupSwitch.isOn)
+            callback(self.setupSwitch!.isOn)
         }
     }
 

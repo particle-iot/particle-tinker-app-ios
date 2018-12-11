@@ -45,21 +45,6 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13a-XW-hyP" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                    <rect key="frame" x="20" y="440" width="335" height="40"/>
-                    <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="JxS-Kd-rnU"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Setup another device">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="setupAnotherButtonTapped:" destination="-1" eventType="touchUpInside" id="l1n-lr-Nsr"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WvW-we-AhF" userLabel="Seperator">
                     <rect key="frame" x="50" y="515" width="275" height="1"/>
                     <color key="backgroundColor" red="0.80784313725490198" green="0.80784313725490198" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
@@ -73,21 +58,6 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-zW-8Qy" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
-                    <rect key="frame" x="20" y="577" width="335" height="40"/>
-                    <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="jNH-tP-Tvm"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
-                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Done">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="doneButtonTapped:" destination="-1" eventType="touchUpInside" id="JZ7-o5-Xin"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PA6-Aj-DKL" userLabel="SuccessView">
                     <rect key="frame" x="30" y="216" width="315" height="118"/>
                     <subviews>
@@ -125,6 +95,36 @@
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="LOc-m6-5db"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13a-XW-hyP" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                    <rect key="frame" x="20" y="440" width="335" height="40"/>
+                    <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="JxS-Kd-rnU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Setup another device">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="setupAnotherButtonTapped:" destination="-1" eventType="touchUpInside" id="l1n-lr-Nsr"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWi-zW-8Qy" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                    <rect key="frame" x="20" y="577" width="335" height="40"/>
+                    <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="jNH-tP-Tvm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Done">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="doneButtonTapped:" destination="-1" eventType="touchUpInside" id="JZ7-o5-Xin"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
