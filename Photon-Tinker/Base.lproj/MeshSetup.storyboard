@@ -62,7 +62,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ImC-3i-gg4" customClass="UIControl">
-                                <rect key="frame" x="20" y="87" width="280" height="201.5"/>
+                                <rect key="frame" x="20" y="87" width="280" height="192"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVW-YV-nr5">
@@ -102,10 +102,10 @@
                                 <viewLayoutGuide key="safeArea" id="RV6-x1-QSE"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hf4-bB-dke">
-                                <rect key="frame" x="20" y="303.5" width="280" height="20.5"/>
+                                <rect key="frame" x="20" y="294" width="280" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-ns-lzw" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="0.0" width="250" height="20.5"/>
+                                        <rect key="frame" x="30" y="0.0" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1076,20 +1076,21 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshCloseIcon" translatesAutoresizingMaskIntoConstraints="NO" id="tEb-V8-QeX">
-                                        <rect key="frame" x="20" y="12" width="20" height="20"/>
+                                        <rect key="frame" x="280" y="12" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="3Ks-OF-zqz"/>
                                             <constraint firstAttribute="width" constant="20" id="vQg-KM-VLf"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMT-Nm-B67" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="60" y="14" width="240" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshBackIcon" translatesAutoresizingMaskIntoConstraints="NO" id="KuA-9H-Zox">
+                                        <rect key="frame" x="20" y="12" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="1Bm-6B-LW5"/>
+                                            <constraint firstAttribute="width" constant="20" id="uOW-KV-4pz"/>
+                                        </constraints>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lmp-AW-0OI">
-                                        <rect key="frame" x="10" y="0.0" width="40" height="44"/>
+                                        <rect key="frame" x="270" y="0.0" width="40" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="jJU-Sj-coN"/>
@@ -1098,18 +1099,31 @@
                                             <action selector="cancelTapped:" destination="qIB-Qf-TAR" eventType="touchUpInside" id="TfY-2a-oY8"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Att-6B-IeE">
+                                        <rect key="frame" x="10" y="0.0" width="40" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="7LW-gs-MWW"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="backTapped:" destination="qIB-Qf-TAR" eventType="touchUpInside" id="Doa-MY-oIy"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="mMT-Nm-B67" firstAttribute="centerY" secondItem="PSL-IE-qXS" secondAttribute="centerY" id="12b-KX-1FF"/>
-                                    <constraint firstItem="mMT-Nm-B67" firstAttribute="leading" secondItem="tEb-V8-QeX" secondAttribute="trailing" constant="20" id="Afe-g8-7fM"/>
+                                    <constraint firstItem="Att-6B-IeE" firstAttribute="top" secondItem="Axq-HA-Quk" secondAttribute="top" id="LaR-Ha-PfP"/>
                                     <constraint firstItem="tEb-V8-QeX" firstAttribute="centerY" secondItem="PSL-IE-qXS" secondAttribute="centerY" id="MnS-UR-Uwu"/>
+                                    <constraint firstItem="Att-6B-IeE" firstAttribute="centerX" secondItem="KuA-9H-Zox" secondAttribute="centerX" id="NTe-PM-B2I"/>
                                     <constraint firstItem="lmp-AW-0OI" firstAttribute="top" secondItem="PSL-IE-qXS" secondAttribute="top" id="Tuv-N5-RII"/>
                                     <constraint firstAttribute="height" constant="44" id="VcH-z3-WVq"/>
                                     <constraint firstItem="lmp-AW-0OI" firstAttribute="centerX" secondItem="tEb-V8-QeX" secondAttribute="centerX" id="X44-Ad-VUN"/>
-                                    <constraint firstItem="Axq-HA-Quk" firstAttribute="trailing" secondItem="mMT-Nm-B67" secondAttribute="trailing" constant="20" id="jhQ-RF-ycB"/>
+                                    <constraint firstItem="Att-6B-IeE" firstAttribute="centerY" secondItem="KuA-9H-Zox" secondAttribute="centerY" id="ZaE-lH-6vh"/>
+                                    <constraint firstItem="Axq-HA-Quk" firstAttribute="bottom" secondItem="Att-6B-IeE" secondAttribute="bottom" id="euy-NW-aq4"/>
+                                    <constraint firstItem="KuA-9H-Zox" firstAttribute="leading" secondItem="Axq-HA-Quk" secondAttribute="leading" constant="20" id="f4E-4e-aXx"/>
                                     <constraint firstAttribute="bottom" secondItem="lmp-AW-0OI" secondAttribute="bottom" id="n1n-du-34M"/>
-                                    <constraint firstItem="tEb-V8-QeX" firstAttribute="leading" secondItem="Axq-HA-Quk" secondAttribute="leading" constant="20" id="xdO-Py-7FU"/>
+                                    <constraint firstItem="KuA-9H-Zox" firstAttribute="centerY" secondItem="PSL-IE-qXS" secondAttribute="centerY" id="pew-vK-WmB"/>
+                                    <constraint firstItem="Axq-HA-Quk" firstAttribute="trailing" secondItem="tEb-V8-QeX" secondAttribute="trailing" constant="20" id="xdO-Py-7FU"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="Axq-HA-Quk"/>
                             </view>
@@ -1133,7 +1147,8 @@
                         <viewLayoutGuide key="safeArea" id="cB1-hn-ivG"/>
                     </view>
                     <connections>
-                        <outlet property="accountLabel" destination="mMT-Nm-B67" id="JuL-Mh-I8w"/>
+                        <outlet property="backButton" destination="Att-6B-IeE" id="NBR-3e-HbG"/>
+                        <outlet property="backButtonImage" destination="KuA-9H-Zox" id="2lP-O0-ujF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5r5-1q-11F" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1890,6 +1905,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="MeshBackIcon" width="20" height="20"/>
         <image name="MeshCameraIcon" width="23" height="18"/>
         <image name="MeshCloseIcon" width="20" height="20"/>
         <image name="MeshSetupCompleteIcon" width="70" height="70"/>

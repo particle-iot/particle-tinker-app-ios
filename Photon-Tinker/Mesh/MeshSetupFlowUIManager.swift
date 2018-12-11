@@ -8,12 +8,12 @@ import UIKit
 import Crashlytics
 import MessageUI
 
-class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate, MFMailComposeViewControllerDelegate {
+class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
 
-
-
-    @IBOutlet weak var accountLabel: MeshLabel!
-
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var backButtonImage: UIImageView!
+    
+    
     private var flowManager: MeshSetupFlowManager!
     private var embededNavigationController: UINavigationController!
 
@@ -48,9 +48,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.accountLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PlaceHolderTextColor)
-        self.accountLabel.text = ParticleCloud.sharedInstance().loggedInUsername ?? ""
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +65,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "embedNavigation") {
             self.embededNavigationController = segue.destination as! UINavigationController
+            self.embededNavigationController.delegate = self
 
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
             findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker, deviceType: self.targetDeviceType) //device type won't be available at this time
@@ -76,6 +74,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         super.prepare(for: segue, sender: sender)
     }
 
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        self.backButton.isHidden = navigationController.viewControllers.count <= 1
+        self.backButtonImage.isHidden = self.backButton.isHidden
+    }
 
     private func log(_ message: String) {
         ParticleLogger.logInfo("MeshSetupFlowUI", format: message, withParameters: getVaList([]))
@@ -976,6 +978,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+    @IBAction func backTapped(_ sender: UIButton) {
+        self.embededNavigationController.popViewController(animated: true)
+    }
+    
     @IBAction func cancelTapped(_ sender: Any) {
         if let _ = sender as? MeshSetupFlowUIManager {
             self.flowManager.cancelSetup()
