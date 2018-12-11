@@ -169,8 +169,10 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
 
         self.pendingMessages.removeFirst()
-        pendingMessage.callback(rm)
-        self.sendNextMessage()
+        DispatchQueue.main.async {
+            pendingMessage.callback(rm)
+            self.sendNextMessage()
+        }
     }
 
 
