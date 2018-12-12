@@ -67,6 +67,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
                 [weak self] in
 
                 if let sSelf = self {
+                    sSelf.peripheralToConnect = nil
+                    sSelf.peripheralToConnectCredentials = nil
                     sSelf.centralManager.stopScan()
                     if (sSelf.state != .Disabled) {
                         sSelf.state = .Ready
@@ -132,6 +134,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         }
     }
     private func restartTimeout() {
+        self.log("Restarting timeout")
         self.cancelTimeout()
 
         scanTimeoutWorker = scanTimeoutWorkerFactory
@@ -228,6 +231,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
         guard self.peripheralToConnectCredentials != nil, let name = peripheral.name, name == peripheralToConnectCredentials?.name else {
             //all mesh devices have names, if peripheral has no name, it's not our device
+            dropPeripheralConnection(with: peripheral)
+            log("Dropping connection on purpose :(")
             return
         }
 
