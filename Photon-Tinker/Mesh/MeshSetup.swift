@@ -9,7 +9,7 @@ import CoreBluetooth
 
 
 class MeshSetup {
-    static let bluetoothScanTimeoutValue: DispatchTimeInterval = .seconds(10)
+    static let bluetoothScanTimeoutValue: DispatchTimeInterval = .seconds(15)
     static let bluetoothSendTimeoutValue: DispatchTimeInterval = .seconds(15)
     static let deviceObtainedIPTimeout: Double = 15.0
     static let deviceObtainedIPCellularTimeout: Double = 90.0
