@@ -167,6 +167,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
     //GetNewDeviceName
     case SimBelongsToOtherAccount
+    case CriticalFlowError
     case ExternalSimNotSupported
     case StickerError
     case NetworkError
@@ -196,6 +197,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
             //unproofread
+            case .CriticalFlowError : return "There was a problem with the setup. Please contact support with the latest device log to help us fix it as soon as possible."
             case .SimBelongsToOtherAccount : return "The SIM you are trying to interact with is owned by a different user account."
             case .ExternalSimNotSupported : return "We detected that you are using external sim card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
             case .StickerError : return "There is a problem with the sticker on your device. Please contact support for a solution."
