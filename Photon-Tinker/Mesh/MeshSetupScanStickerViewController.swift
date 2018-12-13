@@ -169,14 +169,18 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         }
     }
 
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        self.startCaptureSession()
+
+        unfadeContent(animated: animated)
+        ParticleSpinner.hide(view, animated: animated)
+    }
+
     func showSpinner() {
         fadeContent()
         ParticleSpinner.show(view)
-    }
-
-    func hideSpinner() {
-        unfadeContent()
-        ParticleSpinner.hide(view)
     }
 
     internal func fadeContent() {
@@ -188,12 +192,21 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         }
     }
 
-    internal func unfadeContent() {
-        UIView.animate(withDuration: 0.25) { () -> Void in
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.textLabel.alpha = 1
+                self.imageView.alpha = 1
+                self.cameraView.alpha = 1
+            }
+        } else {
             self.titleLabel.alpha = 1
             self.textLabel.alpha = 1
             self.imageView.alpha = 1
             self.cameraView.alpha = 1
+
+            self.view.setNeedsDisplay()
         }
     }
 

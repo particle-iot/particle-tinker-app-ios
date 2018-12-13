@@ -79,6 +79,10 @@ class MeshSetupViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
 
+    func resume(animated: Bool) {
+        //do nothing
+    }
+
     @objc func keyboardWillShow(notification: NSNotification) {
         //TODO: if we add ipad support, review this
         if (MeshScreenUtils.getPhoneScreenSizeClass() >= .iPhone5) {

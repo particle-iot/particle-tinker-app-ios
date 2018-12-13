@@ -604,11 +604,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private func restartCaptureSession() {
         if let vc = self.embededNavigationController.topViewController as? MeshSetupScanCommissionerStickerViewController {
-            vc.startCaptureSession()
-            vc.hideSpinner()
+            vc.resume(animated: true)
         } else if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
-            vc.startCaptureSession()
-            vc.hideSpinner()
+            vc.resume(animated: true)
         } else {
             NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController / MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
         }
@@ -979,6 +977,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     @IBAction func backTapped(_ sender: UIButton) {
+        //resume previous VC
+        let vcs = self.embededNavigationController.viewControllers
+        if vcs.count > 1 {
+            (vcs[vcs.count-2] as! MeshSetupViewController).resume(animated: false)
+        }
         self.embededNavigationController.popViewController(animated: true)
     }
     

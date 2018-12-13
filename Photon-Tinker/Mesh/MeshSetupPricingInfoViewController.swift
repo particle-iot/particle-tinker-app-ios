@@ -200,6 +200,47 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
         }
     }
 
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.planTitleLabel.alpha = 1
+                self.planTextLabel.alpha = 1
+                self.priceFreeLabel.alpha = 1
+                self.priceLabel.alpha = 1
+                self.priceNoteLabel.alpha = 1
+                self.priceStrikethroughView.alpha = 1
+                self.planTitleLabel.alpha = 1
+                self.planTitleLine1.alpha = 1
+                self.planTitleLine2.alpha = 1
+                self.planFeatureStackView.alpha = 1
+                self.continueButton.alpha = 1
+            }
+        } else {
+            self.titleLabel.alpha = 1
+            self.planTitleLabel.alpha = 1
+            self.planTextLabel.alpha = 1
+            self.priceFreeLabel.alpha = 1
+            self.priceLabel.alpha = 1
+            self.priceNoteLabel.alpha = 1
+            self.priceStrikethroughView.alpha = 1
+            self.planTitleLabel.alpha = 1
+            self.planTitleLine1.alpha = 1
+            self.planTitleLine2.alpha = 1
+            self.planFeatureStackView.alpha = 1
+            self.continueButton.alpha = 1
+
+            self.view.setNeedsDisplay()
+        }
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: animated)
+    }
+
     @IBAction func continueButtonTapped(_ sender: Any) {
         ParticleSpinner.show(view)
         fadeContent()
