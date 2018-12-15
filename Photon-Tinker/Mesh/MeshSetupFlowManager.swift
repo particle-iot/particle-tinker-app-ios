@@ -181,6 +181,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerDevice = nil
             case .GetUserNetworkSelection:
                 self.selectedNetworkMeshInfo = nil
+            case .GetUserWifiNetworkSelection:
+                self.selectedWifiNetworkInfo = nil
+            case .OfferSetupStandAloneOrWithNetwork:
+                self.userSelectedToSetupMesh = nil
+
             default:
                 //do nothing
                 break
