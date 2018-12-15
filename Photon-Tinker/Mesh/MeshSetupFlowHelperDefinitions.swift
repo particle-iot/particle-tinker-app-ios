@@ -119,7 +119,6 @@ enum MeshSetupFlowState {
     case CreateNetworkStep1Done
     case CreateNetworkCompleted
 
-    case SetupComplete
     case SetupCanceled
 }
 

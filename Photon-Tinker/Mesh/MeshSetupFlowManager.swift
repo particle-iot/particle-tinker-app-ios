@@ -84,6 +84,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .OfferToAddOneMoreDevice
     ]
 
+    private let standaloneSubflow: [MeshSetupFlowCommand] = [
+        .OfferToAddOneMoreDevice
+    ]
 
     //not used in this version of the app.
 //    private let joinerSubflow: [MeshSetupFlowCommand] = [
@@ -421,7 +424,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 //        }
             self.runCurrentStep()
         } else {
-            self.delegate.meshSetupDidEnterState(state: .SetupComplete)
+           self.currentStep = 0
+           self.currentFlow = standaloneSubflow
+           self.runCurrentStep()
         }
     }
 

@@ -681,8 +681,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             } else {
                 //this is the end of joiner flow
                 let successVC = MeshSetupSuccessViewController.loadedViewController()
-                successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.targetDeviceName!)
                 self.embededNavigationController.setViewControllers([successVC], animated: true)
+                    successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.targetDeviceName!, networkName: self.selectedNetwork?.name)
             }
         }
     }
