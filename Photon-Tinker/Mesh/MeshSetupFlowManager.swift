@@ -221,12 +221,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func retryLastAction() {
-        self.log("Retrying action")
+        self.log("Retrying action: \(self.currentCommand)")
         switch self.currentCommand {
             //this should never happen
-            case .GetTargetDeviceInfo,
-                    .GetCommissionerDeviceInfo,
-                    .ChooseFlow,
+            case .ChooseFlow,
                     .OfferToAddOneMoreDevice,
                     .ShowInfo,
                     .ChooseSubflow,
@@ -236,7 +234,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 break
 
 
-            case .ConnectToTargetDevice,
+            case .GetTargetDeviceInfo,
+                    .GetCommissionerDeviceInfo,
+                    .ConnectToTargetDevice,
                     .ConnectToCommissionerDevice,
                     .EnsureLatestFirmware,
                     .EnsureTargetDeviceCanBeClaimed,
@@ -1255,8 +1255,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerDevice = nil
                 self.bluetoothManager.dropConnection(with: connection)
 
-                //TODO: rollback to correct step?
-                self.fail(withReason: .CommissionerNetworkDoesNotMatch, severity: .Fatal)
+
+                self.currentStep = self.currentFlow.index(of: .GetCommissionerDeviceInfo)!
+                self.pause = false
+
+                self.fail(withReason: .CommissionerNetworkDoesNotMatch)
             }
         }
     }
