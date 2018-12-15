@@ -11,6 +11,10 @@ class MeshSetupWifiNetworkPasswordViewController: MeshSetupTextInputViewControll
         return "MeshSetupTextInputView"
     }
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     internal var callback: ((String) -> ())!
 
     func setup(didEnterPassword: @escaping (String) -> (), networkName: String) {

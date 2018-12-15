@@ -11,6 +11,10 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
         return "MeshSetupTextInputView"
     }
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     internal var callback: ((String) -> ())!
 
     func setup(didEnterNetworkName: @escaping (String) -> ()) {

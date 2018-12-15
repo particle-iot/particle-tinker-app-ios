@@ -10,6 +10,10 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
     private var networks:[MeshSetupNetworkCellInfo]?
     private var callback: ((MeshSetupNetworkCellInfo) -> ())!
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     func setup(didSelectNetwork: @escaping (MeshSetupNetworkCellInfo) -> ()) {
         self.callback = didSelectNetwork
     }

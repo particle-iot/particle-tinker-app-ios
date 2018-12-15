@@ -10,6 +10,10 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
     private var networks:[MeshSetupNewWifiNetworkInfo]?
     private var callback: ((MeshSetupNewWifiNetworkInfo) -> ())!
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     func setup(didSelectNetwork: @escaping (MeshSetupNewWifiNetworkInfo) -> ()) {
         self.callback = didSelectNetwork
     }

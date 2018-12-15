@@ -12,6 +12,10 @@ class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboa
         return "MeshSetupInfoView"
     }
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     internal var simActive:Bool!
 
     func setup(didFinishScreen: @escaping () -> (), setupMesh:Bool, simActive:Bool, networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
@@ -91,6 +95,10 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
         return "MeshSetupInfoView"
     }
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     override func setContent() {
         if (self.setupMesh) {
             showGatewayMeshContent()
@@ -133,6 +141,10 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
 class MeshSetupInfoWifiViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {
         return "MeshSetupInfoView"
+    }
+
+    override var rewindFlowOnBack: Bool {
+        return true
     }
 
     override func setContent() {

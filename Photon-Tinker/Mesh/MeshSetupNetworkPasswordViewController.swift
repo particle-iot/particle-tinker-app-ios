@@ -13,6 +13,10 @@ class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, 
 
     internal var callback: ((String) -> ())!
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     override var allowBack: Bool {
         return false
     }
