@@ -45,6 +45,7 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
     override func submit() {
         super.submit()
 
+        self.currentName = self.inputTextField.text!
         callback(self.inputTextField.text!)
     }
 
