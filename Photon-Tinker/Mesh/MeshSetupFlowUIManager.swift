@@ -730,7 +730,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
             findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker, deviceType: self.flowManager.targetDevice.type) //device type won't be available at this time
-            self.embededNavigationController.setViewControllers([findStickerVC], animated: false)
+            self.embededNavigationController.setViewControllers([findStickerVC], animated: true)
         }
     }
 
