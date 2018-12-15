@@ -29,6 +29,10 @@ class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, St
 
     internal var callback: (() -> ())!
 
+    override var allowBack: Bool {
+        return false
+    }
+
     func setup(didFinishScreen: @escaping () -> ()) {
         self.callback = didFinishScreen
     }

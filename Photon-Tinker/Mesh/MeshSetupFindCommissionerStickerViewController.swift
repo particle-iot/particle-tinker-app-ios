@@ -12,6 +12,9 @@ class MeshSetupFindCommissionerStickerViewController: MeshSetupFindStickerViewCo
 
     @IBOutlet weak var noteView: UIView!
 
+    override var allowBack: Bool {
+        return true
+    }
 
     func setup(didPressScan: @escaping () -> (), deviceType: ParticleDeviceType?, networkName: String) {
         self.callback = didPressScan

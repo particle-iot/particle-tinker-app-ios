@@ -66,6 +66,10 @@ class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboard
         return "MeshSetupInfoView"
     }
 
+    override var allowBack: Bool {
+        return false
+    }
+
     override func setContent() {
         titleLabel.text = MeshSetupStrings.JoinerInfo.Title
 

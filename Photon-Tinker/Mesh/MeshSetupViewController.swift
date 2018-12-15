@@ -19,6 +19,10 @@ class MeshSetupViewController: UIViewController {
     internal var networkName: String?
     internal var deviceName: String?
 
+    var allowBack: Bool {
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
