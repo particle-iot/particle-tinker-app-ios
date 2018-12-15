@@ -1004,13 +1004,16 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     @IBAction func backTapped(_ sender: UIButton) {
         //resume previous VC
         let vcs = self.embededNavigationController.viewControllers
+        log("Back tapped: \(vcs)")
         if vcs.count > 1 {
             (vcs[vcs.count-2] as! MeshSetupViewController).resume(animated: false)
         }
 
         if (vcs.last! as! MeshSetupViewController).rewindFlowOnBack {
+            log("Rewinding")
             self.flowManager.rewindFlow()
         } else {
+            log("Popping")
             self.embededNavigationController.popViewController(animated: true)
         }
     }
