@@ -110,28 +110,26 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var bluetoothManager: MeshSetupBluetoothConnectionManager!
     private var bluetoothReady: Bool = false
 
-
-    private var targetDevice: MeshDevice! = MeshDevice()
-    private var commissionerDevice: MeshDevice?
+    private(set) public var targetDevice: MeshDevice! = MeshDevice()
+    private(set) public var commissionerDevice: MeshDevice?
 
     //for joining flow
-    private var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
+    private(set) public var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
 
-    private var pricingRequirementsAreMet: Bool?
-
-    private var selectedNetworkMeshInfo: MeshSetupNetworkInfo?
-    private var selectedNetworkPassword: String?
+    private(set) public var selectedNetworkMeshInfo: MeshSetupNetworkInfo?
+    private(set) public var selectedNetworkPassword: String?
 
     //for creating flow
-    private var newNetworkName: String?
-    private var newNetworkPassword: String?
-    private var newNetworkId: String?
+    private(set) public var newNetworkName: String?
+    private(set) public var newNetworkPassword: String?
+    private(set) public var newNetworkId: String?
 
-    private var userSelectedToLeaveNetwork: Bool?
-    private var userSelectedToUpdateFirmware: Bool?
-    private var userSelectedToSetupMesh: Bool?
-    private var userSelectedToCreateNetwork = true //for this version only
+    private(set) public var userSelectedToLeaveNetwork: Bool?
+    private(set) public var userSelectedToUpdateFirmware: Bool?
+    private(set) public var userSelectedToSetupMesh: Bool?
+    private(set) public var userSelectedToCreateNetwork = true //for this version only
 
+    private var pricingRequirementsAreMet: Bool?
     private var apiNetworks: [ParticleNetwork]?
 
     //to prevent long running actions from executing
@@ -147,48 +145,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         return currentFlow[currentStep]
     }
 
-
-
     init(delegate: MeshSetupFlowManagerDelegate) {
         self.delegate = delegate
         super.init()
         self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
     }
 
+
     //MARK: public interface
-    func targetDeviceBluetoothName() -> String? {
-        return targetDevice.credentials?.name
-    }
-
-    func targetDeviceCloudName() -> String? {
-        return targetDevice.name
-    }
-
-    func targetDeviceType() -> ParticleDeviceType? {
-        return targetDevice.type
-    }
-
-    func targetDeviceActiveInternetInterface() -> MeshSetupNetworkInterfaceType? {
-        return targetDevice.activeInternetInterface
-    }
-
-    func targetDeviceFirmwareFlashProgress() -> Double? {
-        return targetDevice.firmwareUpdateProgress
-    }
-
-    func commissionerDeviceBluetoothName() -> String? {
-        return commissionerDevice?.credentials?.name
-    }
-
-    func commissionerDeviceCloudName() -> String? {
-        return commissionerDevice?.name
-    }
-
-    func commissionerDeviceType() -> ParticleDeviceType? {
-        return commissionerDevice?.type
-    }
-
-
     //entry to the flow
     func startSetup() {
         currentFlow = preflow
@@ -210,7 +174,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     func rewindFlow() {
         self.currentStep -= 1
-        self.log("rewinding to step: \(self.currentStep)")
+
+        self.log("****** Rewinding to step: \(self.currentStep) ****** \(self.currentCommand)")
+        switch self.currentCommand {
+            case .GetCommissionerDeviceInfo:
+                self.commissionerDevice = nil
+            case .GetUserNetworkSelection:
+                self.selectedNetworkMeshInfo = nil
+            default:
+                //do nothing
+                break
+        }
+
         self.runCurrentStep()
     }
 

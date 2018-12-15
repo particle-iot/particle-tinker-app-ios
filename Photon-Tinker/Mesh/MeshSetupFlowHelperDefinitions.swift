@@ -298,6 +298,12 @@ internal struct MeshDevice {
 
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
 
+    var bluetoothName: String? {
+        get {
+            return self.credentials?.name
+        }
+    }
+
     func hasActiveInternetInterface() -> Bool {
         return activeInternetInterface != nil
     }
