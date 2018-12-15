@@ -961,11 +961,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be: \(state)")
                 }
 
-
-
-            case .SetupComplete:
-                //TODO: add start building screen
-                self.cancelTapped(self)
             case .SetupCanceled:
                 self.cancelTapped(self)
             default:
