@@ -18,7 +18,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         .SetClaimCode,
         .CheckTargetDeviceHasNetworkInterfaces,
-        .OfferSetupStandAloneOrWithNetwork,
         .ChooseFlow
     ]
 
@@ -43,17 +42,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private let ethernetFlow: [MeshSetupFlowCommand] = [
+        .OfferSetupStandAloneOrWithNetwork,
         //.OfferSelectOrCreateNetwork,
         .ShowPricingImpact,
         .ShowInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
-        .GetNewDeviceName,
         .ChooseSubflow
     ]
 
     private let wifiFlow: [MeshSetupFlowCommand] = [
+        .OfferSetupStandAloneOrWithNetwork,
         //.OfferSelectOrCreateNetwork,
         .ShowPricingImpact,
         .ShowInfo,
@@ -62,31 +62,33 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
-        .GetNewDeviceName,
         .ChooseSubflow
     ]
 
     private let cellularFlow: [MeshSetupFlowCommand] = [
+        .OfferSetupStandAloneOrWithNetwork,
         //.OfferSelectOrCreateNetwork,
         .ShowPricingImpact,
         .ShowCellularInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
-        .GetNewDeviceName,
         .ChooseSubflow
     ]
 
 
     private let creatorSubflow: [MeshSetupFlowCommand] = [
+        .GetNewDeviceName,
         .GetNewNetworkNameAndPassword,
         .CreateNetwork,
         .OfferToAddOneMoreDevice
     ]
 
     private let standaloneSubflow: [MeshSetupFlowCommand] = [
+        .GetNewDeviceName,
         .OfferToAddOneMoreDevice
     ]
+
 
     //not used in this version of the app.
 //    private let joinerSubflow: [MeshSetupFlowCommand] = [
@@ -1918,12 +1920,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: OfferSetupStandAloneOrWithNetwork
     private func stepOfferSetupStandAloneOrWithNetwork() {
-        if (!targetDevice.hasActiveInternetInterface()) {
-            self.userSelectedToSetupMesh = true
-            self.stepComplete(.OfferSetupStandAloneOrWithNetwork)
-        } else {
-            self.delegate.didRequestToSelectStandAloneOrMeshSetup()
-        }
+       self.delegate.didRequestToSelectStandAloneOrMeshSetup()
     }
 
     func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {
@@ -2219,8 +2216,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func getPricingImpact() {
         //if standalone or joiner
 
+        //joiner flow
         var action = ParticlePricingImpactAction.addNetworkDevice
         if (self.userSelectedToSetupMesh != nil){
+            //standalone or network
             action = self.userSelectedToSetupMesh! ? .createNetwork : .addUserDevice
         }
 
