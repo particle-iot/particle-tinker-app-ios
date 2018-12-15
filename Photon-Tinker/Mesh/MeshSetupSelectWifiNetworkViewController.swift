@@ -35,6 +35,14 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
         self.stopScanning()
     }
 
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        self.networks = []
+        self.networksTableView.reloadData()
+        self.startScanning()
+        self.networksTableView.isUserInteractionEnabled = true
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return networks?.count ?? 0
