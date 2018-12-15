@@ -208,6 +208,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
+    func rewindFlow() {
+        self.currentStep -= 1
+        self.log("rewinding to step: \(self.currentStep)")
+        self.runCurrentStep()
+    }
+
     func cancelSetup() {
         self.canceled = true
 
