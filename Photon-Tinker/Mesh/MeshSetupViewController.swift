@@ -23,6 +23,10 @@ class MeshSetupViewController: UIViewController {
         return true
     }
 
+    var rewindFlowOnBack: Bool {
+        return false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
