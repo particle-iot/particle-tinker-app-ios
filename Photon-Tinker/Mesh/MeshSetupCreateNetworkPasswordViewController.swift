@@ -40,10 +40,15 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
 
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == self.inputTextField) {
-            self.repeatPasswordTextField.becomeFirstResponder()
+            DispatchQueue.main.async {
+                self.repeatPasswordTextField.becomeFirstResponder()
+                self.repeatPasswordTextField.selectedTextRange = self.repeatPasswordTextField.textRange(from: self.repeatPasswordTextField.beginningOfDocument, to: self.repeatPasswordTextField.endOfDocument)
+            }
         } else if validateInput() {
-            textField.resignFirstResponder()
-            submit()
+            DispatchQueue.main.async {
+                textField.resignFirstResponder()
+                self.submit()
+            }
         }
 
         return false
