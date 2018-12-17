@@ -60,8 +60,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         self.backButton.isHidden = !(viewController as! MeshSetupViewController).allowBack
         self.backButtonImage.isHidden = self.backButton.isHidden
-
+        self.backButton.isUserInteractionEnabled = false //prevent back button during animation
         log("ViewControllers: \(navigationController.viewControllers)")
+    }
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        self.backButton.isUserInteractionEnabled = true
     }
 
     private func log(_ message: String) {
