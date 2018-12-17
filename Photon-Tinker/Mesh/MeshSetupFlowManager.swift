@@ -200,9 +200,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.selectedWifiNetworkInfo = nil
             case .OfferSetupStandAloneOrWithNetwork:
                 self.userSelectedToSetupMesh = nil
-            case .ShowCellularInfo, .ShowInfo: //if we rewind FROM pricing page, we
-                self.pricingInfo = nil
-                self.pricingRequirementsAreMet = nil
             default:
                 //do nothing
                 break
