@@ -33,12 +33,14 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         super.viewDidAppear(animated)
 
         UIApplication.shared.isIdleTimerDisabled = true
+        NotificationCenter.default.addObserver(self, selector: #selector(isBusyChanged), name: Notification.Name.MeshSetupViewControllerBusyChanged, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         UIApplication.shared.isIdleTimerDisabled = false
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,12 +58,17 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         self.backButton.isHidden = !(viewController as! MeshSetupViewController).allowBack
         self.backButtonImage.isHidden = self.backButton.isHidden
+        self.backButtonImage.alpha = 1
         self.backButton.isUserInteractionEnabled = false //prevent back button during animation
         log("ViewControllers: \(navigationController.viewControllers)")
     }
 
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         self.backButton.isUserInteractionEnabled = true
+    }
+
+    @objc func isBusyChanged(notification: Notification) {
+        self.backButtonImage.alpha = (embededNavigationController.topViewController as! MeshSetupViewController).isBusy ? 0.5 : 1
     }
 
     private func log(_ message: String) {

@@ -5,6 +5,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let MeshSetupViewControllerBusyChanged = Notification.Name("io.particle.MeshSetupViewControllerBusyChanged")
+}
+
 class MeshSetupViewController: UIViewController {
 
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint?
@@ -27,8 +31,15 @@ class MeshSetupViewController: UIViewController {
         return false
     }
 
+    internal var isBusy: Bool = false {
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name.MeshSetupViewControllerBusyChanged, object: self)
+        }
+    }
     var viewControllerIsBusy: Bool {
-        return false
+        get {
+            return isBusy
+        }
     }
 
     override func viewDidLoad() {
