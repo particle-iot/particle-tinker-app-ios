@@ -1005,6 +1005,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         //resume previous VC
         let vcs = self.embededNavigationController.viewControllers
         log("Back tapped: \(vcs)")
+
+        if (vcs.last! as! MeshSetupViewController).viewControllerIsBusy {
+            log("viewController is busy, not backing")
+            //view controller cannot be backed from at this moment
+            return
+        }
+
         if vcs.count > 1 {
             (vcs[vcs.count-2] as! MeshSetupViewController).resume(animated: false)
         }

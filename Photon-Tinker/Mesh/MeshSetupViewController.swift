@@ -27,6 +27,10 @@ class MeshSetupViewController: UIViewController {
         return false
     }
 
+    var viewControllerIsBusy: Bool {
+        return false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
