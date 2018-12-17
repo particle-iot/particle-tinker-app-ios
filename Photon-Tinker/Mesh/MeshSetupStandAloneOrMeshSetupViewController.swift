@@ -58,9 +58,11 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
 
         ParticleSpinner.hide(view, animated: animated)
         unfadeContent(animated: animated)
+        isBusy = false
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.textLabel.alpha = 0.5

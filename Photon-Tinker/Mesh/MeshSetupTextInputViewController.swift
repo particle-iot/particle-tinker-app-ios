@@ -67,6 +67,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.inputTitleLabel.alpha = 0.5
@@ -122,6 +123,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
 
         ParticleSpinner.hide(view, animated: animated)
         unfadeContent(animated: true)
+        isBusy = false
     }
 
     open func validateInput() -> Bool {
@@ -138,8 +140,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
 
     func setWrongInput(message: String? = nil) {
         DispatchQueue.main.async {
-            ParticleSpinner.hide(self.view)
-            self.unfadeContent(animated: true)
+            self.resume(animated: true)
 
             if let message = message {
                 let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)

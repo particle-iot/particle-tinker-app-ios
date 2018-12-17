@@ -52,6 +52,7 @@ class MeshSetupInfoViewController: MeshSetupViewController {
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.continueButton.alpha = 0.5
@@ -96,5 +97,6 @@ class MeshSetupInfoViewController: MeshSetupViewController {
 
         ParticleSpinner.hide(view, animated: animated)
         unfadeContent(animated: true)
+        isBusy = false
     }
 }

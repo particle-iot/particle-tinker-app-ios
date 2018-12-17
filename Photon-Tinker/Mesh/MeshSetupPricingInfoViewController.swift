@@ -181,6 +181,7 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.planTitleLabel.alpha = 0.5
@@ -242,6 +243,7 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
 
         ParticleSpinner.hide(view, animated: animated)
         unfadeContent(animated: animated)
+        isBusy = false
     }
 
     @IBAction func continueButtonTapped(_ sender: Any) {

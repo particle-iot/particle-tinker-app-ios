@@ -176,6 +176,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
 
         unfadeContent(animated: animated)
         ParticleSpinner.hide(view, animated: animated)
+        isBusy = false
     }
 
     func showSpinner() {
@@ -184,6 +185,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.textLabel.alpha = 0.5
