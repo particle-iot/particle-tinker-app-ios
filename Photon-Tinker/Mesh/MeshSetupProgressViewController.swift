@@ -20,6 +20,10 @@ class MeshSetupProgressViewController: MeshSetupViewController {
     
     internal var callback: (() -> ())!
 
+    override var allowBack: Bool {
+        return false
+    }
+
     func setup(didFinishScreen: @escaping () -> (), networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
         self.callback = didFinishScreen
         self.networkName = networkName

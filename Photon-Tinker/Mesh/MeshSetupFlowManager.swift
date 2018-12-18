@@ -18,7 +18,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureTargetDeviceIsNotOnMeshNetwork,
         .SetClaimCode,
         .CheckTargetDeviceHasNetworkInterfaces,
-        .OfferSetupStandAloneOrWithNetwork,
         .ChooseFlow
     ]
 
@@ -43,17 +42,18 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     private let ethernetFlow: [MeshSetupFlowCommand] = [
+        .OfferSetupStandAloneOrWithNetwork,
         //.OfferSelectOrCreateNetwork,
         .ShowPricingImpact,
         .ShowInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
-        .GetNewDeviceName,
         .ChooseSubflow
     ]
 
     private let wifiFlow: [MeshSetupFlowCommand] = [
+        .OfferSetupStandAloneOrWithNetwork,
         //.OfferSelectOrCreateNetwork,
         .ShowPricingImpact,
         .ShowInfo,
@@ -62,25 +62,30 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
-        .GetNewDeviceName,
         .ChooseSubflow
     ]
 
     private let cellularFlow: [MeshSetupFlowCommand] = [
+        .OfferSetupStandAloneOrWithNetwork,
         //.OfferSelectOrCreateNetwork,
         .ShowPricingImpact,
         .ShowCellularInfo,
         .EnsureHasInternetAccess,
         .CheckDeviceGotClaimed,
         .PublishDeviceSetupDoneEvent,
-        .GetNewDeviceName,
         .ChooseSubflow
     ]
 
 
     private let creatorSubflow: [MeshSetupFlowCommand] = [
+        .GetNewDeviceName,
         .GetNewNetworkNameAndPassword,
         .CreateNetwork,
+        .OfferToAddOneMoreDevice
+    ]
+
+    private let standaloneSubflow: [MeshSetupFlowCommand] = [
+        .GetNewDeviceName,
         .OfferToAddOneMoreDevice
     ]
 
@@ -105,28 +110,27 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private var bluetoothManager: MeshSetupBluetoothConnectionManager!
     private var bluetoothReady: Bool = false
 
-
-    private var targetDevice: MeshDevice! = MeshDevice()
-    private var commissionerDevice: MeshDevice?
+    private(set) public var targetDevice: MeshDevice! = MeshDevice()
+    private(set) public var commissionerDevice: MeshDevice?
 
     //for joining flow
-    private var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
+    private(set) public var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
 
-    private var pricingRequirementsAreMet: Bool?
-
-    private var selectedNetworkMeshInfo: MeshSetupNetworkInfo?
-    private var selectedNetworkPassword: String?
+    private(set) public var selectedNetworkMeshInfo: MeshSetupNetworkInfo?
+    private(set) public var selectedNetworkPassword: String?
 
     //for creating flow
-    private var newNetworkName: String?
-    private var newNetworkPassword: String?
-    private var newNetworkId: String?
+    private(set) public var newNetworkName: String?
+    private(set) public var newNetworkPassword: String?
+    private(set) public var newNetworkId: String?
 
-    private var userSelectedToLeaveNetwork: Bool?
-    private var userSelectedToUpdateFirmware: Bool?
-    private var userSelectedToSetupMesh: Bool?
-    private var userSelectedToCreateNetwork = true //for this version only
+    private(set) public var userSelectedToLeaveNetwork: Bool?
+    private(set) public var userSelectedToUpdateFirmware: Bool?
+    private(set) public var userSelectedToSetupMesh: Bool?
+    private(set) public var userSelectedToCreateNetwork = true //for this version only
 
+    private var pricingInfo: ParticlePricingInfo?
+    private var pricingRequirementsAreMet: Bool?
     private var apiNetworks: [ParticleNetwork]?
 
     //to prevent long running actions from executing
@@ -150,40 +154,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
     }
 
+
     //MARK: public interface
-    func targetDeviceBluetoothName() -> String? {
-        return targetDevice.credentials?.name
-    }
-
-    func targetDeviceCloudName() -> String? {
-        return targetDevice.name
-    }
-
-    func targetDeviceType() -> ParticleDeviceType? {
-        return targetDevice.type
-    }
-
-    func targetDeviceActiveInternetInterface() -> MeshSetupNetworkInterfaceType? {
-        return targetDevice.activeInternetInterface
-    }
-
-    func targetDeviceFirmwareFlashProgress() -> Double? {
-        return targetDevice.firmwareUpdateProgress
-    }
-
-    func commissionerDeviceBluetoothName() -> String? {
-        return commissionerDevice?.credentials?.name
-    }
-
-    func commissionerDeviceCloudName() -> String? {
-        return commissionerDevice?.name
-    }
-
-    func commissionerDeviceType() -> ParticleDeviceType? {
-        return commissionerDevice?.type
-    }
-
-
     //entry to the flow
     func startSetup() {
         currentFlow = preflow
@@ -203,6 +175,39 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
+    func rewindFlow() {
+        //from
+        switch self.currentCommand {
+            case .ShowPricingImpact: //if we rewind FROM pricing page, we reset these flags
+                self.pricingInfo = nil
+                self.pricingRequirementsAreMet = nil
+            default:
+                //do nothing
+                break
+        }
+
+
+        self.currentStep -= 1
+        self.log("****** Rewinding from \(self.currentStep+1)(\(currentFlow[currentStep+1])) to \(self.currentStep)(\(self.currentCommand))")
+
+        //to
+        switch self.currentCommand {
+            case .GetCommissionerDeviceInfo:
+                self.commissionerDevice = nil
+            case .GetUserNetworkSelection:
+                self.selectedNetworkMeshInfo = nil
+            case .GetUserWifiNetworkSelection:
+                self.selectedWifiNetworkInfo = nil
+            case .OfferSetupStandAloneOrWithNetwork:
+                self.userSelectedToSetupMesh = nil
+            default:
+                //do nothing
+                break
+        }
+
+        self.runCurrentStep()
+    }
+
     func cancelSetup() {
         self.canceled = true
 
@@ -218,12 +223,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func retryLastAction() {
-        self.log("Retrying action")
+        self.log("Retrying action: \(self.currentCommand)")
         switch self.currentCommand {
             //this should never happen
-            case .GetTargetDeviceInfo,
-                    .GetCommissionerDeviceInfo,
-                    .ChooseFlow,
+            case .ChooseFlow,
                     .OfferToAddOneMoreDevice,
                     .ShowInfo,
                     .ChooseSubflow,
@@ -233,7 +236,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 break
 
 
-            case .ConnectToTargetDevice,
+            case .GetTargetDeviceInfo,
+                    .GetCommissionerDeviceInfo,
+                    .ConnectToTargetDevice,
                     .ConnectToCommissionerDevice,
                     .EnsureLatestFirmware,
                     .EnsureTargetDeviceCanBeClaimed,
@@ -421,7 +426,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 //        }
             self.runCurrentStep()
         } else {
-            self.delegate.meshSetupDidEnterState(state: .SetupComplete)
+           self.currentStep = 0
+           self.currentFlow = standaloneSubflow
+           self.runCurrentStep()
         }
     }
 
@@ -679,6 +686,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //otherwise gateway is joining the existing network so it is important to clear them
         //we cant use selected network, because that part might be reused if multiple devices are connected to same
         //network without disconnecting commissioner
+
         self.newNetworkPassword = nil
         self.newNetworkName = nil
         self.newNetworkId = nil
@@ -688,6 +696,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.userSelectedToLeaveNetwork = nil
         self.userSelectedToUpdateFirmware = nil
         self.userSelectedToSetupMesh = nil
+
+        self.pricingInfo = nil
+        self.pricingRequirementsAreMet = nil
     }
 
 
@@ -1250,8 +1261,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.commissionerDevice = nil
                 self.bluetoothManager.dropConnection(with: connection)
 
-                //TODO: rollback to correct step?
-                self.fail(withReason: .CommissionerNetworkDoesNotMatch, severity: .Fatal)
+
+                self.currentStep = self.currentFlow.index(of: .GetCommissionerDeviceInfo)!
+                self.pause = false
+
+                self.fail(withReason: .CommissionerNetworkDoesNotMatch)
             }
         }
     }
@@ -1910,12 +1924,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: OfferSetupStandAloneOrWithNetwork
     private func stepOfferSetupStandAloneOrWithNetwork() {
-        if (!targetDevice.hasActiveInternetInterface()) {
-            self.userSelectedToSetupMesh = true
-            self.stepComplete(.OfferSetupStandAloneOrWithNetwork)
-        } else {
-            self.delegate.didRequestToSelectStandAloneOrMeshSetup()
-        }
+       self.delegate.didRequestToSelectStandAloneOrMeshSetup()
     }
 
     func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {
@@ -2179,7 +2188,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: ShowPricingImpact
     private func stepShowPricingImpact() {
-        //if it's boron, get iccid first
+        //if it's boron and active interface is cellular, get iccid first
         if (self.targetDevice.type! == .boron &&
                 self.targetDevice.activeInternetInterface != nil &&
                 self.targetDevice.activeInternetInterface! == .ppp &&
@@ -2192,6 +2201,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func getTargetDeviceICCID() {
+        if (self.targetDevice.deviceICCID != nil) {
+            self.getPricingImpact()
+            return
+        }
+
         self.log("getting iccid")
         self.targetDevice.transceiver!.sendGetIccid () { result, iccid in
             self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
@@ -2209,10 +2223,16 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     private func getPricingImpact() {
-        //if standalone or joiner
+        //if we already have pricing info, lets just use it
+        if (self.pricingInfo != nil) {
+            self.delegate.meshSetupDidRequestToShowPricingInfo(info: pricingInfo!)
+            return
+        }
 
+        //joiner flow
         var action = ParticlePricingImpactAction.addNetworkDevice
         if (self.userSelectedToSetupMesh != nil){
+            //standalone or network
             action = self.userSelectedToSetupMesh! ? .createNetwork : .addUserDevice
         }
 
@@ -2246,7 +2266,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.pricingRequirementsAreMet = pricingInfo!.ccOnFile == true
             }
 
-            self.delegate.meshSetupDidRequestToShowPricingInfo(info: pricingInfo!)
+            self.pricingInfo = pricingInfo!
+            self.delegate.meshSetupDidRequestToShowPricingInfo(info: self.pricingInfo!)
         }
     }
 
@@ -2256,6 +2277,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         if (!(self.pricingRequirementsAreMet ?? false)) {
+            //make sure to clear pricing info, otherwise the setup will just reuse old data
+            self.pricingInfo = nil
+            self.pricingRequirementsAreMet = nil
             return .CCMissing
         }
 

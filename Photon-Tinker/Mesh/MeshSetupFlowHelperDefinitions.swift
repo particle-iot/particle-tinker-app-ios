@@ -119,7 +119,6 @@ enum MeshSetupFlowState {
     case CreateNetworkStep1Done
     case CreateNetworkCompleted
 
-    case SetupComplete
     case SetupCanceled
 }
 
@@ -298,6 +297,12 @@ internal struct MeshDevice {
     var meshNetworks: [MeshSetupNetworkInfo]?
 
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
+
+    var bluetoothName: String? {
+        get {
+            return self.credentials?.name
+        }
+    }
 
     func hasActiveInternetInterface() -> Bool {
         return activeInternetInterface != nil

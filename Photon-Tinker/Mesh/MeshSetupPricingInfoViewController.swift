@@ -26,6 +26,9 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
     
     @IBOutlet weak var continueButton: MeshSetupButton!
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
 
     private var pricingInfo: ParticlePricingInfo!
     private var callback: (() -> ())!
@@ -178,6 +181,7 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.planTitleLabel.alpha = 0.5
@@ -198,6 +202,48 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
 
             self.continueButton.alpha = 0.5
         }
+    }
+
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.planTitleLabel.alpha = 1
+                self.planTextLabel.alpha = 1
+                self.priceFreeLabel.alpha = 1
+                self.priceLabel.alpha = 1
+                self.priceNoteLabel.alpha = 1
+                self.priceStrikethroughView.alpha = 1
+                self.planTitleLabel.alpha = 1
+                self.planTitleLine1.alpha = 1
+                self.planTitleLine2.alpha = 1
+                self.planFeatureStackView.alpha = 1
+                self.continueButton.alpha = 1
+            }
+        } else {
+            self.titleLabel.alpha = 1
+            self.planTitleLabel.alpha = 1
+            self.planTextLabel.alpha = 1
+            self.priceFreeLabel.alpha = 1
+            self.priceLabel.alpha = 1
+            self.priceNoteLabel.alpha = 1
+            self.priceStrikethroughView.alpha = 1
+            self.planTitleLabel.alpha = 1
+            self.planTitleLine1.alpha = 1
+            self.planTitleLine2.alpha = 1
+            self.planFeatureStackView.alpha = 1
+            self.continueButton.alpha = 1
+
+            self.view.setNeedsDisplay()
+        }
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: animated)
+        isBusy = false
     }
 
     @IBAction func continueButtonTapped(_ sender: Any) {

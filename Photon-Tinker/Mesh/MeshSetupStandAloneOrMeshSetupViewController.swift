@@ -14,6 +14,10 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
 
     internal var callback: ((Bool) -> ())!
 
+    override var allowBack: Bool {
+        return false
+    }
+
     func setup(setupMesh: @escaping (Bool) -> (), deviceType: ParticleDeviceType?) {
         self.callback = setupMesh
         self.deviceType = deviceType
@@ -49,7 +53,16 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
         fadeContent()
     }
 
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: animated)
+        isBusy = false
+    }
+
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.textLabel.alpha = 0.5
@@ -59,13 +72,23 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
         }
     }
 
-    internal func unfadeContent() {
-        UIView.animate(withDuration: 0.25) { () -> Void in
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.textLabel.alpha = 1
+
+                self.meshButton.alpha = 1
+                self.standaloneButton.alpha = 1
+            }
+        } else {
             self.titleLabel.alpha = 1
             self.textLabel.alpha = 1
 
             self.meshButton.alpha = 1
             self.standaloneButton.alpha = 1
+
+            self.view.setNeedsDisplay()
         }
     }
 }

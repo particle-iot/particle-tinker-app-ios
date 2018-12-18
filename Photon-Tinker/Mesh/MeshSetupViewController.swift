@@ -5,6 +5,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let MeshSetupViewControllerBusyChanged = Notification.Name("io.particle.MeshSetupViewControllerBusyChanged")
+}
+
 class MeshSetupViewController: UIViewController {
 
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint?
@@ -18,6 +22,25 @@ class MeshSetupViewController: UIViewController {
     internal var deviceType: ParticleDeviceType?
     internal var networkName: String?
     internal var deviceName: String?
+
+    var allowBack: Bool {
+        return true
+    }
+
+    var rewindFlowOnBack: Bool {
+        return false
+    }
+
+    internal var isBusy: Bool = false {
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name.MeshSetupViewControllerBusyChanged, object: self)
+        }
+    }
+    var viewControllerIsBusy: Bool {
+        get {
+            return isBusy
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +100,10 @@ class MeshSetupViewController: UIViewController {
 
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+    }
+
+    func resume(animated: Bool) {
+        //do nothing
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {

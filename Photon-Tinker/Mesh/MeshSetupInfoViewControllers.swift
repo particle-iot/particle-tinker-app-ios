@@ -12,6 +12,10 @@ class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboa
         return "MeshSetupInfoView"
     }
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
     internal var simActive:Bool!
 
     func setup(didFinishScreen: @escaping () -> (), setupMesh:Bool, simActive:Bool, networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
@@ -66,6 +70,10 @@ class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboard
         return "MeshSetupInfoView"
     }
 
+    override var allowBack: Bool {
+        return false
+    }
+
     override func setContent() {
         titleLabel.text = MeshSetupStrings.JoinerInfo.Title
 
@@ -85,6 +93,10 @@ class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboard
 class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {
         return "MeshSetupInfoView"
+    }
+
+    override var rewindFlowOnBack: Bool {
+        return true
     }
 
     override func setContent() {
@@ -129,6 +141,10 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
 class MeshSetupInfoWifiViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {
         return "MeshSetupInfoView"
+    }
+
+    override var rewindFlowOnBack: Bool {
+        return true
     }
 
     override func setContent() {

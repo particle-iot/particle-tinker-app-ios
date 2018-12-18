@@ -7,6 +7,9 @@ import UIKit
 
 class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewController {
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
 
     private var callback: (() -> ())!
 

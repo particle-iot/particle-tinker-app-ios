@@ -13,6 +13,14 @@ class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, 
 
     internal var callback: ((String) -> ())!
 
+    override var rewindFlowOnBack: Bool {
+        return true
+    }
+
+    override var allowBack: Bool {
+        return false
+    }
+
     func setup(didEnterPassword: @escaping (String) -> (), networkName: String) {
         self.callback = didEnterPassword
         self.networkName = networkName

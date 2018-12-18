@@ -11,6 +11,9 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboard
     static var nibName: String {
         return "MeshSetupPairingView"
     }
+    override var allowBack: Bool {
+        return false
+    }
 
     @IBOutlet weak var pairingView: UIView!
     @IBOutlet weak var pairingTextLabel: MeshLabel!

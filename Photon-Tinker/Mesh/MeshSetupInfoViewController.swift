@@ -52,6 +52,7 @@ class MeshSetupInfoViewController: MeshSetupViewController {
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.continueButton.alpha = 0.5
@@ -62,10 +63,40 @@ class MeshSetupInfoViewController: MeshSetupViewController {
         }
     }
 
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.continueButton.alpha = 1
+
+                for textField in self.textLabels {
+                    textField.alpha = 1
+                }
+            }
+        } else {
+            self.titleLabel.alpha = 1
+            self.continueButton.alpha = 1
+
+            for textField in self.textLabels {
+                textField.alpha = 1
+            }
+
+            self.view.setNeedsDisplay()
+        }
+    }
+
     @IBAction func continuePressed(_ sender: Any) {
         ParticleSpinner.show(view)
         fadeContent()
 
         callback()
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: true)
+        isBusy = false
     }
 }

@@ -67,6 +67,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
             self.inputTitleLabel.alpha = 0.5
@@ -83,8 +84,23 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
         }
     }
 
-    internal func unfadeContent() {
-        UIView.animate(withDuration: 0.25) { () -> Void in
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.inputTitleLabel.alpha = 1
+                self.inputTextField.alpha = 1
+                self.noteTextLabel.alpha = 1
+                self.noteTitleLabel.alpha = 1
+                self.continueButton.alpha = 1
+
+                if let additionalViewsToFade = self.additionalViewsToFade {
+                    for childView in additionalViewsToFade {
+                        childView.alpha = 1
+                    }
+                }
+            }
+        } else {
             self.titleLabel.alpha = 1
             self.inputTitleLabel.alpha = 1
             self.inputTextField.alpha = 1
@@ -97,7 +113,17 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
                     childView.alpha = 1
                 }
             }
+
+            self.view.setNeedsDisplay()
         }
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: true)
+        isBusy = false
     }
 
     open func validateInput() -> Bool {
@@ -114,8 +140,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
 
     func setWrongInput(message: String? = nil) {
         DispatchQueue.main.async {
-            ParticleSpinner.hide(self.view)
-            self.unfadeContent()
+            self.resume(animated: true)
 
             if let message = message {
                 let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)

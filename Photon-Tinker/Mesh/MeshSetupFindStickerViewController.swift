@@ -13,6 +13,10 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
     @IBOutlet weak var textLabel: MeshLabel!
     @IBOutlet weak var continueButton: MeshSetupButton!
 
+    override var allowBack: Bool {
+        return false
+    }
+
     internal var callback: (() -> ())!
 
     func setup(didPressScan: @escaping () -> (), deviceType: ParticleDeviceType?) {
