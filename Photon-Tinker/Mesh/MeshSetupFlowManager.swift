@@ -1321,6 +1321,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: EnsureCorrectSelectedWifiNetworkPassword
     private func stepEnsureCorrectSelectedWifiNetworkPassword() {
+        if self.selectedWifiNetworkInfo!.security == .noSecurity {
+            setSelectedWifiNetworkPassword("") { error in
+                self.log("WIFI with no password error: \(error)")
+            }
+            return
+        }
         self.delegate.meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
     }
 
@@ -1330,7 +1336,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
-        guard self.validateWifiNetworkPassword(password) else {
+        guard self.validateWifiNetworkPassword(password) || (self.selectedWifiNetworkInfo!.security == .noSecurity) else {
             onComplete(.WifiPasswordTooShort)
             return
         }
@@ -1344,13 +1350,23 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             self.log("targetDevice.sendJoinNewWifiNetwork: \(result.description())")
-            if (result == .NONE) {
-                onComplete(nil)
-                self.stepComplete(.EnsureCorrectSelectedWifiNetworkPassword)
-            } else if (result == .NOT_FOUND) {
-                onComplete(.WrongNetworkPassword)
+            if (self.selectedWifiNetworkInfo!.security == .noSecurity) {
+                if (result == .NONE) {
+                    onComplete(nil)
+                    self.stepComplete(.EnsureCorrectSelectedWifiNetworkPassword)
+                } else {
+                    onComplete(nil)
+                    self.handleBluetoothErrorResult(result)
+                }
             } else {
-                onComplete(.BluetoothTimeout)
+                if (result == .NONE) {
+                    onComplete(nil)
+                    self.stepComplete(.EnsureCorrectSelectedWifiNetworkPassword)
+                } else if (result == .NOT_FOUND) {
+                    onComplete(.WrongNetworkPassword)
+                } else {
+                    onComplete(.BluetoothTimeout)
+                }
             }
         }
     }
