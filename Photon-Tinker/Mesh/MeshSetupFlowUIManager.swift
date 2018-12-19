@@ -64,7 +64,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        self.backButton.isUserInteractionEnabled = true
+        self.backButton.isUserInteractionEnabled = !self.backButtonImage.isHidden
     }
 
     @objc func isBusyChanged(notification: Notification) {
@@ -1026,9 +1026,11 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         if (vcs.last! as! MeshSetupViewController).rewindFlowOnBack {
             log("Rewinding")
             self.flowManager.rewindFlow()
-        } else {
+        } else if (vcs.last! as! MeshSetupViewController).allowBack {
             log("Popping")
             self.embededNavigationController.popViewController(animated: true)
+        } else {
+            log("Back button was pressed when it was not supposed to be pressed. Ignoring.")
         }
     }
     
