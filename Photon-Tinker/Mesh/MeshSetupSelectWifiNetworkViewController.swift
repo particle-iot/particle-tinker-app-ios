@@ -46,6 +46,7 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
         self.networksTableView.reloadData()
         self.startScanning()
         self.networksTableView.isUserInteractionEnabled = true
+        self.isBusy = false
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,6 +89,8 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.isBusy = true
+
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.isUserInteractionEnabled = false
 
