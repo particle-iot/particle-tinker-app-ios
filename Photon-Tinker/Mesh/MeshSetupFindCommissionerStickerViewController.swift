@@ -16,9 +16,9 @@ class MeshSetupFindCommissionerStickerViewController: MeshSetupFindStickerViewCo
         return true
     }
 
-    func setup(didPressScan: @escaping () -> (), deviceType: ParticleDeviceType?, networkName: String) {
+    func setup(didPressScan: @escaping () -> (), networkName: String) {
         self.callback = didPressScan
-        self.deviceType = deviceType
+
         self.networkName = networkName
     }
 

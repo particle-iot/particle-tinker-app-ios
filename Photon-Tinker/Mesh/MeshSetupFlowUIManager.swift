@@ -17,8 +17,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     private var flowManager: MeshSetupFlowManager!
     private var embededNavigationController: UINavigationController!
 
-    private var targetDeviceDataMatrixString: String!
-    private var commissionerDeviceDataMatrixString: String!
+    private var targetDeviceDataMatrix: MeshSetupDataMatrix?
 
 
     override func awakeFromNib() {
@@ -49,7 +48,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             self.embededNavigationController.delegate = self
 
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
-            findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker, deviceType: self.flowManager.targetDevice.type) //device type won't be available at this time
+            findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker)
             self.embededNavigationController.setViewControllers([findStickerVC], animated: false)
         }
         super.prepare(for: segue, sender: sender)
@@ -86,7 +85,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupScanStickerViewController.self)) {
                 let scanVC = MeshSetupScanStickerViewController.loadedViewController()
-                scanVC.setup(didFindStickerCode: self.setTargetDeviceStickerString, deviceType: self.flowManager.targetDevice.type)
+                scanVC.setup(didFindStickerCode: self.setTargetDeviceStickerString)
                 self.embededNavigationController.pushViewController(scanVC, animated: true)
             }
         }
@@ -112,10 +111,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     private func validateMatrix(_ dataMatrixString: String, targetDevice: Bool) {
         if let matrix = MeshSetupDataMatrix(dataMatrixString: dataMatrixString),
-               let type = ParticleDeviceType(serialNumber: matrix.serialNumber) {
+               let type = matrix.type {
             if (matrix.isMobileSecretValid()) {
                 if (targetDevice) {
-                    self.targetDeviceDataMatrixString = dataMatrixString
+                    self.targetDeviceDataMatrix = matrix
                     self.showTargetDeviceGetReady()
                 } else {
                     self.showCommissionerDevicePairing(dataMatrixString: dataMatrixString)
@@ -215,7 +214,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupGetReadyViewController.self)) {
                 let getReadyVC = MeshSetupGetReadyViewController.loadedViewController()
-                getReadyVC.setup(didPressReady: self.showTargetDevicePairing, dataMatrixString: self.targetDeviceDataMatrixString, deviceType: self.flowManager.targetDevice.type)
+                getReadyVC.setup(didPressReady: self.showTargetDevicePairing, dataMatrix: self.targetDeviceDataMatrix!)
                 self.embededNavigationController.pushViewController(getReadyVC, animated: true)
             }
         }
@@ -225,7 +224,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func showTargetDevicePairing(useEthernet: Bool) {
         log("target device ready")
 
-        guard flowManager.setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix(dataMatrixString: self.targetDeviceDataMatrixString)!, useEthernet: useEthernet) == nil else {
+        guard flowManager.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!, useEthernet: useEthernet) == nil else {
             self.log("Unknown error while setting target device info")
             return
         }
@@ -574,7 +573,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupFindCommissionerStickerViewController.self)) {
                 let findStickerVC = MeshSetupFindCommissionerStickerViewController.loadedViewController()
-                findStickerVC.setup(didPressScan: self.showCommissionerDeviceScanSticker, deviceType: self.flowManager.targetDevice.type, networkName: self.flowManager.selectedNetworkMeshInfo!.name)
+                findStickerVC.setup(didPressScan: self.showCommissionerDeviceScanSticker, networkName: self.flowManager.selectedNetworkMeshInfo!.name)
                 self.embededNavigationController.pushViewController(findStickerVC, animated: true)
             }
         }
@@ -601,11 +600,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     //user successfully scanned target code
     func showCommissionerDevicePairing(dataMatrixString: String) {
         log("dataMatrix validated: \(dataMatrixString)")
-        self.commissionerDeviceDataMatrixString = dataMatrixString
 
         //make sure the scanned device is of the same type as user requested in the first screen
-        if let matrix = MeshSetupDataMatrix(dataMatrixString: self.commissionerDeviceDataMatrixString),
-            let deviceType = ParticleDeviceType(serialNumber: matrix.serialNumber) {
+        if let matrix = MeshSetupDataMatrix(dataMatrixString: dataMatrixString),
+            let deviceType = matrix.type {
 
             if let error = flowManager.setCommissionerDeviceInfo(dataMatrix: matrix) {
                 DispatchQueue.main.async {
@@ -733,10 +731,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             //setup done
             self.dismiss(animated: true)
         } else {
-            targetDeviceDataMatrixString = nil
+            targetDeviceDataMatrix = nil
 
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
-            findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker, deviceType: self.flowManager.targetDevice.type) //device type won't be available at this time
+            findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker)
             self.embededNavigationController.setViewControllers([findStickerVC], animated: true)
         }
     }
@@ -892,8 +890,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo) {
-        //make target device into a commissioner
-        self.commissionerDeviceDataMatrixString = self.targetDeviceDataMatrixString
+        //nothing needs to be done on ui side
     }
 
     func createNetworkScreenDone() {

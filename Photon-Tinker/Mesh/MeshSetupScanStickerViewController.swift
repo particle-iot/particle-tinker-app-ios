@@ -23,9 +23,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     private var videoCaptureDevice: AVCaptureDevice?
     private var previewLayer: AVCaptureVideoPreviewLayer?
 
-    func setup(didFindStickerCode: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
+    func setup(didFindStickerCode: @escaping (String) -> ()) {
         self.callback = didFindStickerCode
-        self.deviceType = deviceType
     }
 
     override func viewDidLoad() {

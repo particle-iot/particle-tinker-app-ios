@@ -330,6 +330,12 @@ internal struct MeshSetupDataMatrix {
     var serialNumber: String
     var mobileSecret: String
 
+    private(set) public var type: ParticleDeviceType?
+
+    var matrixString: String {
+        return "\(serialNumber) \(mobileSecret)"
+    }
+
     init?(dataMatrixString: String) {
         let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{12,15})")
         let nsString = dataMatrixString as NSString
@@ -339,6 +345,7 @@ internal struct MeshSetupDataMatrix {
             let arr = dataMatrixString.split(separator: " ")
             serialNumber = String(arr[0])//"12345678abcdefg"
             mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
+            type = ParticleDeviceType(serialNumber: serialNumber)
         } else {
             return nil
         }

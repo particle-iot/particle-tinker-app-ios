@@ -19,9 +19,8 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
 
     internal var callback: (() -> ())!
 
-    func setup(didPressScan: @escaping () -> (), deviceType: ParticleDeviceType?) {
+    func setup(didPressScan: @escaping () -> ()) {
         self.callback = didPressScan
-        self.deviceType = deviceType
     }
 
     override func setStyle() {

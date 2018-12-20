@@ -51,12 +51,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private var callback: ((Bool) -> ())!
-    private var dataMatrixString: String!
+    private var dataMatrix: MeshSetupDataMatrix!
 
-    func setup(didPressReady: @escaping (Bool) -> (), dataMatrixString: String, deviceType: ParticleDeviceType?) {
+    func setup(didPressReady: @escaping (Bool) -> (), dataMatrix: MeshSetupDataMatrix) {
         self.callback = didPressReady
-        self.deviceType = deviceType
-        self.dataMatrixString = dataMatrixString
+        self.dataMatrix = dataMatrix
+        self.deviceType = dataMatrix.type
     }
     @IBOutlet weak var setupSwitch: UISwitch?
     
@@ -155,9 +155,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                 checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
             case .boron:
-                let matrix = MeshSetupDataMatrix(dataMatrixString: self.dataMatrixString)
-
-                if (ParticleDeviceType.requiresBattery(serialNumber: matrix!.serialNumber)) {
+                if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
                     initializeVideoPlayerWithVideo(videoFileName: "boron_power_on_battery")
                 } else {
                     initializeVideoPlayerWithVideo(videoFileName: "boron_power_on")
