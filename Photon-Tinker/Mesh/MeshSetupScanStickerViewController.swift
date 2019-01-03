@@ -29,7 +29,46 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        evalPermissions()
+        
+    }
 
+    private func evalPermissions() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+
+        if status == .authorized {
+            initCaptureSession()
+        } else if status == .notDetermined {
+            AVCaptureDevice.requestAccess(for: .video) { (Bool) in
+                self.evalPermissions()
+            }
+        } else {
+            showNoPermissionsMessage()
+        }
+    }
+    
+    func showNoPermissionsMessage() {
+        let ac = UIAlertController(title: MeshSetupStrings.Prompt.NoCameraPermissionsTitle, message: MeshSetupStrings.Prompt.NoCameraPermissionsText, preferredStyle: .alert)
+
+        let settingsAction = UIAlertAction(title: MeshSetupStrings.Action.OpenSettings, style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                return
+            }
+
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(settingsUrl)
+                } else {
+                    UIApplication.shared.openURL(settingsUrl)
+                }
+            }
+        }
+        ac.addAction(settingsAction)
+        present(ac, animated: true)
+        captureSession = nil
+    }
+    
+    private func initCaptureSession() {
         captureSession = AVCaptureSession()
         guard let vcd = AVCaptureDevice.default(for: AVMediaType.video) else { return }
 
@@ -45,7 +84,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         if (captureSession.canAddInput(videoInput)) {
             captureSession.addInput(videoInput)
         } else {
-            failed()
+            showFailed()
             return
         }
 
@@ -57,7 +96,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.dataMatrix]
         } else {
-            failed()
+            showFailed()
             return
         }
 
@@ -91,9 +130,9 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         previewLayer?.frame = self.cameraView.layer.bounds
     }
 
-    func failed() {
-        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
+    func showFailed() {
+        let ac = UIAlertController(title: MeshSetupStrings.Prompt.NoCameraTitle, message: MeshSetupStrings.Prompt.NoCameraText, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default))
         present(ac, animated: true)
         captureSession = nil
     }

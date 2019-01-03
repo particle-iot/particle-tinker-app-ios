@@ -11,6 +11,10 @@
 "MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to cancel setup?";
 "MeshSetup.Prompt.LeaveNetworkTitle" = "Leave current network?";
 "MeshSetup.Prompt.LeaveNetworkText" = "The device you are trying to set up is already part of a mesh network. Would you like to have the device leave its current mesh network to continue setup?";
+"MeshSetup.Prompt.NoCameraPermissionsTitle" = "Error";
+"MeshSetup.Prompt.NoCameraPermissionsText" = "It seems that you declined camera access for Particle app. Please grant camera access permissions in Settings app to continue.";
+"MeshSetup.Prompt.NoCameraTitle" = "Error";
+"MeshSetup.Prompt.NoCameraText" = "Your device does not support scanning data matrices. Please use a device with a camera.";
 
 
 
@@ -24,6 +28,7 @@
 "MeshSetup.Action.CancelSetup" = "Cancel";
 "MeshSetup.Action.ContinueSetup" = "Don't Cancel";
 "MeshSetup.Action.ContactSupport" = "Contact Support";
+"MeshSetup.Action.OpenSettings" = "Open Settings";
 
 
 
