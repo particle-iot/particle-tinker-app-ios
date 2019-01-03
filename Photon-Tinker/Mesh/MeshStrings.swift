@@ -67,6 +67,12 @@ class MeshSetupStrings {
 
         static let LeaveNetworkTitle = "MeshSetup.Prompt.LeaveNetworkTitle".meshLocalized()
         static let LeaveNetworkText = "MeshSetup.Prompt.LeaveNetworkText".meshLocalized()
+
+        static let NoCameraPermissionsTitle = "MeshSetup.Prompt.NoCameraPermissionsTitle".meshLocalized()
+        static let NoCameraPermissionsText = "MeshSetup.Prompt.NoCameraPermissionsText".meshLocalized()
+
+        static let NoCameraTitle = "MeshSetup.Prompt.NoCameraTitle".meshLocalized()
+        static let NoCameraText = "MeshSetup.Prompt.NoCameraText".meshLocalized()
     }
 
     struct Action {
@@ -79,6 +85,7 @@ class MeshSetupStrings {
         static let LeaveNetwork = "MeshSetup.Action.LeaveNetwork".meshLocalized()
         static let DontLeaveNetwork = "MeshSetup.Action.DontLeaveNetwork".meshLocalized()
         static let ContactSupport = "MeshSetup.Action.ContactSupport".meshLocalized()
+        static let OpenSettings = "MeshSetup.Action.OpenSettings".meshLocalized()
     }
 
 
