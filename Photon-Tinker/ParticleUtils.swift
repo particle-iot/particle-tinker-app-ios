@@ -62,15 +62,15 @@ class ParticleUtils: NSObject {
                 image = UIImage(named: "imgDeviceDigistumpOak")
                 text = "Digistump Oak"
 
-            case .xenon:
+            case .xenon, .xenonSoM:
                 image = UIImage(named: "imgDeviceXenon")
                 text = "Xenon"
 
-            case .argon:
+            case .argon, .argonSoM:
                 image = UIImage(named: "imgDeviceArgon")
                 text = "Argon"
 
-            case .boron:
+            case .boron, .boronSoM:
                 image = UIImage(named: "imgDeviceBoron")
                 text = "Boron"
 

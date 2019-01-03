@@ -382,9 +382,9 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .bluz : return "Bluz"
             case .digistumpOak : return "DigistumpOak"
             case .ESP32 : return "ESP32"
-            case .argon : return "Argon"
-            case .boron : return "Boron"
-            case .xenon : return "Xenon"
+            case .argon, .argonSoM : return "Argon"
+            case .boron, .boronSoM : return "Boron"
+            case .xenon, .xenonSoM : return "Xenon"
         }
     }
 
