@@ -18,6 +18,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     private var embededNavigationController: UINavigationController!
 
     private var targetDeviceDataMatrix: MeshSetupDataMatrix?
+    private var alert: UIAlertController?
+    private var lockAlert: Bool = false //when critical alert is shown, this is set to true
 
 
     override func awakeFromNib() {
@@ -127,17 +129,19 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                         self.showFailedMatrixRecoveryError(dataMatrix: matrix)
                     } else {
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
+                            if (self.hideAlertIfVisible()) {
+                                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
 
-                            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-                                self.cancelTapped(self)
-                            })
+                                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                                    self.cancelTapped(self)
+                                })
 
-                            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                                self.validateMatrix(dataMatrixString, targetDevice: targetDevice)
-                            })
+                                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                                    self.validateMatrix(dataMatrixString, targetDevice: targetDevice)
+                                })
 
-                            self.present(alert, animated: true)
+                                self.present(self.alert!, animated: true)
+                            }
                         }
                     }
                 }
@@ -151,32 +155,36 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func showWrongMatrixError(useTargetDevice: Bool) {
         //show error where selected device type mismatch
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
-                    message: MeshSetupFlowError.WrongDeviceType.description.replaceMeshSetupStrings(deviceType: useTargetDevice ? self.flowManager.targetDevice.type!.description : self.flowManager.commissionerDevice!.type!.description),
-                    preferredStyle: .alert)
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
+                        message: MeshSetupFlowError.WrongDeviceType.description.replaceMeshSetupStrings(deviceType: useTargetDevice ? self.flowManager.targetDevice.type!.description : self.flowManager.commissionerDevice!.type!.description),
+                        preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
-                self.restartCaptureSession()
-            })
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                    self.restartCaptureSession()
+                })
 
-            self.present(alert, animated: true)
+                self.present(self.alert!, animated: true)
+            }
         }
     }
 
     private func showFailedMatrixRecoveryError(dataMatrix: MeshSetupDataMatrix) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.StickerError.description, preferredStyle: .alert)
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.StickerError.description, preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-                self.restartCaptureSession()
-            })
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                    self.restartCaptureSession()
+                })
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContactSupport, style: .default) { action in
-                self.openEmailClient(dataMatrix: dataMatrix)
-                self.restartCaptureSession()
-            })
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContactSupport, style: .default) { action in
+                    self.openEmailClient(dataMatrix: dataMatrix)
+                    self.restartCaptureSession()
+                })
 
-            self.present(alert, animated: true)
+                self.present(self.alert!, animated: true)
+            }
         }
     }
 
@@ -273,17 +281,19 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: MeshSetupStrings.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.LeaveNetwork, style: .default) { action in
-                self.flowManager.setTargetDeviceLeaveNetwork(leave: true)
-            })
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.LeaveNetwork, style: .default) { action in
+                    self.flowManager.setTargetDeviceLeaveNetwork(leave: true)
+                })
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.DontLeaveNetwork, style: .cancel) { action in
-                self.flowManager.setTargetDeviceLeaveNetwork(leave: false)
-            })
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.DontLeaveNetwork, style: .cancel) { action in
+                    self.flowManager.setTargetDeviceLeaveNetwork(leave: false)
+                })
 
-            self.present(alert, animated: true)
+                self.present(self.alert!, animated: true)
+            }
         }
     }
 
@@ -330,19 +340,21 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             DispatchQueue.main.async {
                 var message = error.description
 
-                let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+                if (self.hideAlertIfVisible()) {
+                    self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
 
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                    //reload pricing impact endpoint
-                    self.flowManager.retryLastAction()
-                })
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                        //reload pricing impact endpoint
+                        self.flowManager.retryLastAction()
+                    })
 
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-                    //do nothing
-                    self.cancelTapped(self)
-                })
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                        //do nothing
+                        self.cancelTapped(self)
+                    })
 
-                self.present(alert, animated: true)
+                    self.present(self.alert!, animated: true)
+                }
             }
         }
     }
@@ -607,13 +619,15 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             if let error = flowManager.setCommissionerDeviceInfo(dataMatrix: matrix) {
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
+                    if (self.hideAlertIfVisible()) {
+                        self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
 
-                    alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
-                        self.restartCaptureSession()
-                    })
+                        self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                            self.restartCaptureSession()
+                        })
 
-                    self.present(alert, animated: true)
+                        self.present(self.alert!, animated: true)
+                    }
                 }
             } else {
                 self.flowManager.pauseSetup()
@@ -1037,17 +1051,19 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             self.dismiss(animated: true)
         } else {
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: MeshSetupStrings.Prompt.CancelSetupTitle, message: MeshSetupStrings.Prompt.CancelSetupText, preferredStyle: .alert)
+                if (self.hideAlertIfVisible()) {
+                    self.alert = UIAlertController(title: MeshSetupStrings.Prompt.CancelSetupTitle, message: MeshSetupStrings.Prompt.CancelSetupText, preferredStyle: .alert)
 
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .default) { action in
-                    self.cancelTapped(self)
-                })
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .default) { action in
+                        self.cancelTapped(self)
+                    })
 
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContinueSetup, style: .cancel) { action in
-                    //do nothing
-                })
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContinueSetup, style: .cancel) { action in
+                        //do nothing
+                    })
 
-                self.present(alert, animated: true)
+                    self.present(self.alert!, animated: true)
+                }
             }
         }
     }
@@ -1062,25 +1078,39 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 message = apiError.localizedDescription
             }
 
-            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
 
-            if (severity == .Fatal) {
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
-                    self.cancelTapped(self)
-                })
-            } else {
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                    self.flowManager.retryLastAction()
-                })
+                if (severity == .Fatal) {
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                        self.cancelTapped(self)
+                    })
+                } else {
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                        self.flowManager.retryLastAction()
+                    })
 
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
-                    self.cancelTapped(self)
-                })
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
+                        self.cancelTapped(self)
+                    })
+                }
+
+                self.present(self.alert!, animated: true)
             }
-
-            self.present(alert, animated: true)
         }
     }
 
 
+    private func hideAlertIfVisible() -> Bool {
+        if (self.lockAlert) {
+            return false
+        }
+
+        if (alert?.viewIfLoaded?.window != nil) {
+            alert!.dismiss(animated: false)
+            return true
+        } else {
+            return true
+        }
+    }
 }
