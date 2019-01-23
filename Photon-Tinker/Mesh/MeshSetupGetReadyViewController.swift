@@ -149,12 +149,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         ethernetToggleText?.text = MeshSetupStrings.GetReady.EthernetToggleText
 
         switch (self.deviceType ?? .xenon) {
-            case .argon:
+            case .argon, .argonSoM:
                 initializeVideoPlayerWithVideo(videoFileName: "argon_power_on")
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
-            case .boron:
+            case .boron, .boronSoM:
                 if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
                     initializeVideoPlayerWithVideo(videoFileName: "boron_power_on_battery")
                 } else {
@@ -206,9 +206,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 //        hideEmptyLabels()
 
         switch (self.deviceType ?? .xenon) {
-            case .argon:
+            case .argon, .argonSoM:
                 checkboxView?.isHidden = false
-            case .boron:
+            case .boron, .boronSoM:
                 checkboxView?.isHidden = false
             default: //.xenon
                 checkboxView?.isHidden = true

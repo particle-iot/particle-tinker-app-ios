@@ -382,9 +382,14 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .bluz : return "Bluz"
             case .digistumpOak : return "DigistumpOak"
             case .ESP32 : return "ESP32"
-            case .argon, .argonSoM : return "Argon"
-            case .boron, .boronSoM : return "Boron"
-            case .xenon, .xenonSoM : return "Xenon"
+            case .argon : return "Argon"
+            case .boron : return "Boron"
+            case .xenon : return "Xenon"
+            case .argonSoM : return "Argon"
+            case .boronSoM : return "Boron"
+            case .xenonSoM : return "Xenon"
+
+
         }
     }
 
@@ -407,6 +412,12 @@ extension ParticleDeviceType : CustomStringConvertible {
             self = .argon
         } else if isSNPrefix(prefix: "b40h") || isSNPrefix(prefix: "b31h") || isSNPrefix(prefix: "b40k") || isSNPrefix(prefix: "b31k") {
             self = .boron
+        } else if isSNPrefix(prefix: "p001") || isSNPrefix(prefix: "p002") {
+            self = .boronSoM
+        } else if isSNPrefix(prefix: "p003") {
+            self = .argonSoM
+        } else if isSNPrefix(prefix: "p004") {
+            self = .xenonSoM
         } else {
             return nil
         }

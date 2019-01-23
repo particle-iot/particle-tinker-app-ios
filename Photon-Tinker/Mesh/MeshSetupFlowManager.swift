@@ -38,9 +38,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .OfferToAddOneMoreDevice
     ]
 
-
-
-
     private let ethernetFlow: [MeshSetupFlowCommand] = [
         .OfferSetupStandAloneOrWithNetwork,
         //.OfferSelectOrCreateNetwork,
@@ -2205,7 +2202,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: ShowPricingImpact
     private func stepShowPricingImpact() {
         //if it's boron and active interface is cellular, get iccid first
-        if (self.targetDevice.type! == .boron &&
+        if ((self.targetDevice.type! == .boron || (self.targetDevice.type! == .boronSoM)) &&
                 self.targetDevice.activeInternetInterface != nil &&
                 self.targetDevice.activeInternetInterface! == .ppp &&
                 self.targetDevice.deviceICCID == nil) {
