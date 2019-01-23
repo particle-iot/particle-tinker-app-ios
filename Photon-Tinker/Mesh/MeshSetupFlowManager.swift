@@ -709,6 +709,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
+        self.log("connecting to device: \(self.targetDevice.credentials!)")
         self.bluetoothManager.createConnection(with: self.targetDevice.credentials!)
         self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnecting)
     }
@@ -724,6 +725,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private func stepCheckTargetDeviceHasNetworkInterfaces() {
         self.targetDevice.transceiver!.sendGetInterfaceList { result, interfaces in
             self.log("targetDevice.sendGetInterfaceList: \(result.description()), networkCount: \(interfaces?.count as Optional)")
+            self.log("\(interfaces as Optional)")
             if (self.canceled) {
                 return
             }
@@ -1005,6 +1007,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
         self.selectedWifiNetworkInfo = selectedNetwork
+        self.log("self.selectedWifiNetworkInfo: \(self.selectedWifiNetworkInfo)")
         self.stepComplete(.GetUserWifiNetworkSelection)
 
         return nil
@@ -1147,6 +1150,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
         }
 
+        self.log("self.selectedNetworkMeshInfo: \(self.selectedNetworkMeshInfo)")
         self.stepComplete(.GetUserNetworkSelection)
 
         return nil
@@ -1214,6 +1218,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
+        self.log("connecting to device: \(self.commissionerDevice!.credentials!)")
         self.bluetoothManager.createConnection(with: self.commissionerDevice!.credentials!)
         self.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
     }
