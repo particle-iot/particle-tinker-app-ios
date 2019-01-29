@@ -17,7 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        #if DEBUG
+            ParticleLogger.setLoggerLevel(.debug)
+            ParticleLogger.setIgnoreControls(["ParticleDevice", "BluetoothHandshakeManager", "BluetoothConnectionManager", "BluetoothConnection", "Particle.DeviceListViewController"])
+        #endif
+    
+        LogList.startLogging()
+        LogList.clearStaleLogs()
+
         Fabric.with([Crashlytics.self])
 
 
@@ -35,7 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         IQKeyboardManager.shared().toolbarManageBehaviour = .byTag
 
+
         return true
+
     }
 }
 

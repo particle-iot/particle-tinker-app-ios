@@ -9,7 +9,12 @@
 "MeshSetup.Prompt.ErrorTitle" = "Error";
 "MeshSetup.Prompt.CancelSetupTitle" = "Cancel setup";
 "MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to cancel setup?";
-
+"MeshSetup.Prompt.LeaveNetworkTitle" = "Leave current network?";
+"MeshSetup.Prompt.LeaveNetworkText" = "The device you are trying to set up is already part of a mesh network. Would you like to have the device leave its current mesh network to continue setup?";
+"MeshSetup.Prompt.NoCameraPermissionsTitle" = "Error";
+"MeshSetup.Prompt.NoCameraPermissionsText" = "It seems that you declined camera access for Particle app. Please grant camera access permissions in Settings app to continue.";
+"MeshSetup.Prompt.NoCameraTitle" = "Error";
+"MeshSetup.Prompt.NoCameraText" = "Your device does not support scanning data matrices. Please use a device with a camera.";
 
 
 
@@ -18,13 +23,18 @@
 "MeshSetup.Action.Cancel" = "Cancel";
 "MeshSetup.Action.Retry" = "Retry";
 "MeshSetup.Action.Continue" = "Continue";
+"MeshSetup.Action.LeaveNetwork" = "Leave Network";
+"MeshSetup.Action.DontLeaveNetwork" = "Cancel Setup";
 "MeshSetup.Action.CancelSetup" = "Cancel";
+"MeshSetup.Action.ContinueSetup" = "Don't Cancel";
+"MeshSetup.Action.ContactSupport" = "Contact Support";
+"MeshSetup.Action.OpenSettings" = "Open Settings";
 
 
 
 
 
-"MeshSetup.Default.DeviceType" = "Mesh Device";
+"MeshSetup.Default.DeviceType" = "device";
 
 
 
@@ -36,17 +46,31 @@
 
 
 
-
+"MeshSetup.GetReady.Button" = "Next";
 "MeshSetup.GetReady.Title" = "Get your {{device}} ready for setup";
 "MeshSetup.GetReady.Text1" = "Plug your {{device}} into a power source";
 "MeshSetup.GetReady.Text2" = "Confirm your {{device}} is blinking blue";
 "MeshSetup.GetReady.Text3" = "";
-"MeshSetup.GetReady.Button" = "{{device}} is blinking blue";
+"MeshSetup.GetReady.Text4" = "";
+
+"MeshSetup.GetReady.EthernetTitle" = "Attach your Ethernet Featherwing";
+"MeshSetup.GetReady.EthernetText1" = "Line up {{device}} pin headers and gently push the {{device}} into the Featherwing until flush";
+"MeshSetup.GetReady.EthernetText2" = "Insert an ethernet cable into the port";
+"MeshSetup.GetReady.EthernetText3" = "Plug your {{device}} into a power source";
+"MeshSetup.GetReady.EthernetText4" = "Confirm your {{device}} is blinking blue";
+
+"MeshSetup.GetReady.EthernetToggleTitle" = "USE WITH ETHERNET?";
+"MeshSetup.GetReady.EthernetToggleText" = "Toggle ethernet featherwing setup";
+
+"MeshSetup.GetReady.WifiCheckboxText" = "I have attached the Wi-Fi antenna and see that the device is blinking blue";
+"MeshSetup.GetReady.CellularCheckboxText" = "I have attached the cellular antenna and see that the device is blinking blue";
+
 
 "MeshSetup.GetCommissionerReady.Title" = "Add {{device}} to {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text1" = "Find a device that is already on the {{network}} mesh network";
 "MeshSetup.GetCommissionerReady.Text2" = "Press and hold the MODE button for 3 seconds";
 "MeshSetup.GetCommissionerReady.Text3" = "Confirm the device is blinking blue and your phone remains physically close to that device";
+"MeshSetup.GetCommissionerReady.Text4" = "";
 "MeshSetup.GetCommissionerReady.Button" = "Assisting device blinking blue";
 
 
@@ -58,14 +82,46 @@
 
 "MeshSetup.FindCommissionerSticker.Title" = "Pair assisting device with your phone";
 "MeshSetup.FindCommissionerSticker.Text" = "Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code.";
-"MeshSetup.FindCommissionerSticker.Note" = "This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network";
+"MeshSetup.FindCommissionerSticker.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.FindCommissionerSticker.NoteText" = "This device will act as the assisting device
+
+to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.FindCommissionerSticker.Button" = "Scan assisting device";
 
 
 
+"MeshSetup.UpdateFirmware.Title" = "Let’s get your device updated";
+"MeshSetup.UpdateFirmware.Text" = "Update your device to the latest-and-greatest version of Device OS to continue setup";
+"MeshSetup.UpdateFirmware.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.UpdateFirmware.NoteText" = "Your device may receive multiple files as part of this Device OS update. It will reboot in-between each file it receives from Device Cloud.";
+"MeshSetup.UpdateFirmware.Button" = "Begin update";
 
-"MeshSetup.ScanSticker.Title" = "Pair {{device}} with your phone";
-"MeshSetup.ScanSticker.Text" = "Point the camera at the data matrix on the {{device}}.";
+
+"MeshSetup.UpdateFirmwareProgress.Title" = "Updating Device OS";
+"MeshSetup.UpdateFirmwareProgress.Text" = "Sending part {0} to device — {1}% done";
+"MeshSetup.UpdateFirmwareProgress.TextInstalling" = "Installing part {0} on device";
+
+"MeshSetup.UpdateFirmwareProgress.NoteTitle" = "IMPORTANT!";
+"MeshSetup.UpdateFirmwareProgress.NoteText" = "Please keep your phone awake with this app open during this Device OS update.";
+
+"MeshSetup.UpdateFirmwareProgress.SuccessTitle" = "Congrats!";
+"MeshSetup.UpdateFirmwareProgress.SuccessText" = "Device OS has been successfully updated.";
+
+
+
+
+
+"MeshSetup.StandAloneOrMeshSetup.Title" = "Do you want to use this {{device}} in a mesh network?";
+"MeshSetup.StandAloneOrMeshSetup.Text" = "This {{device}} can act as a gateway to the Internet and create a local wireless mesh network that other devices can join";
+"MeshSetup.StandAloneOrMeshSetup.MeshButton" = "USE IN MESH NETWORK";
+"MeshSetup.StandAloneOrMeshSetup.StandAloneButton" = "DON'T USE IN MESH NETWORK";
+
+
+
+
+
+"MeshSetup.ScanSticker.Title" = "Scan the sticker";
+"MeshSetup.ScanSticker.Text" = "Make sure the sticker is steady and well-lit";
 
 "MeshSetup.ScanCommissionerSticker.Title" = "Pair assisting device with your phone";
 "MeshSetup.ScanCommissionerSticker.Text" = "Point the camera at the data matrix on the device.";
@@ -83,15 +139,31 @@
 
 
 
+"MeshSetup.SelectWifiNetwork.Title" = "Your Argon is scanning for Wi-Fi networks to join";
 
-"MeshSetup.Networks.Title" = "Select mesh network to join";
+"MeshSetup.SelectNetwork.Title" = "Select mesh network to join";
+"MeshSetup.SelectNetwork.DevicesSingular" = "1 device on network";
+"MeshSetup.SelectNetwork.DevicesPlural" = "{{0}} devices on network";
 
 
 
 
 "MeshSetup.ExistingNetworkPassword.Title" = "Enter network password for {{network}}";
-"MeshSetup.ExistingNetworkPassword.Text" = "This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.";
+"MeshSetup.ExistingNetworkPassword.InputTitle" = "Network password";
+"MeshSetup.ExistingNetworkPassword.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.ExistingNetworkPassword.NoteText" = "This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.";
 "MeshSetup.ExistingNetworkPassword.Button" = "Join Network";
+
+
+
+
+
+"MeshSetup.WifiNetworkPassword.Title" = "Enter password for {{network}}";
+"MeshSetup.WifiNetworkPassword.InputTitle" = "Password";
+"MeshSetup.WifiNetworkPassword.Button" = "Connect to Device Cloud";
+
+
+
 
 
 
@@ -107,7 +179,9 @@
 
 
 "MeshSetup.DeviceName.Title" = "Give your {{device}} a name";
-"MeshSetup.DeviceName.Text" = "Name your device something you will remember to help you easily identify it later.";
+"MeshSetup.DeviceName.InputTitle" = "Device name";
+"MeshSetup.DeviceName.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.DeviceName.NoteText" = "Name your device something you will remember to help you easily identify it later.";
 "MeshSetup.DeviceName.Button" = "Next";
 
 
@@ -128,60 +202,59 @@
 
 "MeshSetup.CreateOrSelectNetwork.Title" = "Your Xenon + Ethernet Featherwing will act as a gateway in a mesh network";
 "MeshSetup.CreateOrSelectNetwork.CreateNetwork" = "Create new network...";
+"MeshSetup.CreateOrSelectNetwork.DevicesSingular" = "1 device on network";
+"MeshSetup.CreateOrSelectNetwork.DevicesPlural" = "{{0}} devices on network";
 
 
 
 
-"MeshSetup.ConnectToInternet.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
-"MeshSetup.ConnectToInternet.Text1" = "Connecting to the internet via Ethernet";
-"MeshSetup.ConnectToInternet.Text2" = "Starting a secure session with the Particle Device Cloud";
-"MeshSetup.ConnectToInternet.SuccessTitle" = "Congrats!";
-"MeshSetup.ConnectToInternet.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetEthernet.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetEthernet.Text1" = "Connecting to the internet via Ethernet";
+"MeshSetup.ConnectingToInternetEthernet.Text2" = "Starting a secure session with the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetEthernet.SuccessTitle" = "Congrats!";
+"MeshSetup.ConnectingToInternetEthernet.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
 
 
+"MeshSetup.ConnectingToInternetWifi.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetWifi.Text1" = "Connecting to the internet via Wi-Fi";
+"MeshSetup.ConnectingToInternetWifi.Text2" = "Starting a secure session with the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetWifi.SuccessTitle" = "Congrats!";
+"MeshSetup.ConnectingToInternetWifi.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
 
 
-"MeshSetup.FinishSetupEarly.SuccessTitle" = "Congrats!";
-"MeshSetup.FinishSetupEarly.SuccessText" = "{{deviceName}} is all set up!";
-"MeshSetup.FinishSetupEarly.ContinueSetupLabel" = "Using {{deviceName}} in a mesh network?";
-"MeshSetup.FinishSetupEarly.ContinueSetupButton" = "Continue onto Mesh Setup";
-"MeshSetup.FinishSetupEarly.DoneLabel" = "Using as a standalone device?";
-"MeshSetup.FinishSetupEarly.DoneButton" = "I’m done";
-
-
-
-
-"MeshSetup.BillingInfo.Title" = "Woo-hoo! Enjoy this new mesh network on us!";
-"MeshSetup.BillingInfo.Text1" = "All new networks begin as Micro Networks";
-"MeshSetup.BillingInfo.Text2" = "Micro Networks include 10 total devices and 1 gateway";
-"MeshSetup.BillingInfo.Text3" = "Your first 10 Micro Networks using a Wi-Fi or Ethernet gateway are FREE";
-"MeshSetup.BillingInfo.Note" = "You have 10 free micro networks";
-"MeshSetup.BillingInfo.Button" = "Sounds good";
+"MeshSetup.ConnectingToInternetCellular.Title" = "Your {{device}} is connecting to the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetCellular.Text1" = "Activating Particle SIM";
+"MeshSetup.ConnectingToInternetCellular.Text2" = "Connecting to the internet via cellular";
+"MeshSetup.ConnectingToInternetCellular.Text3" = "Starting a secure session with the Particle Device Cloud";
+"MeshSetup.ConnectingToInternetCellular.SuccessTitle" = "Congrats!";
+"MeshSetup.ConnectingToInternetCellular.SuccessText" = "Your {{device}} has successfully connected to the Particle Device Cloud";
 
 
 
 
 "MeshSetup.CreateNetworkName.Title" = "Give your network a name";
-"MeshSetup.CreateNetworkName.Text" = "Name your network something you will remember to help you easily identify it later.";
+"MeshSetup.CreateNetworkName.InputTitle" = "Network name";
+"MeshSetup.CreateNetworkName.NoteTitle" = "HELPFUL TIP!";
+"MeshSetup.CreateNetworkName.NoteText" = "Name your network something you will remember to help you easily identify it later.";
 "MeshSetup.CreateNetworkName.Button" = "Next";
 
 
 
 
 "MeshSetup.CreateNetworkPassword.Title" = "Set network admin password";
-"MeshSetup.CreateNetworkPassword.Text" = "You’ll need this password each time you want to add a new device to this mesh network.";
+"MeshSetup.CreateNetworkPassword.NoteTitle" = "KEEP THIS PASSWORD SAFE!";
+"MeshSetup.CreateNetworkPassword.NoteText" = "You’ll need this password each time you want to add a new device to this mesh network.";
 "MeshSetup.CreateNetworkPassword.Button" = "Create network";
-"MeshSetup.CreateNetworkPassword.Repeat" = "Repeat password";
+"MeshSetup.CreateNetworkPassword.InputTitle" = "Network password";
+"MeshSetup.CreateNetworkPassword.RepeatTitle" = "Confirm network password";
 "MeshSetup.CreateNetworkPassword.PasswordsDoNotMatch" = "Password and repeated password do not match.";
 
 
 
 
 "MeshSetup.CreatingNetwork.Title" = "Creating network";
-"MeshSetup.CreatingNetwork.Text1" = "Sending network credentials to your {{device}}";
+"MeshSetup.CreatingNetwork.Text1" = "Registering the mesh network with the Particle Device Cloud";
 "MeshSetup.CreatingNetwork.Text2" = "{{deviceName}} creating the mesh network locally";
-"MeshSetup.CreatingNetwork.Text3" = "Registering the mesh network with the Particle Device Cloud";
-"MeshSetup.CreatingNetwork.Text4" = "Activating {{deviceName}} as a gateway in the mesh network";
 "MeshSetup.CreatingNetwork.SuccessTitle" = "Congrats!";
 "MeshSetup.CreatingNetwork.SuccessText" = "Your network has been created!";
 
@@ -194,3 +267,105 @@
 "MeshSetup.NetworkCreated.ContinueSetupButton" = "Set up next device";
 "MeshSetup.NetworkCreated.DoneLabel" = "Itching to get started?";
 "MeshSetup.NetworkCreated.DoneButton" = "I’m done";
+
+
+
+
+
+
+"MeshSetup.JoinerInfo.Title" = "OK—Let’s get this mesh node connected to the Device Cloud";
+"MeshSetup.JoinerInfo.Text1" = "Mesh nodes require a connection to the Device Cloud via a local mesh network to securely talk to the Internet";
+"MeshSetup.JoinerInfo.Text2" = "To connect, you will send the {{device}} mesh network credentials";
+"MeshSetup.JoinerInfo.Text3" = "Once connected, this device can communicate with the Device Cloud via a mesh gateway, and locally with other devices in the mesh network";
+"MeshSetup.JoinerInfo.Button" = "Next";
+
+
+
+"MeshSetup.GatewayInfoEthernetStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoEthernetStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoEthernetStandalone.Text2" = "To connect, your {{device}} will use an Ethernet connection";
+"MeshSetup.GatewayInfoEthernetStandalone.Button" = "Next";
+
+
+"MeshSetup.GatewayInfoEthernetMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoEthernetMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoEthernetMesh.Text2" = "To connect, your {{device}} will use an Ethernet connection";
+"MeshSetup.GatewayInfoEthernetMesh.Text3" = "Once connected you can create or join a mesh network using this {{device}}";
+"MeshSetup.GatewayInfoEthernetMesh.Button" = "Next";
+
+
+
+"MeshSetup.GatewayInfoWifiStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoWifiStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoWifiStandalone.Text2" = "To connect you will send the {{device}} Wi-Fi network credentials";
+"MeshSetup.GatewayInfoWifiStandalone.Button" = "Next";
+
+
+"MeshSetup.GatewayInfoWifiMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoWifiMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoWifiMesh.Text2" = "To connect you will send the {{device}} Wi-Fi network credentials";
+"MeshSetup.GatewayInfoWifiMesh.Text3" = "Once connected you can create or join a mesh network using this {{device}}";
+"MeshSetup.GatewayInfoWifiMesh.Button" = "Next";
+
+
+
+"MeshSetup.GatewayInfoCellularStandalone.Title" = "OK—Let’s get this device connected to the Device Cloud";
+"MeshSetup.GatewayInfoCellularStandalone.Text1" = "Standalone devices require a connection to the Device Cloud to securely talk to the Internet";
+"MeshSetup.GatewayInfoCellularStandalone.Text2" = "To connect the device will use the Particle SIM inside your {{device}} which has already been activated";
+"MeshSetup.GatewayInfoCellularStandalone.Button" = "Connect to Device Cloud";
+"MeshSetup.GatewayInfoCellularStandalone.Text2Activate" = "To connect we’ll activate the Particle SIM inside your {{device}}";
+"MeshSetup.GatewayInfoCellularStandalone.ButtonActivate" = "Activate SIM & Connect";
+
+
+"MeshSetup.GatewayInfoCellularMesh.Title" = "OK—Let’s get this mesh gateway connected to the Device Cloud";
+"MeshSetup.GatewayInfoCellularMesh.Text1" = "Gateways require a connection to the Device Cloud to allow communication between the local mesh network and the Internet";
+"MeshSetup.GatewayInfoCellularMesh.Text2" = "To connect the device will use the Particle SIM inside your {{device}} which has already been activated ";
+"MeshSetup.GatewayInfoCellularMesh.Text3" = "Once connected you can create or join a mesh network using this {{device}}";
+"MeshSetup.GatewayInfoCellularMesh.Button" = "Connect to Device Cloud";
+"MeshSetup.GatewayInfoCellularMesh.Text2Activate" = "To connect we’ll activate the Particle SIM inside your {{device}}";
+"MeshSetup.GatewayInfoCellularMesh.ButtonActivate" = "Activate SIM & Connect";
+
+
+
+
+
+
+
+
+
+"MeshSetup.PricingInfo.FreeNetworkTitle" = "Woo-hoo! Enjoy this new mesh network on us";
+"MeshSetup.PricingInfo.PaidNetworkTitle" = "To create a new mesh network, please enroll in a Device Cloud subscription";
+
+"MeshSetup.PricingInfo.FreeGatewayDeviceTitle" = "Woo-hoo! Enjoy Device Cloud access for this device on us";
+"MeshSetup.PricingInfo.PaidGatewayDeviceTitle" = "To activate this device, please enroll in a Device Cloud subscription";
+
+"MeshSetup.PricingInfo.DeviceCloudPlanTitle" = "DEVICE CLOUD";
+"MeshSetup.PricingInfo.MicroNetworkPlanTitle" = "MICRO NETWORK";
+
+"MeshSetup.PricingInfo.WifiDeviceText" = "Wi-Fi/Ethernet device";
+"MeshSetup.PricingInfo.WifiGatewayText" = "Wi-Fi/Ethernet Gateway";
+
+"MeshSetup.PricingInfo.CellularDeviceText" = "Cellular device";
+"MeshSetup.PricingInfo.CellularGatewayText" = "Cellular Gateway";
+
+
+"MeshSetup.PricingInfo.FreeDevicesText" = "First {{0}} devices FREE";
+"MeshSetup.PricingInfo.FreeNetworksText" = "First {{0}} networks FREE";
+"MeshSetup.PricingInfo.FreeMonthsText" = "FREE for {{0}} months";
+
+"MeshSetup.PricingInfo.PriceText" = "${{0}}";
+"MeshSetup.PricingInfo.PriceNoteText" = "per mo.";
+
+"MeshSetup.PricingInfo.DeviceCloudFeatures" = "DEVICE CLOUD INCLUDES";
+"MeshSetup.PricingInfo.MeshNetworkFeatures" = "MESH NETWORK INCLUDES";
+
+"MeshSetup.PricingInfo.FeaturesDeviceCloud" = "Device Cloud Features +";
+"MeshSetup.PricingInfo.FeaturesMaxDevices" ="{{0}} total devices";
+"MeshSetup.PricingInfo.FeaturesMaxGateways" = "up to {{0}} gateway";
+"MeshSetup.PricingInfo.FeaturesDataAllowence" = "{{0}}MB of cellular data/mo.\naddnl. MBs start at ${{1}}";
+"MeshSetup.PricingInfo.FeaturesStandardSupport" = "Standard support";
+
+"MeshSetup.PricingInfo.ButtonNext" = "Next";
+"MeshSetup.PricingInfo.ButtonEnroll" = "Enroll in subscription";
+
+

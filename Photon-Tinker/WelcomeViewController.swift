@@ -64,10 +64,9 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         {
             self.performSegue(withIdentifier: "start", sender: self)
             
-            let email = ParticleCloud.sharedInstance().loggedInUsername
-            SEGAnalytics.shared().identify(email!)
-            
-            
+            if let email = ParticleCloud.sharedInstance().loggedInUsername {
+                SEGAnalytics.shared().identify(email)
+            }
         }
         
         if result == .skippedAuth

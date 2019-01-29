@@ -49,8 +49,8 @@ open class ParticleSpinner : NSObject {
         
     }
 
-    @objc class func hide(_ view : UIView) {
-        MBProgressHUD.hide(for: view, animated: true)
+    @objc class func hide(_ view : UIView, animated: Bool = true) {
+        MBProgressHUD.hide(for: view, animated: animated)
     }
     
 }

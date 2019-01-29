@@ -10,7 +10,11 @@
 
 class DeviceInspectorChildViewController: UIViewController {
 
-    var device : ParticleDevice?
+    var device : ParticleDevice? {
+        didSet {
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device set: %@ for instance: %@", withParameters: getVaList(["\(device)", String(describing: self)]))
+        }
+    }
     
     func showTutorial() {
         assert(false, "This method must be overriden by the DeviceInspectorChildViewController subclass")

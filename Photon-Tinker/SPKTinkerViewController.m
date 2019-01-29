@@ -271,7 +271,7 @@
         }
         
         self.chipView.alpha = 0;
-        [ParticleSpinner hide:self.view];
+        [ParticleSpinner hide:self.view animated:YES];
         [UIView animateWithDuration:0.4
                               delay:0
                             options: UIViewAnimationOptionAllowAnimatedContent

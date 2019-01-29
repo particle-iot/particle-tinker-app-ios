@@ -20,6 +20,10 @@ class MeshSetupProgressViewController: MeshSetupViewController {
     
     internal var callback: (() -> ())!
 
+    override var allowBack: Bool {
+        return false
+    }
+
     func setup(didFinishScreen: @escaping () -> (), networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
         self.callback = didFinishScreen
         self.networkName = networkName
@@ -44,21 +48,27 @@ class MeshSetupProgressViewController: MeshSetupViewController {
     }
 
     internal func setProgressLabelValues() {
-        guard progressTextLabels.count == progressTextLabelValues.count else {
-            fatalError("missing labels or label values")
+        let tfCount = progressTextLabels.count
+        let valueCount = progressTextLabelValues.count
+
+
+        for i in 0 ..< valueCount {
+            progressTextLabels[i].isHidden = false
+            progressTextLabels[i].text = progressTextLabelValues[i]
         }
 
-        for i in 0 ..< progressTextLabels.count {
-            progressTextLabels[i].text = progressTextLabelValues[i]
+        //hide excessive text fields
+        for i in valueCount ..< tfCount {
+            progressTextLabels[i].isHidden = true
         }
     }
 
     func setStep(_ step:Int) {
-        NSLog("step = \(step) progressTextLabels.count: \(progressTextLabels.count)")
-        if (step == progressTextLabels.count) {
+        NSLog("step = \(step) progressTextLabels.count: \(progressTextLabels.count) progressTextLabelValues.count: \(progressTextLabelValues.count)")
+        if (step == progressTextLabelValues.count) {
             setSuccess()
         } else {
-            for i in 0 ..< progressTextLabels.count {
+            for i in 0 ..< progressTextLabelValues.count {
                 if (i < step) {
                     progressTextLabels[i].setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
                 } else if i == step {

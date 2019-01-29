@@ -7,16 +7,31 @@ import UIKit
 
 class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Storyboardable {
 
-    internal var callback: ((String) -> ())!
+    static var nibName: String {
+        return "MeshSetupTextInputView"
+    }
 
-    func setup(didEnterName: @escaping (String) -> (), deviceType: ParticleDeviceType?) {
+    internal var callback: ((String) -> ())!
+    private var currentName: String?
+
+    override var allowBack: Bool {
+        return false
+    }
+
+    func setup(didEnterName: @escaping (String) -> (), deviceType: ParticleDeviceType?, currentName: String? = nil) {
         self.callback = didEnterName
         self.deviceType = deviceType
+        self.currentName = currentName
     }
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.DeviceName.Title
-        textLabel.text = MeshSetupStrings.DeviceName.Text
+        inputTitleLabel.text = MeshSetupStrings.DeviceName.InputTitle
+        noteTitleLabel.text = MeshSetupStrings.DeviceName.NoteTitle
+        noteTextLabel.text = MeshSetupStrings.DeviceName.NoteText
+
+        inputTextField.text = currentName ?? MeshSetupStrings.getRandomDeviceName()
+        continueButton.isEnabled = validateInput()
 
         continueButton.setTitle(MeshSetupStrings.DeviceName.Button, for: .normal)
     }
@@ -30,6 +45,7 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
     override func submit() {
         super.submit()
 
+        self.currentName = self.inputTextField.text!
         callback(self.inputTextField.text!)
     }
 

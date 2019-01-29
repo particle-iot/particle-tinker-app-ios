@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+package particle.ctrl.wifi;
+option java_package = "io.particle.firmwareprotos.ctrl.wifi";
+
+import "extensions.proto";
+import "common.proto";
+
+/**
+ * WiFi security types.
+ *
+ * Note: The values of this enum should match the values defined by the `WifiSecurity` enum in
+ * the firmware.
+ */
+enum Security {
+  NO_SECURITY = 0;
+  WEP = 1;
+  WPA_PSK = 2;
+  WPA2_PSK = 3;
+  WPA_WPA2_PSK = 4;
+}
+
+/**
+ * Network credential types.
+ *
+ * Note: The values of this enum should match the values defined by the `WiFiCredentials::Type` enum
+ * in the firmware.
+ */
+enum CredentialsType {
+  NO_CREDENTIALS = 0;
+  PASSWORD = 1;
+}
+
+/**
+ * Network credentials.
+ */
+message Credentials {
+  CredentialsType type = 1;
+  string password = 2;
+}
+
+/**
+ * Join a new network.
+ *
+ * On success, the network credentials get saved to a persistent storage.
+ */
+message JoinNewNetworkRequest {
+  option (type_id) = 500; // CTRL_REQUEST_WIFI_JOIN_NEW_NETWORK
+  string ssid = 1;
+  bytes bssid = 2 [(nanopb).max_size = 6];
+  Security security = 3;
+  Credentials credentials = 4;
+}
+
+message JoinNewNetworkReply {
+}
+
+/**
+ * Join a known network.
+ */
+message JoinKnownNetworkRequest {
+  option (type_id) = 501; // CTRL_REQUEST_WIFI_JOIN_KNOWN_NETWORK
+  string ssid = 1;
+}
+
+message JoinKnownNetworkReply {
+}
+
+/**
+ * Get the list of known networks.
+ */
+message GetKnownNetworksRequest {
+  option (type_id) = 502; // CTRL_REQUEST_WIFI_GET_KNOWN_NETWORKS
+}
+
+message GetKnownNetworksReply {
+  message Network {
+    string ssid = 1;
+    Security security = 2;
+    CredentialsType credentials_type = 3;
+  }
+
+  repeated Network networks = 1;
+}
+
+/**
+ * Remove the network from the list of known networks.
+ */
+message RemoveKnownNetworkRequest {
+  option (type_id) = 503; // CTRL_REQUEST_WIFI_REMOVE_KNOWN_NETWORK
+  string ssid = 1;
+}
+
+message RemoveKnownNetworkReply {
+}
+
+/**
+ * Remove all known networks.
+ */
+message ClearKnownNetworksRequest {
+  option (type_id) = 504; // CTRL_REQUEST_WIFI_CLEAR_KNOWN_NETWORKS
+}
+
+message ClearKnownNetworksReply {
+}
+
+/**
+ * Get the current network.
+ *
+ * This request gets the network which the device is currently connected to.
+ */
+message GetCurrentNetworkRequest {
+  option (type_id) = 505; // CTRL_REQUEST_WIFI_GET_CURRENT_NETWORK
+}
+
+message GetCurrentNetworkReply {
+  string ssid = 1;
+  bytes bssid = 2 [(nanopb).max_size = 6];
+  int32 channel = 3;
+  int32 rssi = 4;
+}
+
+/**
+ * Scan for networks.
+ */
+message ScanNetworksRequest {
+  option (type_id) = 506; // CTRL_REQUEST_WIFI_SCAN_NETWORKS
+}
+
+message ScanNetworksReply {
+  message Network {
+    string ssid = 1;
+    bytes bssid = 2 [(nanopb).max_size = 6];
+    Security security = 3;
+    int32 channel = 4;
+    int32 rssi = 5;
+  }
+
+  repeated Network networks = 1;
+}

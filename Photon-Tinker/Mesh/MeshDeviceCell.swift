@@ -5,8 +5,7 @@
 
 import Foundation
 
-class MeshDeviceCell : UITableViewCell {
-    @IBOutlet weak var cellImageView: UIImageView!
+class MeshCell : UITableViewCell {
     @IBOutlet weak var cellTitleLabel: MeshLabel!
     @IBOutlet weak var cellSubtitleLabel: MeshLabel!
     @IBOutlet weak var cellAccessoryImageView: UIImageView!

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupPairingProcessViewController" customModule="Particle" customModuleProvider="target">
+            <connections>
+                <outlet property="pairingIndicator" destination="kAY-as-HeU" id="2Wv-aJ-tYC"/>
+                <outlet property="pairingTextLabel" destination="zLY-8n-5JS" id="Zar-4w-yGT"/>
+                <outlet property="pairingView" destination="FLC-RO-P40" id="QQN-hf-0fs"/>
+                <outlet property="successTextLabel" destination="eTY-It-eT9" id="lSr-E8-ThY"/>
+                <outlet property="successTitleLabel" destination="R3q-cm-Qhn" id="u3b-tp-27N"/>
+                <outlet property="successView" destination="jlB-J7-gRg" id="fAm-yN-wG5"/>
+                <outlet property="view" destination="Rmf-h8-wQv" id="pCh-9m-wHU"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Rmf-h8-wQv">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jlB-J7-gRg" userLabel="SuccessView">
+                    <rect key="frame" x="30" y="241" width="315" height="118"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Onc-Io-fre">
+                            <rect key="frame" x="125.5" y="0.0" width="64" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="64" id="Ord-th-dnr"/>
+                                <constraint firstAttribute="height" constant="64" id="WL1-yd-465"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3q-cm-Qhn" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="79" width="315" height="17"/>
+                            <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTY-It-eT9" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="101" width="315" height="17"/>
+                            <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="eTY-It-eT9" secondAttribute="trailing" id="2CC-rR-MMZ"/>
+                        <constraint firstItem="Onc-Io-fre" firstAttribute="top" secondItem="jlB-J7-gRg" secondAttribute="top" id="2CZ-XY-w9A"/>
+                        <constraint firstItem="eTY-It-eT9" firstAttribute="top" secondItem="R3q-cm-Qhn" secondAttribute="bottom" constant="5" id="R6y-wd-icQ"/>
+                        <constraint firstAttribute="trailing" secondItem="R3q-cm-Qhn" secondAttribute="trailing" id="RSi-iv-acS"/>
+                        <constraint firstAttribute="bottom" secondItem="eTY-It-eT9" secondAttribute="bottom" id="fpG-in-6JT"/>
+                        <constraint firstItem="R3q-cm-Qhn" firstAttribute="leading" secondItem="jlB-J7-gRg" secondAttribute="leading" id="gi5-Cd-Khm"/>
+                        <constraint firstItem="eTY-It-eT9" firstAttribute="leading" secondItem="jlB-J7-gRg" secondAttribute="leading" id="ncH-Fk-9l2"/>
+                        <constraint firstItem="R3q-cm-Qhn" firstAttribute="top" secondItem="Onc-Io-fre" secondAttribute="bottom" constant="15" id="yGg-j2-KEW"/>
+                        <constraint firstItem="Onc-Io-fre" firstAttribute="centerX" secondItem="jlB-J7-gRg" secondAttribute="centerX" id="zKl-9x-L7L"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLC-RO-P40" userLabel="PairingView">
+                    <rect key="frame" x="30" y="268" width="315" height="64"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLY-8n-5JS" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="47" width="315" height="17"/>
+                            <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="kAY-as-HeU">
+                            <rect key="frame" x="139" y="0.0" width="37" height="37"/>
+                            <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="kAY-as-HeU" firstAttribute="top" secondItem="FLC-RO-P40" secondAttribute="top" id="Wxp-H2-bZm"/>
+                        <constraint firstItem="zLY-8n-5JS" firstAttribute="top" secondItem="kAY-as-HeU" secondAttribute="bottom" constant="10" id="ci3-5N-Mj6"/>
+                        <constraint firstAttribute="trailing" secondItem="zLY-8n-5JS" secondAttribute="trailing" id="gx7-4O-gUl"/>
+                        <constraint firstItem="zLY-8n-5JS" firstAttribute="leading" secondItem="FLC-RO-P40" secondAttribute="leading" id="t6T-4G-qgh"/>
+                        <constraint firstAttribute="bottom" secondItem="zLY-8n-5JS" secondAttribute="bottom" id="uhK-6i-OKT"/>
+                        <constraint firstItem="kAY-as-HeU" firstAttribute="centerX" secondItem="FLC-RO-P40" secondAttribute="centerX" id="zvG-2O-n2w"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jlB-J7-gRg" firstAttribute="centerY" secondItem="Rmf-h8-wQv" secondAttribute="centerY" multiplier="0.9" id="LEk-u7-Eb1"/>
+                <constraint firstItem="FLC-RO-P40" firstAttribute="centerY" secondItem="Rmf-h8-wQv" secondAttribute="centerY" multiplier="0.9" id="MOR-9S-IjT"/>
+                <constraint firstItem="QIl-FC-nsD" firstAttribute="trailing" secondItem="jlB-J7-gRg" secondAttribute="trailing" constant="30" id="VsJ-d0-vCP"/>
+                <constraint firstItem="FLC-RO-P40" firstAttribute="centerX" secondItem="Rmf-h8-wQv" secondAttribute="centerX" id="cLw-6R-vhA"/>
+                <constraint firstItem="jlB-J7-gRg" firstAttribute="leading" secondItem="QIl-FC-nsD" secondAttribute="leading" constant="30" id="daA-Xr-CRE"/>
+                <constraint firstItem="QIl-FC-nsD" firstAttribute="trailing" secondItem="FLC-RO-P40" secondAttribute="trailing" constant="30" id="isQ-g4-yvO"/>
+                <constraint firstItem="FLC-RO-P40" firstAttribute="leading" secondItem="QIl-FC-nsD" secondAttribute="leading" constant="30" id="oyV-5O-hOu"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="QIl-FC-nsD"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="MeshSetupCompleteIcon" width="70" height="70"/>
+    </resources>
+</document>

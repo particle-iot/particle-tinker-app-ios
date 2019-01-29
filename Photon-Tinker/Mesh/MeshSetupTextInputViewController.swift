@@ -9,8 +9,12 @@ import UIKit
 class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
 
+    @IBOutlet weak var noteView: UIView!
+    @IBOutlet weak var noteTitleLabel: MeshLabel!
+    @IBOutlet weak var noteTextLabel: MeshLabel!
+
+    @IBOutlet weak var inputTitleLabel: MeshLabel!
     @IBOutlet weak var inputTextField: MeshTextField!
 
     @IBOutlet weak var continueButton: MeshSetupButton!
@@ -28,7 +32,13 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        inputTextField.becomeFirstResponder()
+        if (shouldAutoFocusInput()) {
+            focusInputText()
+        }
+    }
+
+    open func shouldAutoFocusInput() -> Bool {
+        return MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone5
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -42,10 +52,13 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     }
 
     override func setStyle() {
+        noteTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        noteTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.PrimaryTextColor)
+
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
         inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        inputTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.InputTitleColor)
     }
 
     open func submit() {
@@ -54,10 +67,13 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     }
 
     internal func fadeContent() {
+        self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.titleLabel.alpha = 0.5
+            self.inputTitleLabel.alpha = 0.5
             self.inputTextField.alpha = 0.5
-            self.textLabel.alpha = 0.5
+            self.noteTextLabel.alpha = 0.5
+            self.noteTitleLabel.alpha = 0.5
             self.continueButton.alpha = 0.5
 
             if let additionalViewsToFade = self.additionalViewsToFade {
@@ -68,11 +84,28 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
         }
     }
 
-    internal func unfadeContent() {
-        UIView.animate(withDuration: 0.25) { () -> Void in
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.inputTitleLabel.alpha = 1
+                self.inputTextField.alpha = 1
+                self.noteTextLabel.alpha = 1
+                self.noteTitleLabel.alpha = 1
+                self.continueButton.alpha = 1
+
+                if let additionalViewsToFade = self.additionalViewsToFade {
+                    for childView in additionalViewsToFade {
+                        childView.alpha = 1
+                    }
+                }
+            }
+        } else {
             self.titleLabel.alpha = 1
+            self.inputTitleLabel.alpha = 1
             self.inputTextField.alpha = 1
-            self.textLabel.alpha = 1
+            self.noteTextLabel.alpha = 1
+            self.noteTitleLabel.alpha = 1
             self.continueButton.alpha = 1
 
             if let additionalViewsToFade = self.additionalViewsToFade {
@@ -80,7 +113,17 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
                     childView.alpha = 1
                 }
             }
+
+            self.view.setNeedsDisplay()
         }
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: true)
+        isBusy = false
     }
 
     open func validateInput() -> Bool {
@@ -97,8 +140,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
 
     func setWrongInput(message: String? = nil) {
         DispatchQueue.main.async {
-            ParticleSpinner.hide(self.view)
-            self.unfadeContent()
+            self.resume(animated: true)
 
             if let message = message {
                 let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)

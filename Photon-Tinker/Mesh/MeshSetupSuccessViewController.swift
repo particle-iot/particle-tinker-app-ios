@@ -7,6 +7,10 @@ import UIKit
 
 class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
 
+    static var nibName: String {
+        return "MeshSetupSuccessView"
+    }
+
     @IBOutlet weak var successView: UIView!
     @IBOutlet weak var successTitleLabel: MeshLabel!
     @IBOutlet weak var successTextLabel: MeshLabel!
@@ -22,9 +26,14 @@ class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
 
     private var callback: ((Bool) -> ())!
 
-    func setup(didSelectDone: @escaping (Bool) -> (), deviceName: String) {
+    override var allowBack: Bool {
+        return false
+    }
+
+    func setup(didSelectDone: @escaping (Bool) -> (), deviceName: String, networkName: String? = nil) {
         self.callback = didSelectDone
         self.deviceName = deviceName
+        self.networkName = networkName
     }
 
     override func setStyle() {
@@ -32,17 +41,21 @@ class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
         successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
 
         continueLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
 
         doneLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        doneButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+        doneButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
     }
 
     override func setContent() {
         successTitleLabel.text = MeshSetupStrings.Success.SuccessTitle
         successTextLabel.text = MeshSetupStrings.Success.SuccessText
 
-        continueLabel.text = MeshSetupStrings.Success.SetupAnotherLabel
+        if (self.networkName != nil) {
+            continueLabel.text = MeshSetupStrings.Success.SetupAnotherLabel
+        } else {
+            continueLabel.text = ""
+        }
         continueButton.setTitle(MeshSetupStrings.Success.SetupAnotherButton, for: .normal)
 
         doneLabel.text = MeshSetupStrings.Success.DoneLabel

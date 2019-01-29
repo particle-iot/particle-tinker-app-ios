@@ -24,6 +24,8 @@ message NetworkInfo {
   uint32 pan_id = 3;
   // Channel number
   uint32 channel = 4;
+  // network ID
+  string network_id = 5;
 }
 
 // Authenticate the client as a commissioner
@@ -49,6 +51,8 @@ message CreateNetworkRequest {
   string password = 2;
   // Channel number
   uint32 channel = 3;
+  // Network ID
+  string network_id = 4;
 }
 
 // Result codes:
@@ -62,6 +66,9 @@ message CreateNetworkReply {
 // Start the commissioner role
 message StartCommissionerRequest {
   option (type_id) = 1003;
+
+  // Time is seconds after which the role is automatically stopped
+  uint32 timeout = 1;
 }
 
 // Result codes:
@@ -104,6 +111,8 @@ message AddJoinerRequest {
   string eui64 = 1;
   // Joining device credential
   string password = 2;
+  // Time is seconds after which the joiner is automatically removed from the commissioner dataset
+  uint32 timeout = 3;
 }
 
 // Result codes:
@@ -131,6 +140,9 @@ message RemoveJoinerReply {
 // Join the network
 message JoinNetworkRequest {
   option (type_id) = 1008;
+
+  // Time in seconds after which the attempt to join is cancelled
+  uint32 timeout = 1;
 }
 
 // Result codes:

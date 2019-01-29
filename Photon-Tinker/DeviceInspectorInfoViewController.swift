@@ -38,7 +38,7 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     
     
     func updateDeviceInfoDisplay() {
-        if self.device!.type != .electron {
+        if let device = self.device, device.type != .electron {
             self.deviceIccidLabel.isHidden = true
             self.deviceIccidValueLabel.isHidden = true
             

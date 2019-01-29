@@ -55,11 +55,24 @@ extension String {
 
 
 class MeshSetupStrings {
+    static private let randomNames = ["aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "maker", "splendid", "sparkling", "dentist", "doctor", "green", "easter", "ferret", "gerbil", "hacker", "hamster", "wizard", "hobbit", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "burrito", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie"]
+    static func getRandomDeviceName() -> String {
+        return "\(MeshSetupStrings.randomNames.randomElement()!)_\(MeshSetupStrings.randomNames.randomElement()!)"
+    }
 
     struct Prompt {
         static let ErrorTitle = "MeshSetup.Prompt.ErrorTitle".meshLocalized()
         static let CancelSetupTitle = "MeshSetup.Prompt.CancelSetupTitle".meshLocalized()
         static let CancelSetupText = "MeshSetup.Prompt.CancelSetupText".meshLocalized()
+
+        static let LeaveNetworkTitle = "MeshSetup.Prompt.LeaveNetworkTitle".meshLocalized()
+        static let LeaveNetworkText = "MeshSetup.Prompt.LeaveNetworkText".meshLocalized()
+
+        static let NoCameraPermissionsTitle = "MeshSetup.Prompt.NoCameraPermissionsTitle".meshLocalized()
+        static let NoCameraPermissionsText = "MeshSetup.Prompt.NoCameraPermissionsText".meshLocalized()
+
+        static let NoCameraTitle = "MeshSetup.Prompt.NoCameraTitle".meshLocalized()
+        static let NoCameraText = "MeshSetup.Prompt.NoCameraText".meshLocalized()
     }
 
     struct Action {
@@ -68,6 +81,11 @@ class MeshSetupStrings {
         static let CancelSetup = "MeshSetup.Action.CancelSetup".meshLocalized()
         static let Retry = "MeshSetup.Action.Retry".meshLocalized()
         static let Continue = "MeshSetup.Action.Continue".meshLocalized()
+        static let ContinueSetup = "MeshSetup.Action.ContinueSetup".meshLocalized()
+        static let LeaveNetwork = "MeshSetup.Action.LeaveNetwork".meshLocalized()
+        static let DontLeaveNetwork = "MeshSetup.Action.DontLeaveNetwork".meshLocalized()
+        static let ContactSupport = "MeshSetup.Action.ContactSupport".meshLocalized()
+        static let OpenSettings = "MeshSetup.Action.OpenSettings".meshLocalized()
     }
 
 
@@ -84,11 +102,26 @@ class MeshSetupStrings {
     }
 
     struct GetReady {
+        static let Button = "MeshSetup.GetReady.Button".meshLocalized()
+
         static let Title = "MeshSetup.GetReady.Title".meshLocalized()
         static let Text1 = "MeshSetup.GetReady.Text1".meshLocalized()
         static let Text2 = "MeshSetup.GetReady.Text2".meshLocalized()
         static let Text3 = "MeshSetup.GetReady.Text3".meshLocalized()
-        static let Button = "MeshSetup.GetReady.Button".meshLocalized()
+        static let Text4 = "MeshSetup.GetReady.Text4".meshLocalized()
+
+        static let EthernetTitle = "MeshSetup.GetReady.EthernetTitle".meshLocalized()
+        static let EthernetText1 = "MeshSetup.GetReady.EthernetText1".meshLocalized()
+        static let EthernetText2 = "MeshSetup.GetReady.EthernetText2".meshLocalized()
+        static let EthernetText3 = "MeshSetup.GetReady.EthernetText3".meshLocalized()
+        static let EthernetText4 = "MeshSetup.GetReady.EthernetText4".meshLocalized()
+
+        static let EthernetToggleTitle = "MeshSetup.GetReady.EthernetToggleTitle".meshLocalized()
+        static let EthernetToggleText = "MeshSetup.GetReady.EthernetToggleText".meshLocalized()
+
+        static let WifiCheckboxText = "MeshSetup.GetReady.WifiCheckboxText".meshLocalized()
+        static let CellularCheckboxText = "MeshSetup.GetReady.CellularCheckboxText".meshLocalized()
+
     }
 
     struct GetCommissionerReady {
@@ -96,6 +129,7 @@ class MeshSetupStrings {
         static let Text1 = "MeshSetup.GetCommissionerReady.Text1".meshLocalized()
         static let Text2 = "MeshSetup.GetCommissionerReady.Text2".meshLocalized()
         static let Text3 = "MeshSetup.GetCommissionerReady.Text3".meshLocalized()
+        static let Text4 = "MeshSetup.GetCommissionerReady.Text4".meshLocalized()
         static let Button = "MeshSetup.GetCommissionerReady.Button".meshLocalized()
     }
 
@@ -108,8 +142,42 @@ class MeshSetupStrings {
     struct FindCommissionerSticker {
         static let Title = "MeshSetup.FindCommissionerSticker.Title".meshLocalized()
         static let Text = "MeshSetup.FindCommissionerSticker.Text".meshLocalized()
-        static let Note = "MeshSetup.FindCommissionerSticker.Note".meshLocalized()
+        static let NoteText = "MeshSetup.FindCommissionerSticker.NoteText".meshLocalized()
+        static let NoteTitle = "MeshSetup.FindCommissionerSticker.NoteTitle".meshLocalized()
         static let Button = "MeshSetup.FindCommissionerSticker.Button".meshLocalized()
+    }
+
+
+    struct StandAloneOrMeshSetup {
+        static let Title = "MeshSetup.StandAloneOrMeshSetup.Title".meshLocalized()
+        static let Text = "MeshSetup.StandAloneOrMeshSetup.Text".meshLocalized()
+        static let MeshButton = "MeshSetup.StandAloneOrMeshSetup.MeshButton".meshLocalized()
+        static let StandAloneButton = "MeshSetup.StandAloneOrMeshSetup.StandAloneButton".meshLocalized()
+
+    }
+
+
+    struct UpdateFirmware {
+        static let Title = "MeshSetup.UpdateFirmware.Title".meshLocalized()
+        static let Text = "MeshSetup.UpdateFirmware.Text".meshLocalized()
+
+        static let NoteText = "MeshSetup.UpdateFirmware.NoteText".meshLocalized()
+        static let NoteTitle = "MeshSetup.UpdateFirmware.NoteTitle".meshLocalized()
+
+        static let Button = "MeshSetup.UpdateFirmware.Button".meshLocalized()
+    }
+
+
+    struct UpdateFirmwareProgress {
+        static let Title = "MeshSetup.UpdateFirmwareProgress.Title".meshLocalized()
+        static let TextInstalling = "MeshSetup.UpdateFirmwareProgress.TextInstalling".meshLocalized()
+        static let Text = "MeshSetup.UpdateFirmwareProgress.Text".meshLocalized()
+
+        static let NoteText = "MeshSetup.UpdateFirmwareProgress.NoteText".meshLocalized()
+        static let NoteTitle = "MeshSetup.UpdateFirmwareProgress.NoteTitle".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.UpdateFirmwareProgress.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.UpdateFirmwareProgress.SuccessText".meshLocalized()
     }
 
     struct ScanSticker {
@@ -136,15 +204,29 @@ class MeshSetupStrings {
         static let SuccessText = "MeshSetup.PairingCommissioner.SuccessText".meshLocalized()
     }
 
-    struct Networks {
-        static let Title = "MeshSetup.Networks.Title".meshLocalized()
+    struct SelectNetwork {
+        static let Title = "MeshSetup.SelectNetwork.Title".meshLocalized()
+        static let DevicesSingular = "MeshSetup.SelectNetwork.DevicesSingular".meshLocalized()
+        static let DevicesPlural = "MeshSetup.SelectNetwork.DevicesPlural".meshLocalized()
+    }
+
+    struct SelectWifiNetwork {
+        static let Title = "MeshSetup.SelectWifiNetwork.Title".meshLocalized()
     }
 
 
     struct ExistingNetworkPassword {
         static let Title = "MeshSetup.ExistingNetworkPassword.Title".meshLocalized()
-        static let Text = "MeshSetup.ExistingNetworkPassword.Text".meshLocalized()
+        static let InputTitle = "MeshSetup.ExistingNetworkPassword.InputTitle".meshLocalized()
+        static let NoteTitle = "MeshSetup.ExistingNetworkPassword.NoteTitle".meshLocalized()
+        static let NoteText = "MeshSetup.ExistingNetworkPassword.NoteText".meshLocalized()
         static let Button = "MeshSetup.ExistingNetworkPassword.Button".meshLocalized()
+    }
+
+    struct WifiNetworkPassword {
+        static let Title = "MeshSetup.WifiNetworkPassword.Title".meshLocalized()
+        static let InputTitle = "MeshSetup.WifiNetworkPassword.InputTitle".meshLocalized()
+        static let Button = "MeshSetup.WifiNetworkPassword.Button".meshLocalized()
     }
 
 
@@ -161,7 +243,9 @@ class MeshSetupStrings {
 
     struct DeviceName {
         static let Title = "MeshSetup.DeviceName.Title".meshLocalized()
-        static let Text = "MeshSetup.DeviceName.Text".meshLocalized()
+        static let InputTitle = "MeshSetup.DeviceName.InputTitle".meshLocalized()
+        static let NoteTitle = "MeshSetup.DeviceName.NoteTitle".meshLocalized()
+        static let NoteText = "MeshSetup.DeviceName.NoteText".meshLocalized()
         static let Button = "MeshSetup.DeviceName.Button".meshLocalized()
     }
 
@@ -178,62 +262,62 @@ class MeshSetupStrings {
     }
 
 
-    struct ConnectToInternet {
-        static let Title = "MeshSetup.ConnectToInternet.Title".meshLocalized()
-        static let Text1 = "MeshSetup.ConnectToInternet.Text1".meshLocalized()
-        static let Text2 = "MeshSetup.ConnectToInternet.Text2".meshLocalized()
+    struct ConnectingToInternetEthernet {
+        static let Title = "MeshSetup.ConnectingToInternetEthernet.Title".meshLocalized()
+        static let Text1 = "MeshSetup.ConnectingToInternetEthernet.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.ConnectingToInternetEthernet.Text2".meshLocalized()
 
-        static let SuccessTitle = "MeshSetup.ConnectToInternet.SuccessTitle".meshLocalized()
-        static let SuccessText = "MeshSetup.ConnectToInternet.SuccessText".meshLocalized()
+        static let SuccessTitle = "MeshSetup.ConnectingToInternetEthernet.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.ConnectingToInternetEthernet.SuccessText".meshLocalized()
+    }
+
+    struct ConnectingToInternetWifi {
+        static let Title = "MeshSetup.ConnectingToInternetWifi.Title".meshLocalized()
+        static let Text1 = "MeshSetup.ConnectingToInternetWifi.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.ConnectingToInternetWifi.Text2".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.ConnectingToInternetWifi.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.ConnectingToInternetWifi.SuccessText".meshLocalized()
+    }
+
+    struct ConnectingToInternetCellular {
+        static let Title = "MeshSetup.ConnectingToInternetCellular.Title".meshLocalized()
+        static let Text1 = "MeshSetup.ConnectingToInternetCellular.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.ConnectingToInternetCellular.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.ConnectingToInternetCellular.Text3".meshLocalized()
+
+        static let SuccessTitle = "MeshSetup.ConnectingToInternetCellular.SuccessTitle".meshLocalized()
+        static let SuccessText = "MeshSetup.ConnectingToInternetCellular.SuccessText".meshLocalized()
     }
 
 
-
-
-
-
-
-    struct FinishSetupEarly {
-        static let SuccessTitle = "MeshSetup.FinishSetupEarly.SuccessTitle".meshLocalized()
-        static let SuccessText = "MeshSetup.FinishSetupEarly.SuccessText".meshLocalized()
-
-        static let ContinueSetupLabel = "MeshSetup.FinishSetupEarly.ContinueSetupLabel".meshLocalized()
-        static let ContinueSetupButton = "MeshSetup.FinishSetupEarly.ContinueSetupButton".meshLocalized()
-
-        static let DoneLabel = "MeshSetup.FinishSetupEarly.DoneLabel".meshLocalized()
-        static let DoneButton = "MeshSetup.FinishSetupEarly.DoneButton".meshLocalized()
-    }
 
 
 
     struct CreateOrSelectNetwork {
         static let Title = "MeshSetup.CreateOrSelectNetwork.Title".meshLocalized()
         static let CreateNetwork = "MeshSetup.CreateOrSelectNetwork.CreateNetwork".meshLocalized()
-    }
-
-
-    struct BillingInfo {
-        static let Title = "MeshSetup.BillingInfo.Title".meshLocalized()
-        static let Text1 = "MeshSetup.BillingInfo.Text1".meshLocalized()
-        static let Text2 = "MeshSetup.BillingInfo.Text2".meshLocalized()
-        static let Text3 = "MeshSetup.BillingInfo.Text3".meshLocalized()
-        static let Note = "MeshSetup.BillingInfo.Note".meshLocalized()
-        static let Button = "MeshSetup.BillingInfo.Button".meshLocalized()
+        static let DevicesSingular = "MeshSetup.CreateOrSelectNetwork.DevicesSingular".meshLocalized()
+        static let DevicesPlural = "MeshSetup.CreateOrSelectNetwork.DevicesPlural".meshLocalized()
     }
 
 
     struct CreateNetworkName {
         static let Title = "MeshSetup.CreateNetworkName.Title".meshLocalized()
-        static let Text = "MeshSetup.CreateNetworkName.Text".meshLocalized()
+        static let InputTitle = "MeshSetup.CreateNetworkName.InputTitle".meshLocalized()
+        static let NoteTitle = "MeshSetup.CreateNetworkName.NoteTitle".meshLocalized()
+        static let NoteText = "MeshSetup.CreateNetworkName.NoteText".meshLocalized()
         static let Button = "MeshSetup.CreateNetworkName.Button".meshLocalized()
     }
 
 
     struct CreateNetworkPassword {
         static let Title = "MeshSetup.CreateNetworkPassword.Title".meshLocalized()
-        static let Text = "MeshSetup.CreateNetworkPassword.Text".meshLocalized()
+        static let NoteTitle = "MeshSetup.CreateNetworkPassword.NoteTitle".meshLocalized()
+        static let NoteText = "MeshSetup.CreateNetworkPassword.NoteText".meshLocalized()
+        static let InputTitle = "MeshSetup.CreateNetworkPassword.InputTitle".meshLocalized()
+        static let RepeatTitle = "MeshSetup.CreateNetworkPassword.RepeatTitle".meshLocalized()
         static let Button = "MeshSetup.CreateNetworkPassword.Button".meshLocalized()
-        static let Repeat = "MeshSetup.CreateNetworkPassword.Repeat".meshLocalized()
         static let PasswordsDoNotMatch = "MeshSetup.CreateNetworkPassword.PasswordsDoNotMatch".meshLocalized()
 
     }
@@ -244,8 +328,6 @@ class MeshSetupStrings {
         static let Title = "MeshSetup.CreatingNetwork.Title".meshLocalized()
         static let Text1 = "MeshSetup.CreatingNetwork.Text1".meshLocalized()
         static let Text2 = "MeshSetup.CreatingNetwork.Text2".meshLocalized()
-        static let Text3 = "MeshSetup.CreatingNetwork.Text3".meshLocalized()
-        static let Text4 = "MeshSetup.CreatingNetwork.Text4".meshLocalized()
 
         static let SuccessTitle = "MeshSetup.CreatingNetwork.SuccessTitle".meshLocalized()
         static let SuccessText = "MeshSetup.CreatingNetwork.SuccessText".meshLocalized()
@@ -261,5 +343,105 @@ class MeshSetupStrings {
 
         static let DoneLabel = "MeshSetup.NetworkCreated.DoneLabel".meshLocalized()
         static let DoneButton = "MeshSetup.NetworkCreated.DoneButton".meshLocalized()
+    }
+
+
+    struct JoinerInfo {
+        static let Title = "MeshSetup.JoinerInfo.Title".meshLocalized()
+        static let Text1 = "MeshSetup.JoinerInfo.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.JoinerInfo.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.JoinerInfo.Text3".meshLocalized()
+        static let Button = "MeshSetup.JoinerInfo.Button".meshLocalized()
+    }
+
+    struct GatewayInfoEthernetStandalone {
+        static let Title = "MeshSetup.GatewayInfoEthernetStandalone.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoEthernetStandalone.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoEthernetStandalone.Text2".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoEthernetStandalone.Button".meshLocalized()
+    }
+
+    struct GatewayInfoEthernetMesh {
+        static let Title = "MeshSetup.GatewayInfoEthernetMesh.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoEthernetMesh.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoEthernetMesh.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.GatewayInfoEthernetMesh.Text3".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoEthernetMesh.Button".meshLocalized()
+    }
+
+
+
+
+
+    struct GatewayInfoWifiStandalone {
+        static let Title = "MeshSetup.GatewayInfoWifiStandalone.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoWifiStandalone.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoWifiStandalone.Text2".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoWifiStandalone.Button".meshLocalized()
+    }
+
+    struct GatewayInfoWifiMesh {
+        static let Title = "MeshSetup.GatewayInfoWifiMesh.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoWifiMesh.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoWifiMesh.Text2".meshLocalized()
+        static let Text3 = "MeshSetup.GatewayInfoWifiMesh.Text3".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoWifiMesh.Button".meshLocalized()
+    }
+
+
+    struct GatewayInfoCellularStandalone {
+        static let Title = "MeshSetup.GatewayInfoCellularStandalone.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoCellularStandalone.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoCellularStandalone.Text2".meshLocalized()
+        static let Text2Activate = "MeshSetup.GatewayInfoCellularStandalone.Text2Activate".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoCellularStandalone.Button".meshLocalized()
+        static let ButtonActivate = "MeshSetup.GatewayInfoCellularStandalone.ButtonActivate".meshLocalized()
+    }
+
+    struct GatewayInfoCellularMesh {
+        static let Title = "MeshSetup.GatewayInfoCellularMesh.Title".meshLocalized()
+        static let Text1 = "MeshSetup.GatewayInfoCellularMesh.Text1".meshLocalized()
+        static let Text2 = "MeshSetup.GatewayInfoCellularMesh.Text2".meshLocalized()
+        static let Text2Activate = "MeshSetup.GatewayInfoCellularMesh.Text2Activate".meshLocalized()
+        static let Text3 = "MeshSetup.GatewayInfoCellularMesh.Text3".meshLocalized()
+        static let Button = "MeshSetup.GatewayInfoCellularMesh.Button".meshLocalized()
+        static let ButtonActivate = "MeshSetup.GatewayInfoCellularMesh.ButtonActivate".meshLocalized()
+    }
+
+
+    struct PricingInfo {
+        static let FreeNetworkTitle = "MeshSetup.PricingInfo.FreeNetworkTitle".meshLocalized()
+        static let PaidNetworkTitle = "MeshSetup.PricingInfo.PaidNetworkTitle".meshLocalized()
+
+        static let FreeGatewayDeviceTitle = "MeshSetup.PricingInfo.FreeGatewayDeviceTitle".meshLocalized()
+        static let PaidGatewayDeviceTitle = "MeshSetup.PricingInfo.PaidGatewayDeviceTitle".meshLocalized()
+
+        static let DeviceCloudPlanTitle = "MeshSetup.PricingInfo.DeviceCloudPlanTitle".meshLocalized()
+        static let MicroNetworkPlanTitle = "MeshSetup.PricingInfo.MicroNetworkPlanTitle".meshLocalized()
+
+        static let WifiDeviceText = "MeshSetup.PricingInfo.WifiDeviceText".meshLocalized()
+        static let WifiGatewayText = "MeshSetup.PricingInfo.WifiGatewayText".meshLocalized()
+
+        static let CellularDeviceText = "MeshSetup.PricingInfo.CellularDeviceText".meshLocalized()
+        static let CellularGatewayText = "MeshSetup.PricingInfo.CellularGatewayText".meshLocalized()
+
+        static let FreeDevicesText = "MeshSetup.PricingInfo.FreeDevicesText".meshLocalized()
+        static let FreeNetworksText = "MeshSetup.PricingInfo.FreeNetworksText".meshLocalized()
+        static let FreeMonthsText = "MeshSetup.PricingInfo.FreeMonthsText".meshLocalized()
+
+        static let PriceText = "MeshSetup.PricingInfo.PriceText".meshLocalized()
+        static let PriceNoteText = "MeshSetup.PricingInfo.PriceNoteText".meshLocalized()
+
+        static let DeviceCloudFeatures = "MeshSetup.PricingInfo.DeviceCloudFeatures".meshLocalized()
+        static let MeshNetworkFeatures = "MeshSetup.PricingInfo.MeshNetworkFeatures".meshLocalized()
+
+        static let FeaturesDeviceCloud = "MeshSetup.PricingInfo.FeaturesDeviceCloud".meshLocalized()
+        static let FeaturesMaxDevices = "MeshSetup.PricingInfo.FeaturesMaxDevices".meshLocalized()
+        static let FeaturesMaxGateways = "MeshSetup.PricingInfo.FeaturesMaxGateways".meshLocalized()
+        static let FeaturesDataAllowence = "MeshSetup.PricingInfo.FeaturesDataAllowence".meshLocalized()
+        static let FeaturesStandardSupport = "MeshSetup.PricingInfo.FeaturesStandardSupport".meshLocalized()
+
+        static let ButtonNext = "MeshSetup.PricingInfo.ButtonNext".meshLocalized()
+        static let ButtonEnroll = "MeshSetup.PricingInfo.ButtonEnroll".meshLocalized()
     }
 }

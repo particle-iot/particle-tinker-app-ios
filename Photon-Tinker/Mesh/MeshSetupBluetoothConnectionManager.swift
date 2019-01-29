@@ -67,12 +67,13 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
                 [weak self] in
 
                 if let sSelf = self {
+                    sSelf.peripheralToConnect = nil
+                    sSelf.peripheralToConnectCredentials = nil
                     sSelf.centralManager.stopScan()
-                    sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
                     if (sSelf.state != .Disabled) {
                         sSelf.state = .Ready
                     }
-
+                    sSelf.fail(withReason: .FailedToScanBecauseOfTimeout, severity: .Error)
                 }
             }
         }
@@ -102,9 +103,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
 
     private func log(_ message: String) {
-        if (MeshSetup.LogBluetoothConnectionManager) {
-            NSLog("MeshSetupBluetoothConnectionManager: \(message)")
-        }
+        ParticleLogger.logInfo("MeshSetupBluetoothConnectionManager", format: message, withParameters: getVaList([]))
     }
 
 
@@ -135,6 +134,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         }
     }
     private func restartTimeout() {
+        self.log("Restarting timeout")
         self.cancelTimeout()
 
         scanTimeoutWorker = scanTimeoutWorkerFactory
@@ -231,6 +231,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
         guard self.peripheralToConnectCredentials != nil, let name = peripheral.name, name == peripheralToConnectCredentials?.name else {
             //all mesh devices have names, if peripheral has no name, it's not our device
+            dropPeripheralConnection(with: peripheral)
+            log("Dropping connection on purpose :(")
             return
         }
 
@@ -248,11 +250,6 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        guard error == nil else {
-            log("Failed to disconnect from to an unknown device: \(error)")
-            return
-        }
-
         if let name = peripheral.name {
             log("Disconnected from: \(name)")
         } else {

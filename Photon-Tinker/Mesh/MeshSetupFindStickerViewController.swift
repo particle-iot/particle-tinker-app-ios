@@ -13,18 +13,21 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
     @IBOutlet weak var textLabel: MeshLabel!
     @IBOutlet weak var continueButton: MeshSetupButton!
 
+    override var allowBack: Bool {
+        return false
+    }
+
     internal var callback: (() -> ())!
 
-    func setup(didPressScan: @escaping () -> (), deviceType: ParticleDeviceType?) {
+    func setup(didPressScan: @escaping () -> ()) {
         self.callback = didPressScan
-        self.deviceType = deviceType
     }
 
     override func setStyle() {
         titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.ButtonTitleColor)
+        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
     }
 
     override func setContent() {

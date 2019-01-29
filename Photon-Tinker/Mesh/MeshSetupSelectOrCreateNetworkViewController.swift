@@ -5,82 +5,58 @@
 
 import UIKit
 
-class MeshSetupSelectOrCreateNetworkViewController: MeshSetupViewController, Storyboardable, UITableViewDelegate, UITableViewDataSource {
+class MeshSetupSelectOrCreateNetworkViewController: MeshSetupNetworkListViewController {
 
-    @IBOutlet weak var networksTableView: UITableView!
+    private var networks:[MeshSetupNetworkCellInfo]?
+    private var callback: ((MeshSetupNetworkCellInfo?) -> ())!
 
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var scanActivityIndicator: UIActivityIndicatorView!
-
-    private var networks:[MeshSetupNetworkInfo]?
-    private var callback: ((MeshSetupNetworkInfo?) -> ())!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        networksTableView.delegate = self
-        networksTableView.dataSource = self
-    }
-
-    func setup(didSelectGatewayNetwork: @escaping (MeshSetupNetworkInfo?) -> ()) {
+    func setup(didSelectGatewayNetwork: @escaping (MeshSetupNetworkCellInfo?) -> ()) {
         self.callback = didSelectGatewayNetwork
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        startScanning()
-    }
-
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.Networks.Title
+        titleLabel.text = MeshSetupStrings.CreateOrSelectNetwork.Title
     }
 
-    override func setStyle() {
-        networksTableView.tableFooterView = UIView()
-
-        scanActivityIndicator.color = MeshSetupStyle.NetworkScanActivityIndicatorColor
-        scanActivityIndicator.hidesWhenStopped = true
-
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-    }
-
-    func startScanning() {
-        DispatchQueue.main.async {
-            self.scanActivityIndicator.startAnimating()
+    func setNetworks(networks: [MeshSetupNetworkCellInfo]) {
+        var networks = networks
+        networks.sort { info, info2 in
+            return info.name < info2.name
         }
-    }
-
-    func setNetworks(networks: [MeshSetupNetworkInfo]) {
         self.networks = networks
 
-        DispatchQueue.main.async {
-            self.scanActivityIndicator.stopAnimating()
-            self.networksTableView.reloadData()
-        }
+        self.stopScanning()
     }
 
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (networks?.count ?? 0) + 1
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: MeshDeviceCell!
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: MeshCell!
         if (indexPath.row == 0) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "meshCreateNetworkCell") as! MeshDeviceCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
 
             cell.cellTitleLabel.text = MeshSetupStrings.CreateOrSelectNetwork.CreateNetwork
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "meshNetworkCell") as! MeshDeviceCell
+            let network = networks![indexPath.row-1]
 
-            cell.cellTitleLabel.text = networks![indexPath.row-1].name
+            if (network.userOwned) {
+                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupMeshNetworkCell") as! MeshCell
+
+                var devicesString = (network.deviceCount! == 1) ? MeshSetupStrings.CreateOrSelectNetwork.DevicesSingular : MeshSetupStrings.CreateOrSelectNetwork.DevicesPlural
+                devicesString = devicesString.replacingOccurrences(of: "{{0}}", with: String(network.deviceCount!))
+
+                cell.cellSubtitleLabel.text = devicesString
+                cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            } else {
+                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
+            }
+
+            cell.cellTitleLabel.text = network.name
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-
-            //TODO: remove this hardcoded string
-            cell.cellSubtitleLabel.text = "? devices on network"
-            cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
         }
 
         let cellHighlight = UIView()
@@ -117,12 +93,4 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupViewController, Sto
             callback(networks![indexPath.row-1])
         }
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
-    }
-
-   
-
-    
 }

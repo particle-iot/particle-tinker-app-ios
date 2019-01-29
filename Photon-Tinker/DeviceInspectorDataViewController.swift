@@ -237,7 +237,12 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell : DeviceDataTableViewCell = tableView.cellForRow(at: indexPath) as! DeviceDataTableViewCell
+        guard let cell : DeviceDataTableViewCell = tableView.cellForRow(at: indexPath) as? DeviceDataTableViewCell else {
+            //TODO: investigate why this is nil
+            //this was reported as a crash in crashlytics. Can't understand why this is crashing so just making an easy
+            //fix that just eliminates the crash
+            return
+        }
         
         if cell.device == nil || (indexPath as NSIndexPath).section > 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             tableView.deselectRow(at: indexPath, animated: false)
@@ -259,7 +264,12 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell : DeviceDataTableViewCell = tableView.cellForRow(at: indexPath) as! DeviceDataTableViewCell
+        guard let cell : DeviceDataTableViewCell = tableView.cellForRow(at: indexPath) as? DeviceDataTableViewCell else {
+            //TODO: investigate why this is nil
+            //this was reported as a crash in crashlytics. Can't understand why this is crashing so just making an easy
+            //fix that just eliminates the crash
+            return
+        }
         
         if cell.device != nil && (indexPath as NSIndexPath).section == 0 { // prevent expansion of non existent cells (no var/no func) || (just functions)
             

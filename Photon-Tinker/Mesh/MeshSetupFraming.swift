@@ -33,16 +33,39 @@ public enum ControlRequestMessageType: UInt16 {
     case ScanNetworks = 1011
     case GetInterfaceList = 400
     case GetInterface = 401
+
+
+    case GetIccid = 554
+    case SetActiveSim = 552
+
+
+    case SystemReset = 40
+    case SetFeature = 33
+    case GetFeature = 34
+
     case GetSystemCapabilities = 32
+    case GetNcpFirmwareVersion = 31
     case GetSystemVersion = 30
     case StartFirmwareUpdate = 250
     case FinishFirmwareUpdate = 251
     case CancelFirmwareUpdate = 252
     case FirmwareUpdateData = 253
+
+    case SetStartupMode = 75
+
+    case JoinNewWifiNetwork = 500
+    case JoinKnownWifiNetwork = 501
+    case GetKnownWifiNetworks = 502
+    case RemoveKnownWifiNetworkNetworks = 503
+    case ClearKnownWifiNetworksNetworks = 504
+    case GetCurrentWifiNetwork = 505
+    case ScanWifiNetworks = 506
+
 }
 
 public enum ControlReplyErrorType: Int32 {
     case NONE = 0
+    case UNKNOWN_ERROR = -1
     case UNKNOWN = -100
     case BUSY = -110
     case NOT_SUPPORTED = -120
@@ -71,6 +94,7 @@ public enum ControlReplyErrorType: Int32 {
             case .NONE: return "OK"
             case .INVALID_ARGUMENT: return "Invalid parameter"
             case .TIMEOUT: return "Time out"
+            case .NOT_SUPPORTED: return "Request not supported by this firmware version"
             case .NOT_FOUND: return "Not found"
             case .ALREADY_EXISTS: return "Already exists"
             case .INVALID_STATE: return "Invalid state"

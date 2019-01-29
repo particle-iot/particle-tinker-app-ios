@@ -15,7 +15,6 @@
 #include "ScanBarcodeViewController.h"
 
 // pods
-#include "Darkly.h"
 #include "MBProgressHUD.h"
 #include "RMessage.h"
 #include "IQKeyboardManager.h"

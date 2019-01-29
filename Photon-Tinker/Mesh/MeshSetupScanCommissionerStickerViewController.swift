@@ -7,9 +7,9 @@ import UIKit
 
 class MeshSetupScanCommissionerStickerViewController: MeshSetupScanStickerViewController {
 
-    func setup(didFindStickerCode: @escaping (String) -> ()) {
-        self.callback = didFindStickerCode
-    }
+//    static var nibName: String {
+//        return "MeshSetupScanStickerView"
+//    }
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.ScanCommissionerSticker.Title

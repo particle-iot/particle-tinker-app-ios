@@ -82,9 +82,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
     }
 
     private func log(_ message: String) {
-        if (MeshSetup.LogBluetoothConnection) {
-            NSLog("BluetoothConnection: \(message)")
-        }
+        ParticleLogger.logInfo("BluetoothConnection", format: message, withParameters: getVaList([]))
     }
 
     private func fail(withReason reason: BluetoothConnectionError, severity: MeshSetupErrorSeverity) {
