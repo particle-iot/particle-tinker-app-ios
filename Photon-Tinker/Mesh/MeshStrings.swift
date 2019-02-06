@@ -105,16 +105,7 @@ class MeshSetupStrings {
         static let Button = "MeshSetup.GetReady.Button".meshLocalized()
 
         static let Title = "MeshSetup.GetReady.Title".meshLocalized()
-        static let Text1 = "MeshSetup.GetReady.Text1".meshLocalized()
-        static let Text2 = "MeshSetup.GetReady.Text2".meshLocalized()
-        static let Text3 = "MeshSetup.GetReady.Text3".meshLocalized()
-        static let Text4 = "MeshSetup.GetReady.Text4".meshLocalized()
-
         static let EthernetTitle = "MeshSetup.GetReady.EthernetTitle".meshLocalized()
-        static let EthernetText1 = "MeshSetup.GetReady.EthernetText1".meshLocalized()
-        static let EthernetText2 = "MeshSetup.GetReady.EthernetText2".meshLocalized()
-        static let EthernetText3 = "MeshSetup.GetReady.EthernetText3".meshLocalized()
-        static let EthernetText4 = "MeshSetup.GetReady.EthernetText4".meshLocalized()
 
         static let EthernetToggleTitle = "MeshSetup.GetReady.EthernetToggleTitle".meshLocalized()
         static let EthernetToggleText = "MeshSetup.GetReady.EthernetToggleText".meshLocalized()
@@ -122,6 +113,14 @@ class MeshSetupStrings {
         static let WifiCheckboxText = "MeshSetup.GetReady.WifiCheckboxText".meshLocalized()
         static let CellularCheckboxText = "MeshSetup.GetReady.CellularCheckboxText".meshLocalized()
 
+        static let SOMTitle = "MeshSetup.GetReady.SOMTitle".meshLocalized()
+        static let SOMEthernetTitle = "MeshSetup.GetReady.SOMEthernetTitle".meshLocalized()
+
+        static let SOMEthernetToggleTitle = "MeshSetup.GetReady.SOMEthernetToggleTitle".meshLocalized()
+        static let SOMEthernetToggleText = "MeshSetup.GetReady.SOMEthernetToggleText".meshLocalized()
+
+        static let SOMWifiCheckboxText = "MeshSetup.GetReady.SOMWifiCheckboxText".meshLocalized()
+        static let SOMCellularCheckboxText = "MeshSetup.GetReady.SOMCellularCheckboxText".meshLocalized()
     }
 
     struct GetCommissionerReady {
