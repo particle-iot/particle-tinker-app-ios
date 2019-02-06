@@ -408,7 +408,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             return (serialNumber.lowercased().range(of: prefix)?.lowerBound == serialNumber.startIndex)
         }
 
-        return isSNPrefix(prefix: "b31")
+        return isSNPrefix(prefix: "b31") || isSNPrefix(prefix: "p002")
     }
 
     init?(serialNumber: String) {
