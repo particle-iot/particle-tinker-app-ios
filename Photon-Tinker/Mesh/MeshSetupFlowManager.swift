@@ -671,7 +671,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.targetDevice.enableEthernetFeature = useEthernet
         self.targetDevice.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
         self.log("self.targetDevice.type?.description = \(self.targetDevice.type?.description as Optional)")
-        self.targetDevice.credentials = MeshSetupPeripheralCredentials(name: self.targetDevice.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+        self.targetDevice.credentials = MeshSetupPeripheralCredentials(name: self.targetDevice.type!.bluetoothNamePrefix + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepComplete(.GetTargetDeviceInfo)
 
@@ -1190,7 +1190,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.log("dataMatrix: \(dataMatrix)")
         self.commissionerDevice!.type = ParticleDeviceType(serialNumber: dataMatrix.serialNumber)
         self.log("self.commissionerDevice.type?.description = \(self.commissionerDevice!.type?.description as Optional)")
-        self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: self.commissionerDevice!.type!.description + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+        self.commissionerDevice!.credentials = MeshSetupPeripheralCredentials(name: self.commissionerDevice!.type!.bluetoothNamePrefix + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         if (self.commissionerDevice?.credentials?.name == self.targetDevice.credentials?.name) {
             self.commissionerDevice = nil

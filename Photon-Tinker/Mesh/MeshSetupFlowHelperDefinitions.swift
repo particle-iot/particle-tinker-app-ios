@@ -385,11 +385,21 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .argon : return "Argon"
             case .boron : return "Boron"
             case .xenon : return "Xenon"
+            case .argonSoM : return "A Series"
+            case .boronSoM : return "B Series"
+            case .xenonSoM : return "X Series"
+        }
+    }
+
+    public var bluetoothNamePrefix: String {
+        switch self {
+            case .argon : return "Argon"
+            case .boron : return "Boron"
+            case .xenon : return "Xenon"
             case .argonSoM : return "Argon"
             case .boronSoM : return "Boron"
             case .xenonSoM : return "Xenon"
-
-
+            default: return ""
         }
     }
 
