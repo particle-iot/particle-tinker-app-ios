@@ -341,7 +341,7 @@ internal struct MeshSetupDataMatrix {
         return "\(serialNumber) \(mobileSecret)"
     }
 
-    init?(dataMatrixString: String) {
+    init?(dataMatrixString: String, deviceType: ParticleDeviceType? = nil) {
         let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{12,15})")
         let nsString = dataMatrixString as NSString
         let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
@@ -350,7 +350,7 @@ internal struct MeshSetupDataMatrix {
             let arr = dataMatrixString.split(separator: " ")
             serialNumber = String(arr[0])//"12345678abcdefg"
             mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
-            type = ParticleDeviceType(serialNumber: serialNumber)
+            type = (deviceType != nil) ? deviceType : ParticleDeviceType(serialNumber: serialNumber)
         } else {
             return nil
         }
@@ -364,6 +364,16 @@ internal struct MeshSetupDataMatrix {
         ParticleCloud.sharedInstance().getRecoveryMobileSecret(serialNumber, mobileSecret: mobileSecret) { mobileSecret, error in
             if let mobileSecret = mobileSecret {
                 completion("\(self.serialNumber) \(mobileSecret)", nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+    func attemptDeviceTypeRecovery(completion: @escaping (ParticleDeviceType?, Error?) -> ()) {
+        ParticleCloud.sharedInstance().getPlatformId(serialNumber) { platformId, error in
+            if let platformId = platformId, let type = ParticleDeviceType(rawValue: Int(platformId)) {
+                completion(type, nil)
             } else {
                 completion(nil, error)
             }
