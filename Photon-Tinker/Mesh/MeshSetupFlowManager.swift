@@ -2211,11 +2211,44 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 self.targetDevice.activeInternetInterface != nil &&
                 self.targetDevice.activeInternetInterface! == .ppp &&
                 self.targetDevice.deviceICCID == nil) {
-            self.getTargetDeviceICCID()
+
+            if (self.targetDevice.externalSim == nil) {
+                self.getTargetDeviceActiveSim()
+            } else {
+                self.getTargetDeviceICCID()
+            }
+
             return
         }
 
         self.getPricingImpact()
+    }
+
+    private func getTargetDeviceActiveSim() {
+        if (self.targetDevice.externalSim != nil) {
+            self.getTargetDeviceICCID()
+            return;
+        }
+
+        self.targetDevice.transceiver!.sendGetActiveSim () { result, externalSim in
+            self.log("targetDevice.transceiver!.sendGetActiveSim: \(result.description()), externalSim: \(externalSim as Optional)")
+            if (self.canceled) {
+                return
+            }
+
+            if (result == .NONE) {
+                self.targetDevice.externalSim = externalSim!
+                if (externalSim!) {
+                    self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal)
+                } else {
+                    self.getTargetDeviceICCID()
+                }
+            } else if (result == .INVALID_STATE) {
+                self.fail(withReason: .BoronModemError)
+            } else {
+                self.handleBluetoothErrorResult(result)
+            }
+        }
     }
 
     private func getTargetDeviceICCID() {
@@ -2224,7 +2257,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             return
         }
 
-        self.log("getting iccid")
         self.targetDevice.transceiver!.sendGetIccid () { result, iccid in
             self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
             if (self.canceled) {
@@ -2234,6 +2266,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (result == .NONE) {
                 self.targetDevice.deviceICCID = iccid!
                 self.getPricingImpact()
+            } else if (result == .INVALID_STATE) {
+                self.fail(withReason: .BoronModemError)
             } else {
                 self.handleBluetoothErrorResult(result)
             }
