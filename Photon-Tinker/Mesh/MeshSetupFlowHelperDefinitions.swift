@@ -155,7 +155,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case WifiPasswordTooShort
 
     case SameDeviceScannedTwice
-    case WrongDeviceType //temp error
+    case WrongTargetDeviceType
+    case WrongCommissionerDeviceType
 
     //EnsureHasInternetAccess
     case FailedToObtainIp
@@ -182,6 +183,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case UnableToCreateNetwork
     case UnableToRenameDevice
     case NameTooShort
+    case BoronModemError
     case NameInUse
 
     case DeviceIsNotAllowedToJoinNetwork
@@ -204,6 +206,9 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
             case .NameInUse : return "You already own a network with this name. Please use different name."
             case .FailedToObtainIpBoron : return "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area."
+            case .WrongTargetDeviceType : return "This is not valid device sticker. Please scan 3rd generation Particle device sticker."
+            case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation Particle device sticker."
+            case .BoronModemError : return "There was an error while accessing modem on your device. Device is now rebooting the modem in attempt to recover. Give it a second and try again. If this error persists try rebooting your device manually and restart the setup."
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."
@@ -237,7 +242,6 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the set up process and try again."
             case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
             case .SameDeviceScannedTwice : return "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join."
-            case .WrongDeviceType : return "This is not {{device}}. Please scan {{device}} sticker or restart the set up and choose different device type."
             case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure your device has internet access."
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the set up and try again."
             case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press try again."
@@ -265,6 +269,7 @@ internal struct MeshDevice {
     var type: ParticleDeviceType?
     var deviceId: String?
     var deviceICCID: String?
+    var externalSim: Bool?
     var simActive: Bool?
     var credentials: MeshSetupPeripheralCredentials?
     var name: String? //name stored in cloud (credentials has name of bluetooth network)

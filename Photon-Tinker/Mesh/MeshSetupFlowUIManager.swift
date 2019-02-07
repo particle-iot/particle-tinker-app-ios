@@ -147,17 +147,17 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 }
             }
         } else {
-            showWrongMatrixError(useTargetDevice: true)
+            showWrongMatrixError(targetDevice: targetDevice)
         }
     }
 
 
-    func showWrongMatrixError(useTargetDevice: Bool) {
+    func showWrongMatrixError(targetDevice: Bool) {
         //show error where selected device type mismatch
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
                 self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
-                        message: MeshSetupFlowError.WrongDeviceType.description.replaceMeshSetupStrings(deviceType: useTargetDevice ? self.flowManager.targetDevice.type!.description : self.flowManager.commissionerDevice!.type!.description),
+                        message: targetDevice ? MeshSetupFlowError.WrongTargetDeviceType.description : MeshSetupFlowError.WrongCommissionerDeviceType.description,
                         preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
