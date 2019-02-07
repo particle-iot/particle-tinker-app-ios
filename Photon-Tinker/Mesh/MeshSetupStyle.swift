@@ -68,6 +68,13 @@ class MeshLabel : UILabel {
     }
 }
 
+class MeshSegmentedControl : UISegmentedControl {
+    func setStyle(font: String, size: Int, color: UIColor) {
+        self.tintColor = color
+        self.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: font, size: CGFloat(size))], for: .normal)
+    }
+}
+
 class MeshTextField: UITextField {
     func setStyle(font: String, size: Int, color: UIColor) {
         self.textColor = color
