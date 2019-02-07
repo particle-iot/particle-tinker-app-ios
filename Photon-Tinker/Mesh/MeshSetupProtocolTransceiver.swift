@@ -563,6 +563,21 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
+    func sendGetActiveSim(callback: @escaping (ControlReplyErrorType, Bool?) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_Cellular_GetActiveSimRequest()
+
+        let data = self.prepareRequestMessage(type: .GetActiveSim, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_Cellular_GetActiveSimReply(serializedData: rm.data) as! Particle_Ctrl_Cellular_GetActiveSimReply
+                callback(rm.result, decodedReply.simType == .external)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
     func sendGetIccid(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Cellular_GetIccidRequest()
 
