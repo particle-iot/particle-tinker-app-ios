@@ -197,6 +197,10 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             log("centralManager didDiscover peripheral")
         }
 
+        guard (self.peripheralToConnectCredentials != nil) else {
+            return
+        }
+
         if peripheral.name == self.peripheralToConnectCredentials!.name {
             central.stopScan()
             log("stop scan")
