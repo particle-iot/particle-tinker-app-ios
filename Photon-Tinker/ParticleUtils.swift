@@ -74,15 +74,15 @@ class ParticleUtils: NSObject {
                 image = UIImage(named: "imgDeviceBoron")
                 text = "Boron"
 
-            case .xenonSoM:
+            case .xSeries:
                 image = UIImage(named: "imgDeviceXenon")
                 text = "X Series"
 
-            case .argonSoM:
+            case .aSeries:
                 image = UIImage(named: "imgDeviceArgon")
                 text = "A Series"
 
-            case .boronSoM:
+            case .bSeries:
                 image = UIImage(named: "imgDeviceBoron")
                 text = "B Series"
 

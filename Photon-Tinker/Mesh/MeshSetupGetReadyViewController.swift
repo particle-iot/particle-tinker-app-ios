@@ -55,7 +55,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         self.deviceType = dataMatrix.type
 
         if (self.deviceType != nil) {
-            self.isSOM = (self.deviceType! == ParticleDeviceType.argonSoM || self.deviceType! == ParticleDeviceType.boronSoM || self.deviceType! == ParticleDeviceType.xenonSoM)
+            self.isSOM = (self.deviceType! == ParticleDeviceType.aSeries || self.deviceType! == ParticleDeviceType.bSeries || self.deviceType! == ParticleDeviceType.xSeries)
         } else {
             self.isSOM = false
         }
@@ -139,7 +139,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
-            case .argonSoM:
+            case .aSeries:
                 initializeVideoPlayerWithVideo(videoFileName: "a_power_on")
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.SOMWifiCheckboxText
@@ -153,7 +153,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.CellularCheckboxText
                 checkboxView?.isHidden = false
-            case .boronSoM:
+            case .bSeries:
                 if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
                     initializeVideoPlayerWithVideo(videoFileName: "b_power_on_battery")
                 } else {
@@ -162,7 +162,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.SOMCellularCheckboxText
                 checkboxView?.isHidden = false
-            case .xenonSoM:
+            case .xSeries:
                 initializeVideoPlayerWithVideo(videoFileName: "x_power_on")
                 checkboxView?.isHidden = true
             default: //.xenon
@@ -203,9 +203,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         replacePlaceHolderStrings()
 
         switch (self.deviceType ?? .xenon) {
-            case .argon, .argonSoM:
+            case .argon, .aSeries:
                 checkboxView?.isHidden = false
-            case .boron, .boronSoM:
+            case .boron, .bSeries:
                 checkboxView?.isHidden = false
             default: //.xenon
                 checkboxView?.isHidden = true
