@@ -2307,7 +2307,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
             self.log("getPricingImpact: \(pricingInfo), error: \(error)")
 
-            if (error != nil) {
+            if (error != nil || pricingInfo?.plan.monthlyBaseAmount == nil) {
                 self.fail(withReason: .UnableToGetPricingInformation, nsError: error)
                 return
             }
