@@ -82,6 +82,7 @@
 		93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */; };
 		93B0F85F2182236F00D8F8C0 /* featherwing_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */; };
 		93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */; };
+		93C21588220DB8CD007D34D3 /* x_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C21585220DB8CD007D34D3 /* x_power_on.mov */; };
 		93C7C9E02208A15100ABEE85 /* a_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9DA2208A15000ABEE85 /* a_power_on.mov */; };
 		93C7C9E12208A15100ABEE85 /* b_power_on_battery.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9DD2208A15000ABEE85 /* b_power_on_battery.mov */; };
 		93C7C9E22208A15100ABEE85 /* b_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9DE2208A15100ABEE85 /* b_power_on.mov */; };
@@ -258,6 +259,7 @@
 		93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = boron_power_on_battery.mov; path = Resources/boron_power_on_battery.mov; sourceTree = "<group>"; };
 		93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = featherwing_power_on.mov; path = Resources/featherwing_power_on.mov; sourceTree = "<group>"; };
 		93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = xenon_power_on.mov; path = Resources/xenon_power_on.mov; sourceTree = "<group>"; };
+		93C21585220DB8CD007D34D3 /* x_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = x_power_on.mov; path = Resources/x_power_on.mov; sourceTree = "<group>"; };
 		93C7C9DA2208A15000ABEE85 /* a_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = a_power_on.mov; path = Resources/a_power_on.mov; sourceTree = "<group>"; };
 		93C7C9DD2208A15000ABEE85 /* b_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = b_power_on_battery.mov; path = Resources/b_power_on_battery.mov; sourceTree = "<group>"; };
 		93C7C9DE2208A15100ABEE85 /* b_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = b_power_on.mov; path = Resources/b_power_on.mov; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				93C21585220DB8CD007D34D3 /* x_power_on.mov */,
 				93C7C9DA2208A15000ABEE85 /* a_power_on.mov */,
 				93C7C9DD2208A15000ABEE85 /* b_power_on_battery.mov */,
 				93C7C9DE2208A15100ABEE85 /* b_power_on.mov */,
@@ -833,6 +836,7 @@
 				93FFD5C4215E7EFF005A469D /* photon-tinker.bin in Resources */,
 				93C7C9E02208A15100ABEE85 /* a_power_on.mov in Resources */,
 				93FFD598215E7A01005A469D /* MeshSetupImages.xcassets in Resources */,
+				93C21588220DB8CD007D34D3 /* x_power_on.mov in Resources */,
 				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
 				93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */,
 				93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */,
