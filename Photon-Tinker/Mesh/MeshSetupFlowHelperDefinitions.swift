@@ -155,7 +155,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case WifiPasswordTooShort
 
     case SameDeviceScannedTwice
-    case WrongDeviceType //temp error
+    case WrongTargetDeviceType
+    case WrongCommissionerDeviceType
 
     //EnsureHasInternetAccess
     case FailedToObtainIp
@@ -182,6 +183,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case UnableToCreateNetwork
     case UnableToRenameDevice
     case NameTooShort
+    case BoronModemError
     case NameInUse
 
     case DeviceIsNotAllowedToJoinNetwork
@@ -198,12 +200,15 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             //unproofread
             case .CriticalFlowError : return "There was a problem with the setup. Please contact support with the latest device log to help us fix it as soon as possible."
             case .SimBelongsToOtherAccount : return "The SIM you are trying to interact with is owned by a different user account."
-            case .ExternalSimNotSupported : return "We detected that you are using external sim card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
+            case .ExternalSimNotSupported : return "We have detected that you are using external sim card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
             case .StickerError : return "There is a problem with the sticker on your device. Please contact support for a solution."
             case .NetworkError : return "There was a network error communicating to Particle Device Cloud."
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
             case .NameInUse : return "You already own a network with this name. Please use different name."
             case .FailedToObtainIpBoron : return "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area."
+            case .WrongTargetDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
+            case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
+            case .BoronModemError : return "There was an error while accessing modem on your device. Device is now rebooting the modem in attempt to recover. Give it a second and try again. If this error persists try rebooting your device manually and restart the setup."
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."
@@ -237,7 +242,6 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the set up process and try again."
             case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
             case .SameDeviceScannedTwice : return "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join."
-            case .WrongDeviceType : return "This is not {{device}}. Please scan {{device}} sticker or restart the set up and choose different device type."
             case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure your device has internet access."
             case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the set up and try again."
             case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press try again."
@@ -265,6 +269,7 @@ internal struct MeshDevice {
     var type: ParticleDeviceType?
     var deviceId: String?
     var deviceICCID: String?
+    var externalSim: Bool?
     var simActive: Bool?
     var credentials: MeshSetupPeripheralCredentials?
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
@@ -336,7 +341,7 @@ internal struct MeshSetupDataMatrix {
         return "\(serialNumber) \(mobileSecret)"
     }
 
-    init?(dataMatrixString: String) {
+    init?(dataMatrixString: String, deviceType: ParticleDeviceType? = nil) {
         let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{12,15})")
         let nsString = dataMatrixString as NSString
         let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
@@ -345,7 +350,7 @@ internal struct MeshSetupDataMatrix {
             let arr = dataMatrixString.split(separator: " ")
             serialNumber = String(arr[0])//"12345678abcdefg"
             mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
-            type = ParticleDeviceType(serialNumber: serialNumber)
+            type = (deviceType != nil) ? deviceType : ParticleDeviceType(serialNumber: serialNumber)
         } else {
             return nil
         }
@@ -359,6 +364,16 @@ internal struct MeshSetupDataMatrix {
         ParticleCloud.sharedInstance().getRecoveryMobileSecret(serialNumber, mobileSecret: mobileSecret) { mobileSecret, error in
             if let mobileSecret = mobileSecret {
                 completion("\(self.serialNumber) \(mobileSecret)", nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+    func attemptDeviceTypeRecovery(completion: @escaping (ParticleDeviceType?, Error?) -> ()) {
+        ParticleCloud.sharedInstance().getPlatformId(serialNumber) { platformId, error in
+            if let platformId = platformId, let type = ParticleDeviceType(rawValue: Int(platformId)) {
+                completion(type, nil)
             } else {
                 completion(nil, error)
             }
@@ -385,11 +400,21 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .argon : return "Argon"
             case .boron : return "Boron"
             case .xenon : return "Xenon"
-            case .argonSoM : return "Argon"
-            case .boronSoM : return "Boron"
-            case .xenonSoM : return "Xenon"
+            case .aSeries : return "A Series"
+            case .bSeries : return "B Series"
+            case .xSeries : return "X Series"
+        }
+    }
 
-
+    public var bluetoothNamePrefix: String {
+        switch self {
+            case .argon : return "Argon"
+            case .boron : return "Boron"
+            case .xenon : return "Xenon"
+            case .aSeries : return "Argon"
+            case .bSeries : return "Boron"
+            case .xSeries : return "Xenon"
+            default: return ""
         }
     }
 
@@ -398,7 +423,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             return (serialNumber.lowercased().range(of: prefix)?.lowerBound == serialNumber.startIndex)
         }
 
-        return isSNPrefix(prefix: "b31")
+        return isSNPrefix(prefix: "b31") || isSNPrefix(prefix: "p002")
     }
 
     init?(serialNumber: String) {
@@ -413,11 +438,11 @@ extension ParticleDeviceType : CustomStringConvertible {
         } else if isSNPrefix(prefix: "b40h") || isSNPrefix(prefix: "b31h") || isSNPrefix(prefix: "b40k") || isSNPrefix(prefix: "b31k") {
             self = .boron
         } else if isSNPrefix(prefix: "p001") || isSNPrefix(prefix: "p002") {
-            self = .boronSoM
+            self = .bSeries
         } else if isSNPrefix(prefix: "p003") {
-            self = .argonSoM
+            self = .aSeries
         } else if isSNPrefix(prefix: "p004") {
-            self = .xenonSoM
+            self = .xSeries
         } else {
             return nil
         }

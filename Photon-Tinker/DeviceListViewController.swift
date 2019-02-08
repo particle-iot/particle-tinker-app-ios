@@ -93,12 +93,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
             }
 
-            dialog.addButton("A / B Series", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
-                dialog.dismiss()
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh SoM setup started", withParameters: getVaList([]))
-                self.invokeMeshDeviceSetup()
-
-            }
+//            dialog.addButton("A / B Series", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
+//                dialog.dismiss()
+//                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh SoM setup started", withParameters: getVaList([]))
+//                self.invokeMeshDeviceSetup()
+//
+//            }
         }
         
         dialog.addButton("Photon", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in

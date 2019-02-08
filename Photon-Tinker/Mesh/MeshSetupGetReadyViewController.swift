@@ -25,22 +25,18 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     internal var defaultVideoURL: URL!
     internal var ethernetVideoURL: URL!
 
+    internal var isSOM:Bool!
+
 
     @IBOutlet weak var ethernetToggleBackground: UIView!
     
     @IBOutlet weak var titleLabel: MeshLabel!
     @IBOutlet weak var videoView: UIControl!
 
-    @IBOutlet weak var textLabel1: MeshLabel!
-    @IBOutlet weak var textLabel2: MeshLabel!
-    @IBOutlet weak var textLabel3: MeshLabel!
-    @IBOutlet weak var textLabel4: MeshLabel!
-    
     @IBOutlet weak var ethernetToggleTitle: MeshLabel?
     @IBOutlet weak var ethernetToggleText: MeshLabel?
     
     @IBOutlet weak var continueButton: MeshSetupButton!
-    //@IBOutlet weak var contentStackView: UIStackView!
 
 
     override func viewDidLoad() {
@@ -57,12 +53,17 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         self.callback = didPressReady
         self.dataMatrix = dataMatrix
         self.deviceType = dataMatrix.type
+
+        if (self.deviceType != nil) {
+            self.isSOM = (self.deviceType! == ParticleDeviceType.aSeries || self.deviceType! == ParticleDeviceType.bSeries || self.deviceType! == ParticleDeviceType.xSeries)
+        } else {
+            self.isSOM = false
+        }
     }
     @IBOutlet weak var setupSwitch: UISwitch?
     
     @IBAction func setupSwitchChanged(_ sender: Any) {
         continueButton.isUserInteractionEnabled = false
-        //contentStackView.alpha = 0
         titleLabel.alpha = 0
         videoView.alpha = 0
 
@@ -90,7 +91,6 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         self.view.layoutIfNeeded()
 
         UIView.animate(withDuration: 0.125, delay: 0.125, options: [], animations: { () -> Void in
-            //self.contentStackView.alpha = 1
             self.titleLabel.alpha = 1
             self.videoView.alpha = 1
         }, completion: { completed in
@@ -108,29 +108,14 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
 
         if (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {
-            //contentStackView.spacing = 15
-
             titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-
-            textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
-
 
             ethernetToggleTitle?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
             ethernetToggleText?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
 
             checkboxLabel?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
         } else {
-            //contentStackView.spacing = 20
-
             titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-
-            textLabel1.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel2.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel3.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel4.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
 
             ethernetToggleTitle?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
             ethernetToggleText?.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
@@ -145,16 +130,21 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         continueButton.setTitle(MeshSetupStrings.GetReady.Button, for: .normal)
 
-        ethernetToggleTitle?.text = MeshSetupStrings.GetReady.EthernetToggleTitle
-        ethernetToggleText?.text = MeshSetupStrings.GetReady.EthernetToggleText
+        ethernetToggleTitle?.text = self.isSOM ? MeshSetupStrings.GetReady.SOMEthernetToggleTitle : MeshSetupStrings.GetReady.EthernetToggleTitle
+        ethernetToggleText?.text = self.isSOM ? MeshSetupStrings.GetReady.SOMEthernetToggleText : MeshSetupStrings.GetReady.EthernetToggleText
 
         switch (self.deviceType ?? .xenon) {
-            case .argon, .argonSoM:
+            case .argon:
                 initializeVideoPlayerWithVideo(videoFileName: "argon_power_on")
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
-            case .boron, .boronSoM:
+            case .aSeries:
+                initializeVideoPlayerWithVideo(videoFileName: "a_power_on")
+
+                checkboxLabel?.text = MeshSetupStrings.GetReady.SOMWifiCheckboxText
+                checkboxView?.isHidden = false
+            case .boron:
                 if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
                     initializeVideoPlayerWithVideo(videoFileName: "boron_power_on_battery")
                 } else {
@@ -163,6 +153,18 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.CellularCheckboxText
                 checkboxView?.isHidden = false
+            case .bSeries:
+                if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
+                    initializeVideoPlayerWithVideo(videoFileName: "b_power_on_battery")
+                } else {
+                    initializeVideoPlayerWithVideo(videoFileName: "b_power_on")
+                }
+
+                checkboxLabel?.text = MeshSetupStrings.GetReady.SOMCellularCheckboxText
+                checkboxView?.isHidden = false
+            case .xSeries:
+                initializeVideoPlayerWithVideo(videoFileName: "x_power_on")
+                checkboxView?.isHidden = true
             default: //.xenon
                 initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
 
@@ -196,19 +198,14 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private func setDefaultContent() {
-        titleLabel.text = MeshSetupStrings.GetReady.Title
-//        textLabel1.text = MeshSetupStrings.GetReady.Text1
-//        textLabel2.text = MeshSetupStrings.GetReady.Text2
-//        textLabel3.text = MeshSetupStrings.GetReady.Text3
-//        textLabel4.text = MeshSetupStrings.GetReady.Text4
+        titleLabel.text = self.isSOM ? MeshSetupStrings.GetReady.SOMTitle : MeshSetupStrings.GetReady.Title
 
         replacePlaceHolderStrings()
-//        hideEmptyLabels()
 
         switch (self.deviceType ?? .xenon) {
-            case .argon, .argonSoM:
+            case .argon, .aSeries:
                 checkboxView?.isHidden = false
-            case .boron, .boronSoM:
+            case .boron, .bSeries:
                 checkboxView?.isHidden = false
             default: //.xenon
                 checkboxView?.isHidden = true
@@ -218,24 +215,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private func setEthernetContent() {
-        titleLabel.text = MeshSetupStrings.GetReady.EthernetTitle
-//        textLabel1.text = MeshSetupStrings.GetReady.EthernetText1
-//        textLabel2.text = MeshSetupStrings.GetReady.EthernetText2
-//        textLabel3.text = MeshSetupStrings.GetReady.EthernetText3
-//        textLabel4.text = MeshSetupStrings.GetReady.EthernetText4
+        titleLabel.text = self.isSOM ? MeshSetupStrings.GetReady.SOMEthernetTitle : MeshSetupStrings.GetReady.EthernetTitle
 
         replacePlaceHolderStrings()
-//        hideEmptyLabels()
         checkboxView?.isHidden = true
     }
 
-
-//    internal func hideEmptyLabels() {
-//        textLabel1.isHidden = (textLabel1.text?.count ?? 0) == 0
-//        textLabel2.isHidden = (textLabel2.text?.count ?? 0) == 0
-//        textLabel3.isHidden = (textLabel3.text?.count ?? 0) == 0
-//        textLabel4.isHidden = (textLabel4.text?.count ?? 0) == 0
-//    }
 
     @IBAction func checkboxTapped(_ sender: MeshCheckBoxButton) {
         sender.isSelected = !sender.isSelected

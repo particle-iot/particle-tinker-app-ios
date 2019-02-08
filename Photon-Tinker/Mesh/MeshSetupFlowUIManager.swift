@@ -111,53 +111,90 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.validateMatrix(dataMatrixString, targetDevice: true)
     }
 
-    private func validateMatrix(_ dataMatrixString: String, targetDevice: Bool) {
-        if let matrix = MeshSetupDataMatrix(dataMatrixString: dataMatrixString),
-               let type = matrix.type {
-            if (matrix.isMobileSecretValid()) {
+    private func validateMatrix(_ dataMatrixString: String, targetDevice: Bool, deviceType: ParticleDeviceType? = nil) {
+        if let matrix = MeshSetupDataMatrix(dataMatrixString: dataMatrixString, deviceType: deviceType) {
+            if (matrix.type != nil && matrix.isMobileSecretValid()) {
                 if (targetDevice) {
                     self.targetDeviceDataMatrix = matrix
                     self.showTargetDeviceGetReady()
                 } else {
                     self.showCommissionerDevicePairing(dataMatrixString: dataMatrixString)
                 }
+            } else if (matrix.type == nil) {
+                self.log("Attempting to recover unknown device type")
+                recoverUnknownDeviceType(matrix: matrix, targetDevice: targetDevice)
             } else {
-                matrix.attemptMobileSecretRecovery { recoveredMatrixString, error in
-                    if let recoveredString = recoveredMatrixString {
-                        self.validateMatrix(recoveredString, targetDevice: targetDevice)
-                    } else if let nserror = error as? NSError, nserror.code == 200 {
-                        self.showFailedMatrixRecoveryError(dataMatrix: matrix)
-                    } else {
-                        DispatchQueue.main.async {
-                            if (self.hideAlertIfVisible()) {
-                                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
-
-                                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-                                    self.cancelTapped(self)
-                                })
-
-                                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                                    self.validateMatrix(dataMatrixString, targetDevice: targetDevice)
-                                })
-
-                                self.present(self.alert!, animated: true)
-                            }
-                        }
-                    }
-                }
+                self.log("Attempting to recover incomplete mobile secret")
+                recoverIncompleteMobileSecret(matrix: matrix, targetDevice: targetDevice)
             }
         } else {
-            showWrongMatrixError(useTargetDevice: true)
+            showWrongMatrixError(targetDevice: targetDevice)
         }
     }
 
 
-    func showWrongMatrixError(useTargetDevice: Bool) {
+    private func recoverUnknownDeviceType(matrix: MeshSetupDataMatrix, targetDevice: Bool) {
+        matrix.attemptDeviceTypeRecovery { recoveredType, error in
+            if let recoveredType = recoveredType {
+                self.validateMatrix(matrix.matrixString, targetDevice: targetDevice, deviceType: recoveredType)
+            } else if let nserror = error as? NSError, nserror.code == 404 {
+                self.showWrongMatrixError(targetDevice: targetDevice)
+            } else {
+                DispatchQueue.main.async {
+                    if (self.hideAlertIfVisible()) {
+                        self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
+
+                        self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                            self.cancelTapped(self)
+                        })
+
+                        self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                            self.validateMatrix(matrix.matrixString, targetDevice: targetDevice, deviceType: matrix.type)
+                        })
+
+                        self.present(self.alert!, animated: true)
+                    }
+                }
+            }
+        }
+    }
+
+
+    private func recoverIncompleteMobileSecret(matrix: MeshSetupDataMatrix, targetDevice: Bool) {
+        matrix.attemptMobileSecretRecovery { recoveredMatrixString, error in
+            if let recoveredString = recoveredMatrixString {
+                self.validateMatrix(recoveredString, targetDevice: targetDevice)
+            } else if let nserror = error as? NSError, nserror.code == 200 {
+                self.showFailedMatrixRecoveryError(dataMatrix: matrix)
+            } else {
+                DispatchQueue.main.async {
+                    if (self.hideAlertIfVisible()) {
+                        self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
+
+                        self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                            self.cancelTapped(self)
+                        })
+
+                        self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                            self.validateMatrix(matrix.matrixString, targetDevice: targetDevice, deviceType: matrix.type)
+                        })
+
+                        self.present(self.alert!, animated: true)
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+    func showWrongMatrixError(targetDevice: Bool) {
         //show error where selected device type mismatch
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
                 self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
-                        message: MeshSetupFlowError.WrongDeviceType.description.replaceMeshSetupStrings(deviceType: useTargetDevice ? self.flowManager.targetDevice.type!.description : self.flowManager.commissionerDevice!.type!.description),
+                        message: targetDevice ? MeshSetupFlowError.WrongTargetDeviceType.description : MeshSetupFlowError.WrongCommissionerDeviceType.description,
                         preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
