@@ -1112,7 +1112,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             var message = error.description
 
             if let apiError = nsError as? NSError {
-                message = apiError.localizedDescription
+                message = "\(message) (\(apiError.localizedDescription))" 
             }
 
             if (self.hideAlertIfVisible()) {
