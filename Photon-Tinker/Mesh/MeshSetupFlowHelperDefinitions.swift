@@ -200,14 +200,14 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             //unproofread
             case .CriticalFlowError : return "There was a problem with the setup. Please contact support with the latest device log to help us fix it as soon as possible."
             case .SimBelongsToOtherAccount : return "The SIM you are trying to interact with is owned by a different user account."
-            case .ExternalSimNotSupported : return "We detected that you are using external sim card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
+            case .ExternalSimNotSupported : return "We have detected that you are using external sim card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
             case .StickerError : return "There is a problem with the sticker on your device. Please contact support for a solution."
             case .NetworkError : return "There was a network error communicating to Particle Device Cloud."
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
             case .NameInUse : return "You already own a network with this name. Please use different name."
             case .FailedToObtainIpBoron : return "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area."
-            case .WrongTargetDeviceType : return "This is not valid device sticker. Please scan 3rd generation Particle device sticker."
-            case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation Particle device sticker."
+            case .WrongTargetDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
+            case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
             case .BoronModemError : return "There was an error while accessing modem on your device. Device is now rebooting the modem in attempt to recover. Give it a second and try again. If this error persists try rebooting your device manually and restart the setup."
 
                 //these errors are handled instantly
