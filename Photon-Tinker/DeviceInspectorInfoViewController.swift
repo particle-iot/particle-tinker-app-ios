@@ -77,8 +77,6 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
             
             self.device?.getCurrentDataUsage({ (dataUsed: Float, err: Error?) in
                 DispatchQueue.main.async {
-                    // update some UI
-                    
                     if let _ = err {
                         self.dataUsageValueLabel.text = "No data"
                     } else {

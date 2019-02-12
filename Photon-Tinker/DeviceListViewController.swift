@@ -62,7 +62,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @objc func appDidBecomeActive(_ sender : AnyObject) {
         self.photonSelectionTableView.reloadData()
-        
     }
     
     @IBOutlet weak var logoutButton: UIButton!
@@ -354,18 +353,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func addRefreshControl()
     {
-        
-        //        let refreshFont = UIFont(name: "Gotham-Book", size: 17.0)
-        
         self.photonSelectionTableView.addPullToRefresh(withPullText: "Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
-            //        self.photonSelectionTableView.addPullToRefreshWithPullText("Pull To Refresh", pullTextColor: UIColor.whiteColor(), pullTextFont: refreshFont, refreshingText: "Refreshing Devices", refreshingTextColor: UIColor.whiteColor(), refreshingTextFont: refreshFont) { () -> Void in
             weak var weakSelf = self
             ParticleCloud.sharedInstance().getDevices() { (devices:[ParticleDevice]?, error: Error?) -> Void in
                 weakSelf?.handleGetDevicesResponse(devices, error: error)
                 weakSelf?.photonSelectionTableView.finishLoading()
-//                weakSelf?.animateOnlineIndicators()
             }
-            
         }
     }
     
@@ -436,19 +429,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
             cell.deviceImageView.image = deviceInfo.deviceImage
             cell.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
-//            cell.deviceTypeLabel.backgroundColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 0.72)
             
             let deviceTypeColor = ParticleUtils.particleCyanColor// UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
             cell.deviceTypeLabel.layer.borderColor = deviceTypeColor.cgColor
             cell.deviceTypeLabel.textColor = deviceTypeColor
             
             cell.deviceTypeLabel.layer.borderWidth = 1.0
-//            cell.deviceTypeLabel.textColor = UIColor(white: 0.96, alpha: 1.0)
             cell.deviceTypeLabel.layer.cornerRadius = 4.0
             cell.deviceTypeLabel.layer.masksToBounds = true
-
-//            cell.deviceIDLabel.text = ""//devices[indexPath.row].id.uppercaseString
-            
 
             let deviceStateInfo = getDeviceStateDescription(devices[(indexPath as NSIndexPath).row])
             cell.deviceStateLabel.text = deviceStateInfo
@@ -461,15 +449,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             // override everything else
             if devices[(indexPath as NSIndexPath).row].isFlashing
             {
-//                cell.deviceStateLabel.text = "Flashing"
-                cell.deviceStateImageView.image = UIImage(named: "imgCircle") // TDO blink this -
+                cell.deviceStateImageView.image = UIImage(named: "imgCircle")
             }
-            
             
             masterCell = cell
         }
-        
-               
         return masterCell!
     }
     
