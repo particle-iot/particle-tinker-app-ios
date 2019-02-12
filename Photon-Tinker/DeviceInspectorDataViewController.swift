@@ -26,29 +26,24 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        
-        DispatchQueue.global().async {
-            // do some task
-            // auto read all variables
-            var index : IndexPath
-            
+        // do some task
+        // auto read all variables
+        var index: IndexPath
 
-            IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide;
-            
-            for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
-                index = IndexPath(row: i, section: 1)
-                let cell : DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRow(at: index) as? DeviceVariableTableViewCell
-                
-                if let c = cell {
-                    if c.device == nil {
-                        return
-                    }
-                } else {
-                    cell?.readButtonTapped(self)
+        IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide;
+
+        for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
+            index = IndexPath(row: i, section: 1)
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Thread %@", withParameters: getVaList([Thread.current]))
+            let cell: DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRow(at: index) as? DeviceVariableTableViewCell
+
+            if let c = cell {
+                if c.device == nil {
+                    return
                 }
+            } else {
+                cell?.readButtonTapped(self)
             }
-            
         }
     }
     
@@ -150,16 +145,10 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //        var masterCell : UITableViewCell?
+
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Thread %@", withParameters: getVaList([Thread.current]))
+
         var masterCell : UITableViewCell?
-        //        var selected : Bool = false
-        //
-        //        if let selectedIndexPaths = tableView.indexPathsForSelectedRows where selectedIndexPaths.contains(indexPath) {
-        //            selected = true
-        //        }
-        //
-        
         
         switch (indexPath as NSIndexPath).section {
         case 0 : // Functions
