@@ -28,6 +28,7 @@ class LogList {
             self.file = file
         }
 
+        NotificationCenter.default.removeObserver(self);
         NotificationCenter.default.addObserver(self, selector: #selector(handleLog), name: NSNotification.Name.ParticleLog, object: nil)
     }
 
@@ -58,6 +59,10 @@ class LogList {
         let fileURLs = getLogs()
         for i in 0 ..< fileURLs.count {
             try? fileManager.removeItem(at: fileURLs[i])
+        }
+
+        if (file != nil) {
+            self.startLogging()
         }
     }
 
@@ -111,7 +116,11 @@ class LogListViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:DeviceTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "log_cell") as! DeviceTableViewCell
-        cell.deviceNameLabel.text = logs[indexPath.row].lastPathComponent
+        if (indexPath.row == 0) {
+            cell.deviceNameLabel.text = "Current session"
+        } else {
+            cell.deviceNameLabel.text = logs[indexPath.row].lastPathComponent
+        }
         return cell
     }
 
