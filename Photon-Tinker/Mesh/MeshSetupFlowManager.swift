@@ -1092,7 +1092,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         //we might retry step because scan network failed.. so we only test for this condition and ignore password/name condition
         //adding more devices to same network
         //or user decided to go standalone
-        if (self.selectedNetworkMeshInfo != nil || self.userSelectedToSetupMesh == false) {
+        if (self.selectedNetworkMeshInfo != nil) {
             self.stepComplete(.OfferSelectOrCreateNetwork)
             return
         }
@@ -1995,7 +1995,21 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         self.userSelectedToSetupMesh = meshSetup
 
-        self.stepComplete(.OfferSetupStandAloneOrWithNetwork)
+        if (!meshSetup) {
+            self.currentStep = 0
+            if (targetDevice.activeInternetInterface! == .ethernet) {
+                self.currentFlow = ethernetFlow
+            } else if (targetDevice.activeInternetInterface! == .wifi) {
+                self.currentFlow = wifiFlow
+            } else if (targetDevice.activeInternetInterface! == .ppp) {
+                self.currentFlow = cellularFlow
+            } else {
+                fatalError("wrong state?")
+            }
+            self.runCurrentStep()
+        } else {
+            self.stepComplete(.OfferSetupStandAloneOrWithNetwork)
+        }
         return nil
     }
 
