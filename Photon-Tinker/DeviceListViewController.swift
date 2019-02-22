@@ -302,7 +302,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 //                print("invalid access token - logging out")
                 self.logout()
             } else {
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
+                ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
                 RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
             }
             self.noDevicesLabel.isHidden = false
@@ -334,7 +334,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                 })
 
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices complete. Device count: %i, Devices: %@", withParameters: getVaList([self.devices.count, self.devices]))
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
+                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
 
                 DispatchQueue.main.async {
                     self.photonSelectionTableView.reloadData()
@@ -342,7 +343,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
                 
             } else {
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices complete. Device count: %i, Devices: %@", withParameters: getVaList([self.devices.count, self.devices]))
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
+                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
 
                 self.noDevicesLabel.isHidden = false
                 self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
