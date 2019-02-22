@@ -95,6 +95,7 @@
 		93D36EB9216CD3C20088000C /* MeshSetupMeshNetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB8216CD3C20088000C /* MeshSetupMeshNetworkCell.xib */; };
 		93D36EBB216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EBA216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib */; };
 		93EE6966217917EE005529B4 /* cellular.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE6964217917EE005529B4 /* cellular.pb.swift */; };
+		93F607F6221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F607F3221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib */; };
 		93FFD598215E7A01005A469D /* MeshSetupImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */; };
 		93FFD5A5215E7A6F005A469D /* network.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD599215E7A6E005A469D /* network.pb.swift */; };
 		93FFD5A7215E7A6F005A469D /* storage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD59B215E7A6F005A469D /* storage.pb.swift */; };
@@ -273,6 +274,7 @@
 		93D36EBA216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupCreateNetworkCell.xib; sourceTree = "<group>"; };
 		93EE6964217917EE005529B4 /* cellular.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cellular.pb.swift; sourceTree = "<group>"; };
 		93EE6965217917EE005529B4 /* cellular.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = cellular.proto; sourceTree = "<group>"; };
+		93F607F3221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupNetworkListWithCreateView.xib; sourceTree = "<group>"; };
 		93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeshSetupImages.xcassets; path = "Photon-Tinker/MeshSetupImages.xcassets"; sourceTree = "<group>"; };
 		93FFD599215E7A6E005A469D /* network.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = network.pb.swift; sourceTree = "<group>"; };
 		93FFD59A215E7A6F005A469D /* network.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = network.proto; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */,
 				93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */,
 				93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */,
+				93F607F3221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib */,
 				93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */,
 				93D36EB5216CCAE10088000C /* MeshSetupPairingView.xib */,
 				C810BDA797852B52EAA154A4 /* MeshSetupInfoView.xib */,
@@ -816,6 +819,7 @@
 				9317FC16216807200054AE24 /* MeshSetupTextInputView.xib in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
 				93FFD5B4215E7EDB005A469D /* FiraMono-Regular.ttf in Resources */,
+				93F607F6221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
 				9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */,

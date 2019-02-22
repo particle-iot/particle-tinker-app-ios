@@ -296,8 +296,6 @@ class MeshSetupStrings {
     struct CreateOrSelectNetwork {
         static let Title = "MeshSetup.CreateOrSelectNetwork.Title".meshLocalized()
         static let CreateNetwork = "MeshSetup.CreateOrSelectNetwork.CreateNetwork".meshLocalized()
-        static let DevicesSingular = "MeshSetup.CreateOrSelectNetwork.DevicesSingular".meshLocalized()
-        static let DevicesPlural = "MeshSetup.CreateOrSelectNetwork.DevicesPlural".meshLocalized()
     }
 
 

@@ -151,6 +151,12 @@ to allow your {{device}} to join the {{network}} mesh network";
 
 
 
+"MeshSetup.CreateOrSelectNetwork.Title" = "Create new network or select mesh network to join";
+"MeshSetup.CreateOrSelectNetwork.CreateNetwork" = "Create new network";
+
+
+
+
 
 "MeshSetup.ExistingNetworkPassword.Title" = "Enter network password for {{network}}";
 "MeshSetup.ExistingNetworkPassword.InputTitle" = "Network password";
@@ -202,12 +208,6 @@ to allow your {{device}} to join the {{network}} mesh network";
 
 
 
-
-
-"MeshSetup.CreateOrSelectNetwork.Title" = "Your Xenon + Ethernet Featherwing will act as a gateway in a mesh network";
-"MeshSetup.CreateOrSelectNetwork.CreateNetwork" = "Create new network...";
-"MeshSetup.CreateOrSelectNetwork.DevicesSingular" = "1 device on network";
-"MeshSetup.CreateOrSelectNetwork.DevicesPlural" = "{{0}} devices on network";
 
 
 
