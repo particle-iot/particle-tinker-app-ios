@@ -26,10 +26,26 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .OfferSelectOrCreateNetwork
     ]
 
-    private let joinerFlow: [MeshSetupFlowCommand] = [
+    private let xenonJoinerFlow: [MeshSetupFlowCommand] = [
         .ShowInfo,
         .GetUserNetworkSelection,
         //.ShowPricingImpact
+        .GetCommissionerDeviceInfo,
+        .ConnectToCommissionerDevice,
+        .EnsureCommissionerNetworkMatches,
+        .EnsureCorrectSelectedNetworkPassword,
+        .JoinSelectedNetwork,
+        .FinishJoinSelectedNetwork,
+        .CheckDeviceGotClaimed,
+        .PublishDeviceSetupDoneEvent,
+        .GetNewDeviceName,
+        .OfferToAddOneMoreDevice
+    ]
+
+
+    private let joinerFlow: [MeshSetupFlowCommand] = [
+        //.ShowPricingImpact
+        .ShowInfo,
         .GetCommissionerDeviceInfo,
         .ConnectToCommissionerDevice,
         .EnsureCommissionerNetworkMatches,
@@ -84,6 +100,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         .GetNewDeviceName,
         .OfferToAddOneMoreDevice
     ]
+
 
 
     var delegate: MeshSetupFlowManagerDelegate
@@ -157,6 +174,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func rewindFlow() {
+
+
         //from
         switch self.currentCommand {
             case .ShowPricingImpact: //if we rewind FROM pricing page, we reset these flags
@@ -168,11 +187,33 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
 
 
+        if (currentStep == 0) {
+            //if we are backing from one of these flows, we need to switch the flow type.
+            if (currentFlow == joinerFlow || currentFlow == ethernetFlow || currentFlow == wifiFlow || currentFlow == cellularFlow) {
+                currentFlow = internetConnectedPreflow
+                currentStep = internetConnectedPreflow.count
+            }
+            self.log("****** Rewinding to \(self.currentStep-1)(\(currentFlow[currentStep-1]))")
+        } else {
+            self.log("****** Rewinding from \(self.currentStep)(\(currentFlow[currentStep])) to \(self.currentStep-1)(\(currentFlow[currentStep-1]))")
+        }
+
         self.currentStep -= 1
-        self.log("****** Rewinding from \(self.currentStep+1)(\(currentFlow[currentStep+1])) to \(self.currentStep)(\(self.currentCommand))")
+
+
 
         //to
         switch self.currentCommand {
+            case .OfferSelectOrCreateNetwork:
+                //if this screen was skipped originally, rewind once more
+                if (!self.userSelectedToSetupMesh!) {
+                    self.rewindFlow()
+                    return
+                } else {
+                    self.selectedNetworkMeshInfo = nil
+                }
+            case .OfferSetupStandAloneOrWithNetwork:
+                self.userSelectedToSetupMesh = nil
             case .GetCommissionerDeviceInfo:
                 self.commissionerDevice = nil
             case .GetUserNetworkSelection:
@@ -383,7 +424,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             self.currentFlow = internetConnectedPreflow
             log("setting gateway flow")
         } else {
-            self.currentFlow = joinerFlow
+            self.currentFlow = xenonJoinerFlow
             log("setting joiner flow")
         }
         self.runCurrentStep()
@@ -1718,7 +1759,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.log("device was successfully claimed")
         if (self.currentFlow == self.ethernetFlow || self.currentFlow == self.wifiFlow || self.currentFlow == self.cellularFlow) {
             self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetCompleted)
-        } else if (self.currentFlow == self.joinerFlow) {
+        } else if (self.currentFlow == self.joinerFlow || self.currentFlow == self.xenonJoinerFlow) {
             self.delegate.meshSetupDidEnterState(state: .JoiningNetworkCompleted)
         }
         self.stepComplete(.CheckDeviceGotClaimed)
@@ -1727,12 +1768,12 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
     //MARK: ShowGatewayInfo
     private func stepShowInfo() {
-        //adding additional devices to same network
-        if (self.selectedNetworkMeshInfo != nil) {
+        //adding additional xenon devices to same network
+        if (self.selectedNetworkMeshInfo != nil && self.cellularFlow == xenonJoinerFlow) {
             self.stepComplete(.ShowInfo)
             return;
         }
-        self.delegate.meshSetupDidRequestToShowInfo(gatewayFlow: self.targetDevice.hasActiveInternetInterface())
+        self.delegate.meshSetupDidRequestToShowInfo(gatewayFlow: (self.currentFlow == wifiFlow || self.currentFlow == ethernetFlow || self.currentFlow == cellularFlow))
     }
 
     func setInfoDone() {

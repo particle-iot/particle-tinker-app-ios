@@ -404,7 +404,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             DispatchQueue.main.async {
                 if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
                     let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
-                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: false, deviceType: self.flowManager.targetDevice.type!)
+                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.userSelectedToSetupMesh, deviceType: self.flowManager.targetDevice.type!)
                     self.embededNavigationController.pushViewController(infoVC, animated: true)
                 }
             }
