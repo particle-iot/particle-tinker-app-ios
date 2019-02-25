@@ -20,11 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        ParticleLogger.setLoggerLevel(.complete)
+        ParticleLogger.setLoggerLevel(.debug, forControl: "ParticleCloud") //ignore spam from complete
+        ParticleLogger.setLoggerLevel(.debug, forControl: "ParticleDevice") //ignore spam from complete
         #if DEBUG
-            ParticleLogger.setLoggerLevel(.debug)
-            ParticleLogger.setIgnoreControls(["ParticleDevice", "BluetoothHandshakeManager", "BluetoothConnectionManager", "BluetoothConnection", "Particle.DeviceListViewController"])
+            ParticleLogger.setLoggerLevel(.info, forControl: "Particle.DeviceListViewController") //ignore some noise after device list is loaded
+            ParticleLogger.setIgnoreControls(["HandshakeManager", "MeshSetupBluetoothConnectionManager", "BluetoothConnection"])
         #endif
-    
+
         LogList.startLogging()
         LogList.clearStaleLogs()
 
