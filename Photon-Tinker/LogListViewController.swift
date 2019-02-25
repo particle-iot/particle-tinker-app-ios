@@ -7,6 +7,9 @@ import UIKit
 import Crashlytics
 
 class LogList {
+
+    static let FILE_COUNT = 10
+
     static var file: FileHandle?
 
     static func startLogging() {
@@ -56,7 +59,7 @@ class LogList {
     static func clearAllLogs() {
         let fileManager = FileManager.default
 
-        let fileURLs = getLogs()
+        let fileURLs = getLogURLs()
         for i in 0 ..< fileURLs.count {
             try? fileManager.removeItem(at: fileURLs[i])
         }
@@ -68,16 +71,36 @@ class LogList {
 
     static func clearStaleLogs() {
         let fileManager = FileManager.default
-        let fileURLs = getLogs()
+        let fileURLs = getLogURLs()
 
-        if (fileURLs.count > 10) {
-            for i in 10..<fileURLs.count {
+        if (fileURLs.count > FILE_COUNT) {
+            for i in FILE_COUNT..<fileURLs.count {
                 try? fileManager.removeItem(at: fileURLs[i])
             }
         }
     }
 
-    static func getLogs() -> [URL] {
+    static func getLogs() -> [(URL, Int)] {
+        let urls = getLogURLs()
+
+        let fileManager = FileManager.default
+
+        var output = [(URL, Int)]()
+
+        for i in 0..<urls.count {
+            let url = urls[i]
+            if let optionalSize = try? FileManager.default.attributesOfItem(atPath: urls[i].path)[.size] as? Int, let size = optionalSize {
+                output.append((urls[i], size/1024))
+            } else {
+                output.append((urls[i], 0))
+            }
+
+        }
+
+        return output
+    }
+
+    static func getLogURLs() -> [URL] {
         let fileManager = FileManager.default
 
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -87,6 +110,7 @@ class LogList {
             }
             return fileURLs
         }
+
         return []
     }
 }
@@ -94,10 +118,17 @@ class LogList {
 class LogListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    var logs : [URL] = []
+    var logs : [(URL, Int)] = []
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 60
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -116,14 +147,37 @@ class LogListViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:DeviceTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "log_cell") as! DeviceTableViewCell
+        cell.deviceNameLabel.text = getCellTitle(filename: logs[indexPath.row].0.deletingPathExtension().lastPathComponent)
         if (indexPath.row == 0) {
-            cell.deviceNameLabel.text = "Current session"
+            cell.deviceTypeLabel.text = "\(logs[indexPath.row].1) KB - Current session"
         } else {
-            cell.deviceNameLabel.text = logs[indexPath.row].lastPathComponent
+
+            cell.deviceTypeLabel.text = "\(logs[indexPath.row].1) KB"
         }
+
+
         return cell
     }
 
+
+    private func getCellTitle(filename: String) -> String {
+        var fileNameDateFormatter = DateFormatter()
+        fileNameDateFormatter.dateFormat = "yyyy-MM-dd HH-mm"
+
+        var cellTitleDateFormatter = DateFormatter()
+        cellTitleDateFormatter.dateStyle = .short
+        cellTitleDateFormatter.timeStyle = .none
+
+        var cellTitleTimeFormatter = DateFormatter()
+        cellTitleTimeFormatter.dateStyle = .none
+        cellTitleTimeFormatter.timeStyle = .short
+
+        if let date = fileNameDateFormatter.date(from: filename) {
+            return "\(cellTitleTimeFormatter.string(from: date)) \(cellTitleDateFormatter.string(from: date))"
+        } else {
+            return filename
+        }
+    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
