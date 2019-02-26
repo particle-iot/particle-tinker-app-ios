@@ -66,6 +66,7 @@
 
 "MeshSetup.GetReady.SOMWifiCheckboxText" = "I have attached the Wi-Fi and bluetooth antennas and see that the device is blinking blue";
 "MeshSetup.GetReady.SOMCellularCheckboxText" = "I have attached the cellular and bluetooth antennas and see that the device is blinking blue";
+"MeshSetup.GetReady.SOMBluetoothCheckboxText" = "I have attached the bluetooth antenna and see that the device is blinking blue";
 
 
 

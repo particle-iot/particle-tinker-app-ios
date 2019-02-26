@@ -164,7 +164,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                 checkboxView?.isHidden = false
             case .xSeries:
                 initializeVideoPlayerWithVideo(videoFileName: "x_power_on")
-                checkboxView?.isHidden = true
+
+                checkboxLabel?.text = MeshSetupStrings.GetReady.SOMBluetoothCheckboxText
+                checkboxView?.isHidden = false
             default: //.xenon
                 initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
 
@@ -203,9 +205,20 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         replacePlaceHolderStrings()
 
         switch (self.deviceType ?? .xenon) {
-            case .argon, .aSeries:
+            case .argon:
+                checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
-            case .boron, .bSeries:
+            case .aSeries:
+                checkboxLabel?.text = MeshSetupStrings.GetReady.SOMWifiCheckboxText
+                checkboxView?.isHidden = false
+            case .boron:
+                checkboxLabel?.text = MeshSetupStrings.GetReady.CellularCheckboxText
+                checkboxView?.isHidden = false
+            case .bSeries:
+                checkboxLabel?.text = MeshSetupStrings.GetReady.SOMCellularCheckboxText
+                checkboxView?.isHidden = false
+            case .xSeries:
+                checkboxLabel?.text = MeshSetupStrings.GetReady.SOMBluetoothCheckboxText
                 checkboxView?.isHidden = false
             default: //.xenon
                 checkboxView?.isHidden = true
@@ -218,7 +231,15 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         titleLabel.text = self.isSOM ? MeshSetupStrings.GetReady.SOMEthernetTitle : MeshSetupStrings.GetReady.EthernetTitle
 
         replacePlaceHolderStrings()
-        checkboxView?.isHidden = true
+
+        switch (self.deviceType ?? .xenon) {
+            case .aSeries, .bSeries, .xSeries:
+                checkboxLabel?.text = MeshSetupStrings.GetReady.SOMBluetoothCheckboxText
+                checkboxView?.isHidden = false
+            default:
+                checkboxView?.isHidden = true
+        }
+
     }
 
 
