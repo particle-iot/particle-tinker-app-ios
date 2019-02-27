@@ -419,13 +419,14 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.currentStep = 0
 
         if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkMeshInfo != nil) {
-            self.log("_!_!_!_!_!_!_ we should never get to this state!!!!")
+            self.currentFlow = xenonJoinerFlow
+            self.log("setting xenon joiner flow for argon/boron device")
         } else if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkMeshInfo == nil) {
             self.currentFlow = internetConnectedPreflow
             log("setting gateway flow")
         } else {
             self.currentFlow = xenonJoinerFlow
-            log("setting joiner flow")
+            log("setting xenon joiner flow")
         }
         self.runCurrentStep()
     }
@@ -765,8 +766,9 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 //for this release we are not supporting multiple gateways in the same network, so if user has scanned
                 //gateway device for "add one more device" option, we stop right here.
                 if (self.targetDevice.hasActiveInternetInterface() && self.selectedNetworkMeshInfo != nil) {
-                    self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
-                    return
+                    self.stepComplete(.CheckTargetDeviceHasNetworkInterfaces)
+//                    self.fail(withReason: .CannotAddGatewayDeviceAsJoiner, severity: .Fatal)
+//                    return
                 } else {
                     self.stepComplete(.CheckTargetDeviceHasNetworkInterfaces)
                 }
@@ -1769,7 +1771,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //MARK: ShowGatewayInfo
     private func stepShowInfo() {
         //adding additional xenon devices to same network
-        if (self.selectedNetworkMeshInfo != nil && self.cellularFlow == xenonJoinerFlow) {
+        if (self.selectedNetworkMeshInfo != nil && self.currentFlow == xenonJoinerFlow) {
             self.stepComplete(.ShowInfo)
             return;
         }
