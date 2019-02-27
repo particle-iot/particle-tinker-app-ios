@@ -50,7 +50,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>No usage</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Particle app uses the camera to conveniently scan ICCID numbers from your SIM cards to ease the Electron setup process</string>
+	<string>Particle app uses the camera to conveniently scan stickers to ease the setup process</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Gotham-Book.otf</string>
