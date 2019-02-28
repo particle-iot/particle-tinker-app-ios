@@ -144,7 +144,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch (indexPath as NSIndexPath).section
         {
         case 0: // docs
-            SEGAnalytics.shared().track("Tinker: Go to documentation")
+            SEGAnalytics.shared().track("Tinker_GoToDocumentation")
 
             
             switch (indexPath as NSIndexPath).row
@@ -165,7 +165,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         
             
         case 1: // Support
-            SEGAnalytics.shared().track("Tinker: Go to support")
+            SEGAnalytics.shared().track("Tinker_GoToSupport")
 
             switch (indexPath as NSIndexPath).row
             {
@@ -181,7 +181,7 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             
         default:
-            SEGAnalytics.shared().track("Tinker: Tutorials reset")
+            SEGAnalytics.shared().track("Tinker_TutorialsReset")
             ParticleUtils.resetTutorialWasDisplayed()
             DispatchQueue.main.async {
                 RMessage.showNotification(withTitle: "Tutorials reset", subtitle: "App tutorials will now be displayed once again", type: .success, customTypeName: nil, callback: nil)

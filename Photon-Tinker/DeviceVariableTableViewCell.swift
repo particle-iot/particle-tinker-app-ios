@@ -57,7 +57,7 @@ internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
 
         
         self.activityIndicator.startAnimating()
-        SEGAnalytics.shared().track("Device Inspector: variable read")
+        SEGAnalytics.shared().track("DeviceInspector_VariableRead")
         self.resultLabel.isHidden = true
         self.device?.getVariable(variableName!, completion: { (resultObj:Any?, error:Error?) in
             

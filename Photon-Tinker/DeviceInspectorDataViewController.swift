@@ -198,7 +198,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             
             UIPasteboard.general.string = value
             RMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
-            SEGAnalytics.shared().track("Device Inspector: variable copied")
+            SEGAnalytics.shared().track("DeviceInspector_VariableCopied")
         }
         
         
