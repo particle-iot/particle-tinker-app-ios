@@ -284,9 +284,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     
     func refreshData() {
         self.device.refresh({[weak self] (err: Error?) in
-            
             SEGAnalytics.shared().track("Device Inspector: refreshed data")
-
 
             if (err == nil) {
                 if let s = self {

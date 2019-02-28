@@ -681,8 +681,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.deselectRow(at: indexPath, animated: true)
         let device = self.devices[(indexPath as NSIndexPath).row]
 
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Selected device: %@", withParameters: getVaList([device]))
-
         tableView.deselectRow(at: indexPath, animated: false)
         
         //                println("Tapped on \(self.devices[indexPath.row].description)")
