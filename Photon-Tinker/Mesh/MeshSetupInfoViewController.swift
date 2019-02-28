@@ -14,10 +14,10 @@ class MeshSetupInfoViewController: MeshSetupViewController {
 
     @IBOutlet weak var continueButton: MeshSetupButton!
 
-    internal var setupMesh:Bool!
+    internal var setupMesh:Bool?
     internal var callback: (() -> ())!
 
-    func setup(didFinishScreen: @escaping () -> (), setupMesh:Bool, networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
+    func setup(didFinishScreen: @escaping () -> (), setupMesh:Bool?, networkName: String? = nil, deviceType: ParticleDeviceType? = nil, deviceName: String? = nil) {
         self.callback = didFinishScreen
 
         self.networkName = networkName

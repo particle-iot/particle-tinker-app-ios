@@ -7,7 +7,7 @@ import UIKit
 
 class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardable, UITableViewDelegate, UITableViewDataSource {
 
-    static var nibName: String {
+    class var nibName: String {
         return "MeshSetupNetworkListView"
     }
 

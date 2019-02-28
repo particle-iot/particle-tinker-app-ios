@@ -404,7 +404,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             DispatchQueue.main.async {
                 if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
                     let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
-                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: false, deviceType: self.flowManager.targetDevice.type!)
+                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.userSelectedToSetupMesh, deviceType: self.flowManager.targetDevice.type!)
                     self.embededNavigationController.pushViewController(infoVC, animated: true)
                 }
             }
@@ -542,7 +542,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     //MARK: Scan networks
-    private func showScanNetworks() {
+    private func showSelectNetwork() {
         DispatchQueue.main.async {
             if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
                 //do nothing
@@ -556,9 +556,32 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+    private func showSelectOrCreateNetwork() {
+        DispatchQueue.main.async {
+            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+                //do nothing
+            } else {
+                if (!self.rewindTo(MeshSetupSelectOrCreateNetworkViewController.self)) {
+                    let networksVC = MeshSetupSelectOrCreateNetworkViewController.loadedViewController()
+                    networksVC.setup(didSelectNetwork: self.didSelectOptionalNetwork)
+                    self.embededNavigationController.pushViewController(networksVC, animated: true)
+                }
+            }
+        }
+    }
 
-    func didSelectNetwork(network: MeshSetupNetworkCellInfo) {
-        flowManager.setSelectedNetwork(selectedNetworkExtPanID: network.extPanID)
+    func didSelectNetwork(network: MeshSetupNetworkCellInfo?) {
+        guard network != nil else {
+            log("Selected empty network for joiner flow")
+            return
+        }
+
+        flowManager.setSelectedNetwork(selectedNetworkExtPanID: network!.extPanID)
+    }
+
+
+    func didSelectOptionalNetwork(network: MeshSetupNetworkCellInfo?) {
+        flowManager.setOptionalSelectedNetwork(selectedNetworkExtPanID: network?.extPanID)
     }
 
 
@@ -582,6 +605,32 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             }
         }
     }
+
+    //
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo]) {
+        NSLog("scan complete")
+//
+        //if by the time this returned, user has already selected the network, ignore the results of last scan
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+            vc.setNetworks(networks: availableNetworks)
+
+            //if no networks found = force instant rescan
+            if (availableNetworks.count == 0) {
+                rescanNetworks()
+            } else {
+                //rescan in 3seconds
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    [weak self] in
+                    //only rescan if user hasn't made choice by now
+                    self?.rescanNetworks()
+                }
+            }
+        }
+    }
+
+
+
+
 
     private func rescanNetworks() {
         if self.flowManager.selectedNetworkMeshInfo == nil {
@@ -727,6 +776,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+
+
+
     func didFinishJoinNetworkScreen() {
         self.flowManager.continueSetup()
     }
@@ -849,49 +901,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-    private func showSelectOrCreateNetwork() {
-//        DispatchQueue.main.async {
-//            let networksVC = MeshSetupSelectOrCreateNetworkViewController.loadedViewController()
-//            networksVC.setup(didSelectGatewayNetwork: self.didSelectGatewayNetwork)
-//            self.embededNavigationController.pushViewController(networksVC, animated: true)
-//        }
-    }
-//
-//
-//    func didSelectGatewayNetwork(network: MeshSetupNetworkCellInfo?) {
-//        self.didSelectNetwork = true
-//        self.selectedNetwork = network
-//
-//        self.flowManager.setSelectOrCreateNetwork(selectedNetwork: selectedNetwork)
-//    }
-//
-//
-//
-//
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo]) {
-//        NSLog("scan complete")
-//
-//        //if by the time this returned, user has already selected the network, ignore the results of last scan
-//        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
-//            vc.setNetworks(networks: availableNetworks)
-//
-//            //if no networks found = force instant rescan
-//            if (availableNetworks.count == 0) {
-//                rescanNetworks()
-//            } else {
-//                //rescan in 3seconds
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-//                    [weak self] in
-//                    //only rescan if user hasn't made choice by now
-//                    self?.rescanNetworks()
-//                }
-//            }
-//        }
-    }
-
-
-
-
     func meshSetupDidRequestToEnterNewNetworkNameAndPassword() {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupCreateNetworkNameViewController.self)) {
@@ -994,8 +1003,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             case .TargetDeviceScanningForWifiNetworks:
                 showScanWifiNetworks()
             case .TargetDeviceScanningForNetworks:
-                showScanNetworks()
-            case .TargetGatewayDeviceScanningForNetworks:
+                showSelectNetwork()
+            case .TargetInternetConnectedDeviceScanningForNetworks:
                 showSelectOrCreateNetwork()
 
 

@@ -37,7 +37,13 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         let status = AVCaptureDevice.authorizationStatus(for: .video)
 
         if status == .authorized {
-            initCaptureSession()
+            if (Thread.isMainThread) {
+                initCaptureSession()
+            } else {
+                DispatchQueue.main.async {
+                    self.initCaptureSession()
+                }
+            }
         } else if status == .notDetermined {
             AVCaptureDevice.requestAccess(for: .video) { (Bool) in
                 self.evalPermissions()

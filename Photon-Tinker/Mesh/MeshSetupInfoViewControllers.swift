@@ -7,6 +7,35 @@ import Foundation
 
 
 
+
+class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboardable {
+    static var nibName: String {
+        return "MeshSetupInfoView"
+    }
+
+    //if we are setting up gateway device, user will be asked to select if he wants to setup mesh
+    //for xenons this will be nil.
+    override var allowBack: Bool {
+        return setupMesh != nil
+    }
+
+    override func setContent() {
+        titleLabel.text = MeshSetupStrings.JoinerInfo.Title
+
+        self.textLabelValues = [
+            MeshSetupStrings.JoinerInfo.Text1,
+            MeshSetupStrings.JoinerInfo.Text2,
+            MeshSetupStrings.JoinerInfo.Text3
+        ]
+
+        continueButton.setTitle(MeshSetupStrings.JoinerInfo.Button, for: .normal)
+
+        setLabelValues()
+    }
+}
+
+
+
 class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {
         return "MeshSetupInfoView"
@@ -30,7 +59,7 @@ class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboa
     }
 
     override func setContent() {
-        if (self.setupMesh) {
+        if (self.setupMesh!) {
             showGatewayMeshContent()
         } else {
             showGatewayStandAloneContent()
@@ -65,30 +94,6 @@ class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboa
 
 
 
-class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboardable {
-    static var nibName: String {
-        return "MeshSetupInfoView"
-    }
-
-    override var allowBack: Bool {
-        return false
-    }
-
-    override func setContent() {
-        titleLabel.text = MeshSetupStrings.JoinerInfo.Title
-
-        self.textLabelValues = [
-            MeshSetupStrings.JoinerInfo.Text1,
-            MeshSetupStrings.JoinerInfo.Text2,
-            MeshSetupStrings.JoinerInfo.Text3
-        ]
-
-        continueButton.setTitle(MeshSetupStrings.JoinerInfo.Button, for: .normal)
-
-        setLabelValues()
-    }
-}
-
 
 class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {
@@ -100,7 +105,7 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
     }
 
     override func setContent() {
-        if (self.setupMesh) {
+        if (self.setupMesh!) {
             showGatewayMeshContent()
         } else {
             showGatewayStandAloneContent()
@@ -148,7 +153,7 @@ class MeshSetupInfoWifiViewController: MeshSetupInfoViewController, Storyboardab
     }
 
     override func setContent() {
-        if (self.setupMesh) {
+        if (self.setupMesh!) {
             showGatewayMeshContent()
         } else {
             showGatewayStandAloneContent()

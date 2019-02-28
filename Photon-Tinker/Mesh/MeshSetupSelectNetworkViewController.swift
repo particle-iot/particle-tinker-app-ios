@@ -7,14 +7,14 @@ import UIKit
 
 class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
 
-    private var networks:[MeshSetupNetworkCellInfo]?
-    private var callback: ((MeshSetupNetworkCellInfo) -> ())!
+    internal var networks:[MeshSetupNetworkCellInfo]?
+    internal var callback: ((MeshSetupNetworkCellInfo?) -> ())!
 
     override var rewindFlowOnBack: Bool {
         return true
     }
 
-    func setup(didSelectNetwork: @escaping (MeshSetupNetworkCellInfo) -> ()) {
+    func setup(didSelectNetwork: @escaping (MeshSetupNetworkCellInfo?) -> ()) {
         self.callback = didSelectNetwork
     }
 
@@ -31,6 +31,8 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
 
         self.stopScanning()
     }
+
+
 
     override func resume(animated: Bool) {
         super.resume(animated: animated)

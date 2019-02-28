@@ -79,7 +79,7 @@ internal enum MeshSetupFlowCommand {
     case EnsureHasInternetAccess
     case CheckDeviceGotClaimed
     case StopTargetDeviceListening
-    //case OfferSelectOrCreateNetwork
+    case OfferSelectOrCreateNetwork
     case ChooseSubflow
 
 
@@ -94,7 +94,7 @@ enum MeshSetupFlowState {
     case TargetDeviceReady
 
     case TargetDeviceScanningForNetworks
-    case TargetGatewayDeviceScanningForNetworks
+    case TargetInternetConnectedDeviceScanningForNetworks
     case TargetDeviceScanningForWifiNetworks
 
     case TargetDeviceConnectingToInternetStarted

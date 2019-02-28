@@ -121,6 +121,7 @@ class MeshSetupStrings {
 
         static let SOMWifiCheckboxText = "MeshSetup.GetReady.SOMWifiCheckboxText".meshLocalized()
         static let SOMCellularCheckboxText = "MeshSetup.GetReady.SOMCellularCheckboxText".meshLocalized()
+        static let SOMBluetoothCheckboxText = "MeshSetup.GetReady.SOMBluetoothCheckboxText".meshLocalized()
     }
 
     struct GetCommissionerReady {
@@ -296,8 +297,6 @@ class MeshSetupStrings {
     struct CreateOrSelectNetwork {
         static let Title = "MeshSetup.CreateOrSelectNetwork.Title".meshLocalized()
         static let CreateNetwork = "MeshSetup.CreateOrSelectNetwork.CreateNetwork".meshLocalized()
-        static let DevicesSingular = "MeshSetup.CreateOrSelectNetwork.DevicesSingular".meshLocalized()
-        static let DevicesPlural = "MeshSetup.CreateOrSelectNetwork.DevicesPlural".meshLocalized()
     }
 
 

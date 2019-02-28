@@ -5,92 +5,74 @@
 
 import UIKit
 
-class MeshSetupSelectOrCreateNetworkViewController: MeshSetupNetworkListViewController {
+class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewController {
 
-    private var networks:[MeshSetupNetworkCellInfo]?
-    private var callback: ((MeshSetupNetworkCellInfo?) -> ())!
+    override class var nibName: String {
+        return "MeshSetupNetworkListWithCreateView"
+    }
 
-    func setup(didSelectGatewayNetwork: @escaping (MeshSetupNetworkCellInfo?) -> ()) {
-        self.callback = didSelectGatewayNetwork
+    @IBOutlet weak var createNetworkButton: MeshSetupAlternativeButton!
+    
+
+
+
+    override func setStyle() {
+        super.setStyle()
+        createNetworkButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
     }
 
     override func setContent() {
         titleLabel.text = MeshSetupStrings.CreateOrSelectNetwork.Title
+        createNetworkButton.setTitle(MeshSetupStrings.CreateOrSelectNetwork.CreateNetwork, for: .normal)
     }
 
-    func setNetworks(networks: [MeshSetupNetworkCellInfo]) {
-        var networks = networks
-        networks.sort { info, info2 in
-            return info.name < info2.name
+    @IBAction func createNetworkButtonTapped(_ sender: Any) {
+        self.callback(nil)
+
+        ParticleSpinner.show(view)
+        fadeContent()
+        isBusy = true
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: animated)
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        super.tableView(tableView, didSelectRowAt: indexPath)
+
+        ParticleSpinner.show(view)
+        fadeContent()
+        isBusy = true
+    }
+
+    internal func fadeContent() {
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.titleLabel.alpha = 0.5
+            self.networksTableView.alpha = 0.5
+
+            self.createNetworkButton.alpha = 0.5
         }
-        self.networks = networks
-
-        self.stopScanning()
     }
 
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.titleLabel.alpha = 1
+                self.networksTableView.alpha = 1
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (networks?.count ?? 0) + 1
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: MeshCell!
-        if (indexPath.row == 0) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
-
-            cell.cellTitleLabel.text = MeshSetupStrings.CreateOrSelectNetwork.CreateNetwork
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        } else {
-            let network = networks![indexPath.row-1]
-
-            if (network.userOwned) {
-                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupMeshNetworkCell") as! MeshCell
-
-                var devicesString = (network.deviceCount! == 1) ? MeshSetupStrings.CreateOrSelectNetwork.DevicesSingular : MeshSetupStrings.CreateOrSelectNetwork.DevicesPlural
-                devicesString = devicesString.replacingOccurrences(of: "{{0}}", with: String(network.deviceCount!))
-
-                cell.cellSubtitleLabel.text = devicesString
-                cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
-            } else {
-                cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
+                self.createNetworkButton.alpha = 1
             }
-
-            cell.cellTitleLabel.text = network.name
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        }
-
-        let cellHighlight = UIView()
-        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
-        cell.selectedBackgroundView = cellHighlight
-
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-
-        cell.accessoryView = nil
-        cell.accessoryType = .disclosureIndicator
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        tableView.isUserInteractionEnabled = false
-
-        if let cell = tableView.cellForRow(at: indexPath) {
-            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-            activityIndicator.color = MeshSetupStyle.NetworkJoinActivityIndicatorColor
-            activityIndicator.startAnimating()
-
-            cell.accessoryView = activityIndicator
-        }
-
-        scanActivityIndicator.stopAnimating()
-
-
-        if (indexPath.row == 0) {
-            callback(nil)
         } else {
-            callback(networks![indexPath.row-1])
+            self.titleLabel.alpha = 1
+            self.networksTableView.alpha = 1
+
+            self.createNetworkButton.alpha = 1
+
+            self.view.setNeedsDisplay()
         }
     }
 }
