@@ -9,7 +9,32 @@
 import Foundation
 
 class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, ParticleDeviceDelegate {
-    
+
+    @IBOutlet weak var deviceOnlineIndicatorImageView: UIImageView!
+    @IBOutlet weak var deviceNameLabel: UILabel!
+
+    @IBOutlet weak var modeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var deviceEventsContainerView: UIView!
+    @IBOutlet weak var deviceDataContainerView: UIView!
+    @IBOutlet weak var deviceInfoContainerView: UIView!
+
+    @IBOutlet weak var infoContainerView: UIView!
+    @IBOutlet weak var moreActionsButton: UIButton!
+
+    var infoVC: DeviceInspectorInfoViewController?
+    var dataVC: DeviceInspectorDataViewController?
+    var eventsVC: DeviceInspectorEventsViewController?
+
+    var renameDialog: ZAlertView?
+    var flashedTinker: Bool = false
+
+    var device: ParticleDevice!
+
+    func setup(device: ParticleDevice) {
+        self.device = device
+        self.device.delegate = self
+    }
+
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -25,17 +50,15 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .multipleChoice)
         
 
-        if (self.device!.type == .photon || self.device!.type == .electron) {
+        if (self.device.type == .photon || self.device.type == .electron) {
             dialog.addButton("Reflash Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
                 dialog.dismiss()
                 self.reflashTinker()
 
             }
         }
-        
-        
+
         dialog.addButton("Rename device", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
-            
             dialog.dismissWithDuration(0.01)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
                 self.renameDialog = ZAlertView(title: "Rename device", message: nil, isOkButtonLeft: true, okButtonText: "Rename", cancelButtonText: "Cancel",
@@ -49,9 +72,9 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
                             alertView.dismiss()
                         }
                 )
-                self.renameDialog!.addTextField("name", placeHolder: self.device!.name ?? "")
+                self.renameDialog!.addTextField("name", placeHolder: self.device.name ?? "")
                 let tf = self.renameDialog!.getTextFieldWithIdentifier("name")
-                tf?.text = self.device?.name ?? self.getRandomDeviceName()
+                tf?.text = self.device.name ?? ParticleUtils.getRandomDeviceName()
                 tf?.delegate = self
                 tf?.tag = 100
 
@@ -72,10 +95,10 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         dialog.addButton("Signal for 10sec", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
             dialog.dismiss()
             
-            self.device?.signal(true, completion: nil)
+            self.device.signal(true, completion: nil)
             let delayTime = DispatchTime.now() + Double(Int64(10 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                self.device?.signal(false, completion: nil)
+                self.device.signal(false, completion: nil)
             }
             
             
@@ -96,18 +119,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         dialog.show()
     }
 
-    //todo: move this to setup lib?
-    private let randomNames = ["aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "maker", "splendid", "sparkling", "dentist", "doctor", "green", "easter", "ferret", "gerbil", "hacker", "hamster", "wizard", "hobbit", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "burrito", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie"]
-    func getRandomDeviceName() -> String {
-        return "\(randomNames.randomElement()!)_\(randomNames.randomElement()!)"
-    }
 
-    
-    @IBOutlet weak var deviceOnlineIndicatorImageView: UIImageView!
-    @IBOutlet weak var deviceNameLabel: UILabel!
-    
-    var renameDialog : ZAlertView?
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.tag == 100 {
             self.renameDevice(textField.text)
@@ -120,7 +132,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     
 
     func renameDevice(_ newName : String?) {
-        self.device?.rename(newName!, completion: {[weak self] (error : Error?) in
+        self.device.rename(newName!, completion: {[weak self] (error : Error?) in
             
             if error == nil {
                 if let s = self {
@@ -135,13 +147,6 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     }
     
     @IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
-        
-        
-        
-//        [UIView transitionWithView:self.view duration:0.3 options: UIViewAnimationOptionTransitionCrossDissolve animations: ^ {
-//            [self.view addSubview:blurView];
-//            } completion:nil];
-//        
         view.endEditing(true)
         
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
@@ -165,7 +170,6 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         }
         
         // since the embed segue already triggers the VC lifecycle functions - this is an override to re-call them on change of segmented view to trigger relevant inits or tutorial boxes
-        
         if (sender.selectedSegmentIndex == 0) // info
         {
             self.infoVC!.showTutorial()
@@ -189,15 +193,8 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         
     }
     
-    @IBOutlet weak var modeSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var deviceEventsContainerView: UIView!
-    @IBOutlet weak var deviceDataContainerView: UIView!
-    @IBOutlet weak var deviceInfoContainerView: UIView!
-    
-    @objc var device : ParticleDevice?
-    
-//    var frameView: UIView!
-    
+
+
     override func viewDidLoad() {
 
         SEGAnalytics.shared().track("Device Inspector: started")
@@ -221,10 +218,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     override func viewDidAppear(_ animated: Bool) {
         showTutorial()
     }
-    
-    var infoVC : DeviceInspectorInfoViewController?
-    var dataVC : DeviceInspectorDataViewController?
-    var eventsVC : DeviceInspectorEventsViewController?
+
     
     
     // happens right as Device Inspector is displayed as all VCs are in an embed segue
@@ -259,28 +253,27 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
                 
             }
         }
-        
     }
-    
+
+
+
+
     override func viewWillAppear(_ animated: Bool) {
-        self.deviceNameLabel.text = self.device?.name ?? "<no name>"
-        self.device!.delegate = self
-        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
+        self.refreshData()
+
+        self.deviceNameLabel.text = self.device.name ?? "<no name>"
+        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
     }
     
-    var flashedTinker : Bool = false
-    
+
     func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
-        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device!.connected, flashing: self.device!.isFlashing)
+        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
         if self.flashedTinker && event == .flashSucceeded {
-            
             SEGAnalytics.shared().track("Device Inspector: reflash Tinker success")
             DispatchQueue.main.async {
                 RMessage.showNotification(withTitle: "Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .success, customTypeName: nil, callback: nil)
             }
             self.flashedTinker = false
-//            self.refreshData()
-            
         }
         
         self.refreshData()
@@ -290,15 +283,16 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     
     
     func refreshData() {
-        self.device?.refresh({[weak self] (err: Error?) in
+        self.device.refresh({[weak self] (err: Error?) in
             
             SEGAnalytics.shared().track("Device Inspector: refreshed data")
-            // test what happens when device goes offline and refresh is triggered
+
+
             if (err == nil) {
-                
                 if let s = self {
-                    s.viewWillAppear(false)
-                    
+                    s.deviceNameLabel.text = s.device.name ?? "<no name>"
+                    ParticleUtils.animateOnlineIndicatorImageView(s.deviceOnlineIndicatorImageView, online: s.device.connected, flashing: s.device.isFlashing)
+
                     if let info = s.infoVC {
                         info.device = s.device
                         info.updateDeviceInfoDisplay()
@@ -325,12 +319,6 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     
     // 2
     func reflashTinker() {
-        //TODO: this is crashing for CORE devices
-
-//        if !self.device!.connected {
-//            TSMessage.showNotificationWithTitle("Device offline", subtitle: "Device must be online to be flashed", type: .Error)
-//            return
-//        }
         SEGAnalytics.shared().track("Device Inspector: reflash Tinker start")
         
         func flashTinkerBinary(_ binaryFilename : String?)
@@ -340,7 +328,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
             let binary = try? Data(contentsOf: URL(fileURLWithPath: path!))
             let filesDict = ["tinker.bin" : binary!]
             self.flashedTinker = true
-            self.device!.flashFiles(filesDict, completion: { [weak self] (error:Error?) -> Void in
+            self.device.flashFiles(filesDict, completion: { [weak self] (error:Error?) -> Void in
                 if let e=error
                 {
                     if let s = self {
@@ -353,13 +341,13 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         }
         
         
-        switch (self.device!.type)
+        switch (self.device.type)
         {
         case .core:
             //                                        SEGAnalytics.sharedAnalytics().track("Tinker: Reflash Tinker",
             SEGAnalytics.shared().track("Tinker: Reflash Tinker", properties: ["device":"Core"])
             self.flashedTinker = true
-            self.device!.flashKnownApp("tinker", completion: { (error:Error?) -> Void in
+            self.device.flashKnownApp("tinker", completion: { (error:Error?) -> Void in
                 if let e=error
                 {
                     RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
@@ -408,9 +396,6 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     }
 
 
-    @IBOutlet weak var infoContainerView: UIView!
-    
-    @IBOutlet weak var moreActionsButton: UIButton!
     
     func showTutorial() {
         

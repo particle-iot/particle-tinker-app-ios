@@ -166,11 +166,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "deviceInspector" {
             if let vc = segue.destination as? DeviceInspectorViewController {
                 let indexPath = sender as! IndexPath
-                vc.device = self.devices[indexPath.row]
+                vc.setup(device: self.devices[indexPath.row])
 
                 let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
 
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - idx: %i device: %@", withParameters: getVaList([indexPath.row, "\(vc.device)"]))
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - idx: %i device: %@", withParameters: getVaList([indexPath.row, "\(self.devices[indexPath.row])"]))
 
                 SEGAnalytics.shared().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
                 

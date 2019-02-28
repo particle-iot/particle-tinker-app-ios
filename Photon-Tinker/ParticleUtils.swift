@@ -20,6 +20,11 @@ class ParticleUtils: NSObject {
     static var particleRegularFont = UIFont(name: "Gotham-book", size: 16.0)!
     static var particleBoldFont = UIFont(name: "Gotham-medium", size: 16.0)!
 
+    private static let randomNames = ["aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "maker", "splendid", "sparkling", "dentist", "doctor", "green", "easter", "ferret", "gerbil", "hacker", "hamster", "wizard", "hobbit", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "burrito", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie"]
+    class func getRandomDeviceName() -> String {
+        return "\(randomNames.randomElement()!)_\(randomNames.randomElement()!)"
+    }
+
     class func getDeviceTypeAndImage(_ device : ParticleDevice?) -> (deviceType: String, deviceImage: UIImage) {
         
         
