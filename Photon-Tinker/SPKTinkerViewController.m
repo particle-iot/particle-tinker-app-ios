@@ -106,7 +106,7 @@
     // animate the deviceStateIndicatorImageView
     [ParticleUtils animateOnlineIndicatorImageView:self.deviceStateIndicatorImageView online:self.device.connected flashing:self.device.isFlashing];
     
-    [[SEGAnalytics sharedAnalytics] track:@"Tinker: Tinker screen activity"];
+    [[SEGAnalytics sharedAnalytics] track:@"Tinker_TinkerScreenActivity"];
     if (self.chipView.alpha == 0)
         [ParticleSpinner show:self.view];
 }
@@ -114,7 +114,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[SEGAnalytics sharedAnalytics] track:@"Tinker: Tinker screen activity"];
+    [[SEGAnalytics sharedAnalytics] track:@"Tinker_TinkerScreenActivity"];
 }
 
 
@@ -576,7 +576,7 @@
             if (pinView.pin.selectedFunction == DevicePinFunctionDigitalWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWrite || pinView.pin.selectedFunction == DevicePinFunctionAnalogWriteDAC) {
                 if (result < 0) {
 
-                    [[SEGAnalytics sharedAnalytics] track:@"Tinker: error" properties:@{@"type":@"pin write"}];
+                    [[SEGAnalytics sharedAnalytics] track:@"Tinker_Error" properties:@{@"type":@"pin write"}];
 
                     [RMessage showNotificationWithTitle:@"Device pin error" subtitle:@"There was a problem writing to this pin." type:RMessageTypeError customTypeName:nil callback:nil];
                     [pinView.pin resetValue];
@@ -595,7 +595,7 @@
             [pinView endUpdating];
             
             NSString* errorStr = [NSString stringWithFormat:@"Error communicating with device (%@)",errorMessage];
-            [[SEGAnalytics sharedAnalytics] track:@"Tinker: error" properties:@{@"type":@"communicate with device"}];
+            [[SEGAnalytics sharedAnalytics] track:@"Tinker_Error" properties:@{@"type":@"communicate with device"}];
 
             [RMessage showNotificationWithTitle:@"Device error" subtitle:errorStr type:RMessageTypeError customTypeName:nil callback:nil];
 
