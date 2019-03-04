@@ -11,33 +11,33 @@ import Foundation
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
-
-    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
-    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
-
-    func meshSetupDidRequestToUpdateFirmware()
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
-
-    func didRequestToSelectStandAloneOrMeshSetup()
-
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
-
-    func meshSetupDidRequestCommissionerDeviceInfo()
-
-    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
-    func meshSetupDidRequestToEnterSelectedNetworkPassword()
-    func meshSetupDidRequestToEnterDeviceName()
-    func meshSetupDidRequestToAddOneMoreDevice()
-
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-
-    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
+//
+//    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
+//    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
+//
+//    func meshSetupDidRequestToUpdateFirmware()
+//    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
+//
+//    func didRequestToSelectStandAloneOrMeshSetup()
+//
+//    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+//    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
+//
+//    func meshSetupDidRequestCommissionerDeviceInfo()
+//
+//    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
+//    func meshSetupDidRequestToEnterSelectedNetworkPassword()
+//    func meshSetupDidRequestToEnterDeviceName()
+//    func meshSetupDidRequestToAddOneMoreDevice()
+//
+//    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+//
+//    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+//    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
-    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
+    //func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
 
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
