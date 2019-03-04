@@ -12,7 +12,8 @@ class GetTargetDeviceInfo: MeshSetupStep {
 
     func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
         context.targetDevice = MeshDevice()
-        context.resetFlowFlags()
+
+        self.resetFlowFlags()
 
         self.log("dataMatrix: \(dataMatrix)")
         context.targetDevice.enableEthernetFeature = useEthernet
@@ -23,6 +24,27 @@ class GetTargetDeviceInfo: MeshSetupStep {
         self.stepCompleted()
 
         return nil
+    }
+
+
+    func resetFlowFlags() {
+        //these flags are used to determine gateway subflow .. if they are set, new network is being created
+        //otherwise gateway is joining the existing network so it is important to clear them
+        //we cant use selected network, because that part might be reused if multiple devices are connected to same
+        //network without disconnecting commissioner
+
+        self.context.newNetworkPassword = nil
+        self.context.newNetworkName = nil
+        self.context.newNetworkId = nil
+
+        self.context.apiNetworks = nil
+
+        self.context.userSelectedToLeaveNetwork = nil
+        self.context.userSelectedToUpdateFirmware = nil
+        self.context.userSelectedToSetupMesh = nil
+
+        self.context.pricingInfo = nil
+        self.context.pricingRequirementsAreMet = nil
     }
 }
 

@@ -344,6 +344,16 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
             context.bluetoothReady = true
         } else if (context.bluetoothManager.state == .Disabled) {
             context.bluetoothReady = false
+
+            //if we are waiting for the reply = trigger timeout
+            if let targetDeviceTransceiver = context.targetDevice.transceiver {
+                targetDeviceTransceiver.triggerTimeout()
+            }
+
+            //if we are waiting for the reply = trigger timeout
+            if let commissionerDeviceTransceiver = context.commissionerDevice?.transceiver {
+                commissionerDeviceTransceiver.triggerTimeout()
+            }
         }
     }
 
@@ -398,11 +408,20 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
     }
 
 
+
     func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
         guard type(of: currentStep) == GetTargetDeviceInfo.self else {
             return .IllegalOperation
         }
 
         return (currentStep as! GetTargetDeviceInfo).setTargetDeviceInfo(dataMatrix: dataMatrix, useEthernet: useEthernet)
+    }
+
+    func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == EnsureLatestFirmware.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! EnsureLatestFirmware).setTargetPerformFirmwareUpdate(update: update)
     }
 }

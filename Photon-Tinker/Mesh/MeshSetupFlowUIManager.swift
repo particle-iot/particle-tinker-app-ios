@@ -289,31 +289,31 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.continueSetup()
     }
 
-//    func meshSetupDidRequestToUpdateFirmware() {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupFirmwareUpdateViewController.self)) {
-//                let prepareUpdateFirmwareVC = MeshSetupFirmwareUpdateViewController.loadedViewController()
-//                prepareUpdateFirmwareVC.setup(didPressContinue: self.didSelectToUpdateFirmware)
-//                self.embededNavigationController.pushViewController(prepareUpdateFirmwareVC, animated: true)
-//            }
-//        }
-//    }
-//
-//    func didSelectToUpdateFirmware() {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupFirmwareUpdateProgressViewController.self)) {
-//                let updateFirmwareVC = MeshSetupFirmwareUpdateProgressViewController.loadedViewController()
-//                updateFirmwareVC.setup(didFinishScreen: self.targetDeviceFirmwareUpdateScreenDone)
-//                self.embededNavigationController.pushViewController(updateFirmwareVC, animated: true)
-//            }
-//        }
-//
-//        self.flowManager.setTargetPerformFirmwareUpdate(update: true)
-//    }
-//
-//    func targetDeviceFirmwareUpdateScreenDone() {
-//        self.flowManager.continueSetup()
-//    }
+    func meshSetupDidRequestToUpdateFirmware() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupFirmwareUpdateViewController.self)) {
+                let prepareUpdateFirmwareVC = MeshSetupFirmwareUpdateViewController.loadedViewController()
+                prepareUpdateFirmwareVC.setup(didPressContinue: self.didSelectToUpdateFirmware)
+                self.embededNavigationController.pushViewController(prepareUpdateFirmwareVC, animated: true)
+            }
+        }
+    }
+
+    func didSelectToUpdateFirmware() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupFirmwareUpdateProgressViewController.self)) {
+                let updateFirmwareVC = MeshSetupFirmwareUpdateProgressViewController.loadedViewController()
+                updateFirmwareVC.setup(didFinishScreen: self.targetDeviceFirmwareUpdateScreenDone)
+                self.embededNavigationController.pushViewController(updateFirmwareVC, animated: true)
+            }
+        }
+
+        self.flowManager.setTargetPerformFirmwareUpdate(update: true)
+    }
+
+    func targetDeviceFirmwareUpdateScreenDone() {
+        self.flowManager.continueSetup()
+    }
 //
 //    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
 //        DispatchQueue.main.async {
@@ -975,28 +975,28 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 //                }
 
 
-//            case .FirmwareUpdateProgress:
-//                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
-//                    vc.setProgress(progress: Int(round(self.flowManager.targetDevice.firmwareUpdateProgress ?? 0)))
-//                } else {
-//                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setProgress was attempted when it shouldn't be")
-//                }
-//                break;
-//            case .FirmwareUpdateFileComplete:
-//                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
-//                    vc.setFileComplete()
-//                } else {
-//                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFileComplete was attempted when it shouldn't be")
-//                }
-//                break;
-//            case .FirmwareUpdateComplete:
-//                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
-//                    self.flowManager.pauseSetup()
-//                    vc.setFirmwareUpdateComplete()
-//                } else {
-//                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFirmwareUpdateComplete was attempted when it shouldn't be")
-//                }
-//                break;
+            case .FirmwareUpdateProgress:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                    vc.setProgress(progress: Int(round(self.flowManager.context.targetDevice.firmwareUpdateProgress ?? 0)))
+                } else {
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setProgress was attempted when it shouldn't be")
+                }
+                break;
+            case .FirmwareUpdateFileComplete:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                    vc.setFileComplete()
+                } else {
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFileComplete was attempted when it shouldn't be")
+                }
+                break;
+            case .FirmwareUpdateComplete:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                    self.flowManager.pauseSetup()
+                    vc.setFirmwareUpdateComplete()
+                } else {
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFirmwareUpdateComplete was attempted when it shouldn't be")
+                }
+                break;
 //
 //
 //            case .TargetDeviceScanningForWifiNetworks:

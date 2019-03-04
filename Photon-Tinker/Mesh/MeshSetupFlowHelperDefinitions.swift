@@ -11,11 +11,13 @@ import Foundation
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
-//
+
+    func meshSetupDidRequestToUpdateFirmware()
+
 //    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
 //    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
 //
-//    func meshSetupDidRequestToUpdateFirmware()
+
 //    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
 //
 //    func didRequestToSelectStandAloneOrMeshSetup()
@@ -280,6 +282,7 @@ internal struct MeshDevice {
     var firmwareVersion: String?
     var ncpVersion: String?
     var ncpModuleVersion: Int?
+    var ncpVersionReceived: Bool?
     var supportsCompressedOTAUpdate: Bool?
     var nextFirmwareBinaryURL: String?
     var nextFirmwareBinaryFilePath: String?
