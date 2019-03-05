@@ -5,7 +5,7 @@
 
 import Foundation
 
-class ConnectToCommissionerDevice: MeshSetupStep {
+class StepConnectToCommissionerDevice: MeshSetupStep {
 
     private var reconnect: Bool = false
 

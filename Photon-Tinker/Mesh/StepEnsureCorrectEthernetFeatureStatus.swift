@@ -5,7 +5,7 @@
 
 import Foundation
 
-class EnsureCorrectEthernetFeatureStatus : MeshSetupStep {
+class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
     override func start() {
         context.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { result, enabled in
             self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled as Optional)")
@@ -80,7 +80,7 @@ class EnsureCorrectEthernetFeatureStatus : MeshSetupStep {
     override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
         self.log("force reconnect to device")
 
-        let step = self.stepDelegate.rewindTo(self, step: ConnectToTargetDevice.self) as! ConnectToTargetDevice
+        let step = self.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
         step.reconnectAfterForcedReboot = true
         step.reconnectAfterForcedRebootRetry = 1
 

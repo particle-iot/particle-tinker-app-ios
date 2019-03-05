@@ -5,7 +5,8 @@
 
 import Foundation
 
-class GetTargetDeviceInfo: MeshSetupStep {
+class StepGetTargetDeviceInfo: MeshSetupStep {
+
     override func start() {
         context.delegate.meshSetupDidRequestTargetDeviceInfo()
     }

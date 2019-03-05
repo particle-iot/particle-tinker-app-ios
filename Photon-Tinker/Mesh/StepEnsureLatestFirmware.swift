@@ -5,7 +5,7 @@
 
 import Foundation
 
-class EnsureLatestFirmware : MeshSetupStep {
+class StepEnsureLatestFirmware: MeshSetupStep {
 
     private var chunkSize: Int?
     private var chunkIdx: Int?
@@ -13,6 +13,7 @@ class EnsureLatestFirmware : MeshSetupStep {
 
 
     private var preparedForReboot: Bool = false
+    private var firmwareUpdateFinished: Bool = false
 
 
 //    //Slave Latency ≤ 30
@@ -29,6 +30,7 @@ class EnsureLatestFirmware : MeshSetupStep {
 //
     override func reset() {
         self.preparedForReboot = false
+        self.firmwareUpdateFinished = false
 
         self.chunkSize = nil
         self.chunkIdx = nil
@@ -56,7 +58,7 @@ class EnsureLatestFirmware : MeshSetupStep {
             self.startFirmwareUpdate()
         } else if (!self.isFileFullyFlashed()) {
             self.sendFirmwareUpdateChunk()
-        } else {
+        } else if (!firmwareUpdateFinished) {
             self.finishFirmwareUpdate()
         }
     }
@@ -277,6 +279,7 @@ class EnsureLatestFirmware : MeshSetupStep {
                 return
             }
             if (result == .NONE) {
+                self.firmwareUpdateFinished = true
                 self.resetFirmwareFlashFlags()
                 //reconnect to device by jumping back few steps in connection dropped handler
             } else {
@@ -289,7 +292,7 @@ class EnsureLatestFirmware : MeshSetupStep {
         self.log("force reconnect to device")
 
         if self.isFileFullyFlashed() {
-            let step = self.stepDelegate.rewindTo(self, step: ConnectToTargetDevice.self) as! ConnectToTargetDevice
+            let step = self.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
             step.reconnectAfterForcedReboot = true
             step.reconnectAfterForcedRebootRetry = 1
 

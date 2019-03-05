@@ -314,25 +314,25 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     func targetDeviceFirmwareUpdateScreenDone() {
         self.flowManager.continueSetup()
     }
-//
-//    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
-//        DispatchQueue.main.async {
-//            if (self.hideAlertIfVisible()) {
-//                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
-//
-//                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.LeaveNetwork, style: .default) { action in
-//                    self.flowManager.setTargetDeviceLeaveNetwork(leave: true)
-//                })
-//
-//                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.DontLeaveNetwork, style: .cancel) { action in
-//                    self.flowManager.setTargetDeviceLeaveNetwork(leave: false)
-//                })
-//
-//                self.present(self.alert!, animated: true)
-//            }
-//        }
-//    }
-//
+
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
+        DispatchQueue.main.async {
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
+
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.LeaveNetwork, style: .default) { action in
+                    self.flowManager.setTargetDeviceLeaveNetwork(leave: true)
+                })
+
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.DontLeaveNetwork, style: .cancel) { action in
+                    self.flowManager.setTargetDeviceLeaveNetwork(leave: false)
+                })
+
+                self.present(self.alert!, animated: true)
+            }
+        }
+    }
+
 //    //the next thing to happen will be one out of 3:
 //    // 1)didRequestToSelectStandAloneOrMeshSetup if device has internet capable interfaces
 //    // 2)meshSetupDidEnterState: TargetDeviceScanningForNetworks

@@ -13,12 +13,13 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestTargetDeviceInfo()
 
     func meshSetupDidRequestToUpdateFirmware()
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
 
 //    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
 //    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
 //
 
-//    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
+
 //
 //    func didRequestToSelectStandAloneOrMeshSetup()
 //

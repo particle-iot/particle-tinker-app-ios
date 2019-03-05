@@ -5,7 +5,7 @@
 
 import Foundation
 
-class ConnectToTargetDevice: MeshSetupStep {
+class StepConnectToTargetDevice: MeshSetupStep {
 
     var reconnect: Bool = false
     var reconnectAfterForcedReboot: Bool = false

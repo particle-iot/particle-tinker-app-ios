@@ -10,15 +10,15 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
 
     private let preflow:[MeshSetupStep] = [
-        GetTargetDeviceInfo(),
-        ConnectToTargetDevice(),
-        EnsureCorrectEthernetFeatureStatus(),
-        EnsureLatestFirmware()
-//        .GetAPINetworks,
-//        .EnsureTargetDeviceCanBeClaimed,
-//        .EnsureTargetDeviceIsNotOnMeshNetwork,
-//        .SetClaimCode,
-//        .CheckTargetDeviceHasNetworkInterfaces,
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepEnsureCorrectEthernetFeatureStatus(),
+        StepEnsureLatestFirmware(),
+        StepGetAPINetworks(),
+        StepEnsureTargetDeviceCanBeClaimed(),
+        StepEnsureTargetDeviceIsNotOnMeshNetwork(),
+        SetClaimCode(),
+        StepCheckTargetDeviceHasNetworkInterfaces(),
 //        .ChooseFlow
     ]
 
@@ -410,18 +410,27 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
 
     func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
-        guard type(of: currentStep) == GetTargetDeviceInfo.self else {
+        guard type(of: currentStep) == StepGetTargetDeviceInfo.self else {
             return .IllegalOperation
         }
 
-        return (currentStep as! GetTargetDeviceInfo).setTargetDeviceInfo(dataMatrix: dataMatrix, useEthernet: useEthernet)
+        return (currentStep as! StepGetTargetDeviceInfo).setTargetDeviceInfo(dataMatrix: dataMatrix, useEthernet: useEthernet)
     }
 
     func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
-        guard type(of: currentStep) == EnsureLatestFirmware.self else {
+        guard type(of: currentStep) == StepEnsureLatestFirmware.self else {
             return .IllegalOperation
         }
 
-        return (currentStep as! EnsureLatestFirmware).setTargetPerformFirmwareUpdate(update: update)
+        return (currentStep as! StepEnsureLatestFirmware).setTargetPerformFirmwareUpdate(update: update)
     }
+
+    func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepEnsureTargetDeviceIsNotOnMeshNetwork.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepEnsureTargetDeviceIsNotOnMeshNetwork).setTargetDeviceLeaveNetwork(leave: leave)
+    }
+
 }
