@@ -11,7 +11,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
 
     override func start() {
         if (context.commissionerDevice?.transceiver != nil) {
-            stepDelegate.stepCompleted(self)
+            self.stepCompleted()
             return
         }
 

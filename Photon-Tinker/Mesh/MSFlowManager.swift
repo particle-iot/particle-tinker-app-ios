@@ -26,6 +26,36 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         StepOfferSelectOrCreateNetwork()
     ]
 
+
+    private let ethernetFlow: [MeshSetupStep] = [
+        StepShowPricingImpact()
+//        StepShowInfo(),
+//        StepEnsureHasInternetAccess(),
+//        StepCheckDeviceGotClaimed(),
+//        StepPublishDeviceSetupDoneEvent(),
+//        StepChooseSubflow()
+    ]
+
+    private let wifiFlow: [MeshSetupStep] = [
+        StepShowPricingImpact()
+//        StepShowInfo(),
+//        StepGetUserWifiNetworkSelection(),
+//        StepEnsureCorrectSelectedWifiNetworkPassword(),
+//        StepEnsureHasInternetAccess(),
+//        StepCheckDeviceGotClaimed(),
+//        StepPublishDeviceSetupDoneEvent(),
+//        StepChooseSubflow()
+    ]
+//
+    private let cellularFlow: [MeshSetupStep] = [
+        StepShowPricingImpact()
+//        StepShowCellularInfo(),
+//        StepEnsureHasInternetAccess(),
+//        StepCheckDeviceGotClaimed(),
+//        StepPublishDeviceSetupDoneEvent(),
+//        StepChooseSubflow()
+    ]
+
     private let xenonJoinerFlow: [MeshSetupStep] = [
 //        .ShowInfo,
 //        .GetUserNetworkSelection,
@@ -58,34 +88,9 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 //        .OfferToAddOneMoreDevice
     ]
 //
-    private let ethernetFlow: [MeshSetupStep] = [
-//        .ShowPricingImpact,
-//        .ShowInfo,
-//        .EnsureHasInternetAccess,
-//        .CheckDeviceGotClaimed,
-//        .PublishDeviceSetupDoneEvent,
-//        .ChooseSubflow
-    ]
+
 //
-    private let wifiFlow: [MeshSetupStep] = [
-//        .ShowPricingImpact,
-//        .ShowInfo,
-//        .GetUserWifiNetworkSelection,
-//        .EnsureCorrectSelectedWifiNetworkPassword,
-//        .EnsureHasInternetAccess,
-//        .CheckDeviceGotClaimed,
-//        .PublishDeviceSetupDoneEvent,
-//        .ChooseSubflow
-    ]
-//
-    private let cellularFlow: [MeshSetupStep] = [
-//        .ShowPricingImpact,
-//        .ShowCellularInfo,
-//        .EnsureHasInternetAccess,
-//        .CheckDeviceGotClaimed,
-//        .PublishDeviceSetupDoneEvent,
-//        .ChooseSubflow
-    ]
+
 //
     private let creatorSubflow: [MeshSetupStep] = [
 //        .GetNewDeviceName,
@@ -115,6 +120,7 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         super.init()
 
         context.delegate = delegate
+        context.stepDelegate = self
         context.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
     }
 
@@ -296,9 +302,8 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
                 "--------------------------------------------------------------------------------------------\n" +
                 "currentStepIdx = \(currentStepIdx), currentStep = \(currentStep)")
 
-        self.currentStep.stepDelegate = self
         self.currentStep.reset()
-        self.currentStep.run(context: self.context, delegate: self)
+        self.currentStep.run(context: self.context)
     }
 
     private func switchFlow() {

@@ -80,7 +80,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
     override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
         self.log("force reconnect to device")
 
-        let step = self.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
+        let step = self.context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
         step.reconnectAfterForcedReboot = true
         step.reconnectAfterForcedRebootRetry = 1
 

@@ -14,24 +14,21 @@ protocol MeshSetupStepDelegate {
 
 class MeshSetupStep: NSObject {
     var context: MeshSetupContext!
-    var stepDelegate: MeshSetupStepDelegate!
 
     func log(_ message: String) {
         ParticleLogger.logInfo("MeshSetupFlow", format: message, withParameters: getVaList([]))
     }
 
-    func run(context: MeshSetupContext, delegate: MeshSetupStepDelegate) {
+    func run(context: MeshSetupContext) {
         self.context = context
-        self.stepDelegate = delegate
 
         self.start()
     }
 
     func stepCompleted() {
-        self.stepDelegate.stepCompleted(self)
+        self.context.stepDelegate.stepCompleted(self)
 
         self.context = nil
-        self.stepDelegate = nil
     }
 
     func reset() {
@@ -63,7 +60,7 @@ class MeshSetupStep: NSObject {
     }
 
     func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
-        self.stepDelegate.fail(withReason: reason, severity: severity, nsError: nsError)
+        self.context.stepDelegate.fail(withReason: reason, severity: severity, nsError: nsError)
     }
 
     func handleBluetoothConnectionManagerError(_ error: BluetoothConnectionManagerError) -> Bool {

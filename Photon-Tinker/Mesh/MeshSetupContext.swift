@@ -7,6 +7,7 @@ import Foundation
 
 class MeshSetupContext: NSObject {
     var delegate: MeshSetupFlowManagerDelegate!
+    var stepDelegate: MeshSetupStepDelegate!
 
     var bluetoothManager: MeshSetupBluetoothConnectionManager!
     var bluetoothReady: Bool = false
