@@ -26,6 +26,7 @@ class MeshSetupContext: NSObject {
     var userSelectedToLeaveNetwork: Bool?
     var userSelectedToUpdateFirmware: Bool?
     var userSelectedToSetupMesh: Bool?
+    var userSelectedToCreateNetwork: Bool?
 
     var pricingInfo: ParticlePricingInfo?
     var pricingRequirementsAreMet: Bool?

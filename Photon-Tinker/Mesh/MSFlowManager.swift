@@ -21,12 +21,12 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         StepCheckTargetDeviceHasNetworkInterfaces(),
     ]
 
-//    private let internetConnectedPreflow: [MeshSetupFlowCommand] = [
-//        .OfferSetupStandAloneOrWithNetwork,
-//        .OfferSelectOrCreateNetwork
-//    ]
-//
-//    private let xenonJoinerFlow: [MeshSetupFlowCommand] = [
+    private let internetConnectedPreflow: [MeshSetupStep] = [
+        StepOfferSetupStandAloneOrWithNetwork(),
+        StepOfferSelectOrCreateNetwork()
+    ]
+
+    private let xenonJoinerFlow: [MeshSetupStep] = [
 //        .ShowInfo,
 //        .GetUserNetworkSelection,
 //        //.ShowPricingImpact
@@ -40,10 +40,10 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 //        .PublishDeviceSetupDoneEvent,
 //        .GetNewDeviceName,
 //        .OfferToAddOneMoreDevice
-//    ]
+    ]
 //
 //
-//    private let joinerFlow: [MeshSetupFlowCommand] = [
+    private let joinerFlow: [MeshSetupStep] = [
 //        //.ShowPricingImpact
 //        .ShowInfo,
 //        .GetCommissionerDeviceInfo,
@@ -56,18 +56,18 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 //        .PublishDeviceSetupDoneEvent,
 //        .GetNewDeviceName,
 //        .OfferToAddOneMoreDevice
-//    ]
+    ]
 //
-//    private let ethernetFlow: [MeshSetupFlowCommand] = [
+    private let ethernetFlow: [MeshSetupStep] = [
 //        .ShowPricingImpact,
 //        .ShowInfo,
 //        .EnsureHasInternetAccess,
 //        .CheckDeviceGotClaimed,
 //        .PublishDeviceSetupDoneEvent,
 //        .ChooseSubflow
-//    ]
+    ]
 //
-//    private let wifiFlow: [MeshSetupFlowCommand] = [
+    private let wifiFlow: [MeshSetupStep] = [
 //        .ShowPricingImpact,
 //        .ShowInfo,
 //        .GetUserWifiNetworkSelection,
@@ -76,30 +76,28 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 //        .CheckDeviceGotClaimed,
 //        .PublishDeviceSetupDoneEvent,
 //        .ChooseSubflow
-//    ]
+    ]
 //
-//    private let cellularFlow: [MeshSetupFlowCommand] = [
+    private let cellularFlow: [MeshSetupStep] = [
 //        .ShowPricingImpact,
 //        .ShowCellularInfo,
 //        .EnsureHasInternetAccess,
 //        .CheckDeviceGotClaimed,
 //        .PublishDeviceSetupDoneEvent,
 //        .ChooseSubflow
-//    ]
+    ]
 //
-//
-//
-//    private let creatorSubflow: [MeshSetupFlowCommand] = [
+    private let creatorSubflow: [MeshSetupStep] = [
 //        .GetNewDeviceName,
 //        .GetNewNetworkNameAndPassword,
 //        .CreateNetwork,
 //        .OfferToAddOneMoreDevice
-//    ]
+    ]
 //
-//    private let standaloneSubflow: [MeshSetupFlowCommand] = [
+    private let standaloneSubflow: [MeshSetupStep] = [
 //        .GetNewDeviceName,
 //        .OfferToAddOneMoreDevice
-//    ]
+    ]
 
 
     private (set) public var context: MeshSetupContext
@@ -304,15 +302,33 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
     }
 
     private func switchFlow() {
+        log("stepComplete\n\n" +
+                "--------------------------------------------------------------------------------------------\n" +
+                "Switching flow!!!")
+
         if (currentFlow == preflow) {
             if (self.context.targetDevice.hasActiveInternetInterface() && self.context.selectedNetworkMeshInfo == nil) {
                 self.currentFlow = internetConnectedPreflow
                 log("setting gateway flow")
             } else {
-                log("setting xenon joiner flow")
-
                 //if self.context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
+                log("setting xenon joiner flow")
                 self.currentFlow = xenonJoinerFlow
+            }
+        } else if (currentFlow == internetConnectedPreflow) {
+            if (self.context.userSelectedToSetupMesh! == false || self.context.userSelectedToCreateNetwork! == true) {
+                //if user wants to go standalone or create network
+                if (context.targetDevice.activeInternetInterface! == .ethernet) {
+                    self.currentFlow = ethernetFlow
+                } else if (context.targetDevice.activeInternetInterface! == .wifi) {
+                    self.currentFlow = wifiFlow
+                } else if (context.targetDevice.activeInternetInterface! == .ppp) {
+                    self.currentFlow = cellularFlow
+                } else {
+                    fatalError("wrong state?")
+                }
+            } else {  //if (self.context.selectedNetworkMeshInfo != nil)
+                self.currentFlow = joinerFlow
             }
         }
 
@@ -453,5 +469,41 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
         return (currentStep as! StepEnsureTargetDeviceIsNotOnMeshNetwork).setTargetDeviceLeaveNetwork(leave: leave)
     }
+
+
+    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepOfferSetupStandAloneOrWithNetwork.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepOfferSetupStandAloneOrWithNetwork).setSelectStandAloneOrMeshSetup(meshSetup: meshSetup)
+    }
+
+    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepOfferSelectOrCreateNetwork.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepOfferSelectOrCreateNetwork).setOptionalSelectedNetwork(selectedNetworkExtPanID: selectedNetworkExtPanID)
+    }
+
+    func rescanNetworks() -> MeshSetupFlowError? {
+        //only allow to rescan if current step asks for it and transceiver is free to be used
+        guard let isBusy = context.targetDevice.transceiver?.isBusy, isBusy == false else {
+            return .IllegalOperation
+        }
+
+        if (type(of: currentStep) == StepOfferSelectOrCreateNetwork.self) {
+            (currentStep as! StepOfferSelectOrCreateNetwork).scanNetworks()
+//        } else if (type(of: currentStep) == StepGetUserNetworkSelection.self) {
+//            (currentStep as! StepGetUserNetworkSelection).scanNetworks()
+        } else {
+            return .IllegalOperation
+        }
+
+        return nil
+    }
+
+
 
 }

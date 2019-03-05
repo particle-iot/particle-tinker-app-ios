@@ -43,6 +43,7 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
         self.context.userSelectedToLeaveNetwork = nil
         self.context.userSelectedToUpdateFirmware = nil
         self.context.userSelectedToSetupMesh = nil
+        self.context.userSelectedToCreateNetwork = nil
 
         self.context.pricingInfo = nil
         self.context.pricingRequirementsAreMet = nil

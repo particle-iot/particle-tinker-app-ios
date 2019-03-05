@@ -15,13 +15,18 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToUpdateFirmware()
     func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
 
+
+    //create flow
+    func didRequestToSelectStandAloneOrMeshSetup()
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+
 //    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
 //    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
 //
 
 
 //
-//    func didRequestToSelectStandAloneOrMeshSetup()
+
 //
 //    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 //    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
@@ -33,7 +38,6 @@ protocol MeshSetupFlowManagerDelegate {
 //    func meshSetupDidRequestToEnterDeviceName()
 //    func meshSetupDidRequestToAddOneMoreDevice()
 //
-//    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 //
 //    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
 //    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
