@@ -236,12 +236,12 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         let actionType = request.url?.host;
 //        let jsonDictString = request.URL?.fragment?.stringByReplacingPercentEscapesUsingEncoding(NSASCIIStringEncoding)
         if actionType == "scanIccid" {
-            SEGAnalytics.shared().track("Tinker: Electron setup scan ICCID")
+            SEGAnalytics.shared().track("Tinker_ElectronSetupScanICCID")
             self.performSegue(withIdentifier: "scan", sender: self)
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
         } else if actionType == "done" {
-            SEGAnalytics.shared().track("Tinker: Electron setup ended", properties: ["result":"success"])
+            SEGAnalytics.shared().track("Tinker_ElectronSetupEnded", properties: ["result":"success"])
             self.dismiss(animated: true, completion: nil)
         } else if actionType == "notification" {
 //            print("\(request.URL)")

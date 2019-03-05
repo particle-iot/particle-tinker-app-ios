@@ -34,7 +34,6 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
 
         for i in 0..<self.tableView(self.deviceDataTableView, numberOfRowsInSection: 1) {
             index = IndexPath(row: i, section: 1)
-            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Thread %@", withParameters: getVaList([Thread.current]))
             let cell: DeviceVariableTableViewCell? = self.deviceDataTableView.cellForRow(at: index) as? DeviceVariableTableViewCell
 
             if let c = cell {
@@ -145,9 +144,6 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Thread %@", withParameters: getVaList([Thread.current]))
-
         var masterCell : UITableViewCell?
         
         switch (indexPath as NSIndexPath).section {
@@ -161,9 +157,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
                 cell!.functionName = self.device?.functions[(indexPath as NSIndexPath).row]
                 cell!.device = self.device
             }
-            
-            //            cell?.centerFunctionNameLayoutConstraint.constant = selected ? 0 : -20
-            
+
             masterCell = cell
             
         default :
@@ -204,7 +198,7 @@ class DeviceInspectorDataViewController: DeviceInspectorChildViewController, UIT
             
             UIPasteboard.general.string = value
             RMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
-            SEGAnalytics.shared().track("Device Inspector: variable copied")
+            SEGAnalytics.shared().track("DeviceInspector_VariableCopied")
         }
         
         

@@ -27,13 +27,13 @@ class DeviceInspectorInfoViewController: DeviceInspectorChildViewController {
     @IBAction func copyDeviceIdButtonTapped(_ sender: AnyObject) {
         UIPasteboard.general.string = self.device?.id
         RMessage.showNotification(withTitle: "Copied", subtitle: "Device ID was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
-        SEGAnalytics.shared().track("Device Inspector: device ID copied")
+        SEGAnalytics.shared().track("DeviceInspector_DeviceIDCopied")
     }
     
     @IBAction func copyDeviceIccidButtonTapped(_ sender: UIButton) {
         UIPasteboard.general.string = self.device?.lastIccid
         RMessage.showNotification(withTitle: "Copied", subtitle: "Device SIM ICCID was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
-        SEGAnalytics.shared().track("Device Inspector: device ICCID copied")
+        SEGAnalytics.shared().track("DeviceInspector_DeviceICCIDCopied")
     }
     
     

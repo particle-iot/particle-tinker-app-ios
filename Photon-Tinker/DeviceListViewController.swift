@@ -140,7 +140,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func invokeElectronSetup() {
-        SEGAnalytics.shared().track("Tinker: Electron setup invoked")
+        SEGAnalytics.shared().track("Tinker_ElectronSetupInvoked")
         let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewController(withIdentifier: "electronSetup") as! ElectronSetupViewController
         self.present(esVC, animated: true, completion: nil)
         
@@ -158,7 +158,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
                 ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into tinker - idx: %i device: %@", withParameters: getVaList([indexPath.row, vc.device.description]))
 
-                SEGAnalytics.shared().track("Tinker: Start Tinkering", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
+                SEGAnalytics.shared().track("Tinker_SegueToTinker", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
                 
             }
         }
@@ -166,13 +166,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "deviceInspector" {
             if let vc = segue.destination as? DeviceInspectorViewController {
                 let indexPath = sender as! IndexPath
-                vc.device = self.devices[indexPath.row]
+                vc.setup(device: self.devices[indexPath.row])
 
                 let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
 
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - idx: %i device: %@", withParameters: getVaList([indexPath.row, "\(vc.device)"]))
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - idx: %i device: %@", withParameters: getVaList([indexPath.row, "\(self.devices[indexPath.row])"]))
 
-                SEGAnalytics.shared().track("Tinker: Device Inspector", properties: ["device":deviceInfo.deviceType])
+                SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device":deviceInfo.deviceType])
                 
             }
         }
@@ -205,7 +205,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             */
         }
 
-        SEGAnalytics.shared().track("Tinker: Device list screen activity")
+        SEGAnalytics.shared().track("Tinker_DeviceListScreenActivity")
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
@@ -548,7 +548,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if result == .success
         {
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup ended", withParameters: getVaList([]))
-            SEGAnalytics.shared().track("Tinker: Photon setup ended", properties: ["result":"success"])
+            SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"success"])
             
             if let deviceAdded = device
             {
@@ -597,7 +597,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup cancelled or failed.", withParameters: getVaList([]))
 
-            SEGAnalytics.shared().track("Photon setup ended", properties: ["result":"cancelled or failed"])
+            SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"cancelled or failed"])
             RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
         }
     }
@@ -642,7 +642,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.customizeSetupForSetupFlow()
         if let vc = ParticleSetupMainController(setupOnly: !ParticleCloud.sharedInstance().isAuthenticated)
         {
-            SEGAnalytics.shared().track("Tinker: Photon setup invoked")
+            SEGAnalytics.shared().track("Tinker_PhotonSetupInvoked")
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }
@@ -652,13 +652,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func showParticleCoreAppPopUp()
     {
-        SEGAnalytics.shared().track("Tinker: User wants to setup a Core")
+        SEGAnalytics.shared().track("Tinker_UserWantsToSetupACore")
         
         let dialog = ZAlertView(title: "Core setup", message: "Setting up a Core requires the legacy Particle Core app. Do you want to install/open it now?", isOkButtonLeft: true, okButtonText: "Yes", cancelButtonText: "No",
                                 okButtonHandler: { alertView in
                                     alertView.dismiss()
                                     let particleCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
-                                    SEGAnalytics.shared().track("Tinker: Send user to old Particle Core app")
+                                    SEGAnalytics.shared().track("Tinker_SendUserToOldParticleCoreApp")
                                     UIApplication.shared.openURL(URL(string: particleCoreAppStoreLink)!)
                                     
             },
@@ -680,8 +680,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         RMessage.dismissActiveNotification()
         tableView.deselectRow(at: indexPath, animated: true)
         let device = self.devices[(indexPath as NSIndexPath).row]
-
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Selected device: %@", withParameters: getVaList([device]))
 
         tableView.deselectRow(at: indexPath, animated: false)
         

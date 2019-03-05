@@ -32,7 +32,7 @@ internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextField
     @IBOutlet weak var noFunctionsLabel: UILabel!
     @IBAction func callButtonTapped(_ sender: AnyObject) {
         var args = [String]()
-        SEGAnalytics.shared().track("Device Inspector: function called")
+        SEGAnalytics.shared().track("DeviceInspector_FunctionCalled")
         args.append(self.argumentsTextField.text!)
         self.resultLabel.isHidden = true
         self.activityIndicator.startAnimating()

@@ -162,7 +162,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         
         self.filterText = searchText
         self.filterEvents()
-        SEGAnalytics.shared().track("Device Inspector: event filter typing")
+        SEGAnalytics.shared().track("DeviceInspector_EventFilterTyping")
         DispatchQueue.main.async {
             self.deviceEventsTableView.reloadData()
         }
@@ -182,12 +182,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 @IBAction func playPauseButtonTapped(_ sender: AnyObject) {
         if paused {
             paused = false
-            SEGAnalytics.shared().track("Device Inspector: event stream play")
+            SEGAnalytics.shared().track("DeviceInspector_EventStreamPlay")
             playPauseButton.setImage(UIImage(named: "imgPause"), for: UIControlState())
             subscribeToDeviceEvents()
         } else {
             paused = true
-            SEGAnalytics.shared().track("Device Inspector: event stream pause")
+            SEGAnalytics.shared().track("DeviceInspector_EventStreamPause")
             playPauseButton.setImage(UIImage(named: "imgPlay"), for: UIControlState())
             unsubscribeFromDeviceEvents()
         }
@@ -206,7 +206,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                                     self.filteredEvents = nil
                                     self.deviceEventsTableView.reloadData()
                                     self.noEventsLabel.isHidden = false
-                                    SEGAnalytics.shared().track("Device Inspector: events cleared")
+                                    SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
 
             }
         )
