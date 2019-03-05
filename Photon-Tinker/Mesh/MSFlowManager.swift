@@ -19,7 +19,6 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         StepEnsureTargetDeviceIsNotOnMeshNetwork(),
         SetClaimCode(),
         StepCheckTargetDeviceHasNetworkInterfaces(),
-//        .ChooseFlow
     ]
 
 //    private let internetConnectedPreflow: [MeshSetupFlowCommand] = [
@@ -289,6 +288,12 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
             return
         }
 
+        //if we reached the end of current flow
+        if (currentStepIdx == currentFlow.count) {
+            self.switchFlow()
+        }
+
+
         log("stepComplete\n\n" +
                 "--------------------------------------------------------------------------------------------\n" +
                 "currentStepIdx = \(currentStepIdx), currentStep = \(currentStep)")
@@ -296,6 +301,22 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         self.currentStep.stepDelegate = self
         self.currentStep.reset()
         self.currentStep.run(context: self.context, delegate: self)
+    }
+
+    private func switchFlow() {
+        if (currentFlow == preflow) {
+            if (self.context.targetDevice.hasActiveInternetInterface() && self.context.selectedNetworkMeshInfo == nil) {
+                self.currentFlow = internetConnectedPreflow
+                log("setting gateway flow")
+            } else {
+                log("setting xenon joiner flow")
+
+                //if self.context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
+                self.currentFlow = xenonJoinerFlow
+            }
+        }
+
+        self.currentStepIdx = 0
     }
 
     func stepCompleted(_ sender: MeshSetupStep) {

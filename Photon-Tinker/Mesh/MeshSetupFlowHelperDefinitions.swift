@@ -56,7 +56,6 @@ internal enum MeshSetupFlowCommand {
     case EnsureTargetDeviceCanBeClaimed
     case CheckTargetDeviceHasNetworkInterfaces
     case OfferSetupStandAloneOrWithNetwork
-    case ChooseFlow
 
     //main flow
     case ShowPricingImpact
@@ -83,8 +82,6 @@ internal enum MeshSetupFlowCommand {
     case CheckDeviceGotClaimed
     case StopTargetDeviceListening
     case OfferSelectOrCreateNetwork
-    case ChooseSubflow
-
 
     case GetNewNetworkNameAndPassword
     case CreateNetwork
