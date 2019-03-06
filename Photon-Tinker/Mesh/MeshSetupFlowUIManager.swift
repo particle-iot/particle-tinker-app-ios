@@ -388,65 +388,65 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             }
         }
     }
-//
-//
-//
-//    //MARK: Gateway Info
-//    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool) {
-//        if (!gatewayFlow) {
-//            DispatchQueue.main.async {
-//                if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
-//                    let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
-//                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.userSelectedToSetupMesh, deviceType: self.flowManager.targetDevice.type!)
-//                    self.embededNavigationController.pushViewController(infoVC, animated: true)
-//                }
-//            }
-//        } else {
-//            switch self.flowManager.targetDevice.activeInternetInterface! {
-//                case .ethernet:
-//                    DispatchQueue.main.async {
-//                        if (!self.rewindTo(MeshSetupInfoEthernetViewController.self)) {
-//                            let infoVC = MeshSetupInfoEthernetViewController.loadedViewController()
-//                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.userSelectedToSetupMesh!, deviceType: self.flowManager.targetDevice.type!)
-//                            self.embededNavigationController.pushViewController(infoVC, animated: true)
-//                        }
-//                    }
-//                case .wifi:
-//                    DispatchQueue.main.async {
-//                        if (!self.rewindTo(MeshSetupInfoWifiViewController.self)) {
-//                            let infoVC = MeshSetupInfoWifiViewController.loadedViewController()
-//                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.userSelectedToSetupMesh!, deviceType: self.flowManager.targetDevice.type!)
-//                            self.embededNavigationController.pushViewController(infoVC, animated: true)
-//                        }
-//                    }
-//                case .ppp:
-//                    //shown using meshSetupDidRequestToShowCellularInfo()
-//                    break
-//                default:
-//                    //others are not interesting
-//                    break
-//            }
-//        }
-//    }
-//
-//    func didFinishInfoScreen() {
-//        self.flowManager.setInfoDone()
-//    }
-//
-//
-//    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool) {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupCellularInfoViewController.self)) {
-//                let cellularInfoVC = MeshSetupCellularInfoViewController.loadedViewController()
-//                cellularInfoVC.setup(didFinishScreen: self.didFinishCellularInfoScreen, setupMesh: self.flowManager.userSelectedToSetupMesh!, simActive: simActivated)
-//                self.embededNavigationController.pushViewController(cellularInfoVC, animated: true)
-//            }
-//        }
-//    }
-//
-//    func didFinishCellularInfoScreen() {
-//        self.flowManager.setCellularInfoDone()
-//    }
+
+
+
+    //MARK: Gateway Info
+    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool) {
+        if (!gatewayFlow) {
+            DispatchQueue.main.async {
+                if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
+                    let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
+                    infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh, deviceType: self.flowManager.context.targetDevice.type!)
+                    self.embededNavigationController.pushViewController(infoVC, animated: true)
+                }
+            }
+        } else {
+            switch self.flowManager.context.targetDevice.activeInternetInterface! {
+                case .ethernet:
+                    DispatchQueue.main.async {
+                        if (!self.rewindTo(MeshSetupInfoEthernetViewController.self)) {
+                            let infoVC = MeshSetupInfoEthernetViewController.loadedViewController()
+                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, deviceType: self.flowManager.context.targetDevice.type!)
+                            self.embededNavigationController.pushViewController(infoVC, animated: true)
+                        }
+                    }
+                case .wifi:
+                    DispatchQueue.main.async {
+                        if (!self.rewindTo(MeshSetupInfoWifiViewController.self)) {
+                            let infoVC = MeshSetupInfoWifiViewController.loadedViewController()
+                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, deviceType: self.flowManager.context.targetDevice.type!)
+                            self.embededNavigationController.pushViewController(infoVC, animated: true)
+                        }
+                    }
+                case .ppp:
+                    //shown using meshSetupDidRequestToShowCellularInfo()
+                    break
+                default:
+                    //others are not interesting
+                    break
+            }
+        }
+    }
+
+    func didFinishInfoScreen() {
+        self.flowManager.setInfoDone()
+    }
+
+
+    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool) {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupCellularInfoViewController.self)) {
+                let cellularInfoVC = MeshSetupCellularInfoViewController.loadedViewController()
+                cellularInfoVC.setup(didFinishScreen: self.didFinishCellularInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, simActive: simActivated)
+                self.embededNavigationController.pushViewController(cellularInfoVC, animated: true)
+            }
+        }
+    }
+
+    func didFinishCellularInfoScreen() {
+        self.flowManager.setCellularInfoDone()
+    }
 //
 //
 //    //MARK: Scan WIFI networks

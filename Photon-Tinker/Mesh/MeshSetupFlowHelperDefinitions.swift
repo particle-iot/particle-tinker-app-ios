@@ -22,9 +22,9 @@ protocol MeshSetupFlowManagerDelegate {
 
     func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
 
-//    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
-//    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
-//
+    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
+    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
+
 
 
 //
@@ -103,8 +103,8 @@ enum MeshSetupFlowState {
     case TargetDeviceScanningForWifiNetworks
 
     case TargetDeviceConnectingToInternetStarted
+    case TargetDeviceConnectingToInternetStep0Done //used for activating sim card only
     case TargetDeviceConnectingToInternetStep1Done
-    case TargetDeviceConnectingToInternetStep2Done
     case TargetDeviceConnectingToInternetCompleted
 
     case CommissionerDeviceConnecting

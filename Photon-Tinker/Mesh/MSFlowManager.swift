@@ -28,8 +28,8 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
 
     private let ethernetFlow: [MeshSetupStep] = [
-        StepShowPricingImpact()
-//        StepShowInfo(),
+        StepShowPricingImpact(),
+        StepShowInfo()
 //        StepEnsureHasInternetAccess(),
 //        StepCheckDeviceGotClaimed(),
 //        StepPublishDeviceSetupDoneEvent(),
@@ -37,8 +37,8 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
     ]
 
     private let wifiFlow: [MeshSetupStep] = [
-        StepShowPricingImpact()
-//        StepShowInfo(),
+        StepShowPricingImpact(),
+        StepShowInfo()
 //        StepGetUserWifiNetworkSelection(),
 //        StepEnsureCorrectSelectedWifiNetworkPassword(),
 //        StepEnsureHasInternetAccess(),
@@ -48,44 +48,27 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
     ]
 //
     private let cellularFlow: [MeshSetupStep] = [
-        StepShowPricingImpact()
-//        StepShowCellularInfo(),
+        StepShowPricingImpact(),
+        StepShowCellularInfo()
 //        StepEnsureHasInternetAccess(),
 //        StepCheckDeviceGotClaimed(),
 //        StepPublishDeviceSetupDoneEvent(),
 //        StepChooseSubflow()
     ]
 
-    private let xenonJoinerFlow: [MeshSetupStep] = [
-//        .ShowInfo,
-//        .GetUserNetworkSelection,
-//        //.ShowPricingImpact
-//        .GetCommissionerDeviceInfo,
-//        .ConnectToCommissionerDevice,
-//        .EnsureCommissionerNetworkMatches,
-//        .EnsureCorrectSelectedNetworkPassword,
-//        .JoinSelectedNetwork,
-//        .FinishJoinSelectedNetwork,
-//        .CheckDeviceGotClaimed,
-//        .PublishDeviceSetupDoneEvent,
-//        .GetNewDeviceName,
-//        .OfferToAddOneMoreDevice
-    ]
-//
-//
     private let joinerFlow: [MeshSetupStep] = [
-//        //.ShowPricingImpact
-//        .ShowInfo,
-//        .GetCommissionerDeviceInfo,
-//        .ConnectToCommissionerDevice,
-//        .EnsureCommissionerNetworkMatches,
-//        .EnsureCorrectSelectedNetworkPassword,
-//        .JoinSelectedNetwork,
-//        .FinishJoinSelectedNetwork,
-//        .CheckDeviceGotClaimed,
-//        .PublishDeviceSetupDoneEvent,
-//        .GetNewDeviceName,
-//        .OfferToAddOneMoreDevice
+        StepShowInfo()
+//        StepGetUserNetworkSelection(),
+//        StepGetCommissionerDeviceInfo(),
+//        StepConnectToCommissionerDevice(),
+//        StepEnsureCommissionerNetworkMatches(),
+//        StepEnsureCorrectSelectedNetworkPassword(),
+//        StepJoinSelectedNetwork(),
+//        StepFinishJoinSelectedNetwork(),
+//        StepCheckDeviceGotClaimed(),
+//        StepPublishDeviceSetupDoneEvent(),
+//        StepGetNewDeviceName(),
+//        StepOfferToAddOneMoreDevice()
     ]
 //
 
@@ -93,15 +76,15 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
 //
     private let creatorSubflow: [MeshSetupStep] = [
-//        .GetNewDeviceName,
-//        .GetNewNetworkNameAndPassword,
-//        .CreateNetwork,
-//        .OfferToAddOneMoreDevice
+//        StepGetNewDeviceName(),
+//        StepGetNewNetworkNameAndPassword(),
+//        StepCreateNetwork(),
+//        StepOfferToAddOneMoreDevice()
     ]
 //
     private let standaloneSubflow: [MeshSetupStep] = [
-//        .GetNewDeviceName,
-//        .OfferToAddOneMoreDevice
+//        StepGetNewDeviceName(),
+//        StepOfferToAddOneMoreDevice()
     ]
 
 
@@ -318,7 +301,7 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
             } else {
                 //if self.context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
                 log("setting xenon joiner flow")
-                self.currentFlow = xenonJoinerFlow
+                self.currentFlow = joinerFlow
             }
         } else if (currentFlow == internetConnectedPreflow) {
             if (self.context.userSelectedToSetupMesh! == false || self.context.userSelectedToCreateNetwork! == true) {
@@ -335,6 +318,8 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
             } else {  //if (self.context.selectedNetworkMeshInfo != nil)
                 self.currentFlow = joinerFlow
             }
+        } else {
+            fatalError("no flow to switch to")
         }
 
         self.currentStepIdx = 0
@@ -517,6 +502,21 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         return (currentStep as! StepShowPricingImpact).setPricingImpactDone()
     }
 
+    func setInfoDone() -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepShowInfo.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepShowInfo).setInfoDone()
+    }
+
+    func setCellularInfoDone() -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepShowCellularInfo.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepShowCellularInfo).setCellularInfoDone()
+    }
 
 
 }

@@ -26,7 +26,6 @@ class MeshSetupStep: NSObject {
 
     func stepCompleted() {
         self.context.stepDelegate.stepCompleted(self)
-
         self.context = nil
     }
 

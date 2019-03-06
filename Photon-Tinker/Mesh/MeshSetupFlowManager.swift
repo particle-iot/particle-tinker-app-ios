@@ -717,11 +717,7 @@
 //                self.log("status: \(status as Optional)")
 //                if (status! == .connected) {
 //                    self.log("device connected to the cloud")
-//                    if (self.currentFlow == self.ethernetFlow || self.currentFlow == self.wifiFlow) {
-//                        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
-//                    } else if (self.currentFlow == self.cellularFlow) {
-//                        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep2Done)
-//                    }
+//                    self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
 //                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
 //                        if (self.canceled) {
 //                            return
@@ -797,66 +793,6 @@
 //    }
 //
 //
-//    //MARK: ShowGatewayInfo
-//    private func stepShowInfo() {
-//        //adding additional xenon devices to same network
-//        if (self.selectedNetworkMeshInfo != nil && self.currentFlow == xenonJoinerFlow) {
-//            self.stepComplete(.ShowInfo)
-//            return;
-//        }
-//        self.delegate.meshSetupDidRequestToShowInfo(gatewayFlow: (self.currentFlow == wifiFlow || self.currentFlow == ethernetFlow || self.currentFlow == cellularFlow))
-//    }
-//
-//    func setInfoDone() {
-//        self.stepComplete(.ShowInfo)
-//    }
-//
-//    //MARK: ShowCellularInfo
-//    private func stepShowCellularInfo() {
-//        if (self.targetDevice.simActive != nil) {
-//            self.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.targetDevice.simActive!)
-//            return
-//        }
-//
-//        self.getSimInfo()
-//    }
-//
-//    private func getSimInfo() {
-//        ParticleCloud.sharedInstance().checkSim(self.targetDevice.deviceICCID!) { simStatus, error in
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            self.log("simStatus: \(simStatus.rawValue), error: \(error)")
-//
-//            if (error != nil) {
-//                if simStatus == ParticleSimStatus.notFound {
-//                    self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal, nsError: error)
-//                } else if simStatus == ParticleSimStatus.notOwnedByUser {
-//                    self.fail(withReason: .SimBelongsToOtherAccount, severity: .Fatal, nsError: error)
-//                } else {
-//                    self.fail(withReason: .UnableToGetSimStatus, nsError: error)
-//                }
-//            } else {
-//                if simStatus == ParticleSimStatus.OK {
-//                    self.targetDevice.simActive = false
-//                    self.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.targetDevice.simActive!)
-//                } else if simStatus == ParticleSimStatus.activated || simStatus == ParticleSimStatus.activatedFree {
-//                    self.targetDevice.simActive = true
-//                    self.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.targetDevice.simActive!)
-//                } else {
-//                    self.fail(withReason: .UnableToGetSimStatus)
-//                }
-//            }
-//        }
-//    }
-//
-//    func setCellularInfoDone() {
-//        self.stepComplete(.ShowCellularInfo)
-//    }
-//
-//
-//
 //    //MARK: EnsureHasInternetAccess
 //    private func stepEnsureHasInternetAccess() {
 //        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStarted)
@@ -923,7 +859,7 @@
 //    }
 //
 //    private func activateSimDone() {
-//        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
+//        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep0Done)
 //        self.stopTargetDeviceListening {
 //            self.checkDeviceHasIP()
 //        }

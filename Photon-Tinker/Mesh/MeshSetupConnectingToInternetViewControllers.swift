@@ -106,9 +106,9 @@ class MeshSetupConnectingToInternetCellularViewController: MeshSetupProgressView
             switch state {
                 case .TargetDeviceConnectingToInternetStarted:
                     self.setStep(0)
-                case .TargetDeviceConnectingToInternetStep1Done:
+                case .TargetDeviceConnectingToInternetStep0Done:
                     self.setStep(1)
-                case .TargetDeviceConnectingToInternetStep2Done:
+                case .TargetDeviceConnectingToInternetStep1Done:
                     self.setStep(2)
                 case .TargetDeviceConnectingToInternetCompleted:
                     self.setStep(3)
