@@ -8,7 +8,6 @@ import Foundation
 protocol MeshSetupStepDelegate {
     func stepCompleted(_ sender: MeshSetupStep)
     func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep
-
     func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 

@@ -20,6 +20,8 @@ protocol MeshSetupFlowManagerDelegate {
     func didRequestToSelectStandAloneOrMeshSetup()
     func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 
+    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
+
 //    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
 //    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
 //
@@ -44,7 +46,6 @@ protocol MeshSetupFlowManagerDelegate {
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
-    //func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
 
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }

@@ -670,10 +670,10 @@
 		931C37E9215AA51E0014811C /* FlowManagers */ = {
 			isa = PBXGroup;
 			children = (
+				C810BE163CF1342CAC1F04CF /* Steps */,
 				931C37BB215AA42F0014811C /* MeshSetupFlowManager.swift */,
 				931C37BD215AA4300014811C /* MeshSetupFlowUIManager.swift */,
 				C810B7B441DD098BA83CDFC4 /* MSFlowManager.swift */,
-				C810BE163CF1342CAC1F04CF /* Steps */,
 				C810B7709DDDC13BA155D371 /* MeshSetupStep.swift */,
 				C810B8FB2B2BA59A8046875F /* MeshSetupContext.swift */,
 			);

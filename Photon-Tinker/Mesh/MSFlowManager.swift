@@ -509,6 +509,14 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         return nil
     }
 
+    func setPricingImpactDone() -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepShowPricingImpact.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepShowPricingImpact).setPricingImpactDone()
+    }
+
 
 
 }

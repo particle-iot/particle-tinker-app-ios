@@ -350,44 +350,44 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-//    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo) {
-//        DispatchQueue.main.async {
-//            if let vc = self.embededNavigationController.topViewController as? MeshSetupPricingInfoViewController {
-//                //the call has been retried and if cc was added it should pass this time
-//                self.didFinishPricingInfo()
-//            } else {
-//                if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
-//                    let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
-//                    pricingInfoVC.setup(didPressContinue: self.didFinishPricingInfo, pricingInfo: info)
-//                    self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
-//                }
-//            }
-//        }
-//    }
-//
-//    private func didFinishPricingInfo() {
-//        if let error = self.flowManager.setPricingImpactDone() {
-//            DispatchQueue.main.async {
-//                var message = error.description
-//
-//                if (self.hideAlertIfVisible()) {
-//                    self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
-//
-//                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-//                        //reload pricing impact endpoint
-//                        self.flowManager.retryLastAction()
-//                    })
-//
-//                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-//                        //do nothing
-//                        self.cancelTapped(self)
-//                    })
-//
-//                    self.present(self.alert!, animated: true)
-//                }
-//            }
-//        }
-//    }
+    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo) {
+        DispatchQueue.main.async {
+            if let vc = self.embededNavigationController.topViewController as? MeshSetupPricingInfoViewController {
+                //the call has been retried and if cc was added it should pass this time
+                self.didFinishPricingInfo()
+            } else {
+                if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
+                    let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
+                    pricingInfoVC.setup(didPressContinue: self.didFinishPricingInfo, pricingInfo: info)
+                    self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
+                }
+            }
+        }
+    }
+
+    private func didFinishPricingInfo() {
+        if let error = self.flowManager.setPricingImpactDone() {
+            DispatchQueue.main.async {
+                var message = error.description
+
+                if (self.hideAlertIfVisible()) {
+                    self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                        //reload pricing impact endpoint
+                        self.flowManager.retryLastAction()
+                    })
+
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
+                        //do nothing
+                        self.cancelTapped(self)
+                    })
+
+                    self.present(self.alert!, animated: true)
+                }
+            }
+        }
+    }
 //
 //
 //

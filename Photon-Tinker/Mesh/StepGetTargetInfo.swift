@@ -46,7 +46,6 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
         self.context.userSelectedToCreateNetwork = nil
 
         self.context.pricingInfo = nil
-        self.context.pricingRequirementsAreMet = nil
     }
 }
 

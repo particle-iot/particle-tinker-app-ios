@@ -30,7 +30,6 @@ class MeshSetupContext: NSObject {
     var userSelectedToCreateNetwork: Bool?
 
     var pricingInfo: ParticlePricingInfo?
-    var pricingRequirementsAreMet: Bool?
     var apiNetworks: [ParticleNetwork]?
 
     //to prevent long running actions from executing

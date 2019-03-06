@@ -59,7 +59,7 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
 
     func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {
         if (selectedNetworkExtPanID != nil) {
-            self.context.userSelectedToCreateNetwork = true
+            self.context.userSelectedToCreateNetwork = false
 
             for network in self.context.targetDevice.meshNetworks! {
                 if network.extPanID == selectedNetworkExtPanID! {
@@ -68,7 +68,7 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
                 }
             }
         } else {
-            self.context.userSelectedToCreateNetwork = false
+            self.context.userSelectedToCreateNetwork = true
             self.context.selectedNetworkMeshInfo = nil
         }
 
