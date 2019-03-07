@@ -23,8 +23,10 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToEnterDeviceName()
     func meshSetupDidRequestToAddOneMoreDevice()
 
+    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
 
-//    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+
 
 //    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 //    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
@@ -38,7 +40,7 @@ protocol MeshSetupFlowManagerDelegate {
 //
 //
 
-//    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
+
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
@@ -62,6 +64,22 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         StepCheckTargetDeviceHasNetworkInterfaces(),
     ]
 
+    private let joinerFlow: [MeshSetupStep] = [
+        StepShowInfo(),
+//        StepGetUserNetworkSelection(),
+//        StepGetCommissionerDeviceInfo(),
+//        StepConnectToCommissionerDevice(),
+//        StepEnsureCommissionerNetworkMatches(),
+//        StepEnsureCorrectSelectedNetworkPassword(),
+//        StepJoinSelectedNetwork(),
+//        StepFinishJoinSelectedNetwork(),
+        StepCheckDeviceGotClaimed(),
+        StepPublishDeviceSetupDoneEvent(),
+        StepGetNewDeviceName(),
+        StepOfferToAddOneMoreDevice()
+    ]
+
+    //runs before ethernet/wifi/cellular flows
     private let internetConnectedPreflow: [MeshSetupStep] = [
         StepOfferSetupStandAloneOrWithNetwork(),
         StepOfferSelectOrCreateNetwork()
@@ -94,33 +112,18 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         StepPublishDeviceSetupDoneEvent()
     ]
 
-    private let joinerFlow: [MeshSetupStep] = [
-        StepShowInfo()
-//        StepGetUserNetworkSelection(),
-//        StepGetCommissionerDeviceInfo(),
-//        StepConnectToCommissionerDevice(),
-//        StepEnsureCommissionerNetworkMatches(),
-//        StepEnsureCorrectSelectedNetworkPassword(),
-//        StepJoinSelectedNetwork(),
-//        StepFinishJoinSelectedNetwork(),
-//        StepCheckDeviceGotClaimed(),
-//        StepPublishDeviceSetupDoneEvent(),
-//        StepGetNewDeviceName(),
-//        StepOfferToAddOneMoreDevice()
-    ]
-//
-
-//
-
-//
-    private let creatorSubflow: [MeshSetupStep] = [
+    //runs post ethernet/wifi/cellular flows
+    private let networkCreatorPostflow: [MeshSetupStep] = [
         StepGetNewDeviceName(),
-//        StepGetNewNetworkNameAndPassword(),
-//        StepCreateNetwork(),
+        StepGetNewNetworkNameAndPassword(),
+        StepCreateNetwork(),
+        StepEnsureHasInternetAccess(),
+        StepMakeTargetACommissioner(),
         StepOfferToAddOneMoreDevice()
     ]
-//
-    private let standaloneSubflow: [MeshSetupStep] = [
+
+    //runs post ethernet/wifi/cellular flows
+    private let standalonePostflow: [MeshSetupStep] = [
         StepGetNewDeviceName(),
         StepOfferToAddOneMoreDevice()
     ]
@@ -368,10 +371,10 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
             }
         } else if (currentFlow == ethernetFlow || self.currentFlow == wifiFlow || self.currentFlow == cellularFlow) {
             if (context.userSelectedToSetupMesh!) {
-                self.currentFlow = creatorSubflow
+                self.currentFlow = networkCreatorPostflow
                 log("setting creatorSubflow flow")
             } else {
-               self.currentFlow = standaloneSubflow
+               self.currentFlow = standalonePostflow
                 log("setting standaloneSubflow flow")
             }
         } else {
@@ -589,5 +592,23 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         }
 
         return nil
+    }
+
+
+    func setNewNetworkName(name: String) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepGetNewNetworkNameAndPassword.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepGetNewNetworkNameAndPassword).setNewNetworkName(name: name)
+    }
+
+
+    func setNewNetworkPassword(password: String) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepGetNewNetworkNameAndPassword.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepGetNewNetworkNameAndPassword).setNewNetworkPassword(password: password)
     }
 }

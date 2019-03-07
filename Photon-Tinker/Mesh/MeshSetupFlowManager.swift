@@ -62,25 +62,10 @@
 //    }
 //
 //    //MARK: Input validators
-//    private func validateNetworkPassword(_ password: String) -> Bool {
-//        return password.count >= 6
-//    }
-//
 //    private func validateWifiNetworkPassword(_ password: String) -> Bool {
 //        return password.count >= 5
 //    }
-//
-//    private func validateNetworkName(_ networkName: String) -> Bool {
-//        //ensure proper length
-//        if (networkName.count == 0) || (networkName.count > 16) {
-//            return false
-//        }
-//
-//        //ensure no illegal characters
-//        let regex = try! NSRegularExpression(pattern: "[^a-zA-Z0-9_\\-]+")
-//        let matches = regex.matches(in: networkName, options: [], range: NSRange(location: 0, length: networkName.count))
-//        return matches.count == 0
-//    }
+
 //
 
 //
@@ -676,137 +661,6 @@
 //        self.stopTargetDeviceListening {
 //            self.stepComplete(.StopTargetDeviceListening)
 //        }
-//    }
-//
-//    //MARK: GetNewNetworkNameAndPassword
-//    private func stepGetNewNetworkNameAndPassword() {
-//        self.delegate.meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-//    }
-//
-//
-//    func setNewNetworkName(name: String) -> MeshSetupFlowError? {
-//        guard currentCommand == .GetNewNetworkNameAndPassword else {
-//            return .IllegalOperation
-//        }
-//
-//        guard self.validateNetworkName(name) else {
-//            return .NameTooShort
-//        }
-//
-//        if let networks =  self.apiNetworks {
-//            for network in networks {
-//                if (network.name.lowercased() == name.lowercased()) {
-//                    return .NameInUse
-//                }
-//            }
-//        }
-//
-//
-//        self.log("set network name: \(name)")
-//        self.newNetworkName = name
-//
-//        if (self.newNetworkName != nil && self.newNetworkPassword != nil) {
-//            self.stepComplete(.GetNewNetworkNameAndPassword)
-//        }
-//
-//        return nil
-//    }
-//
-//
-//    func setNewNetworkPassword(password: String) -> MeshSetupFlowError? {
-//        guard currentCommand == .GetNewNetworkNameAndPassword else {
-//            return .IllegalOperation
-//        }
-//
-//        guard self.validateNetworkPassword(password) else {
-//            return .PasswordTooShort
-//        }
-//
-//        self.log("set network password: \(password)")
-//        self.newNetworkPassword = password
-//
-//        if (self.newNetworkName != nil && self.newNetworkPassword != nil) {
-//            self.stepComplete(.GetNewNetworkNameAndPassword)
-//        }
-//
-//        return nil
-//    }
-//
-//
-//
-//    //MARK: CreateNetwork
-//    private func stepCreateNetwork() {
-//        self.delegate.meshSetupDidEnterState(state: .CreateNetworkStarted)
-//
-//        if (self.newNetworkId == nil) {
-//            self.createNetworkInAPI()
-//        } else {
-//            self.createNetworkInMesh()
-//        }
-//    }
-//
-//    private func createNetworkInAPI() {
-//
-//        var networkType = ParticleNetworkType.microWifi
-//        if let interface = self.targetDevice.activeInternetInterface, interface == .ppp {
-//            networkType = ParticleNetworkType.microCellular
-//        }
-//
-//        ParticleCloud.sharedInstance().createNetwork(self.newNetworkName!,
-//                gatewayDeviceID: self.targetDevice.deviceId!,
-//                gatewayDeviceICCID: networkType == .microCellular ? self.targetDevice.deviceICCID : nil,
-//                networkType: networkType) {
-//            network, error in
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            self.log("createNetwork: \(network as Optional), error: \(error as Optional)")
-//            guard error == nil else {
-//                self.fail(withReason: .UnableToCreateNetwork, nsError: error)
-//                return
-//            }
-//
-//            if let network = network {
-//                self.newNetworkId = network.id
-//
-//                self.delegate.meshSetupDidEnterState(state: .CreateNetworkStep1Done)
-//                self.createNetworkInMesh()
-//            }
-//        }
-//    }
-//
-//    private func createNetworkInMesh() {
-//        self.targetDevice.transceiver!.sendCreateNetwork(name: self.newNetworkName!, password: self.newNetworkPassword!, networkId: self.newNetworkId!) {
-//            result, networkInfo in
-//
-//            self.log("targetDevice.sendCreateNetwork: \(result.description()), networkInfo: \(networkInfo as Optional)")
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            if (result == .NONE) {
-//                self.log("Setting current target device as commissioner device part 1")
-//                self.selectedNetworkMeshInfo = networkInfo!
-//                self.selectedNetworkPassword = self.newNetworkPassword
-//
-//                self.delegate.meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
-//
-//                self.setTargetDeviceSetupDone {
-//                    self.setTargetDeviceAsCommissioner()
-//                    self.delegate.meshSetupDidEnterState(state: .CreateNetworkCompleted)
-//                    self.stepComplete(.CreateNetwork)
-//                }
-//            } else {
-//                self.handleBluetoothErrorResult(result)
-//            }
-//        }
-//    }
-//
-//    private func setTargetDeviceAsCommissioner() {
-//        self.log("Setting current target device as commissioner device part 2")
-//        self.commissionerDevice = self.targetDevice
-//        self.targetDevice = MeshDevice()
 //    }
 //
 //

@@ -880,61 +880,61 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-//    func meshSetupDidRequestToEnterNewNetworkNameAndPassword() {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupCreateNetworkNameViewController.self)) {
-//                let networkNameVC = MeshSetupCreateNetworkNameViewController.loadedViewController()
-//                networkNameVC.setup(didEnterNetworkName: self.didEnterCreateNetworkName)
-//                self.embededNavigationController.pushViewController(networkNameVC, animated: true)
-//            }
-//        }
-//    }
-//
-//    func didEnterCreateNetworkName(networkName: String) {
-//        if let error = self.flowManager.setNewNetworkName(name: networkName),
-//           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkNameViewController {
-//            vc.setWrongInput(message: error.description)
-//        } else {
-//            showCreateNetworkPassword()
-//        }
-//    }
-//
-//
-//    private func showCreateNetworkPassword() {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupCreateNetworkPasswordViewController.self)) {
-//                let networkPasswordVC = MeshSetupCreateNetworkPasswordViewController.loadedViewController()
-//                networkPasswordVC.setup(didEnterNetworkPassword: self.didEnterCreateNetworkPassword)
-//                self.embededNavigationController.pushViewController(networkPasswordVC, animated: true)
-//            }
-//        }
-//    }
-//
-//    func didEnterCreateNetworkPassword(networkPassword: String) {
-//        if let error = self.flowManager.setNewNetworkPassword(password: networkPassword),
-//           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkPasswordViewController{
-//            vc.setWrongInput(message: error.description)
-//        }
-//    }
-//
-//
-//    private func showCreateNetwork() {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupCreatingNetworkViewController.self)) {
-//                let createNetworkVC = MeshSetupCreatingNetworkViewController.loadedViewController()
-//                createNetworkVC.setup(didFinishScreen: self.createNetworkScreenDone, deviceType: self.flowManager.targetDevice.type, deviceName: self.flowManager.targetDevice.name)
-//                self.embededNavigationController.pushViewController(createNetworkVC, animated: true)
-//            }
-//        }
-//    }
-//
-//    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo) {
-//        //nothing needs to be done on ui side
-//    }
-//
-//    func createNetworkScreenDone() {
-//        // simply do nothing. screen will be exited automatically
-//    }
+    func meshSetupDidRequestToEnterNewNetworkNameAndPassword() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupCreateNetworkNameViewController.self)) {
+                let networkNameVC = MeshSetupCreateNetworkNameViewController.loadedViewController()
+                networkNameVC.setup(didEnterNetworkName: self.didEnterCreateNetworkName)
+                self.embededNavigationController.pushViewController(networkNameVC, animated: true)
+            }
+        }
+    }
+
+    func didEnterCreateNetworkName(networkName: String) {
+        if let error = self.flowManager.setNewNetworkName(name: networkName),
+           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkNameViewController {
+            vc.setWrongInput(message: error.description)
+        } else {
+            showCreateNetworkPassword()
+        }
+    }
+
+
+    private func showCreateNetworkPassword() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupCreateNetworkPasswordViewController.self)) {
+                let networkPasswordVC = MeshSetupCreateNetworkPasswordViewController.loadedViewController()
+                networkPasswordVC.setup(didEnterNetworkPassword: self.didEnterCreateNetworkPassword)
+                self.embededNavigationController.pushViewController(networkPasswordVC, animated: true)
+            }
+        }
+    }
+
+    func didEnterCreateNetworkPassword(networkPassword: String) {
+        if let error = self.flowManager.setNewNetworkPassword(password: networkPassword),
+           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkPasswordViewController{
+            vc.setWrongInput(message: error.description)
+        }
+    }
+
+
+    private func showCreateNetwork() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupCreatingNetworkViewController.self)) {
+                let createNetworkVC = MeshSetupCreatingNetworkViewController.loadedViewController()
+                createNetworkVC.setup(didFinishScreen: self.createNetworkScreenDone, deviceType: self.flowManager.context.targetDevice.type, deviceName: self.flowManager.context.targetDevice.name)
+                self.embededNavigationController.pushViewController(createNetworkVC, animated: true)
+            }
+        }
+    }
+
+    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo) {
+        //nothing needs to be done on ui side
+    }
+
+    func createNetworkScreenDone() {
+        // simply do nothing. screen will be exited automatically
+    }
 
 
     func meshSetupDidEnterState(state: MeshSetupFlowState) {
@@ -1008,8 +1008,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 } else {
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupConnectToInternetViewController.setState was attempted when it shouldn't be: \(state)")
                 }
-//
-//
+
 //            case .JoiningNetworkStarted:
 //                showJoiningNetwork()
 //            case .JoiningNetworkStep1Done, .JoiningNetworkStep2Done, .JoiningNetworkCompleted:
@@ -1025,15 +1024,15 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 //                }
 //
 //
-//            case .CreateNetworkStarted:
-//                showCreateNetwork()
-//            case .CreateNetworkStep1Done, .CreateNetworkCompleted:
-//                if let vc = self.embededNavigationController.topViewController as? MeshSetupCreatingNetworkViewController {
-//                    vc.setState(state)
-//                } else {
-//                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be: \(state)")
-//                }
-//
+            case .CreateNetworkStarted:
+                showCreateNetwork()
+            case .CreateNetworkStep1Done, .CreateNetworkCompleted:
+                if let vc = self.embededNavigationController.topViewController as? MeshSetupCreatingNetworkViewController {
+                    vc.setState(state)
+                } else {
+                    NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be: \(state)")
+                }
+
             case .SetupCanceled:
                 self.cancelTapped(self)
             default:
