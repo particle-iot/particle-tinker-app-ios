@@ -21,15 +21,9 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 
     func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
-
-    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
-    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
+    func meshSetupDidRequestToShowInfo()
 
 
-
-//
-
-//
 //    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 //    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
 //

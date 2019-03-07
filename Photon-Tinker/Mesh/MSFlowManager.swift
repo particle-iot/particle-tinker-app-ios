@@ -29,31 +29,28 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
     private let ethernetFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo()
-//        StepEnsureHasInternetAccess(),
-//        StepCheckDeviceGotClaimed(),
-//        StepPublishDeviceSetupDoneEvent(),
-//        StepChooseSubflow()
+        StepShowInfo(),
+        StepEnsureHasInternetAccess(),
+        StepCheckDeviceGotClaimed(),
+        StepPublishDeviceSetupDoneEvent()
     ]
 
     private let wifiFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo()
+        StepShowInfo(),
 //        StepGetUserWifiNetworkSelection(),
 //        StepEnsureCorrectSelectedWifiNetworkPassword(),
-//        StepEnsureHasInternetAccess(),
-//        StepCheckDeviceGotClaimed(),
-//        StepPublishDeviceSetupDoneEvent(),
-//        StepChooseSubflow()
+        StepEnsureHasInternetAccess(),
+        StepCheckDeviceGotClaimed(),
+        StepPublishDeviceSetupDoneEvent()
     ]
-//
+
     private let cellularFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowCellularInfo()
-//        StepEnsureHasInternetAccess(),
-//        StepCheckDeviceGotClaimed(),
-//        StepPublishDeviceSetupDoneEvent(),
-//        StepChooseSubflow()
+        StepShowInfo(),
+        StepEnsureHasInternetAccess(),
+        StepCheckDeviceGotClaimed(),
+        StepPublishDeviceSetupDoneEvent()
     ]
 
     private let joinerFlow: [MeshSetupStep] = [
@@ -300,6 +297,10 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
                 log("setting gateway flow")
             } else {
                 //if context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
+                //we don't need internet interface to run this flow and having it
+                //makes it hard for steps to determine what is happening
+                context.targetDevice.activeInternetInterface = nil
+
                 log("setting xenon joiner flow")
                 self.currentFlow = joinerFlow
             }
@@ -308,15 +309,29 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
                 //if user wants to go standalone or create network
                 if (context.targetDevice.activeInternetInterface! == .ethernet) {
                     self.currentFlow = ethernetFlow
+                    log("setting ethernetFlow flow")
                 } else if (context.targetDevice.activeInternetInterface! == .wifi) {
                     self.currentFlow = wifiFlow
+                    log("setting wifiFlow flow")
                 } else if (context.targetDevice.activeInternetInterface! == .ppp) {
                     self.currentFlow = cellularFlow
+                    log("setting cellularFlow flow")
                 } else {
                     fatalError("wrong state?")
                 }
             } else {  //if (context.selectedNetworkMeshInfo != nil)
+                //we don't need internet interface to run this flow and having it
+                //makes it hard for steps to determine what is happening
+                context.targetDevice.activeInternetInterface = nil
                 self.currentFlow = joinerFlow
+            }
+        } else if (currentFlow == ethernetFlow || self.currentFlow == wifiFlow || self.currentFlow == cellularFlow) {
+            if (context.userSelectedToSetupMesh!) {
+                self.currentFlow = creatorSubflow
+                log("setting creatorSubflow flow")
+            } else {
+               self.currentFlow = standaloneSubflow
+                log("setting standaloneSubflow flow")
             }
         } else {
             fatalError("no flow to switch to")
@@ -509,14 +524,5 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
         return (currentStep as! StepShowInfo).setInfoDone()
     }
-
-    func setCellularInfoDone() -> MeshSetupFlowError? {
-        guard type(of: currentStep) == StepShowCellularInfo.self else {
-            return .IllegalOperation
-        }
-
-        return (currentStep as! StepShowCellularInfo).setCellularInfoDone()
-    }
-
 
 }

@@ -8,17 +8,7 @@
 //
 //
 //class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate {
-//
-//    private func stepChooseSubflow() {
-//        self.currentStep = 0
-//       if (self.userSelectedToSetupMesh!) {
-//            self.currentFlow = creatorSubflow
-//        } else {
-//           self.currentFlow = standaloneSubflow
-//        }
-//        self.runCurrentStep()
-//    }
-//
+
 //    //MARK: Helpers
 //    private func targetDeviceLeaveMeshNetwork(reloadAPINetworks: Bool) {
 //        self.targetDevice.transceiver!.sendLeaveNetwork { result in
@@ -180,24 +170,7 @@
 //    }
 //
 //
-//    //MARK: PublishDeviceSetupDoneEvent
-//    private func stepPublishDeviceSetupDoneEvent() {
-//        self.log("publishing device setup done")
-//        ParticleCloud.sharedInstance().publishEvent(withName: "mesh-device-setup-complete", data: self.targetDevice.deviceId!, isPrivate: true, ttl: 60) {
-//            error in
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            self.log("stepPublishDeviceSetupDoneEvent error: \(error as Optional)")
-//            guard error == nil else {
-//                self.fail(withReason: .UnableToPublishDeviceSetupEvent, nsError: error)
-//                return
-//            }
-//
-//            self.stepComplete(.PublishDeviceSetupDoneEvent)
-//        }
-//    }
+
 //
 //
 //    //MARK: GetUserNetworkSelection
@@ -659,6 +632,7 @@
 //                return
 //            }
 //            if (result == .NONE) {
+//                  targetDevice.isSetupDone = true
 //                onComplete()
 //            } else {
 //                self.handleBluetoothErrorResult(result)
@@ -696,216 +670,8 @@
 //        }
 //    }
 //
-//    //MARK: CheckDeviceGotClaimed
-//    private func checkTargetDeviceGotConnected() {
-//        if (self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] == nil) {
-//            self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] = Date()
-//        }
-//
-//        let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotConnectedStartTime"] as! Date)
-//        if (diff > MeshSetup.deviceConnectToCloudTimeout) {
-//            self.fail(withReason: .DeviceConnectToCloudTimeout)
-//            return
-//        }
-//
-//        self.targetDevice.transceiver!.sendGetConnectionStatus { result, status in
-//            self.log("targetDevice.sendGetConnectionStatus: \(result.description())")
-//            if (self.canceled) {
-//                return
-//            }
-//            if (result == .NONE) {
-//                self.log("status: \(status as Optional)")
-//                if (status! == .connected) {
-//                    self.log("device connected to the cloud")
-//                    self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
-//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-//                        if (self.canceled) {
-//                            return
-//                        }
-//                        self.checkTargetDeviceGotClaimed()
-//                    }
-//                } else {
-//                    self.log("device did NOT connect yet")
-//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
-//                        if (self.canceled) {
-//                            return
-//                        }
-//                        self.checkTargetDeviceGotConnected()
-//                    }
-//                }
-//            } else {
-//                self.handleBluetoothErrorResult(result)
-//            }
-//        }
-//    }
-//
-//    private func checkTargetDeviceGotClaimed() {
-//        if let isClaimed = self.targetDevice.isClaimed, isClaimed == true {
-//            self.deviceGotClaimed()
-//            return
-//        }
-//
-//        if (self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] == nil) {
-//            self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] = Date()
-//        }
-//
-//        let diff = Date().timeIntervalSince(self.currentStepFlags["checkTargetDeviceGotClaimedStartTime"] as! Date)
-//        if (diff > MeshSetup.deviceGettingClaimedTimeout) {
-//            fail(withReason: .DeviceGettingClaimedTimeout)
-//            return
-//        }
-//
-//        ParticleCloud.sharedInstance().getDevices { devices, error in
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            guard error == nil else {
-//                self.fail(withReason: .DeviceGettingClaimedTimeout, nsError: error!)
-//                return
-//            }
-//
-//            if let devices = devices {
-//                for device in devices {
-//                    if (device.id == self.targetDevice.deviceId!) {
-//                        self.targetDevice.name = device.name
-//                        self.deviceGotClaimed()
-//                        return
-//                    }
-//                }
-//            }
-//
-//            self.log("device was NOT successfully claimed")
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-//                self.checkTargetDeviceGotClaimed()
-//            }
-//        }
-//    }
-//
-//    private func deviceGotClaimed() {
-//        self.log("device was successfully claimed")
-//        if (self.currentFlow == self.ethernetFlow || self.currentFlow == self.wifiFlow || self.currentFlow == self.cellularFlow) {
-//            self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetCompleted)
-//        } else if (self.currentFlow == self.joinerFlow || self.currentFlow == self.xenonJoinerFlow) {
-//            self.delegate.meshSetupDidEnterState(state: .JoiningNetworkCompleted)
-//        }
-//        self.stepComplete(.CheckDeviceGotClaimed)
-//    }
-//
-//
-//    //MARK: EnsureHasInternetAccess
-//    private func stepEnsureHasInternetAccess() {
-//        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStarted)
-//
-//        self.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { result in
-//            self.log("targetDevice.transceiver!.sendDeviceSetupDone: \(result.description())")
-//            if (self.canceled) {
-//                return
-//            }
-//            if (result == .NONE) {
-//                if self.currentFlow == self.cellularFlow {
-//                    self.activateSim()
-//                } else {
-//                    self.activateSimDone()
-//                }
-//            } else {
-//                self.handleBluetoothErrorResult(result)
-//            }
-//        }
-//    }
-//
-//    private func activateSim() {
-//        if (self.targetDevice.simActive ?? false) {
-//            self.activateSimDone()
-//            return
-//        }
-//
-//        if (self.currentStepFlags["checkSimActiveRetryCount"] == nil) {
-//            self.currentStepFlags["checkSimActiveRetryCount"] = 0
-//        } else {
-//            self.currentStepFlags["checkSimActiveRetryCount"] = (self.currentStepFlags["checkSimActiveRetryCount"] as! Int) + 1
-//        }
-//
-//        let retries = self.currentStepFlags["checkSimActiveRetryCount"] as! Int
-//
-//        if (retries > MeshSetup.activateSimRetryCount) {
-//            self.currentStepFlags["checkSimActiveRetryCount"] = nil
-//            self.fail(withReason: .FailedToActivateSim)
-//            return
-//        }
-//
-//        ParticleCloud.sharedInstance().updateSim(self.targetDevice.deviceICCID!, action: .activate, dataLimit: nil, countryCode: nil, cardToken: nil) {
-//            error in
-//
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            self.log("updateSim error: \(error)")
-//
-//            if let nsError = error as? NSError, nsError.code == 504 {
-//                 self.log("activate sim returned 504, but that is fine :(")
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-//                    self.activateSim()
-//                }
-//            } else if (error != nil) {
-//                self.fail(withReason: .FailedToActivateSim, nsError: error!)
-//                return
-//            } else {
-//                self.targetDevice.simActive = true
-//                self.activateSimDone()
-//            }
-//        }
-//    }
-//
-//    private func activateSimDone() {
-//        self.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep0Done)
-//        self.stopTargetDeviceListening {
-//            self.checkDeviceHasIP()
-//        }
-//    }
-//
-//    private func checkDeviceHasIP() {
-//        if (self.currentStepFlags["checkDeviceHasIPStartTime"] == nil) {
-//            self.currentStepFlags["checkDeviceHasIPStartTime"] = Date()
-//        }
-//
-//        let diff = Date().timeIntervalSince(self.currentStepFlags["checkDeviceHasIPStartTime"] as! Date)
-//        let limit = (self.currentFlow == self.cellularFlow) ? MeshSetup.deviceObtainedIPCellularTimeout : MeshSetup.deviceObtainedIPTimeout
-//        if (diff > limit) {
-//            self.currentStepFlags["checkDeviceHasIPStartTime"] = nil
-//
-//            if let interface = self.targetDevice.activeInternetInterface, interface == .ppp {
-//                self.fail(withReason: .FailedToObtainIpBoron)
-//            } else {
-//                self.fail(withReason: .FailedToObtainIp)
-//            }
-//            return
-//        }
-//
-//        self.targetDevice.transceiver!.sendGetInterface(interfaceIndex: self.targetDevice.getActiveNetworkInterfaceIdx()!) { result, interface in
-//            self.log("result: \(result.description()), networkInfo: \(interface as Optional)")
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            if (result == .NONE) {
-//                if (interface?.ipv4Config.addresses.first != nil || interface?.ipv6Config.addresses.first != nil) {
-//                    self.targetDevice.hasInternetAddress = true
-//                    self.stepComplete(.EnsureHasInternetAccess)
-//                } else {
-//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-//                        if (self.canceled) {
-//                            return
-//                        }
-//                        self.checkDeviceHasIP()
-//                    }
-//                }
-//            } else {
-//                self.handleBluetoothErrorResult(result)
-//            }
-//        }
-//    }
+
+
 //
 //    //MARK: StopTargetDeviceListening
 //    private func stepStopTargetDeviceListening() {
@@ -913,11 +679,7 @@
 //            self.stepComplete(.StopTargetDeviceListening)
 //        }
 //    }
-//
-//    //MARK: CheckDeviceGotClaimed
-//    private func stepCheckDeviceGotClaimed() {
-//        self.checkTargetDeviceGotConnected()
-//    }
+
 //
 //    //MARK: GetNewDeviceName
 //    private func stepGetNewDeviceName() {
