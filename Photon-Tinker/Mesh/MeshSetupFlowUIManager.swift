@@ -334,7 +334,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func didRequestToSelectStandAloneOrMeshSetup() {
+    func meshSetupDidRequestToSelectStandAloneOrMeshSetup() {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupStandAloneOrMeshSetupViewController.self)) {
                 let setupVC = MeshSetupStandAloneOrMeshSetupViewController.loadedViewController()
@@ -539,8 +539,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             }
         }
     }
-//
-//
+
 //
 //    //MARK: Scan networks
 //    private func showSelectNetwork() {

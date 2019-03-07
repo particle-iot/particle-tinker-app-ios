@@ -5,43 +5,8 @@
 
 import Foundation
 
-//delegate required to request / deliver information from / to the UI
-protocol MeshSetupFlowManagerDelegate {
-    func meshSetupDidRequestTargetDeviceInfo()
 
-    func meshSetupDidRequestToUpdateFirmware()
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
-
-
-    //create flow
-    func didRequestToSelectStandAloneOrMeshSetup()
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-
-    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
-    func meshSetupDidRequestToShowInfo()
-
-    func meshSetupDidRequestToEnterDeviceName()
-    func meshSetupDidRequestToAddOneMoreDevice()
-
-    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
-
-    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
-    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
-
-    //joiner flow
-//    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-//    func meshSetupDidRequestCommissionerDeviceInfo()
-//    func meshSetupDidRequestToEnterSelectedNetworkPassword()
-
-    func meshSetupDidEnterState(state: MeshSetupFlowState)
-    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
-}
-
-
-class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate {
-
-
+class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate, MeshSetupFlowManagerDelegateResponseConsumer {
     private let preflow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),

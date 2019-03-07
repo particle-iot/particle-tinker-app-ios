@@ -8,47 +8,61 @@
 
 import Foundation
 
-internal enum MeshSetupFlowCommand {
+//delegate required to request / deliver information from / to the UI
+protocol MeshSetupFlowManagerDelegate {
+    func meshSetupDidRequestTargetDeviceInfo()
 
-    //preflow
-    case GetTargetDeviceInfo
-    case ConnectToTargetDevice
-    case EnsureCorrectEthernetFeatureStatus
-    case EnsureLatestFirmware
-    case EnsureTargetDeviceCanBeClaimed
-    case CheckTargetDeviceHasNetworkInterfaces
-    case OfferSetupStandAloneOrWithNetwork
+    func meshSetupDidRequestToUpdateFirmware()
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
 
-    //main flow
-    case ShowPricingImpact
-    case GetAPINetworks
-    case SetClaimCode
-    case EnsureTargetDeviceIsNotOnMeshNetwork
-    case GetUserNetworkSelection
-    case GetCommissionerDeviceInfo
-    case ConnectToCommissionerDevice
-    case EnsureCommissionerNetworkMatches
-    case EnsureCorrectSelectedNetworkPassword
-    case JoinSelectedNetwork
-    case FinishJoinSelectedNetwork
-    case GetNewDeviceName
-    case OfferToAddOneMoreDevice
-    case PublishDeviceSetupDoneEvent
 
-    //gateway
-    case GetUserWifiNetworkSelection
-    case ShowCellularInfo
-    case ShowInfo
-    case EnsureCorrectSelectedWifiNetworkPassword
-    case EnsureHasInternetAccess
-    case CheckDeviceGotClaimed
-    case StopTargetDeviceListening
-    case OfferSelectOrCreateNetwork
+    //create flow
+    func meshSetupDidRequestToSelectStandAloneOrMeshSetup()
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
 
-    case GetNewNetworkNameAndPassword
-    case CreateNetwork
+    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
+    func meshSetupDidRequestToShowInfo()
+
+    func meshSetupDidRequestToEnterDeviceName()
+    func meshSetupDidRequestToAddOneMoreDevice()
+
+    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
+
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
+    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
+
+    //joiner flow
+//    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+//    func meshSetupDidRequestCommissionerDeviceInfo()
+//    func meshSetupDidRequestToEnterSelectedNetworkPassword()
+
+    func meshSetupDidEnterState(state: MeshSetupFlowState)
+    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
+protocol MeshSetupFlowManagerDelegateResponseConsumer {
+    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError?
+
+    func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError?
+    func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError?
+
+    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError?
+    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError?
+
+    func setPricingImpactDone() -> MeshSetupFlowError?
+    func setInfoDone() -> MeshSetupFlowError?
+
+    func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
+    func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError?
+
+    func setNewNetworkName(name: String) -> MeshSetupFlowError?
+    func setNewNetworkPassword(password: String) -> MeshSetupFlowError?
+    func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError?
+    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
+
+    func rescanNetworks() -> MeshSetupFlowError?
+}
 
 enum MeshSetupFlowState {
     case TargetDeviceConnecting
@@ -83,6 +97,7 @@ enum MeshSetupFlowState {
 
     case SetupCanceled
 }
+
 
 enum MeshSetupFlowError: Error, CustomStringConvertible {
     //trying to perform action at the wrong time
