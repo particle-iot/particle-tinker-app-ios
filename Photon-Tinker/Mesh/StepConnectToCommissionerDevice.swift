@@ -10,6 +10,10 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
     private var reconnect: Bool = false
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
+
         if (context.commissionerDevice?.transceiver != nil) {
             self.stepCompleted()
             return
@@ -28,27 +32,46 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
     }
 
     private func commissionerDeviceConnected(connection: MeshSetupBluetoothConnection) {
+        guard let context = self.context else {
+            return
+        }
+
         context.commissionerDevice!.transceiver = MeshSetupProtocolTransceiver(connection: connection)
 
         self.stepCompleted()
     }
 
     override func handleBluetoothConnectionManagerConnectionCreated(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
         context.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
+
         return true
     }
 
     override func handleBluetoothConnectionManagerConnectionBecameReady(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
         context.delegate.meshSetupDidEnterState(state: .CommissionerDeviceReady)
         commissionerDeviceConnected(connection: connection)
+
         return true
     }
 
     override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
         if (reconnect) {
             reconnect = false
             start()
         }
+
         return true
     }
 }

@@ -8,8 +8,12 @@ import Foundation
 class StepGetAPINetworks: MeshSetupStep {
 
     override func start() {
-        ParticleCloud.sharedInstance().getNetworks { networks, error in
-            if (self.context.canceled) {
+        guard let context = self.context else {
+            return
+        }
+
+        ParticleCloud.sharedInstance().getNetworks { [weak self, weak context] networks, error in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -20,9 +24,9 @@ class StepGetAPINetworks: MeshSetupStep {
             }
 
             if let networks = networks {
-                self.context.apiNetworks = networks
+                context.apiNetworks = networks
             } else {
-                self.context.apiNetworks = []
+                context.apiNetworks = []
             }
 
             self.stepCompleted()

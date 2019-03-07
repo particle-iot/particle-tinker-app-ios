@@ -19,15 +19,19 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
     }
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
+
         if (!meshNetworkInfoLoaded) {
             self.getTargetDeviceMeshNetworkInfo()
-        } else if (self.context.userSelectedToLeaveNetwork == nil) {
+        } else if (context.userSelectedToLeaveNetwork == nil) {
             self.getUserSelectedToLeaveNetwork()
-        } else if (self.context.userSelectedToLeaveNetwork! == false) {
+        } else if (context.userSelectedToLeaveNetwork! == false) {
             //user decided to cancel setup, and we want to get his device in normal mode.
             self.log("stopping listening mode?")
             self.stopTargetDeviceListening()
-        } else if (!leftNetworkOnAPI) { //self.context.userSelectedToLeaveNetwork! == true
+        } else if (!leftNetworkOnAPI) { //context.userSelectedToLeaveNetwork! == true
             //forcing this command even on devices with no network info helps with the joining process
             self.targetDeviceLeaveAPINetwork()
         } else if (!leftNetworkOnDevice) {
@@ -40,21 +44,22 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
     }
 
     private func getTargetDeviceMeshNetworkInfo() {
-        self.context.targetDevice.transceiver!.sendGetNetworkInfo { result, networkInfo in
+        context?.targetDevice.transceiver!.sendGetNetworkInfo { [weak self, weak context] result, networkInfo in
 
-            self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
-            self.log("\(networkInfo as Optional)");
-            if (self.context.canceled) {
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
+            self.log("\(networkInfo as Optional)");
+
             if (result == .NOT_FOUND) {
                 self.meshNetworkInfoLoaded = true
-                self.context.targetDevice.meshNetworkInfo = nil
+                context.targetDevice.meshNetworkInfo = nil
                 self.start()
             } else if (result == .NONE) {
                 self.meshNetworkInfoLoaded = true
-                self.context.targetDevice.meshNetworkInfo = networkInfo
+                context.targetDevice.meshNetworkInfo = networkInfo
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -63,11 +68,15 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
     }
 
     private func getUserSelectedToLeaveNetwork() {
-        if let network = self.context.targetDevice.meshNetworkInfo {
+        guard let context = self.context else {
+            return
+        }
+
+        if let network = context.targetDevice.meshNetworkInfo {
             if (network.networkID.count == 0) {
                 let _ = self.setTargetDeviceLeaveNetwork(leave: true)
             } else {
-                self.context.delegate.meshSetupDidRequestToLeaveNetwork(network: network)
+                context.delegate.meshSetupDidRequestToLeaveNetwork(network: network)
             }
         } else {
             let _ = self.setTargetDeviceLeaveNetwork(leave: true)
@@ -75,7 +84,11 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
     }
 
     func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError? {
-        self.context.userSelectedToLeaveNetwork = leave
+        guard let context = self.context else {
+            return nil
+        }
+
+        context.userSelectedToLeaveNetwork = leave
         self.log("setTargetDeviceLeaveNetwork: \(leave)")
 
         self.start()
@@ -85,12 +98,16 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
 
 
     private func targetDeviceLeaveAPINetwork() {
+        guard let context = self.context else {
+            return
+        }
+
         self.log("sening remove device network info to API")
 
-        ParticleCloud.sharedInstance().removeDeviceNetworkInfo(self.context.targetDevice.deviceId!) {
-            error in
+        ParticleCloud.sharedInstance().removeDeviceNetworkInfo(context.targetDevice.deviceId!) {
+            [weak self, weak context] error in
 
-            if (self.context.canceled) {
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -107,15 +124,16 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
     }
 
     private func targetDeviceLeaveMeshNetwork() {
-        self.context.targetDevice.transceiver!.sendLeaveNetwork { result in
-            self.log("targetDevice.didReceiveLeaveNetworkReply: \(result.description())")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendLeaveNetwork { [weak self, weak context] result in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            self.log("targetDevice.didReceiveLeaveNetworkReply: \(result.description())")
+
             if (result == .NONE) {
                 self.leftNetworkOnDevice = true
-                self.context.targetDevice.meshNetworkInfo = nil
+                context.targetDevice.meshNetworkInfo = nil
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -124,8 +142,8 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
     }
 
     func getAPINetworks() {
-        ParticleCloud.sharedInstance().getNetworks { networks, error in
-            if (self.context.canceled) {
+        ParticleCloud.sharedInstance().getNetworks { [weak self, weak context] networks, error in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -138,9 +156,9 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
             self.apiNetworksLoaded = true
 
             if let networks = networks {
-                self.context.apiNetworks = networks
+                context.apiNetworks = networks
             } else {
-                self.context.apiNetworks = []
+                context.apiNetworks = []
             }
 
             self.stepCompleted()
@@ -151,15 +169,19 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
 
 
     private func stopTargetDeviceListening() {
-        self.context.targetDevice.transceiver!.sendStopListening { result in
+        context?.targetDevice.transceiver!.sendStopListening { [weak self, weak context] result in
+            guard let self = self, let context = context, !context.canceled else {
+                return
+            }
+
             self.log("targetDevice.sendStopListening: \(result.description())")
 
-            if (self.context.canceled) {
+            if (context.canceled) {
                 return
             }
 
             if (result == .NONE) {
-                self.context.delegate.meshSetupDidEnterState(state: .SetupCanceled)
+                context.delegate.meshSetupDidEnterState(state: .SetupCanceled)
             } else {
                 self.handleBluetoothErrorResult(result)
             }

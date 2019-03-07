@@ -295,16 +295,16 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
                 "Switching flow!!!")
 
         if (currentFlow == preflow) {
-            if (self.context.targetDevice.hasActiveInternetInterface() && self.context.selectedNetworkMeshInfo == nil) {
+            if (context.targetDevice.hasActiveInternetInterface() && context.selectedNetworkMeshInfo == nil) {
                 self.currentFlow = internetConnectedPreflow
                 log("setting gateway flow")
             } else {
-                //if self.context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
+                //if context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
                 log("setting xenon joiner flow")
                 self.currentFlow = joinerFlow
             }
         } else if (currentFlow == internetConnectedPreflow) {
-            if (self.context.userSelectedToSetupMesh! == false || self.context.userSelectedToCreateNetwork! == true) {
+            if (context.userSelectedToSetupMesh! == false || context.userSelectedToCreateNetwork! == true) {
                 //if user wants to go standalone or create network
                 if (context.targetDevice.activeInternetInterface! == .ethernet) {
                     self.currentFlow = ethernetFlow
@@ -315,7 +315,7 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
                 } else {
                     fatalError("wrong state?")
                 }
-            } else {  //if (self.context.selectedNetworkMeshInfo != nil)
+            } else {  //if (context.selectedNetworkMeshInfo != nil)
                 self.currentFlow = joinerFlow
             }
         } else {

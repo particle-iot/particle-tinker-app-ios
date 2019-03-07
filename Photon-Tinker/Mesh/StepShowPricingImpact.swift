@@ -8,34 +8,39 @@ import Foundation
 class StepShowPricingImpact : MeshSetupStep {
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
+
         //for boron / b series
-        if let activeInternetInterface = self.context.targetDevice.activeInternetInterface, activeInternetInterface == .ppp {
-            if (self.context.targetDevice.externalSim == nil) {
+        if let activeInternetInterface = context.targetDevice.activeInternetInterface, activeInternetInterface == .ppp {
+            if (context.targetDevice.externalSim == nil) {
                 self.getTargetDeviceActiveSim()
-            } else if (self.context.targetDevice.deviceICCID == nil) {
+            } else if (context.targetDevice.deviceICCID == nil) {
                 self.getTargetDeviceICCID()
-            } else if (self.context.pricingInfo == nil) {
+            } else if (context.pricingInfo == nil) {
                 self.getPricingImpact()
             } else {
-                self.context.delegate.meshSetupDidRequestToShowPricingInfo(info: self.context.pricingInfo!)
+                context.delegate.meshSetupDidRequestToShowPricingInfo(info: context.pricingInfo!)
             }
-        } else if (self.context.pricingInfo == nil) {
+        } else if (context.pricingInfo == nil) {
             self.getPricingImpact()
         } else {
-            self.context.delegate.meshSetupDidRequestToShowPricingInfo(info: self.context.pricingInfo!)
+            context.delegate.meshSetupDidRequestToShowPricingInfo(info: context.pricingInfo!)
         }
     }
 
     private func getTargetDeviceActiveSim() {
-        self.context.targetDevice.transceiver!.sendGetActiveSim () { result, externalSim in
+        context?.targetDevice.transceiver!.sendGetActiveSim () { [weak self, weak context] result, externalSim in
 
-            self.log("targetDevice.transceiver!.sendGetActiveSim: \(result.description()), externalSim: \(externalSim as Optional)")
-            if (self.context.canceled) {
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            self.log("targetDevice.transceiver!.sendGetActiveSim: \(result.description()), externalSim: \(externalSim as Optional)")
+
             if (result == .NONE) {
-                self.context.targetDevice.externalSim = externalSim!
+                context.targetDevice.externalSim = externalSim!
                 if (externalSim!) {
                     self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal)
                 } else {
@@ -50,15 +55,16 @@ class StepShowPricingImpact : MeshSetupStep {
     }
 
     private func getTargetDeviceICCID() {
-        self.context.targetDevice.transceiver!.sendGetIccid () { result, iccid in
+        context?.targetDevice.transceiver!.sendGetIccid () { [weak self, weak context] result, iccid in
 
-            self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
-            if (self.context.canceled) {
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
+
             if (result == .NONE) {
-                self.context.targetDevice.deviceICCID = iccid!
+                context.targetDevice.deviceICCID = iccid!
                 self.start()
             } else if (result == .INVALID_STATE) {
                 self.fail(withReason: .BoronModemError)
@@ -69,27 +75,31 @@ class StepShowPricingImpact : MeshSetupStep {
     }
 
     private func getPricingImpact() {
+        guard let context = self.context else {
+            return
+        }
+
         //joiner flow
         var action = ParticlePricingImpactAction.addNetworkDevice
-        if let userSelectedToSetupMesh = self.context.userSelectedToSetupMesh {
+        if let userSelectedToSetupMesh = context.userSelectedToSetupMesh {
             //standalone or network
             action = userSelectedToSetupMesh ? .createNetwork : .addUserDevice
         }
 
         var networkType = ParticlePricingImpactNetworkType.wifi
-        if let interface = self.context.targetDevice.activeInternetInterface, interface == .ppp {
+        if let interface = context.targetDevice.activeInternetInterface, interface == .ppp {
             networkType = ParticlePricingImpactNetworkType.cellular
         }
 
         ParticleCloud.sharedInstance().getPricingImpact(action,
-                deviceID: self.context.targetDevice.deviceId!,
-                networkID: self.context.selectedNetworkMeshInfo?.networkID,
+                deviceID: context.targetDevice.deviceId!,
+                networkID: context.selectedNetworkMeshInfo?.networkID,
                 networkType: networkType,
-                iccid: self.context.targetDevice.deviceICCID)
+                iccid: context.targetDevice.deviceICCID)
         {
-            pricingInfo, error in
+            [weak self, weak context] pricingInfo, error in
 
-            if (self.context.canceled) {
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -100,15 +110,19 @@ class StepShowPricingImpact : MeshSetupStep {
                 return
             }
 
-            self.context.pricingInfo = pricingInfo!
+            context.pricingInfo = pricingInfo!
             self.start()
         }
     }
 
     func setPricingImpactDone() -> MeshSetupFlowError? {
+        guard let context = self.context else {
+            return nil
+        }
+
         if (!self.pricingRequirementsAreMet()) {
             //make sure to clear pricing info, otherwise the setup will just reuse old data
-            self.context.pricingInfo = nil
+            context.pricingInfo = nil
 
             return .CCMissing
         }
@@ -118,7 +132,11 @@ class StepShowPricingImpact : MeshSetupStep {
     }
 
     func pricingRequirementsAreMet() -> Bool {
-        guard let pricingInfo = self.context.pricingInfo else {
+        guard let context = self.context else {
+            return false
+        }
+
+        guard let pricingInfo = context.pricingInfo else {
             return false
         }
 

@@ -8,45 +8,52 @@ import Foundation
 class StepOfferSelectOrCreateNetwork : MeshSetupStep {
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
 
-        if let setupMesh = self.context.userSelectedToSetupMesh, setupMesh == false {
+        if let setupMesh = context.userSelectedToSetupMesh, setupMesh == false {
             //if in previous step user selected not to create networks, just complete the step
             self.stepCompleted()
-        } else if (self.context.userSelectedToCreateNetwork != nil) {
+        } else if (context.userSelectedToCreateNetwork != nil) {
             //if user has already selected the mesh network we also complete the step
             self.stepCompleted()
         } else {
-            self.context.delegate.meshSetupDidEnterState(state: .TargetInternetConnectedDeviceScanningForNetworks)
+            context.delegate.meshSetupDidEnterState(state: .TargetInternetConnectedDeviceScanningForNetworks)
             self.scanNetworks()
         }
     }
 
     func scanNetworks() {
-        self.context.targetDevice.transceiver!.sendScanNetworks { result, networks in
-            self.log("sendScanNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
-
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendScanNetworks { [weak self, weak context] result, networks in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            self.log("sendScanNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
+
             if (result == .NONE) {
-                self.context.targetDevice.meshNetworks = self.removeRepeatedMeshNetworks(networks!)
+                context.targetDevice.meshNetworks = self.removeRepeatedMeshNetworks(networks!)
             } else {
                 //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
-                self.context.targetDevice.meshNetworks = []
+                context.targetDevice.meshNetworks = []
             }
             self.getUserOptionalNetworkSelection()
         }
     }
 
     private func getUserOptionalNetworkSelection() {
+        guard let context = self.context else {
+            return
+        }
+
         var networks = [String: MeshSetupNetworkCellInfo]()
 
-        for network in self.context.targetDevice.meshNetworks! {
+        for network in context.targetDevice.meshNetworks! {
             networks[network.extPanID] = MeshSetupNetworkCellInfo(name: network.name, extPanID: network.extPanID, userOwned: false, deviceCount: nil)
         }
 
-        for apiNetwork in self.context.apiNetworks! {
+        for apiNetwork in context.apiNetworks! {
             if let xpanId = apiNetwork.xpanId, var meshNetwork = networks[xpanId] {
                 meshNetwork.userOwned = true
                 meshNetwork.deviceCount = apiNetwork.deviceCount
@@ -54,22 +61,26 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
             }
         }
 
-        self.context.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: Array(networks.values))
+        context.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: Array(networks.values))
     }
 
     func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {
-        if (selectedNetworkExtPanID != nil) {
-            self.context.userSelectedToCreateNetwork = false
+        guard let context = self.context else {
+            return nil
+        }
 
-            for network in self.context.targetDevice.meshNetworks! {
+        if (selectedNetworkExtPanID != nil) {
+            context.userSelectedToCreateNetwork = false
+
+            for network in context.targetDevice.meshNetworks! {
                 if network.extPanID == selectedNetworkExtPanID! {
-                    self.context.selectedNetworkMeshInfo = network
+                    context.selectedNetworkMeshInfo = network
                     break
                 }
             }
         } else {
-            self.context.userSelectedToCreateNetwork = true
-            self.context.selectedNetworkMeshInfo = nil
+            context.userSelectedToCreateNetwork = true
+            context.selectedNetworkMeshInfo = nil
         }
 
         self.stepCompleted()

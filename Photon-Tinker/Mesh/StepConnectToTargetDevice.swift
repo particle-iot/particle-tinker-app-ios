@@ -12,6 +12,10 @@ class StepConnectToTargetDevice: MeshSetupStep {
     var reconnectAfterForcedRebootRetry: Int = 0
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
+
         if (context.bluetoothManager.state != .Ready) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 self.fail(withReason: .BluetoothDisabled)
@@ -32,6 +36,10 @@ class StepConnectToTargetDevice: MeshSetupStep {
     }
 
     private func targetDeviceConnected(connection: MeshSetupBluetoothConnection) {
+        guard let context = self.context else {
+            return
+        }
+
         context.targetDevice.transceiver = MeshSetupProtocolTransceiver(connection: connection)
 
         self.stepCompleted()
@@ -68,11 +76,20 @@ class StepConnectToTargetDevice: MeshSetupStep {
     }
 
     override func handleBluetoothConnectionManagerConnectionCreated(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
         context.delegate.meshSetupDidEnterState(state: .TargetDeviceConnected)
+
         return true
     }
 
     override func handleBluetoothConnectionManagerConnectionBecameReady(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
         context.delegate.meshSetupDidEnterState(state: .TargetDeviceReady)
 
         targetDeviceConnected(connection: connection)
@@ -81,6 +98,10 @@ class StepConnectToTargetDevice: MeshSetupStep {
     }
 
     override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
         if (reconnect) {
             reconnect = false
             start()

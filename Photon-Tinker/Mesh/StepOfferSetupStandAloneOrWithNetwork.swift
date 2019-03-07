@@ -7,11 +7,19 @@ import Foundation
 
 class StepOfferSetupStandAloneOrWithNetwork : MeshSetupStep {
     override func start() {
-       self.context.delegate.didRequestToSelectStandAloneOrMeshSetup()
+        guard let context = self.context else {
+            return
+        }
+
+       context.delegate.didRequestToSelectStandAloneOrMeshSetup()
     }
 
     func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {
-        self.context.userSelectedToSetupMesh = meshSetup
+        guard let context = self.context else {
+            return nil
+        }
+
+        context.userSelectedToSetupMesh = meshSetup
 
         self.stepCompleted()
 

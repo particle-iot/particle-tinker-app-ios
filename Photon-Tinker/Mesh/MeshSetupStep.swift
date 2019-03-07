@@ -12,7 +12,7 @@ protocol MeshSetupStepDelegate {
 }
 
 class MeshSetupStep: NSObject {
-    var context: MeshSetupContext!
+    var context: MeshSetupContext?
 
     func log(_ message: String) {
         ParticleLogger.logInfo("MeshSetupFlow", format: message, withParameters: getVaList([]))
@@ -25,7 +25,11 @@ class MeshSetupStep: NSObject {
     }
 
     func stepCompleted() {
-        self.context.stepDelegate.stepCompleted(self)
+        guard let context = self.context else {
+            return
+        }
+
+        context.stepDelegate.stepCompleted(self)
         self.context = nil
     }
 
@@ -34,7 +38,9 @@ class MeshSetupStep: NSObject {
     }
 
     func start() {
-        //entry to the step
+        guard let context = self.context else {
+            return
+        }
     }
 
     func retry() {
@@ -42,11 +48,11 @@ class MeshSetupStep: NSObject {
     }
 
     func handleBluetoothErrorResult(_ result: ControlReplyErrorType) {
-        if (self.context.canceled) {
+        guard let context = self.context, !context.canceled else {
             return
         }
 
-        if (result == .TIMEOUT && !self.context.bluetoothReady) {
+        if (result == .TIMEOUT && !context.bluetoothReady) {
             self.fail(withReason: .BluetoothDisabled)
         } else if (result == .TIMEOUT) {
             self.fail(withReason: .BluetoothTimeout)
@@ -58,7 +64,11 @@ class MeshSetupStep: NSObject {
     }
 
     func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
-        self.context.stepDelegate.fail(withReason: reason, severity: severity, nsError: nsError)
+        guard let context = self.context else {
+            return
+        }
+
+        context.stepDelegate.fail(withReason: reason, severity: severity, nsError: nsError)
     }
 
     func handleBluetoothConnectionManagerError(_ error: BluetoothConnectionManagerError) -> Bool {

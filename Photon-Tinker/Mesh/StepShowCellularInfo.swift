@@ -7,16 +7,24 @@ import Foundation
 
 class StepShowCellularInfo : MeshSetupStep {
     override func start() {
-        if (self.context.targetDevice.simActive == nil) {
+        guard let context = self.context else {
+            return
+        }
+
+        if (self.context!.targetDevice.simActive == nil) {
             self.getSimInfo()
         } else {
-            self.context.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.context.targetDevice.simActive!)
+            self.context!.delegate.meshSetupDidRequestToShowCellularInfo(simActivated: self.context!.targetDevice.simActive!)
         }
     }
 
     private func getSimInfo() {
-        ParticleCloud.sharedInstance().checkSim(self.context.targetDevice.deviceICCID!) { simStatus, error in
-            if (self.context.canceled) {
+        guard let context = self.context else {
+            return
+        }
+
+        ParticleCloud.sharedInstance().checkSim(context.targetDevice.deviceICCID!) { [weak self, weak context] simStatus, error in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -32,10 +40,10 @@ class StepShowCellularInfo : MeshSetupStep {
                 }
             } else {
                 if simStatus == ParticleSimStatus.OK {
-                    self.context.targetDevice.simActive = false
+                    context.targetDevice.simActive = false
                     self.start()
                 } else if simStatus == ParticleSimStatus.activated || simStatus == ParticleSimStatus.activatedFree {
-                    self.context.targetDevice.simActive = true
+                    context.targetDevice.simActive = true
                     self.start()
                 } else {
                     self.fail(withReason: .UnableToGetSimStatus)
@@ -45,6 +53,10 @@ class StepShowCellularInfo : MeshSetupStep {
     }
 
     func setCellularInfoDone() -> MeshSetupFlowError? {
+        guard let context = self.context else {
+            return nil
+        }
+
         self.stepCompleted()
         return nil
     }

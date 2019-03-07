@@ -8,10 +8,18 @@ import Foundation
 class StepGetTargetDeviceInfo: MeshSetupStep {
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
+
         context.delegate.meshSetupDidRequestTargetDeviceInfo()
     }
 
     func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
+        guard let context = self.context else {
+            return nil
+        }
+
         context.targetDevice = MeshDevice()
 
         self.resetFlowFlags()
@@ -19,8 +27,8 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
         self.log("dataMatrix: \(dataMatrix)")
         context.targetDevice.enableEthernetFeature = useEthernet
         context.targetDevice.type = dataMatrix.type
-        self.log("self.targetDevice.type?.description = \(context.targetDevice.type?.description as Optional)")
-        context.targetDevice.credentials = MeshSetupPeripheralCredentials(name: context.targetDevice.type!.bluetoothNamePrefix + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
+        self.log("self.targetDevice.type?.description = \(self.context!.targetDevice.type?.description as Optional)")
+        context.targetDevice.credentials = MeshSetupPeripheralCredentials(name: self.context!.targetDevice.type!.bluetoothNamePrefix + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
         self.stepCompleted()
 
@@ -34,18 +42,22 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
         //we cant use selected network, because that part might be reused if multiple devices are connected to same
         //network without disconnecting commissioner
 
-        self.context.newNetworkPassword = nil
-        self.context.newNetworkName = nil
-        self.context.newNetworkId = nil
+        guard let context = self.context else {
+            return
+        }
 
-        self.context.apiNetworks = nil
+        context.newNetworkPassword = nil
+        context.newNetworkName = nil
+        context.newNetworkId = nil
 
-        self.context.userSelectedToLeaveNetwork = nil
-        self.context.userSelectedToUpdateFirmware = nil
-        self.context.userSelectedToSetupMesh = nil
-        self.context.userSelectedToCreateNetwork = nil
+        context.apiNetworks = nil
 
-        self.context.pricingInfo = nil
+        context.userSelectedToLeaveNetwork = nil
+        context.userSelectedToUpdateFirmware = nil
+        context.userSelectedToSetupMesh = nil
+        context.userSelectedToCreateNetwork = nil
+
+        context.pricingInfo = nil
     }
 }
 

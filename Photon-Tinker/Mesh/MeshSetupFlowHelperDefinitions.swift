@@ -287,8 +287,7 @@ internal struct MeshDevice {
     var ncpModuleVersion: Int?
     var ncpVersionReceived: Bool?
     var supportsCompressedOTAUpdate: Bool?
-    var nextFirmwareBinaryURL: String?
-    var nextFirmwareBinaryFilePath: String?
+
     var firmwareFilesFlashed: Int?
     var firmwareUpdateProgress: Double?
     var enableEthernetFeature: Bool?

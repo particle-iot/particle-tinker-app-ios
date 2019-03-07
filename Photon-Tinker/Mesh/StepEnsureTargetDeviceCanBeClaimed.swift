@@ -8,25 +8,31 @@ import Foundation
 class StepEnsureTargetDeviceCanBeClaimed: MeshSetupStep {
 
     override func start() {
-        if (self.context.targetDevice.deviceId == nil) {
+        guard let context = self.context else {
+            return
+        }
+
+        if (context.targetDevice.deviceId == nil) {
             self.getDeviceId()
-        } else if (self.context.targetDevice.isClaimed == nil) {
+        } else if (context.targetDevice.isClaimed == nil) {
             self.checkTargetDeviceIsClaimed()
-        } else if (self.context.targetDevice.isClaimed == false && self.context.targetDevice.claimCode == nil) {
+        } else if (context.targetDevice.isClaimed == false && context.targetDevice.claimCode == nil) {
             self.getClaimCode()
-        } else if (self.context.targetDevice.isClaimed == true || self.context.targetDevice.claimCode != nil) {
+        } else if (context.targetDevice.isClaimed == true || context.targetDevice.claimCode != nil) {
             self.stepCompleted()
         }
     }
 
     private func getDeviceId() {
-        self.context.targetDevice.transceiver!.sendGetDeviceId { result, deviceId in
-            self.log("targetDevice.didReceiveDeviceIdReply: \(result.description()), deviceId: \(deviceId as Optional)")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendGetDeviceId { [weak self, weak context] result, deviceId in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.didReceiveDeviceIdReply: \(result.description()), deviceId: \(deviceId as Optional)")
+
             if (result == .NONE) {
-                self.context.targetDevice.deviceId = deviceId!
+                context.targetDevice.deviceId = deviceId!
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -36,8 +42,8 @@ class StepEnsureTargetDeviceCanBeClaimed: MeshSetupStep {
 
     private func checkTargetDeviceIsClaimed() {
         self.log("get devices list")
-        ParticleCloud.sharedInstance().getDevices { devices, error in
-            if (self.context.canceled) {
+        ParticleCloud.sharedInstance().getDevices { [weak self, weak context] devices, error in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -50,27 +56,27 @@ class StepEnsureTargetDeviceCanBeClaimed: MeshSetupStep {
 
             if let devices = devices {
                 for device in devices {
-                    if (device.id == self.context.targetDevice.deviceId!) {
+                    if (device.id == context.targetDevice.deviceId!) {
                         self.log("device belongs to user already")
-                        self.context.targetDevice.name = device.name
-                        self.context.targetDevice.isClaimed = true
-                        self.context.targetDevice.claimCode = nil
+                        context.targetDevice.name = device.name
+                        context.targetDevice.isClaimed = true
+                        context.targetDevice.claimCode = nil
                         self.stepCompleted()
                         return
                     }
                 }
             }
 
-            self.context.targetDevice.isClaimed = false
-            self.context.targetDevice.claimCode = nil
+            context.targetDevice.isClaimed = false
+            context.targetDevice.claimCode = nil
             self.start()
         }
     }
 
     private func getClaimCode() {
         log("generating claim code")
-        ParticleCloud.sharedInstance().generateClaimCode { claimCode, userDevices, error in
-            if (self.context.canceled) {
+        ParticleCloud.sharedInstance().generateClaimCode { [weak self, weak context] claimCode, userDevices, error in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -80,7 +86,7 @@ class StepEnsureTargetDeviceCanBeClaimed: MeshSetupStep {
             }
 
             self.log("claim code generated")
-            self.context.targetDevice.claimCode = claimCode
+            context.targetDevice.claimCode = claimCode
             self.stepCompleted()
         }
     }

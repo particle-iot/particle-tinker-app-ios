@@ -11,6 +11,9 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     private var chunkIdx: Int?
     private var firmwareData: Data?
 
+    private var nextFirmwareBinaryURL: String?
+    private var nextFirmwareBinaryFilePath: String?
+
 
     private var preparedForReboot: Bool = false
     private var firmwareUpdateFinished: Bool = false
@@ -38,6 +41,10 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
+
         if (context.targetDevice.firmwareVersion == nil) {
             self.getTargetDeviceFirmwareVersion()
         } else if (context.targetDevice.supportsCompressedOTAUpdate == nil) {
@@ -46,13 +53,13 @@ class StepEnsureLatestFirmware: MeshSetupStep {
             self.checkNcpFirmwareVersion()
         } else if (context.targetDevice.isSetupDone == nil) {
             self.checkTargetDeviceIsSetupDone()
-        } else if (context.targetDevice.nextFirmwareBinaryURL == nil) {
+        } else if (nextFirmwareBinaryURL == nil) {
             self.checkNeedsOTAUpdate()
         } else if (context.userSelectedToUpdateFirmware == nil) {
-            self.context.delegate.meshSetupDidRequestToUpdateFirmware()
+            context.delegate.meshSetupDidRequestToUpdateFirmware()
         } else if (!self.preparedForReboot) {
             self.prepareForTargetDeviceReboot()
-        } else if(context.targetDevice.nextFirmwareBinaryFilePath == nil) {
+        } else if(nextFirmwareBinaryFilePath == nil) {
             self.prepareOTABinary()
         } else if (firmwareData == nil || chunkSize == nil) {
             self.startFirmwareUpdate()
@@ -64,13 +71,15 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func getTargetDeviceFirmwareVersion() {
-        context.targetDevice.transceiver!.sendGetSystemVersion { result, version in
-            self.log("targetDevice.sendGetSystemVersion: \(result.description()), version: \(version as Optional)")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendGetSystemVersion { [weak self, weak context] result, version in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.sendGetSystemVersion: \(result.description()), version: \(version as Optional)")
+
             if (result == .NONE) {
-                self.context.targetDevice.firmwareVersion = version!
+                context.targetDevice.firmwareVersion = version!
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -79,13 +88,15 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func checkTargetDeviceSupportsCompressedOTA() {
-        context.targetDevice.transceiver!.sendGetSystemCapabilities { result, capability in
-            self.log("targetDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendGetSystemCapabilities { [weak self, weak context] result, capability in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
+
             if (result == .NONE) {
-                self.context.targetDevice.supportsCompressedOTAUpdate = (capability! == MeshSetupSystemCapability.compressedOta)
+                context.targetDevice.supportsCompressedOTAUpdate = (capability! == MeshSetupSystemCapability.compressedOta)
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -94,21 +105,23 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func checkNcpFirmwareVersion() {
-        context.targetDevice.transceiver!.sendGetNcpFirmwareVersion { result, version, moduleVersion in
-            self.log("targetDevice.sendGetNcpFirmwareVersion: \(result.description()), version: \(version as Optional), moduleVersion: \(moduleVersion)")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendGetNcpFirmwareVersion { [weak self, weak context] result, version, moduleVersion in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
-            self.context.targetDevice.ncpVersionReceived = true
+
+            self.log("targetDevice.sendGetNcpFirmwareVersion: \(result.description()), version: \(version as Optional), moduleVersion: \(moduleVersion)")
+
+            context.targetDevice.ncpVersionReceived = true
 
             if (result == .NONE) {
-                self.context.targetDevice.ncpVersion = version!
-                self.context.targetDevice.ncpModuleVersion = moduleVersion!
+                context.targetDevice.ncpVersion = version!
+                context.targetDevice.ncpModuleVersion = moduleVersion!
 
                 self.start()
             } else if (result == .NOT_SUPPORTED) {
-                self.context.targetDevice.ncpVersion = nil
-                self.context.targetDevice.ncpModuleVersion = nil
+                context.targetDevice.ncpVersion = nil
+                context.targetDevice.ncpModuleVersion = nil
 
                 self.start()
             } else {
@@ -118,13 +131,15 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func checkTargetDeviceIsSetupDone() {
-        context.targetDevice.transceiver!.sendIsDeviceSetupDone { result, isSetupDone in
-            self.log("targetDevice.sendIsDeviceSetupDone: \(result.description()), isSetupDone: \(isSetupDone as Optional)")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendIsDeviceSetupDone { [weak self, weak context] result, isSetupDone in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.sendIsDeviceSetupDone: \(result.description()), isSetupDone: \(isSetupDone as Optional)")
+
             if (result == .NONE) {
-                self.context.targetDevice.isSetupDone = isSetupDone
+                context.targetDevice.isSetupDone = isSetupDone
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -133,22 +148,27 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func checkNeedsOTAUpdate() {
+        guard let context = self.context else {
+            return
+        }
+
         ParticleCloud.sharedInstance().getNextBinaryURL(context.targetDevice.type!,
                 currentSystemFirmwareVersion: context.targetDevice.firmwareVersion!,
                 currentNcpFirmwareVersion: context.targetDevice.ncpVersion,
                 currentNcpFirmwareModuleVersion: context.targetDevice.ncpModuleVersion != nil ? NSNumber(value: context.targetDevice.ncpModuleVersion!) : nil)
-        { url, error in
-            if (self.context.canceled) {
+        { [weak self, weak context] url, error in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
             self.log("getNextBinaryURL: \(url), error: \(error)")
+
             if let url = url {
-                self.context.targetDevice.nextFirmwareBinaryURL = url
+                self.nextFirmwareBinaryURL = url
                 self.start()
             } else if (error == nil) {
-                if let filesFlashed = self.context.targetDevice.firmwareFilesFlashed, filesFlashed > 0 {
-                    self.context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateComplete)
+                if let filesFlashed = context.targetDevice.firmwareFilesFlashed, filesFlashed > 0 {
+                    context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateComplete)
                 }
                 self.stepCompleted()
                 return
@@ -159,7 +179,11 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
-        self.context.userSelectedToUpdateFirmware = update
+        guard let context = self.context else {
+            return nil
+        }
+
+        context.userSelectedToUpdateFirmware = update
         self.log("userSelectedToUpdateFirmware: \(update)")
 
         self.start()
@@ -168,11 +192,12 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     func prepareForTargetDeviceReboot() {
-        context.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { result in
-            self.log("targetDevice.sendSetStartupMode: \(result.description())")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.sendSetStartupMode: \(result.description())")
 
             self.preparedForReboot = true
 
@@ -188,9 +213,13 @@ class StepEnsureLatestFirmware: MeshSetupStep {
 
 
     private func prepareOTABinary() {
-        ParticleCloud.sharedInstance().getNextBinary(self.context.targetDevice.nextFirmwareBinaryURL!)
-        { url, error in
-            if (self.context.canceled) {
+        guard let context = self.context else {
+            return
+        }
+
+        ParticleCloud.sharedInstance().getNextBinary(nextFirmwareBinaryURL!)
+        { [weak self, weak context] url, error in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
@@ -202,33 +231,39 @@ class StepEnsureLatestFirmware: MeshSetupStep {
             }
 
             if let url = url {
-                self.context.targetDevice.nextFirmwareBinaryFilePath = url
+                self.nextFirmwareBinaryFilePath = url
             }
             self.start()
         }
     }
 
     private func startFirmwareUpdate() {
+        guard let context = self.context else {
+            return
+        }
+
         self.log("Starting firmware update")
 
-        let firmwareData = try! Data(contentsOf: URL(string: self.context.targetDevice.nextFirmwareBinaryFilePath!)!)
+        let firmwareData = try! Data(contentsOf: URL(string: nextFirmwareBinaryFilePath!)!)
 
-        self.context.targetDevice.firmwareUpdateProgress = 0
-        self.context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
+        context.targetDevice.firmwareUpdateProgress = 0
+        context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
 
         self.firmwareData = firmwareData
 
-        self.context.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { result, chunkSize in
-            self.log("targetDevice.sendStartFirmwareUpdate: \(result.description()), chunkSize: \(chunkSize)")
-            if (self.context.canceled) {
+        context.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { [weak self, weak context] result, chunkSize in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.sendStartFirmwareUpdate: \(result.description()), chunkSize: \(chunkSize)")
+
             if (result == .NONE) {
                 self.chunkSize = Int(chunkSize)
                 self.chunkIdx = 0
 
-                if (self.context.targetDevice.firmwareFilesFlashed == nil) {
-                    self.context.targetDevice.firmwareFilesFlashed = 0
+                if (context.targetDevice.firmwareFilesFlashed == nil) {
+                    context.targetDevice.firmwareFilesFlashed = 0
                 }
 
                 self.start()
@@ -239,6 +274,10 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func sendFirmwareUpdateChunk() {
+        guard let context = self.context else {
+            return
+        }
+
         guard let chunkSize = chunkSize, let chunkIdx = chunkIdx, let firmwareData = firmwareData else {
             fatalError("if we reach this point and any of firmware flash data is nil, something is wrong")
             return
@@ -247,21 +286,23 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         let start = chunkIdx * chunkSize
         let bytesLeft = firmwareData.count - start
 
-        self.context.targetDevice.firmwareUpdateProgress = 100.0 * (Double(start) / Double(firmwareData.count))
-        self.context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
+        context.targetDevice.firmwareUpdateProgress = 100.0 * (Double(start) / Double(firmwareData.count))
+        context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
 
         self.log("bytesLeft: \(bytesLeft)")
 
         let subdata = firmwareData.subdata(in: start ..< min(start+chunkSize, start+bytesLeft))
-        self.context.targetDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { result in
-            self.log("targetDevice.sendFirmwareUpdateData: \(result.description())")
-            if (self.context.canceled) {
+        context.targetDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { [weak self, weak context] result in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.sendFirmwareUpdateData: \(result.description())")
+
             if (result == .NONE) {
                 if (self.isFileFullyFlashed()) {
-                    self.context.targetDevice.firmwareFilesFlashed! += 1
-                    self.context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateFileComplete)
+                    context.targetDevice.firmwareFilesFlashed! += 1
+                    context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateFileComplete)
                 } else {
                     self.chunkIdx! += 1
                 }
@@ -273,11 +314,13 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func finishFirmwareUpdate() {
-        self.context.targetDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { result in
-            self.log("targetDevice.sendFinishFirmwareUpdate: \(result.description())")
-            if (self.context.canceled) {
+        context?.targetDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { [weak self, weak context] result in
+            guard let self = self, let context = context, !context.canceled else {
                 return
             }
+
+            self.log("targetDevice.sendFinishFirmwareUpdate: \(result.description())")
+
             if (result == .NONE) {
                 self.firmwareUpdateFinished = true
                 self.resetFirmwareFlashFlags()
@@ -289,10 +332,14 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
         self.log("force reconnect to device")
 
         if self.isFileFullyFlashed() {
-            let step = self.context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
+            let step = context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
             step.reconnectAfterForcedReboot = true
             step.reconnectAfterForcedRebootRetry = 1
 
@@ -311,14 +358,16 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     func resetFirmwareFlashFlags() {
+        guard let context = self.context else {
+            return
+        }
+
         //reset all the important flags
-        self.context.targetDevice.firmwareVersion = nil
-        self.context.targetDevice.ncpVersion = nil
-        self.context.targetDevice.ncpModuleVersion = nil
-        self.context.targetDevice.ncpVersionReceived = nil
-        self.context.targetDevice.supportsCompressedOTAUpdate = nil
-        self.context.targetDevice.nextFirmwareBinaryURL = nil
-        self.context.targetDevice.nextFirmwareBinaryFilePath = nil
+        context.targetDevice.firmwareVersion = nil
+        context.targetDevice.ncpVersion = nil
+        context.targetDevice.ncpModuleVersion = nil
+        context.targetDevice.ncpVersionReceived = nil
+        context.targetDevice.supportsCompressedOTAUpdate = nil
     }
 
 }
