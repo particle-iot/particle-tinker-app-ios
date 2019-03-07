@@ -47,29 +47,6 @@
 //    }
 //
 //
-//    private func removeRepeatedWifiNetworks(_ networks: [MeshSetupNewWifiNetworkInfo]) -> [MeshSetupNewWifiNetworkInfo] {
-//        var wifiNetworkIds:Set<String> = []
-//        var filtered:[MeshSetupNewWifiNetworkInfo] = []
-//
-//        for network in networks {
-//            if (!wifiNetworkIds.contains(network.ssid)) {
-//                wifiNetworkIds.insert(network.ssid)
-//                filtered.append(network)
-//            }
-//        }
-//
-//        return filtered
-//    }
-//
-//    //MARK: Input validators
-//    private func validateWifiNetworkPassword(_ password: String) -> Bool {
-//        return password.count >= 5
-//    }
-
-//
-
-//
-//
 //    //MARK: Error Handling
 //    private func handleBluetoothErrorResult(_ result: ControlReplyErrorType) {
 //        if (self.canceled) {
@@ -94,67 +71,6 @@
 ////}
 //
 ////extension MeshSetupFlowManager {
-//
-//    //MARK: GetUserWifiNetworkSelection
-//    private func stepGetUserWifiNetworkSelection() {
-//        self.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForWifiNetworks)
-//        self.scanWifiNetworks()
-//    }
-//
-//    private func scanWifiNetworks() {
-//        self.targetDevice.transceiver!.sendScanWifiNetworks { result, networks in
-//            self.log("sendScanWifiNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
-//
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            if (result == .NONE) {
-//                self.targetDevice.wifiNetworks = self.removeRepeatedWifiNetworks(networks!)
-//                self.getUserWifiNetworkSelection()
-//            } else {
-//                //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
-//                self.targetDevice.wifiNetworks = []
-//                self.getUserWifiNetworkSelection()
-//            }
-//        }
-//    }
-//
-//    func rescanWifiNetworks() -> MeshSetupFlowError? {
-//        //only allow to rescan if current step asks for it and transceiver is free to be used
-//        guard let isBusy = targetDevice.transceiver?.isBusy, isBusy == false else {
-//            return .IllegalOperation
-//        }
-//
-//        if (self.currentCommand == .GetUserWifiNetworkSelection) {
-//            self.scanWifiNetworks()
-//        } else {
-//            return .IllegalOperation
-//        }
-//
-//        return nil
-//    }
-//
-//
-//    private func getUserWifiNetworkSelection() {
-//        self.delegate.meshSetupDidRequestToSelectWifiNetwork(availableNetworks: self.targetDevice.wifiNetworks!)
-//    }
-//
-//    func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError? {
-//        guard currentCommand == .GetUserWifiNetworkSelection else {
-//            return .IllegalOperation
-//        }
-//
-//        self.selectedWifiNetworkInfo = selectedNetwork
-//        self.log("self.selectedWifiNetworkInfo: \(self.selectedWifiNetworkInfo)")
-//        self.stepComplete(.GetUserWifiNetworkSelection)
-//
-//        return nil
-//    }
-//
-//
-
-//
 //
 //    //MARK: GetUserNetworkSelection
 //    private func stepGetUserNetworkSelection() {
@@ -388,63 +304,6 @@
 //            }
 //        }
 //    }
-//
-//
-//
-//
-//    //MARK: EnsureCorrectSelectedWifiNetworkPassword
-//    private func stepEnsureCorrectSelectedWifiNetworkPassword() {
-//        if self.selectedWifiNetworkInfo!.security == .noSecurity {
-//            setSelectedWifiNetworkPassword("") { error in
-//                self.log("WIFI with no password error: \(error)")
-//            }
-//            return
-//        }
-//        self.delegate.meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
-//    }
-//
-//    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
-//        guard currentCommand == .EnsureCorrectSelectedWifiNetworkPassword else {
-//            onComplete(.IllegalOperation)
-//            return
-//        }
-//
-//        guard self.validateWifiNetworkPassword(password) || (self.selectedWifiNetworkInfo!.security == .noSecurity) else {
-//            onComplete(.WifiPasswordTooShort)
-//            return
-//        }
-//
-//        self.log("trying password: \(password)")
-//        self.targetDevice!.transceiver?.sendJoinNewWifiNetwork(network: self.selectedWifiNetworkInfo!, password: password) {
-//            result in
-//
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            self.log("targetDevice.sendJoinNewWifiNetwork: \(result.description())")
-//            if (self.selectedWifiNetworkInfo!.security == .noSecurity) {
-//                if (result == .NONE) {
-//                    onComplete(nil)
-//                    self.stepComplete(.EnsureCorrectSelectedWifiNetworkPassword)
-//                } else {
-//                    onComplete(nil)
-//                    self.handleBluetoothErrorResult(result)
-//                }
-//            } else {
-//                if (result == .NONE) {
-//                    onComplete(nil)
-//                    self.stepComplete(.EnsureCorrectSelectedWifiNetworkPassword)
-//                } else if (result == .NOT_FOUND) {
-//                    onComplete(.WrongNetworkPassword)
-//                } else {
-//                    onComplete(.BluetoothTimeout)
-//                }
-//            }
-//        }
-//    }
-//
-//
 //
 //
 //    //MARK: JoinSelectedNetwork

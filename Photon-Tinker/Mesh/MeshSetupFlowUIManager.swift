@@ -461,90 +461,84 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-//
-//
-//    //MARK: Scan WIFI networks
-//    private func showScanWifiNetworks() {
-//        DispatchQueue.main.async {
-//            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
-//                //do nothing
-//            } else {
-//                if (!self.rewindTo(MeshSetupSelectWifiNetworkViewController.self)) {
-//                    let networksVC = MeshSetupSelectWifiNetworkViewController.loadedViewController()
-//                    networksVC.setup(didSelectNetwork: self.didSelectWifiNetwork)
-//                    self.embededNavigationController.pushViewController(networksVC, animated: true)
-//                }
-//            }
-//        }
-//    }
-//
-//    func didSelectWifiNetwork(network: MeshSetupNewWifiNetworkInfo) {
-//        flowManager.setSelectedWifiNetwork(selectedNetwork: network)
-//    }
-//
-//    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo]) {
-//        NSLog("scan complete")
-//
-//        //if by the time this returned, user has already selected the network, ignore the results of last scan
-//        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
-//            vc.setNetworks(networks: availableNetworks)
-//
-//            //if no networks found = force instant rescan
-//            if (availableNetworks.count == 0) {
-//                rescanWifiNetworks()
-//            } else {
-//                //rescan in 3seconds
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-//                    [weak self] in
-//                    //only rescan if user hasn't made choice by now
-//                    self?.rescanWifiNetworks()
-//                }
-//            }
-//        }
-//    }
-//
-//    private func rescanWifiNetworks() {
-//        if self.flowManager.selectedWifiNetworkInfo == nil {
-//            if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
-//                if (flowManager.rescanWifiNetworks() == nil) {
-//                    vc.startScanning()
-//                } else {
-//                    NSLog("rescanNetworks was attempted when it shouldn't be")
-//                }
-//            }
-//        }
-//    }
-//
-//
-//
-//
-//
-//    //MARK: Wifi network password
-//    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword() {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupWifiNetworkPasswordViewController.self)) {
-//                let passwordVC = MeshSetupWifiNetworkPasswordViewController.loadedViewController()
-//                passwordVC.setup(didEnterPassword: self.didEnterWifiNetworkPassword, networkName: self.flowManager.selectedWifiNetworkInfo!.ssid)
-//                self.embededNavigationController.pushViewController(passwordVC, animated: true)
-//            }
-//        }
-//    }
-//
-//    func didEnterWifiNetworkPassword(password: String) {
-//        flowManager.setSelectedWifiNetworkPassword(password) { error in
-//            if error == nil {
-//                //this will happen automatically
-//            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupWifiNetworkPasswordViewController {
-//                vc.setWrongInput(message: error!.description)
-//            }
-//        }
-//    }
-//
-//
-//
-//
-//
-//
+
+
+    //MARK: Scan WIFI networks
+    private func showScanWifiNetworks() {
+        DispatchQueue.main.async {
+            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+                //do nothing
+            } else {
+                if (!self.rewindTo(MeshSetupSelectWifiNetworkViewController.self)) {
+                    let networksVC = MeshSetupSelectWifiNetworkViewController.loadedViewController()
+                    networksVC.setup(didSelectNetwork: self.didSelectWifiNetwork)
+                    self.embededNavigationController.pushViewController(networksVC, animated: true)
+                }
+            }
+        }
+    }
+
+    func didSelectWifiNetwork(network: MeshSetupNewWifiNetworkInfo) {
+        flowManager.setSelectedWifiNetwork(selectedNetwork: network)
+    }
+
+    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo]) {
+        NSLog("scan complete")
+
+        //if by the time this returned, user has already selected the network, ignore the results of last scan
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+            vc.setNetworks(networks: availableNetworks)
+
+            //if no networks found = force instant rescan
+            if (availableNetworks.count == 0) {
+                rescanWifiNetworks()
+            } else {
+                //rescan in 3seconds
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                    [weak self] in
+                    //only rescan if user hasn't made choice by now
+                    self?.rescanWifiNetworks()
+                }
+            }
+        }
+    }
+
+    private func rescanWifiNetworks() {
+        if self.flowManager.context.selectedWifiNetworkInfo == nil {
+            if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+                if (flowManager.rescanNetworks() == nil) {
+                    vc.startScanning()
+                } else {
+                    NSLog("rescanNetworks was attempted when it shouldn't be")
+                }
+            }
+        }
+    }
+
+
+
+
+
+    //MARK: Wifi network password
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupWifiNetworkPasswordViewController.self)) {
+                let passwordVC = MeshSetupWifiNetworkPasswordViewController.loadedViewController()
+                passwordVC.setup(didEnterPassword: self.didEnterWifiNetworkPassword, networkName: self.flowManager.context.selectedWifiNetworkInfo!.ssid)
+                self.embededNavigationController.pushViewController(passwordVC, animated: true)
+            }
+        }
+    }
+
+    func didEnterWifiNetworkPassword(password: String) {
+        flowManager.setSelectedWifiNetworkPassword(password) { error in
+            if error == nil {
+                //this will happen automatically
+            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupWifiNetworkPasswordViewController {
+                vc.setWrongInput(message: error!.description)
+            }
+        }
+    }
 //
 //
 //
@@ -977,10 +971,10 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     NSLog("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFirmwareUpdateComplete was attempted when it shouldn't be")
                 }
                 break;
-//
-//
-//            case .TargetDeviceScanningForWifiNetworks:
-//                showScanWifiNetworks()
+
+
+            case .TargetDeviceScanningForWifiNetworks:
+                showScanWifiNetworks()
 //            case .TargetDeviceScanningForNetworks:
 //                showSelectNetwork()
             case .TargetInternetConnectedDeviceScanningForNetworks:

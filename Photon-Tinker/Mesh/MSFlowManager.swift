@@ -26,25 +26,15 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
     func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
 
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
+    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
 
-
+    //joiner flow
 //    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-//    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
-//
 //    func meshSetupDidRequestCommissionerDeviceInfo()
-//
-//    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
 //    func meshSetupDidRequestToEnterSelectedNetworkPassword()
 
-
-//
-//
-
-
-
-
     func meshSetupDidEnterState(state: MeshSetupFlowState)
-
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
@@ -97,8 +87,8 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
     private let wifiFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
         StepShowInfo(),
-//        StepGetUserWifiNetworkSelection(),
-//        StepEnsureCorrectSelectedWifiNetworkPassword(),
+        StepGetUserWifiNetworkSelection(),
+        StepEnsureCorrectSelectedWifiNetworkPassword(),
         StepEnsureHasInternetAccess(),
         StepCheckDeviceGotClaimed(),
         StepPublishDeviceSetupDoneEvent()
@@ -546,6 +536,8 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
             (currentStep as! StepOfferSelectOrCreateNetwork).scanNetworks()
 //        } else if (type(of: currentStep) == StepGetUserNetworkSelection.self) {
 //            (currentStep as! StepGetUserNetworkSelection).scanNetworks()
+        } else if (type(of: currentStep) == StepGetUserWifiNetworkSelection.self) {
+                (currentStep as! StepGetUserWifiNetworkSelection).scanWifiNetworks()
         } else {
             return .IllegalOperation
         }
@@ -610,5 +602,22 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         }
 
         return (currentStep as! StepGetNewNetworkNameAndPassword).setNewNetworkPassword(password: password)
+    }
+
+    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+        guard type(of: currentStep) == StepEnsureCorrectSelectedWifiNetworkPassword.self else {
+            onComplete(.IllegalOperation)
+            return
+        }
+
+        return (currentStep as! StepEnsureCorrectSelectedWifiNetworkPassword).setSelectedWifiNetworkPassword(password, onComplete: onComplete)
+    }
+
+    func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepGetUserWifiNetworkSelection.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepGetUserWifiNetworkSelection).setSelectedWifiNetwork(selectedNetwork: selectedNetwork)
     }
 }
