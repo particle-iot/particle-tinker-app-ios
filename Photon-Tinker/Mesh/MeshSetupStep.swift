@@ -38,9 +38,7 @@ class MeshSetupStep: NSObject {
     }
 
     func start() {
-        guard let context = self.context else {
-            return
-        }
+        fatalError("not implemented!!!")
     }
 
     func retry() {

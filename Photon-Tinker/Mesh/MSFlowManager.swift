@@ -5,6 +5,47 @@
 
 import Foundation
 
+//delegate required to request / deliver information from / to the UI
+protocol MeshSetupFlowManagerDelegate {
+    func meshSetupDidRequestTargetDeviceInfo()
+
+    func meshSetupDidRequestToUpdateFirmware()
+    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
+
+
+    //create flow
+    func didRequestToSelectStandAloneOrMeshSetup()
+    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+
+    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
+    func meshSetupDidRequestToShowInfo()
+
+    func meshSetupDidRequestToEnterDeviceName()
+    func meshSetupDidRequestToAddOneMoreDevice()
+
+
+//    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+
+//    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+//    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
+//
+//    func meshSetupDidRequestCommissionerDeviceInfo()
+//
+//    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
+//    func meshSetupDidRequestToEnterSelectedNetworkPassword()
+
+
+//
+//
+
+//    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
+
+
+    func meshSetupDidEnterState(state: MeshSetupFlowState)
+
+    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
+}
+
 
 class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate {
 
@@ -73,15 +114,15 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
 //
     private let creatorSubflow: [MeshSetupStep] = [
-//        StepGetNewDeviceName(),
+        StepGetNewDeviceName(),
 //        StepGetNewNetworkNameAndPassword(),
 //        StepCreateNetwork(),
-//        StepOfferToAddOneMoreDevice()
+        StepOfferToAddOneMoreDevice()
     ]
 //
     private let standaloneSubflow: [MeshSetupStep] = [
-//        StepGetNewDeviceName(),
-//        StepOfferToAddOneMoreDevice()
+        StepGetNewDeviceName(),
+        StepOfferToAddOneMoreDevice()
     ]
 
 
@@ -525,4 +566,28 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         return (currentStep as! StepShowInfo).setInfoDone()
     }
 
+    func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+        guard type(of: currentStep) == StepGetNewDeviceName.self else {
+            onComplete(.IllegalOperation)
+            return
+        }
+
+        (currentStep as! StepGetNewDeviceName).setDeviceName(name: name, onComplete: onComplete)
+    }
+
+    func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepOfferToAddOneMoreDevice.self else {
+            return .IllegalOperation
+        }
+
+        if (addOneMoreDevice) {
+            self.currentStepIdx = 0
+            self.currentFlow = preflow
+            self.runCurrentStep()
+        } else {
+            self.finishSetup()
+        }
+
+        return nil
+    }
 }

@@ -438,6 +438,29 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.setInfoDone()
     }
 
+
+    func meshSetupDidRequestToEnterDeviceName() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupNameDeviceViewController.self)) {
+                let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
+                nameVC.setup(didEnterName: self.didEnterName, deviceType: self.flowManager.context.targetDevice.type, currentName: self.flowManager.context.targetDevice.name)
+                self.embededNavigationController.pushViewController(nameVC, animated: true)
+            }
+        }
+    }
+
+    func didEnterName(name: String) {
+        flowManager.setDeviceName(name: name) { error in
+            if error == nil {
+                //this will happen automatically
+            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController {
+                vc.setWrongInput(message: error!.description)
+            }
+        }
+    }
+
+
+
 //
 //
 //    //MARK: Scan WIFI networks
@@ -762,67 +785,47 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 //        self.flowManager.continueSetup()
 //    }
 //
-//    func meshSetupDidRequestToEnterDeviceName() {
-//        DispatchQueue.main.async {
-//            if (!self.rewindTo(MeshSetupNameDeviceViewController.self)) {
-//                let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
-//                nameVC.setup(didEnterName: self.didEnterName, deviceType: self.flowManager.targetDevice.type, currentName: self.flowManager.targetDevice.name)
-//                self.embededNavigationController.pushViewController(nameVC, animated: true)
-//            }
-//        }
-//    }
-//
-//    func didEnterName(name: String) {
-//        flowManager.setDeviceName(name: name) { error in
-//            if error == nil {
-//                //this will happen automatically
-//            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController {
-//                vc.setWrongInput(message: error!.description)
-//            }
-//        }
-//    }
+
 //
 //
 //
-//    func meshSetupDidRequestToAddOneMoreDevice() {
-//        DispatchQueue.main.async {
-//            if (self.flowManager.newNetworkName != nil && self.flowManager.newNetworkPassword != nil) {
-//                //this is the end of create network flow
-//                if (!self.rewindTo(MeshSetupNetworkCreatedViewController.self)) {
-//                    let successVC = MeshSetupNetworkCreatedViewController.loadedViewController()
-//                    successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.flowManager.commissionerDevice!.name!) //at this point the target device has already been marked as commissioner
-//                    self.embededNavigationController.pushViewController(successVC, animated: true)
-//                }
-//            } else {
-//                //this is the end of joiner flow
-//                if (!self.rewindTo(MeshSetupSuccessViewController.self)) {
-//                    let successVC = MeshSetupSuccessViewController.loadedViewController()
-//                    successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.flowManager.targetDevice.name!, networkName: self.flowManager.selectedNetworkMeshInfo?.name)
-//                    self.embededNavigationController.pushViewController(successVC, animated: true)
-//                }
-//            }
-//        }
-//    }
-//
-//
-//
-//    func didSelectSetupDone(done: Bool) {
-//        flowManager.setAddOneMoreDevice(addOneMoreDevice: !done)
-//
-//        if (done) {
-//            //setup done
-//            self.dismiss(animated: true)
-//        } else {
-//            targetDeviceDataMatrix = nil
-//
-//            let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
-//            findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker)
-//            self.embededNavigationController.setViewControllers([findStickerVC], animated: true)
-//        }
-//    }
-//
-//
-//
+    func meshSetupDidRequestToAddOneMoreDevice() {
+        DispatchQueue.main.async {
+            if (self.flowManager.context.userSelectedToCreateNetwork != nil && self.flowManager.context.userSelectedToCreateNetwork!) {
+                //this is the end of create network flow
+                if (!self.rewindTo(MeshSetupNetworkCreatedViewController.self)) {
+                    let successVC = MeshSetupNetworkCreatedViewController.loadedViewController()
+                    successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.flowManager.context.commissionerDevice!.name!) //at this point the target device has already been marked as commissioner
+                    self.embededNavigationController.pushViewController(successVC, animated: true)
+                }
+            } else {
+                //this is the end of joiner or standalone flow
+                if (!self.rewindTo(MeshSetupSuccessViewController.self)) {
+                    let successVC = MeshSetupSuccessViewController.loadedViewController()
+                    successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.flowManager.context.targetDevice.name!, networkName: self.flowManager.context.selectedNetworkMeshInfo?.name)
+                    self.embededNavigationController.pushViewController(successVC, animated: true)
+                }
+            }
+        }
+    }
+
+    func didSelectSetupDone(done: Bool) {
+        flowManager.setAddOneMoreDevice(addOneMoreDevice: !done)
+
+        if (done) {
+            //setup done
+            self.dismiss(animated: true)
+        } else {
+            targetDeviceDataMatrix = nil
+
+            let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
+            findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker)
+            self.embededNavigationController.setViewControllers([findStickerVC], animated: true)
+        }
+    }
+
+
+
     //MARK: Connect to internet
     private func showConnectingToInternet() {
         switch self.flowManager.context.targetDevice.activeInternetInterface! {

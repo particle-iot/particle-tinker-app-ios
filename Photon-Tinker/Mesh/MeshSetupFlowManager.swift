@@ -82,9 +82,7 @@
 //        return matches.count == 0
 //    }
 //
-//    private func validateDeviceName(_ name: String) -> Bool {
-//        return name.count > 0
-//    }
+
 //
 //
 //    //MARK: Error Handling
@@ -679,79 +677,6 @@
 //            self.stepComplete(.StopTargetDeviceListening)
 //        }
 //    }
-
-//
-//    //MARK: GetNewDeviceName
-//    private func stepGetNewDeviceName() {
-//        self.delegate.meshSetupDidRequestToEnterDeviceName()
-//    }
-//
-//    func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
-//        guard currentCommand == .GetNewDeviceName else {
-//            onComplete(.IllegalOperation)
-//            return
-//        }
-//
-//        guard self.validateDeviceName(name) else {
-//            onComplete(.NameTooShort)
-//            return
-//        }
-//
-//        ParticleCloud.sharedInstance().getDevice(self.targetDevice.deviceId!) { device, error in
-//            if (self.canceled) {
-//                return
-//            }
-//
-//            if (error == nil) {
-//                device!.rename(name) { error in
-//                    if error == nil {
-//                        self.targetDevice.name = name
-//                        onComplete(nil)
-//                        self.stepComplete(.GetNewDeviceName)
-//                    } else {
-//                        onComplete(.UnableToRenameDevice)
-//                        return
-//                    }
-//                }
-//            } else {
-//                onComplete(.UnableToRenameDevice)
-//                return
-//            }
-//        }
-//    }
-//
-//
-//
-//    //MARK:OfferToAddOneMoreDevice
-//    private func stepOfferToAddOneMoreDevice() {
-//        //disconnect current device
-//        if (self.targetDevice.transceiver != nil) {
-//            self.log("Dropping connection to target device")
-//            let connection = self.targetDevice.transceiver!.connection
-//            self.targetDevice.transceiver = nil
-//            self.bluetoothManager.dropConnection(with: connection)
-//        }
-//
-//        self.delegate.meshSetupDidRequestToAddOneMoreDevice()
-//    }
-//
-//
-//    func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError? {
-//        guard currentCommand == .OfferToAddOneMoreDevice else {
-//            return .IllegalOperation
-//        }
-//
-//        if (addOneMoreDevice) {
-//            self.currentStep = 0
-//            self.currentFlow = preflow
-//            self.runCurrentStep()
-//        } else {
-//            self.finishSetup()
-//        }
-//
-//        return nil
-//    }
-//
 //
 //    //MARK: GetNewNetworkNameAndPassword
 //    private func stepGetNewNetworkNameAndPassword() {

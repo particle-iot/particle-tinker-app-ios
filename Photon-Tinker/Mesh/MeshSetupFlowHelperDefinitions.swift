@@ -8,43 +8,6 @@
 
 import Foundation
 
-//delegate required to request / deliver information from / to the UI
-protocol MeshSetupFlowManagerDelegate {
-    func meshSetupDidRequestTargetDeviceInfo()
-
-    func meshSetupDidRequestToUpdateFirmware()
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
-
-
-    //create flow
-    func didRequestToSelectStandAloneOrMeshSetup()
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-
-    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
-    func meshSetupDidRequestToShowInfo()
-
-
-//    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-//    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
-//
-//    func meshSetupDidRequestCommissionerDeviceInfo()
-//
-//    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
-//    func meshSetupDidRequestToEnterSelectedNetworkPassword()
-//    func meshSetupDidRequestToEnterDeviceName()
-//    func meshSetupDidRequestToAddOneMoreDevice()
-//
-//
-//    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-//    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
-
-
-    func meshSetupDidEnterState(state: MeshSetupFlowState)
-
-    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
-}
-
-
 internal enum MeshSetupFlowCommand {
 
     //preflow

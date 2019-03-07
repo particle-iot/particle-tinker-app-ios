@@ -27,6 +27,7 @@ class StepCheckDeviceGotClaimed : MeshSetupStep {
             } else {
                 context.delegate.meshSetupDidEnterState(state: .JoiningNetworkCompleted)
             }
+            self.stepCompleted()
         }
     }
 
