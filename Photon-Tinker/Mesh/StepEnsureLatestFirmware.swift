@@ -35,6 +35,9 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         self.preparedForReboot = false
         self.firmwareUpdateFinished = false
 
+        self.nextFirmwareBinaryURL = nil
+        self.nextFirmwareBinaryFilePath = nil
+
         self.chunkSize = nil
         self.chunkIdx = nil
         self.firmwareData = nil
@@ -300,12 +303,13 @@ class StepEnsureLatestFirmware: MeshSetupStep {
             self.log("targetDevice.sendFirmwareUpdateData: \(result.description())")
 
             if (result == .NONE) {
+                self.chunkIdx! += 1
+
                 if (self.isFileFullyFlashed()) {
                     context.targetDevice.firmwareFilesFlashed! += 1
                     context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateFileComplete)
-                } else {
-                    self.chunkIdx! += 1
                 }
+
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
