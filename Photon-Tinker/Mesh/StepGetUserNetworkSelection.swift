@@ -1,25 +1,21 @@
 //
-// Created by Raimundas Sakalauskas on 2019-03-05.
+// Created by Raimundas Sakalauskas on 2019-03-08.
 // Copyright (c) 2019 spark. All rights reserved.
 //
 
 import Foundation
 
-class StepOfferSelectOrCreateNetwork : MeshSetupStep {
+class StepGetUserNetworkSelection : MeshSetupStep {
 
     override func start() {
         guard let context = self.context else {
             return
         }
 
-        if let setupMesh = context.userSelectedToSetupMesh, setupMesh == false {
-            //if in previous step user selected not to create networks, just complete the step
-            self.stepCompleted()
-        } else if (context.userSelectedToCreateNetwork != nil) {
-            //if user has already selected the mesh network we also complete the step
+        if (context.selectedNetworkMeshInfo == nil) {
             self.stepCompleted()
         } else {
-            context.delegate.meshSetupDidEnterState(state: .TargetInternetConnectedDeviceScanningForNetworks)
+            context.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForNetworks)
             self.scanNetworks()
         }
     }
@@ -38,40 +34,36 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
                 //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
                 context.targetDevice.meshNetworks = []
             }
-            self.getUserOptionalNetworkSelection()
+            self.getUserNetworkSelection()
         }
     }
 
-    private func getUserOptionalNetworkSelection() {
+    private func getUserNetworkSelection() {
         guard let context = self.context else {
             return
         }
 
         let networks = MeshSetupStep.GetMeshNetworkCells(meshNetworks: context.targetDevice.meshNetworks!, apiMeshNetworks: context.apiNetworks!)
-        context.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: networks)
+        context.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: networks)
     }
 
-    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {
+    func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError? {
         guard let context = self.context else {
             return nil
         }
 
-        if (selectedNetworkExtPanID != nil) {
-            context.userSelectedToCreateNetwork = false
-
-            for network in context.targetDevice.meshNetworks! {
-                if network.extPanID == selectedNetworkExtPanID! {
-                    context.selectedNetworkMeshInfo = network
-                    break
-                }
+        context.selectedNetworkMeshInfo = nil
+        for network in context.targetDevice.meshNetworks! {
+            if network.extPanID == selectedNetworkExtPanID {
+                context.selectedNetworkMeshInfo = network
+                break
             }
-        } else {
-            context.userSelectedToCreateNetwork = true
-            context.selectedNetworkMeshInfo = nil
         }
 
+        self.log("self.selectedNetworkMeshInfo: \(context.selectedNetworkMeshInfo)")
         self.stepCompleted()
 
         return nil
     }
+
 }

@@ -21,7 +21,7 @@ class StepGetNewNetworkNameAndPassword : MeshSetupStep {
             return nil
         }
 
-        guard self.validateNetworkName(name) else {
+        guard MeshSetupStep.validateNetworkName(name) else {
             return .NameTooShort
         }
 
@@ -50,7 +50,7 @@ class StepGetNewNetworkNameAndPassword : MeshSetupStep {
             return nil
         }
 
-        guard self.validateNetworkPassword(password) else {
+        guard MeshSetupStep.validateNetworkPassword(password) else {
             return .PasswordTooShort
         }
 
@@ -62,22 +62,5 @@ class StepGetNewNetworkNameAndPassword : MeshSetupStep {
         }
 
         return nil
-    }
-
-    private func validateNetworkPassword(_ password: String) -> Bool {
-        return password.count >= 6
-    }
-
-
-    private func validateNetworkName(_ networkName: String) -> Bool {
-        //ensure proper length
-        if (networkName.count == 0) || (networkName.count > 16) {
-            return false
-        }
-
-        //ensure no illegal characters
-        let regex = try! NSRegularExpression(pattern: "[^a-zA-Z0-9_\\-]+")
-        let matches = regex.matches(in: networkName, options: [], range: NSRange(location: 0, length: networkName.count))
-        return matches.count == 0
     }
 }

@@ -21,13 +21,13 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
     private let joinerFlow: [MeshSetupStep] = [
         StepShowInfo(),
-//        StepGetUserNetworkSelection(),
-//        StepGetCommissionerDeviceInfo(),
-//        StepConnectToCommissionerDevice(),
-//        StepEnsureCommissionerNetworkMatches(),
-//        StepEnsureCorrectSelectedNetworkPassword(),
-//        StepJoinSelectedNetwork(),
-//        StepFinishJoinSelectedNetwork(),
+        StepGetUserNetworkSelection(),
+        StepGetCommissionerDeviceInfo(),
+        StepConnectToCommissionerDevice(),
+        StepEnsureCommissionerNetworkMatches(),
+        StepEnsureCorrectSelectedNetworkPassword(),
+        StepJoinSelectedNetwork(),
+        StepFinishJoinSelectedNetwork(),
         StepCheckDeviceGotClaimed(),
         StepPublishDeviceSetupDoneEvent(),
         StepGetNewDeviceName(),
@@ -215,54 +215,6 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
     func retryLastAction() {
         self.log("Retrying action: \(self.currentStep)")
         self.currentStep.retry()
-
-//        switch self.currentCommand {
-//            //this should never happen
-//            case .ChooseFlow,
-//                    .OfferToAddOneMoreDevice,
-//                    .ShowInfo,
-//                    .ChooseSubflow,
-//                    .GetNewNetworkNameAndPassword,
-//                    .OfferSetupStandAloneOrWithNetwork,
-//                    .GetNewDeviceName: //this will be handeled by onCompleteHandler of setDeviceName method
-//                break
-//
-//
-//            case .GetTargetDeviceInfo,
-//                    .GetCommissionerDeviceInfo,
-//                    .ConnectToTargetDevice,
-//                    .ConnectToCommissionerDevice,
-//                    .EnsureLatestFirmware,
-//                    .EnsureTargetDeviceCanBeClaimed,
-//                    .GetUserNetworkSelection,
-//                    .GetAPINetworks,
-//                    .EnsureCorrectEthernetFeatureStatus,
-//                    .GetUserWifiNetworkSelection,
-//                    .CheckTargetDeviceHasNetworkInterfaces,
-//                    .SetClaimCode,
-//                    .EnsureCommissionerNetworkMatches, //if there's a connection error in this step, we try to recover, but if networks do not match, flow has to be restarted
-//                    .EnsureCorrectSelectedNetworkPassword,
-//                    .EnsureCorrectSelectedWifiNetworkPassword,
-//                    .CreateNetwork,
-//                    .ShowCellularInfo,
-//                    .ShowPricingImpact,
-//                    .EnsureHasInternetAccess,
-//                    .PublishDeviceSetupDoneEvent,
-//                    .CheckDeviceGotClaimed,
-//                    .StopTargetDeviceListening,
-//                    .FinishJoinSelectedNetwork,
-//                    .OfferSelectOrCreateNetwork,
-//                    .JoinSelectedNetwork:
-//
-//                runCurrentStep()
-//
-//            case .EnsureTargetDeviceIsNotOnMeshNetwork:
-//                if (userSelectedToLeaveNetwork == nil) {
-//                    self.runCurrentStep()
-//                } else {
-//                    setTargetDeviceLeaveNetwork(leave: self.userSelectedToLeaveNetwork!)
-//                }
-//        }
     }
 
     //MARK: Flow control
@@ -499,8 +451,8 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
 
         if (type(of: currentStep) == StepOfferSelectOrCreateNetwork.self) {
             (currentStep as! StepOfferSelectOrCreateNetwork).scanNetworks()
-//        } else if (type(of: currentStep) == StepGetUserNetworkSelection.self) {
-//            (currentStep as! StepGetUserNetworkSelection).scanNetworks()
+        } else if (type(of: currentStep) == StepGetUserNetworkSelection.self) {
+            (currentStep as! StepGetUserNetworkSelection).scanNetworks()
         } else if (type(of: currentStep) == StepGetUserWifiNetworkSelection.self) {
                 (currentStep as! StepGetUserWifiNetworkSelection).scanWifiNetworks()
         } else {
@@ -575,7 +527,7 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
             return
         }
 
-        return (currentStep as! StepEnsureCorrectSelectedWifiNetworkPassword).setSelectedWifiNetworkPassword(password, onComplete: onComplete)
+        (currentStep as! StepEnsureCorrectSelectedWifiNetworkPassword).setSelectedWifiNetworkPassword(password, onComplete: onComplete)
     }
 
     func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError? {
@@ -584,5 +536,31 @@ class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, Mesh
         }
 
         return (currentStep as! StepGetUserWifiNetworkSelection).setSelectedWifiNetwork(selectedNetwork: selectedNetwork)
+    }
+
+    func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepGetUserNetworkSelection.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepGetUserNetworkSelection).setSelectedNetwork(selectedNetworkExtPanID: selectedNetworkExtPanID)
+    }
+
+    func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
+        guard type(of: currentStep) == StepGetCommissionerDeviceInfo.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as! StepGetCommissionerDeviceInfo).setCommissionerDeviceInfo(dataMatrix: dataMatrix)
+
+    }
+
+    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+        guard type(of: currentStep) == StepEnsureCorrectSelectedNetworkPassword.self else {
+            onComplete(.IllegalOperation)
+            return
+        }
+
+        (currentStep as! StepEnsureCorrectSelectedNetworkPassword).setSelectedNetworkPassword(password, onComplete: onComplete)
     }
 }

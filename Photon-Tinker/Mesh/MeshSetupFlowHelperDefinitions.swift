@@ -33,9 +33,9 @@ protocol MeshSetupFlowManagerDelegate {
     func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
 
     //joiner flow
-//    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-//    func meshSetupDidRequestCommissionerDeviceInfo()
-//    func meshSetupDidRequestToEnterSelectedNetworkPassword()
+    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+    func meshSetupDidRequestCommissionerDeviceInfo()
+    func meshSetupDidRequestToEnterSelectedNetworkPassword()
 
     func meshSetupDidEnterState(state: MeshSetupFlowState)
     func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
@@ -60,6 +60,10 @@ protocol MeshSetupFlowManagerDelegateResponseConsumer {
     func setNewNetworkPassword(password: String) -> MeshSetupFlowError?
     func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError?
     func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
+
+    func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError?
+    func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError?
+    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
 
     func rescanNetworks() -> MeshSetupFlowError?
 }

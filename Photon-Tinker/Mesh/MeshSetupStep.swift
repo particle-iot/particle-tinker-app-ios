@@ -69,6 +69,7 @@ class MeshSetupStep: NSObject {
         context.stepDelegate.fail(withReason: reason, severity: severity, nsError: nsError)
     }
 
+
     func handleBluetoothConnectionManagerError(_ error: BluetoothConnectionManagerError) -> Bool {
         return false
     }
@@ -84,8 +85,69 @@ class MeshSetupStep: NSObject {
     func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
         return false
     }
+}
+
+extension MeshSetupStep {
+    static func removeRepeatedMeshNetworks(_ networks: [MeshSetupNetworkInfo]) -> [MeshSetupNetworkInfo] {
+        var meshNetworkIds:Set<String> = []
+        var filtered:[MeshSetupNetworkInfo] = []
+
+        for network in networks {
+            if (!meshNetworkIds.contains(network.extPanID)) {
+                meshNetworkIds.insert(network.extPanID)
+                filtered.append(network)
+            }
+        }
+
+        return filtered
+    }
+
+    static func removeRepeatedWifiNetworks(_ networks: [MeshSetupNewWifiNetworkInfo]) -> [MeshSetupNewWifiNetworkInfo] {
+        var wifiNetworkIds:Set<String> = []
+        var filtered:[MeshSetupNewWifiNetworkInfo] = []
+
+        for network in networks {
+            if (!wifiNetworkIds.contains(network.ssid)) {
+                wifiNetworkIds.insert(network.ssid)
+                filtered.append(network)
+            }
+        }
+
+        return filtered
+    }
+
+    static func GetMeshNetworkCells(meshNetworks: [MeshSetupNetworkInfo], apiMeshNetworks: [ParticleNetwork]) -> [MeshSetupNetworkCellInfo] {
+        var networks = [String: MeshSetupNetworkCellInfo]()
+
+        for network in meshNetworks {
+            networks[network.extPanID] = MeshSetupNetworkCellInfo(name: network.name, extPanID: network.extPanID, userOwned: false, deviceCount: nil)
+        }
+
+        for apiNetwork in apiMeshNetworks {
+            if let xpanId = apiNetwork.xpanId, var meshNetwork = networks[xpanId] {
+                meshNetwork.userOwned = true
+                meshNetwork.deviceCount = apiNetwork.deviceCount
+                networks[xpanId] = meshNetwork
+            }
+        }
+
+        return Array(networks.values)
+    }
+
+    static func validateNetworkPassword(_ password: String) -> Bool {
+        return password.count >= 6
+    }
 
 
+    static func validateNetworkName(_ networkName: String) -> Bool {
+        //ensure proper length
+        if (networkName.count == 0) || (networkName.count > 16) {
+            return false
+        }
 
-
+        //ensure no illegal characters
+        let regex = try! NSRegularExpression(pattern: "[^a-zA-Z0-9_\\-]+")
+        let matches = regex.matches(in: networkName, options: [], range: NSRange(location: 0, length: networkName.count))
+        return matches.count == 0
+    }
 }

@@ -32,7 +32,7 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
             self.log("sendScanWifiNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
 
             if (result == .NONE) {
-                context.targetDevice.wifiNetworks = self.removeRepeatedWifiNetworks(networks!)
+                context.targetDevice.wifiNetworks = MeshSetupStep.removeRepeatedWifiNetworks(networks!)
             } else {
                 //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
                 context.targetDevice.wifiNetworks = []
@@ -41,19 +41,7 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
         }
     }
 
-    private func removeRepeatedWifiNetworks(_ networks: [MeshSetupNewWifiNetworkInfo]) -> [MeshSetupNewWifiNetworkInfo] {
-        var wifiNetworkIds:Set<String> = []
-        var filtered:[MeshSetupNewWifiNetworkInfo] = []
 
-        for network in networks {
-            if (!wifiNetworkIds.contains(network.ssid)) {
-                wifiNetworkIds.insert(network.ssid)
-                filtered.append(network)
-            }
-        }
-
-        return filtered
-    }
 
 
     func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError? {
