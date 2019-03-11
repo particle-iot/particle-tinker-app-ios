@@ -34,6 +34,9 @@ class StepCheckDeviceGotClaimed : MeshSetupStep {
     override func reset() {
         self.isConnected = false
         self.isClaimed = false
+
+        self.checkTargetDeviceGotConnectedStartTime = nil
+        self.checkTargetDeviceGotClaimedStartTime = nil
     }
 
     private func checkTargetDeviceGotConnected() {
@@ -47,6 +50,7 @@ class StepCheckDeviceGotClaimed : MeshSetupStep {
 
         let diff = Date().timeIntervalSince(self.checkTargetDeviceGotConnectedStartTime!)
         if (diff > MeshSetup.deviceConnectToCloudTimeout) {
+            self.checkTargetDeviceGotConnectedStartTime = nil
             self.fail(withReason: .DeviceConnectToCloudTimeout)
             return
         }
@@ -70,6 +74,7 @@ class StepCheckDeviceGotClaimed : MeshSetupStep {
 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
                     [weak self, weak context] in
+
                     guard let self = self, let context = context, !context.canceled else {
                         return
                     }
@@ -93,7 +98,8 @@ class StepCheckDeviceGotClaimed : MeshSetupStep {
 
         let diff = Date().timeIntervalSince(self.checkTargetDeviceGotClaimedStartTime!)
         if (diff > MeshSetup.deviceGettingClaimedTimeout) {
-            fail(withReason: .DeviceGettingClaimedTimeout)
+            self.checkTargetDeviceGotClaimedStartTime = nil
+            self.fail(withReason: .DeviceGettingClaimedTimeout)
             return
         }
 
