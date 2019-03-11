@@ -170,6 +170,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case DeviceIsNotAllowedToJoinNetwork
     case DeviceIsUnableToFindNetworkToJoin
     case DeviceTimeoutWhileJoiningNetwork
+    case ThisDeviceIsACommissioner
 
     //CheckDeviceGotClaimed
     case DeviceConnectToCloudTimeout
@@ -230,6 +231,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press try again."
             case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try again."
             case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try again."
+            case .ThisDeviceIsACommissioner : return "This device now acts as commissioner. Please restart the setup if you want to set it up again."
         }
     }
 }

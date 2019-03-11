@@ -30,6 +30,11 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
         self.log("self.targetDevice.type?.description = \(self.context!.targetDevice.type?.description as Optional)")
         context.targetDevice.credentials = MeshSetupPeripheralCredentials(name: self.context!.targetDevice.type!.bluetoothNamePrefix + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)
 
+        if (context.targetDevice.credentials?.name == context.commissionerDevice?.credentials?.name) {
+            context.targetDevice = MeshDevice()
+            return .ThisDeviceIsACommissioner
+        }
+
         self.stepCompleted()
 
         return nil

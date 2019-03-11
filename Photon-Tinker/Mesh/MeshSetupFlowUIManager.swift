@@ -266,23 +266,38 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
+
     func showTargetDevicePairing(useEthernet: Bool) {
         log("target device ready")
 
-        guard flowManager.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!, useEthernet: useEthernet) == nil else {
-            self.log("Unknown error while setting target device info")
-            return
-        }
+        if let error = flowManager.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!, useEthernet: useEthernet) {
+            DispatchQueue.main.async {
+                if (self.hideAlertIfVisible()) {
+                    self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
 
-        self.flowManager.pauseSetup()
-        DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupPairingProcessViewController.self)) {
-                let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
-                pairingVC.setup(didFinishScreen: self.targetDevicePairingScreenDone, deviceType: self.flowManager.context.targetDevice.type, deviceName: self.flowManager.context.targetDevice.bluetoothName ?? self.flowManager.context.targetDevice.type!.description)
-                self.embededNavigationController.pushViewController(pairingVC, animated: true)
+                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                        DispatchQueue.main.async {
+                            if (!self.rewindTo(MeshSetupScanStickerViewController.self)) {
+                                let scanVC = MeshSetupScanStickerViewController.loadedViewController()
+                                scanVC.setup(didFindStickerCode: self.setTargetDeviceStickerString)
+                                self.embededNavigationController.pushViewController(scanVC, animated: true)
+                            }
+                        }
+                    })
+
+                    self.present(self.alert!, animated: true)
+                }
+            }
+        } else {
+            self.flowManager.pauseSetup()
+            DispatchQueue.main.async {
+                if (!self.rewindTo(MeshSetupPairingProcessViewController.self)) {
+                    let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
+                    pairingVC.setup(didFinishScreen: self.targetDevicePairingScreenDone, deviceType: self.flowManager.context.targetDevice.type, deviceName: self.flowManager.context.targetDevice.bluetoothName ?? self.flowManager.context.targetDevice.type!.description)
+                    self.embededNavigationController.pushViewController(pairingVC, animated: true)
+                }
             }
         }
-
     }
 
     func targetDevicePairingScreenDone() {
