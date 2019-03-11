@@ -8,7 +8,6 @@ import Foundation
 class StepConnectToCommissionerDevice: MeshSetupStep {
 
     private var reconnect: Bool = false
-    private var listeningMode: Bool = true
 
     var reconnectAfterForcedReboot: Bool = false
     var reconnectAfterForcedRebootRetry: Int = 0
@@ -30,7 +29,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             self.log("connecting to device: \(context.commissionerDevice!.credentials!)")
             context.bluetoothManager.createConnection(with: context.commissionerDevice!.credentials!)
             context.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
-        } else if (listeningMode) {
+        } else if (context.commissionerDevice?.isListeningMode == nil || context.commissionerDevice?.isListeningMode! == true) {
             self.stopCommissionerDeviceListening()
         } else {
             self.stepCompleted()
@@ -38,7 +37,6 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
     }
 
     override func reset() {
-        listeningMode = true
         reconnect = false
 
         self.reconnectAfterForcedReboot = false
@@ -50,6 +48,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return
         }
 
+        context.commissionerDevice!.isListeningMode = true
         context.commissionerDevice!.transceiver = MeshSetupProtocolTransceiver(connection: connection)
 
         self.start()
@@ -68,6 +67,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             }
 
             if (result == .NONE) {
+                context.commissionerDevice?.isListeningMode = false
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)

@@ -7,7 +7,6 @@ import Foundation
 
 class StepCreateNetwork : MeshSetupStep {
 
-    private var listeningMode: Bool = false
 
     override func start() {
         guard let context = self.context else {
@@ -18,7 +17,7 @@ class StepCreateNetwork : MeshSetupStep {
             context.delegate.meshSetupDidEnterState(state: .CreateNetworkStarted)
             self.createNetworkInAPI()
         } else if (context.selectedNetworkMeshInfo == nil ) {
-            if (!listeningMode) {
+            if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == false) {
                 self.startTargetDeviceListening()
             } else {
                 self.createNetworkInMesh()
@@ -26,10 +25,6 @@ class StepCreateNetwork : MeshSetupStep {
         } else {
             self.stepCompleted()
         }
-    }
-
-    override func reset() {
-        self.listeningMode = false
     }
 
     private func createNetworkInAPI() {
@@ -78,7 +73,7 @@ class StepCreateNetwork : MeshSetupStep {
             self.log("targetDevice.sendStarListening: \(result.description())")
 
             if (result == .NONE) {
-                self.listeningMode = true
+                context.targetDevice.isListeningMode = true
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)

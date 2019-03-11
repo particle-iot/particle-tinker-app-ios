@@ -7,7 +7,6 @@ import Foundation
 
 class StepJoinSelectedNetwork : MeshSetupStep {
 
-    private var commissionerStarted: Bool = false
     private var joinerPrepared: Bool = false
     private var joinerAdded: Bool = false
     private var networkJoined: Bool = false
@@ -15,7 +14,11 @@ class StepJoinSelectedNetwork : MeshSetupStep {
 
 
     override func start() {
-        if (!commissionerStarted) {
+        guard let context = self.context else {
+            return
+        }
+
+        if (context.commissionerDevice?.isCommissionerMode == nil ||  context.commissionerDevice?.isCommissionerMode! == false) {
             self.startCommissioner()
         } else if (!joinerPrepared) {
             self.prepareJoiner()
@@ -31,7 +34,6 @@ class StepJoinSelectedNetwork : MeshSetupStep {
     }
 
     override func reset() {
-        commissionerStarted = false
         joinerPrepared = false
         joinerAdded = false
         networkJoined = false
@@ -55,7 +57,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             self.log("commissionerDevice.sendStartCommissioner: \(result.description())")
 
             if result == .NONE {
-                self.commissionerStarted = true
+                context.commissionerDevice?.isCommissionerMode = true
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -185,6 +187,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
 
             if (result == .NONE) {
+                context.commissionerDevice?.isCommissionerMode = false
                 self.attemptRecoveryEnd()
             } else {
                 //if there's one more error here, do not display message cause that

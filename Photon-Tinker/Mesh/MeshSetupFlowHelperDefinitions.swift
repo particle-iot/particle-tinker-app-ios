@@ -272,6 +272,9 @@ internal struct MeshDevice {
     var isClaimed: Bool?
     var isSetupDone: Bool?
 
+    var isListeningMode: Bool?
+    var isCommissionerMode: Bool?
+
 
     var activeInternetInterface: MeshSetupNetworkInterfaceType?
     var hasInternetAddress: Bool?

@@ -12,7 +12,7 @@ class StepGetUserNetworkSelection : MeshSetupStep {
             return
         }
 
-        if (context.selectedNetworkMeshInfo == nil) {
+        if (context.selectedNetworkMeshInfo != nil) {
             self.stepCompleted()
         } else {
             context.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForNetworks)

@@ -8,7 +8,6 @@ import Foundation
 class StepEnsureHasInternetAccess : MeshSetupStep {
     private var checkDeviceHasIPStartTime: Date?
     private var checkSimActiveRetryCount: Int = 0
-    private var listeningMode: Bool = true
 
     override func start() {
         guard let context = self.context else {
@@ -23,7 +22,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
                 context.targetDevice.activeInternetInterface! == .ppp &&
                 context.targetDevice.simActive == nil) {
             self.activateSim()
-        } else if (self.listeningMode) {
+        } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == true) {
             self.stopTargetDeviceListening()
         } else if (context.targetDevice.hasInternetAddress == nil || context.targetDevice.hasInternetAddress! == false) {
             self.checkDeviceHasIP()
@@ -36,7 +35,6 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
     override func reset() {
         self.checkDeviceHasIPStartTime = nil
         self.checkSimActiveRetryCount = 0
-        self.listeningMode = true
     }
 
     private func setDeviceSetupDone() {
@@ -111,7 +109,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             self.log("targetDevice.sendStopListening: \(result.description())")
 
             if (result == .NONE) {
-                self.listeningMode = false
+                context.targetDevice.isListeningMode = false
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)

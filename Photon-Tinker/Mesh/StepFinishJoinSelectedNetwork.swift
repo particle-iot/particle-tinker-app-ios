@@ -8,18 +8,19 @@ import Foundation
 class StepFinishJoinSelectedNetwork: MeshSetupStep {
 
     private var networkJoinedInAPI: Bool = false
-    private var commissionerStopped: Bool = false
-    private var setupDone: Bool = false
-    private var listeningMode: Bool = true
 
     override func start() {
+        guard let context = self.context else {
+            return
+        }
+
         if (!networkJoinedInAPI) {
             self.joinNetworkInAPI()
-        } else if (!commissionerStopped) {
+        } else if (context.commissionerDevice?.isCommissionerMode ?? false) {
             self.stopCommissioner()
-        } else if (!setupDone) {
+        } else if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone == false) {
             self.setTargetDeviceSetupDone()
-        } else if (listeningMode) {
+        } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode == true) {
             self.stopTargetDeviceListening()
         } else {
             self.stepCompleted()
@@ -28,9 +29,6 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
 
     override func reset() {
         networkJoinedInAPI = false
-        commissionerStopped = false
-        setupDone = false
-        listeningMode = true
     }
 
     private func joinNetworkInAPI() {
@@ -75,7 +73,7 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             self.log("commissionerDevice.sendStopCommissioner: \(result.description())")
 
             if (result == .NONE) {
-                self.commissionerStopped = true
+                context.commissionerDevice?.isCommissionerMode = false
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -98,7 +96,6 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             self.log("targetDevice.sendDeviceSetupDone: \(result.description())")
 
             if (result == .NONE) {
-                self.setupDone = true
                 context.targetDevice.isSetupDone = true
                 self.start()
             } else {
@@ -122,7 +119,7 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             self.log("targetDevice.sendStopListening: \(result.description())")
 
             if (result == .NONE) {
-                self.listeningMode = false
+                context.targetDevice.isListeningMode = false
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)

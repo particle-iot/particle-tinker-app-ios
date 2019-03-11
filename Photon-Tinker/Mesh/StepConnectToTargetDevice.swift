@@ -40,6 +40,7 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return
         }
 
+        context.targetDevice.isListeningMode = true
         context.targetDevice.transceiver = MeshSetupProtocolTransceiver(connection: connection)
 
         self.stepCompleted()

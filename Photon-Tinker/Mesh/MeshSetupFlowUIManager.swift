@@ -118,7 +118,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     self.targetDeviceDataMatrix = matrix
                     self.showTargetDeviceGetReady()
                 } else {
-                    //self.showCommissionerDevicePairing(dataMatrixString: dataMatrixString)
+                    self.showCommissionerDevicePairing(dataMatrixString: dataMatrixString)
                 }
             } else if (matrix.type == nil) {
                 self.log("Attempting to recover unknown device type")
