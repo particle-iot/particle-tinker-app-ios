@@ -14,7 +14,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     @IBOutlet weak var backButtonImage: UIImageView!
     
     
-    private var flowManager: MSFlowManager!
+    private var flowManager: MeshSetupFlowManager!
     private var embededNavigationController: UINavigationController!
 
     private var targetDeviceDataMatrix: MeshSetupDataMatrix?
@@ -25,7 +25,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.flowManager = MSFlowManager(delegate: self)
+        self.flowManager = MeshSetupFlowManager(delegate: self)
         self.flowManager.startSetup()
 
     }

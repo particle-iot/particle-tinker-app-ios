@@ -142,7 +142,7 @@
 		C810B78C9CF757BFF8A39193 /* StepPublishDeviceSetupDoneEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BFE7EF68C4EA659A81DD /* StepPublishDeviceSetupDoneEvent.swift */; };
 		C810B7A2901FCC260964115B /* StepGetTargetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B29620FE7FC30C344A26 /* StepGetTargetInfo.swift */; };
 		C810B7BD718FD6567A2EF2A8 /* StepFinishJoinSelectedNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7C6752B0DE5E3E074B4 /* StepFinishJoinSelectedNetwork.swift */; };
-		C810B83ECC677C1D4DADCB31 /* MSFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7B441DD098BA83CDFC4 /* MSFlowManager.swift */; };
+		C810B83ECC677C1D4DADCB31 /* MeshSetupFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7B441DD098BA83CDFC4 /* MeshSetupFlowManager.swift */; };
 		C810B8CAFDD632F1B0E587C4 /* MeshSetupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2A2C9E4F1B4BC7B9BC6 /* MeshSetupInfoViewController.swift */; };
 		C810B93B4C19C2AD2FE7F60A /* StepEnsureCommissionerNetworkMatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B9EC019BADF4A85026E2 /* StepEnsureCommissionerNetworkMatches.swift */; };
 		C810B97E290D55871F27C463 /* StepEnsureCorrectSelectedNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B0E1FC065F2E4C089AAC /* StepEnsureCorrectSelectedNetworkPassword.swift */; };
@@ -360,7 +360,7 @@
 		C810B691F3660202B4A4233C /* StepGetNewNetworkNameAndPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewNetworkNameAndPassword.swift; sourceTree = "<group>"; };
 		C810B756B2B9F5038244B8B1 /* MeshSetupSelectWifiNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectWifiNetworkViewController.swift; sourceTree = "<group>"; };
 		C810B7709DDDC13BA155D371 /* MeshSetupStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupStep.swift; sourceTree = "<group>"; };
-		C810B7B441DD098BA83CDFC4 /* MSFlowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSFlowManager.swift; sourceTree = "<group>"; };
+		C810B7B441DD098BA83CDFC4 /* MeshSetupFlowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowManager.swift; sourceTree = "<group>"; };
 		C810B7C6752B0DE5E3E074B4 /* StepFinishJoinSelectedNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepFinishJoinSelectedNetwork.swift; sourceTree = "<group>"; };
 		C810B7CF5132FDC764AEAC86 /* StepGetCommissionerDeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetCommissionerDeviceInfo.swift; sourceTree = "<group>"; };
 		C810B7EF5D916AC50E009B9D /* StepOfferSetupStandAloneOrWithNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferSetupStandAloneOrWithNetwork.swift; sourceTree = "<group>"; };
@@ -704,7 +704,7 @@
 			children = (
 				C810BE163CF1342CAC1F04CF /* Steps */,
 				931C37BD215AA4300014811C /* MeshSetupFlowUIManager.swift */,
-				C810B7B441DD098BA83CDFC4 /* MSFlowManager.swift */,
+				C810B7B441DD098BA83CDFC4 /* MeshSetupFlowManager.swift */,
 				C810B7709DDDC13BA155D371 /* MeshSetupStep.swift */,
 				C810B8FB2B2BA59A8046875F /* MeshSetupContext.swift */,
 			);
@@ -1155,7 +1155,7 @@
 				C810B57D6A8BC308730D1761 /* MeshSetupConnectingToInternetViewControllers.swift in Sources */,
 				C810B6F1E2651913E90CE4A6 /* MeshSetupPricingInfoViewController.swift in Sources */,
 				C810B2D9ECD474E60DFA4A74 /* LogListViewController.swift in Sources */,
-				C810B83ECC677C1D4DADCB31 /* MSFlowManager.swift in Sources */,
+				C810B83ECC677C1D4DADCB31 /* MeshSetupFlowManager.swift in Sources */,
 				C810B7A2901FCC260964115B /* StepGetTargetInfo.swift in Sources */,
 				C810BD785EF04DD1E231A0F1 /* MeshSetupStep.swift in Sources */,
 				C810BAB7A6DF06F40EF63B10 /* MeshSetupContext.swift in Sources */,

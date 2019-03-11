@@ -6,7 +6,7 @@
 import Foundation
 
 
-class MSFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate, MeshSetupFlowManagerDelegateResponseConsumer {
+class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate, MeshSetupFlowManagerDelegateResponseConsumer {
     private let preflow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
