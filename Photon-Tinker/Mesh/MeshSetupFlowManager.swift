@@ -7,6 +7,8 @@ import Foundation
 
 
 class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate, MeshSetupFlowManagerDelegateResponseConsumer {
+
+
     private let preflow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
@@ -108,6 +110,10 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         ParticleLogger.logInfo("MeshSetupFlow", format: message, withParameters: getVaList([]))
     }
 
+    func fail(_ sender: MeshSetupStep, withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
+        self.fail(withReason: reason, severity: severity, nsError: nsError)
+    }
+
     func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
         if context.canceled == false {
             if (severity == .Fatal) {
@@ -155,8 +161,8 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     }
 
     func rewindFlow() {
-//
-//
+
+
 //        //from
 //        switch self.currentCommand {
 //            case .ShowPricingImpact: //if we rewind FROM pricing page, we reset these flags
@@ -211,6 +217,36 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 //        }
 //
 //        self.runCurrentStep()
+    }
+
+    func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep {
+        return self.rewindTo(step: step)
+    }
+
+    func rewindTo(step: MeshSetupStep.Type) -> MeshSetupStep {
+
+        currentStep.rewindFrom()
+
+        if (currentStepIdx == 0) {
+            //if we are backing from one of these flows, we need to switch the flow type.
+            if (currentFlow == joinerFlow || currentFlow == ethernetFlow || currentFlow == wifiFlow || currentFlow == cellularFlow) {
+                currentFlow = internetConnectedPreflow
+            }
+            self.log("Rewinding flow to internetConnectedPreflow")
+        }
+
+        for i in 0 ..< self.currentFlow.count {
+            if (self.currentFlow[i].isKind(of: step)) {
+                self.currentStepIdx = i
+                self.log("returning to step: \(self.currentStepIdx)")
+                self.currentStep.rewindTo(context: self.context)
+                self.runCurrentStep()
+
+                return self.currentStep
+            }
+        }
+
+        fatalError("You are trying to rewind to a step that is not part of current flow")
     }
 
     func retryLastAction() {
@@ -312,18 +348,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.runCurrentStep()
     }
 
-    func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep {
-        for i in 0 ..< self.currentFlow.count {
-            if (self.currentFlow[i].isKind(of: step)) {
-                self.currentStepIdx = i
-                self.log("returning to step: \(self.currentStepIdx)")
-                self.runCurrentStep()
-
-                return self.currentStep
-            }
-        }
-        fatalError("You are trying to rewind to a step that is not part of current flow")
-    }
 
 
 

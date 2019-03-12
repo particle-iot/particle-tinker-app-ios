@@ -8,7 +8,7 @@ import Foundation
 protocol MeshSetupStepDelegate {
     func stepCompleted(_ sender: MeshSetupStep)
     func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep
-    func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
+    func fail(_ sender: MeshSetupStep, withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
 class MeshSetupStep: NSObject {
@@ -45,6 +45,16 @@ class MeshSetupStep: NSObject {
         self.start()
     }
 
+    func rewindFrom() {
+        self.context = nil
+    }
+
+    func rewindTo(context: MeshSetupContext) {
+        self.context = context
+
+        self.reset()
+    }
+
     func handleBluetoothErrorResult(_ result: ControlReplyErrorType) {
         guard let context = self.context, !context.canceled else {
             return
@@ -66,7 +76,7 @@ class MeshSetupStep: NSObject {
             return
         }
 
-        context.stepDelegate.fail(withReason: reason, severity: severity, nsError: nsError)
+        context.stepDelegate.fail(self, withReason: reason, severity: severity, nsError: nsError)
     }
 
 
@@ -85,6 +95,8 @@ class MeshSetupStep: NSObject {
     func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
         return false
     }
+
+
 }
 
 extension MeshSetupStep {

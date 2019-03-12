@@ -40,4 +40,14 @@ class StepGetCommissionerDeviceInfo : MeshSetupStep {
 
         return nil
     }
+
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.commissionerDevice = MeshDevice()
+    }
 }

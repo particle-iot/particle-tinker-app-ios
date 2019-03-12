@@ -24,7 +24,7 @@ class MeshSetupViewController: UIViewController {
     internal var deviceName: String?
 
     var allowBack: Bool = true
-    var rewindFlowOnBack: Bool = false
+    var ownerStepType: MeshSetupStep.Type?
 
     internal var isBusy: Bool = false {
         didSet {

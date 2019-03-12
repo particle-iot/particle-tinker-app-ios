@@ -30,6 +30,16 @@ class StepShowPricingImpact : MeshSetupStep {
         }
     }
 
+    override func rewindFrom() {
+        guard let context = self.context else {
+            return
+        }
+
+        context.pricingInfo = nil
+
+        super.rewindFrom()
+    }
+
     private func getTargetDeviceActiveSim() {
         context?.targetDevice.transceiver!.sendGetActiveSim () { [weak self, weak context] result, externalSim in
 

@@ -73,6 +73,16 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         }
     }
 
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.userSelectedToUpdateFirmware == nil
+    }
+
     private func getTargetDeviceFirmwareVersion() {
         context?.targetDevice.transceiver!.sendGetSystemVersion { [weak self, weak context] result, version in
             guard let self = self, let context = context, !context.canceled else {
