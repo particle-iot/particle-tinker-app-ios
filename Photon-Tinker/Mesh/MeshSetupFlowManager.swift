@@ -160,65 +160,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         context.bluetoothManager.dropAllConnections()
     }
 
-    func rewindFlow() {
-
-
-//        //from
-//        switch self.currentCommand {
-//            case .ShowPricingImpact: //if we rewind FROM pricing page, we reset these flags
-//                self.pricingInfo = nil
-//                self.pricingRequirementsAreMet = nil
-//            default:
-//                //do nothing
-//                break
-//        }
-//
-//
-//        if (currentStep == 0) {
-//            //if we are backing from one of these flows, we need to switch the flow type.
-//            if (currentFlow == joinerFlow || currentFlow == ethernetFlow || currentFlow == wifiFlow || currentFlow == cellularFlow) {
-//                currentFlow = internetConnectedPreflow
-//                currentStep = internetConnectedPreflow.count
-//            }
-//            self.log("****** Rewinding to \(self.currentStep-1)(\(currentFlow[currentStep-1]))")
-//        } else {
-//            self.log("****** Rewinding from \(self.currentStep)(\(currentFlow[currentStep])) to \(self.currentStep-1)(\(currentFlow[currentStep-1]))")
-//        }
-//
-//        self.currentStep -= 1
-//
-//
-//
-//        //to
-//        switch self.currentCommand {
-//            case .OfferSelectOrCreateNetwork:
-//                //if this screen was skipped originally, rewind once more
-//                if (!self.userSelectedToSetupMesh!) {
-//                    self.rewindFlow()
-//                    return
-//                } else {
-//                    self.selectedNetworkMeshInfo = nil
-//                }
-//            case .OfferSetupStandAloneOrWithNetwork:
-//                self.userSelectedToSetupMesh = nil
-//            case .GetCommissionerDeviceInfo:
-//                self.commissionerDevice = nil
-//            case .GetUserNetworkSelection:
-//                self.selectedNetworkMeshInfo = nil
-//            case .OfferSelectOrCreateNetwork:
-//                self.selectedNetworkMeshInfo = nil
-//            case .GetUserWifiNetworkSelection:
-//                self.selectedWifiNetworkInfo = nil
-//            case .OfferSetupStandAloneOrWithNetwork:
-//                self.userSelectedToSetupMesh = nil
-//            default:
-//                //do nothing
-//                break
-//        }
-//
-//        self.runCurrentStep()
-    }
-
     func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep {
         return self.rewindTo(step: step)
     }
