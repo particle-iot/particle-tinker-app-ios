@@ -71,6 +71,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     private let networkCreatorPostflow: [MeshSetupStep] = [
         StepGetNewDeviceName(),
         StepGetNewNetworkName(),
+        StepGetNewNetworkPassword(),
         StepCreateNetwork(),
         StepEnsureHasInternetAccess(),
         StepMakeTargetACommissioner(),
@@ -514,11 +515,11 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     func setNewNetworkPassword(password: String) -> MeshSetupFlowError? {
-        guard type(of: currentStep) == StepGetNewNetworkName.self else {
+        guard type(of: currentStep) == StepGetNewNetworkPassword.self else {
             return .IllegalOperation
         }
 
-        return (currentStep as! StepGetNewNetworkName).setNewNetworkPassword(password: password)
+        return (currentStep as! StepGetNewNetworkPassword).setNewNetworkPassword(password: password)
     }
 
     func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {

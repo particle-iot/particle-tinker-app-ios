@@ -5,16 +5,19 @@
 
 import Foundation
 
-class StepGetNewNetworkNameAndPassword : MeshSetupStep {
+class StepGetNewNetworkName: MeshSetupStep {
     override func start() {
 
         guard let context = self.context else {
             return
         }
 
-        context.delegate.meshSetupDidRequestToEnterNewNetworkNameAndPassword()
+        if (context.newNetworkName == nil) {
+            context.delegate.meshSetupDidRequestToEnterNewNetworkName(self)
+        } else {
+            self.stepCompleted()
+        }
     }
-
 
     func setNewNetworkName(name: String) -> MeshSetupFlowError? {
         guard let context = self.context else {
@@ -37,29 +40,7 @@ class StepGetNewNetworkNameAndPassword : MeshSetupStep {
         self.log("set network name: \(name)")
         context.newNetworkName = name
 
-        if (context.newNetworkName != nil && context.newNetworkPassword != nil) {
-            self.stepCompleted()
-        }
-
-        return nil
-    }
-
-
-    func setNewNetworkPassword(password: String) -> MeshSetupFlowError? {
-        guard let context = self.context else {
-            return nil
-        }
-
-        guard MeshSetupStep.validateNetworkPassword(password) else {
-            return .PasswordTooShort
-        }
-
-        self.log("set network password: \(password)")
-        context.newNetworkPassword = password
-
-        if (context.newNetworkName != nil && context.newNetworkPassword != nil) {
-            self.stepCompleted()
-        }
+        self.stepCompleted()
 
         return nil
     }

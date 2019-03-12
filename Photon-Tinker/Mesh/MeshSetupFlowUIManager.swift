@@ -95,7 +95,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         //do nothing here
 
         if let vc = self.embededNavigationController.topViewController as? MeshSetupFindStickerViewController {
-            vc.
+
         }
     }
 
@@ -916,7 +916,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-    func meshSetupDidRequestToEnterNewNetworkNameAndPassword(_ sender: MeshSetupStep) {
+    func meshSetupDidRequestToEnterNewNetworkName(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupCreateNetworkNameViewController.self)) {
                 let networkNameVC = MeshSetupCreateNetworkNameViewController.loadedViewController()
@@ -927,17 +927,15 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
+
     func didEnterCreateNetworkName(networkName: String) {
         if let error = self.flowManager.setNewNetworkName(name: networkName),
            let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkNameViewController {
             vc.setWrongInput(message: error.description)
-        } else {
-            showCreateNetworkPassword()
         }
     }
 
-
-    private func showCreateNetworkPassword() {
+    func meshSetupDidRequestToEnterNewNetworkPassword(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupCreateNetworkPasswordViewController.self)) {
                 let networkPasswordVC = MeshSetupCreateNetworkPasswordViewController.loadedViewController()
