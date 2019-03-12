@@ -14,10 +14,6 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
     internal var callback: ((String) -> ())!
     private var currentName: String?
 
-    override var allowBack: Bool {
-        return false
-    }
-
     func setup(didEnterName: @escaping (String) -> (), deviceType: ParticleDeviceType?, currentName: String? = nil) {
         self.callback = didEnterName
         self.deviceType = deviceType

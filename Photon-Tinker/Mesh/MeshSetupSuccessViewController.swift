@@ -26,10 +26,6 @@ class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
 
     private var callback: ((Bool) -> ())!
 
-    override var allowBack: Bool {
-        return false
-    }
-
     func setup(didSelectDone: @escaping (Bool) -> (), deviceName: String, networkName: String? = nil) {
         self.callback = didSelectDone
         self.deviceName = deviceName

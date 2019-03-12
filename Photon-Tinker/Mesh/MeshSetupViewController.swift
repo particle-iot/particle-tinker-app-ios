@@ -23,19 +23,15 @@ class MeshSetupViewController: UIViewController {
     internal var networkName: String?
     internal var deviceName: String?
 
-    var allowBack: Bool {
-        return true
-    }
-
-    var rewindFlowOnBack: Bool {
-        return false
-    }
+    var allowBack: Bool = true
+    var rewindFlowOnBack: Bool = false
 
     internal var isBusy: Bool = false {
         didSet {
             NotificationCenter.default.post(name: Notification.Name.MeshSetupViewControllerBusyChanged, object: self)
         }
     }
+
     var viewControllerIsBusy: Bool {
         get {
             return isBusy

@@ -51,6 +51,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
             findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker)
+            findStickerVC.allowBack = false
             self.embededNavigationController.setViewControllers([findStickerVC], animated: false)
         }
         super.prepare(for: segue, sender: sender)
@@ -293,6 +294,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             DispatchQueue.main.async {
                 if (!self.rewindTo(MeshSetupPairingProcessViewController.self)) {
                     let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
+                    pairingVC.allowBack = false
                     pairingVC.setup(didFinishScreen: self.targetDevicePairingScreenDone, deviceType: self.flowManager.context.targetDevice.type, deviceName: self.flowManager.context.targetDevice.bluetoothName ?? self.flowManager.context.targetDevice.type!.description)
                     self.embededNavigationController.pushViewController(pairingVC, animated: true)
                 }
@@ -309,6 +311,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             if (!self.rewindTo(MeshSetupFirmwareUpdateViewController.self)) {
                 let prepareUpdateFirmwareVC = MeshSetupFirmwareUpdateViewController.loadedViewController()
                 prepareUpdateFirmwareVC.setup(didPressContinue: self.didSelectToUpdateFirmware)
+                prepareUpdateFirmwareVC.allowBack = false
                 self.embededNavigationController.pushViewController(prepareUpdateFirmwareVC, animated: true)
             }
         }
@@ -319,6 +322,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             if (!self.rewindTo(MeshSetupFirmwareUpdateProgressViewController.self)) {
                 let updateFirmwareVC = MeshSetupFirmwareUpdateProgressViewController.loadedViewController()
                 updateFirmwareVC.setup(didFinishScreen: self.targetDeviceFirmwareUpdateScreenDone)
+                updateFirmwareVC.allowBack = false
                 self.embededNavigationController.pushViewController(updateFirmwareVC, animated: true)
             }
         }
@@ -353,6 +357,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupStandAloneOrMeshSetupViewController.self)) {
                 let setupVC = MeshSetupStandAloneOrMeshSetupViewController.loadedViewController()
+                setupVC.allowBack = false
                 setupVC.setup(setupMesh: self.didSelectToSetupMesh, deviceType: self.flowManager.context.targetDevice.type)
                 self.embededNavigationController.pushViewController(setupVC, animated: true)
             }
@@ -373,6 +378,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             } else {
                 if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
                     let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
+                    pricingInfoVC.rewindFlowOnBack = true
                     pricingInfoVC.setup(didPressContinue: self.didFinishPricingInfo, pricingInfo: info)
                     self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
                 }
@@ -414,6 +420,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     DispatchQueue.main.async {
                         if (!self.rewindTo(MeshSetupInfoEthernetViewController.self)) {
                             let infoVC = MeshSetupInfoEthernetViewController.loadedViewController()
+                            infoVC.rewindFlowOnBack = true
                             infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, deviceType: self.flowManager.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(infoVC, animated: true)
                         }
@@ -422,6 +429,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     DispatchQueue.main.async {
                         if (!self.rewindTo(MeshSetupInfoWifiViewController.self)) {
                             let infoVC = MeshSetupInfoWifiViewController.loadedViewController()
+                            infoVC.rewindFlowOnBack = true
                             infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, deviceType: self.flowManager.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(infoVC, animated: true)
                         }
@@ -430,6 +438,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     DispatchQueue.main.async {
                         if (!self.rewindTo(MeshSetupCellularInfoViewController.self)) {
                             let cellularInfoVC = MeshSetupCellularInfoViewController.loadedViewController()
+                            cellularInfoVC.rewindFlowOnBack = true
                             cellularInfoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, simActive: self.flowManager.context.targetDevice.simActive ?? false, deviceType: self.flowManager.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(cellularInfoVC, animated: true)
                         }
@@ -442,6 +451,9 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             DispatchQueue.main.async {
                 if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
                     let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
+                    //if we are setting up gateway device, user will be asked to select if he wants to setup mesh
+                    //for xenons this will be nil.
+                    infoVC.rewindFlowOnBack = self.flowManager.context.userSelectedToSetupMesh != nil
                     infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh, deviceType: self.flowManager.context.targetDevice.type!)
                     self.embededNavigationController.pushViewController(infoVC, animated: true)
                 }
@@ -458,6 +470,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupNameDeviceViewController.self)) {
                 let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
+                nameVC.allowBack = false
                 nameVC.setup(didEnterName: self.didEnterName, deviceType: self.flowManager.context.targetDevice.type, currentName: self.flowManager.context.targetDevice.name)
                 self.embededNavigationController.pushViewController(nameVC, animated: true)
             }
@@ -486,6 +499,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             } else {
                 if (!self.rewindTo(MeshSetupSelectWifiNetworkViewController.self)) {
                     let networksVC = MeshSetupSelectWifiNetworkViewController.loadedViewController()
+                    networksVC.rewindFlowOnBack = true
                     networksVC.setup(didSelectNetwork: self.didSelectWifiNetwork)
                     self.embededNavigationController.pushViewController(networksVC, animated: true)
                 }
@@ -539,6 +553,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupWifiNetworkPasswordViewController.self)) {
                 let passwordVC = MeshSetupWifiNetworkPasswordViewController.loadedViewController()
+                passwordVC.rewindFlowOnBack = true
                 passwordVC.setup(didEnterPassword: self.didEnterWifiNetworkPassword, networkName: self.flowManager.context.selectedWifiNetworkInfo!.ssid)
                 self.embededNavigationController.pushViewController(passwordVC, animated: true)
             }
@@ -564,6 +579,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             } else {
                 if (!self.rewindTo(MeshSetupSelectNetworkViewController.self)) {
                     let networksVC = MeshSetupSelectNetworkViewController.loadedViewController()
+                    networksVC.rewindFlowOnBack = true
                     networksVC.setup(didSelectNetwork: self.didSelectNetwork)
                     self.embededNavigationController.pushViewController(networksVC, animated: true)
                 }
@@ -669,6 +685,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupScanCommissionerStickerViewController.self)) {
                 let getReadyVC = MeshSetupGetCommissionerReadyViewController.loadedViewController()
+                getReadyVC.rewindFlowOnBack = true
                 getReadyVC.setup(didPressReady: self.showCommissionerDeviceFindSticker, deviceType: self.flowManager.context.targetDevice.type, networkName: self.flowManager.context.selectedNetworkMeshInfo!.name)
                 self.embededNavigationController.pushViewController(getReadyVC, animated: true)
             }
@@ -760,6 +777,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupNetworkPasswordViewController.self)) {
                 let passwordVC = MeshSetupNetworkPasswordViewController.loadedViewController()
+                passwordVC.rewindFlowOnBack = true
+                passwordVC.allowBack = false
                 passwordVC.setup(didEnterPassword: self.didEnterNetworkPassword, networkName: self.flowManager.context.selectedNetworkMeshInfo!.name)
                 self.embededNavigationController.pushViewController(passwordVC, animated: true)
             }
@@ -780,6 +799,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupJoiningNetworkViewController.self)) {
                 let joiningVC = MeshSetupJoiningNetworkViewController.loadedViewController()
+                joiningVC.allowBack = false
                 joiningVC.setup(didFinishScreen: self.didFinishJoinNetworkScreen, networkName: self.flowManager.context.selectedNetworkMeshInfo!.name, deviceType: self.flowManager.context.targetDevice.type)
                 self.embededNavigationController.pushViewController(joiningVC, animated: true)
             }
@@ -810,6 +830,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 //this is the end of joiner or standalone flow
                 if (!self.rewindTo(MeshSetupSuccessViewController.self)) {
                     let successVC = MeshSetupSuccessViewController.loadedViewController()
+                    successVC.allowBack = false
                     successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.flowManager.context.targetDevice.name!, networkName: self.flowManager.context.selectedNetworkMeshInfo?.name)
                     self.embededNavigationController.pushViewController(successVC, animated: true)
                 }
@@ -844,6 +865,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     } else {
                         if (!self.rewindTo(MeshSetupConnectingToInternetEthernetViewController.self)) {
                             let connectingVC = MeshSetupConnectingToInternetEthernetViewController.loadedViewController()
+                            connectingVC.allowBack = false
                             connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.flowManager.context.targetDevice.type)
                             self.embededNavigationController.pushViewController(connectingVC, animated: true)
                         }
@@ -856,6 +878,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     } else {
                         if (!self.rewindTo(MeshSetupConnectingToInternetWifiViewController.self)) {
                             let connectingVC = MeshSetupConnectingToInternetWifiViewController.loadedViewController()
+                            connectingVC.allowBack = false
                             connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.flowManager.context.targetDevice.type)
                             self.embededNavigationController.pushViewController(connectingVC, animated: true)
                         }
@@ -868,6 +891,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     } else {
                         if (!self.rewindTo(MeshSetupConnectingToInternetCellularViewController.self)) {
                             let connectingVC = MeshSetupConnectingToInternetCellularViewController.loadedViewController()
+                            connectingVC.allowBack = false
                             connectingVC.setup(didFinishScreen: self.didFinishConnectToInternetScreen, deviceType: self.flowManager.context.targetDevice.type)
                             self.embededNavigationController.pushViewController(connectingVC, animated: true)
                         }
@@ -893,6 +917,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
             if (!self.rewindTo(MeshSetupCreateNetworkNameViewController.self)) {
                 let networkNameVC = MeshSetupCreateNetworkNameViewController.loadedViewController()
                 networkNameVC.setup(didEnterNetworkName: self.didEnterCreateNetworkName)
+                networkNameVC.rewindFlowOnBack = true
                 self.embededNavigationController.pushViewController(networkNameVC, animated: true)
             }
         }
@@ -930,6 +955,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupCreatingNetworkViewController.self)) {
                 let createNetworkVC = MeshSetupCreatingNetworkViewController.loadedViewController()
+                createNetworkVC.allowBack = false
                 createNetworkVC.setup(didFinishScreen: self.createNetworkScreenDone, deviceType: self.flowManager.context.targetDevice.type, deviceName: self.flowManager.context.targetDevice.name)
                 self.embededNavigationController.pushViewController(createNetworkVC, animated: true)
             }

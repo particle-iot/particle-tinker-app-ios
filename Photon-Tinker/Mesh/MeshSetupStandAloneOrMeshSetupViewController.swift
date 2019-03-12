@@ -14,10 +14,6 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
 
     internal var callback: ((Bool) -> ())!
 
-    override var allowBack: Bool {
-        return false
-    }
-
     func setup(setupMesh: @escaping (Bool) -> (), deviceType: ParticleDeviceType?) {
         self.callback = setupMesh
         self.deviceType = deviceType

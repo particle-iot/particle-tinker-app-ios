@@ -7,10 +7,6 @@ import UIKit
 
 class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewController {
 
-    override var rewindFlowOnBack: Bool {
-        return true
-    }
-
     private var callback: (() -> ())!
 
     func setup(didPressReady: @escaping () -> (), deviceType: ParticleDeviceType!, networkName: String) {
