@@ -14,7 +14,7 @@ class StepCreateNetwork : MeshSetupStep {
         }
 
         if (context.newNetworkId == nil) {
-            context.delegate.meshSetupDidEnterState(state: .CreateNetworkStarted)
+            context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkStarted)
             self.createNetworkInAPI()
         } else if (context.selectedNetworkMeshInfo == nil ) {
             if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == false) {
@@ -54,7 +54,7 @@ class StepCreateNetwork : MeshSetupStep {
 
             if let network = network {
                 context.newNetworkId = network.id
-                context.delegate.meshSetupDidEnterState(state: .CreateNetworkStep1Done)
+                context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkStep1Done)
                 self.start()
             }
         }
@@ -100,8 +100,8 @@ class StepCreateNetwork : MeshSetupStep {
                 context.selectedNetworkMeshInfo = networkInfo!
                 context.selectedNetworkPassword = context.newNetworkPassword
 
-                context.delegate.meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
-                context.delegate.meshSetupDidEnterState(state: .CreateNetworkCompleted)
+                context.delegate.meshSetupDidCreateNetwork(self, network: MeshSetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
+                context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkCompleted)
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)

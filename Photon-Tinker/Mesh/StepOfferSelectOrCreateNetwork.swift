@@ -19,7 +19,7 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
             //if user has already selected the mesh network we also complete the step
             self.stepCompleted()
         } else {
-            context.delegate.meshSetupDidEnterState(state: .TargetInternetConnectedDeviceScanningForNetworks)
+            context.delegate.meshSetupDidEnterState(self, state: .TargetInternetConnectedDeviceScanningForNetworks)
             self.scanNetworks()
         }
     }
@@ -48,7 +48,7 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
         }
 
         let networks = MeshSetupStep.GetMeshNetworkCells(meshNetworks: context.targetDevice.meshNetworks!, apiMeshNetworks: context.apiNetworks!)
-        context.delegate.meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: networks)
+        context.delegate.meshSetupDidRequestToSelectOrCreateNetwork(self, availableNetworks: networks)
     }
 
     func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {

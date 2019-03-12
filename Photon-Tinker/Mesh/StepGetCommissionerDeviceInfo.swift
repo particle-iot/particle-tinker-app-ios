@@ -12,7 +12,7 @@ class StepGetCommissionerDeviceInfo : MeshSetupStep {
         }
 
         if (context.commissionerDevice?.credentials == nil) {
-            context.delegate.meshSetupDidRequestCommissionerDeviceInfo()
+            context.delegate.meshSetupDidRequestCommissionerDeviceInfo(self)
         } else {
             self.stepCompleted()
         }

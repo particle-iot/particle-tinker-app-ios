@@ -46,7 +46,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(state: .JoiningNetworkStarted)
+        context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStarted)
 
         /// NOT_ALLOWED: The client is not authenticated
         context.commissionerDevice!.transceiver!.sendStartCommissioner { [weak self, weak context] result in
@@ -98,7 +98,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(state: .JoiningNetworkStep1Done)
+        context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStep1Done)
 
         /// NO_MEMORY: No memory available to add the joiner
         /// INVALID_STATE: The commissioner role is not started

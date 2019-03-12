@@ -91,8 +91,12 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
     //MARK: Get Target Device Info
-    func meshSetupDidRequestTargetDeviceInfo() {
+    func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {
         //do nothing here
+
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupFindStickerViewController {
+            vc.
+        }
     }
 
     func showTargetDeviceScanSticker() {
@@ -306,7 +310,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.continueSetup()
     }
 
-    func meshSetupDidRequestToUpdateFirmware() {
+    func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupFirmwareUpdateViewController.self)) {
                 let prepareUpdateFirmwareVC = MeshSetupFirmwareUpdateViewController.loadedViewController()
@@ -334,7 +338,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.continueSetup()
     }
 
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo) {
+    func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo) {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
                 self.alert = UIAlertController(title: MeshSetupStrings.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
@@ -353,7 +357,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func meshSetupDidRequestToSelectStandAloneOrMeshSetup() {
+    func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupStandAloneOrMeshSetupViewController.self)) {
                 let setupVC = MeshSetupStandAloneOrMeshSetupViewController.loadedViewController()
@@ -370,7 +374,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo) {
+    func meshSetupDidRequestToShowPricingInfo(_ sender: MeshSetupStep, info: ParticlePricingInfo) {
         DispatchQueue.main.async {
             if let vc = self.embededNavigationController.topViewController as? MeshSetupPricingInfoViewController {
                 //the call has been retried and if cc was added it should pass this time
@@ -413,7 +417,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     //MARK: Gateway Info
-    func meshSetupDidRequestToShowInfo() {
+    func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
         if let activeInternetInterface = self.flowManager.context.targetDevice.activeInternetInterface {
             switch activeInternetInterface {
                 case .ethernet:
@@ -466,7 +470,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func meshSetupDidRequestToEnterDeviceName() {
+    func meshSetupDidRequestToEnterDeviceName(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupNameDeviceViewController.self)) {
                 let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
@@ -511,7 +515,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         flowManager.setSelectedWifiNetwork(selectedNetwork: network)
     }
 
-    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo]) {
+    func meshSetupDidRequestToSelectWifiNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNewWifiNetworkInfo]) {
         NSLog("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
@@ -549,7 +553,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     //MARK: Wifi network password
-    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword() {
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupWifiNetworkPasswordViewController.self)) {
                 let passwordVC = MeshSetupWifiNetworkPasswordViewController.loadedViewController()
@@ -616,7 +620,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo]) {
+    func meshSetupDidRequestToSelectNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo]) {
         NSLog("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
@@ -638,7 +642,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo]) {
+    func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo]) {
         NSLog("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
@@ -679,7 +683,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     //MARK: Connect to selected network
-    func meshSetupDidRequestCommissionerDeviceInfo() {
+    func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep) {
         log("requesting commisioner info!!")
 
         DispatchQueue.main.async {
@@ -773,7 +777,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         self.flowManager.continueSetup()
     }
 
-    func meshSetupDidRequestToEnterSelectedNetworkPassword() {
+    func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupNetworkPasswordViewController.self)) {
                 let passwordVC = MeshSetupNetworkPasswordViewController.loadedViewController()
@@ -817,7 +821,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-    func meshSetupDidRequestToAddOneMoreDevice() {
+    func meshSetupDidRequestToAddOneMoreDevice(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (self.flowManager.context.userSelectedToCreateNetwork != nil && self.flowManager.context.userSelectedToCreateNetwork!) {
                 //this is the end of create network flow
@@ -912,7 +916,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
 
-    func meshSetupDidRequestToEnterNewNetworkNameAndPassword() {
+    func meshSetupDidRequestToEnterNewNetworkNameAndPassword(_ sender: MeshSetupStep) {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupCreateNetworkNameViewController.self)) {
                 let networkNameVC = MeshSetupCreateNetworkNameViewController.loadedViewController()
@@ -962,7 +966,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
         }
     }
 
-    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo) {
+    func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo) {
         //nothing needs to be done on ui side
     }
 
@@ -971,7 +975,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func meshSetupDidEnterState(state: MeshSetupFlowState) {
+    func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) {
         log("flow setup entered state: \(state)")
 
         switch state {
@@ -1125,7 +1129,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     }
 
 
-    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
+    func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
         DispatchQueue.main.async {
 
             var message = error.description

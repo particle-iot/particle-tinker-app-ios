@@ -21,12 +21,12 @@ class StepShowPricingImpact : MeshSetupStep {
             } else if (context.pricingInfo == nil) {
                 self.getPricingImpact()
             } else {
-                context.delegate.meshSetupDidRequestToShowPricingInfo(info: context.pricingInfo!)
+                context.delegate.meshSetupDidRequestToShowPricingInfo(self, info: context.pricingInfo!)
             }
         } else if (context.pricingInfo == nil) {
             self.getPricingImpact()
         } else {
-            context.delegate.meshSetupDidRequestToShowPricingInfo(info: context.pricingInfo!)
+            context.delegate.meshSetupDidRequestToShowPricingInfo(self, info: context.pricingInfo!)
         }
     }
 

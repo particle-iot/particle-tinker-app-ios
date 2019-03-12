@@ -76,7 +76,7 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
             if (network.networkID.count == 0) {
                 let _ = self.setTargetDeviceLeaveNetwork(leave: true)
             } else {
-                context.delegate.meshSetupDidRequestToLeaveNetwork(network: network)
+                context.delegate.meshSetupDidRequestToLeaveNetwork(self, network: network)
             }
         } else {
             let _ = self.setTargetDeviceLeaveNetwork(leave: true)
@@ -181,7 +181,7 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
             }
 
             if (result == .NONE) {
-                context.delegate.meshSetupDidEnterState(state: .SetupCanceled)
+                context.delegate.meshSetupDidEnterState(self, state: .SetupCanceled)
             } else {
                 self.handleBluetoothErrorResult(result)
             }

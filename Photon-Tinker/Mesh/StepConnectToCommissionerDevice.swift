@@ -28,7 +28,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
 
             self.log("connecting to device: \(context.commissionerDevice!.credentials!)")
             context.bluetoothManager.createConnection(with: context.commissionerDevice!.credentials!)
-            context.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
+            context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceConnected)
         } else if (context.commissionerDevice?.isListeningMode == nil || context.commissionerDevice?.isListeningMode! == true) {
             self.stopCommissionerDeviceListening()
         } else {
@@ -111,7 +111,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(state: .CommissionerDeviceConnected)
+        context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceConnected)
 
         return true
     }
@@ -121,7 +121,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(state: .CommissionerDeviceReady)
+        context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceReady)
 
         commissionerDeviceConnected(connection: connection)
 

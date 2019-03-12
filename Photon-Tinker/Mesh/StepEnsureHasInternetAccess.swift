@@ -14,7 +14,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStarted)
+        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStarted)
 
         if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone! == false) {
             self.setDeviceSetupDone()
@@ -90,7 +90,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
                 return
             } else {
                 context.targetDevice.simActive = true
-                context.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep0Done)
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
                 self.start()
             }
         }

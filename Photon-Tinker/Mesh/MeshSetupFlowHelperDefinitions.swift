@@ -10,35 +10,36 @@ import Foundation
 
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowManagerDelegate {
-    func meshSetupDidRequestTargetDeviceInfo()
+    func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep)
 
-    func meshSetupDidRequestToUpdateFirmware()
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
+    func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo)
 
 
     //create flow
-    func meshSetupDidRequestToSelectStandAloneOrMeshSetup()
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
+    func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo])
 
-    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
-    func meshSetupDidRequestToShowInfo()
+    func meshSetupDidRequestToShowPricingInfo(_ sender: MeshSetupStep, info: ParticlePricingInfo)
+    func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep)
 
-    func meshSetupDidRequestToEnterDeviceName()
-    func meshSetupDidRequestToAddOneMoreDevice()
+    func meshSetupDidRequestToEnterDeviceName(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToAddOneMoreDevice(_ sender: MeshSetupStep)
 
-    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
+    func meshSetupDidRequestToEnterNewNetworkPassword(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToEnterNewNetworkName(_ sender: MeshSetupStep)
+    func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo)
 
-    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
-    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToSelectWifiNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNewWifiNetworkInfo])
 
     //joiner flow
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-    func meshSetupDidRequestCommissionerDeviceInfo()
-    func meshSetupDidRequestToEnterSelectedNetworkPassword()
+    func meshSetupDidRequestToSelectNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo])
+    func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep)
 
-    func meshSetupDidEnterState(state: MeshSetupFlowState)
-    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
+    func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState)
+    func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
 protocol MeshSetupFlowManagerDelegateResponseConsumer {

@@ -60,7 +60,7 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(state: .JoiningNetworkStep2Done)
+        context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStep2Done)
 
         /// NOT_ALLOWED: The client is not authenticated
         context.commissionerDevice!.transceiver!.sendStopCommissioner {

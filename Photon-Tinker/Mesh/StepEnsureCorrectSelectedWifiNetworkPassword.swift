@@ -17,7 +17,7 @@ class StepEnsureCorrectSelectedWifiNetworkPassword : MeshSetupStep {
             }
             return
         }
-        context.delegate.meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
+        context.delegate.meshSetupDidRequestToEnterSelectedWifiNetworkPassword(self)
     }
 
     func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {

@@ -13,7 +13,7 @@ class StepEnsureCorrectSelectedNetworkPassword : MeshSetupStep {
         }
 
         if (self.context?.selectedNetworkPassword == nil) {
-            context.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword()
+            context.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword(self)
         } else {
             self.stepCompleted()
         }

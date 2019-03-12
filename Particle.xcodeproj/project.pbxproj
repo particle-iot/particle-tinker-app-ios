@@ -156,7 +156,7 @@
 		C810BD0FBB4A7CB6038AEB90 /* StepShowInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF767D4AFA70291AD281 /* StepShowInfo.swift */; };
 		C810BD4EE50A604E2FE699F9 /* StepOfferSetupStandAloneOrWithNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7EF5D916AC50E009B9D /* StepOfferSetupStandAloneOrWithNetwork.swift */; };
 		C810BD5F76DCCD2C74472949 /* MeshSetupNetworkCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B12F2906E63F800327E1 /* MeshSetupNetworkCreatedViewController.swift */; };
-		C810BD6881B758A4A44D1D0C /* StepGetNewNetworkNameAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B691F3660202B4A4233C /* StepGetNewNetworkNameAndPassword.swift */; };
+		C810BD6881B758A4A44D1D0C /* StepGetNewNetworkName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B691F3660202B4A4233C /* StepGetNewNetworkName.swift */; };
 		C810BD785EF04DD1E231A0F1 /* MeshSetupStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7709DDDC13BA155D371 /* MeshSetupStep.swift */; };
 		C810BDA4D0D091E67587C94D /* MeshSetupWifiNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B35128237699826532CD /* MeshSetupWifiNetworkPasswordViewController.swift */; };
 		C810BE1B8BEDD6C84E906009 /* StepEnsureCorrectSelectedWifiNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B68C071E96F343CF5828 /* StepEnsureCorrectSelectedWifiNetworkPassword.swift */; };
@@ -168,6 +168,7 @@
 		C810BEC99212A99127AA06BF /* StepOfferSelectOrCreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2B04B7CE9C30F419263 /* StepOfferSelectOrCreateNetwork.swift */; };
 		C810BEE1EA84551AB5C1B56F /* MeshSetupStandAloneOrMeshSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD00BB9C3D20CF1CB23B /* MeshSetupStandAloneOrMeshSetupViewController.swift */; };
 		C810BF161E21CD8AFE457E1A /* StepGetCommissionerDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7CF5132FDC764AEAC86 /* StepGetCommissionerDeviceInfo.swift */; };
+		C810BFE5C747F33848162A65 /* StepGetNewNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BEAE3679E7DF2D724AB5 /* StepGetNewNetworkPassword.swift */; };
 		C810BFEDDE2637E0676AD852 /* StepShowPricingImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD7B4054513FB70F4823 /* StepShowPricingImpact.swift */; };
 		C810BFF8B5E4A3910AA33DD8 /* StepGetAPINetworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB7D6DB58A188B32EDF3 /* StepGetAPINetworks.swift */; };
 /* End PBXBuildFile section */
@@ -357,7 +358,7 @@
 		C810B64B799CEE08C2A1F100 /* SetClaimCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetClaimCode.swift; sourceTree = "<group>"; };
 		C810B64F3AFE40A82A5FC36D /* StepConnectToCommissionerDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepConnectToCommissionerDevice.swift; sourceTree = "<group>"; };
 		C810B68C071E96F343CF5828 /* StepEnsureCorrectSelectedWifiNetworkPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCorrectSelectedWifiNetworkPassword.swift; sourceTree = "<group>"; };
-		C810B691F3660202B4A4233C /* StepGetNewNetworkNameAndPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewNetworkNameAndPassword.swift; sourceTree = "<group>"; };
+		C810B691F3660202B4A4233C /* StepGetNewNetworkName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewNetworkName.swift; sourceTree = "<group>"; };
 		C810B756B2B9F5038244B8B1 /* MeshSetupSelectWifiNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectWifiNetworkViewController.swift; sourceTree = "<group>"; };
 		C810B7709DDDC13BA155D371 /* MeshSetupStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupStep.swift; sourceTree = "<group>"; };
 		C810B7B441DD098BA83CDFC4 /* MeshSetupFlowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowManager.swift; sourceTree = "<group>"; };
@@ -383,6 +384,7 @@
 		C810BD7B4054513FB70F4823 /* StepShowPricingImpact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepShowPricingImpact.swift; sourceTree = "<group>"; };
 		C810BDA797852B52EAA154A4 /* MeshSetupInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupInfoView.xib; sourceTree = "<group>"; };
 		C810BDFBB870A452DFE60AD0 /* MeshSetupFirmwareUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFirmwareUpdateViewController.swift; sourceTree = "<group>"; };
+		C810BEAE3679E7DF2D724AB5 /* StepGetNewNetworkPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewNetworkPassword.swift; sourceTree = "<group>"; };
 		C810BED0DC1B030AEE18044B /* StepEnsureCorrectEthernetFeatureStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCorrectEthernetFeatureStatus.swift; sourceTree = "<group>"; };
 		C810BF767D4AFA70291AD281 /* StepShowInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepShowInfo.swift; sourceTree = "<group>"; };
 		C810BF96B80E35D10BB3B8AF /* MeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupViewController.swift; sourceTree = "<group>"; };
@@ -795,7 +797,7 @@
 				C810BFE7EF68C4EA659A81DD /* StepPublishDeviceSetupDoneEvent.swift */,
 				C810BB7AB82830BBE78F6F2E /* StepGetNewDeviceName.swift */,
 				C810BB8FEACBB17490C6E2F6 /* StepOfferToAddOneMoreDevice.swift */,
-				C810B691F3660202B4A4233C /* StepGetNewNetworkNameAndPassword.swift */,
+				C810B691F3660202B4A4233C /* StepGetNewNetworkName.swift */,
 				C810B5C19E74F614A9B5D098 /* StepCreateNetwork.swift */,
 				C810B070B4992087B5C497F0 /* StepMakeTargetACommissioner.swift */,
 				C810B9FB612497DB714BFD36 /* StepGetUserWifiNetworkSelection.swift */,
@@ -806,6 +808,7 @@
 				C810B0E1FC065F2E4C089AAC /* StepEnsureCorrectSelectedNetworkPassword.swift */,
 				C810B014B7386F56A3E9E1D3 /* StepJoinSelectedNetwork.swift */,
 				C810B7C6752B0DE5E3E074B4 /* StepFinishJoinSelectedNetwork.swift */,
+				C810BEAE3679E7DF2D724AB5 /* StepGetNewNetworkPassword.swift */,
 			);
 			name = Steps;
 			sourceTree = "<group>";
@@ -1177,7 +1180,7 @@
 				C810B78C9CF757BFF8A39193 /* StepPublishDeviceSetupDoneEvent.swift in Sources */,
 				C810B312E1C34C8293E29D8B /* StepGetNewDeviceName.swift in Sources */,
 				C810B5048420B1008F01DE47 /* StepOfferToAddOneMoreDevice.swift in Sources */,
-				C810BD6881B758A4A44D1D0C /* StepGetNewNetworkNameAndPassword.swift in Sources */,
+				C810BD6881B758A4A44D1D0C /* StepGetNewNetworkName.swift in Sources */,
 				C810BE44611399A72B8CC3C6 /* StepCreateNetwork.swift in Sources */,
 				C810B277E204EFB3F32CD711 /* StepMakeTargetACommissioner.swift in Sources */,
 				C810B6A5E4ED4B0472EB2E4D /* StepGetUserWifiNetworkSelection.swift in Sources */,
@@ -1188,6 +1191,7 @@
 				C810B97E290D55871F27C463 /* StepEnsureCorrectSelectedNetworkPassword.swift in Sources */,
 				C810BE9F3CD99DA4DB016FF5 /* StepJoinSelectedNetwork.swift in Sources */,
 				C810B7BD718FD6567A2EF2A8 /* StepFinishJoinSelectedNetwork.swift in Sources */,
+				C810BFE5C747F33848162A65 /* StepGetNewNetworkPassword.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

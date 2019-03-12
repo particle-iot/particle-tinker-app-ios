@@ -25,7 +25,7 @@ class StepConnectToTargetDevice: MeshSetupStep {
 
         self.log("connecting to device: \(context.targetDevice.credentials!)")
         context.bluetoothManager.createConnection(with: context.targetDevice.credentials!)
-        context.delegate.meshSetupDidEnterState(state: .TargetDeviceConnecting)
+        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnecting)
     }
 
     override func reset() {
@@ -81,7 +81,7 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(state: .TargetDeviceConnected)
+        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnected)
 
         return true
     }
@@ -91,7 +91,7 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(state: .TargetDeviceReady)
+        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceReady)
 
         targetDeviceConnected(connection: connection)
 

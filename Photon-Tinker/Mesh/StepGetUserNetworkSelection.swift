@@ -15,7 +15,7 @@ class StepGetUserNetworkSelection : MeshSetupStep {
         if (context.selectedNetworkMeshInfo != nil) {
             self.stepCompleted()
         } else {
-            context.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForNetworks)
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceScanningForNetworks)
             self.scanNetworks()
         }
     }
@@ -44,7 +44,7 @@ class StepGetUserNetworkSelection : MeshSetupStep {
         }
 
         let networks = MeshSetupStep.GetMeshNetworkCells(meshNetworks: context.targetDevice.meshNetworks!, apiMeshNetworks: context.apiNetworks!)
-        context.delegate.meshSetupDidRequestToSelectNetwork(availableNetworks: networks)
+        context.delegate.meshSetupDidRequestToSelectNetwork(self, availableNetworks: networks)
     }
 
     func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError? {

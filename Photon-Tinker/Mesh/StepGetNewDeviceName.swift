@@ -11,7 +11,7 @@ class StepGetNewDeviceName : MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidRequestToEnterDeviceName()
+        context.delegate.meshSetupDidRequestToEnterDeviceName(self)
     }
 
 

@@ -23,9 +23,9 @@ class StepCheckDeviceGotClaimed : MeshSetupStep {
         } else {
             self.log("device was successfully claimed")
             if (context.targetDevice.hasActiveInternetInterface()) {
-                context.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetCompleted)
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetCompleted)
             } else {
-                context.delegate.meshSetupDidEnterState(state: .JoiningNetworkCompleted)
+                context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkCompleted)
             }
             self.stepCompleted()
         }
@@ -66,7 +66,7 @@ class StepCheckDeviceGotClaimed : MeshSetupStep {
                 self.log("status: \(status as Optional)")
                 if (status! == .connected) {
                     self.log("device connected to the cloud")
-                    context.delegate.meshSetupDidEnterState(state: .TargetDeviceConnectingToInternetStep1Done)
+                    context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep1Done)
                     self.isConnected = true
                 } else {
                     self.log("device did NOT connect yet")

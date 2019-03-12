@@ -12,7 +12,7 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidRequestTargetDeviceInfo()
+        context.delegate.meshSetupDidRequestTargetDeviceInfo(self)
     }
 
     func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {

@@ -70,7 +70,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
     //runs post ethernet/wifi/cellular flows
     private let networkCreatorPostflow: [MeshSetupStep] = [
         StepGetNewDeviceName(),
-        StepGetNewNetworkNameAndPassword(),
+        StepGetNewNetworkName(),
         StepCreateNetwork(),
         StepEnsureHasInternetAccess(),
         StepMakeTargetACommissioner(),
@@ -114,7 +114,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             }
 
             self.log("error: \(reason.description), nsError: \(nsError?.localizedDescription as Optional)")
-            context.delegate.meshSetupError(error: reason, severity: severity, nsError: nsError)
+            context.delegate.meshSetupError(self.currentStep, error: reason, severity: severity, nsError: nsError)
         }
     }
 
@@ -505,20 +505,20 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     func setNewNetworkName(name: String) -> MeshSetupFlowError? {
-        guard type(of: currentStep) == StepGetNewNetworkNameAndPassword.self else {
+        guard type(of: currentStep) == StepGetNewNetworkName.self else {
             return .IllegalOperation
         }
 
-        return (currentStep as! StepGetNewNetworkNameAndPassword).setNewNetworkName(name: name)
+        return (currentStep as! StepGetNewNetworkName).setNewNetworkName(name: name)
     }
 
 
     func setNewNetworkPassword(password: String) -> MeshSetupFlowError? {
-        guard type(of: currentStep) == StepGetNewNetworkNameAndPassword.self else {
+        guard type(of: currentStep) == StepGetNewNetworkName.self else {
             return .IllegalOperation
         }
 
-        return (currentStep as! StepGetNewNetworkNameAndPassword).setNewNetworkPassword(password: password)
+        return (currentStep as! StepGetNewNetworkName).setNewNetworkPassword(password: password)
     }
 
     func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {

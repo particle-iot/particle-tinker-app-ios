@@ -19,7 +19,7 @@ class StepShowInfo : MeshSetupStep {
         } else if (context.targetDevice.hasActiveInternetInterface() && context.targetDevice.activeInternetInterface == .ppp && self.context!.targetDevice.simActive == nil) {
             self.getSimInfo()
         } else {
-            self.context!.delegate.meshSetupDidRequestToShowInfo()
+            self.context!.delegate.meshSetupDidRequestToShowInfo(self)
         }
     }
 

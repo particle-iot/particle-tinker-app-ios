@@ -14,7 +14,7 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
         if (context.selectedWifiNetworkInfo != nil) {
             self.stepCompleted()
         } else {
-            context.delegate.meshSetupDidEnterState(state: .TargetDeviceScanningForWifiNetworks)
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceScanningForWifiNetworks)
             self.scanWifiNetworks()
         }
     }
@@ -37,7 +37,7 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
                 //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
                 context.targetDevice.wifiNetworks = []
             }
-            context.delegate.meshSetupDidRequestToSelectWifiNetwork(availableNetworks: context.targetDevice.wifiNetworks!)
+            context.delegate.meshSetupDidRequestToSelectWifiNetwork(self, availableNetworks: context.targetDevice.wifiNetworks!)
         }
     }
 

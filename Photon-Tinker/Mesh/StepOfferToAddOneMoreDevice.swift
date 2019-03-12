@@ -21,6 +21,6 @@ class StepOfferToAddOneMoreDevice : MeshSetupStep {
             context.bluetoothManager.dropConnection(with: connection)
         }
 
-        context.delegate.meshSetupDidRequestToAddOneMoreDevice()
+        context.delegate.meshSetupDidRequestToAddOneMoreDevice(self)
     }
 }

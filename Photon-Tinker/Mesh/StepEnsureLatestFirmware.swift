@@ -59,7 +59,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         } else if (nextFirmwareBinaryURL == nil) {
             self.checkNeedsOTAUpdate()
         } else if (context.userSelectedToUpdateFirmware == nil) {
-            context.delegate.meshSetupDidRequestToUpdateFirmware()
+            context.delegate.meshSetupDidRequestToUpdateFirmware(self)
         } else if (!self.preparedForReboot) {
             self.prepareForTargetDeviceReboot()
         } else if(nextFirmwareBinaryFilePath == nil) {
@@ -171,7 +171,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
                 self.start()
             } else if (error == nil) {
                 if let filesFlashed = context.targetDevice.firmwareFilesFlashed, filesFlashed > 0 {
-                    context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateComplete)
+                    context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateComplete)
                 }
                 self.stepCompleted()
                 return
@@ -250,7 +250,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         let firmwareData = try! Data(contentsOf: URL(string: nextFirmwareBinaryFilePath!)!)
 
         context.targetDevice.firmwareUpdateProgress = 0
-        context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
+        context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateProgress)
 
         self.firmwareData = firmwareData
 
@@ -290,7 +290,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         let bytesLeft = firmwareData.count - start
 
         context.targetDevice.firmwareUpdateProgress = 100.0 * (Double(start) / Double(firmwareData.count))
-        context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateProgress)
+        context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateProgress)
 
         self.log("bytesLeft: \(bytesLeft)")
 
@@ -307,7 +307,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
 
                 if (self.isFileFullyFlashed()) {
                     context.targetDevice.firmwareFilesFlashed! += 1
-                    context.delegate.meshSetupDidEnterState(state: .FirmwareUpdateFileComplete)
+                    context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateFileComplete)
                 }
 
                 self.start()
