@@ -782,6 +782,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                         let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
                         pairingVC.setup(didFinishScreen: self.commissionerDevicePairingScreenDone, deviceType: self.flowManager.context.commissionerDevice?.type, deviceName: self.flowManager.context.commissionerDevice?.bluetoothName ?? deviceType.description)
                         pairingVC.ownerStepType = self.currentStepType
+                        pairingVC.allowBack = false
                         self.embededNavigationController.pushViewController(pairingVC, animated: true)
                     }
                 }
@@ -1017,7 +1018,6 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
     func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) {
-        self.currentStepType = type(of: sender)
         log("flow setup entered state: \(state)")
 
         switch state {
@@ -1060,10 +1060,13 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
 
             case .TargetDeviceScanningForWifiNetworks:
+                self.currentStepType = type(of: sender)
                 showScanWifiNetworks()
             case .TargetDeviceScanningForNetworks:
+                self.currentStepType = type(of: sender)
                 showSelectNetwork()
             case .TargetInternetConnectedDeviceScanningForNetworks:
+                self.currentStepType = type(of: sender)
                 showSelectOrCreateNetwork()
 
 

@@ -103,6 +103,7 @@ class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
         }
 
         context.userSelectedToLeaveNetwork = nil
+        context.targetDevice.meshNetworkInfo = nil
     }
 
     private func targetDeviceLeaveAPINetwork() {

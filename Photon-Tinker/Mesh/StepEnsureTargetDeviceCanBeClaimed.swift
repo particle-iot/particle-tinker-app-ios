@@ -23,6 +23,18 @@ class StepEnsureTargetDeviceCanBeClaimed: MeshSetupStep {
         }
     }
 
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.targetDevice.deviceId = nil
+        context.targetDevice.isClaimed = nil
+        context.targetDevice.claimCode = nil
+    }
+
     private func getDeviceId() {
         context?.targetDevice.transceiver!.sendGetDeviceId { [weak self, weak context] result, deviceId in
             guard let self = self, let context = context, !context.canceled else {

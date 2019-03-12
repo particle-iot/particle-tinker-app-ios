@@ -106,15 +106,15 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         context.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
     }
 
-    func log(_ message: String) {
+    internal func log(_ message: String) {
         ParticleLogger.logInfo("MeshSetupFlow", format: message, withParameters: getVaList([]))
     }
 
-    func fail(_ sender: MeshSetupStep, withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
+    internal func fail(_ sender: MeshSetupStep, withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
         self.fail(withReason: reason, severity: severity, nsError: nsError)
     }
 
-    func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
+    internal func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
         if context.canceled == false {
             if (severity == .Fatal) {
                 self.cancelSetup()
@@ -160,11 +160,17 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         context.bluetoothManager.dropAllConnections()
     }
 
-    func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep {
-        return self.rewindTo(step: step)
+    internal func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep {
+        if let error = self.rewindTo(step: step) {
+            fatalError("flow tried to perform illegal back")
+        } else {
+            return self.currentStep
+        }
     }
 
-    func rewindTo(step: MeshSetupStep.Type) -> MeshSetupStep {
+
+    //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
+    internal func rewindTo(step: MeshSetupStep.Type) -> MeshSetupFlowError? {
 
         currentStep.rewindFrom()
 
@@ -178,16 +184,21 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
         for i in 0 ..< self.currentFlow.count {
             if (self.currentFlow[i].isKind(of: step)) {
+                if (i >= self.currentStepIdx) {
+                    //trying to "rewind" forward
+                    return .IllegalOperation
+                }
+
                 self.currentStepIdx = i
                 self.log("returning to step: \(self.currentStepIdx)")
                 self.currentStep.rewindTo(context: self.context)
                 self.runCurrentStep()
 
-                return self.currentStep
+                return nil
             }
         }
 
-        fatalError("You are trying to rewind to a step that is not part of current flow")
+        return .IllegalOperation
     }
 
     func retryLastAction() {
@@ -269,7 +280,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         self.currentStepIdx = 0
     }
 
-    func stepCompleted(_ sender: MeshSetupStep) {
+    internal func stepCompleted(_ sender: MeshSetupStep) {
         if (context.canceled) {
             return
         }
@@ -293,7 +304,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
 
 
     //MARK: BluetoothConnectionManagerDelegate
-    func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState) {
+    internal func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState) {
         if (context.canceled) {
             return
         }
@@ -316,7 +327,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
+    internal func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
         if (context.canceled) {
             return
         }
@@ -327,7 +338,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+    internal func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
         if (context.canceled) {
             return
         }
@@ -339,7 +350,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+    internal func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
         if (context.canceled) {
             return
         }
@@ -351,7 +362,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
         }
     }
 
-    func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+    internal func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
         if (context.canceled) {
             return
         }

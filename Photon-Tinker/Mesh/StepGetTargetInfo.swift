@@ -40,6 +40,11 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
         return nil
     }
 
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        context.targetDevice = MeshDevice()
+    }
 
     func resetFlowFlags() {
         //these flags are used to determine gateway subflow .. if they are set, new network is being created

@@ -81,7 +81,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             self.log("updateSim error: \(error)")
 
             if let nsError = error as? NSError, nsError.code == 504 {
-                 self.log("activate sim returned 504, but that is fine :(")
+                self.log("activate sim returned 504, but that is fine :(")
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                     self.start()
                 }
@@ -171,4 +171,15 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
         }
     }
 
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.targetDevice.simActive = nil
+        context.targetDevice.activeInternetInterface = nil
+        context.targetDevice.hasInternetAddress = nil
+    }
 }

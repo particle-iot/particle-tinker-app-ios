@@ -32,4 +32,14 @@ class StepGetAPINetworks: MeshSetupStep {
             self.stepCompleted()
         }
     }
+
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.apiNetworks = nil
+    }
 }
