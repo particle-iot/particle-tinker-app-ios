@@ -179,7 +179,6 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
         }
 
         context.targetDevice.simActive = nil
-        context.targetDevice.activeInternetInterface = nil
         context.targetDevice.hasInternetAddress = nil
     }
 }
