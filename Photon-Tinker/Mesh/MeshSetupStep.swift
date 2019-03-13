@@ -111,7 +111,9 @@ extension MeshSetupStep {
             }
         }
 
-        return filtered
+        return filtered.sorted { networkInfo, networkInfo2 in
+            return networkInfo.name.localizedCaseInsensitiveCompare(networkInfo2.name) == .orderedAscending
+        }
     }
 
     static func removeRepeatedWifiNetworks(_ networks: [MeshSetupNewWifiNetworkInfo]) -> [MeshSetupNewWifiNetworkInfo] {
@@ -125,7 +127,9 @@ extension MeshSetupStep {
             }
         }
 
-        return filtered
+        return filtered.sorted { networkInfo, networkInfo2 in
+            return networkInfo.ssid.localizedCaseInsensitiveCompare(networkInfo2.ssid) == .orderedAscending
+        }
     }
 
     static func GetMeshNetworkCells(meshNetworks: [MeshSetupNetworkInfo], apiMeshNetworks: [ParticleNetwork]) -> [MeshSetupNetworkCellInfo] {

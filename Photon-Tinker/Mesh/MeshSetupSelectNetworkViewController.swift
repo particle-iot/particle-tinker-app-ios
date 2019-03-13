@@ -21,7 +21,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
     func setNetworks(networks: [MeshSetupNetworkCellInfo]) {
         var networks = networks
         networks.sort { info, info2 in
-            return info.name < info2.name
+            return info.name.localizedCaseInsensitiveCompare(info2.name) == .orderedAscending
         }
         self.networks = networks
 

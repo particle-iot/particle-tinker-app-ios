@@ -28,7 +28,7 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
         }
 
         networks.sort { info, info2 in
-            return info.ssid < info2.ssid
+            return info.ssid.localizedCaseInsensitiveCompare(info2.ssid) == .orderedAscending
         }
         self.networks = networks
 
