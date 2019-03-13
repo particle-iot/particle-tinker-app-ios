@@ -201,7 +201,7 @@ to allow your {{device}} to join the {{network}} mesh network";
 "MeshSetup.Success.SuccessTitle" = "Congrats!";
 "MeshSetup.Success.SuccessText" = "{{deviceName}} is all set up!";
 "MeshSetup.Success.SetupAnotherLabel" = "Adding more devices to this network?";
-"MeshSetup.Success.SetupAnotherButton" = "Setup another device";
+"MeshSetup.Success.SetupAnotherButton" = "Set up another device";
 "MeshSetup.Success.DoneLabel" = "Itching to get started?";
 "MeshSetup.Success.DoneButton" = "Done";
 

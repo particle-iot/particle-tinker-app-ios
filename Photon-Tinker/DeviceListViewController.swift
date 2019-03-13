@@ -82,7 +82,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         // heading
         // TODO: format with Particle cyan and Gotham font!
 
-        let dialog = ZAlertView(title: "Setup a new device", message: nil, alertType: .multipleChoice)
+        let dialog = ZAlertView(title: "Set up a new device", message: nil, alertType: .multipleChoice)
 
         if (ParticleCloud.sharedInstance().isAuthenticated) {
             dialog.addButton("Argon / Boron / Xenon", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
