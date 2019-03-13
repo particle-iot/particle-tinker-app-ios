@@ -436,15 +436,23 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     //MARK: Gateway Info
     func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
         currentStepType = type(of: sender)
-        if let activeInternetInterface = self.flowManager.context.targetDevice.activeInternetInterface, self.flowManager.context.userSelectedToSetupMesh != nil,
-           self.flowManager.context.userSelectedToCreateNetwork != nil, self.flowManager.context.userSelectedToCreateNetwork! == true  {
-            switch activeInternetInterface {
+
+        //xenon joiner flow = activeInternetInterface == nil, userSelectedToSetupMesh = nil, userSelectedToCreateNetwork = nil
+        //argon / boron joiner flow = activeInternetInterface != nil, userSelectedToSetupMesh = true, userSelectedToCreateNetwork = false
+
+        //gateway flow = activeInternetInterface != nil, userSelectedToSetupMesh = true, userSelectedToCreateNetwork = true
+        //standalone flow = activeInternetInterface != nil, userSelectedToSetupMesh = false, userSelectedToCreateNetwork = nil
+
+
+        if let activeInternetInterface = self.flowManager.context.targetDevice.activeInternetInterface, let userSelectedToSetupMesh = self.flowManager.context.userSelectedToSetupMesh,
+           self.flowManager.context.userSelectedToCreateNetwork == nil || self.flowManager.context.userSelectedToCreateNetwork! == true {
+             switch activeInternetInterface {
                 case .ethernet:
                     DispatchQueue.main.async {
                         if (!self.rewindTo(MeshSetupInfoEthernetViewController.self)) {
                             let infoVC = MeshSetupInfoEthernetViewController.loadedViewController()
                             infoVC.ownerStepType = self.currentStepType
-                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, deviceType: self.flowManager.context.targetDevice.type!)
+                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: userSelectedToSetupMesh, deviceType: self.flowManager.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(infoVC, animated: true)
                         }
                     }
@@ -453,7 +461,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                         if (!self.rewindTo(MeshSetupInfoWifiViewController.self)) {
                             let infoVC = MeshSetupInfoWifiViewController.loadedViewController()
                             infoVC.ownerStepType = self.currentStepType
-                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, deviceType: self.flowManager.context.targetDevice.type!)
+                            infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: userSelectedToSetupMesh, deviceType: self.flowManager.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(infoVC, animated: true)
                         }
                     }
@@ -462,20 +470,21 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                         if (!self.rewindTo(MeshSetupCellularInfoViewController.self)) {
                             let cellularInfoVC = MeshSetupCellularInfoViewController.loadedViewController()
                             cellularInfoVC.ownerStepType = self.currentStepType
-                            cellularInfoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh!, simActive: self.flowManager.context.targetDevice.simActive ?? false, deviceType: self.flowManager.context.targetDevice.type!)
+                            cellularInfoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: userSelectedToSetupMesh, simActive: self.flowManager.context.targetDevice.simActive ?? false, deviceType: self.flowManager.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(cellularInfoVC, animated: true)
                         }
                     }
                 default:
                     //others are not interesting
                     break
-            }
+             }
         } else {
             DispatchQueue.main.async {
                 if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
                     let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
-                    //if we are setting up gateway device, user will be asked to select if he wants to setup mesh
-                    //for xenons this will be nil.
+                    //if we are setting up argon/boron device, user will be asked to select if he wants to setup mesh
+                    //for xenons this will be nil. We want to let argon/boron joiner flow to be backed from to enable option
+                    //of switching to gateway / standalone flow
                     infoVC.allowBack = self.flowManager.context.userSelectedToSetupMesh != nil
                     infoVC.ownerStepType = self.currentStepType
                     infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh, deviceType: self.flowManager.context.targetDevice.type!)
