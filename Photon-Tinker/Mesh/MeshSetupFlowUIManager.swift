@@ -436,7 +436,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
     //MARK: Gateway Info
     func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
         currentStepType = type(of: sender)
-        if let activeInternetInterface = self.flowManager.context.targetDevice.activeInternetInterface {
+        if let activeInternetInterface = self.flowManager.context.targetDevice.activeInternetInterface, self.flowManager.context.userSelectedToSetupMesh != nil {
             switch activeInternetInterface {
                 case .ethernet:
                     DispatchQueue.main.async {

@@ -238,9 +238,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                 log("setting gateway flow")
             } else {
                 //if context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
-                //we don't need internet interface to run this flow and having it
-                //makes it hard for steps to determine what is happening
-                context.targetDevice.activeInternetInterface = nil
 
                 log("setting xenon joiner flow")
                 self.currentFlow = joinerFlow
@@ -261,9 +258,6 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
                     fatalError("wrong state?")
                 }
             } else {  //if (context.selectedNetworkMeshInfo != nil)
-                //we don't need internet interface to run this flow and having it
-                //makes it hard for steps to determine what is happening
-                context.targetDevice.activeInternetInterface = nil
                 self.currentFlow = joinerFlow
             }
         } else if (currentFlow == ethernetFlow || self.currentFlow == wifiFlow || self.currentFlow == cellularFlow) {
