@@ -475,6 +475,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                     let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
                     //if we are setting up gateway device, user will be asked to select if he wants to setup mesh
                     //for xenons this will be nil.
+                    infoVC.allowBack = self.flowManager.context.userSelectedToSetupMesh != nil
                     infoVC.ownerStepType = self.currentStepType
                     infoVC.setup(didFinishScreen: self.didFinishInfoScreen, setupMesh: self.flowManager.context.userSelectedToSetupMesh, deviceType: self.flowManager.context.targetDevice.type!)
                     self.embededNavigationController.pushViewController(infoVC, animated: true)
@@ -861,6 +862,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 if (!self.rewindTo(MeshSetupNetworkCreatedViewController.self)) {
                     let successVC = MeshSetupNetworkCreatedViewController.loadedViewController()
                     successVC.ownerStepType = self.currentStepType
+                    successVC.allowBack = false
                     successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.flowManager.context.commissionerDevice!.name!) //at this point the target device has already been marked as commissioner
                     self.embededNavigationController.pushViewController(successVC, animated: true)
                 }
@@ -868,8 +870,8 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
                 //this is the end of joiner or standalone flow
                 if (!self.rewindTo(MeshSetupSuccessViewController.self)) {
                     let successVC = MeshSetupSuccessViewController.loadedViewController()
-                    successVC.allowBack = false
                     successVC.ownerStepType = self.currentStepType
+                    successVC.allowBack = false
                     successVC.setup(didSelectDone: self.didSelectSetupDone, deviceName: self.flowManager.context.targetDevice.name!, networkName: self.flowManager.context.selectedNetworkMeshInfo?.name)
                     self.embededNavigationController.pushViewController(successVC, animated: true)
                 }
@@ -888,6 +890,7 @@ class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowMa
 
             let findStickerVC = MeshSetupFindStickerViewController.loadedViewController()
             findStickerVC.setup(didPressScan: self.showTargetDeviceScanSticker)
+            findStickerVC.allowBack = false
             findStickerVC.ownerStepType = self.currentStepType
             self.embededNavigationController.setViewControllers([findStickerVC], animated: true)
         }
