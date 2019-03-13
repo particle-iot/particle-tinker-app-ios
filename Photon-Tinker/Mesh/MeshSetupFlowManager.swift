@@ -179,6 +179,7 @@ class MeshSetupFlowManager: NSObject, MeshSetupBluetoothConnectionManagerDelegat
             if (currentFlow == joinerFlow || currentFlow == ethernetFlow || currentFlow == wifiFlow || currentFlow == cellularFlow) {
                 currentFlow = internetConnectedPreflow
             }
+            currentStepIdx = internetConnectedPreflow.count
             self.log("Rewinding flow to internetConnectedPreflow")
         }
 
