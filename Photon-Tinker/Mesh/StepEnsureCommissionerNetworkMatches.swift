@@ -38,6 +38,8 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
                     return
                 }
             } else {
+                self.fail(withReason: .CommissionerNetworkDoesNotMatch)
+
                 //drop connection with current peripheral
                 let connection = context.commissionerDevice!.transceiver!.connection
                 context.commissionerDevice!.transceiver = nil
@@ -46,8 +48,6 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
 
                 let _ = context.stepDelegate.rewindTo(self, step: StepGetCommissionerDeviceInfo.self)
                 context.paused = false
-
-                self.fail(withReason: .CommissionerNetworkDoesNotMatch)
             }
         }
     }
