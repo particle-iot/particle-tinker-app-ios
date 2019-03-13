@@ -62,6 +62,8 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
 
         context.apiNetworks = nil
 
+        context.selectedWifiNetworkInfo = nil
+
         context.userSelectedToLeaveNetwork = nil
         context.userSelectedToUpdateFirmware = nil
         context.userSelectedToSetupMesh = nil
