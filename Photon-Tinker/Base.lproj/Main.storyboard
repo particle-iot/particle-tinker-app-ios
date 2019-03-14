@@ -314,7 +314,6 @@
                         <outlet property="noDevicesLabel" destination="HSb-Q2-MhK" id="sYp-yb-Dya"/>
                         <outlet property="photonSelectionTableView" destination="l8r-gu-33x" id="c4k-Rx-Iig"/>
                         <outlet property="setupNewDeviceButton" destination="4Cw-AT-ACb" id="by9-6y-6rD"/>
-                        <segue destination="Nmh-ef-vpa" kind="show" identifier="tinker" id="4jN-EQ-1sH"/>
                         <segue destination="XC3-E0-ieD" kind="show" identifier="deviceInspector" id="Gcf-aV-58w"/>
                         <segue destination="xzR-ov-bgj" kind="presentation" identifier="logList" id="BMM-FX-fSd"/>
                     </connections>
@@ -531,21 +530,9 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGx-VV-XEo" userLabel="inspectButton">
-                                        <rect key="frame" x="300" y="56.666666666666657" width="59" height="19"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="15"/>
-                                        <color key="tintColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                                        <state key="normal" title="Inspect"/>
-                                        <connections>
-                                            <segue destination="XC3-E0-ieD" kind="show" identifier="deviceInspector" id="tNr-Sb-zVv"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Xh4-Ow-FEu" secondAttribute="bottom" id="23T-nV-cqf"/>
-                                    <constraint firstItem="OVF-DI-xeM" firstAttribute="trailing" secondItem="hGx-VV-XEo" secondAttribute="trailing" constant="16" id="6OB-Z7-lL7"/>
-                                    <constraint firstItem="M7n-eW-MLl" firstAttribute="centerY" secondItem="hGx-VV-XEo" secondAttribute="centerY" id="6SY-A4-KNa"/>
                                     <constraint firstAttribute="trailing" secondItem="Xh4-Ow-FEu" secondAttribute="trailing" id="CAn-MZ-v02"/>
                                     <constraint firstItem="8kx-sx-cDn" firstAttribute="leading" secondItem="OVF-DI-xeM" secondAttribute="leading" constant="16" id="CDh-ei-0JF"/>
                                     <constraint firstItem="Xh4-Ow-FEu" firstAttribute="top" secondItem="Gt1-dF-1aV" secondAttribute="top" id="EMe-Xo-NQT"/>
@@ -554,7 +541,6 @@
                                     <constraint firstItem="M7n-eW-MLl" firstAttribute="centerX" secondItem="Gt1-dF-1aV" secondAttribute="centerX" id="bEd-zi-A1A"/>
                                     <constraint firstAttribute="trailing" secondItem="FSw-TQ-wYp" secondAttribute="trailing" id="czT-be-vbr"/>
                                     <constraint firstItem="M7n-eW-MLl" firstAttribute="centerY" secondItem="Gt1-dF-1aV" secondAttribute="bottom" constant="-22" id="qQA-5W-aH4"/>
-                                    <constraint firstItem="hGx-VV-XEo" firstAttribute="centerY" secondItem="8kx-sx-cDn" secondAttribute="centerY" id="tXJ-ai-s93"/>
                                     <constraint firstAttribute="bottom" secondItem="FSw-TQ-wYp" secondAttribute="bottom" id="vXS-np-PAP"/>
                                     <constraint firstItem="Xh4-Ow-FEu" firstAttribute="leading" secondItem="Gt1-dF-1aV" secondAttribute="leading" id="ygz-E4-xTA"/>
                                 </constraints>
@@ -801,7 +787,6 @@
                         <outlet property="deviceNameLabel" destination="9rh-mq-4bk" id="ynf-M8-EkI"/>
                         <outlet property="deviceStateIndicatorImageView" destination="7hz-fq-iNb" id="9BL-cb-AvB"/>
                         <outlet property="deviceView" destination="9tl-K2-82X" id="hD8-Em-bdH"/>
-                        <outlet property="inspectButton" destination="hGx-VV-XEo" id="TLj-H6-JXt"/>
                         <outlet property="pinFunctionView" destination="cp9-M3-Ao7" id="ue2-CL-pyP"/>
                         <outlet property="pinFunctionViewCenterX" destination="Hoo-UL-L46" id="RRv-84-XWU"/>
                         <outlet property="pinFunctionViewCenterY" destination="Ms8-ZE-rak" id="QKR-Vd-Vfa"/>
@@ -812,7 +797,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxJ-10-rv0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3244" y="621"/>
+            <point key="canvasLocation" x="3244" y="620.68965517241384"/>
         </scene>
         <!--Device Inspector View Controller-->
         <scene sceneID="RCu-Vt-yN3">
@@ -1028,6 +1013,7 @@
                         <outlet property="modeSegmentedControl" destination="2FK-PL-EJc" id="lut-eU-8m8"/>
                         <outlet property="moreActionsButton" destination="8vy-mA-gxb" id="lag-RO-t3f"/>
                         <segue destination="zq2-10-iO0" kind="presentation" identifier="help" id="cNZ-tA-DeX"/>
+                        <segue destination="Nmh-ef-vpa" kind="show" identifier="tinker" id="uCh-si-qkh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fAC-7W-ve1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1235,7 +1221,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="192.168.0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hl2-mK-ai2">
-                                        <rect key="frame" x="104" y="109" width="99" height="18"/>
+                                        <rect key="frame" x="104" y="109" width="79.333333333333314" height="18"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1247,13 +1233,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="251" text="8934076500002580000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ccw-Kf-C0I">
-                                        <rect key="frame" x="104" y="150" width="171" height="18"/>
+                                        <rect key="frame" x="103.99999999999999" y="150" width="158.66666666666663" height="18"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="352252068560000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awl-q8-DeS">
-                                        <rect key="frame" x="104" y="191" width="135" height="18"/>
+                                        <rect key="frame" x="104" y="191" width="125.33333333333331" height="18"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1265,7 +1251,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNd-PV-bTT">
-                                        <rect key="frame" x="104" y="232" width="99" height="18"/>
+                                        <rect key="frame" x="104" y="232" width="74.333333333333314" height="18"/>
                                         <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1470,7 +1456,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;event time&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSR-Ot-gbp">
-                                                            <rect key="frame" x="52" y="66.666666666666671" width="108" height="18"/>
+                                                            <rect key="frame" x="52" y="66.666666666666671" width="88" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1610,7 +1596,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dm-jH-4Zo">
-                                                    <rect key="frame" x="16" y="11" width="173" height="32"/>
+                                                    <rect key="frame" x="16" y="11" width="160" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="eVw-tm-1iS"/>
                                                     </constraints>
@@ -1622,7 +1608,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bgr-gq-vsH">
-                                                    <rect key="frame" x="189" y="15" width="28" height="28"/>
+                                                    <rect key="frame" x="176" y="15" width="28" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="28" id="VI2-e2-NnE"/>
                                                         <constraint firstAttribute="height" constant="28" id="rkg-C1-vYT"/>
@@ -1646,7 +1632,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No exposed functions)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17c-92-R6W">
-                                                    <rect key="frame" x="23" y="18" width="329" height="18"/>
+                                                    <rect key="frame" x="23" y="16.666666666666668" width="329" height="21.000000000000004"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="18"/>
                                                     <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1716,7 +1702,7 @@
                                                     <rect key="frame" x="339" y="17" width="20" height="20"/>
                                                 </activityIndicatorView>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APd-T7-hO9">
-                                                    <rect key="frame" x="16" y="11" width="175" height="32"/>
+                                                    <rect key="frame" x="16" y="11" width="162" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="qnU-7J-ckT"/>
                                                     </constraints>
@@ -1728,7 +1714,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCR-Dz-gD2">
-                                                    <rect key="frame" x="191" y="13.666666666666664" width="62" height="27"/>
+                                                    <rect key="frame" x="178" y="12.666666666666664" width="51" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="wAG-io-VZ9"/>
                                                     </constraints>
@@ -1745,13 +1731,13 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xc-9B-osm">
-                                                    <rect key="frame" x="257" y="17" width="102" height="20"/>
+                                                    <rect key="frame" x="233" y="17.666666666666664" width="126" height="18.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="16"/>
                                                     <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No exposed variables)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFK-m3-Djo">
-                                                    <rect key="frame" x="23" y="19" width="329" height="18"/>
+                                                    <rect key="frame" x="23" y="19" width="329" height="21"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="18"/>
                                                     <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1979,7 +1965,6 @@
         <image name="v" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Gcf-aV-58w"/>
         <segue reference="3ox-ek-eEM"/>
     </inferredMetricsTieBreakers>
 </document>

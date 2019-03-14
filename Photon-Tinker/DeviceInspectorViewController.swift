@@ -50,6 +50,13 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .multipleChoice)
         
 
+        if (self.device.isRunningTinker()) {
+            dialog.addButton("Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
+                dialog.dismiss()
+                self.showTinker()
+            }
+        }
+
         if (self.device.type == .photon || self.device.type == .electron) {
             dialog.addButton("Reflash Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
                 dialog.dismiss()
@@ -119,6 +126,9 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         dialog.show()
     }
 
+    func showTinker() {
+        self.performSegue(withIdentifier: "tinker", sender: self)
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.tag == 100 {
@@ -224,8 +234,11 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     // happens right as Device Inspector is displayed as all VCs are in an embed segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // if its either the info data or events VC then set the device to what we are inspecting
+
+
         
         DispatchQueue.global().async {
+            [unowned self] in
             // do some task
             if let vc = segue.destination as? DeviceInspectorChildViewController {
                 vc.device = self.device
@@ -251,6 +264,12 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
                     }
                 }
                 
+            } else if let vc = segue.destination as? SPKTinkerViewController {
+                vc.device = self.device
+
+                let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.device)
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into tinker - device: %@", withParameters: getVaList([vc.device.description]))
+                SEGAnalytics.shared().track("Tinker_SegueToTinker", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
             }
         }
     }

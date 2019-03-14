@@ -38,7 +38,6 @@
 @property (nonatomic) BOOL chipIsShowing;
 @property (nonatomic) CGRect originalPinFunctionFrame;
 @property (weak, nonatomic) IBOutlet UIImageView *deviceStateIndicatorImageView;
-@property (weak, nonatomic) IBOutlet UIButton *inspectButton;
 
 @end
 
@@ -299,12 +298,8 @@
             if (self.navigationController.visibleViewController == self) {
                 // viewController is visible
                 
-                // 3
-                YCTutorialBox* tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Device Inspector" withHelpText:@"Tap Inspect to go to Device Inspector."];
-                [tutorial showAndFocusView:self.inspectButton];
-                
                 // 2
-                tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Blink the onboard LED" withHelpText:@"Tap any pin to get started. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens on your device. You've just flashed an LED over the internet! Reset any pin function by long-pressing it."];
+                YCTutorialBox* tutorial = [[YCTutorialBox alloc] initWithHeadline:@"Blink the onboard LED" withHelpText:@"Tap any pin to get started. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens on your device. You've just flashed an LED over the internet! Reset any pin function by long-pressing it."];
                 [tutorial showAndFocusView:self.pinViews[@"D7"]];
 
                 
@@ -605,18 +600,6 @@
         });
     }];
 }
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"deviceInspector"])
-    {
-        DeviceInspectorViewController *divc = segue.destinationViewController;
-        divc.device = self.device;
-    }
-
-    
-}
-
 
 -(void)resetAllPinFunctions
 {

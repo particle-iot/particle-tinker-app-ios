@@ -26,10 +26,6 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
     
     @IBOutlet weak var continueButton: MeshSetupButton!
 
-    override var rewindFlowOnBack: Bool {
-        return true
-    }
-
     private var pricingInfo: ParticlePricingInfo!
     private var callback: (() -> ())!
 

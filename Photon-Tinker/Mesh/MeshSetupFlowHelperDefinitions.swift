@@ -10,83 +10,64 @@ import Foundation
 
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowManagerDelegate {
-    func meshSetupDidRequestTargetDeviceInfo()
+    func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep)
 
-    func meshSetupDidRequestToShowInfo(gatewayFlow: Bool)
-    func meshSetupDidRequestToShowCellularInfo(simActivated: Bool)
-
-    func meshSetupDidRequestToUpdateFirmware()
-    func meshSetupDidRequestToLeaveNetwork(network: MeshSetupNetworkInfo)
-
-    func didRequestToSelectStandAloneOrMeshSetup()
-
-    func meshSetupDidRequestToSelectNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-    func meshSetupDidRequestToSelectWifiNetwork(availableNetworks: [MeshSetupNewWifiNetworkInfo])
-
-    func meshSetupDidRequestCommissionerDeviceInfo()
-
-    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword()
-    func meshSetupDidRequestToEnterSelectedNetworkPassword()
-    func meshSetupDidRequestToEnterDeviceName()
-    func meshSetupDidRequestToAddOneMoreDevice()
-
-    func meshSetupDidRequestToSelectOrCreateNetwork(availableNetworks: [MeshSetupNetworkCellInfo])
-
-    func meshSetupDidRequestToEnterNewNetworkNameAndPassword()
-    func meshSetupDidCreateNetwork(network: MeshSetupNetworkCellInfo)
+    func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo)
 
 
-    func meshSetupDidEnterState(state: MeshSetupFlowState)
-    func meshSetupDidRequestToShowPricingInfo(info: ParticlePricingInfo)
+    //create flow
+    func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo])
 
-    func meshSetupError(error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
+    func meshSetupDidRequestToShowPricingInfo(_ sender: MeshSetupStep, info: ParticlePricingInfo)
+    func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep)
+
+    func meshSetupDidRequestToEnterDeviceName(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToAddOneMoreDevice(_ sender: MeshSetupStep)
+
+    func meshSetupDidRequestToEnterNewNetworkPassword(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToEnterNewNetworkName(_ sender: MeshSetupStep)
+    func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo)
+
+    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToSelectWifiNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNewWifiNetworkInfo])
+
+    //joiner flow
+    func meshSetupDidRequestToSelectNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo])
+    func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep)
+    func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep)
+
+    func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState)
+    func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
+protocol MeshSetupFlowManagerDelegateResponseConsumer {
+    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError?
 
-internal enum MeshSetupFlowCommand {
+    func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError?
+    func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError?
 
-    //preflow
-    case GetTargetDeviceInfo
-    case ConnectToTargetDevice
-    case EnsureCorrectEthernetFeatureStatus
-    case EnsureLatestFirmware
-    case EnsureTargetDeviceCanBeClaimed
-    case CheckTargetDeviceHasNetworkInterfaces
-    case OfferSetupStandAloneOrWithNetwork
-    case ChooseFlow
+    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError?
+    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError?
 
-    //main flow
-    case ShowPricingImpact
-    case GetAPINetworks
-    case SetClaimCode
-    case EnsureTargetDeviceIsNotOnMeshNetwork
-    case GetUserNetworkSelection
-    case GetCommissionerDeviceInfo
-    case ConnectToCommissionerDevice
-    case EnsureCommissionerNetworkMatches
-    case EnsureCorrectSelectedNetworkPassword
-    case JoinSelectedNetwork
-    case FinishJoinSelectedNetwork
-    case GetNewDeviceName
-    case OfferToAddOneMoreDevice
-    case PublishDeviceSetupDoneEvent
+    func setPricingImpactDone() -> MeshSetupFlowError?
+    func setInfoDone() -> MeshSetupFlowError?
 
-    //gateway
-    case GetUserWifiNetworkSelection
-    case ShowCellularInfo
-    case ShowInfo
-    case EnsureCorrectSelectedWifiNetworkPassword
-    case EnsureHasInternetAccess
-    case CheckDeviceGotClaimed
-    case StopTargetDeviceListening
-    case OfferSelectOrCreateNetwork
-    case ChooseSubflow
+    func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
+    func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError?
 
+    func setNewNetworkName(name: String) -> MeshSetupFlowError?
+    func setNewNetworkPassword(password: String) -> MeshSetupFlowError?
+    func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError?
+    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
 
-    case GetNewNetworkNameAndPassword
-    case CreateNetwork
+    func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError?
+    func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError?
+    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
+
+    func rescanNetworks() -> MeshSetupFlowError?
 }
-
 
 enum MeshSetupFlowState {
     case TargetDeviceConnecting
@@ -98,8 +79,8 @@ enum MeshSetupFlowState {
     case TargetDeviceScanningForWifiNetworks
 
     case TargetDeviceConnectingToInternetStarted
+    case TargetDeviceConnectingToInternetStep0Done //used for activating sim card only
     case TargetDeviceConnectingToInternetStep1Done
-    case TargetDeviceConnectingToInternetStep2Done
     case TargetDeviceConnectingToInternetCompleted
 
     case CommissionerDeviceConnecting
@@ -121,6 +102,7 @@ enum MeshSetupFlowState {
 
     case SetupCanceled
 }
+
 
 enum MeshSetupFlowError: Error, CustomStringConvertible {
     //trying to perform action at the wrong time
@@ -189,6 +171,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case DeviceIsNotAllowedToJoinNetwork
     case DeviceIsUnableToFindNetworkToJoin
     case DeviceTimeoutWhileJoiningNetwork
+    case ThisDeviceIsACommissioner
 
     //CheckDeviceGotClaimed
     case DeviceConnectToCloudTimeout
@@ -249,6 +232,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press try again."
             case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try again."
             case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try again."
+            case .ThisDeviceIsACommissioner : return "This device now acts as commissioner. Please restart the setup if you want to set it up again."
         }
     }
 }
@@ -280,9 +264,9 @@ internal struct MeshDevice {
     var firmwareVersion: String?
     var ncpVersion: String?
     var ncpModuleVersion: Int?
+    var ncpVersionReceived: Bool?
     var supportsCompressedOTAUpdate: Bool?
-    var nextFirmwareBinaryURL: String?
-    var nextFirmwareBinaryFilePath: String?
+
     var firmwareFilesFlashed: Int?
     var firmwareUpdateProgress: Double?
     var enableEthernetFeature: Bool?
@@ -290,6 +274,9 @@ internal struct MeshDevice {
     var claimCode: String?
     var isClaimed: Bool?
     var isSetupDone: Bool?
+
+    var isListeningMode: Bool?
+    var isCommissionerMode: Bool?
 
 
     var activeInternetInterface: MeshSetupNetworkInterfaceType?

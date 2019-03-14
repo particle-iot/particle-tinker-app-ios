@@ -13,12 +13,6 @@ class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboard
         return "MeshSetupInfoView"
     }
 
-    //if we are setting up gateway device, user will be asked to select if he wants to setup mesh
-    //for xenons this will be nil.
-    override var allowBack: Bool {
-        return setupMesh != nil
-    }
-
     override func setContent() {
         titleLabel.text = MeshSetupStrings.JoinerInfo.Title
 
@@ -39,10 +33,6 @@ class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboard
 class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {
         return "MeshSetupInfoView"
-    }
-
-    override var rewindFlowOnBack: Bool {
-        return true
     }
 
     internal var simActive:Bool!
@@ -100,10 +90,6 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
         return "MeshSetupInfoView"
     }
 
-    override var rewindFlowOnBack: Bool {
-        return true
-    }
-
     override func setContent() {
         if (self.setupMesh!) {
             showGatewayMeshContent()
@@ -146,10 +132,6 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
 class MeshSetupInfoWifiViewController: MeshSetupInfoViewController, Storyboardable {
     static var nibName: String {
         return "MeshSetupInfoView"
-    }
-
-    override var rewindFlowOnBack: Bool {
-        return true
     }
 
     override func setContent() {

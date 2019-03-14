@@ -20,10 +20,6 @@ class MeshSetupFirmwareUpdateViewController: MeshSetupViewController, Storyboard
 
     internal var callback: (() -> ())!
 
-    override var allowBack: Bool {
-        return false
-    }
-
     func setup(didPressContinue: @escaping () -> ()) {
         self.callback = didPressContinue
     }

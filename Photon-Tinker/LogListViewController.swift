@@ -182,7 +182,7 @@ class LogListViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let avc = UIActivityViewController(activityItems: [logs[indexPath.row]], applicationActivities: nil)
+        let avc = UIActivityViewController(activityItems: [logs[indexPath.row].0], applicationActivities: nil)
         self.present(avc, animated: true)
     }
 
