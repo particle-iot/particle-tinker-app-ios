@@ -20,7 +20,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             self.setDeviceSetupDone()
         } else if (context.targetDevice.hasActiveInternetInterface() &&
                 context.targetDevice.activeInternetInterface! == .ppp &&
-                context.targetDevice.simActive == nil) {
+                context.targetDevice.simActive == nil || context.targetDevice.simActive! == false) {
             self.activateSim()
         } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == true) {
             self.stopTargetDeviceListening()

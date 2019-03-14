@@ -12,18 +12,7 @@ class StepShowPricingImpact : MeshSetupStep {
             return
         }
 
-        //for boron / b series
-        if let activeInternetInterface = context.targetDevice.activeInternetInterface, activeInternetInterface == .ppp {
-            if (context.targetDevice.externalSim == nil) {
-                self.getTargetDeviceActiveSim()
-            } else if (context.targetDevice.deviceICCID == nil) {
-                self.getTargetDeviceICCID()
-            } else if (context.pricingInfo == nil) {
-                self.getPricingImpact()
-            } else {
-                context.delegate.meshSetupDidRequestToShowPricingInfo(self, info: context.pricingInfo!)
-            }
-        } else if (context.pricingInfo == nil) {
+        if (context.pricingInfo == nil) {
             self.getPricingImpact()
         } else {
             context.delegate.meshSetupDidRequestToShowPricingInfo(self, info: context.pricingInfo!)
@@ -38,50 +27,6 @@ class StepShowPricingImpact : MeshSetupStep {
         context.pricingInfo = nil
 
         super.rewindFrom()
-    }
-
-    private func getTargetDeviceActiveSim() {
-        context?.targetDevice.transceiver!.sendGetActiveSim () { [weak self, weak context] result, externalSim in
-
-            guard let self = self, let context = context, !context.canceled else {
-                return
-            }
-
-            self.log("targetDevice.transceiver!.sendGetActiveSim: \(result.description()), externalSim: \(externalSim as Optional)")
-
-            if (result == .NONE) {
-                context.targetDevice.externalSim = externalSim!
-                if (externalSim!) {
-                    self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal)
-                } else {
-                    self.start()
-                }
-            } else if (result == .INVALID_STATE) {
-                self.fail(withReason: .BoronModemError)
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-    private func getTargetDeviceICCID() {
-        context?.targetDevice.transceiver!.sendGetIccid () { [weak self, weak context] result, iccid in
-
-            guard let self = self, let context = context, !context.canceled else {
-                return
-            }
-
-            self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
-
-            if (result == .NONE) {
-                context.targetDevice.deviceICCID = iccid!
-                self.start()
-            } else if (result == .INVALID_STATE) {
-                self.fail(withReason: .BoronModemError)
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
     }
 
     private func getPricingImpact() {
