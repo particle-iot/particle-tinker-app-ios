@@ -149,20 +149,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "tinker" {
-            if let vc = segue.destination as? SPKTinkerViewController {
-                let indexPath = sender as! IndexPath
-                vc.device = self.devices[indexPath.row]
-
-                let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[indexPath.row])
-
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into tinker - idx: %i device: %@", withParameters: getVaList([indexPath.row, vc.device.description]))
-
-                SEGAnalytics.shared().track("Tinker_SegueToTinker", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
-                
-            }
-        }
-        
         if segue.identifier == "deviceInspector" {
             if let vc = segue.destination as? DeviceInspectorViewController {
                 let indexPath = sender as! IndexPath
@@ -687,9 +673,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if devices[(indexPath as NSIndexPath).row].isFlashing
         {
             RMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning, customTypeName: nil, callback: nil)
-        } else if device.connected && device.isRunningTinker() {
-            self.selectedDevice = self.devices[indexPath.row]
-            self.performSegue(withIdentifier: "tinker", sender: indexPath)
         } else {
             self.selectedDevice = self.devices[indexPath.row]
             self.performSegue(withIdentifier: "deviceInspector", sender: indexPath)
