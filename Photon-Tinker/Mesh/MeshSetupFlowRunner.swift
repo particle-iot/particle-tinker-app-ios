@@ -11,7 +11,7 @@
 import Foundation
 
 
-class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate, MeshSetupDataConsumer {
+class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate {
 
     internal var context: MeshSetupContext
 
@@ -127,7 +127,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
 
-    //MARK: MeshSetupDataConsumer
+    //MARK: Delegate responses
     func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetTargetDeviceInfo.self else {
             return .IllegalOperation
