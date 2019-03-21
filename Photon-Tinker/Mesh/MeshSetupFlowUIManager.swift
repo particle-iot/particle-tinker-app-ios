@@ -8,7 +8,7 @@ import UIKit
 import Crashlytics
 import MessageUI
 
-class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowManagerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
+class MeshSetupFlowUIManager : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var backButtonImage: UIImageView!

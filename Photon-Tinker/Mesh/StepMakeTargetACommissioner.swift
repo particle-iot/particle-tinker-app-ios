@@ -14,7 +14,7 @@ class StepMakeTargetACommissioner : MeshSetupStep {
         if context.commissionerDevice == nil {
             self.log("Setting current target device as commissioner device part 2")
             context.commissionerDevice = context.targetDevice
-            context.targetDevice = MeshDevice()
+            context.targetDevice = MeshSetupDevice()
         }
 
         self.stepCompleted()

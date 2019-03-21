@@ -23,7 +23,7 @@ class StepGetCommissionerDeviceInfo : MeshSetupStep {
             return nil
         }
 
-        context.commissionerDevice = MeshDevice()
+        context.commissionerDevice = MeshSetupDevice()
 
         self.log("dataMatrix: \(dataMatrix)")
         context.commissionerDevice!.type = dataMatrix.type
@@ -48,6 +48,6 @@ class StepGetCommissionerDeviceInfo : MeshSetupStep {
             return
         }
 
-        context.commissionerDevice = MeshDevice()
+        context.commissionerDevice = MeshSetupDevice()
     }
 }

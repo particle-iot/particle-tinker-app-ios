@@ -62,7 +62,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ImC-3i-gg4" customClass="UIControl">
-                                <rect key="frame" x="20" y="74" width="280" height="208.5"/>
+                                <rect key="frame" x="20" y="74" width="280" height="199"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVW-YV-nr5">
@@ -102,10 +102,10 @@
                                 <viewLayoutGuide key="safeArea" id="RV6-x1-QSE"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hf4-bB-dke">
-                                <rect key="frame" x="20" y="297.5" width="280" height="20.5"/>
+                                <rect key="frame" x="20" y="288" width="280" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-ns-lzw" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="0.0" width="250" height="20.5"/>
+                                        <rect key="frame" x="30" y="0.0" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1894,6 +1894,163 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZxT-HV-m4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5154" y="2540"/>
+        </scene>
+        <!--Mesh Setup Control PanelUI Manager-->
+        <scene sceneID="2sA-tJ-j78">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupControlPanelUIManager" id="WR3-PN-MIX" customClass="MeshSetupControlPanelUIManager" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="F5e-OP-VEa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Bi-af-zOQ">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshCloseIcon" translatesAutoresizingMaskIntoConstraints="NO" id="acr-jn-mFO">
+                                        <rect key="frame" x="280" y="12" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="NVc-6C-B8u"/>
+                                            <constraint firstAttribute="height" constant="20" id="TiB-S8-hGQ"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshBackIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9oB-2Y-HWl">
+                                        <rect key="frame" x="20" y="12" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="5LT-5h-dcJ"/>
+                                            <constraint firstAttribute="height" constant="20" id="oM6-hc-Vxx"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJi-El-O2E" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="60" y="6" width="200" height="32"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fst-bI-HYP">
+                                        <rect key="frame" x="270" y="0.0" width="40" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="878-BU-KfZ"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="cancelTapped:" destination="WR3-PN-MIX" eventType="touchUpInside" id="jky-mb-Yce"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBe-sl-RrS">
+                                        <rect key="frame" x="10" y="0.0" width="40" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="h1l-n9-Ky9"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="backTapped:" destination="WR3-PN-MIX" eventType="touchUpInside" id="g7t-on-Z24"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="OBe-sl-RrS" firstAttribute="top" secondItem="tt3-Qo-uNP" secondAttribute="top" id="2Dd-vt-szk"/>
+                                    <constraint firstItem="Fst-bI-HYP" firstAttribute="top" secondItem="4Bi-af-zOQ" secondAttribute="top" id="Diw-ha-r6W"/>
+                                    <constraint firstAttribute="bottom" secondItem="Fst-bI-HYP" secondAttribute="bottom" id="Ebz-OH-CBw"/>
+                                    <constraint firstItem="Fst-bI-HYP" firstAttribute="centerX" secondItem="acr-jn-mFO" secondAttribute="centerX" id="GIq-HN-8ox"/>
+                                    <constraint firstItem="GJi-El-O2E" firstAttribute="leading" secondItem="OBe-sl-RrS" secondAttribute="trailing" constant="10" id="I9y-p2-1fr"/>
+                                    <constraint firstItem="Fst-bI-HYP" firstAttribute="leading" secondItem="GJi-El-O2E" secondAttribute="trailing" constant="10" id="NuA-GI-5qP"/>
+                                    <constraint firstItem="tt3-Qo-uNP" firstAttribute="bottom" secondItem="OBe-sl-RrS" secondAttribute="bottom" id="U49-iA-Ymn"/>
+                                    <constraint firstItem="acr-jn-mFO" firstAttribute="centerY" secondItem="4Bi-af-zOQ" secondAttribute="centerY" id="VOP-nu-fg8"/>
+                                    <constraint firstItem="GJi-El-O2E" firstAttribute="centerY" secondItem="4Bi-af-zOQ" secondAttribute="centerY" id="a6Q-Tb-oMJ"/>
+                                    <constraint firstItem="9oB-2Y-HWl" firstAttribute="centerY" secondItem="4Bi-af-zOQ" secondAttribute="centerY" id="cHp-KI-Od7"/>
+                                    <constraint firstItem="9oB-2Y-HWl" firstAttribute="leading" secondItem="tt3-Qo-uNP" secondAttribute="leading" constant="20" id="cWU-ml-VTk"/>
+                                    <constraint firstItem="tt3-Qo-uNP" firstAttribute="trailing" secondItem="acr-jn-mFO" secondAttribute="trailing" constant="20" id="hyi-g6-N0D"/>
+                                    <constraint firstItem="OBe-sl-RrS" firstAttribute="centerY" secondItem="9oB-2Y-HWl" secondAttribute="centerY" id="qeN-47-0jG"/>
+                                    <constraint firstItem="OBe-sl-RrS" firstAttribute="centerX" secondItem="9oB-2Y-HWl" secondAttribute="centerX" id="vZ5-Mr-HNQ"/>
+                                    <constraint firstAttribute="height" constant="44" id="xwD-AO-h0g"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="tt3-Qo-uNP"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yu-Xt-cgI">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <connections>
+                                    <segue destination="Wzj-qz-XFF" kind="embed" identifier="embedNavigation" id="BQO-kK-gm1"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="7yu-Xt-cgI" secondAttribute="bottom" id="2Fy-Xs-ZAg"/>
+                            <constraint firstItem="7yu-Xt-cgI" firstAttribute="leading" secondItem="F5e-OP-VEa" secondAttribute="leading" id="Dv7-g7-dLB"/>
+                            <constraint firstAttribute="trailing" secondItem="4Bi-af-zOQ" secondAttribute="trailing" id="FEI-v8-L6I"/>
+                            <constraint firstItem="4Bi-af-zOQ" firstAttribute="leading" secondItem="F5e-OP-VEa" secondAttribute="leading" id="SWB-kf-0aT"/>
+                            <constraint firstAttribute="trailing" secondItem="7yu-Xt-cgI" secondAttribute="trailing" id="gEg-K2-dHj"/>
+                            <constraint firstItem="4Bi-af-zOQ" firstAttribute="top" secondItem="7kb-h9-MwY" secondAttribute="top" id="hoo-S4-jaA"/>
+                            <constraint firstItem="7yu-Xt-cgI" firstAttribute="top" secondItem="4Bi-af-zOQ" secondAttribute="bottom" id="kZg-t4-SPQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7kb-h9-MwY"/>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="OBe-sl-RrS" id="2rL-8a-BBV"/>
+                        <outlet property="backButtonImage" destination="9oB-2Y-HWl" id="eln-PM-oLZ"/>
+                        <outlet property="navigationBarTitle" destination="GJi-El-O2E" id="T52-Oh-rZT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u9x-ts-bgE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-144.375" y="3898.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Mhm-aF-CZr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Wzj-qz-XFF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cRt-mW-TwS">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J2J-g1-reu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="739" y="3899"/>
+        </scene>
+        <!--Pair Assisting Device-->
+        <scene sceneID="Rba-HK-gnf">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupControlPanelRootViewController" id="l1u-cv-4eu" customClass="MeshSetupControlPanelRootViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mEc-MY-89Y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRG-v2-sBd" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="82" width="280" height="64"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rt6-tm-88W" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="35" width="280" height="32"/>
+                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="BRG-v2-sBd" firstAttribute="top" secondItem="Rt6-tm-88W" secondAttribute="bottom" constant="15" id="QJk-1a-Idl"/>
+                            <constraint firstItem="BRG-v2-sBd" firstAttribute="leading" secondItem="yCc-c0-jJl" secondAttribute="leading" constant="20" id="YLj-dg-Zmd"/>
+                            <constraint firstItem="yCc-c0-jJl" firstAttribute="trailing" secondItem="Rt6-tm-88W" secondAttribute="trailing" constant="20" id="bds-71-tsj"/>
+                            <constraint firstItem="Rt6-tm-88W" firstAttribute="top" secondItem="yCc-c0-jJl" secondAttribute="top" constant="15" id="ghc-PD-tHe"/>
+                            <constraint firstItem="yCc-c0-jJl" firstAttribute="trailing" secondItem="BRG-v2-sBd" secondAttribute="trailing" constant="20" id="h4m-Mm-ZEe"/>
+                            <constraint firstItem="Rt6-tm-88W" firstAttribute="leading" secondItem="yCc-c0-jJl" secondAttribute="leading" constant="20" id="yIv-NL-8ty"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yCc-c0-jJl"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pair Assisting Device" id="ImT-C5-Ddg"/>
+                    <connections>
+                        <outlet property="textLabel" destination="BRG-v2-sBd" id="FjJ-cv-OvB"/>
+                        <outlet property="titleLabel" destination="Rt6-tm-88W" id="ggx-zw-AdG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ec6-rO-5fp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1815" y="3899"/>
         </scene>
     </scenes>
     <resources>
