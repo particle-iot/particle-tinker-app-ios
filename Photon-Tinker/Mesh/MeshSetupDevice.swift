@@ -100,8 +100,18 @@ internal struct MeshSetupDataMatrix {
         }
     }
 
+    init(serialNumber: String, mobileSecret: String, deviceType: ParticleDeviceType? = nil) {
+        self.serialNumber = serialNumber
+        self.mobileSecret = mobileSecret
+        self.type = (deviceType != nil) ? deviceType : ParticleDeviceType(serialNumber: serialNumber)
+    }
+
     func isMobileSecretValid() -> Bool {
         return mobileSecret.count == 15
+    }
+
+    func isDeviceTypeKnown() -> Bool {
+        return type != nil
     }
 
     func attemptMobileSecretRecovery(completion: @escaping (String?, Error?) -> ()) {
