@@ -18,7 +18,10 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     internal var currentFlow: [MeshSetupStep]!
     internal var currentStepIdx: Int = 0
     internal var currentStep: MeshSetupStep? {
-        return currentFlow[currentStepIdx]
+        if let currentFlow = currentFlow {
+            return currentFlow[currentStepIdx]
+        }
+        return nil
     }
 
 
@@ -115,7 +118,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
         log("stepComplete\n\n" +
                 "--------------------------------------------------------------------------------------------\n" +
-                "currentStepIdx = \(currentStepIdx), currentStep = \(currentStep!)")
+                "currentStepIdx = \(currentStepIdx), currentStep = \(currentStep)")
 
         self.currentStep?.reset()
         self.currentStep?.run(context: self.context)

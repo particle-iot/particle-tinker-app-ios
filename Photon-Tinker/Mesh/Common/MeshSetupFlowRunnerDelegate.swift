@@ -47,6 +47,7 @@ enum MeshSetupFlowState {
     case CreateNetworkCompleted
 
     case SetupCanceled
+    case ControlPanelFlowComplete
 }
 
 //delegate required to request / deliver information from / to the UI
