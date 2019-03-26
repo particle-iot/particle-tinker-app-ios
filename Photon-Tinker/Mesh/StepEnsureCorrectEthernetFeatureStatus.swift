@@ -7,7 +7,34 @@ import Foundation
 
 class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
     override func start() {
-        context?.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
+        guard let context = self.context else {
+            return
+        }
+
+        if context.targetDevice.enableEthernetFeature == nil {
+            context.delegate.meshSetupDidRequestToSelectEthernetStatus(self)
+        } else {
+            self.sendFeatureFlag()
+        }
+    }
+
+    func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError? {
+        guard let context = self.context else {
+            return nil
+        }
+
+        context.targetDevice.enableEthernetFeature = useEthernet
+        self.start()
+
+        return nil
+    }
+
+    private func sendFeatureFlag() {
+        guard let context = self.context else {
+            return
+        }
+
+        context.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -28,6 +55,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
             }
         }
     }
+
 
     func setCorrectEthernetFeatureStatus() {
         guard let context = self.context else {
@@ -100,5 +128,6 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
 
         return true
     }
+
 
 }

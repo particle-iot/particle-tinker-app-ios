@@ -12,20 +12,21 @@ class StepGetTargetDeviceInfo: MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidRequestTargetDeviceInfo(self)
+        if (context.targetDevice.credentials == nil || context.targetDevice.type == nil) {
+            context.delegate.meshSetupDidRequestTargetDeviceInfo(self)
+        } else {
+            self.stepCompleted()
+        }
     }
 
-    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
+    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
         guard let context = self.context else {
             return nil
         }
 
-        context.targetDevice = MeshSetupDevice()
-
         self.resetFlowFlags()
 
         self.log("dataMatrix: \(dataMatrix)")
-        context.targetDevice.enableEthernetFeature = useEthernet
         context.targetDevice.type = dataMatrix.type
         self.log("self.targetDevice.type?.description = \(self.context!.targetDevice.type?.description as Optional)")
         context.targetDevice.credentials = MeshSetupPeripheralCredentials(name: self.context!.targetDevice.type!.bluetoothNamePrefix + "-" + dataMatrix.serialNumber.suffix(6), mobileSecret: dataMatrix.mobileSecret)

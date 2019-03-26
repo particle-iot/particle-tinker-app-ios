@@ -87,6 +87,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
     //entry to the flow
     func startSetup() {
+        context.targetDevice = MeshSetupDevice()
         currentFlow = preflow
         currentStepIdx = 0
 
@@ -181,6 +182,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         }
 
         if (addOneMoreDevice) {
+            self.context.targetDevice = MeshSetupDevice()
             self.currentStepIdx = 0
             self.currentFlow = preflow
             self.runCurrentStep()

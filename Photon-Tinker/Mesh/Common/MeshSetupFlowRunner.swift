@@ -136,8 +136,18 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
             return .IllegalOperation
         }
 
-        return (currentStep as? StepGetTargetDeviceInfo)?.setTargetDeviceInfo(dataMatrix: dataMatrix, useEthernet: useEthernet)
+        return (currentStep as? StepGetTargetDeviceInfo)?.setTargetDeviceInfo(dataMatrix: dataMatrix)
     }
+
+    func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError? {
+        guard let currentStep = currentStep, type(of: currentStep) == StepEnsureCorrectEthernetFeatureStatus.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as? StepEnsureCorrectEthernetFeatureStatus)?.setTargetUseEthernet(useEthernet: useEthernet)
+    }
+
+
 
     func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepEnsureLatestFirmware.self else {

@@ -53,7 +53,9 @@ enum MeshSetupFlowState {
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowRunnerDelegate {
     func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep)
-    //func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError?
+    //func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError?
+    func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep)
+    //func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError?
 
 
     func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep)
@@ -108,6 +110,7 @@ protocol MeshSetupFlowRunnerDelegate {
 
 extension MeshSetupFlowRunnerDelegate {
     func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
 
     func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo) { fatalError("Not implemented") }
