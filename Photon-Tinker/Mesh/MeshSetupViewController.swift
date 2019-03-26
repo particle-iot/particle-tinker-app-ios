@@ -23,6 +23,13 @@ class MeshSetupViewController: UIViewController {
     internal var networkName: String?
     internal var deviceName: String?
 
+
+    var customTitle: String {
+        get {
+            return ""
+        }
+    }
+
     var allowBack: Bool = true
     var ownerStepType: MeshSetupStep.Type?
 
