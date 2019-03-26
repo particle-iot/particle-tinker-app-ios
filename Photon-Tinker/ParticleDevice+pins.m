@@ -160,4 +160,8 @@
         return NO;
 }
 
+- (BOOL)is3rdGen {
+    return self.type == ParticleDeviceTypeArgon || self.type == ParticleDeviceTypeBoron || self.type == ParticleDeviceTypeXenon || self.type == ParticleDeviceTypeASeries || self.type == ParticleDeviceTypeBSeries || self.type == ParticleDeviceTypeXSeries;
+}
+
 @end

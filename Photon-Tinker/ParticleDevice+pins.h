@@ -16,7 +16,6 @@
 - (void)resetPins;
 - (void)configurePins:(ParticleDeviceType)deviceType;
 - (void)updatePin:(NSString *)pin function:(DevicePinFunction)function value:(NSUInteger)value success:(void (^)(NSInteger value))success failure:(void (^)(NSString *error))failure;
--(BOOL)isRunningTinker;
-
-
+- (BOOL)isRunningTinker;
+- (BOOL)is3rdGen;
 @end
