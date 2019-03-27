@@ -16,16 +16,21 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return
         }
 
-        if (context.bluetoothManager.state != .Ready) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                self.fail(withReason: .BluetoothDisabled)
+        if (context.targetDevice.transceiver == nil) {
+            if (context.bluetoothManager.state != .Ready) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    self.fail(withReason: .BluetoothDisabled)
+                }
+                return
             }
-            return
-        }
 
-        self.log("connecting to device: \(context.targetDevice.credentials!)")
-        context.bluetoothManager.createConnection(with: context.targetDevice.credentials!)
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnecting)
+            self.log("connecting to device: \(context.targetDevice.credentials!)")
+
+            context.bluetoothManager.createConnection(with: context.targetDevice.credentials!)
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnecting)
+        } else {
+            self.stepCompleted()
+        }
     }
 
     override func reset() {
