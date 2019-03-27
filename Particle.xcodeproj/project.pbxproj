@@ -42,6 +42,8 @@
 		50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D951AE0721200109F33 /* Gotham-Book.otf */; };
 		50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D961AE0721200109F33 /* Gotham-Medium.otf */; };
 		50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */; };
+		9308EDEC224BBE6500EB17BD /* MeshSetupBasicIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */; };
+		9308EDED224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */; };
 		9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */; };
 		9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */; };
 		9317FC142167F42C0054AE24 /* MeshSetupScanStickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */; };
@@ -62,6 +64,7 @@
 		931C37F8215AAAE70014811C /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37F9215AAB2E0014811C /* Storyboardable.swift */; };
 		93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93522313216CFD4600CF8A69 /* wifi_new.pb.swift */; };
+		937EE24E224BF686004E58E8 /* MeshSetupButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937EE24B224BF686004E58E8 /* MeshSetupButtonCell.xib */; };
 		93B0F85C2182236F00D8F8C0 /* argon_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8562182236E00D8F8C0 /* argon_power_on.mov */; };
 		93B0F85D2182236F00D8F8C0 /* commissioner_to_listening_mode.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */; };
 		93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */; };
@@ -77,8 +80,8 @@
 		93D36EB2216CC8B60088000C /* MeshSetupNetworkListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */; };
 		93D36EB4216CC9940088000C /* MeshSetupProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */; };
 		93D36EB6216CCAE10088000C /* MeshSetupPairingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB5216CCAE10088000C /* MeshSetupPairingView.xib */; };
-		93D36EB9216CD3C20088000C /* MeshSetupMeshNetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB8216CD3C20088000C /* MeshSetupMeshNetworkCell.xib */; };
-		93D36EBB216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EBA216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib */; };
+		93D36EB9216CD3C20088000C /* MeshSetupSubtitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB8216CD3C20088000C /* MeshSetupSubtitleCell.xib */; };
+		93D36EBB216CD3DF0088000C /* MeshSetupBasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EBA216CD3DF0088000C /* MeshSetupBasicCell.xib */; };
 		93EE6966217917EE005529B4 /* cellular.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE6964217917EE005529B4 /* cellular.pb.swift */; };
 		93F607F6221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F607F3221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib */; };
 		93FFD598215E7A01005A469D /* MeshSetupImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */; };
@@ -164,6 +167,7 @@
 		C810BC15F7F094BBD767DD14 /* MeshSetupFirmwareUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B56BE9FA193E248D4F8E /* MeshSetupFirmwareUpdateViewController.swift */; };
 		C810BC29F55BC9175AE5FCFA /* MeshSetupSelectWifiNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B1051F4F3D5B0D2E5B93 /* MeshSetupSelectWifiNetworkViewController.swift */; };
 		C810BC5531AD3FE02AB3B4E0 /* MeshSetupFirmwareUpdateProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BE72E0902A2D341BD60F /* MeshSetupFirmwareUpdateProgressViewController.swift */; };
+		C810BC8C5AB808402F465209 /* MeshSetupControlPanelWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBBB5F657A788D817676 /* MeshSetupControlPanelWebViewController.swift */; };
 		C810BC9CBBF2110FDB687B46 /* StepOfferSelectOrCreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B842B15A84D7BD37B421 /* StepOfferSelectOrCreateNetwork.swift */; };
 		C810BCA6C880C2B655CFA2F8 /* MeshSetupControlPanelRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B95492E74D03F350532A /* MeshSetupControlPanelRootViewController.swift */; };
 		C810BDE2AA87A347CBABDFC5 /* StepGetNewNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B85E5279D0283A14D356 /* StepGetNewNetworkPassword.swift */; };
@@ -260,6 +264,8 @@
 		50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightIta.otf"; sourceTree = "<group>"; };
 		50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Particle-Bridging-Header.h"; sourceTree = "<group>"; };
 		8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupBasicIconCell.xib; sourceTree = "<group>"; };
+		9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupSubtitleIconCell.xib; sourceTree = "<group>"; };
 		9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = boron_power_on.mov; path = Resources/boron_power_on.mov; sourceTree = "<group>"; };
 		9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Avenir Next.ttc"; path = "Photon-Tinker/Fonts/Avenir Next.ttc"; sourceTree = "<group>"; };
 		9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupScanStickerView.xib; sourceTree = "<group>"; };
@@ -281,6 +287,7 @@
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
 		93522316216CFD4600CF8A69 /* wifi_new.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_new.proto; sourceTree = "<group>"; };
+		937EE24B224BF686004E58E8 /* MeshSetupButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupButtonCell.xib; sourceTree = "<group>"; };
 		93B0F8562182236E00D8F8C0 /* argon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = argon_power_on.mov; path = Resources/argon_power_on.mov; sourceTree = "<group>"; };
 		93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = commissioner_to_listening_mode.mov; path = Resources/commissioner_to_listening_mode.mov; sourceTree = "<group>"; };
 		93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = boron_power_on_battery.mov; path = Resources/boron_power_on_battery.mov; sourceTree = "<group>"; };
@@ -296,8 +303,8 @@
 		93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupNetworkListView.xib; sourceTree = "<group>"; };
 		93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupProgressView.xib; sourceTree = "<group>"; };
 		93D36EB5216CCAE10088000C /* MeshSetupPairingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupPairingView.xib; sourceTree = "<group>"; };
-		93D36EB8216CD3C20088000C /* MeshSetupMeshNetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupMeshNetworkCell.xib; sourceTree = "<group>"; };
-		93D36EBA216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupCreateNetworkCell.xib; sourceTree = "<group>"; };
+		93D36EB8216CD3C20088000C /* MeshSetupSubtitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupSubtitleCell.xib; sourceTree = "<group>"; };
+		93D36EBA216CD3DF0088000C /* MeshSetupBasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupBasicCell.xib; sourceTree = "<group>"; };
 		93EE6964217917EE005529B4 /* cellular.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cellular.pb.swift; sourceTree = "<group>"; };
 		93EE6965217917EE005529B4 /* cellular.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = cellular.proto; sourceTree = "<group>"; };
 		93F607F3221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupNetworkListWithCreateView.xib; sourceTree = "<group>"; };
@@ -385,6 +392,7 @@
 		C810BA4DEFE6AE5E02AF1691 /* MeshSetupStandAloneOrMeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupStandAloneOrMeshSetupViewController.swift; sourceTree = "<group>"; };
 		C810BAF19BA3CABD429F6A14 /* StepEnsureCommissionerNetworkMatches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCommissionerNetworkMatches.swift; sourceTree = "<group>"; };
 		C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowRunner.swift; sourceTree = "<group>"; };
+		C810BBBB5F657A788D817676 /* MeshSetupControlPanelWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelWebViewController.swift; path = "Photon-Tinker/MeshSetupControlPanelWebViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C810BBDE0699745CC6F5DCDE /* StepOfferSetupStandAloneOrWithNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferSetupStandAloneOrWithNetwork.swift; sourceTree = "<group>"; };
 		C810BBF99BF4AC32D496472A /* ScanBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanBarcodeViewController.m; sourceTree = "<group>"; };
 		C810BC04924C8DF17E86DB65 /* MeshSetupContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupContext.swift; sourceTree = "<group>"; };
@@ -732,8 +740,11 @@
 		93D36EB7216CD3AA0088000C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				93D36EB8216CD3C20088000C /* MeshSetupMeshNetworkCell.xib */,
-				93D36EBA216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib */,
+				937EE24B224BF686004E58E8 /* MeshSetupButtonCell.xib */,
+				9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */,
+				9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */,
+				93D36EB8216CD3C20088000C /* MeshSetupSubtitleCell.xib */,
+				93D36EBA216CD3DF0088000C /* MeshSetupBasicCell.xib */,
 				C810B144D6FEAB8614A35CFB /* MeshSetupWifiNetworkCell.xib */,
 			);
 			path = Cells;
@@ -786,6 +797,7 @@
 			children = (
 				C810B95492E74D03F350532A /* MeshSetupControlPanelRootViewController.swift */,
 				C810BC9DC49DCA28A5B6F715 /* MeshSetupControlPanelWifiViewController.swift */,
+				C810BBBB5F657A788D817676 /* MeshSetupControlPanelWebViewController.swift */,
 			);
 			name = ControlPanel;
 			sourceTree = "<group>";
@@ -986,12 +998,14 @@
 				93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */,
 				93C7C9E52208A1BA00ABEE85 /* series_featherwing_power_on.mov in Resources */,
 				93B0F85D2182236F00D8F8C0 /* commissioner_to_listening_mode.mov in Resources */,
-				93D36EBB216CD3DF0088000C /* MeshSetupCreateNetworkCell.xib in Resources */,
+				93D36EBB216CD3DF0088000C /* MeshSetupBasicCell.xib in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				9317FC16216807200054AE24 /* MeshSetupTextInputView.xib in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
 				93FFD5B4215E7EDB005A469D /* FiraMono-Regular.ttf in Resources */,
 				93F607F6221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib in Resources */,
+				937EE24E224BF686004E58E8 /* MeshSetupButtonCell.xib in Resources */,
+				9308EDED224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
 				9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */,
@@ -1009,6 +1023,7 @@
 				93FFD5C2215E7EFF005A469D /* electron-tinker.bin in Resources */,
 				9317FC142167F42C0054AE24 /* MeshSetupScanStickerView.xib in Resources */,
 				50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */,
+				9308EDEC224BBE6500EB17BD /* MeshSetupBasicIconCell.xib in Resources */,
 				93FFD5C4215E7EFF005A469D /* photon-tinker.bin in Resources */,
 				93C7C9E02208A15100ABEE85 /* a_power_on.mov in Resources */,
 				93FFD598215E7A01005A469D /* MeshSetupImages.xcassets in Resources */,
@@ -1016,7 +1031,7 @@
 				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
 				93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */,
 				93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */,
-				93D36EB9216CD3C20088000C /* MeshSetupMeshNetworkCell.xib in Resources */,
+				93D36EB9216CD3C20088000C /* MeshSetupSubtitleCell.xib in Resources */,
 				93C7C9E22208A15100ABEE85 /* b_power_on.mov in Resources */,
 				C810B18620497AAC8EF99E79 /* MeshSetupInfoView.xib in Resources */,
 				93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */,
@@ -1265,6 +1280,7 @@
 				C810B04142DBEFC892DF988F /* StepFinishJoinSelectedNetwork.swift in Sources */,
 				C810BDE2AA87A347CBABDFC5 /* StepGetNewNetworkPassword.swift in Sources */,
 				C810B7532248EB34DB8E355F /* MeshSetupStep.swift in Sources */,
+				C810BC8C5AB808402F465209 /* MeshSetupControlPanelWebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
