@@ -131,7 +131,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
     //MARK: Delegate responses
-    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix, useEthernet: Bool) -> MeshSetupFlowError? {
+    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetTargetDeviceInfo.self else {
             return .IllegalOperation
         }

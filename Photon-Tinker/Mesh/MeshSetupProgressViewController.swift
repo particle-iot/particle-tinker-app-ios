@@ -59,6 +59,10 @@ class MeshSetupProgressViewController: MeshSetupViewController {
         }
     }
 
+    func setState(_ state: MeshSetupFlowState) {
+        fatalError("not implemented")
+    }
+
     func setStep(_ step:Int) {
         NSLog("step = \(step) progressTextLabels.count: \(progressTextLabels.count) progressTextLabelValues.count: \(progressTextLabelValues.count)")
         if (step == progressTextLabelValues.count) {

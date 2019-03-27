@@ -48,7 +48,15 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         // heading
         view.endEditing(true)
         let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .multipleChoice)
-        
+
+        if (self.device.is3rdGen()) {
+            dialog.addButton("Control Panel", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
+                dialog.dismiss()
+                let vc = MeshSetupControlPanelUIManager.loadedViewController()
+                vc.setDevice(self.device)
+                self.present(vc, animated: true)
+            }
+        }
 
         if (self.device.isRunningTinker()) {
             dialog.addButton("Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in

@@ -26,7 +26,7 @@ class MeshSetupJoiningNetworkViewController: MeshSetupProgressViewController, St
         setProgressLabelValues()
     }
 
-    func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: MeshSetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .JoiningNetworkStarted:

@@ -1359,31 +1359,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mY-tC-8HV" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="69" width="280" height="56"/>
+                                <rect key="frame" x="20" y="82" width="280" height="64"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoD-jE-FKW" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="35" width="280" height="19"/>
+                                <rect key="frame" x="20" y="35" width="280" height="32"/>
                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="MeshSetupFirmwareUpdateImage" translatesAutoresizingMaskIntoConstraints="NO" id="rAG-J3-H7I">
-                                <rect key="frame" x="30" y="278.5" width="260" height="101.5"/>
+                                <rect key="frame" x="30" y="291" width="260" height="89"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VoE-1S-5AK" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="15" y="150" width="290" height="103.5"/>
+                                <rect key="frame" x="15" y="171" width="290" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGX-n0-U0u" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="39.5" width="270" height="49"/>
+                                        <rect key="frame" x="10" y="37.5" width="270" height="42.5"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPW-c3-Zhv" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="15" width="270" height="16.5"/>
+                                        <rect key="frame" x="10" y="15" width="270" height="14.5"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1921,7 +1921,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJi-El-O2E" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="60" y="6" width="200" height="32"/>
+                                        <rect key="frame" x="60" y="3.5" width="200" height="37.5"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2018,39 +2018,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the data matrix sticker on the front of the assisting device. Use your phone camera to scan the code." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRG-v2-sBd" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="82" width="280" height="64"/>
-                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair assisting device with your phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rt6-tm-88W" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="20" y="35" width="280" height="32"/>
-                                <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Sc4-rF-2TW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="l1u-cv-4eu" id="cVt-ex-wef"/>
+                                    <outlet property="delegate" destination="l1u-cv-4eu" id="T9e-2i-bQG"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="BRG-v2-sBd" firstAttribute="top" secondItem="Rt6-tm-88W" secondAttribute="bottom" constant="15" id="QJk-1a-Idl"/>
-                            <constraint firstItem="BRG-v2-sBd" firstAttribute="leading" secondItem="yCc-c0-jJl" secondAttribute="leading" constant="20" id="YLj-dg-Zmd"/>
-                            <constraint firstItem="yCc-c0-jJl" firstAttribute="trailing" secondItem="Rt6-tm-88W" secondAttribute="trailing" constant="20" id="bds-71-tsj"/>
-                            <constraint firstItem="Rt6-tm-88W" firstAttribute="top" secondItem="yCc-c0-jJl" secondAttribute="top" constant="15" id="ghc-PD-tHe"/>
-                            <constraint firstItem="yCc-c0-jJl" firstAttribute="trailing" secondItem="BRG-v2-sBd" secondAttribute="trailing" constant="20" id="h4m-Mm-ZEe"/>
-                            <constraint firstItem="Rt6-tm-88W" firstAttribute="leading" secondItem="yCc-c0-jJl" secondAttribute="leading" constant="20" id="yIv-NL-8ty"/>
+                            <constraint firstAttribute="bottom" secondItem="Sc4-rF-2TW" secondAttribute="bottom" id="8kR-ql-Xo1"/>
+                            <constraint firstAttribute="trailing" secondItem="Sc4-rF-2TW" secondAttribute="trailing" id="XQ4-dD-K8J"/>
+                            <constraint firstItem="Sc4-rF-2TW" firstAttribute="leading" secondItem="mEc-MY-89Y" secondAttribute="leading" id="akV-64-Cig"/>
+                            <constraint firstItem="Sc4-rF-2TW" firstAttribute="top" secondItem="mEc-MY-89Y" secondAttribute="top" id="qEn-QD-ats"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yCc-c0-jJl"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pair Assisting Device" id="ImT-C5-Ddg"/>
                     <connections>
-                        <outlet property="textLabel" destination="BRG-v2-sBd" id="FjJ-cv-OvB"/>
-                        <outlet property="titleLabel" destination="Rt6-tm-88W" id="ggx-zw-AdG"/>
+                        <outlet property="tableView" destination="Sc4-rF-2TW" id="LD9-8I-Qm1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ec6-rO-5fp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1815" y="3899"/>
+        </scene>
+        <!--Pair Assisting Device-->
+        <scene sceneID="Fct-2C-Srg">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupControlPanelWifiViewController" id="Znz-Ch-s8J" customClass="MeshSetupControlPanelWifiViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="D5i-Mx-MAc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="IcE-3C-hLD">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Znz-Ch-s8J" id="9A1-kk-O4q"/>
+                                    <outlet property="delegate" destination="Znz-Ch-s8J" id="Y89-OQ-PWW"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="IcE-3C-hLD" firstAttribute="top" secondItem="D5i-Mx-MAc" secondAttribute="top" id="BGY-p5-uWV"/>
+                            <constraint firstItem="IcE-3C-hLD" firstAttribute="leading" secondItem="D5i-Mx-MAc" secondAttribute="leading" id="EyZ-Ju-X1w"/>
+                            <constraint firstAttribute="bottom" secondItem="IcE-3C-hLD" secondAttribute="bottom" id="RE6-xN-ByH"/>
+                            <constraint firstAttribute="trailing" secondItem="IcE-3C-hLD" secondAttribute="trailing" id="ru5-ex-6No"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Lgd-aw-L8p"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pair Assisting Device" id="n5o-Wp-haN"/>
+                    <connections>
+                        <outlet property="tableView" destination="IcE-3C-hLD" id="3gL-c3-cM2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XvX-Nt-mo6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2513" y="3899"/>
         </scene>
     </scenes>
     <resources>

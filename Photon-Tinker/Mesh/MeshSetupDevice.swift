@@ -113,26 +113,6 @@ internal struct MeshSetupDataMatrix {
     func isDeviceTypeKnown() -> Bool {
         return type != nil
     }
-
-    func attemptMobileSecretRecovery(completion: @escaping (String?, Error?) -> ()) {
-        ParticleCloud.sharedInstance().getRecoveryMobileSecret(serialNumber, mobileSecret: mobileSecret) { mobileSecret, error in
-            if let mobileSecret = mobileSecret {
-                completion("\(self.serialNumber) \(mobileSecret)", nil)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
-
-    func attemptDeviceTypeRecovery(completion: @escaping (ParticleDeviceType?, Error?) -> ()) {
-        ParticleCloud.sharedInstance().getPlatformId(serialNumber) { platformId, error in
-            if let platformId = platformId, let type = ParticleDeviceType(rawValue: Int(platformId)) {
-                completion(type, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
 }
 
 
