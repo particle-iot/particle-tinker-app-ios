@@ -361,6 +361,14 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         log("bluetoothConnectionManagerConnectionDropped = \(connection)")
 
         if (connection == context.targetDevice.transceiver?.connection || connection == context.commissionerDevice?.transceiver?.connection) {
+            if (connection == context.targetDevice.transceiver?.connection) {
+                context.targetDevice.transceiver = nil
+            }
+
+            if (connection == context.commissionerDevice?.transceiver?.connection) {
+                context.commissionerDevice?.transceiver = nil
+            }
+
             if let currentStep = currentStep, !currentStep.handleBluetoothConnectionManagerConnectionDropped(connection) {
                 self.fail(withReason: .BluetoothConnectionDropped, severity: .Fatal)
             }
