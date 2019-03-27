@@ -8,6 +8,7 @@ import Foundation
 class MeshCell : UITableViewCell {
     @IBOutlet weak var cellTitleLabel: MeshLabel!
     @IBOutlet weak var cellSubtitleLabel: MeshLabel!
+    @IBOutlet weak var cellIconImageView: UIImageView?
     @IBOutlet weak var cellAccessoryImageView: UIImageView!
     @IBOutlet weak var cellSecondaryAccessoryImageView: UIImageView!
     

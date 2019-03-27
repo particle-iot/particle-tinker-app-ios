@@ -28,7 +28,7 @@ class MeshSetupControlPanelWifiViewController : MeshSetupViewController, Storybo
         tableView.delegate = self
         tableView.dataSource = self
 
-        tableView.register(UINib.init(nibName: "MeshSetupCreateNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupCreateNetworkCell")
+        tableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
     }
 
     override func setStyle() {
@@ -43,12 +43,16 @@ class MeshSetupControlPanelWifiViewController : MeshSetupViewController, Storybo
         callback()
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       return 1
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:MeshCell! = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
+        var cell:MeshCell! = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
 
         cell.cellTitleLabel.text = "Join New Network"
         cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)

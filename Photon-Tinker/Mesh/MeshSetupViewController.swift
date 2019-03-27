@@ -79,11 +79,11 @@ class MeshSetupViewController: UIViewController {
         replacePlaceHolderStrings()
     }
 
-    open func setStyle() {
+    func setStyle() {
         fatalError("Not implemented")
     }
 
-    open func setContent() {
+    func setContent() {
         fatalError("Not implemented")
     }
 
