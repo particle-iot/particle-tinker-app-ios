@@ -65,5 +65,13 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.currentFlow = nil
         self.currentStepIdx = 0
     }
+
+    func stopCurrentFlow() {
+        self.currentStep?.reset()
+        self.currentStep?.context = nil
+
+        self.currentFlow = nil
+        self.currentStepIdx = 0
+    }
 }
 

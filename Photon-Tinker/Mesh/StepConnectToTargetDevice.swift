@@ -39,6 +39,8 @@ class StepConnectToTargetDevice: MeshSetupStep {
 
         self.reconnectAfterForcedReboot = false
         self.reconnectAfterForcedRebootRetry = 0
+
+        self.context?.bluetoothManager.stopScan()
     }
 
     private func targetDeviceConnected(connection: MeshSetupBluetoothConnection) {

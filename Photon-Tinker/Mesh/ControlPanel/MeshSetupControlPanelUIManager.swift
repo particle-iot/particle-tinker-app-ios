@@ -150,6 +150,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     }
 
+
     override func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {
         self.controlPanelManager.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!)
     }
@@ -191,7 +192,6 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .TargetDeviceConnecting:
                 showPrepareForPairingView()
             case .TargetDeviceDiscovered:
-                NSLog("showTargetPairingProcessView ! !@ !@ !@ !@ !@ !@ !@ ")
                 showTargetPairingProcessView()
             default:
                 break
@@ -200,11 +200,48 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
 
 
+
+
     override func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
         if error != .FailedToScanBecauseOfTimeout {
             super.meshSetupError(sender, error: error, severity: severity, nsError: nsError)
         } else {
             self.flowRunner.retryLastAction()
+        }
+    }
+
+    @IBAction override func backTapped(_ sender: UIButton) {
+        //resume previous VC
+        let vcs = self.embededNavigationController.viewControllers
+        log("Back tapped: \(vcs)")
+
+        if (vcs.last! as! MeshSetupViewController).viewControllerIsBusy {
+            log("viewController is busy, not backing")
+            //view controller cannot be backed from at this moment
+            return
+        }
+
+        guard vcs.count > 1, let vcCurr = (vcs[vcs.count-1] as? MeshSetupViewController), let vcPrev = (vcs[vcs.count-2] as? MeshSetupViewController) else {
+            log("Back button was pressed when it was not supposed to be pressed. Ignoring.")
+            return
+        }
+
+        vcPrev.resume(animated: false)
+
+        if (vcs.last! as! MeshSetupViewController).allowBack {
+            if vcPrev.ownerStepType != nil, vcCurr.ownerStepType != vcPrev.ownerStepType {
+                log("Rewinding flow from: \(vcCurr.ownerStepType) to: \(vcPrev.ownerStepType!)")
+                self.flowRunner.rewindTo(step: vcPrev.ownerStepType!)
+            } else {
+                if (vcPrev.ownerStepType == nil) {
+                    self.controlPanelManager.stopCurrentFlow()
+                }
+
+                log("Popping")
+                self.embededNavigationController.popViewController(animated: true)
+            }
+        } else {
+            log("Back button was pressed when it was not supposed to be pressed. Ignoring.")
         }
     }
 }

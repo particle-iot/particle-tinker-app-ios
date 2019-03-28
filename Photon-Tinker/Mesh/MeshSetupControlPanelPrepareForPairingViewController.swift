@@ -28,15 +28,6 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
         return MeshSetupStrings.ControlPanel.PrepareForPairing.Title
     }
 
-    override var allowBack: Bool {
-        get {
-            return false
-        }
-        set {
-            super.allowBack = newValue
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
