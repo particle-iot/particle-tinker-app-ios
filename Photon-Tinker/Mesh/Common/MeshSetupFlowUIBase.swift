@@ -270,6 +270,27 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         fatalError("not implemented")
     }
 
+
+    //MARK: Pairing
+    func showTargetPairingProcessView() {
+        self.flowRunner.pauseSetup()
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupPairingProcessViewController.self)) {
+                let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
+                pairingVC.allowBack = false
+                pairingVC.ownerStepType = self.currentStepType
+                pairingVC.setup(didFinishScreen: self.targetPairingProcessViewCompleted, deviceType: self.flowRunner.context.targetDevice.type, deviceName: self.flowRunner.context.targetDevice.bluetoothName ?? self.flowRunner.context.targetDevice.type!.description)
+                self.embededNavigationController.pushViewController(pairingVC, animated: true)
+            }
+        }
+    }
+
+    func targetPairingProcessViewCompleted() {
+        self.flowRunner.continueSetup()
+    }
+
+
+
     //MARK: Firmware update
     internal func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) {
         currentStepType = type(of: sender)
