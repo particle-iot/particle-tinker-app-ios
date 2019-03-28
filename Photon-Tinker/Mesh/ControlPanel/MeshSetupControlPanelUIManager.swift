@@ -135,13 +135,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
 
-    private func showPrepareForPairing() {
-//        DispatchQueue.main.async {
-//            let wifiVC = MeshSetupControlPanelWifiViewController.loadedViewController()
-//            wifiVC.setup(device: self.device, didSelectAction: self.controlPanelWifiViewCompleted)
-//            wifiVC.ownerStepType = nil
-//            self.embededNavigationController.pushViewController(wifiVC, animated: true)
-//        }
+    private func showPrepareForPairingView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelPrepareForPairingViewController.self)) {
+                let prepareVC = MeshSetupControlPanelPrepareForPairingViewController.loadedViewController()
+                prepareVC.setup(device: self.device)
+                prepareVC.ownerStepType = nil
+                self.embededNavigationController.pushViewController(prepareVC, animated: true)
+            }
+        }
     }
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
@@ -152,6 +154,13 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         self.controlPanelManager.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!)
     }
 
+    override func targetPairingProcessViewCompleted() {
+        //remove last two views, because they will prevent back from functioning properly
+        self.embededNavigationController.popViewController(animated: false)
+        self.embededNavigationController.popViewController(animated: false)
+
+        super.targetPairingProcessViewCompleted()
+    }
 
     internal func showNetworkError(error: NSError) {
         DispatchQueue.main.async {
@@ -180,8 +189,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
         switch state {
             case .TargetDeviceConnecting:
-                showPrepareForPairing()
-                 break
+                showPrepareForPairingView()
+            case .TargetDeviceDiscovered:
+                NSLog("showTargetPairingProcessView ! !@ !@ !@ !@ !@ !@ !@ ")
+                showTargetPairingProcessView()
             default:
                 break
         }
