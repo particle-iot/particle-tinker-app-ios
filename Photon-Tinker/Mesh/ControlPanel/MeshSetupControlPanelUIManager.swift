@@ -147,7 +147,12 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
-
+        switch currentAction! {
+            case .actionNewWifi, .actionManageWifi:
+                showControlPanelWifiView()
+            default:
+                break;
+        }
     }
 
 
