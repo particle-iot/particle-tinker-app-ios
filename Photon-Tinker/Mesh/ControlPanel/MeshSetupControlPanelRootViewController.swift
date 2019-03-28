@@ -47,13 +47,13 @@ enum MeshSetupControlPanelCellType {
     func getIcon() -> UIImage? {
         switch self {
             case .wifi:
-                return UIImage(named: "MeshWifiIcon")
+                return UIImage(named: "MeshSetupWifiIcon")
             case .cellular:
-                return UIImage(named: "MeshLTEIcon")
+                return UIImage(named: "MeshSetupCellularIcon")
             case .ethernet:
-                return nil
+                return UIImage(named: "MeshSetupEthernetIcon")
             case .mesh:
-                return UIImage(named: "MeshIcon")
+                return UIImage(named: "MeshSetupMeshIcon")
             default:
                 return nil
         }
