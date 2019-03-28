@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 class StepConnectToTargetDevice: MeshSetupStep {
 
@@ -87,6 +88,18 @@ class StepConnectToTargetDevice: MeshSetupStep {
         }
 
         context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnected)
+
+        return true
+    }
+
+    override func handleBluetoothConnectionManagerPeripheralDiscovered(_ peripheral: CBPeripheral) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
+        if (peripheral.name == context.targetDevice.credentials!.name) {
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceDiscovered)
+        }
 
         return true
     }

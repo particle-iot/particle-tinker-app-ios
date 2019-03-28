@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 
 class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate {
@@ -337,7 +338,19 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         log("bluetoothConnectionManagerConnectionCreated = \(connection)")
 
         if let currentStep = currentStep, !currentStep.handleBluetoothConnectionManagerConnectionCreated(connection) {
-            self.fail(withReason: .BluetoothError, severity: .Fatal)
+            //do nothing
+        }
+    }
+
+    internal func bluetoothConnectionManagerPeripheralDiscovered(sender: MeshSetupBluetoothConnectionManager, peripheral: CBPeripheral) {
+        if (context.canceled) {
+            return
+        }
+
+        log("bluetoothConnectionManagerPeripheralDiscovered = \(peripheral)")
+
+        if let currentStep = currentStep, !currentStep.handleBluetoothConnectionManagerPeripheralDiscovered(peripheral) {
+            //do nothing
         }
     }
 
@@ -349,7 +362,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         log("bluetoothConnectionManagerConnectionBecameReady = \(connection)")
 
         if let currentStep = currentStep, !currentStep.handleBluetoothConnectionManagerConnectionBecameReady(connection) {
-            self.fail(withReason: .BluetoothError, severity: .Fatal)
+            //do nothing
         }
     }
 

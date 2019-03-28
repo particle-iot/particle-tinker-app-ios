@@ -17,6 +17,7 @@ internal struct MeshSetupNetworkCellInfo {
 
 enum MeshSetupFlowState {
     case TargetDeviceConnecting
+    case TargetDeviceDiscovered
     case TargetDeviceConnected
     case TargetDeviceReady
 

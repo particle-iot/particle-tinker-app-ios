@@ -12,6 +12,7 @@ protocol MeshSetupBluetoothConnectionManagerDelegate {
     func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState)
     func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity)
 
+    func bluetoothConnectionManagerPeripheralDiscovered(sender: MeshSetupBluetoothConnectionManager, peripheral: CBPeripheral)
     func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
     func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
     func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
@@ -217,6 +218,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
                 self.dropPeripheralConnection(with: peripheral)
             } else {
                 self.state = .PeripheralDiscovered
+                self.delegate.bluetoothConnectionManagerPeripheralDiscovered(sender: self, peripheral: peripheral)
                 self.centralManager.connect(peripheral, options: nil)
                 peripheralToConnect = peripheral
                 self.log("Pairing to \(peripheral.name!)...")

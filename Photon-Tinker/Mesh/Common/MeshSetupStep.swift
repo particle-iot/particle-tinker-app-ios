@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 protocol MeshSetupStepDelegate {
     func stepCompleted(_ sender: MeshSetupStep)
@@ -81,6 +82,10 @@ class MeshSetupStep: NSObject {
 
 
     func handleBluetoothConnectionManagerError(_ error: BluetoothConnectionManagerError) -> Bool {
+        return false
+    }
+
+    func handleBluetoothConnectionManagerPeripheralDiscovered(_ peripheral: CBPeripheral) -> Bool {
         return false
     }
 
