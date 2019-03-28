@@ -38,6 +38,30 @@
 
 
 
+"MeshSetup.ControlPanel.Root.Title" = "Control Panel";
+"MeshSetup.ControlPanel.Root.Wifi" = "Wi-Fi";
+"MeshSetup.ControlPanel.Root.Mesh" = "Mesh";
+"MeshSetup.ControlPanel.Root.Ethernet" = "Ethernet";
+"MeshSetup.ControlPanel.Root.Cellular" = "Cellular";
+"MeshSetup.ControlPanel.Root.Documentation" = "Documentation";
+"MeshSetup.ControlPanel.Root.UnclaimDevice" = "Unclaim Device";
+
+"MeshSetup.ControlPanel.Wifi.Title" = "";
+"MeshSetup.ControlPanel.Wifi.AddNewWifi" = "Connect to new Wi-Fi";
+"MeshSetup.ControlPanel.Wifi.ManageWifi" = "Manage Wi-Fi";
+
+
+"MeshSetup.ControlPanel.Cellular.Title" = "Cellular";
+"MeshSetup.ControlPanel.Cellular.ActivateSim" = "Activate SIM";
+"MeshSetup.ControlPanel.Cellular.DeactivateSim" = "Deactivate SIM";
+
+"MeshSetup.ControlPanel.Documentation.Title" = "Documentation";
+
+"MeshSetup.ControlPanel.PrepareForPairing.Title" = "Prepare For Pairing";
+"MeshSetup.ControlPanel.PrepareForPairing.Text" = "To proceed app needs to pair to your device. Please put {0} into listening mode.";
+"MeshSetup.ControlPanel.PrepareForPairing.Signal" = "Signal";
+
+
 
 "MeshSetup.SelectDevice.Title" = "Choose the device you’re setting up";
 "MeshSetup.SelectDevice.MeshOnly" = "Mesh only";

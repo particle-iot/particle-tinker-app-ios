@@ -15,7 +15,7 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
         }
     }
     override var customTitle: String {
-        return "Control Panel"
+        return MeshSetupStrings.ControlPanel.Wifi.Title
     }
 
     override func prepareContent() {

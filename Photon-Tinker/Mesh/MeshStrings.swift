@@ -64,10 +64,39 @@ class MeshSetupStrings {
 
     struct ControlPanel {
         struct Root {
-            static let Title = "MeshSetup.ControlPanel.Title".meshLocalized()
+            static let Title = "MeshSetup.ControlPanel.Root.Title".meshLocalized()
 
-            static let WiFiTitle = "MeshSetup.ControlPanel.WifiTitle".meshLocalized()
-            static let MeshTitle = "MeshSetup.ControlPanel.MeshTitle".meshLocalized()
+            static let Wifi = "MeshSetup.ControlPanel.Root.Wifi".meshLocalized()
+            static let Mesh = "MeshSetup.ControlPanel.Root.Mesh".meshLocalized()
+            static let Ethernet = "MeshSetup.ControlPanel.Root.Ethernet".meshLocalized()
+            static let Cellular = "MeshSetup.ControlPanel.Root.Cellular".meshLocalized()
+            static let Documentation = "MeshSetup.ControlPanel.Root.Documentation".meshLocalized()
+            static let UnclaimDevice = "MeshSetup.ControlPanel.Root.UnclaimDevice".meshLocalized()
+        }
+
+        struct Wifi {
+            static let Title = "MeshSetup.ControlPanel.Wifi.Title".meshLocalized()
+
+            static let AddNewWifi = "MeshSetup.ControlPanel.Wifi.AddNewWifi".meshLocalized()
+            static let ManageWifi = "MeshSetup.ControlPanel.Wifi.ManageWifi".meshLocalized()
+        }
+
+        struct Cellular {
+            static let Title = "MeshSetup.ControlPanel.Cellular.Title".meshLocalized()
+
+            static let ActivateSim = "MeshSetup.ControlPanel.Cellular.ActivateSim".meshLocalized()
+            static let DeactivateSim = "MeshSetup.ControlPanel.Cellular.DeactivateSim".meshLocalized()
+        }
+
+        struct Documentation {
+            static let Title = "MeshSetup.ControlPanel.Documentation.Title".meshLocalized()
+        }
+
+        struct PrepareForPairing {
+            static let Title = "MeshSetup.ControlPanel.PrepareForPairing.Title".meshLocalized()
+
+            static let Text = "MeshSetup.ControlPanel.PrepareForPairing.Text".meshLocalized()
+            static let Signal = "MeshSetup.ControlPanel.PrepareForPairing.Signal".meshLocalized()
         }
     }
 

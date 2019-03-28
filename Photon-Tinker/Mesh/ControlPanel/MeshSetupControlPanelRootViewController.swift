@@ -21,26 +21,26 @@ enum MeshSetupControlPanelCellType {
     func getCellTitle() -> String {
         switch self {
             case .wifi:
-                return "Wi-Fi"
+                return MeshSetupStrings.ControlPanel.Root.Wifi
             case .cellular:
-                return "Cellular"
+                return MeshSetupStrings.ControlPanel.Root.Cellular
             case .ethernet:
-                return "Ethernet"
+                return MeshSetupStrings.ControlPanel.Root.Ethernet
             case .mesh:
-                return "Mesh"
+                return MeshSetupStrings.ControlPanel.Root.Mesh
             case .documentation:
-                return "Documentation"
+                return MeshSetupStrings.ControlPanel.Root.Documentation
             case .unclaim:
-                return "Unclaim Device"
+                return MeshSetupStrings.ControlPanel.Root.UnclaimDevice
 
             case .actionNewWifi:
-                return "Connect to new Wi-Fi network"
+                return MeshSetupStrings.ControlPanel.Wifi.AddNewWifi
             case .actionManageWifi:
-                return "Manage Wi-Fi networks"
+                return MeshSetupStrings.ControlPanel.Wifi.ManageWifi
             case .actionActivateSim:
-                return "Activate SIM card"
+                return MeshSetupStrings.ControlPanel.Cellular.ActivateSim
             case .actionDeactivateSim:
-                return "Deactivate SIM card"
+                return MeshSetupStrings.ControlPanel.Cellular.DeactivateSim
         }
     }
 
@@ -85,7 +85,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
 
     override var customTitle: String {
-        return "Control Panel"
+        return MeshSetupStrings.ControlPanel.Root.Title
     }
 
     override func setStyle() {

@@ -26,7 +26,7 @@ class MeshSetupControlDocumentationViewController: MeshSetupViewController, WKNa
     }
 
     override var customTitle: String {
-        return "Documentation"
+        return MeshSetupStrings.ControlPanel.Documentation.Title
     }
 
     func setup(_ device: ParticleDevice!) {
