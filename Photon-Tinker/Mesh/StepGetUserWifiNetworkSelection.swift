@@ -24,7 +24,7 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendScanWifiNetworks { [weak self, weak context] result, networks in
+        context.targetDevice.transceiver?.sendScanWifiNetworks { [weak self, weak context] result, networks in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
