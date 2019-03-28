@@ -47,7 +47,6 @@ enum MeshSetupFlowState {
     case CreateNetworkCompleted
 
     case SetupCanceled
-    case ControlPanelFlowComplete
 }
 
 //delegate required to request / deliver information from / to the UI
@@ -102,6 +101,7 @@ protocol MeshSetupFlowRunnerDelegate {
     func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep)
     //func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
 
+    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep)
 
     func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo)
     func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState)
@@ -138,6 +138,7 @@ extension MeshSetupFlowRunnerDelegate {
     func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep) { fatalError("Not implemented") }
 
+    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) { fatalError("Not implemented") }
 
     func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo) { fatalError("Not implemented") }
     func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) { fatalError("Not implemented") }

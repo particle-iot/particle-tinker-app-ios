@@ -62,6 +62,19 @@ enum MeshSetupControlPanelCellType {
 
 class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storyboardable, UITableViewDataSource, UITableViewDelegate {
 
+    static var nibName: String {
+        return "MeshSetupControlPanelActionList"
+    }
+
+    override var allowBack: Bool {
+        get {
+            return false
+        }
+        set {
+            super.allowBack = newValue
+        }
+    }
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var additionalViewsToFade: [UIView]?
 
@@ -86,7 +99,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     func setup(device: ParticleDevice, didSelectAction: @escaping (MeshSetupControlPanelCellType) -> ()) {
         self.callback = didSelectAction
 
-        self.allowBack = false
+
         self.device = device
 
         self.prepareContent()

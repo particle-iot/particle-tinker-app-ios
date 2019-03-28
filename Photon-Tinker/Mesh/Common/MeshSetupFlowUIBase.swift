@@ -266,6 +266,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         fatalError("not implemented")
     }
 
+    internal func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
+        fatalError("not implemented")
+    }
+
     //MARK: Firmware update
     internal func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) {
         currentStepType = type(of: sender)

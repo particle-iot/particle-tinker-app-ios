@@ -6,7 +6,14 @@
 import Foundation
 
 class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewController {
-
+    override var allowBack: Bool {
+        get {
+            return true
+        }
+        set {
+            super.allowBack = newValue
+        }
+    }
     override var customTitle: String {
         return "Control Panel"
     }

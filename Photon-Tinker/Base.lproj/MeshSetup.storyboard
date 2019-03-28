@@ -62,7 +62,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ImC-3i-gg4" customClass="UIControl">
-                                <rect key="frame" x="20" y="87" width="280" height="201.5"/>
+                                <rect key="frame" x="20" y="87" width="280" height="192"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVW-YV-nr5">
@@ -102,10 +102,10 @@
                                 <viewLayoutGuide key="safeArea" id="RV6-x1-QSE"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hf4-bB-dke">
-                                <rect key="frame" x="20" y="303.5" width="280" height="20.5"/>
+                                <rect key="frame" x="20" y="294" width="280" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-ns-lzw" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="0.0" width="250" height="20.5"/>
+                                        <rect key="frame" x="30" y="0.0" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2010,76 +2010,6 @@
             </objects>
             <point key="canvasLocation" x="739" y="3899"/>
         </scene>
-        <!--Pair Assisting Device-->
-        <scene sceneID="Rba-HK-gnf">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupControlPanelRootViewController" id="l1u-cv-4eu" customClass="MeshSetupControlPanelRootViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mEc-MY-89Y">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Sc4-rF-2TW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="l1u-cv-4eu" id="cVt-ex-wef"/>
-                                    <outlet property="delegate" destination="l1u-cv-4eu" id="T9e-2i-bQG"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Sc4-rF-2TW" secondAttribute="bottom" id="8kR-ql-Xo1"/>
-                            <constraint firstAttribute="trailing" secondItem="Sc4-rF-2TW" secondAttribute="trailing" id="XQ4-dD-K8J"/>
-                            <constraint firstItem="Sc4-rF-2TW" firstAttribute="leading" secondItem="mEc-MY-89Y" secondAttribute="leading" id="akV-64-Cig"/>
-                            <constraint firstItem="Sc4-rF-2TW" firstAttribute="top" secondItem="mEc-MY-89Y" secondAttribute="top" id="qEn-QD-ats"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="yCc-c0-jJl"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Pair Assisting Device" id="ImT-C5-Ddg"/>
-                    <connections>
-                        <outlet property="tableView" destination="Sc4-rF-2TW" id="LD9-8I-Qm1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ec6-rO-5fp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1815" y="3899"/>
-        </scene>
-        <!--Pair Assisting Device-->
-        <scene sceneID="Fct-2C-Srg">
-            <objects>
-                <viewController storyboardIdentifier="MeshSetupControlPanelWifiViewController" id="Znz-Ch-s8J" customClass="MeshSetupControlPanelWifiViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="D5i-Mx-MAc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="IcE-3C-hLD">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Znz-Ch-s8J" id="9A1-kk-O4q"/>
-                                    <outlet property="delegate" destination="Znz-Ch-s8J" id="Y89-OQ-PWW"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="IcE-3C-hLD" firstAttribute="top" secondItem="D5i-Mx-MAc" secondAttribute="top" id="BGY-p5-uWV"/>
-                            <constraint firstItem="IcE-3C-hLD" firstAttribute="leading" secondItem="D5i-Mx-MAc" secondAttribute="leading" id="EyZ-Ju-X1w"/>
-                            <constraint firstAttribute="bottom" secondItem="IcE-3C-hLD" secondAttribute="bottom" id="RE6-xN-ByH"/>
-                            <constraint firstAttribute="trailing" secondItem="IcE-3C-hLD" secondAttribute="trailing" id="ru5-ex-6No"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Lgd-aw-L8p"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Pair Assisting Device" id="n5o-Wp-haN"/>
-                    <connections>
-                        <outlet property="tableView" destination="IcE-3C-hLD" id="3gL-c3-cM2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XvX-Nt-mo6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2513" y="3899"/>
-        </scene>
         <!--Mesh Setup Control Documentation View Controller-->
         <scene sceneID="Yay-7U-cWb">
             <objects>
@@ -2093,7 +2023,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zuI-vf-9gr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1815" y="4666"/>
+            <point key="canvasLocation" x="1433" y="3899"/>
         </scene>
     </scenes>
     <resources>

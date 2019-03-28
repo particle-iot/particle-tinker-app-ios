@@ -7,18 +7,59 @@ import Foundation
 
 class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
-    fileprivate let addWifiFlow:[MeshSetupStep] = [
+
+
+    fileprivate let actionNewWifiFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepGetUserWifiNetworkSelection(),
-        StepEnsureCorrectSelectedWifiNetworkPassword()
+        StepEnsureCorrectSelectedWifiNetworkPassword(),
+        StepControlPanelFlowCompleted()
     ]
 
-    func addNewWifi() {
-        self.currentFlow = addWifiFlow
+    fileprivate let actionPairMeshFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    fileprivate let actionPairEthernetFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    fileprivate let actionPairCellularFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepControlPanelFlowCompleted()
+    ]
+
+
+    func actionNewWifi() {
+        self.currentFlow = actionNewWifiFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
     }
+
+    func actionPairMesh() {
+        self.currentFlow = actionPairMeshFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
+    func actionPairEthernet() {
+        self.currentFlow = actionPairEthernetFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
+    func actionPairCellular() {
+        self.currentFlow = actionPairCellularFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
 
     override func switchFlow() {
         self.currentFlow = nil
