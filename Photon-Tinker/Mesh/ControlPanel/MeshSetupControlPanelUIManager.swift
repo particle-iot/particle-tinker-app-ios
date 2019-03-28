@@ -76,7 +76,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showDocumentation() {
         DispatchQueue.main.async {
-            let wifiVC = MeshSetupControlDocumentationViewController.loadedViewController()
+            let wifiVC = MeshSetupControlPanelDocumentationViewController.loadedViewController()
             wifiVC.setup(self.device)
             wifiVC.ownerStepType = nil
             self.embededNavigationController.pushViewController(wifiVC, animated: true)

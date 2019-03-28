@@ -2130,7 +2130,7 @@
         <!--Mesh Setup Control Documentation View Controller-->
         <scene sceneID="Yay-7U-cWb">
             <objects>
-                <viewController storyboardIdentifier="MeshSetupControlDocumentationViewController" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wxO-Yg-6bn" customClass="MeshSetupControlDocumentationViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeshSetupControlDocumentationViewController" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wxO-Yg-6bn" customClass="MeshSetupControlPanelDocumentationViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ozt-TV-iCH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

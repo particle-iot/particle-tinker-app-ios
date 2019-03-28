@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class MeshSetupControlDocumentationViewController: MeshSetupViewController, WKNavigationDelegate, Storyboardable {
+class MeshSetupControlPanelDocumentationViewController: MeshSetupViewController, WKNavigationDelegate, Storyboardable {
 
     @IBOutlet weak var webView: WKWebView!
     var url: URL!
