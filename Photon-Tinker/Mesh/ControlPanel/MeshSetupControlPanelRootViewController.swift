@@ -63,6 +63,7 @@ enum MeshSetupControlPanelCellType {
 class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storyboardable, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var additionalViewsToFade: [UIView]?
 
     internal var callback: ((MeshSetupControlPanelCellType) -> ())!
 
@@ -180,6 +181,54 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
+        ParticleSpinner.show(view)
+        fadeContent()
+
         self.callback(cells[indexPath.section][indexPath.row])
+    }
+
+    internal func fadeContent() {
+        self.isBusy = true
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.tableView.alpha = 0.5
+
+            if let additionalViewsToFade = self.additionalViewsToFade {
+                for childView in additionalViewsToFade {
+                    childView.alpha = 0.5
+                }
+            }
+        }
+    }
+
+    internal func unfadeContent(animated: Bool) {
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.tableView.alpha = 1
+
+                if let additionalViewsToFade = self.additionalViewsToFade {
+                    for childView in additionalViewsToFade {
+                        childView.alpha = 1
+                    }
+                }
+            }
+        } else {
+            self.tableView.alpha = 1
+
+            if let additionalViewsToFade = self.additionalViewsToFade {
+                for childView in additionalViewsToFade {
+                    childView.alpha = 1
+                }
+            }
+
+            self.view.setNeedsDisplay()
+        }
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        ParticleSpinner.hide(view, animated: animated)
+        unfadeContent(animated: true)
+        isBusy = false
     }
 }
