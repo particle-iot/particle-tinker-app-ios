@@ -16,7 +16,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepGetAPINetworks(),
         StepEnsureTargetDeviceCanBeClaimed(),
         StepEnsureTargetDeviceIsNotOnMeshNetwork(),
-        SetClaimCode(),
+        StepSetClaimCode(),
         StepCheckTargetDeviceHasNetworkInterfaces(),
     ]
 
