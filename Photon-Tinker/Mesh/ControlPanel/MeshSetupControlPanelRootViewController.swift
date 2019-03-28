@@ -66,8 +66,8 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
     internal var callback: ((MeshSetupControlPanelCellType) -> ())!
 
-    private var device: ParticleDevice!
-    private var cells: [[MeshSetupControlPanelCellType]]!
+    internal var device: ParticleDevice!
+    internal var cells: [[MeshSetupControlPanelCellType]]!
 
 
     override var customTitle: String {
@@ -92,7 +92,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     }
 
 
-    private func prepareContent() {
+    internal func prepareContent() {
         cells = []
 
         switch device.type {
@@ -144,18 +144,18 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
         var cell:MeshCell! = nil
 
-        if image != nil {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicIconCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-
-            cell.accessoryView = nil
-            cell.accessoryType = .disclosureIndicator
-        } else if (cellType == .unclaim) {
+        if (cellType == .unclaim) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.RedTextColor)
 
             cell.accessoryView = nil
             cell.accessoryType = .none
+        } else if image != nil {
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicIconCell") as! MeshCell
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            cell.accessoryView = nil
+            cell.accessoryType = .disclosureIndicator
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)

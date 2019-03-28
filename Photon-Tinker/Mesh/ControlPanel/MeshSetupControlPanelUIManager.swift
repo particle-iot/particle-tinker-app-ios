@@ -104,15 +104,23 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelWifiViewController.self)) {
                 let wifiVC = MeshSetupControlPanelWifiViewController.loadedViewController()
-                wifiVC.setup(device: self.device, didSelectTo: self.controlPanelWifiViewCompleted)
+                wifiVC.setup(device: self.device, didSelectAction: self.controlPanelWifiViewCompleted)
                 wifiVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(wifiVC, animated: true)
             }
         }
     }
 
-    func controlPanelWifiViewCompleted() {
-        self.controlPanelManager.addNewWifi()
+    func controlPanelWifiViewCompleted(action: MeshSetupControlPanelCellType) {
+        switch action {
+            case .actionNewWifi:
+                break
+            case .actionManageWifi:
+                break
+
+            default:
+                fatalError("cellType \(action) should never be returned")
+        }
     }
 
 

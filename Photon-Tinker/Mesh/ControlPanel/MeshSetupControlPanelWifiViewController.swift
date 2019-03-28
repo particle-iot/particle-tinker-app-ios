@@ -5,21 +5,14 @@
 
 import Foundation
 
-class MeshSetupControlPanelWifiViewController : MeshSetupViewController, Storyboardable, UITableViewDataSource, UITableViewDelegate {
+class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-
-    internal var callback: (() -> ())!
-
-    private var device: ParticleDevice!
     override var customTitle: String {
-        return "Wi-fi"
+        return "Control Panel"
     }
 
-    func setup(device: ParticleDevice, didSelectTo: @escaping () -> ()) {
-        self.callback = didSelectTo
-
-        self.device = device
+    override func prepareContent() {
+        cells = [[.actionNewWifi, .actionManageWifi]]
     }
 
     override func viewDidLoad() {
@@ -29,50 +22,11 @@ class MeshSetupControlPanelWifiViewController : MeshSetupViewController, Storybo
         tableView.dataSource = self
 
         tableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
+        tableView.register(UINib.init(nibName: "MeshSetupBasicIconCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicIconCell")
+        tableView.register(UINib.init(nibName: "MeshSetupButtonCell", bundle: nil), forCellReuseIdentifier: "MeshSetupButtonCell")
     }
 
-    override func setStyle() {
-
-    }
-
-    override func setContent() {
-
-    }
-
-    @IBAction func scanButtonTapped(_ sender: Any) {
-        callback()
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return 1
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:MeshCell! = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
-
-        cell.cellTitleLabel.text = "Join New Network"
-        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-
-        let cellHighlight = UIView()
-        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
-        cell.selectedBackgroundView = cellHighlight
-
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-
-        cell.accessoryView = nil
-        cell.accessoryType = .disclosureIndicator
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        self.callback()
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 }
