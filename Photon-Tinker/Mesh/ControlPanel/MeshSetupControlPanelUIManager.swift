@@ -111,6 +111,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     private func showControlPanelWifiView() {
+        self.currentAction = .wifi
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelWifiViewController.self)) {
                 let wifiVC = MeshSetupControlPanelWifiViewController.loadedViewController()
@@ -147,6 +148,23 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
+        showFlowCompleteView()
+
+    }
+
+
+    private func showFlowCompleteView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelFlowCompleteViewController.self)) {
+                let flowCompleteVC = MeshSetupControlPanelFlowCompleteViewController.loadedViewController()
+                flowCompleteVC.setup(didFinishScreen: self.flowCompleteViewCompleted, deviceType: self.device.type, deviceName: self.device.name!, action: self.currentAction!)
+                flowCompleteVC.ownerStepType = nil
+                self.embededNavigationController.pushViewController(flowCompleteVC, animated: true)
+            }
+        }
+    }
+
+    internal func flowCompleteViewCompleted() {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
                 showControlPanelWifiView()
@@ -154,7 +172,6 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 break;
         }
     }
-
 
     override func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {
         self.controlPanelManager.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!)

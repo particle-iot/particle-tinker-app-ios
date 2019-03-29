@@ -51,12 +51,14 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
 
         textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
         signalLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        signalWarningLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
     }
 
 
     override func setContent() {
-        textLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.Text.replacingOccurrences(of: "{0}", with: "\(device.name!)")
+        textLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.Text
         signalLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.Signal
+        signalWarningLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.SignalWarning
 
 
         initializeVideoPlayerWithVideo(videoFileName: "commissioner_to_listening_mode")

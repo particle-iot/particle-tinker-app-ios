@@ -99,6 +99,15 @@ class MeshSetupStrings {
             static let Signal = "MeshSetup.ControlPanel.PrepareForPairing.Signal".meshLocalized()
             static let SignalWarning = "MeshSetup.ControlPanel.PrepareForPairing.SignalWarning".meshLocalized()
         }
+
+
+        struct FlowComplete {
+            struct AddNewWifi {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text".meshLocalized()
+            }
+
+        }
     }
 
     struct Prompt {
