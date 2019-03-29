@@ -38,6 +38,7 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
 
     func setup(device: ParticleDevice!) {
         self.device = device
+        self.deviceName = device.name!
         self.deviceType = device.type
 
         self.isSOM = (self.deviceType! == ParticleDeviceType.aSeries || self.deviceType! == ParticleDeviceType.bSeries || self.deviceType! == ParticleDeviceType.xSeries)
