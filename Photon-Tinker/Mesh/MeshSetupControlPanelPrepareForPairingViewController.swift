@@ -21,7 +21,8 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
     @IBOutlet weak var videoView: UIControl!
     @IBOutlet weak var signalSwitch: UISwitch!
     @IBOutlet weak var signalLabel: MeshLabel!
-
+    @IBOutlet weak var signalWarningLabel: MeshLabel!
+    
     private var device: ParticleDevice!
 
     override var customTitle: String {

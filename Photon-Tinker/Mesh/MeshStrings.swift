@@ -97,6 +97,7 @@ class MeshSetupStrings {
 
             static let Text = "MeshSetup.ControlPanel.PrepareForPairing.Text".meshLocalized()
             static let Signal = "MeshSetup.ControlPanel.PrepareForPairing.Signal".meshLocalized()
+            static let SignalWarning = "MeshSetup.ControlPanel.PrepareForPairing.SignalWarning".meshLocalized()
         }
     }
 

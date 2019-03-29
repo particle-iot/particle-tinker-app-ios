@@ -60,6 +60,7 @@
 "MeshSetup.ControlPanel.PrepareForPairing.Title" = "Prepare For Pairing";
 "MeshSetup.ControlPanel.PrepareForPairing.Text" = "To proceed app needs to pair to your device. Please put {0} into listening mode.";
 "MeshSetup.ControlPanel.PrepareForPairing.Signal" = "Signal";
+"MeshSetup.ControlPanel.PrepareForPairing.SignalWarning" = "Singal only works for devices breathing cyan";
 
 
 
