@@ -88,6 +88,23 @@ class MeshSetupStrings {
             static let DeactivateSim = "MeshSetup.ControlPanel.Cellular.DeactivateSim".meshLocalized()
         }
 
+        struct Ethernet {
+            static let Title = "MeshSetup.ControlPanel.Ethernet.Title".meshLocalized()
+
+            static let ActivateEthernet = "MeshSetup.ControlPanel.Ethernet.ActivateEthernet".meshLocalized()
+            static let DeactivateEthernet = "MeshSetup.ControlPanel.Ethernet.DeactivateEthernet".meshLocalized()
+        }
+
+        struct Mesh {
+            static let Title = "MeshSetup.ControlPanel.Mesh.Title".meshLocalized()
+
+            static let JoinNetwork = "MeshSetup.ControlPanel.Mesh.JoinNetwork".meshLocalized()
+            static let CreateNetwork = "MeshSetup.ControlPanel.Mesh.CreateNetwork".meshLocalized()
+            static let LeaveNetwork = "MeshSetup.ControlPanel.Mesh.LeaveNetwork".meshLocalized()
+            static let PromoteToGateway = "MeshSetup.ControlPanel.Mesh.PromoteToGateway".meshLocalized()
+            static let DemoteFromGateway = "MeshSetup.ControlPanel.Mesh.DemoteFromGateway".meshLocalized()
+        }
+
         struct Documentation {
             static let Title = "MeshSetup.ControlPanel.Documentation.Title".meshLocalized()
         }

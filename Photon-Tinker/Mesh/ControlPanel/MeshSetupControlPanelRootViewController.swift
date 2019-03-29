@@ -17,6 +17,13 @@ enum MeshSetupControlPanelCellType {
     case actionManageWifi
     case actionActivateSim
     case actionDeactivateSim
+    case actionActivateEthernet
+    case actionDeactivateEthernet
+    case actionJoinNetwork
+    case actionCreateNetwork
+    case actionLeaveNetwork
+    case actionPromoteToGateway
+    case actionDemoteFromGateway
 
     func getCellTitle() -> String {
         switch self {
@@ -41,6 +48,20 @@ enum MeshSetupControlPanelCellType {
                 return MeshSetupStrings.ControlPanel.Cellular.ActivateSim
             case .actionDeactivateSim:
                 return MeshSetupStrings.ControlPanel.Cellular.DeactivateSim
+            case .actionActivateEthernet:
+                return MeshSetupStrings.ControlPanel.Ethernet.ActivateEthernet
+            case .actionDeactivateEthernet:
+                return MeshSetupStrings.ControlPanel.Ethernet.DeactivateEthernet
+            case .actionJoinNetwork:
+                return MeshSetupStrings.ControlPanel.Mesh.JoinNetwork
+            case .actionCreateNetwork:
+                return MeshSetupStrings.ControlPanel.Mesh.CreateNetwork
+            case .actionLeaveNetwork:
+                return MeshSetupStrings.ControlPanel.Mesh.LeaveNetwork
+            case .actionPromoteToGateway:
+                return MeshSetupStrings.ControlPanel.Mesh.PromoteToGateway
+            case .actionDemoteFromGateway:
+                return MeshSetupStrings.ControlPanel.Mesh.DemoteFromGateway
         }
     }
 

@@ -135,6 +135,86 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
+    private func showControlPanelCellularView() {
+        self.currentAction = .cellular
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelCellularViewController.self)) {
+                let cellularVC = MeshSetupControlPanelCellularViewController.loadedViewController()
+                cellularVC.setup(device: self.device, didSelectAction: self.controlPanelCellularViewCompleted)
+                cellularVC.ownerStepType = nil
+                self.embededNavigationController.pushViewController(cellularVC, animated: true)
+            }
+        }
+    }
+
+    func controlPanelCellularViewCompleted(action: MeshSetupControlPanelCellType) {
+        currentAction = action
+        switch action {
+            case .actionActivateSim:
+                break
+            case .actionDeactivateSim:
+                break
+
+            default:
+                fatalError("cellType \(action) should never be returned")
+        }
+    }
+
+    private func showControlPanelMeshView() {
+        self.currentAction = .mesh
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelMeshViewController.self)) {
+                let meshVC = MeshSetupControlPanelMeshViewController.loadedViewController()
+                meshVC.setup(device: self.device, didSelectAction: self.controlPanelMeshViewCompleted)
+                meshVC.ownerStepType = nil
+                self.embededNavigationController.pushViewController(meshVC, animated: true)
+            }
+        }
+    }
+
+    func controlPanelMeshViewCompleted(action: MeshSetupControlPanelCellType) {
+        currentAction = action
+        switch action {
+            case .actionJoinNetwork:
+                break
+            case .actionCreateNetwork:
+                break
+            case .actionLeaveNetwork:
+                break
+            case .actionPromoteToGateway:
+                break
+            case .actionDemoteFromGateway:
+                break
+
+            default:
+                fatalError("cellType \(action) should never be returned")
+        }
+    }
+
+    private func showControlPanelEthernetView() {
+        self.currentAction = .ethernet
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelEthernetViewController.self)) {
+                let ethernetVC = MeshSetupControlPanelEthernetViewController.loadedViewController()
+                ethernetVC.setup(device: self.device, didSelectAction: self.controlPanelEthernetViewCompleted)
+                ethernetVC.ownerStepType = nil
+                self.embededNavigationController.pushViewController(ethernetVC, animated: true)
+            }
+        }
+    }
+
+    func controlPanelEthernetViewCompleted(action: MeshSetupControlPanelCellType) {
+        currentAction = action
+        switch action {
+            case .actionActivateEthernet:
+                break
+            case .actionDeactivateEthernet:
+                break
+
+            default:
+                fatalError("cellType \(action) should never be returned")
+        }
+    }
 
     private func showPrepareForPairingView() {
         DispatchQueue.main.async {
@@ -148,8 +228,18 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
-        showFlowCompleteView()
-
+        switch currentAction! {
+            case .actionNewWifi, .actionManageWifi:
+                showFlowCompleteView()
+            case .mesh:
+                showControlPanelMeshView()
+            case .ethernet:
+                showControlPanelEthernetView()
+            case .cellular:
+                showControlPanelCellularView()
+            default:
+                break;
+        }
     }
 
 
