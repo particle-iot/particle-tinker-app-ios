@@ -124,6 +124,12 @@ class MeshSetupStrings {
                 static let Text = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text".meshLocalized()
             }
 
+            struct ToggleEthernet {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.Title".meshLocalized()
+                static let ActivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.ActivateText".meshLocalized()
+                static let DeactivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText".meshLocalized()
+            }
+
         }
     }
 

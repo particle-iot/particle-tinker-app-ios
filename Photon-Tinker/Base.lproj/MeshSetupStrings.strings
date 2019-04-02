@@ -79,6 +79,11 @@
 "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text" = "Wi-Fi credentials were successfully added to {{deviceName}}";
 
 
+"MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.Title" = "Success";
+"MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.ActivateText" = "Ethernet pins activated";
+"MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText" = "Ethernet pins deactivated";
+
+
 
 
 

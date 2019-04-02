@@ -45,6 +45,12 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
             case .actionNewWifi:
                 self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.AddNewWifi.Title
                 self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.AddNewWifi.Text
+            case .actionActivateEthernet:
+                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.Title
+                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.ActivateText
+            case .actionDeactivateEthernet:
+                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.Title
+                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText
             default:
                 break
         }
