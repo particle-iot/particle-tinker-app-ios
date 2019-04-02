@@ -62,7 +62,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
     //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
-    internal func rewindTo(step: MeshSetupStep.Type) -> MeshSetupFlowError? {
+    internal func rewindTo(step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupFlowError? {
 
         currentStep!.rewindFrom()
 
@@ -76,7 +76,9 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
                 self.currentStepIdx = i
                 self.log("returning to step: \(self.currentStepIdx)")
                 self.currentStep!.rewindTo(context: self.context)
-                self.runCurrentStep()
+                if (runStep) {
+                    self.runCurrentStep()
+                }
 
                 return nil
             }
@@ -391,8 +393,8 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
     //MARK: MeshSetupStepDelegate
-    internal func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep {
-        if let error = self.rewindTo(step: step) {
+    internal func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupStep {
+        if let error = self.rewindTo(step: step, runStep: runStep) {
             fatalError("flow tried to perform illegal back")
         } else {
             return self.currentStep!

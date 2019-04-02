@@ -95,7 +95,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
     }
 
     //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
-    override internal func rewindTo(step: MeshSetupStep.Type) -> MeshSetupFlowError? {
+    override internal func rewindTo(step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupFlowError? {
         currentStep!.rewindFrom()
 
         if (currentStepIdx == 0) {
@@ -117,7 +117,10 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
                 self.currentStepIdx = i
                 self.log("returning to step: \(self.currentStepIdx)")
                 self.currentStep!.rewindTo(context: self.context)
-                self.runCurrentStep()
+                if (runStep) {
+                    self.runCurrentStep()
+
+                }
 
                 return nil
             }

@@ -8,7 +8,7 @@ import CoreBluetooth
 
 protocol MeshSetupStepDelegate {
     func stepCompleted(_ sender: MeshSetupStep)
-    func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type) -> MeshSetupStep
+    func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type, runStep: Bool) -> MeshSetupStep
     func fail(_ sender: MeshSetupStep, withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
