@@ -25,7 +25,8 @@ internal struct MeshSetupDevice {
 
     var firmwareFilesFlashed: Int?
     var firmwareUpdateProgress: Double?
-    var enableEthernetFeature: Bool?
+    var ethernetDetectionFeature: Bool? //set by device
+    var enableEthernetDetectionFeature: Bool? //set by user
 
     var claimCode: String?
     var isClaimed: Bool?

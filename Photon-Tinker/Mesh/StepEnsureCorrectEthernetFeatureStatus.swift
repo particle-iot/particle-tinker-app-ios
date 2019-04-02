@@ -11,10 +11,14 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
             return
         }
 
-        if context.targetDevice.enableEthernetFeature == nil {
+        if context.targetDevice.enableEthernetDetectionFeature == nil {
             context.delegate.meshSetupDidRequestToSelectEthernetStatus(self)
+        } else if context.targetDevice.ethernetDetectionFeature == nil {
+            self.getFeatureFlag()
+        } else if (context.targetDevice.enableEthernetDetectionFeature != context.targetDevice.ethernetDetectionFeature) {
+            self.setCorrectEthernetFeatureStatus()
         } else {
-            self.sendFeatureFlag()
+            self.stepCompleted()
         }
     }
 
@@ -23,13 +27,13 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
             return nil
         }
 
-        context.targetDevice.enableEthernetFeature = useEthernet
+        context.targetDevice.enableEthernetDetectionFeature = useEthernet
         self.start()
 
         return nil
     }
 
-    private func sendFeatureFlag() {
+    private func getFeatureFlag() {
         guard let context = self.context else {
             return
         }
@@ -39,15 +43,12 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
                 return
             }
 
+            context.targetDevice.ethernetDetectionFeature = enabled!
             self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled as Optional)")
-            self.log("self.targetDevice.enableEthernetFeature = \(context.targetDevice.enableEthernetFeature)")
+            self.log("self.targetDevice.enableEthernetFeature = \(context.targetDevice.enableEthernetDetectionFeature)")
 
             if (result == .NONE) {
-                if (context.targetDevice.enableEthernetFeature == enabled) {
-                    self.stepCompleted()
-                } else {
-                    self.setCorrectEthernetFeatureStatus()
-                }
+                self.start()
             } else if (result == .NOT_SUPPORTED) {
                 self.stepCompleted()
             } else {
@@ -62,11 +63,12 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendSetFeature(feature: .ethernetDetection, enabled: context.targetDevice.enableEthernetFeature!) { [weak self, weak context] result  in
+        context.targetDevice.transceiver!.sendSetFeature(feature: .ethernetDetection, enabled: context.targetDevice.enableEthernetDetectionFeature!) { [weak self, weak context] result  in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            context.targetDevice.ethernetDetectionFeature = nil
             self.log("targetDevice.sendSetFeature: \(result.description())")
             if (context.canceled) {
                 return
@@ -80,6 +82,16 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
         }
     }
 
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.targetDevice.enableEthernetDetectionFeature = nil
+        context.targetDevice.ethernetDetectionFeature = nil
+    }
 
     func prepareForTargetDeviceReboot() {
         context?.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
