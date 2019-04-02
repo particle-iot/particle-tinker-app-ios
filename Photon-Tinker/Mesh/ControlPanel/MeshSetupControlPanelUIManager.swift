@@ -33,7 +33,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         self.currentStepType = nil
 
         let rootVC = MeshSetupControlPanelRootViewController.loadedViewController()
-        rootVC.setup(device: self.device, didSelectAction: self.controlPanelRootViewCompleted)
+        rootVC.setup(device: self.device, context: controlPanelManager.context, didSelectAction: self.controlPanelRootViewCompleted)
         rootVC.ownerStepType = nil
         self.embededNavigationController.setViewControllers([rootVC], animated: false)
     }
@@ -43,7 +43,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelRootViewController.self)) {
                 let rootVC = MeshSetupControlPanelRootViewController.loadedViewController()
-                rootVC.setup(device: self.device, didSelectAction: self.controlPanelRootViewCompleted)
+                rootVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelRootViewCompleted)
                 rootVC.ownerStepType = nil
                 self.embededNavigationController.setViewControllers([rootVC], animated: true)
             }
@@ -115,7 +115,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelWifiViewController.self)) {
                 let wifiVC = MeshSetupControlPanelWifiViewController.loadedViewController()
-                wifiVC.setup(device: self.device, didSelectAction: self.controlPanelWifiViewCompleted)
+                wifiVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelWifiViewCompleted)
                 wifiVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(wifiVC, animated: true)
             }
@@ -140,7 +140,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelCellularViewController.self)) {
                 let cellularVC = MeshSetupControlPanelCellularViewController.loadedViewController()
-                cellularVC.setup(device: self.device, didSelectAction: self.controlPanelCellularViewCompleted)
+                cellularVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelCellularViewCompleted)
                 cellularVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(cellularVC, animated: true)
             }
@@ -165,7 +165,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelMeshViewController.self)) {
                 let meshVC = MeshSetupControlPanelMeshViewController.loadedViewController()
-                meshVC.setup(device: self.device, didSelectAction: self.controlPanelMeshViewCompleted)
+                meshVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelMeshViewCompleted)
                 meshVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(meshVC, animated: true)
             }
@@ -196,7 +196,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelEthernetViewController.self)) {
                 let ethernetVC = MeshSetupControlPanelEthernetViewController.loadedViewController()
-                ethernetVC.setup(device: self.device, didSelectAction: self.controlPanelEthernetViewCompleted)
+                ethernetVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelEthernetViewCompleted)
                 ethernetVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(ethernetVC, animated: true)
             }
@@ -207,10 +207,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         currentAction = action
         switch action {
             case .actionActivateEthernet:
-                break
+                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = true
+                controlPanelManager.actionToggleEthernetFeature()
             case .actionDeactivateEthernet:
-                break
-
+                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = false
+                controlPanelManager.actionToggleEthernetFeature()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
@@ -229,7 +230,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
         switch currentAction! {
-            case .actionNewWifi, .actionManageWifi:
+            case .actionNewWifi, .actionManageWifi, .actionActivateEthernet, .actionDeactivateEthernet:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
@@ -258,6 +259,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
                 showControlPanelWifiView()
+            case .actionActivateEthernet, .actionDeactivateEthernet:
+                currentAction = .ethernet
+                controlPanelManager.actionPairEthernet()
             default:
                 break;
         }

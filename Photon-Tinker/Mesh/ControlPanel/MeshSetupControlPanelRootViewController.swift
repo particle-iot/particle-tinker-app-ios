@@ -104,6 +104,8 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     internal var device: ParticleDevice!
     internal var cells: [[MeshSetupControlPanelCellType]]!
 
+    internal weak var context: MeshSetupContext!
+
 
     override var customTitle: String {
         return MeshSetupStrings.ControlPanel.Root.Title
@@ -117,10 +119,10 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         //do nothing
     }
 
-    func setup(device: ParticleDevice, didSelectAction: @escaping (MeshSetupControlPanelCellType) -> ()) {
+    func setup(device: ParticleDevice, context: MeshSetupContext!, didSelectAction: @escaping (MeshSetupControlPanelCellType) -> ()) {
         self.callback = didSelectAction
 
-
+        self.context = context
         self.device = device
 
         self.prepareContent()
