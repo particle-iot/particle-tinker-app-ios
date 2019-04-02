@@ -97,7 +97,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .FailedToObtainIpBoron : return "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area."
             case .WrongTargetDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
             case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
-            case .BoronModemError : return "There was an error while accessing modem on your device. Device is now rebooting the modem in attempt to recover. Give it a second and try again. If this error persists try rebooting your device manually and restart the setup."
+            case .BoronModemError : return "There was an error in accessing the modem on the device. The modem is now being rebooted in an attempt to recover. Wait a few seconds and then try again. If the error persists, try resetting the device manually by tapping the RESET button, and restart the setup process."
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."
