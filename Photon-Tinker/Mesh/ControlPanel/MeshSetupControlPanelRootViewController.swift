@@ -223,6 +223,15 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         self.callback(cells[indexPath.section][indexPath.row])
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if (isBusy) {
+            ParticleSpinner.hide(view, animated: false)
+            ParticleSpinner.show(view)
+        }
+    }
+
     internal func fadeContent() {
         self.isBusy = true
         UIView.animate(withDuration: 0.25) { () -> Void in
