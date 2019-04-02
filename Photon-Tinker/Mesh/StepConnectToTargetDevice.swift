@@ -28,7 +28,9 @@ class StepConnectToTargetDevice: MeshSetupStep {
             self.log("connecting to device: \(context.targetDevice.credentials!)")
 
             context.bluetoothManager.createConnection(with: context.targetDevice.credentials!)
-            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnecting)
+            if (!self.reconnectAfterForcedReboot) {
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnecting)
+            }
         } else {
             self.stepCompleted()
         }
@@ -89,7 +91,9 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnected)
+        if (!self.reconnectAfterForcedReboot) {
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnected)
+        }
 
         return true
     }
@@ -100,7 +104,9 @@ class StepConnectToTargetDevice: MeshSetupStep {
         }
 
         if (peripheral.name == context.targetDevice.credentials!.name) {
-            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceDiscovered)
+            if (!self.reconnectAfterForcedReboot) {
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceDiscovered)
+            }
         }
 
         return true
@@ -111,7 +117,9 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceReady)
+        if (!self.reconnectAfterForcedReboot) {
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceReady)
+        }
 
         targetDeviceConnected(connection: connection)
 
