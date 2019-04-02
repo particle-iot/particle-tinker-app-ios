@@ -64,7 +64,12 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
 
         initializeVideoPlayerWithVideo(videoFileName: "commissioner_to_listening_mode")
         videoView.addTarget(self, action: #selector(videoViewTapped), for: .touchUpInside)
+
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
+
+
 
     @objc public func videoViewTapped(sender: UIControl) {
         let player = AVPlayer(url: defaultVideoURL)
