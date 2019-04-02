@@ -106,7 +106,7 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
             }
         } else {
             //this will be requested by the setup flow slightly later
-            self.flowRunner.context.targetDevice.enableEthernetFeature = useEthernet
+            self.flowRunner.context.targetDevice.enableEthernetDetectionFeature = useEthernet
 
             //we do this here, because there's a high chance of reconnect in the process and we don't want this screen appearing when we reconnect
             showTargetPairingProcessView()

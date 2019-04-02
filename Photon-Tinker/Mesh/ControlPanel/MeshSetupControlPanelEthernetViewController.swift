@@ -19,7 +19,18 @@ class MeshSetupControlPanelEthernetViewController : MeshSetupControlPanelRootVie
     }
 
     override func prepareContent() {
-        cells = [[.actionActivateEthernet, .actionDeactivateEthernet]]
+        if (context.targetDevice.ethernetDetectionFeature!) {
+            cells = [[.actionDeactivateEthernet]]
+        } else {
+            cells = [[.actionActivateEthernet]]
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.prepareContent()
+        self.tableView.reloadData()
     }
 
     override func viewDidLoad() {

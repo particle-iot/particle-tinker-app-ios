@@ -26,12 +26,20 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionPairEthernetFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepGetEthernetFeatureStatus(),
         StepControlPanelFlowCompleted()
     ]
 
     fileprivate let actionPairCellularFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    fileprivate let actionToggleEthernetFeatureFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepEnsureCorrectEthernetFeatureStatus(),
         StepControlPanelFlowCompleted()
     ]
 
@@ -72,6 +80,12 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
         self.currentFlow = nil
         self.currentStepIdx = 0
+    }
+
+    func actionToggleEthernetFeature() {
+        self.currentFlow = actionToggleEthernetFeatureFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
     }
 }
 
