@@ -46,7 +46,7 @@
 "MeshSetup.ControlPanel.Root.Documentation" = "Documentation";
 "MeshSetup.ControlPanel.Root.UnclaimDevice" = "Unclaim Device";
 
-"MeshSetup.ControlPanel.Wifi.Title" = "";
+"MeshSetup.ControlPanel.Wifi.Title" = "Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.AddNewWifi" = "Connect to new Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.ManageWifi" = "Manage Wi-Fi";
 
