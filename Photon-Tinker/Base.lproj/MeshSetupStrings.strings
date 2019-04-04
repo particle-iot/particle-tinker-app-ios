@@ -15,6 +15,7 @@
 "MeshSetup.Prompt.NoCameraPermissionsText" = "It seems that you declined camera access for Particle app. Please grant camera access permissions in Settings app to continue.";
 "MeshSetup.Prompt.NoCameraTitle" = "Error";
 "MeshSetup.Prompt.NoCameraText" = "Your device does not support scanning data matrices. Please use a device with a camera.";
+"MeshSetup.Prompt.ControlPanelExternalSimNotSupportedText" = "We have detected that you are using external SIM card. Cellular settings are only available for devices with active internal SIM card.";
 
 
 

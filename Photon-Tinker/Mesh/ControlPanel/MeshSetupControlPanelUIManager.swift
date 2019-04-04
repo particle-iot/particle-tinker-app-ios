@@ -301,6 +301,22 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
+    internal func showExternalSim() {
+        DispatchQueue.main.async {
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
+                        message: MeshSetupStrings.Prompt.ControlPanelExternalSimNotSupportedText,
+                        preferredStyle: .alert)
+
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                    (self.embededNavigationController.topViewController as? MeshSetupViewController)?.resume(animated: true)
+                })
+
+                self.present(self.alert!, animated: true)
+            }
+        }
+    }
+
     override func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) {
         super.meshSetupDidEnterState(sender, state: state)
 
@@ -315,14 +331,14 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
 
-
-
-
     override func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
-        if error != .FailedToScanBecauseOfTimeout {
-            super.meshSetupError(sender, error: error, severity: severity, nsError: nsError)
-        } else {
+        if error == .FailedToScanBecauseOfTimeout {
             self.flowRunner.retryLastAction()
+        } else if (error == .ExternalSimNotSupported) {
+            self.controlPanelManager.stopCurrentFlow()
+            self.showExternalSim()
+        } else {
+            super.meshSetupError(sender, error: error, severity: severity, nsError: nsError)
         }
     }
 
