@@ -15,6 +15,8 @@ class StepCheckTargetDeviceHasNetworkInterfaces : MeshSetupStep {
             self.getActiveInternetInterface()
         } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.externalSim == nil) {
             self.getTargetDeviceActiveSim()
+        } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.externalSim == true) {
+            self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal)
         } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.deviceICCID == nil) {
             self.getTargetDeviceICCID()
         } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.simActive == nil) {
@@ -122,11 +124,7 @@ class StepCheckTargetDeviceHasNetworkInterfaces : MeshSetupStep {
 
             if (result == .NONE) {
                 context.targetDevice.externalSim = externalSim!
-                if (externalSim!) {
-                    self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal)
-                } else {
-                    self.start()
-                }
+                self.start()
             } else if (result == .INVALID_STATE) {
                 self.fail(withReason: .BoronModemError)
             } else {
