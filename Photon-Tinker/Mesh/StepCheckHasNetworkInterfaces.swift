@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepCheckTargetDeviceHasNetworkInterfaces : MeshSetupStep {
+class StepCheckHasNetworkInterfaces: MeshSetupStep {
     override func start() {
         guard let context = self.context else {
             return
@@ -166,4 +166,79 @@ class StepCheckTargetDeviceHasNetworkInterfaces : MeshSetupStep {
 
         context.targetDevice.activeInternetInterface = nil
     }
+
+
+
+//    private func switchToInternalSim() {
+//        guard let context = self.context else {
+//            return
+//        }
+//
+//        context.targetDevice.transceiver!.sendSetActiveSim(useExternalSim: false) { [weak self, weak context] result in
+//            guard let self = self, let context = context, !context.canceled else {
+//                return
+//            }
+//
+//            self.log("targetDevice.transceiver!.sendSetActiveSim: \(result.description())")
+//
+//            if (result == .NONE) {
+//                context.targetDevice.externalSim = nil
+//                self.prepareForTargetDeviceReboot()
+//            } else if (result == .INVALID_STATE) {
+//                self.fail(withReason: .BoronModemError)
+//            } else {
+//                self.handleBluetoothErrorResult(result)
+//            }
+//        }
+//    }
+//
+//    func prepareForTargetDeviceReboot() {
+//        context?.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
+//            guard let self = self, let context = context, !context.canceled else {
+//                return
+//            }
+//
+//            self.log("targetDevice.sendSetStartupMode: \(result.description())")
+//
+//            if (result == .NONE) {
+//                self.sendDeviceReset()
+//            } else if (result == .NOT_SUPPORTED) {
+//                self.sendDeviceReset()
+//            } else {
+//                self.handleBluetoothErrorResult(result)
+//            }
+//        }
+//    }
+//
+//    func sendDeviceReset() {
+//        context?.targetDevice.transceiver!.sendSystemReset() { [weak self, weak context] result  in
+//            guard let self = self, let context = context, !context.canceled else {
+//                return
+//            }
+//
+//            self.log("targetDevice.sendSystemReset: \(result.description())")
+//
+//            if (result == .NONE) {
+//                //if all is fine, connection will be dropped and the setup will return few steps in dropped connection handler
+//            } else {
+//                self.handleBluetoothErrorResult(result)
+//            }
+//        }
+//    }
+//
+//    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+//        guard let context = self.context else {
+//            return false
+//        }
+//
+//        self.log("force reconnect to device")
+//
+//        let step = context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self, runStep: false) as! StepConnectToTargetDevice
+//        step.reset()
+//        step.reconnectAfterForcedReboot = true
+//        step.reconnectAfterForcedRebootRetry = 1
+//        step.start()
+//
+//        return true
+//    }
 }

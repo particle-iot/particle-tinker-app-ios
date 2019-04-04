@@ -17,7 +17,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureTargetDeviceCanBeClaimed(),
         StepEnsureTargetDeviceIsNotOnMeshNetwork(),
         StepSetClaimCode(),
-        StepCheckTargetDeviceHasNetworkInterfaces(),
+        StepCheckHasNetworkInterfaces(),
     ]
 
     fileprivate let joinerFlow: [MeshSetupStep] = [
