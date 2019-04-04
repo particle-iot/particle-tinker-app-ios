@@ -138,6 +138,9 @@ class MeshSetupStrings {
         static let CancelSetupTitle = "MeshSetup.Prompt.CancelSetupTitle".meshLocalized()
         static let CancelSetupText = "MeshSetup.Prompt.CancelSetupText".meshLocalized()
 
+
+        static let ControlPanelExternalSimNotSupportedText = "MeshSetup.Prompt.ControlPanelExternalSimNotSupportedText".meshLocalized()
+
         static let LeaveNetworkTitle = "MeshSetup.Prompt.LeaveNetworkTitle".meshLocalized()
         static let LeaveNetworkText = "MeshSetup.Prompt.LeaveNetworkText".meshLocalized()
 

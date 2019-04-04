@@ -57,6 +57,9 @@ protocol MeshSetupFlowRunnerDelegate {
     func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep)
     //func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError?
 
+    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep)
+    //func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError?
+
 
     func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep)
     //func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError?
@@ -112,6 +115,7 @@ protocol MeshSetupFlowRunnerDelegate {
 extension MeshSetupFlowRunnerDelegate {
     func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
 
     func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo) { fatalError("Not implemented") }

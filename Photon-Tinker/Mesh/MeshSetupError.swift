@@ -60,6 +60,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case StickerError
     case NetworkError
     case FailedToActivateSim
+    case FailedToDeactivateSim
     case CCMissing
     case UnableToGetPricingInformation
     case UnableToPublishDeviceSetupEvent
@@ -89,7 +90,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
                 //unproofread
             case .CriticalFlowError : return "There was a problem with the setup. Please contact support with the latest device log to help us fix it as soon as possible."
             case .SimBelongsToOtherAccount : return "The SIM you are trying to interact with is owned by a different user account."
-            case .ExternalSimNotSupported : return "We have detected that you are using external sim card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
+            case .ExternalSimNotSupported : return "We have detected that you are using external SIM card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
             case .StickerError : return "There is a problem with the sticker on your device. Please contact support for a solution."
             case .NetworkError : return "There was a network error communicating to Particle Device Cloud."
             case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
@@ -112,6 +113,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .NameTooShort : return "Your device name cannot be empty."
                 //user facing errors
             case .FailedToActivateSim : return "SIM activation is taking longer than expected. Please retry your SIM activation. If you have retried multiple times, please contact support."
+            case .FailedToDeactivateSim : return "SIM deactivation is taking longer than expected. Please retry your SIM deactivation. If you have retried multiple times, please contact support."
             case .CCMissing : return "You need to add a credit card to your account to continue. Please visit https://console.particle.io/billing/edit-card to add a card and return here when you're done."
             case .UnableToGetPricingInformation : return "There was an error while retrieving pricing information. Please try again."
             case .UnableToGetSimStatus : return "There was an error while reading internal SIM card status. Please try again."

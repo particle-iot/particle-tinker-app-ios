@@ -151,9 +151,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         currentAction = action
         switch action {
             case .actionActivateSim:
-                break
+                controlPanelManager.context.targetDevice.setSimActive = true
+                controlPanelManager.actionActivateSIM()
             case .actionDeactivateSim:
-                break
+                controlPanelManager.context.targetDevice.setSimActive = false
+                controlPanelManager.actionDeactivateSIM()
 
             default:
                 fatalError("cellType \(action) should never be returned")
@@ -230,7 +232,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
         switch currentAction! {
-            case .actionNewWifi, .actionManageWifi, .actionActivateEthernet, .actionDeactivateEthernet:
+            case .actionNewWifi, .actionManageWifi, .actionActivateEthernet, .actionDeactivateEthernet, .actionDeactivateSim, .actionActivateSim:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
@@ -259,6 +261,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
                 showControlPanelWifiView()
+            case .actionDeactivateSim, .actionActivateSim:
+                currentAction = .cellular
+                controlPanelManager.actionPairCellular()
             case .actionActivateEthernet, .actionDeactivateEthernet:
                 currentAction = .ethernet
                 controlPanelManager.actionPairEthernet()

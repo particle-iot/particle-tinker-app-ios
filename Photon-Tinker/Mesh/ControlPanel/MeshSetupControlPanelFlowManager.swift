@@ -17,11 +17,23 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepControlPanelFlowCompleted()
     ]
 
+    func actionNewWifi() {
+        self.currentFlow = actionNewWifiFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
     fileprivate let actionPairMeshFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepControlPanelFlowCompleted()
     ]
+
+    func actionPairMesh() {
+        self.currentFlow = actionPairMeshFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
 
     fileprivate let actionPairEthernetFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
@@ -30,11 +42,24 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepControlPanelFlowCompleted()
     ]
 
+    func actionPairEthernet() {
+        self.currentFlow = actionPairEthernetFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
     fileprivate let actionPairCellularFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepCheckHasNetworkInterfaces(),
         StepControlPanelFlowCompleted()
     ]
+
+    func actionPairCellular() {
+        self.currentFlow = actionPairCellularFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
 
     fileprivate let actionToggleEthernetFeatureFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
@@ -43,27 +68,38 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepControlPanelFlowCompleted()
     ]
 
-
-    func actionNewWifi() {
-        self.currentFlow = actionNewWifiFlow
+    func actionToggleEthernetFeature() {
+        self.currentFlow = actionToggleEthernetFeatureFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
     }
 
-    func actionPairMesh() {
-        self.currentFlow = actionPairMeshFlow
+
+
+    fileprivate let actionDeactivateSIMFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepEnsureCorrectSimState(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionDeactivateSIM() {
+        self.currentFlow = actionDeactivateSIMFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
     }
 
-    func actionPairEthernet() {
-        self.currentFlow = actionPairEthernetFlow
-        self.currentStepIdx = 0
-        self.runCurrentStep()
-    }
 
-    func actionPairCellular() {
-        self.currentFlow = actionPairCellularFlow
+
+    fileprivate let actionActivateSIMFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepEnsureCorrectSimState(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionActivateSIM() {
+        self.currentFlow = actionActivateSIMFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
     }
@@ -75,6 +111,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
     func stopCurrentFlow() {
+        self.context.canceled = false
+
         self.currentStep?.reset()
         self.currentStep?.context = nil
 
@@ -82,10 +120,6 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.currentStepIdx = 0
     }
 
-    func actionToggleEthernetFeature() {
-        self.currentFlow = actionToggleEthernetFeatureFlow
-        self.currentStepIdx = 0
-        self.runCurrentStep()
-    }
+
 }
 

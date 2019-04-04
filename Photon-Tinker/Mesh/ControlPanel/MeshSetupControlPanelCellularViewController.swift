@@ -19,7 +19,18 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
     }
 
     override func prepareContent() {
-        cells = [[.actionActivateSim, .actionDeactivateSim]]
+        if (context.targetDevice.simActive!) {
+            cells = [[.actionDeactivateSim]]
+        } else {
+            cells = [[.actionActivateSim]]
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.prepareContent()
+        self.tableView.reloadData()
     }
 
     override func viewDidLoad() {

@@ -18,6 +18,13 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
         return MeshSetupStrings.ControlPanel.Mesh.Title
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.prepareContent()
+        self.tableView.reloadData()
+    }
+
     override func prepareContent() {
         cells = [[.actionJoinNetwork, .actionLeaveNetwork, .actionCreateNetwork, .actionPromoteToGateway, .actionDemoteFromGateway]]
     }

@@ -150,6 +150,14 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepEnsureCorrectEthernetFeatureStatus)?.setTargetUseEthernet(useEthernet: useEthernet)
     }
 
+    func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError? {
+        guard let currentStep = currentStep, type(of: currentStep) == StepEnsureCorrectSimState.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as? StepEnsureCorrectSimState)?.setTargetSimStatus(simActive: simActive)
+    }
+
 
 
     func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
