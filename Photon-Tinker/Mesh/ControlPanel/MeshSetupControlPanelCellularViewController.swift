@@ -20,9 +20,9 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
 
     override func prepareContent() {
         if (context.targetDevice.sim!.active!) {
-            cells = [[.actionDeactivateSim]]
+            cells = [[.actionDeactivateSim, .actionChangeDataLimit]]
         } else {
-            cells = [[.actionActivateSim]]
+            cells = [[.actionActivateSim, .actionChangeDataLimit]]
         }
     }
 

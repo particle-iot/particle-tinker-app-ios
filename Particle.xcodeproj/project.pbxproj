@@ -63,6 +63,7 @@
 		931C37E4215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */; };
 		931C37F8215AAAE70014811C /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37F9215AAB2E0014811C /* Storyboardable.swift */; };
+		9348298D225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */; };
 		93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93522313216CFD4600CF8A69 /* wifi_new.pb.swift */; };
 		93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */; };
 		937EE24E224BF686004E58E8 /* MeshSetupButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937EE24B224BF686004E58E8 /* MeshSetupButtonCell.xib */; };
@@ -294,6 +295,7 @@
 		931C37C6215AA4300014811C /* MeshSetupBluetoothConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionManager.swift; sourceTree = "<group>"; };
 		931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionHandshakeManager.swift; sourceTree = "<group>"; };
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
+		9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupHorizontalDetailCell.xib; sourceTree = "<group>"; };
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
 		93522316216CFD4600CF8A69 /* wifi_new.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_new.proto; sourceTree = "<group>"; };
 		93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupControlPanelActionList.xib; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */,
 				93D36EB8216CD3C20088000C /* MeshSetupSubtitleCell.xib */,
 				93D36EBA216CD3DF0088000C /* MeshSetupBasicCell.xib */,
+				9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */,
 				C810B144D6FEAB8614A35CFB /* MeshSetupWifiNetworkCell.xib */,
 			);
 			path = Cells;
@@ -1060,6 +1063,7 @@
 				93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */,
 				93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */,
 				93D36EB9216CD3C20088000C /* MeshSetupSubtitleCell.xib in Resources */,
+				9348298D225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib in Resources */,
 				93C7C9E22208A15100ABEE85 /* b_power_on.mov in Resources */,
 				C810B18620497AAC8EF99E79 /* MeshSetupInfoView.xib in Resources */,
 				93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */,

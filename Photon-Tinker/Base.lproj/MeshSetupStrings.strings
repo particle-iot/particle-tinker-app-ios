@@ -52,18 +52,20 @@
 "MeshSetup.ControlPanel.Wifi.ManageWifi" = "Manage Wi-Fi";
 
 "MeshSetup.ControlPanel.Cellular.Title" = "Cellular";
-"MeshSetup.ControlPanel.Cellular.ActivateSim" = "Activate SIM";
-"MeshSetup.ControlPanel.Cellular.DeactivateSim" = "Deactivate SIM";
+"MeshSetup.ControlPanel.Cellular.ActivateSim" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.DeactivateSim" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.ChangeDataLimit" = "Data Limit";
 
 
 "MeshSetup.ControlPanel.Ethernet.Title" = "Ethernet";
-"MeshSetup.ControlPanel.Ethernet.ActivateEthernet" = "Activate ethernet pins";
-"MeshSetup.ControlPanel.Ethernet.DeactivateEthernet" = "Deactivate ethernet pins";
+"MeshSetup.ControlPanel.Ethernet.ActivateEthernet" = "Ethernet Pins";
+"MeshSetup.ControlPanel.Ethernet.DeactivateEthernet" = "Ethernet Pins";
 
 "MeshSetup.ControlPanel.Mesh.Title" = "Mesh";
 "MeshSetup.ControlPanel.Mesh.JoinNetwork" = "Join network";
 "MeshSetup.ControlPanel.Mesh.CreateNetwork" = "Create network";
 "MeshSetup.ControlPanel.Mesh.LeaveNetwork" = "Leave network";
+"MeshSetup.ControlPanel.Mesh.NetworkInfo" = "Network Info";
 "MeshSetup.ControlPanel.Mesh.PromoteToGateway" = "Promote to gateway";
 "MeshSetup.ControlPanel.Mesh.DemoteFromGateway" = "Demote from gateway";
 

@@ -15,15 +15,20 @@ enum MeshSetupControlPanelCellType {
 
     case actionNewWifi
     case actionManageWifi
+
     case actionActivateSim
     case actionDeactivateSim
+    case actionChangeDataLimit
+
     case actionActivateEthernet
     case actionDeactivateEthernet
+
     case actionJoinNetwork
     case actionCreateNetwork
     case actionLeaveNetwork
     case actionPromoteToGateway
     case actionDemoteFromGateway
+    case actionMeshNetworkInfo
 
     func getCellTitle() -> String {
         switch self {
@@ -44,14 +49,20 @@ enum MeshSetupControlPanelCellType {
                 return MeshSetupStrings.ControlPanel.Wifi.AddNewWifi
             case .actionManageWifi:
                 return MeshSetupStrings.ControlPanel.Wifi.ManageWifi
+
             case .actionActivateSim:
                 return MeshSetupStrings.ControlPanel.Cellular.ActivateSim
             case .actionDeactivateSim:
                 return MeshSetupStrings.ControlPanel.Cellular.DeactivateSim
+            case .actionChangeDataLimit:
+                return MeshSetupStrings.ControlPanel.Cellular.ChangeDataLimit
+
+
             case .actionActivateEthernet:
                 return MeshSetupStrings.ControlPanel.Ethernet.ActivateEthernet
             case .actionDeactivateEthernet:
                 return MeshSetupStrings.ControlPanel.Ethernet.DeactivateEthernet
+
             case .actionJoinNetwork:
                 return MeshSetupStrings.ControlPanel.Mesh.JoinNetwork
             case .actionCreateNetwork:
@@ -62,6 +73,27 @@ enum MeshSetupControlPanelCellType {
                 return MeshSetupStrings.ControlPanel.Mesh.PromoteToGateway
             case .actionDemoteFromGateway:
                 return MeshSetupStrings.ControlPanel.Mesh.DemoteFromGateway
+            case .actionMeshNetworkInfo:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkInfo
+        }
+    }
+
+    func getCellDetails(context: MeshSetupContext) -> String? {
+        switch self {
+            case .actionActivateSim:
+                return "Inactive"
+            case .actionDeactivateSim:
+                return "Active"
+            case .actionActivateEthernet:
+                return "Inactive"
+            case .actionDeactivateEthernet:
+                return "Active"
+            case .actionChangeDataLimit:
+                return "\(context.targetDevice.sim!.mbLimit!) MB"
+            case .actionMeshNetworkInfo:
+                return context.targetDevice.meshNetworkInfo!.name
+            default:
+                return nil
         }
     }
 
@@ -156,6 +188,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         tableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
         tableView.register(UINib.init(nibName: "MeshSetupBasicIconCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicIconCell")
         tableView.register(UINib.init(nibName: "MeshSetupButtonCell", bundle: nil), forCellReuseIdentifier: "MeshSetupButtonCell")
+        tableView.register(UINib.init(nibName: "MeshSetupHorizontalDetailCell", bundle: nil), forCellReuseIdentifier: "MeshSetupHorizontalDetailCell")
     }
 
 
@@ -178,6 +211,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType = cells[indexPath.section][indexPath.row]
         let image = cellType.getIcon()
+        let detail = cellType.getCellDetails(context: self.context)
 
         var cell:MeshCell! = nil
 
@@ -192,6 +226,15 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
 
             cell.accessoryView = nil
+            cell.accessoryType = .disclosureIndicator
+        } else if detail != nil {
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupHorizontalDetailCell") as! MeshCell
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+            cell.cellDetailLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.SecondaryTextColor)
+            cell.cellDetailLabel.text = detail
+
+            cell.accessoryView = nil
+
             cell.accessoryType = .disclosureIndicator
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell

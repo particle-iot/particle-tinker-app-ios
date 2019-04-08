@@ -86,6 +86,7 @@ class MeshSetupStrings {
 
             static let ActivateSim = "MeshSetup.ControlPanel.Cellular.ActivateSim".meshLocalized()
             static let DeactivateSim = "MeshSetup.ControlPanel.Cellular.DeactivateSim".meshLocalized()
+            static let ChangeDataLimit = "MeshSetup.ControlPanel.Cellular.ChangeDataLimit".meshLocalized()
         }
 
         struct Ethernet {
@@ -103,6 +104,7 @@ class MeshSetupStrings {
             static let LeaveNetwork = "MeshSetup.ControlPanel.Mesh.LeaveNetwork".meshLocalized()
             static let PromoteToGateway = "MeshSetup.ControlPanel.Mesh.PromoteToGateway".meshLocalized()
             static let DemoteFromGateway = "MeshSetup.ControlPanel.Mesh.DemoteFromGateway".meshLocalized()
+            static let NetworkInfo = "MeshSetup.ControlPanel.Mesh.NetworkInfo".meshLocalized()
         }
 
         struct Documentation {
