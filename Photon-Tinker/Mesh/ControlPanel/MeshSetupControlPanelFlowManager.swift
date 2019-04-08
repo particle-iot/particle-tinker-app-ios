@@ -26,6 +26,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionPairMeshFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepGetMeshNetwork(),
         StepControlPanelFlowCompleted()
     ]
 

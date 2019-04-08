@@ -26,18 +26,13 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
     }
 
     override func prepareContent() {
-        cells = [[.actionJoinNetwork, .actionLeaveNetwork, .actionCreateNetwork, .actionPromoteToGateway, .actionDemoteFromGateway]]
-    }
+        if (self.context.targetDevice.meshNetworkInfo != nil) {
+            cells = [[.actionMeshNetworkInfo]]
+        } else {
+            cells = [[.actionMeshNetworkInfo]]
+        }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        tableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
-        tableView.register(UINib.init(nibName: "MeshSetupBasicIconCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicIconCell")
-        tableView.register(UINib.init(nibName: "MeshSetupButtonCell", bundle: nil), forCellReuseIdentifier: "MeshSetupButtonCell")
+        //cells = [[.actionJoinNetwork, .actionLeaveNetwork, .actionCreateNetwork, .actionPromoteToGateway, .actionDemoteFromGateway]]
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

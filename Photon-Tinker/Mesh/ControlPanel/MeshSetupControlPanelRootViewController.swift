@@ -30,7 +30,7 @@ enum MeshSetupControlPanelCellType {
     case actionDemoteFromGateway
     case actionMeshNetworkInfo
 
-    func getCellTitle() -> String {
+    func getCellTitle(context: MeshSetupContext) -> String {
         switch self {
             case .wifi:
                 return MeshSetupStrings.ControlPanel.Root.Wifi
@@ -81,23 +81,41 @@ enum MeshSetupControlPanelCellType {
     func getCellDetails(context: MeshSetupContext) -> String? {
         switch self {
             case .actionActivateSim:
-                return "Inactive"
+                return "Deactivated"
             case .actionDeactivateSim:
                 return "Active"
             case .actionActivateEthernet:
-                return "Inactive"
+                return "Enabled"
             case .actionDeactivateEthernet:
-                return "Active"
+                return "Disabled"
             case .actionChangeDataLimit:
                 return "\(context.targetDevice.sim!.mbLimit!) MB"
             case .actionMeshNetworkInfo:
-                return context.targetDevice.meshNetworkInfo!.name
+                if let network = context.targetDevice.meshNetworkInfo {
+                    return network.name
+                } else {
+                    return ""
+                    //return MeshSetupStrings.ControlPanel.Mesh.NoNetworkInfo
+                }
             default:
                 return nil
         }
     }
 
-    func getIcon() -> UIImage? {
+    func getCellEnabled(context: MeshSetupContext) -> Bool {
+        switch self {
+            case .actionMeshNetworkInfo:
+                if let network = context.targetDevice.meshNetworkInfo {
+                    return true
+                } else {
+                    return false
+                }
+            default:
+                return true
+        }
+    }
+
+    func getIcon(context: MeshSetupContext) -> UIImage? {
         switch self {
             case .wifi:
                 return UIImage(named: "MeshSetupWifiIcon")
@@ -109,6 +127,21 @@ enum MeshSetupControlPanelCellType {
                 return UIImage(named: "MeshSetupMeshIcon")
             default:
                 return nil
+        }
+    }
+
+    func getDisclosureIndicator(context: MeshSetupContext) -> UITableViewCell.AccessoryType {
+        switch self {
+            case .unclaim:
+                return .none
+            case .actionMeshNetworkInfo:
+                if let network = context.targetDevice.meshNetworkInfo {
+                    return .disclosureIndicator
+                } else {
+                    return .none
+                }
+            default:
+                return .disclosureIndicator
         }
     }
 }
@@ -210,51 +243,41 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType = cells[indexPath.section][indexPath.row]
-        let image = cellType.getIcon()
+        let image = cellType.getIcon(context: self.context)
         let detail = cellType.getCellDetails(context: self.context)
+        let enabled = cellType.getCellEnabled(context: self.context)
+        let accessoryType = cellType.getDisclosureIndicator(context: self.context)
 
         var cell:MeshCell! = nil
 
         if (cellType == .unclaim) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.RedTextColor)
-
-            cell.accessoryView = nil
-            cell.accessoryType = .none
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: enabled ? MeshSetupStyle.RedTextColor : MeshSetupStyle.SecondaryTextColor)
         } else if image != nil {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicIconCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-
-            cell.accessoryView = nil
-            cell.accessoryType = .disclosureIndicator
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.SecondaryTextColor)
         } else if detail != nil {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupHorizontalDetailCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.SecondaryTextColor)
+
             cell.cellDetailLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.SecondaryTextColor)
             cell.cellDetailLabel.text = detail
-
-            cell.accessoryView = nil
-
-            cell.accessoryType = .disclosureIndicator
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-
-            cell.accessoryView = nil
-            cell.accessoryType = .disclosureIndicator
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.SecondaryTextColor)
         }
 
-        cell.cellTitleLabel.text = cellType.getCellTitle()
+        cell.accessoryType = accessoryType
+        cell.cellTitleLabel.text = cellType.getCellTitle(context: self.context)
         cell.cellIconImageView?.image = image
 
-        let cellHighlight = UIView()
-        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
-        cell.selectedBackgroundView = cellHighlight
-
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        let cellType = cells[indexPath.section][indexPath.row]
+
+        return cellType.getCellEnabled(context: self.context)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

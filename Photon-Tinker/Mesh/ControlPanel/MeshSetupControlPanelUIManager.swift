@@ -177,6 +177,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     func controlPanelMeshViewCompleted(action: MeshSetupControlPanelCellType) {
         currentAction = action
         switch action {
+            case .actionMeshNetworkInfo:
+                showMeshNetworkInfo()
             case .actionJoinNetwork:
                 break
             case .actionCreateNetwork:
@@ -190,6 +192,18 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
             default:
                 fatalError("cellType \(action) should never be returned")
+        }
+    }
+
+    private func showMeshNetworkInfo() {
+        self.currentAction = .mesh
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelMeshNetworkInfoViewController.self)) {
+                let meshVC = MeshSetupControlPanelMeshNetworkInfoViewController.loadedViewController()
+                meshVC.setup(device: self.device, context: self.controlPanelManager.context)
+                meshVC.ownerStepType = nil
+                self.embededNavigationController.pushViewController(meshVC, animated: true)
+            }
         }
     }
 

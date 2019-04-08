@@ -105,6 +105,13 @@ class MeshSetupStrings {
             static let PromoteToGateway = "MeshSetup.ControlPanel.Mesh.PromoteToGateway".meshLocalized()
             static let DemoteFromGateway = "MeshSetup.ControlPanel.Mesh.DemoteFromGateway".meshLocalized()
             static let NetworkInfo = "MeshSetup.ControlPanel.Mesh.NetworkInfo".meshLocalized()
+            static let NoNetworkInfo = "MeshSetup.ControlPanel.Mesh.NoNetworkInfo".meshLocalized()
+
+            static let NetworkName = "MeshSetup.ControlPanel.Mesh.NetworkName".meshLocalized()
+            static let NetworkID = "MeshSetup.ControlPanel.Mesh.NetworkID".meshLocalized()
+            static let NetworkExtPanID = "MeshSetup.ControlPanel.Mesh.NetworkExtPanID".meshLocalized()
+            static let NetworkPanID = "MeshSetup.ControlPanel.Mesh.NetworkPanID".meshLocalized()
+            static let NetworkChannel = "MeshSetup.ControlPanel.Mesh.NetworkChannel".meshLocalized()
         }
 
         struct Documentation {

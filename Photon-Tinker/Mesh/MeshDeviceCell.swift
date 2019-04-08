@@ -15,7 +15,16 @@ class MeshCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        let cellHighlight = UIView()
+        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
+        self.selectedBackgroundView = cellHighlight
+
+        self.preservesSuperviewLayoutMargins = false
+        self.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
     }
+
+
 
 
 }

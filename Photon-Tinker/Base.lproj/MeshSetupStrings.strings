@@ -66,6 +66,14 @@
 "MeshSetup.ControlPanel.Mesh.CreateNetwork" = "Create network";
 "MeshSetup.ControlPanel.Mesh.LeaveNetwork" = "Leave network";
 "MeshSetup.ControlPanel.Mesh.NetworkInfo" = "Network Info";
+"MeshSetup.ControlPanel.Mesh.NoNetworkInfo" = "No Network";
+
+"MeshSetup.ControlPanel.Mesh.NetworkName" = "Name";
+"MeshSetup.ControlPanel.Mesh.NetworkID" = "ID";
+"MeshSetup.ControlPanel.Mesh.NetworkExtPanID" = "ExtPanID";
+"MeshSetup.ControlPanel.Mesh.NetworkPanID" = "PanID";
+"MeshSetup.ControlPanel.Mesh.NetworkChannel" = "Channel";
+
 "MeshSetup.ControlPanel.Mesh.PromoteToGateway" = "Promote to gateway";
 "MeshSetup.ControlPanel.Mesh.DemoteFromGateway" = "Demote from gateway";
 
