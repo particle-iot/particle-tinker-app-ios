@@ -139,6 +139,7 @@
 		C810B3A0E822F793B440371A /* StepGetTargetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B262CE82C2AFC9F4EB07 /* StepGetTargetInfo.swift */; };
 		C810B3FD9C729A78A9F7A5D6 /* MeshSetupSelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD14B6CD42737D656BCF /* MeshSetupSelectNetworkViewController.swift */; };
 		C810B425D07A5B3FDB527A53 /* MeshSetupControlPanelCellularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD51550B8E86543C8C99 /* MeshSetupControlPanelCellularViewController.swift */; };
+		C810B429138BE4FC38D3FC39 /* StepGetMeshNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2F167CCE7B313A3BE42 /* StepGetMeshNetwork.swift */; };
 		C810B4B201CD28D2E270311B /* MeshSetupFlowUIBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B586044EE7A4F224FAC6 /* MeshSetupFlowUIBase.swift */; };
 		C810B4CBC467113423756515 /* StepEnsureHasInternetAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B809E348B315EFE80390 /* StepEnsureHasInternetAccess.swift */; };
 		C810B4CEC61E209B7F646D60 /* StepJoinSelectedNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B73014CF2413F6DE6758 /* StepJoinSelectedNetwork.swift */; };
@@ -156,6 +157,7 @@
 		C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */; };
 		C810B7925D1EF72386572B80 /* MeshSetupFindStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2A47DC32CB492A6373C /* MeshSetupFindStickerViewController.swift */; };
 		C810B7CE9FF217578D3B8102 /* MeshSetupGetReadyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B173069803AA58B69A40 /* MeshSetupGetReadyViewController.swift */; };
+		C810B81CDA1F47E9101D6883 /* MeshSetupControlPanelMeshNetworkInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B12F7A576C365EDAAE55 /* MeshSetupControlPanelMeshNetworkInfoViewController.swift */; };
 		C810B83ECC677C1D4DADCB31 /* MeshSetupFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7B441DD098BA83CDFC4 /* MeshSetupFlowManager.swift */; };
 		C810B8CAFDD632F1B0E587C4 /* MeshSetupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2A2C9E4F1B4BC7B9BC6 /* MeshSetupInfoViewController.swift */; };
 		C810B8D2FDB12D382EB86A80 /* MeshSetupFlowRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */; };
@@ -356,6 +358,7 @@
 		C810B0F312CB28F6DDA7E0B6 /* StepGetCommissionerDeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetCommissionerDeviceInfo.swift; sourceTree = "<group>"; };
 		C810B1051F4F3D5B0D2E5B93 /* MeshSetupSelectWifiNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupSelectWifiNetworkViewController.swift; sourceTree = "<group>"; };
 		C810B11B8E62C933BAABB5C3 /* StepEnsureCorrectEthernetFeatureStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCorrectEthernetFeatureStatus.swift; sourceTree = "<group>"; };
+		C810B12F7A576C365EDAAE55 /* MeshSetupControlPanelMeshNetworkInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelMeshNetworkInfoViewController.swift; path = ControlPanel/MeshSetupControlPanelMeshNetworkInfoViewController.swift; sourceTree = "<group>"; };
 		C810B144D6FEAB8614A35CFB /* MeshSetupWifiNetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupWifiNetworkCell.xib; sourceTree = "<group>"; };
 		C810B173069803AA58B69A40 /* MeshSetupGetReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetReadyViewController.swift; sourceTree = "<group>"; };
 		C810B17C87748CB6AB16A8A1 /* MeshSetupJoiningNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupJoiningNetworkViewController.swift; sourceTree = "<group>"; };
@@ -366,6 +369,7 @@
 		C810B2A47DC32CB492A6373C /* MeshSetupFindStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFindStickerViewController.swift; sourceTree = "<group>"; };
 		C810B2B10A73EA8F616E79FA /* StepMakeTargetACommissioner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepMakeTargetACommissioner.swift; sourceTree = "<group>"; };
 		C810B2DF1B1869489DD02643 /* MeshSetupNameDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNameDeviceViewController.swift; sourceTree = "<group>"; };
+		C810B2F167CCE7B313A3BE42 /* StepGetMeshNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetMeshNetwork.swift; sourceTree = "<group>"; };
 		C810B32155C0434B05042B32 /* StepShowInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepShowInfo.swift; sourceTree = "<group>"; };
 		C810B36D5E3D92C9FE831ACE /* MeshSetupDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupDevice.swift; sourceTree = "<group>"; };
 		C810B3914BC74CDD5D162BF8 /* MeshSetupControlPanelFlowCompleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupControlPanelFlowCompleteViewController.swift; sourceTree = "<group>"; };
@@ -825,6 +829,7 @@
 				C810BD51550B8E86543C8C99 /* MeshSetupControlPanelCellularViewController.swift */,
 				C810BA450B897C6AC4793625 /* MeshSetupControlPanelEthernetViewController.swift */,
 				C810B8FD09B7EE71A655564A /* MeshSetupControlPanelMeshViewController.swift */,
+				C810B12F7A576C365EDAAE55 /* MeshSetupControlPanelMeshNetworkInfoViewController.swift */,
 			);
 			name = ControlPanel;
 			sourceTree = "<group>";
@@ -899,6 +904,7 @@
 				C810B07EAB45C6C865E5FE08 /* StepControlPanelFlowCompleted.swift */,
 				C810B732B625EFDC289D0BB6 /* StepGetEthernetFeatureStatus.swift */,
 				C810BF15DD9491959B0E186C /* StepEnsureCorrectSimState.swift */,
+				C810B2F167CCE7B313A3BE42 /* StepGetMeshNetwork.swift */,
 			);
 			name = Steps;
 			path = "Photon-Tinker/Mesh";
@@ -1321,6 +1327,8 @@
 				C810B25507C9DE8A28DBEB77 /* StepGetEthernetFeatureStatus.swift in Sources */,
 				C810BDA3464764900E879125 /* StepEnsureCorrectSimState.swift in Sources */,
 				C810B0AEEA4C1DDD97225639 /* MeshSetupControlPanelMeshViewController.swift in Sources */,
+				C810B429138BE4FC38D3FC39 /* StepGetMeshNetwork.swift in Sources */,
+				C810B81CDA1F47E9101D6883 /* MeshSetupControlPanelMeshNetworkInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
