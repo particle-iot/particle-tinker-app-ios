@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepCheckDeviceGotClaimed : MeshSetupStep {
+class StepEnsureGotClaimed: MeshSetupStep {
     private var checkTargetDeviceGotConnectedStartTime: Date?
     private var checkTargetDeviceGotClaimedStartTime: Date?
     private var isConnected: Bool = false

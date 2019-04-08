@@ -14,8 +14,8 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureCorrectEthernetFeatureStatus(),
         StepEnsureLatestFirmware(),
         StepGetAPINetworks(),
-        StepEnsureTargetDeviceCanBeClaimed(),
-        StepEnsureTargetDeviceIsNotOnMeshNetwork(),
+        StepEnsureCanBeClaimed(),
+        StepEnsureNotOnMeshNetwork(),
         StepSetClaimCode(),
         StepCheckHasNetworkInterfaces(),
     ]
@@ -29,7 +29,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureCorrectSelectedNetworkPassword(),
         StepJoinSelectedNetwork(),
         StepFinishJoinSelectedNetwork(),
-        StepCheckDeviceGotClaimed(),
+        StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent(),
         StepGetNewDeviceName(),
         StepOfferToAddOneMoreDevice()
@@ -46,7 +46,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepShowPricingImpact(),
         StepShowInfo(),
         StepEnsureHasInternetAccess(),
-        StepCheckDeviceGotClaimed(),
+        StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent()
     ]
 
@@ -56,7 +56,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
         StepEnsureHasInternetAccess(),
-        StepCheckDeviceGotClaimed(),
+        StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent()
     ]
 
@@ -64,7 +64,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepShowPricingImpact(),
         StepShowInfo(),
         StepEnsureHasInternetAccess(),
-        StepCheckDeviceGotClaimed(),
+        StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent()
     ]
 

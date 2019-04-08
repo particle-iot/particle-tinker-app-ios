@@ -169,11 +169,11 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
     func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError? {
-        guard let currentStep = currentStep, type(of: currentStep) == StepEnsureTargetDeviceIsNotOnMeshNetwork.self else {
+        guard let currentStep = currentStep, type(of: currentStep) == StepEnsureNotOnMeshNetwork.self else {
             return .IllegalOperation
         }
 
-        return (currentStep as? StepEnsureTargetDeviceIsNotOnMeshNetwork)?.setTargetDeviceLeaveNetwork(leave: leave)
+        return (currentStep as? StepEnsureNotOnMeshNetwork)?.setTargetDeviceLeaveNetwork(leave: leave)
     }
 
 

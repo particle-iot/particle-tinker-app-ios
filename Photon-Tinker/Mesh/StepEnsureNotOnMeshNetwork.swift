@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureTargetDeviceIsNotOnMeshNetwork : MeshSetupStep {
+class StepEnsureNotOnMeshNetwork: MeshSetupStep {
     private var meshNetworkInfoLoaded = false
     private var leftNetworkOnAPI = false
     private var leftNetworkOnDevice = false
