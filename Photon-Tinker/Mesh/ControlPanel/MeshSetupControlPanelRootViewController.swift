@@ -81,13 +81,13 @@ enum MeshSetupControlPanelCellType {
     func getCellDetails(context: MeshSetupContext) -> String? {
         switch self {
             case .actionActivateSim:
-                return "Deactivated"
+                return context.targetDevice.sim!.active! ? "Active" : "Inactive"
             case .actionDeactivateSim:
-                return "Active"
+                return context.targetDevice.sim!.active! ? "Active" : "Inactive"
             case .actionActivateEthernet:
-                return "Enabled"
+                return context.targetDevice.ethernetDetectionFeature! ? "Enabled" : "Disabled"
             case .actionDeactivateEthernet:
-                return "Disabled"
+                return context.targetDevice.ethernetDetectionFeature! ? "Enabled" : "Disabled"
             case .actionChangeDataLimit:
                 return "\(context.targetDevice.sim!.mbLimit!) MB"
             case .actionMeshNetworkInfo:
