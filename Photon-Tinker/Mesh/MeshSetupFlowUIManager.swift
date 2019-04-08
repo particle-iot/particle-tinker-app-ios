@@ -214,7 +214,7 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
                         if (!self.rewindTo(MeshSetupCellularInfoViewController.self)) {
                             let cellularInfoVC = MeshSetupCellularInfoViewController.loadedViewController()
                             cellularInfoVC.ownerStepType = self.currentStepType
-                            cellularInfoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: userSelectedToSetupMesh, simActive: self.flowRunner.context.targetDevice.simActive ?? false, deviceType: self.flowRunner.context.targetDevice.type!)
+                            cellularInfoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: userSelectedToSetupMesh, simActive: self.flowRunner.context.targetDevice.sim?.active ?? false, deviceType: self.flowRunner.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(cellularInfoVC, animated: true)
                         }
                     }

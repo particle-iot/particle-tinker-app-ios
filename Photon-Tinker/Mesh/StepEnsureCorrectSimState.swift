@@ -17,9 +17,11 @@ class StepEnsureCorrectSimState: MeshSetupStep {
 
         if context.targetDevice.setSimActive == nil {
             context.delegate.meshSetupDidRequestToSelectSimStatus(self)
-        } else if context.targetDevice.simActive == nil {
+        } else if context.targetDevice.sim!.active == nil {
             self.getSimInfo()
-        } else if (context.targetDevice.simActive != context.targetDevice.setSimActive) {
+        } else if context.targetDevice.sim!.status == nil {
+            self.getSimStatus()
+        } else if (context.targetDevice.sim!.active != context.targetDevice.setSimActive) {
             self.setCorrectSimStatus()
         } else {
             self.stepCompleted()
@@ -42,12 +44,35 @@ class StepEnsureCorrectSimState: MeshSetupStep {
         self.checkSimActiveRetryCount = 0
     }
 
+    private func getSimStatus() {
+        guard let context = self.context else {
+            return
+        }
+
+
+        ParticleCloud.sharedInstance().getSim(context.targetDevice.sim!.iccid!) { [weak self, weak context] simInfo, error in
+            guard let self = self, let context = context, !context.canceled else {
+                return
+            }
+
+            self.log("simInfo: \(simInfo), error: \(error)")
+
+            if (error == nil) {
+                context.targetDevice.sim!.status = simInfo!.status
+                context.targetDevice.sim!.mbLimit = Int(simInfo!.mbLimit)
+                self.start()
+            } else {
+                self.fail(withReason: .UnableToGetSimStatus)
+            }
+        }
+    }
+
     private func getSimInfo() {
         guard let context = self.context else {
             return
         }
 
-        ParticleCloud.sharedInstance().checkSim(context.targetDevice.deviceICCID!) { [weak self, weak context] simStatus, error in
+        ParticleCloud.sharedInstance().checkSim(context.targetDevice.sim!.iccid!) { [weak self, weak context] simStatus, error in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -63,11 +88,11 @@ class StepEnsureCorrectSimState: MeshSetupStep {
                     self.fail(withReason: .UnableToGetSimStatus, nsError: error)
                 }
             } else {
-                if simStatus == ParticleSimStatus.OK {
-                    context.targetDevice.simActive = false
+                if simStatus == ParticleSimStatus.inactive {
+                    context.targetDevice.sim!.active = false
                     self.start()
-                } else if simStatus == ParticleSimStatus.activated || simStatus == ParticleSimStatus.activatedFree {
-                    context.targetDevice.simActive = true
+                } else if simStatus == ParticleSimStatus.active {
+                    context.targetDevice.sim!.active = true
                     self.start()
                 } else {
                     self.fail(withReason: .UnableToGetSimStatus)
@@ -93,7 +118,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
         self.checkSimActiveRetryCount += 1
 
 
-        ParticleCloud.sharedInstance().updateSim(context.targetDevice.deviceICCID!, action: context.targetDevice.setSimActive! ? ParticleUpdateSimAction.activate : ParticleUpdateSimAction.deactivate, dataLimit: nil, countryCode: nil, cardToken: nil) {
+        ParticleCloud.sharedInstance().updateSim(context.targetDevice.sim!.iccid!, action: context.targetDevice.setSimActive! ? ParticleUpdateSimAction.activate : ParticleUpdateSimAction.deactivate, dataLimit: nil, countryCode: nil, cardToken: nil) {
             [weak self, weak context] error in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -115,7 +140,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
                 }
                 return
             } else {
-                context.targetDevice.simActive = context.targetDevice.setSimActive
+                context.targetDevice.sim!.active = context.targetDevice.setSimActive
                 self.start()
             }
         }

@@ -13,14 +13,18 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
 
         if (context.targetDevice.activeInternetInterface == nil) {
             self.getActiveInternetInterface()
-        } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.externalSim == nil) {
+        } else if (context.targetDevice.sim == nil) {
+            self.stepCompleted()
+        } else if (context.targetDevice.sim!.isExternal == nil) {
             self.getTargetDeviceActiveSim()
-        } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.externalSim == true) {
+        } else if (context.targetDevice.sim!.isExternal == true) {
             self.fail(withReason: .ExternalSimNotSupported, severity: .Fatal)
-        } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.deviceICCID == nil) {
+        } else if (context.targetDevice.sim!.iccid == nil) {
             self.getTargetDeviceICCID()
-        } else if (context.targetDevice.activeInternetInterface! == .ppp && context.targetDevice.simActive == nil) {
+        } else if (context.targetDevice.sim!.active == nil) {
             self.getSimInfo()
+        } else if (context.targetDevice.sim!.status == nil) {
+            self.getSimStatus()
         } else {
             self.stepCompleted()
         }
@@ -63,10 +67,16 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
                     }
                 }
 
-                if (context.targetDevice.activeInternetInterface == nil) {
-                    self.stepCompleted()
-                } else {
+                if let interface = context.targetDevice.activeInternetInterface {
+                    if (interface == .ppp) {
+                        context.targetDevice.sim = MeshSetupSim()
+                    } else {
+                        context.targetDevice.sim = nil
+                    }
                     self.start()
+                } else {
+                    context.targetDevice.sim = nil
+                    self.stepCompleted()
                 }
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -74,13 +84,35 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
         }
     }
 
+    private func getSimStatus() {
+        guard let context = self.context else {
+            return
+        }
+
+
+        ParticleCloud.sharedInstance().getSim(context.targetDevice.sim!.iccid!) { [weak self, weak context] simInfo, error in
+            guard let self = self, let context = context, !context.canceled else {
+                return
+            }
+
+            self.log("simInfo: \(simInfo), error: \(error)")
+
+            if (error == nil) {
+                context.targetDevice.sim!.status = simInfo!.status
+                context.targetDevice.sim!.mbLimit = Int(simInfo!.mbLimit)
+                self.start()
+            } else {
+                self.fail(withReason: .UnableToGetSimStatus)
+            }
+        }
+    }
 
     private func getSimInfo() {
         guard let context = self.context else {
             return
         }
 
-        ParticleCloud.sharedInstance().checkSim(context.targetDevice.deviceICCID!) { [weak self, weak context] simStatus, error in
+        ParticleCloud.sharedInstance().checkSim(context.targetDevice.sim!.iccid!) { [weak self, weak context] simStatus, error in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -96,11 +128,11 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
                     self.fail(withReason: .UnableToGetSimStatus, nsError: error)
                 }
             } else {
-                if simStatus == ParticleSimStatus.OK {
-                    context.targetDevice.simActive = false
+                if simStatus == ParticleSimStatus.inactive {
+                    context.targetDevice.sim!.active = false
                     self.start()
-                } else if simStatus == ParticleSimStatus.activated || simStatus == ParticleSimStatus.activatedFree {
-                    context.targetDevice.simActive = true
+                } else if simStatus == ParticleSimStatus.active {
+                    context.targetDevice.sim!.active = true
                     self.start()
                 } else {
                     self.fail(withReason: .UnableToGetSimStatus)
@@ -108,6 +140,8 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             }
         }
     }
+
+
 
     private func getTargetDeviceActiveSim() {
         guard let context = self.context else {
@@ -123,7 +157,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             self.log("targetDevice.transceiver!.sendGetActiveSim: \(result.description()), externalSim: \(externalSim as Optional)")
 
             if (result == .NONE) {
-                context.targetDevice.externalSim = externalSim!
+                context.targetDevice.sim!.isExternal = externalSim!
                 self.start()
             } else if (result == .INVALID_STATE) {
                 self.fail(withReason: .BoronModemError)
@@ -147,7 +181,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
 
             if (result == .NONE) {
-                context.targetDevice.deviceICCID = iccid!
+                context.targetDevice.sim!.iccid = iccid!
                 self.start()
             } else if (result == .INVALID_STATE) {
                 self.fail(withReason: .BoronModemError)
@@ -165,6 +199,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
         }
 
         context.targetDevice.activeInternetInterface = nil
+        context.targetDevice.sim = nil
     }
 
 

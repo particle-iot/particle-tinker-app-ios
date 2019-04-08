@@ -8,10 +8,10 @@ import Foundation
 internal struct MeshSetupDevice {
     var type: ParticleDeviceType?
     var deviceId: String?
-    var deviceICCID: String?
-    var externalSim: Bool?
+
+    var sim: MeshSetupSim?
     var setSimActive: Bool? //set by user
-    var simActive: Bool? //set by device
+
     var credentials: MeshSetupPeripheralCredentials?
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
 
@@ -70,6 +70,14 @@ internal struct MeshSetupDevice {
     }
 }
 
+
+internal struct MeshSetupSim {
+    var isExternal: Bool?
+    var iccid: String?
+    var active: Bool?
+    var mbLimit: Int?
+    var status: ParticleSimDetailedStatus?
+}
 
 internal struct MeshSetupPeripheralCredentials {
     var name: String
