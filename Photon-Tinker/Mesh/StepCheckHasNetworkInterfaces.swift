@@ -99,7 +99,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
 
             if (error == nil) {
                 context.targetDevice.sim!.status = simInfo!.status
-                context.targetDevice.sim!.mbLimit = Int(simInfo!.mbLimit)
+                context.targetDevice.sim!.dataLimit = Int(simInfo!.mbLimit)
                 self.start()
             } else {
                 self.fail(withReason: .UnableToGetSimStatus)

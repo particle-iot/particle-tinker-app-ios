@@ -75,7 +75,7 @@ internal struct MeshSetupSim {
     var isExternal: Bool?
     var iccid: String?
     var active: Bool?
-    var mbLimit: Int?
+    var dataLimit: Int?
     var status: ParticleSimDetailedStatus?
 }
 

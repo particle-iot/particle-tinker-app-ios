@@ -89,7 +89,7 @@ enum MeshSetupControlPanelCellType {
             case .actionDeactivateEthernet:
                 return context.targetDevice.ethernetDetectionFeature! ? "Enabled" : "Disabled"
             case .actionChangeDataLimit:
-                return "\(context.targetDevice.sim!.mbLimit!) MB"
+                return "\(context.targetDevice.sim!.dataLimit!) MB"
             case .actionMeshNetworkInfo:
                 if let network = context.targetDevice.meshNetworkInfo {
                     return network.name
