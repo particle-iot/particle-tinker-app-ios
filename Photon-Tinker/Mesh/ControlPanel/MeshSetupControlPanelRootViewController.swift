@@ -263,6 +263,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.SecondaryTextColor)
         }
 
+        cell.tintColor = MeshSetupStyle.SecondaryTextColor
         cell.accessoryType = accessoryType
         cell.cellTitleLabel.text = cellType.getCellTitle(context: self.context)
         cell.cellIconImageView?.image = image

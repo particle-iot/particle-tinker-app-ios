@@ -19,9 +19,9 @@ class StepGetMeshNetwork: MeshSetupStep {
             return
         }
 
-        if (!meshNetworkInfoLoaded) {
+        if (context.targetDevice.meshNetworkInfo == nil && !meshNetworkInfoLoaded) {
             self.getTargetDeviceMeshNetworkInfo()
-        } else if (!apiNetworksLoaded) {
+        } else if (context.apiNetworks == nil && !apiNetworksLoaded) {
             self.getAPINetworks()
         } else {
             self.stepCompleted()
