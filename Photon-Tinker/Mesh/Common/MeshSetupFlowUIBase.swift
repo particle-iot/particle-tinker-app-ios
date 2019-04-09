@@ -246,6 +246,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         fatalError("not implemented")
     }
 
+    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) {
+        fatalError("not implemented")
+    }
+
     internal func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep) {
         fatalError("not implemented")
     }
