@@ -87,6 +87,13 @@ class MeshSetupStrings {
             static let ActivateSim = "MeshSetup.ControlPanel.Cellular.ActivateSim".meshLocalized()
             static let DeactivateSim = "MeshSetup.ControlPanel.Cellular.DeactivateSim".meshLocalized()
             static let ChangeDataLimit = "MeshSetup.ControlPanel.Cellular.ChangeDataLimit".meshLocalized()
+
+            struct DataLimit {
+                static let Title = "MeshSetup.ControlPanel.Cellular.DataLimit.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.Cellular.DataLimit.Text".meshLocalized()
+                static let DataLimitValue = "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue".meshLocalized()
+                static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton".meshLocalized()
+            }
         }
 
         struct Ethernet {
@@ -131,6 +138,11 @@ class MeshSetupStrings {
             struct AddNewWifi {
                 static let Title = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Title".meshLocalized()
                 static let Text = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text".meshLocalized()
+            }
+
+            struct ChangeDataLimit {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Text".meshLocalized()
             }
 
             struct ToggleEthernet {

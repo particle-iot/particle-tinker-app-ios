@@ -18,6 +18,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private var device: ParticleDevice!
 
+
+
     func setDevice(_ device: ParticleDevice) {
         self.device = device
         self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
@@ -156,7 +158,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionDeactivateSim:
                 controlPanelManager.context.targetDevice.setSimActive = false
                 controlPanelManager.actionDeactivateSIM()
-
+            case .actionChangeDataLimit:
+                controlPanelManager.actionChangeDataLimit()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
@@ -246,7 +249,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
         switch currentAction! {
-            case .actionNewWifi, .actionManageWifi, .actionActivateEthernet, .actionDeactivateEthernet, .actionDeactivateSim, .actionActivateSim:
+            case .actionNewWifi, .actionManageWifi,
+                 .actionActivateEthernet, .actionDeactivateEthernet,
+                 .actionDeactivateSim, .actionActivateSim, .actionChangeDataLimit:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
@@ -275,7 +280,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
                 showControlPanelWifiView()
-            case .actionDeactivateSim, .actionActivateSim:
+            case .actionDeactivateSim, .actionActivateSim, .actionChangeDataLimit:
                 currentAction = .cellular
                 controlPanelManager.actionPairCellular()
             case .actionActivateEthernet, .actionDeactivateEthernet:
@@ -284,6 +289,26 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             default:
                 break;
         }
+    }
+
+    override func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
+        self.currentStepType = type(of: sender)
+        showSimDataLimitView()
+    }
+
+    private func showSimDataLimitView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelSimDataLimitViewController.self)) {
+                let dataLimitVC = MeshSetupControlPanelSimDataLimitViewController.loadedViewController()
+                dataLimitVC.setup(currentLimit: self.controlPanelManager.context.targetDevice.sim!.dataLimit!, callback: self.simDataLimitViewCompleted)
+                dataLimitVC.ownerStepType = self.currentStepType
+                self.embededNavigationController.pushViewController(dataLimitVC, animated: true)
+            }
+        }
+    }
+
+    private func simDataLimitViewCompleted(limit: Int) {
+        self.controlPanelManager.setSimDataLimit(dataLimit: limit)
     }
 
     override func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {

@@ -158,6 +158,14 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepEnsureCorrectSimState)?.setTargetSimStatus(simActive: simActive)
     }
 
+    func setSimDataLimit(dataLimit: Int) -> MeshSetupFlowError? {
+        guard let currentStep = currentStep, type(of: currentStep) == StepSetSimDataLimit.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as? StepSetSimDataLimit)?.setSimDataLimit(dataLimit: dataLimit)
+    }
+
 
 
     func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {

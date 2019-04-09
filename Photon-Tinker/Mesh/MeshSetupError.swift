@@ -61,6 +61,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case NetworkError
     case FailedToActivateSim
     case FailedToDeactivateSim
+    case FailedToChangeSimDataLimit
     case CCMissing
     case UnableToGetPricingInformation
     case UnableToPublishDeviceSetupEvent
@@ -99,6 +100,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .WrongTargetDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
             case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
             case .BoronModemError : return "There was an error in accessing the modem on the device. The modem is now being rebooted in an attempt to recover. Wait a few seconds and then try again. If the error persists, try resetting the device manually by tapping the RESET button, and restart the setup process."
+            case .FailedToChangeSimDataLimit : return "There was an error changing data limit for SIM card. If you have retried multiple times, please contact support."
+
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."
@@ -114,6 +117,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
                 //user facing errors
             case .FailedToActivateSim : return "SIM activation is taking longer than expected. Please retry your SIM activation. If you have retried multiple times, please contact support."
             case .FailedToDeactivateSim : return "SIM deactivation is taking longer than expected. Please retry your SIM deactivation. If you have retried multiple times, please contact support."
+
             case .CCMissing : return "You need to add a credit card to your account to continue. Please visit https://console.particle.io/billing/edit-card to add a card and return here when you're done."
             case .UnableToGetPricingInformation : return "There was an error while retrieving pricing information. Please try again."
             case .UnableToGetSimStatus : return "There was an error while reading internal SIM card status. Please try again."

@@ -148,7 +148,7 @@ enum MeshSetupControlPanelCellType {
 
 class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storyboardable, UITableViewDataSource, UITableViewDelegate {
 
-    static var nibName: String {
+    class var nibName: String {
         return "MeshSetupControlPanelActionList"
     }
 

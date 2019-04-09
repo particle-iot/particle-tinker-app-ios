@@ -90,8 +90,6 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
-
-
     fileprivate let actionActivateSIMFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
@@ -101,6 +99,20 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
     func actionActivateSIM() {
         self.currentFlow = actionActivateSIMFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
+
+    fileprivate let actionChangeDataLimitFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepSetSimDataLimit(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionChangeDataLimit() {
+        self.currentFlow = actionChangeDataLimitFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
     }
@@ -120,6 +132,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.currentFlow = nil
         self.currentStepIdx = 0
     }
+
 
 
 }

@@ -59,6 +59,8 @@ protocol MeshSetupFlowRunnerDelegate {
 
     func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep)
     //func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError?
+    func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep)
+    //func setSimDataLimit(dataLimit: Int) -> MeshSetupFlowError?
 
 
     func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep)

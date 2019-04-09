@@ -42,6 +42,9 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
 
     override func setContent() {
         switch action! {
+            case .actionChangeDataLimit:
+                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ChangeDataLimit.Title
+                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ChangeDataLimit.Text
             case .actionNewWifi:
                 self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.AddNewWifi.Title
                 self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.AddNewWifi.Text

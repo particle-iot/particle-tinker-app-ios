@@ -1360,6 +1360,72 @@
             </objects>
             <point key="canvasLocation" x="2168" y="2540"/>
         </scene>
+        <!--Pair Device-->
+        <scene sceneID="Mlc-X2-GHe">
+            <objects>
+                <viewController storyboardIdentifier="MeshSetupControlPanelSimDataLimitViewController" id="BRD-Sd-8VS" customClass="MeshSetupControlPanelSimDataLimitViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TIb-tp-73D">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select data limit" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xu-5a-g9s" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="35" width="280" height="16"/>
+                                <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOy-BG-ATn" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="20" y="420" width="280" height="40"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="zFa-Bd-kmq"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Scan assisting device">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueButtonClicked:" destination="BRD-Sd-8VS" eventType="touchUpInside" id="FVG-SN-3Nz"/>
+                                    <action selector="scanButtonTapped:" destination="xiM-c7-JAk" eventType="touchUpInside" id="8a7-fQ-6EJ"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6hy-3x-OVc">
+                                <rect key="frame" x="0.0" y="71" width="320" height="319"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="EW7-pP-Fvo" firstAttribute="trailing" secondItem="rOy-BG-ATn" secondAttribute="trailing" constant="20" id="05j-3I-pgF"/>
+                            <constraint firstItem="rOy-BG-ATn" firstAttribute="leading" secondItem="EW7-pP-Fvo" secondAttribute="leading" constant="20" id="9fg-XP-Lwc"/>
+                            <constraint firstItem="6hy-3x-OVc" firstAttribute="top" secondItem="9xu-5a-g9s" secondAttribute="bottom" constant="20" id="AnP-Dj-UcE"/>
+                            <constraint firstItem="EW7-pP-Fvo" firstAttribute="trailing" secondItem="9xu-5a-g9s" secondAttribute="trailing" constant="20" id="CX7-Kw-st1"/>
+                            <constraint firstItem="9xu-5a-g9s" firstAttribute="leading" secondItem="EW7-pP-Fvo" secondAttribute="leading" constant="20" id="IOf-wr-YEL"/>
+                            <constraint firstItem="6hy-3x-OVc" firstAttribute="leading" secondItem="EW7-pP-Fvo" secondAttribute="leading" id="Mdm-IM-V20"/>
+                            <constraint firstItem="EW7-pP-Fvo" firstAttribute="bottom" secondItem="rOy-BG-ATn" secondAttribute="bottom" constant="20" id="YGK-Ba-Pmu"/>
+                            <constraint firstItem="9xu-5a-g9s" firstAttribute="top" secondItem="EW7-pP-Fvo" secondAttribute="top" constant="15" id="d0f-JA-ak8"/>
+                            <constraint firstItem="9xu-5a-g9s" firstAttribute="centerX" secondItem="EW7-pP-Fvo" secondAttribute="centerX" id="d30-Jf-2IT"/>
+                            <constraint firstItem="rOy-BG-ATn" firstAttribute="top" secondItem="6hy-3x-OVc" secondAttribute="bottom" constant="30" id="lYc-g7-wZf"/>
+                            <constraint firstItem="EW7-pP-Fvo" firstAttribute="trailing" secondItem="6hy-3x-OVc" secondAttribute="trailing" id="lv7-C0-Bhi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EW7-pP-Fvo"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pair Device" id="BEI-Gm-Z9m">
+                        <barButtonItem key="backBarButtonItem" title=" " id="v6L-cl-M6u"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="continueButton" destination="rOy-BG-ATn" id="MTH-3N-WuR"/>
+                        <outlet property="tableView" destination="6hy-3x-OVc" id="UCf-u0-XbO"/>
+                        <outlet property="textLabel" destination="9xu-5a-g9s" id="iQi-fd-gZX"/>
+                        <outletCollection property="additionalViewsToFade" destination="rOy-BG-ATn" collectionClass="NSMutableArray" id="cyP-Mu-TFh"/>
+                        <outletCollection property="additionalViewsToFade" destination="9xu-5a-g9s" collectionClass="NSMutableArray" id="BGl-xp-bhv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hp6-Tv-Je5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3593" y="3899"/>
+        </scene>
         <!--Mesh Setup Scan Commissioner Sticker View Controller-->
         <scene sceneID="ehK-wz-Abt">
             <objects>
