@@ -61,11 +61,15 @@
 "MeshSetup.ControlPanel.Cellular.DataLimit.Text" = "Service will be paused once your SIM has reached the data limit below:";
 "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue" = "{{0}}MB";
 "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton" = "Set Data Limit";
+"MeshSetup.ControlPanel.Cellular.Active" = "Active";
+"MeshSetup.ControlPanel.Cellular.Inactive" = "Deactivated";
 
 
 "MeshSetup.ControlPanel.Ethernet.Title" = "Ethernet";
 "MeshSetup.ControlPanel.Ethernet.ActivateEthernet" = "Ethernet Pins";
 "MeshSetup.ControlPanel.Ethernet.DeactivateEthernet" = "Ethernet Pins";
+"MeshSetup.ControlPanel.Ethernet.Active" = "Enabled";
+"MeshSetup.ControlPanel.Ethernet.Inactive" = "Disabled";
 
 "MeshSetup.ControlPanel.Mesh.Title" = "Mesh";
 "MeshSetup.ControlPanel.Mesh.JoinNetwork" = "Join network";

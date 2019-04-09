@@ -80,16 +80,12 @@ enum MeshSetupControlPanelCellType {
 
     func getCellDetails(context: MeshSetupContext) -> String? {
         switch self {
-            case .actionActivateSim:
-                return context.targetDevice.sim!.active! ? "Active" : "Inactive"
-            case .actionDeactivateSim:
-                return context.targetDevice.sim!.active! ? "Active" : "Inactive"
-            case .actionActivateEthernet:
-                return context.targetDevice.ethernetDetectionFeature! ? "Enabled" : "Disabled"
-            case .actionDeactivateEthernet:
-                return context.targetDevice.ethernetDetectionFeature! ? "Enabled" : "Disabled"
+            case .actionActivateSim, .actionDeactivateSim:
+                return context.targetDevice.sim!.active! ? MeshSetupStrings.ControlPanel.Cellular.Active : MeshSetupStrings.ControlPanel.Cellular.Inactive
+            case .actionActivateEthernet, .actionDeactivateEthernet:
+                return context.targetDevice.ethernetDetectionFeature! ? MeshSetupStrings.ControlPanel.Ethernet.Active : MeshSetupStrings.ControlPanel.Ethernet.Inactive
             case .actionChangeDataLimit:
-                return "\(context.targetDevice.sim!.dataLimit!) MB"
+                return MeshSetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(context.targetDevice.sim!.dataLimit!))
             case .actionMeshNetworkInfo:
                 if let network = context.targetDevice.meshNetworkInfo {
                     return network.name
