@@ -201,9 +201,9 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
             case .xenon, .xSeries:
                 cells.append([.mesh, .ethernet])
             case .boron, .bSeries:
-                cells.append([.mesh, .ethernet, .cellular])
+                cells.append([.cellular, .mesh, .ethernet])
             case .argon, .aSeries:
-                cells.append([.mesh, .ethernet, .wifi])
+                cells.append([.wifi, .mesh, .ethernet])
             default:
                 break
         }
