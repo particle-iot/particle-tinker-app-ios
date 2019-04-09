@@ -51,6 +51,12 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
             case .actionDeactivateEthernet:
                 self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.Title
                 self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText
+            case .actionActivateSim:
+                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.Title
+                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.ActivateText
+            case .actionDeactivateSim:
+                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.Title
+                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.DeactivateText
             default:
                 break
         }

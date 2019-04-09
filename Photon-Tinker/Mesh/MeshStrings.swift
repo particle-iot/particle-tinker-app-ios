@@ -139,6 +139,12 @@ class MeshSetupStrings {
                 static let DeactivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText".meshLocalized()
             }
 
+            struct ToggleSim {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.ToggleSim.Title".meshLocalized()
+                static let ActivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleSim.ActivateText".meshLocalized()
+                static let DeactivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleSim.DeactivateText".meshLocalized()
+            }
+
         }
     }
 

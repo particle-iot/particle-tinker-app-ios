@@ -94,7 +94,9 @@
 "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.ActivateText" = "Ethernet pins activated";
 "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText" = "Ethernet pins deactivated";
 
-
+"MeshSetup.ControlPanel.FlowComplete.ToggleSim.Title" = "Success";
+"MeshSetup.ControlPanel.FlowComplete.ToggleSim.ActivateText" = "SIM activated";
+"MeshSetup.ControlPanel.FlowComplete.ToggleSim.DeactivateText" = "SIM deactivated";
 
 
 
