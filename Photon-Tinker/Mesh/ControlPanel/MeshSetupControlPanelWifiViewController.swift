@@ -19,7 +19,7 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
     }
 
     override func prepareContent() {
-        cells = [[.actionNewWifi, .actionManageWifi]]
+        cells = [[.actionNewWifi]]//, .actionManageWifi]]
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
