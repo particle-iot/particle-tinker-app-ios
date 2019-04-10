@@ -26,12 +26,16 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
 
-    init(delegate: MeshSetupFlowRunnerDelegate) {
-        self.context = MeshSetupContext()
+    init(delegate: MeshSetupFlowRunnerDelegate, context: MeshSetupContext? = nil) {
+        if (context == nil) {
+            self.context = MeshSetupContext()
+            self.context.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
+        } else {
+            self.context = context!
+        }
 
-        context.delegate = delegate
-        context.stepDelegate = self
-        context.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
+        self.context.delegate = delegate
+        self.context.stepDelegate = self
     }
 
     //MARK: public interface
@@ -182,6 +186,14 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         }
 
         return (currentStep as? StepEnsureNotOnMeshNetwork)?.setTargetDeviceLeaveNetwork(leave: leave)
+    }
+
+    func setSwitchToControlPanel(switchToCP: Bool) -> MeshSetupFlowError? {
+        guard let currentStep = currentStep, type(of: currentStep) == StepOfferToSwitchToControlPanel.self else {
+            return .IllegalOperation
+        }
+
+        return (currentStep as? StepOfferToSwitchToControlPanel)?.setSwitchToControlPanel(switchToCP: switchToCP)
     }
 
 

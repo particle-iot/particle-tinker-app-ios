@@ -181,6 +181,9 @@ class MeshSetupStrings {
         static let NoCameraPermissionsTitle = "MeshSetup.Prompt.NoCameraPermissionsTitle".meshLocalized()
         static let NoCameraPermissionsText = "MeshSetup.Prompt.NoCameraPermissionsText".meshLocalized()
 
+        static let SwitchToControlPanelTitle = "MeshSetup.Prompt.SwitchToControlPanelTitle".meshLocalized()
+        static let SwitchToControlPanelText = "MeshSetup.Prompt.SwitchToControlPanelText".meshLocalized()
+
         static let NoCameraTitle = "MeshSetup.Prompt.NoCameraTitle".meshLocalized()
         static let NoCameraText = "MeshSetup.Prompt.NoCameraText".meshLocalized()
     }
@@ -196,6 +199,8 @@ class MeshSetupStrings {
         static let DontLeaveNetwork = "MeshSetup.Action.DontLeaveNetwork".meshLocalized()
         static let ContactSupport = "MeshSetup.Action.ContactSupport".meshLocalized()
         static let OpenSettings = "MeshSetup.Action.OpenSettings".meshLocalized()
+        static let SwitchToControlPanel = "MeshSetup.Action.SwitchToControlPanel".meshLocalized()
+        static let DontSwitchToControlPanel = "MeshSetup.Action.DontSwitchToControlPanel".meshLocalized()
     }
 
 

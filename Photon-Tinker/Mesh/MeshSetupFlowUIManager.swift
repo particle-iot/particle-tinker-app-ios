@@ -19,7 +19,6 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
 
         self.flowRunner = MeshSetupFlowManager(delegate: self)
         self.meshSetupManager.startSetup()
-
     }
 
     override func setupInitialViewController() {
@@ -140,6 +139,32 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
 
 
 
+    //MARK: switch to control panel
+    override func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice) {
+        currentStepType = type(of: sender)
+
+        DispatchQueue.main.async {
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.SwitchToControlPanelTitle, message: MeshSetupStrings.Prompt.SwitchToControlPanelText, preferredStyle: .alert)
+
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.SwitchToControlPanel, style: .default) { action in
+                    let vc = MeshSetupControlPanelUIManager.loadedViewController()
+                    vc.setDevice(device, context: self.flowRunner.context)
+                    let presentingVC = self.presentingViewController
+                    NSLog("presentingVC = \(presentingVC)")
+                    self.dismiss(animated: true) {
+                        presentingVC?.present(vc, animated: true)
+                    }
+                })
+
+                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.DontSwitchToControlPanel, style: .cancel) { action in
+                    self.flowRunner.setSwitchToControlPanel(switchToCP: false)
+                })
+
+                self.present(self.alert!, animated: true)
+            }
+        }
+    }
 
 
 
@@ -241,8 +266,6 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
     func infoViewCompleted() {
         self.flowRunner.setInfoDone()
     }
-
-
 
 
 

@@ -67,6 +67,8 @@ protocol MeshSetupFlowRunnerDelegate {
     //func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError?
     func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo)
     //func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError?
+    func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice)
+    //func setSwitchToControlPanel(switch: Bool) -> MeshSetupFlowError?
 
 
     //create flow

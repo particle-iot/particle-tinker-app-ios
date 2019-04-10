@@ -262,6 +262,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         fatalError("not implemented")
     }
 
+    internal func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice) {
+        fatalError("not implemented")
+    }
+
     internal func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep) {
         fatalError("not implemented")
     }

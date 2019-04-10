@@ -15,6 +15,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureLatestFirmware(),
         StepGetAPINetworks(),
         StepEnsureCanBeClaimed(),
+        StepOfferToSwitchToControlPanel(),
         StepEnsureNotOnMeshNetwork(),
         StepSetClaimCode(),
         StepCheckHasNetworkInterfaces(),
@@ -176,8 +177,6 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
         self.currentStepIdx = 0
     }
-
-
 
     override func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError? {
         guard type(of: currentStep!) == StepOfferToAddOneMoreDevice.self else {

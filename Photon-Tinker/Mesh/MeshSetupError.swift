@@ -50,6 +50,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToObtainIp
     case FailedToObtainIpBoron
     case FailedToUpdateDeviceOS
+    case FailedToGetDeviceInfo
 
     case InvalidDeviceState
 
@@ -101,6 +102,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
             case .BoronModemError : return "There was an error in accessing the modem on the device. The modem is now being rebooted in an attempt to recover. Wait a few seconds and then try again. If the error persists, try resetting the device manually by tapping the RESET button, and restart the setup process."
             case .FailedToChangeSimDataLimit : return "There was an error changing data limit for SIM card. If you have retried multiple times, please contact support."
+            case .FailedToGetDeviceInfo : return "Unable to get information about the device from Device Cloud."
 
 
                 //these errors are handled instantly

@@ -18,17 +18,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private var device: ParticleDevice!
 
-
-
-    func setDevice(_ device: ParticleDevice) {
+    func setDevice(_ device: ParticleDevice, context: MeshSetupContext? = nil) {
         self.device = device
         self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self)
+        self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self, context: context)
     }
 
     override internal func setupInitialViewController() {
