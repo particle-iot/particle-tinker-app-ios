@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 class StepConnectToTargetDevice: MeshSetupStep {
 
@@ -16,16 +17,23 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return
         }
 
-        if (context.bluetoothManager.state != .Ready) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                self.fail(withReason: .BluetoothDisabled)
+        if (context.targetDevice.transceiver == nil) {
+            if (context.bluetoothManager.state != .Ready) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    self.fail(withReason: .BluetoothDisabled)
+                }
+                return
             }
-            return
-        }
 
-        self.log("connecting to device: \(context.targetDevice.credentials!)")
-        context.bluetoothManager.createConnection(with: context.targetDevice.credentials!)
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnecting)
+            self.log("connecting to device: \(context.targetDevice.credentials!)")
+
+            context.bluetoothManager.createConnection(with: context.targetDevice.credentials!)
+            if (!self.reconnectAfterForcedReboot) {
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnecting)
+            }
+        } else {
+            self.stepCompleted()
+        }
     }
 
     override func reset() {
@@ -33,6 +41,8 @@ class StepConnectToTargetDevice: MeshSetupStep {
 
         self.reconnectAfterForcedReboot = false
         self.reconnectAfterForcedRebootRetry = 0
+
+        self.context?.bluetoothManager.stopScan()
     }
 
     private func targetDeviceConnected(connection: MeshSetupBluetoothConnection) {
@@ -81,7 +91,23 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnected)
+        if (!self.reconnectAfterForcedReboot) {
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnected)
+        }
+
+        return true
+    }
+
+    override func handleBluetoothConnectionManagerPeripheralDiscovered(_ peripheral: CBPeripheral) -> Bool {
+        guard let context = self.context else {
+            return false
+        }
+
+        if (peripheral.name == context.targetDevice.credentials!.name) {
+            if (!self.reconnectAfterForcedReboot) {
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceDiscovered)
+            }
+        }
 
         return true
     }
@@ -91,7 +117,9 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceReady)
+        if (!self.reconnectAfterForcedReboot) {
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceReady)
+        }
 
         targetDeviceConnected(connection: connection)
 

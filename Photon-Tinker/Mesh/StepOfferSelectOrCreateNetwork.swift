@@ -25,7 +25,7 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
     }
 
     func scanNetworks() {
-        context?.targetDevice.transceiver!.sendScanNetworks { [weak self, weak context] result, networks in
+        context?.targetDevice.transceiver?.sendScanNetworks { [weak self, weak context] result, networks in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

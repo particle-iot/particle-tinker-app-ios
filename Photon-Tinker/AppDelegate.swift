@@ -31,7 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LogList.startLogging()
         LogList.clearStaleLogs()
 
-        Fabric.with([Crashlytics.self])
+        #if !DEBUG
+            Fabric.with([Crashlytics.self])
+        #endif
 
 
         let SegmentConfiguration = SEGAnalyticsConfiguration(writeKey: segmentAnalyticsWriteKey)

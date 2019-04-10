@@ -20,7 +20,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             self.setDeviceSetupDone()
         } else if (context.targetDevice.hasActiveInternetInterface() &&
                 context.targetDevice.activeInternetInterface! == .ppp &&
-                context.targetDevice.simActive == nil || context.targetDevice.simActive! == false) {
+                (context.targetDevice.sim!.active == nil || context.targetDevice.sim!.active! == false)) {
             self.activateSim()
         } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == true) {
             self.stopTargetDeviceListening()
@@ -71,7 +71,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
         }
         self.checkSimActiveRetryCount += 1
 
-        ParticleCloud.sharedInstance().updateSim(context.targetDevice.deviceICCID!, action: .activate, dataLimit: nil, countryCode: nil, cardToken: nil) {
+        ParticleCloud.sharedInstance().updateSim(context.targetDevice.sim!.iccid!, action: .activate, dataLimit: nil, countryCode: nil, cardToken: nil) {
             [weak self, weak context] error in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -89,7 +89,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
                 self.fail(withReason: .FailedToActivateSim, nsError: error!)
                 return
             } else {
-                context.targetDevice.simActive = true
+                context.targetDevice.sim!.active = true
                 context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
                 self.start()
             }
@@ -130,12 +130,12 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
         let diff = Date().timeIntervalSince(self.checkDeviceHasIPStartTime!)
 
         //simActive is going to be not nil only if cellular flow
-        let limit = (context.targetDevice.simActive != nil) ? MeshSetup.deviceObtainedIPCellularTimeout : MeshSetup.deviceObtainedIPTimeout
+        let limit = (context.targetDevice.sim!.active != nil) ? MeshSetup.deviceObtainedIPCellularTimeout : MeshSetup.deviceObtainedIPTimeout
 
         if (diff > limit) {
             self.checkDeviceHasIPStartTime = nil
 
-            if (context.targetDevice.simActive != nil) {
+            if (context.targetDevice.sim?.active != nil) {
                 self.fail(withReason: .FailedToObtainIpBoron)
             } else {
                 self.fail(withReason: .FailedToObtainIp)
@@ -178,7 +178,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             return
         }
 
-        context.targetDevice.simActive = nil
+        context.targetDevice.sim?.active = nil
         context.targetDevice.hasInternetAddress = nil
     }
 }

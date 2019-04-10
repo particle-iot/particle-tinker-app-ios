@@ -39,7 +39,7 @@ class StepCreateNetwork : MeshSetupStep {
 
         ParticleCloud.sharedInstance().createNetwork(context.newNetworkName!,
                 gatewayDeviceID: context.targetDevice.deviceId!,
-                gatewayDeviceICCID: networkType == .microCellular ? context.targetDevice.deviceICCID : nil,
+                gatewayDeviceICCID: networkType == .microCellular ? context.targetDevice.sim?.iccid : nil,
                 networkType: networkType) {
             [weak self, weak context] network, error in
             guard let self = self, let context = context, !context.canceled else {

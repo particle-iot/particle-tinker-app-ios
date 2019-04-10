@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureTargetDeviceCanBeClaimed: MeshSetupStep {
+class StepEnsureCanBeClaimed: MeshSetupStep {
 
     override func start() {
         guard let context = self.context else {

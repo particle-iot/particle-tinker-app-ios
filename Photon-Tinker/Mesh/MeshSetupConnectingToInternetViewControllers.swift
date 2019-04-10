@@ -26,7 +26,7 @@ class MeshSetupConnectingToInternetEthernetViewController: MeshSetupProgressView
         setProgressLabelValues()
     }
 
-    func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: MeshSetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .TargetDeviceConnectingToInternetStarted:
@@ -64,7 +64,7 @@ class MeshSetupConnectingToInternetWifiViewController: MeshSetupProgressViewCont
         setProgressLabelValues()
     }
 
-    func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: MeshSetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .TargetDeviceConnectingToInternetStarted:
@@ -101,7 +101,7 @@ class MeshSetupConnectingToInternetCellularViewController: MeshSetupProgressView
         setProgressLabelValues()
     }
 
-    func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: MeshSetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .TargetDeviceConnectingToInternetStarted:

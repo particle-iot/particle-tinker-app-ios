@@ -353,9 +353,11 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         self.log("force reconnect to device")
 
         if self.isFileFullyFlashed() {
-            let step = context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
+            let step = context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self, runStep: false) as! StepConnectToTargetDevice
+            step.reset()
             step.reconnectAfterForcedReboot = true
             step.reconnectAfterForcedRebootRetry = 1
+            step.start()
 
             return true
         } else {

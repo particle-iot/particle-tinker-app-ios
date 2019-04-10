@@ -23,6 +23,13 @@ class MeshSetupViewController: UIViewController {
     internal var networkName: String?
     internal var deviceName: String?
 
+
+    var customTitle: String {
+        get {
+            return ""
+        }
+    }
+
     var allowBack: Bool = true
     var ownerStepType: MeshSetupStep.Type?
 
@@ -72,11 +79,11 @@ class MeshSetupViewController: UIViewController {
         replacePlaceHolderStrings()
     }
 
-    open func setStyle() {
+    func setStyle() {
         fatalError("Not implemented")
     }
 
-    open func setContent() {
+    func setContent() {
         fatalError("Not implemented")
     }
 

@@ -48,7 +48,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
         var cell:MeshCell! = nil
         let network = networks![indexPath.row]
         if (network.userOwned) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupMeshNetworkCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
 
             var devicesString = (network.deviceCount! == 1) ? MeshSetupStrings.SelectNetwork.DevicesSingular : MeshSetupStrings.SelectNetwork.DevicesPlural
             devicesString = devicesString.replacingOccurrences(of: "{{0}}", with: String(network.deviceCount!))
@@ -56,7 +56,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
             cell.cellSubtitleLabel.text = devicesString
             cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupCreateNetworkCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
         }
 
         cell.cellTitleLabel.text = network.name

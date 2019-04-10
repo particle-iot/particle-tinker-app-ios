@@ -50,7 +50,7 @@ class StepShowPricingImpact : MeshSetupStep {
                 deviceID: context.targetDevice.deviceId!,
                 networkID: context.selectedNetworkMeshInfo?.networkID,
                 networkType: networkType,
-                iccid: context.targetDevice.deviceICCID)
+                iccid: context.targetDevice.sim?.iccid)
         {
             [weak self, weak context] pricingInfo, error in
 

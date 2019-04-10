@@ -48,7 +48,9 @@ class LogList {
         let message = notification.userInfo?[ParticleLogNotificationMessageKey] as? String ?? ""
 
         var formattedMessage = "(\(component) \(typeString)) \(message)"
+        #if !DEBUG
         CLSLogv(formattedMessage, getVaList([]))
+        #endif
 
         if let file = file {
             file.write(Data("\n\(timeFormatter.string(from: Date())): ".utf8))

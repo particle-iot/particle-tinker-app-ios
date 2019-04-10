@@ -54,10 +54,117 @@ extension String {
 }
 
 
+
 class MeshSetupStrings {
     static private let randomNames = ["aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "maker", "splendid", "sparkling", "dentist", "doctor", "green", "easter", "ferret", "gerbil", "hacker", "hamster", "wizard", "hobbit", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "burrito", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie"]
     static func getRandomDeviceName() -> String {
         return "\(MeshSetupStrings.randomNames.randomElement()!)_\(MeshSetupStrings.randomNames.randomElement()!)"
+    }
+
+
+    struct ControlPanel {
+        struct Root {
+            static let Title = "MeshSetup.ControlPanel.Root.Title".meshLocalized()
+
+            static let Wifi = "MeshSetup.ControlPanel.Root.Wifi".meshLocalized()
+            static let Mesh = "MeshSetup.ControlPanel.Root.Mesh".meshLocalized()
+            static let Ethernet = "MeshSetup.ControlPanel.Root.Ethernet".meshLocalized()
+            static let Cellular = "MeshSetup.ControlPanel.Root.Cellular".meshLocalized()
+            static let Documentation = "MeshSetup.ControlPanel.Root.Documentation".meshLocalized()
+            static let UnclaimDevice = "MeshSetup.ControlPanel.Root.UnclaimDevice".meshLocalized()
+        }
+
+        struct Wifi {
+            static let Title = "MeshSetup.ControlPanel.Wifi.Title".meshLocalized()
+
+            static let AddNewWifi = "MeshSetup.ControlPanel.Wifi.AddNewWifi".meshLocalized()
+            static let ManageWifi = "MeshSetup.ControlPanel.Wifi.ManageWifi".meshLocalized()
+        }
+
+        struct Cellular {
+            static let Title = "MeshSetup.ControlPanel.Cellular.Title".meshLocalized()
+
+            static let ActivateSim = "MeshSetup.ControlPanel.Cellular.ActivateSim".meshLocalized()
+            static let DeactivateSim = "MeshSetup.ControlPanel.Cellular.DeactivateSim".meshLocalized()
+            static let ChangeDataLimit = "MeshSetup.ControlPanel.Cellular.ChangeDataLimit".meshLocalized()
+
+            static let Active = "MeshSetup.ControlPanel.Cellular.Active".meshLocalized()
+            static let Inactive = "MeshSetup.ControlPanel.Cellular.Inactive".meshLocalized()
+
+            struct DataLimit {
+                static let Title = "MeshSetup.ControlPanel.Cellular.DataLimit.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.Cellular.DataLimit.Text".meshLocalized()
+
+                static let DataLimitValue = "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue".meshLocalized()
+                static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton".meshLocalized()
+            }
+        }
+
+        struct Ethernet {
+            static let Title = "MeshSetup.ControlPanel.Ethernet.Title".meshLocalized()
+
+            static let ActivateEthernet = "MeshSetup.ControlPanel.Ethernet.ActivateEthernet".meshLocalized()
+            static let DeactivateEthernet = "MeshSetup.ControlPanel.Ethernet.DeactivateEthernet".meshLocalized()
+
+            static let Active = "MeshSetup.ControlPanel.Ethernet.Active".meshLocalized()
+            static let Inactive = "MeshSetup.ControlPanel.Ethernet.Inactive".meshLocalized()
+        }
+
+        struct Mesh {
+            static let Title = "MeshSetup.ControlPanel.Mesh.Title".meshLocalized()
+
+            static let JoinNetwork = "MeshSetup.ControlPanel.Mesh.JoinNetwork".meshLocalized()
+            static let CreateNetwork = "MeshSetup.ControlPanel.Mesh.CreateNetwork".meshLocalized()
+            static let LeaveNetwork = "MeshSetup.ControlPanel.Mesh.LeaveNetwork".meshLocalized()
+            static let PromoteToGateway = "MeshSetup.ControlPanel.Mesh.PromoteToGateway".meshLocalized()
+            static let DemoteFromGateway = "MeshSetup.ControlPanel.Mesh.DemoteFromGateway".meshLocalized()
+            static let NetworkInfo = "MeshSetup.ControlPanel.Mesh.NetworkInfo".meshLocalized()
+            static let NoNetworkInfo = "MeshSetup.ControlPanel.Mesh.NoNetworkInfo".meshLocalized()
+
+            static let NetworkName = "MeshSetup.ControlPanel.Mesh.NetworkName".meshLocalized()
+            static let NetworkID = "MeshSetup.ControlPanel.Mesh.NetworkID".meshLocalized()
+            static let NetworkExtPanID = "MeshSetup.ControlPanel.Mesh.NetworkExtPanID".meshLocalized()
+            static let NetworkPanID = "MeshSetup.ControlPanel.Mesh.NetworkPanID".meshLocalized()
+            static let NetworkChannel = "MeshSetup.ControlPanel.Mesh.NetworkChannel".meshLocalized()
+        }
+
+        struct Documentation {
+            static let Title = "MeshSetup.ControlPanel.Documentation.Title".meshLocalized()
+        }
+
+        struct PrepareForPairing {
+            static let Title = "MeshSetup.ControlPanel.PrepareForPairing.Title".meshLocalized()
+
+            static let Text = "MeshSetup.ControlPanel.PrepareForPairing.Text".meshLocalized()
+            static let Signal = "MeshSetup.ControlPanel.PrepareForPairing.Signal".meshLocalized()
+            static let SignalWarning = "MeshSetup.ControlPanel.PrepareForPairing.SignalWarning".meshLocalized()
+        }
+
+
+        struct FlowComplete {
+            struct AddNewWifi {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text".meshLocalized()
+            }
+
+            struct ChangeDataLimit {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Text".meshLocalized()
+            }
+
+            struct ToggleEthernet {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.Title".meshLocalized()
+                static let ActivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.ActivateText".meshLocalized()
+                static let DeactivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText".meshLocalized()
+            }
+
+            struct ToggleSim {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.ToggleSim.Title".meshLocalized()
+                static let ActivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleSim.ActivateText".meshLocalized()
+                static let DeactivateText = "MeshSetup.ControlPanel.FlowComplete.ToggleSim.DeactivateText".meshLocalized()
+            }
+
+        }
     }
 
     struct Prompt {
@@ -65,11 +172,17 @@ class MeshSetupStrings {
         static let CancelSetupTitle = "MeshSetup.Prompt.CancelSetupTitle".meshLocalized()
         static let CancelSetupText = "MeshSetup.Prompt.CancelSetupText".meshLocalized()
 
+
+        static let ControlPanelExternalSimNotSupportedText = "MeshSetup.Prompt.ControlPanelExternalSimNotSupportedText".meshLocalized()
+
         static let LeaveNetworkTitle = "MeshSetup.Prompt.LeaveNetworkTitle".meshLocalized()
         static let LeaveNetworkText = "MeshSetup.Prompt.LeaveNetworkText".meshLocalized()
 
         static let NoCameraPermissionsTitle = "MeshSetup.Prompt.NoCameraPermissionsTitle".meshLocalized()
         static let NoCameraPermissionsText = "MeshSetup.Prompt.NoCameraPermissionsText".meshLocalized()
+
+        static let SwitchToControlPanelTitle = "MeshSetup.Prompt.SwitchToControlPanelTitle".meshLocalized()
+        static let SwitchToControlPanelText = "MeshSetup.Prompt.SwitchToControlPanelText".meshLocalized()
 
         static let NoCameraTitle = "MeshSetup.Prompt.NoCameraTitle".meshLocalized()
         static let NoCameraText = "MeshSetup.Prompt.NoCameraText".meshLocalized()
@@ -86,6 +199,8 @@ class MeshSetupStrings {
         static let DontLeaveNetwork = "MeshSetup.Action.DontLeaveNetwork".meshLocalized()
         static let ContactSupport = "MeshSetup.Action.ContactSupport".meshLocalized()
         static let OpenSettings = "MeshSetup.Action.OpenSettings".meshLocalized()
+        static let SwitchToControlPanel = "MeshSetup.Action.SwitchToControlPanel".meshLocalized()
+        static let DontSwitchToControlPanel = "MeshSetup.Action.DontSwitchToControlPanel".meshLocalized()
     }
 
 

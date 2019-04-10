@@ -22,8 +22,8 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
         networksTableView.delegate = self
         networksTableView.dataSource = self
 
-        networksTableView.register(UINib.init(nibName: "MeshSetupMeshNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupMeshNetworkCell")
-        networksTableView.register(UINib.init(nibName: "MeshSetupCreateNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupCreateNetworkCell")
+        networksTableView.register(UINib.init(nibName: "MeshSetupSubtitleCell", bundle: nil), forCellReuseIdentifier: "MeshSetupSubtitleCell")
+        networksTableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
         networksTableView.register(UINib.init(nibName: "MeshSetupWifiNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupWifiNetworkCell")
     }
 

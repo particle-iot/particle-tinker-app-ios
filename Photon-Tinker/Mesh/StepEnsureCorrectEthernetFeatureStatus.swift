@@ -7,20 +7,48 @@ import Foundation
 
 class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
     override func start() {
-        context?.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
+        guard let context = self.context else {
+            return
+        }
+
+        if context.targetDevice.enableEthernetDetectionFeature == nil {
+            context.delegate.meshSetupDidRequestToSelectEthernetStatus(self)
+        } else if context.targetDevice.ethernetDetectionFeature == nil {
+            self.getFeatureFlag()
+        } else if (context.targetDevice.enableEthernetDetectionFeature != context.targetDevice.ethernetDetectionFeature) {
+            self.setCorrectEthernetFeatureStatus()
+        } else {
+            self.stepCompleted()
+        }
+    }
+
+    func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError? {
+        guard let context = self.context else {
+            return nil
+        }
+
+        context.targetDevice.enableEthernetDetectionFeature = useEthernet
+        self.start()
+
+        return nil
+    }
+
+    private func getFeatureFlag() {
+        guard let context = self.context else {
+            return
+        }
+
+        context.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            context.targetDevice.ethernetDetectionFeature = enabled!
             self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled as Optional)")
-            self.log("self.targetDevice.enableEthernetFeature = \(context.targetDevice.enableEthernetFeature)")
+            self.log("self.targetDevice.enableEthernetFeature = \(context.targetDevice.enableEthernetDetectionFeature)")
 
             if (result == .NONE) {
-                if (context.targetDevice.enableEthernetFeature == enabled) {
-                    self.stepCompleted()
-                } else {
-                    self.setCorrectEthernetFeatureStatus()
-                }
+                self.start()
             } else if (result == .NOT_SUPPORTED) {
                 self.stepCompleted()
             } else {
@@ -29,16 +57,18 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
         }
     }
 
+
     func setCorrectEthernetFeatureStatus() {
         guard let context = self.context else {
             return
         }
 
-        context.targetDevice.transceiver!.sendSetFeature(feature: .ethernetDetection, enabled: context.targetDevice.enableEthernetFeature!) { [weak self, weak context] result  in
+        context.targetDevice.transceiver!.sendSetFeature(feature: .ethernetDetection, enabled: context.targetDevice.enableEthernetDetectionFeature!) { [weak self, weak context] result  in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
+            context.targetDevice.ethernetDetectionFeature = nil
             self.log("targetDevice.sendSetFeature: \(result.description())")
             if (context.canceled) {
                 return
@@ -52,6 +82,16 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
         }
     }
 
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.targetDevice.enableEthernetDetectionFeature = nil
+        context.targetDevice.ethernetDetectionFeature = nil
+    }
 
     func prepareForTargetDeviceReboot() {
         context?.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
@@ -94,11 +134,14 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
 
         self.log("force reconnect to device")
 
-        let step = context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self) as! StepConnectToTargetDevice
+        let step = context.stepDelegate.rewindTo(self, step: StepConnectToTargetDevice.self, runStep: false) as! StepConnectToTargetDevice
+        step.reset()
         step.reconnectAfterForcedReboot = true
         step.reconnectAfterForcedRebootRetry = 1
+        step.start()
 
         return true
     }
+
 
 }

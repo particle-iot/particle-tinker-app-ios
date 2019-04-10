@@ -46,7 +46,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
                 context.commissionerDevice = nil
                 context.bluetoothManager.dropConnection(with: connection)
 
-                let _ = context.stepDelegate.rewindTo(self, step: StepGetCommissionerDeviceInfo.self)
+                let _ = context.stepDelegate.rewindTo(self, step: StepGetCommissionerDeviceInfo.self, runStep: true)
                 context.paused = false
             }
         }

@@ -6,14 +6,14 @@
 import Foundation
 
 class MeshSetupContext: NSObject {
-    var delegate: MeshSetupFlowManagerDelegate!
+    var delegate: MeshSetupFlowRunnerDelegate!
     var stepDelegate: MeshSetupStepDelegate!
 
     var bluetoothManager: MeshSetupBluetoothConnectionManager!
     var bluetoothReady: Bool = false
 
-    var targetDevice: MeshDevice! = MeshDevice()
-    var commissionerDevice: MeshDevice?
+    var targetDevice: MeshSetupDevice! = MeshSetupDevice()
+    var commissionerDevice: MeshSetupDevice?
 
     var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
 
