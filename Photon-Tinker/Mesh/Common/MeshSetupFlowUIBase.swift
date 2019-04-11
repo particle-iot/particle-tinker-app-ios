@@ -67,10 +67,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         //rewinding
         for vc in self.embededNavigationController.viewControllers {
             if type(of: vc) == vcType.self {
+                (vc as! MeshSetupViewController).resume(animated: false)
+                log("Rewinding to: \(vc)")
                 if (vc != self.embededNavigationController.topViewController!) {
-                    (vc as! MeshSetupViewController).resume(animated: false)
                     self.embededNavigationController.popToViewController(vc, animated: true)
-                    log("Rewinding to: \(vc)")
                 }
                 return true
             }
