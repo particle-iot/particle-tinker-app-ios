@@ -399,10 +399,22 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func pricingInfoViewCompleted() {
         if let error = self.flowRunner.setPricingImpactDone() {
             DispatchQueue.main.async {
+                STPTheme.default().emphasisFont = UIFont(name: MeshSetupStyle.BoldFont, size: CGFloat(MeshSetupStyle.RegularSize))
+                STPTheme.default().font = UIFont(name: MeshSetupStyle.RegularFont, size: CGFloat(MeshSetupStyle.RegularSize))
+                STPTheme.default().errorColor = MeshSetupStyle.RedTextColor
+                STPTheme.default().accentColor = MeshSetupStyle.ButtonColor
+                STPTheme.default().primaryForegroundColor = MeshSetupStyle.PrimaryTextColor
+                STPTheme.default().secondaryForegroundColor = MeshSetupStyle.SecondaryTextColor
+                STPTheme.default().primaryBackgroundColor = MeshSetupStyle.TableViewBackgroundColor
+
                 let addCardViewController = STPAddCardViewController()
-                addCardViewController.delegate = self
 
                 let navigationController = UINavigationController(rootViewController: addCardViewController)
+                navigationController.navigationBar.titleTextAttributes = [
+                    NSAttributedString.Key.font: UIFont(name: MeshSetupStyle.BoldFont, size: CGFloat(MeshSetupStyle.RegularSize)),
+                    NSAttributedString.Key.foregroundColor: MeshSetupStyle.PrimaryTextColor
+                ]
+
                 self.present(navigationController, animated: true)
             }
         }
