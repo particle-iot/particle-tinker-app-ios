@@ -22,6 +22,7 @@
 #include "UIScrollView+PullToRefreshCoreText.h"
 #include "DateTools.h"
 #include "SEGAnalytics.h"
+#include "Stripe.h"
 #include "Segment-Firebase/SEGFirebaseIntegrationFactory.h"
 //#include "ParticleKeys.h"
 #endif
