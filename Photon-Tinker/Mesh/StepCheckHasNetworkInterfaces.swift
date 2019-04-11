@@ -112,6 +112,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
                 context.targetDevice.sim!.status = nil
                 context.targetDevice.sim!.dataLimit = nil
                 self.simStatusReceived = true
+                self.start()
             } else {
                 self.fail(withReason: .UnableToGetSimStatus)
             }
