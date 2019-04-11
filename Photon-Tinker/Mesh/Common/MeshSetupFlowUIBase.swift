@@ -8,7 +8,7 @@ import UIKit
 import Crashlytics
 import MessageUI
 
-class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
+class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var backButtonImage: UIImageView!
@@ -387,16 +387,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showPricingInfoView(info: ParticlePricingInfo) {
         DispatchQueue.main.async {
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupPricingInfoViewController {
-                //the call has been retried and if cc was added it should pass this time
-                self.pricingInfoViewCompleted()
-            } else {
-                if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
-                    let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
-                    pricingInfoVC.ownerStepType = self.currentStepType
-                    pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
-                    self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
-                }
+            if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
+                let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
+                pricingInfoVC.ownerStepType = self.currentStepType
+                pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
+                self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
             }
         }
     }
@@ -404,27 +399,33 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func pricingInfoViewCompleted() {
         if let error = self.flowRunner.setPricingImpactDone() {
             DispatchQueue.main.async {
-                var message = error.description
+                let addCardViewController = STPAddCardViewController()
+                addCardViewController.delegate = self
 
-                if (self.hideAlertIfVisible()) {
-                    self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
-
-                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                        //reload pricing impact endpoint
-                        self.flowRunner.retryLastAction()
-                    })
-
-                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-                        //do nothing
-                        self.cancelTapped(self)
-                    })
-
-                    self.present(self.alert!, animated: true)
-                }
+                let navigationController = UINavigationController(rootViewController: addCardViewController)
+                self.present(navigationController, animated: true)
             }
         }
     }
 
+    //MARK: Collect CC Delegate
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        self.rewindTo(MeshSetupPricingInfoViewController.self)
+        addCardViewController.navigationController!.dismiss(animated:true)
+    }
+
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        ParticleCloud.sharedInstance().addCard(token.tokenId) { error in
+            if (error == nil) {
+                completion(nil)
+
+                self.flowRunner.retryLastAction()
+                addCardViewController.navigationController!.dismiss(animated:true)
+            } else {
+                completion(error)
+            }
+        }
+    }
 
 
 
