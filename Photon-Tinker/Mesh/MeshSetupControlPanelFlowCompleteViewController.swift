@@ -32,7 +32,7 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
 
     override func setStyle() {
         successTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
     }
 
     override func viewWillAppear(_ animated: Bool) {
