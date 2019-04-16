@@ -8,7 +8,7 @@ import UIKit
 import Crashlytics
 import MessageUI
 
-class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
+class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var backButtonImage: UIImageView!
@@ -67,10 +67,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         //rewinding
         for vc in self.embededNavigationController.viewControllers {
             if type(of: vc) == vcType.self {
+                (vc as! MeshSetupViewController).resume(animated: false)
+                log("Rewinding to: \(vc)")
                 if (vc != self.embededNavigationController.topViewController!) {
-                    (vc as! MeshSetupViewController).resume(animated: false)
                     self.embededNavigationController.popToViewController(vc, animated: true)
-                    log("Rewinding to: \(vc)")
                 }
                 return true
             }
@@ -387,16 +387,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showPricingInfoView(info: ParticlePricingInfo) {
         DispatchQueue.main.async {
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupPricingInfoViewController {
-                //the call has been retried and if cc was added it should pass this time
-                self.pricingInfoViewCompleted()
-            } else {
-                if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
-                    let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
-                    pricingInfoVC.ownerStepType = self.currentStepType
-                    pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
-                    self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
-                }
+            if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
+                let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
+                pricingInfoVC.ownerStepType = self.currentStepType
+                pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
+                self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
             }
         }
     }
@@ -404,27 +399,45 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func pricingInfoViewCompleted() {
         if let error = self.flowRunner.setPricingImpactDone() {
             DispatchQueue.main.async {
-                var message = error.description
+                STPTheme.default().emphasisFont = UIFont(name: MeshSetupStyle.BoldFont, size: CGFloat(MeshSetupStyle.RegularSize))
+                STPTheme.default().font = UIFont(name: MeshSetupStyle.RegularFont, size: CGFloat(MeshSetupStyle.RegularSize))
+                STPTheme.default().errorColor = MeshSetupStyle.RedTextColor
+                STPTheme.default().accentColor = MeshSetupStyle.ButtonColor
+                STPTheme.default().primaryForegroundColor = MeshSetupStyle.PrimaryTextColor
+                STPTheme.default().secondaryForegroundColor = MeshSetupStyle.SecondaryTextColor
+                STPTheme.default().primaryBackgroundColor = MeshSetupStyle.TableViewBackgroundColor
 
-                if (self.hideAlertIfVisible()) {
-                    self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+                let addCardViewController = STPAddCardViewController()
 
-                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                        //reload pricing impact endpoint
-                        self.flowRunner.retryLastAction()
-                    })
+                let navigationController = UINavigationController(rootViewController: addCardViewController)
+                navigationController.navigationBar.titleTextAttributes = [
+                    NSAttributedString.Key.font: UIFont(name: MeshSetupStyle.BoldFont, size: CGFloat(MeshSetupStyle.RegularSize)),
+                    NSAttributedString.Key.foregroundColor: MeshSetupStyle.PrimaryTextColor
+                ]
 
-                    self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .cancel) { action in
-                        //do nothing
-                        self.cancelTapped(self)
-                    })
-
-                    self.present(self.alert!, animated: true)
-                }
+                self.present(navigationController, animated: true)
             }
         }
     }
 
+    //MARK: Collect CC Delegate
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        self.rewindTo(MeshSetupPricingInfoViewController.self)
+        addCardViewController.navigationController!.dismiss(animated:true)
+    }
+
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        ParticleCloud.sharedInstance().addCard(token.tokenId) { error in
+            if (error == nil) {
+                completion(nil)
+
+                self.flowRunner.retryLastAction()
+                addCardViewController.navigationController!.dismiss(animated:true)
+            } else {
+                completion(error)
+            }
+        }
+    }
 
 
 

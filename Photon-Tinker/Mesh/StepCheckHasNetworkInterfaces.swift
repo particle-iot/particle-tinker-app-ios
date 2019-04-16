@@ -6,6 +6,9 @@
 import Foundation
 
 class StepCheckHasNetworkInterfaces: MeshSetupStep {
+
+    var simStatusReceived: Bool = false
+
     override func start() {
         guard let context = self.context else {
             return
@@ -23,12 +26,16 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             self.getTargetDeviceICCID()
         } else if (context.targetDevice.sim!.active == nil) {
             self.getSimInfo()
-        } else if (context.targetDevice.sim!.status == nil) {
+        } else if (context.targetDevice.sim!.status == nil && simStatusReceived == false) {
             self.getSimStatus()
         } else {
             self.stepCompleted()
         }
 
+    }
+
+    override func reset() {
+        self.simStatusReceived = false
     }
 
     private func getActiveInternetInterface() {
@@ -100,6 +107,11 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             if (error == nil) {
                 context.targetDevice.sim!.status = simInfo!.status
                 context.targetDevice.sim!.dataLimit = Int(simInfo!.mbLimit)
+                self.start()
+            } else if let nserror = error as? NSError, nserror.code == 404 {
+                context.targetDevice.sim!.status = nil
+                context.targetDevice.sim!.dataLimit = nil
+                self.simStatusReceived = true
                 self.start()
             } else {
                 self.fail(withReason: .UnableToGetSimStatus)

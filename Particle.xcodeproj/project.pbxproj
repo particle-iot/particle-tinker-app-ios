@@ -995,6 +995,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1095,7 +1096,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/1PasswordExtension/OnePasswordExtensionResources.bundle",
 				"${PODS_ROOT}/DateTools/DateTools/DateTools/DateTools.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
@@ -1116,6 +1117,7 @@
 				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground.png",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground@2x.png",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/RMessageDefaultDesign.json",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Stripe/Stripe.bundle",
 				"${PODS_ROOT}/YCTutorialBox/YCTutorialBox.xib",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1136,11 +1138,12 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RMessageDefaultDesign.json",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Stripe.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/YCTutorialBox.nib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		50E5EF201D349D450087C7B6 /* Run Script */ = {
@@ -1181,7 +1184,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer-20/iOS/RevealServer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1190,7 +1193,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

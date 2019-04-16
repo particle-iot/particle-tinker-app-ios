@@ -14,30 +14,18 @@ open class ParticleSpinner : NSObject {
         var hud : MBProgressHUD
         
         hud = MBProgressHUD.showAdded(to: view, animated: true)
-        hud.mode = .customView//.Indeterminate
+        hud.mode = .customView
         hud.animationType = .zoomIn
-        //            hud.labelText = "Loading"
         hud.minShowTime = 0.5
         hud.color = UIColor.clear
-        
-        // MBProgressHUD 1.0.0 tries:
-//        hud.backgroundView.color = UIColor.clearColor()
-//        hud.backgroundView.style = .SolidColor
-//        hud.bezelView.backgroundColor = UIColor.clearColor()
         
         // prepare spinner view for first time populating of devices into table
         let spinnerView : UIImageView = UIImageView(image: UIImage(named: "particle-mark"))
         spinnerView.frame = CGRect(x: 0, y: 0, width: 64, height: 64);
         spinnerView.contentMode = .scaleToFill
         
-        //            spinnerView.image = spinnerView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        //            spinnerView.tintColor = UIColor.whiteColor()
-        
-        //            UIView.animateWithDuration(1.0, delay: 0, options: .CurveEaseInOut, animations: {
-        //                spinnerView.transform = CGAffineTransformRotate(spinnerView.transform, 2*CGFloat(M_PI))
-        //                }, completion: nil)
-        
         let rotation = CABasicAnimation(keyPath:"transform.rotation")
+        rotation.isRemovedOnCompletion = false
         rotation.fromValue = 0
         rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         rotation.toValue = 2*Double.pi;

@@ -5,6 +5,7 @@ platform :ios, '9.0'
 target 'Particle' do
     pod 'Particle-SDK'
     pod 'ParticleSetup'
+    pod 'Stripe'
     pod 'SwiftProtobuf', '~> 1.0'
     pod 'MBProgressHUD', '~> 0.9'
     pod 'RMessage'

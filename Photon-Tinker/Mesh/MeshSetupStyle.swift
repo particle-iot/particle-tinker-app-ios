@@ -49,6 +49,7 @@ class MeshSetupStyle {
     static var ButtonColor = UIColor.colorWithHexString("#02ADEF")
     static var ButtonTitleColor = UIColor.colorWithHexString("#FFFFFF")
 
+    static var TableViewBackgroundColor = UIColor.colorWithHexString("#EFEFF4")
     static var CellSeparatorColor = UIColor.colorWithHexString("#BCBBC1")
     static var CellHighlightColor = UIColor.colorWithHexString("#F5F5F5")
 

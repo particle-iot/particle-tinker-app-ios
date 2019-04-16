@@ -8,6 +8,7 @@ import Foundation
 class StepEnsureCorrectSimState: MeshSetupStep {
 
     private var checkSimActiveRetryCount: Int = 0
+    private var simStatusReceived: Bool = false
 
     override func start() {
         guard let context = self.context else {
@@ -19,7 +20,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
             context.delegate.meshSetupDidRequestToSelectSimStatus(self)
         } else if context.targetDevice.sim!.active == nil {
             self.getSimInfo()
-        } else if context.targetDevice.sim!.status == nil {
+        } else if context.targetDevice.sim!.status == nil && simStatusReceived == false {
             self.getSimStatus()
         } else if (context.targetDevice.sim!.active != context.targetDevice.setSimActive) {
             self.setCorrectSimStatus()
@@ -42,6 +43,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
 
     override func reset() {
         self.checkSimActiveRetryCount = 0
+        self.simStatusReceived = true
     }
 
     private func getSimStatus() {
@@ -60,6 +62,11 @@ class StepEnsureCorrectSimState: MeshSetupStep {
             if (error == nil) {
                 context.targetDevice.sim!.status = simInfo!.status
                 context.targetDevice.sim!.dataLimit = Int(simInfo!.mbLimit)
+                self.start()
+            } else if let nserror = error as? NSError, nserror.code == 404 {
+                context.targetDevice.sim!.status = nil
+                context.targetDevice.sim!.dataLimit = nil
+                self.simStatusReceived = true
                 self.start()
             } else {
                 self.fail(withReason: .UnableToGetSimStatus)

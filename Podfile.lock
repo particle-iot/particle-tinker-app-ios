@@ -45,12 +45,12 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Particle-SDK (0.9.4):
-    - Particle-SDK/Helpers (= 0.9.4)
-    - Particle-SDK/SDK (= 0.9.4)
-  - Particle-SDK/Helpers (0.9.4):
+  - Particle-SDK (0.9.5):
+    - Particle-SDK/Helpers (= 0.9.5)
+    - Particle-SDK/SDK (= 0.9.5)
+  - Particle-SDK/Helpers (0.9.5):
     - AFNetworking (~> 3.0)
-  - Particle-SDK/SDK (0.9.4):
+  - Particle-SDK/SDK (0.9.5):
     - AFNetworking (~> 3.0)
     - Particle-SDK/Helpers
   - ParticleSetup (0.9.0):
@@ -74,6 +74,7 @@ PODS:
   - Segment-Firebase/Core (2.2.0):
     - Analytics (~> 3.2)
     - Firebase/Core (~> 4.0)
+  - Stripe (15.0.0)
   - SwiftProtobuf (1.1.2)
   - YCTutorialBox (1.0.9):
     - FXBlurView
@@ -91,6 +92,7 @@ DEPENDENCIES:
   - Reveal-SDK
   - RMessage
   - Segment-Firebase
+  - Stripe
   - SwiftProtobuf (~> 1.0)
   - YCTutorialBox
 
@@ -120,6 +122,7 @@ SPEC REPOS:
     - Reveal-SDK
     - RMessage
     - Segment-Firebase
+    - Stripe
     - SwiftProtobuf
     - YCTutorialBox
 
@@ -141,16 +144,17 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 29514134ef0334a6fa33cf4eee11c36c064baeaf
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Particle-SDK: b50cdf6172eaf3e29338b81d6e8157350e7f4c11
+  Particle-SDK: 60dcaab91bccc72ae948bb89be569cb26464850f
   ParticleSetup: 8a0b767d26c5c5d355f8b9929ba2d65a3a498313
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RMessage: 761f8ff71247b8d72d0c4a0be5a8e6ce8dfdedd0
   Segment-Firebase: 05a04c7a69901841d2f6b6670e5be2e20d56b2d6
+  Stripe: 312b22a67af9fa55c246d26148b3f3a9636a0ff2
   SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
 
-PODFILE CHECKSUM: 479dbe5e801d9b8f445037d0e57cf62f0ba3dcb9
+PODFILE CHECKSUM: 95e83b11dfb8269a6968772e226bff46e25c6067
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

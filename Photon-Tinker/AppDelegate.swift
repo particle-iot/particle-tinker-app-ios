@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         #endif
 
+        STPPaymentConfiguration.shared().publishableKey = stripeKey
 
         let SegmentConfiguration = SEGAnalyticsConfiguration(writeKey: segmentAnalyticsWriteKey)
         SegmentConfiguration.trackApplicationLifecycleEvents = true
