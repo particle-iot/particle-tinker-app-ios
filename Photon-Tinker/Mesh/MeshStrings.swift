@@ -95,6 +95,7 @@ class MeshSetupStrings {
 
             static let Active = "MeshSetup.ControlPanel.Cellular.Active".meshLocalized()
             static let Inactive = "MeshSetup.ControlPanel.Cellular.Inactive".meshLocalized()
+            static let Paused = "MeshSetup.ControlPanel.Cellular.Paused".meshLocalized()
 
             struct DataLimit {
                 static let Title = "MeshSetup.ControlPanel.Cellular.DataLimit.Title".meshLocalized()

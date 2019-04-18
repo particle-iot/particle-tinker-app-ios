@@ -104,6 +104,20 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
 
+    fileprivate let actionResumeSIMFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepEnsureCorrectSimState(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionResumeSIM() {
+        self.currentFlow = actionResumeSIMFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
+
     fileprivate let actionChangeDataLimitFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
