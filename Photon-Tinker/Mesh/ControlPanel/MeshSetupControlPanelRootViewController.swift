@@ -57,11 +57,11 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
         switch device.type {
             case .xenon, .xSeries:
-                cells.append([.mesh, .ethernet])
+                cells.append([.mesh]) //.ethernet
             case .boron, .bSeries:
-                cells.append([.cellular, .mesh, .ethernet])
+                cells.append([.cellular, .mesh]) //.ethernet
             case .argon, .aSeries:
-                cells.append([.wifi, .mesh, .ethernet])
+                cells.append([.wifi, .mesh]) //.ethernet
             default:
                 break
         }
