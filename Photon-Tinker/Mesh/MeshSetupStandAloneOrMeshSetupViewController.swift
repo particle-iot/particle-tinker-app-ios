@@ -38,53 +38,31 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
     @IBAction func meshButtonTapped(_ sender: Any) {
         callback(true)
 
-        ParticleSpinner.show(view)
-        fadeContent()
+        self.fade()
     }
 
     @IBAction func standAloneButtonTapped(_ sender: Any) {
         callback(false)
 
-        ParticleSpinner.show(view)
-        fadeContent()
+        self.fade()
     }
 
-    override func resume(animated: Bool) {
-        super.resume(animated: animated)
-
-        ParticleSpinner.hide(view, animated: animated)
-        unfadeContent(animated: animated)
-        isBusy = false
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addFadableViews()
     }
 
-    internal func fadeContent() {
-        self.isBusy = true
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.titleLabel.alpha = 0.5
-            self.textLabel.alpha = 0.5
-
-            self.meshButton.alpha = 0.5
-            self.standaloneButton.alpha = 0.5
+    private func addFadableViews() {
+        if viewsToFade == nil {
+            viewsToFade = [UIView]()
         }
+
+        viewsToFade!.append(titleLabel)
+        viewsToFade!.append(textLabel)
+        viewsToFade!.append(meshButton)
+        viewsToFade!.append(standaloneButton)
     }
 
-    internal func unfadeContent(animated: Bool) {
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.titleLabel.alpha = 1
-                self.textLabel.alpha = 1
 
-                self.meshButton.alpha = 1
-                self.standaloneButton.alpha = 1
-            }
-        } else {
-            self.titleLabel.alpha = 1
-            self.textLabel.alpha = 1
 
-            self.meshButton.alpha = 1
-            self.standaloneButton.alpha = 1
-
-            self.view.setNeedsDisplay()
-        }
-    }
 }

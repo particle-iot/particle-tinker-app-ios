@@ -29,9 +29,7 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewCo
     @IBAction func createNetworkButtonTapped(_ sender: Any) {
         self.callback(nil)
 
-        ParticleSpinner.show(view)
-        fadeContent()
-        isBusy = true
+        self.fade()
     }
 
     override func resume(animated: Bool) {
@@ -44,35 +42,24 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewCo
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         super.tableView(tableView, didSelectRowAt: indexPath)
 
-        ParticleSpinner.show(view)
-        fadeContent()
-        isBusy = true
+        self.fade()
     }
 
-    internal func fadeContent() {
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.titleLabel.alpha = 0.5
-            self.networksTableView.alpha = 0.5
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addFadableViews()
+    }
 
-            self.createNetworkButton.alpha = 0.5
+    private func addFadableViews() {
+        if viewsToFade == nil {
+            viewsToFade = [UIView]()
         }
+
+        viewsToFade!.append(titleLabel)
+        viewsToFade!.append(networksTableView)
+        viewsToFade!.append(createNetworkButton)
     }
 
-    internal func unfadeContent(animated: Bool) {
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.titleLabel.alpha = 1
-                self.networksTableView.alpha = 1
 
-                self.createNetworkButton.alpha = 1
-            }
-        } else {
-            self.titleLabel.alpha = 1
-            self.networksTableView.alpha = 1
 
-            self.createNetworkButton.alpha = 1
-
-            self.view.setNeedsDisplay()
-        }
-    }
 }

@@ -114,8 +114,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     }
     
     @IBAction func continueButtonClicked(_ sender: Any) {
-        ParticleSpinner.show(view)
-        fadeContent()
+        self.fade()
 
         dataLimitCallback(cellValues[self.selectedIdx])
     }

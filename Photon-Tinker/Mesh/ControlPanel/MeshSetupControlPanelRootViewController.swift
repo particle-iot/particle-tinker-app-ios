@@ -158,7 +158,6 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     }
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var additionalViewsToFade: [UIView]?
 
     internal var callback: ((MeshSetupControlPanelCellType) -> ())!
 
@@ -214,6 +213,11 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         tableView.delegate = self
         tableView.dataSource = self
 
+        if (viewsToFade == nil) {
+            viewsToFade = [self.tableView]
+        } else {
+            viewsToFade?.append(self.tableView)
+        }
         tableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
         tableView.register(UINib.init(nibName: "MeshSetupBasicIconCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicIconCell")
         tableView.register(UINib.init(nibName: "MeshSetupButtonCell", bundle: nil), forCellReuseIdentifier: "MeshSetupButtonCell")
@@ -280,63 +284,12 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        ParticleSpinner.show(view)
-        fadeContent()
+        self.fade()
 
         self.callback(cells[indexPath.section][indexPath.row])
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        if (isBusy) {
-            ParticleSpinner.hide(view, animated: false)
-            ParticleSpinner.show(view)
-        }
-    }
-
-    internal func fadeContent() {
-        self.isBusy = true
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.tableView.alpha = 0.5
-
-            if let additionalViewsToFade = self.additionalViewsToFade {
-                for childView in additionalViewsToFade {
-                    childView.alpha = 0.5
-                }
-            }
-        }
-    }
-
-    internal func unfadeContent(animated: Bool) {
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.tableView.alpha = 1
-
-                if let additionalViewsToFade = self.additionalViewsToFade {
-                    for childView in additionalViewsToFade {
-                        childView.alpha = 1
-                    }
-                }
-            }
-        } else {
-            self.tableView.alpha = 1
-
-            if let additionalViewsToFade = self.additionalViewsToFade {
-                for childView in additionalViewsToFade {
-                    childView.alpha = 1
-                }
-            }
-
-            self.view.setNeedsDisplay()
-        }
-    }
-
-    override func resume(animated: Bool) {
-        super.resume(animated: animated)
-
-        ParticleSpinner.hide(view, animated: animated)
-        unfadeContent(animated: true)
-        isBusy = false
     }
 }

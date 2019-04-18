@@ -30,7 +30,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     override func viewDidLoad() {
         super.viewDidLoad()
         evalPermissions()
-        
+        addFadableViews()
     }
 
     private func evalPermissions() {
@@ -178,7 +178,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 
-            showSpinner()
+            self.fade()
             callback(stringValue)
         }
     }
@@ -213,48 +213,20 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         }
     }
 
-    override func resume(animated: Bool) {
-        super.resume(animated: animated)
 
+    func resume(animated: Bool) {
+        (self as Fadeable).resume(animated: animated)
         self.startCaptureSession()
-
-        unfadeContent(animated: animated)
-        ParticleSpinner.hide(view, animated: animated)
-        isBusy = false
     }
 
-    func showSpinner() {
-        fadeContent()
-        ParticleSpinner.show(view)
-    }
-
-    internal func fadeContent() {
-        self.isBusy = true
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.titleLabel.alpha = 0.5
-            self.textLabel.alpha = 0.5
-            self.imageView.alpha = 0.5
-            self.cameraView.alpha = 0.5
+    private func addFadableViews() {
+        if viewsToFade == nil {
+            viewsToFade = [UIView]()
         }
+
+        viewsToFade!.append(titleLabel)
+        viewsToFade!.append(textLabel)
+        viewsToFade!.append(imageView)
+        viewsToFade!.append(cameraView)
     }
-
-    internal func unfadeContent(animated: Bool) {
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.titleLabel.alpha = 1
-                self.textLabel.alpha = 1
-                self.imageView.alpha = 1
-                self.cameraView.alpha = 1
-            }
-        } else {
-            self.titleLabel.alpha = 1
-            self.textLabel.alpha = 1
-            self.imageView.alpha = 1
-            self.cameraView.alpha = 1
-
-            self.view.setNeedsDisplay()
-        }
-    }
-
-
 }
