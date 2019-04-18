@@ -90,9 +90,39 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     func unclaimCompleted(unclaimed: Bool) {
         if (unclaimed) {
-            self.dismiss(animated: true)
+            self.unclaim()
         }
     }
+
+    private func unclaim() {
+        self.device.unclaim() { (error: Error?) -> Void in
+            if let error = error as? NSError {
+                self.showNetworkError(error: error)
+            } else {
+                self.cancelTapped(self)
+            }
+        }
+    }
+
+    internal func showNetworkError(error: NSError) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
+                    message: error.localizedDescription,
+                    preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
+                (self.embededNavigationController.topViewController! as! Fadeable).resume(animated: true)
+            })
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                self.unclaim()
+            })
+
+            self.present(alert, animated: true)
+        }
+    }
+
+
 
 
     private func showControlPanelWifiView() {
