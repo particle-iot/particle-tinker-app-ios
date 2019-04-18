@@ -49,7 +49,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         view.endEditing(true)
         let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .multipleChoice)
 
-        if (self.device.is3rdGen()) {
+        if (self.device.is3rdGen() && self.device.mobileSecret != nil) {
             dialog.addButton("Control Panel", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
                 dialog.dismiss()
                 let vc = MeshSetupControlPanelUIManager.loadedViewController()
