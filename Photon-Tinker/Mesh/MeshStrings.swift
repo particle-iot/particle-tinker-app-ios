@@ -74,6 +74,12 @@ class MeshSetupStrings {
             static let UnclaimDevice = "MeshSetup.ControlPanel.Root.UnclaimDevice".meshLocalized()
         }
 
+        struct Unclaim {
+            static let Title = "MeshSetup.ControlPanel.Unclaim.Title".meshLocalized()
+            static let Text = "MeshSetup.ControlPanel.Unclaim.Text".meshLocalized()
+            static let UnclaimButton = "MeshSetup.ControlPanel.Unclaim.UnclaimButton".meshLocalized()
+        }
+
         struct Wifi {
             static let Title = "MeshSetup.ControlPanel.Wifi.Title".meshLocalized()
 

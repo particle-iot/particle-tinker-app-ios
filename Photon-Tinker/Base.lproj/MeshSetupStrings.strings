@@ -41,8 +41,6 @@
 
 "MeshSetup.Default.DeviceType" = "device";
 
-
-
 "MeshSetup.ControlPanel.Root.Title" = "Control Panel";
 "MeshSetup.ControlPanel.Root.Wifi" = "Wi-Fi";
 "MeshSetup.ControlPanel.Root.Mesh" = "Mesh";
@@ -50,6 +48,10 @@
 "MeshSetup.ControlPanel.Root.Cellular" = "Cellular";
 "MeshSetup.ControlPanel.Root.Documentation" = "Documentation";
 "MeshSetup.ControlPanel.Root.UnclaimDevice" = "Unclaim Device";
+
+"MeshSetup.ControlPanel.Unclaim.Title" = "Unclaim Device";
+"MeshSetup.ControlPanel.Unclaim.Text" = "Are you sure you would like to unclaim the device {{deviceName}}?\r\n\r\nThe current owner will lose the ability to view or interact with the device via the Particle Cloud. The device will be returned to an unclaimed State.";
+"MeshSetup.ControlPanel.Unclaim.UnclaimButton" = "Yes, Unclaim Device";
 
 "MeshSetup.ControlPanel.Wifi.Title" = "Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.AddNewWifi" = "Connect to new Wi-Fi";

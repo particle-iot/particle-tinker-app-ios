@@ -79,31 +79,21 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     private func showUnclaim() {
-        let alert = UIAlertController(title: "Unclaim confirmation", message: "Are you sure you want to remove this device from your account?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) {
-            action in
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupViewController {
-                vc.resume(animated: false)
-            }
-        })
-        alert.addAction(UIAlertAction(title: "Unclaim", style: .default) { action in
-            self.unclaim()
-        })
-        self.present(alert, animated: true)
-    }
-
-    private func unclaim() {
-        self.device.unclaim() { (error: Error?) -> Void in
-            if let error = error as? NSError {
-                self.showNetworkError(error: error)
-            } else {
-                DispatchQueue.main.async {
-                    (self.presentingViewController as! UINavigationController).popViewController(animated: false)
-                    self.dismiss(animated: true)
-                }
-            }
+        self.currentAction = .unclaim
+        DispatchQueue.main.async {
+            let unclaimVC = MeshSetupControlPanelUnclaimViewController.loadedViewController()
+            unclaimVC.setup(deviceName: self.device.name!, callback: self.unclaimCompleted)
+            unclaimVC.ownerStepType = nil
+            self.embededNavigationController.pushViewController(unclaimVC, animated: true)
         }
     }
+
+    func unclaimCompleted(unclaimed: Bool) {
+        if (unclaimed) {
+            self.dismiss(animated: true)
+        }
+    }
+
 
     private func showControlPanelWifiView() {
         self.currentAction = .wifi
