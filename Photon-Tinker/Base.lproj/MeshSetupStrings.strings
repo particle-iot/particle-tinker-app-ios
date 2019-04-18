@@ -56,9 +56,8 @@
 "MeshSetup.ControlPanel.Wifi.ManageWifi" = "Manage Wi-Fi";
 
 "MeshSetup.ControlPanel.Cellular.Title" = "Cellular";
-"MeshSetup.ControlPanel.Cellular.ActivateSim" = "SIM Status";
-"MeshSetup.ControlPanel.Cellular.DeactivateSim" = "SIM Status";
-"MeshSetup.ControlPanel.Cellular.ChangeDataLimit" = "Data Limit";
+"MeshSetup.ControlPanel.Cellular.ChangeSimStatus" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.ChangeDataLimit" = "Monthly Data Limit";
 
 
 "MeshSetup.ControlPanel.Cellular.DataLimit.Title" = "Set Data Limit";
@@ -70,8 +69,7 @@
 
 
 "MeshSetup.ControlPanel.Ethernet.Title" = "Ethernet";
-"MeshSetup.ControlPanel.Ethernet.ActivateEthernet" = "Ethernet Pins";
-"MeshSetup.ControlPanel.Ethernet.DeactivateEthernet" = "Ethernet Pins";
+"MeshSetup.ControlPanel.Ethernet.ChangePinsStatus" = "Ethernet Pins";
 "MeshSetup.ControlPanel.Ethernet.Active" = "Enabled";
 "MeshSetup.ControlPanel.Ethernet.Inactive" = "Disabled";
 

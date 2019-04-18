@@ -145,12 +145,17 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     func controlPanelCellularViewCompleted(action: MeshSetupControlPanelCellType) {
         currentAction = action
         switch action {
-            case .actionActivateSim:
-                controlPanelManager.context.targetDevice.setSimActive = true
-                controlPanelManager.actionActivateSIM()
-            case .actionDeactivateSim:
-                controlPanelManager.context.targetDevice.setSimActive = false
-                controlPanelManager.actionDeactivateSIM()
+            case .actionChangeSimStatus:
+                if controlPanelManager.context.targetDevice.sim!.status! == .activate {
+                    controlPanelManager.context.targetDevice.setSimActive = false
+                    controlPanelManager.actionDeactivateSIM()
+                } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
+                    controlPanelManager.context.targetDevice.setSimActive = true
+                    controlPanelManager.actionResumeSIM()
+                } else {
+                    controlPanelManager.context.targetDevice.setSimActive = true
+                    controlPanelManager.actionActivateSIM()
+                }
             case .actionChangeDataLimit:
                 controlPanelManager.actionChangeDataLimit()
             default:
@@ -218,12 +223,14 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     func controlPanelEthernetViewCompleted(action: MeshSetupControlPanelCellType) {
         currentAction = action
         switch action {
-            case .actionActivateEthernet:
-                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = true
-                controlPanelManager.actionToggleEthernetFeature()
-            case .actionDeactivateEthernet:
-                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = false
-                controlPanelManager.actionToggleEthernetFeature()
+            case .actionChangePinsStatus:
+                if (controlPanelManager.context.targetDevice.ethernetDetectionFeature!) {
+                    controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = false
+                    controlPanelManager.actionToggleEthernetFeature()
+                } else {
+                    controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = true
+                    controlPanelManager.actionToggleEthernetFeature()
+                }
             default:
                 fatalError("cellType \(action) should never be returned")
         }
@@ -243,8 +250,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi,
-                 .actionActivateEthernet, .actionDeactivateEthernet,
-                 .actionDeactivateSim, .actionActivateSim, .actionChangeDataLimit:
+                 .actionChangePinsStatus,
+                 .actionChangeSimStatus, .actionChangeDataLimit:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
@@ -273,10 +280,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
                 showControlPanelWifiView()
-            case .actionDeactivateSim, .actionActivateSim, .actionChangeDataLimit:
+            case .actionChangeSimStatus, .actionChangeSimStatus, .actionChangeDataLimit:
                 currentAction = .cellular
                 controlPanelManager.actionPairCellular()
-            case .actionActivateEthernet, .actionDeactivateEthernet:
+            case .actionChangePinsStatus, .actionChangePinsStatus:
                 currentAction = .ethernet
                 controlPanelManager.actionPairEthernet()
             default:
@@ -316,27 +323,6 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         super.targetPairingProcessViewCompleted()
     }
 
-    internal func showNetworkError(error: NSError) {
-        DispatchQueue.main.async {
-            if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
-                        message: error.localizedDescription,
-                        preferredStyle: .alert)
-
-                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
-                    if let vc = self.embededNavigationController.topViewController as? MeshSetupViewController {
-                        vc.resume(animated: false)
-                    }
-                })
-
-                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                    self.unclaim()
-                })
-
-                self.present(self.alert!, animated: true)
-            }
-        }
-    }
 
     internal func showExternalSim() {
         DispatchQueue.main.async {

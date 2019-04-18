@@ -84,8 +84,7 @@ class MeshSetupStrings {
         struct Cellular {
             static let Title = "MeshSetup.ControlPanel.Cellular.Title".meshLocalized()
 
-            static let ActivateSim = "MeshSetup.ControlPanel.Cellular.ActivateSim".meshLocalized()
-            static let DeactivateSim = "MeshSetup.ControlPanel.Cellular.DeactivateSim".meshLocalized()
+            static let ChangeSimStatus = "MeshSetup.ControlPanel.Cellular.ChangeSimStatus".meshLocalized()
             static let ChangeDataLimit = "MeshSetup.ControlPanel.Cellular.ChangeDataLimit".meshLocalized()
 
             static let Active = "MeshSetup.ControlPanel.Cellular.Active".meshLocalized()
@@ -103,8 +102,7 @@ class MeshSetupStrings {
         struct Ethernet {
             static let Title = "MeshSetup.ControlPanel.Ethernet.Title".meshLocalized()
 
-            static let ActivateEthernet = "MeshSetup.ControlPanel.Ethernet.ActivateEthernet".meshLocalized()
-            static let DeactivateEthernet = "MeshSetup.ControlPanel.Ethernet.DeactivateEthernet".meshLocalized()
+            static let ChangePinsStatus = "MeshSetup.ControlPanel.Ethernet.ChangePinsStatus".meshLocalized()
 
             static let Active = "MeshSetup.ControlPanel.Ethernet.Active".meshLocalized()
             static let Inactive = "MeshSetup.ControlPanel.Ethernet.Inactive".meshLocalized()
