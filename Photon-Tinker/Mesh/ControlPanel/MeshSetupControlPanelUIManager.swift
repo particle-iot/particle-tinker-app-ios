@@ -300,10 +300,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
                 showControlPanelWifiView()
-            case .actionChangeSimStatus, .actionChangeSimStatus, .actionChangeDataLimit:
+            case .actionChangeSimStatus, .actionChangeDataLimit:
+                controlPanelManager.context.targetDevice.setSimDataLimit = nil
+                controlPanelManager.context.targetDevice.setSimActive = nil
+
                 currentAction = .cellular
                 controlPanelManager.actionPairCellular()
-            case .actionChangePinsStatus, .actionChangePinsStatus:
+            case .actionChangePinsStatus:
+                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = nil
+
                 currentAction = .ethernet
                 controlPanelManager.actionPairEthernet()
             default:
