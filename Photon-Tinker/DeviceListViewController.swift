@@ -542,7 +542,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 {
                     print("! null name device detected"); //@@@
                     
-                    let deviceName = self.generateDeviceName()
+                    let deviceName = MeshSetupStrings.getRandomDeviceName()
                     deviceAdded.rename(deviceName, completion: { (error : Error?) -> Void in
                         if let _=error
                         {
@@ -716,12 +716,4 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func generateDeviceName() -> String
-    {
-        let name : String = deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))] + "_" + deviceNamesArr[Int(arc4random_uniform(UInt32(deviceNamesArr.count)))]
-        
-        return name
-    }
-
-    
 }
