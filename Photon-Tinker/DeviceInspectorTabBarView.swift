@@ -5,11 +5,8 @@
 
 import Foundation
 
-protocol DeviceInspectorTabBarViewDelegate : class {
-    func tabDidChange(tabBarView: DeviceInspectorTabBarView, selectedIdx: Int)
-}
 
-class DeviceInspectorTabBarView : UIView {
+class DeviceInspectorTabBarView : UIControl {
     @IBOutlet var stackView: UIStackView!
     @IBOutlet var highlightView: UIView!
     
@@ -23,11 +20,9 @@ class DeviceInspectorTabBarView : UIView {
 
     private var centerConstraint: NSLayoutConstraint!
 
-    public weak var delegate: DeviceInspectorTabBarViewDelegate?
-
     private(set) public var selectedIdx: Int = 0 {
         didSet {
-            delegate?.tabDidChange(tabBarView: self, selectedIdx: self.selectedIdx)
+            self.sendActions(for: .valueChanged)
         }
     }
 

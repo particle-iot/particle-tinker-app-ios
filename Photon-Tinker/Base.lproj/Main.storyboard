@@ -911,6 +911,7 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="k1d-eW-28A"/>
                                 <connections>
+                                    <action selector="tabChanged:" destination="XC3-E0-ieD" eventType="valueChanged" id="aEM-um-rJ7"/>
                                     <outlet property="highlightView" destination="nip-tP-rVG" id="t6I-Lg-NIO"/>
                                     <outlet property="stackView" destination="5eM-NG-dwq" id="FHe-sD-wG1"/>
                                     <outletCollection property="tabs" destination="L28-8p-NfC" collectionClass="NSMutableArray" id="6lG-ey-csc"/>
