@@ -151,7 +151,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             UIView.animate(withDuration: 0.25, animations: {
                 if self.filtering {
                     self.eventFilterSearchBar.showsCancelButton = true
-                    self.backgroundView.backgroundColor = UIColor.color("#D5D5D5")
+                    self.backgroundView.backgroundColor = UIColor(rgb: 0xD5D5D5)
                     self.filtering = true
                 } else {
                     self.searchBarCancelButtonClicked(searchBar)

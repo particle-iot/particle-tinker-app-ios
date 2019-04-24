@@ -510,7 +510,7 @@ open class ZAlertView: UIViewController {
     }
     
     open func addButton(_ title: String, hexColor: String, hexTitleColor: String, touchHandler: @escaping TouchHandler) {
-        addButton(title, font: ZAlertView.messageFont ?? UIFont.boldSystemFont(ofSize: 14), color: UIColor.color(hexColor), titleColor: UIColor.color(hexTitleColor), touchHandler: touchHandler)
+        addButton(title, font: ZAlertView.messageFont ?? UIFont.boldSystemFont(ofSize: 14), color: UIColor(string: hexColor), titleColor: UIColor(string: hexTitleColor), touchHandler: touchHandler)
     }
     
     open func addButton(_ title: String, font: UIFont, touchHandler: @escaping TouchHandler) {

@@ -451,7 +451,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     {
         let c = ParticleSetupCustomization.sharedInstance()
         
-        c?.pageBackgroundColor = UIColor.color("#F0F0F0")!
+        c?.pageBackgroundColor = UIColor(rgb: 0xF0F0F0)
         c?.pageBackgroundImage = nil
         
         c?.normalTextColor = ParticleUtils.particleDarkGrayColor

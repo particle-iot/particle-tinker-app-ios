@@ -10,13 +10,13 @@ import Foundation
 
 class ParticleUtils: NSObject {
 
-    static var particleCyanColor = UIColor.color("#00ADEF")!
-    static var particleAlmostWhiteColor = UIColor.color("#F7F7F7")!
-    static var particleDarkGrayColor = UIColor.color("#333333")!
-    static var particleGrayColor = UIColor.color("#777777")!
-    static var particleLightGrayColor = UIColor.color("#C7C7C7")!
-    static var particlePomegranateColor = UIColor.color("#C0392B")!
-    static var particleEmeraldColor = UIColor.color("#2ECC71")!
+    static var particleCyanColor = UIColor(rgb: 0x00ADEF)
+    static var particleAlmostWhiteColor = UIColor(rgb: 0xF7F7F7)
+    static var particleDarkGrayColor = UIColor(rgb: 0x333333)
+    static var particleGrayColor = UIColor(rgb: 0x777777)
+    static var particleLightGrayColor = UIColor(rgb: 0xC7C7C7)
+    static var particlePomegranateColor = UIColor(rgb: 0xC0392B)
+    static var particleEmeraldColor = UIColor(rgb: 0x2ECC71)
     static var particleRegularFont = UIFont(name: "Gotham-book", size: 16.0)!
     static var particleBoldFont = UIFont(name: "Gotham-medium", size: 16.0)!
 
