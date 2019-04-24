@@ -10,10 +10,9 @@ import Foundation
 
 class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, ParticleDeviceDelegate {
 
-    @IBOutlet weak var deviceOnlineIndicatorImageView: UIImageView!
     @IBOutlet weak var deviceNameLabel: UILabel!
 
-    @IBOutlet weak var modeSegmentedControl: UISegmentedControl!
+
     @IBOutlet weak var deviceEventsContainerView: UIView!
     @IBOutlet weak var deviceDataContainerView: UIView!
     @IBOutlet weak var deviceInfoContainerView: UIView!
@@ -21,6 +20,8 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     @IBOutlet weak var infoContainerView: UIView!
     @IBOutlet weak var moreActionsButton: UIButton!
 
+    @IBOutlet weak var tabBarView: DeviceInspectorTabBarView!
+    
     var infoVC: DeviceInspectorInfoViewController?
     var dataVC: DeviceInspectorDataViewController?
     var eventsVC: DeviceInspectorEventsViewController?
@@ -30,15 +31,35 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
 
     var device: ParticleDevice!
 
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+
     func setup(device: ParticleDevice) {
         self.device = device
         self.device.delegate = self
     }
 
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
+
+
+    override func viewDidLoad() {
+        SEGAnalytics.shared().track("DeviceInspector_Started")
+
+        let font = UIFont(name: "Gotham-book", size: 15.0)
+        let attrib = [NSAttributedStringKey.font : font!]
+
+        if let ivc = self.infoVC {
+            ivc.view.isHidden = false
+        }
+        self.view.bringSubview(toFront: infoContainerView)
+
+
+        self.tabBarView.setup(tabNames: ["Events", "Functions", "Variables", "Tinker"])
     }
-    
+
+
+
+
     @IBAction func backButtonTapped(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -213,25 +234,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
     
 
 
-    override func viewDidLoad() {
 
-        SEGAnalytics.shared().track("DeviceInspector_Started")
-       
-        let font = UIFont(name: "Gotham-book", size: 15.0)
-        
-        let attrib = [NSAttributedStringKey.font : font!]
-        
-        self.modeSegmentedControl.setTitleTextAttributes(attrib, for: UIControlState())
-        
-        self.infoContainerView.alpha = 1
-        
-        if let ivc = self.infoVC {
-            ivc.view.isHidden = false
-        }
-        self.view.bringSubview(toFront: infoContainerView)
-
-
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         showTutorial()
@@ -289,12 +292,12 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         self.refreshData()
 
         self.deviceNameLabel.text = self.device.name ?? "<no name>"
-        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
+        //ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
     }
     
 
     func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
-        ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
+        //ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
         if self.flashedTinker && event == .flashSucceeded {
             SEGAnalytics.shared().track("DeviceInspector_ReflashTinkerSuccess")
             DispatchQueue.main.async {
@@ -316,7 +319,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
             if (err == nil) {
                 if let s = self {
                     s.deviceNameLabel.text = s.device.name ?? "<no name>"
-                    ParticleUtils.animateOnlineIndicatorImageView(s.deviceOnlineIndicatorImageView, online: s.device.connected, flashing: s.device.isFlashing)
+                    //ParticleUtils.animateOnlineIndicatorImageView(s.deviceOnlineIndicatorImageView, online: s.device.connected, flashing: s.device.isFlashing)
 
                     if let info = s.infoVC {
                         info.device = s.device
@@ -439,8 +442,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
 //                    // 2
 //                    tutorial = YCTutorialBox(headline: "Modes", withHelpText: "Device inspector has 3 modes - tap 'Info' to see your device network parameters, tap 'data' to interact with your device exposed functions and variables, tap 'events' to view a searchable list of the device published events.")
 //                    
-//                    tutorial.showAndFocusView(self.modeSegmentedControl)
-                    
+
                     
                     // 1
                     let tutorial = YCTutorialBox(headline: "Welcome to Device Inspector", withHelpText: "See advanced information on your device. Tap the blue clipboard icon to copy device ID or ICCID field to the clipboard.", withCompletionBlock: {
@@ -458,7 +460,6 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
                         let delayTime = DispatchTime.now() + Double(Int64(0.2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                         DispatchQueue.main.asyncAfter(deadline: delayTime) {
                         
-                            tutorial?.showAndFocus(self.modeSegmentedControl)
                         }
 
                     })
