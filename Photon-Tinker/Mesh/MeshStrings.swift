@@ -90,6 +90,11 @@ class MeshSetupStrings {
         struct Cellular {
             static let Title = "MeshSetup.ControlPanel.Cellular.Title".meshLocalized()
 
+            static let CellularDataTitle = "MeshSetup.ControlPanel.Cellular.CellularDataTitle".meshLocalized()
+            static let SimActiveDescription = "MeshSetup.ControlPanel.Cellular.SimActiveDescription".meshLocalized()
+            static let SimPausedDescription = "MeshSetup.ControlPanel.Cellular.SimPausedDescription".meshLocalized()
+            static let SimDeactivatedDescription = "MeshSetup.ControlPanel.Cellular.SimDeactivatedDescription".meshLocalized()
+
             static let ChangeSimStatus = "MeshSetup.ControlPanel.Cellular.ChangeSimStatus".meshLocalized()
             static let ChangeDataLimit = "MeshSetup.ControlPanel.Cellular.ChangeDataLimit".meshLocalized()
 

@@ -36,7 +36,7 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             case 0:
-                return "Cellular data"
+                return MeshSetupStrings.ControlPanel.Cellular.CellularDataTitle
             default:
                 return ""
         }
@@ -47,11 +47,11 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
             case 1:
                 switch (context.targetDevice.sim!.status!) {
                     case .activate:
-                        return "This Particle SIM card is active. The device using this SIM should be able to connect to the Internet via cellular."
+                       return MeshSetupStrings.ControlPanel.Cellular.SimActiveDescription
                     case .inactiveDataLimitReached:
-                        return "This Particle SIM card is paused. The device using this SIM cannot connect to the Internet via cellular until it is unpaused."
+                        return MeshSetupStrings.ControlPanel.Cellular.SimPausedDescription
                     default:
-                        return "This Particle SIM card is deactivated. The device using this SIM cannot connect to the Internet via cellular until it is reactivated."
+                        return MeshSetupStrings.ControlPanel.Cellular.SimDeactivatedDescription
                 }
             default:
                 return ""
@@ -74,12 +74,14 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
 
         if (cellType == .actionChangeSimStatus) {
             let uiView = UIView()
+            uiView.tag = indexPath.section
 
             let uiSwitch = UISwitch()
             uiView.addSubview(uiSwitch)
             uiSwitch.setOn(context.targetDevice.sim!.status! == .activate, animated: false)
 
             let uiButton = UIButton()
+            uiButton.tag = indexPath.row
             uiView.addSubview(uiButton)
             uiButton.addTarget(self, action: #selector(simStatusChanged), for: UIControl.Event.touchUpInside)
 
@@ -93,6 +95,8 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
     }
 
     @objc func simStatusChanged(sender: UIButton) {
-        NSLog("\(sender)")
+        self.fade()
+
+        self.callback(cells[sender.superview!.tag][sender.tag])
     }
 }
