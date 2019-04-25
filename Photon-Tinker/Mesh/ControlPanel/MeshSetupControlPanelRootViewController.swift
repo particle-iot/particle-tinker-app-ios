@@ -117,7 +117,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
         if (cellType == .unclaim) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.RedTextColor : MeshSetupStyle.SecondaryTextColor)
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.RedTextColor : MeshSetupStyle.DetailsTextColor)
         } else if (cellType == .actionChangeSimStatus) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
@@ -126,16 +126,16 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
             cell.cellSubtitleLabel.text = detail
         } else if image != nil {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicIconCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.SecondaryTextColor)
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DetailsTextColor)
         } else if detail != nil {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupHorizontalDetailCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.SecondaryTextColor)
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DetailsTextColor)
 
-            cell.cellDetailLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
+            cell.cellDetailLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.DetailsTextColor)
             cell.cellDetailLabel.text = detail
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.SecondaryTextColor)
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DetailsTextColor)
         }
 
         cell.tintColor = MeshSetupStyle.SecondaryTextColor
