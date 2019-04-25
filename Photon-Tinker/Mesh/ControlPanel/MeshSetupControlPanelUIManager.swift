@@ -325,7 +325,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelSimDataLimitViewController.self)) {
                 let dataLimitVC = MeshSetupControlPanelSimDataLimitViewController.loadedViewController()
-                dataLimitVC.setup(currentLimit: self.controlPanelManager.context.targetDevice.sim!.dataLimit!, callback: self.simDataLimitViewCompleted)
+                dataLimitVC.setup(currentLimit: self.controlPanelManager.context.targetDevice.sim!.dataLimit!,
+                        disableValuesSmallerThanCurrent: self.currentAction == .actionChangeDataLimit ? false : true,
+                        callback: self.simDataLimitViewCompleted)
                 dataLimitVC.ownerStepType = self.currentStepType
                 self.embededNavigationController.pushViewController(dataLimitVC, animated: true)
             }

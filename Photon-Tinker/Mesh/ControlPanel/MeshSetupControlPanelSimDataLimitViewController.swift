@@ -13,6 +13,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     
     private var currentLimitIdx: Int!
     private var selectedIdx: Int!
+    private var disableValuesSmallerThanCurrent: Bool!
 
     private var dataLimitCallback: ((Int) -> ())!
 
@@ -39,10 +40,12 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
         }
     }
 
-    func setup(currentLimit: Int, callback: @escaping (Int) -> ()) {
+    func setup(currentLimit: Int, disableValuesSmallerThanCurrent: Bool, callback: @escaping (Int) -> ()) {
         self.currentLimitIdx = cellValues.firstIndex(of: currentLimit)!
         self.selectedIdx = self.currentLimitIdx
+        self.disableValuesSmallerThanCurrent = disableValuesSmallerThanCurrent
         self.dataLimitCallback = callback
+
     }
 
     override func setStyle() {
@@ -63,7 +66,14 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:MeshCell! = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
-        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+        if (!self.disableValuesSmallerThanCurrent) {
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        } else if (indexPath.row > self.currentLimitIdx) {
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        } else {
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
+        }
 
 
         if let selected = selectedIdx, indexPath.row == selected {
@@ -83,7 +93,13 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     }
 
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if (!self.disableValuesSmallerThanCurrent) {
+            return true
+        } else if (indexPath.row > self.currentLimitIdx) {
+            return true
+        } else {
+            return false
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
