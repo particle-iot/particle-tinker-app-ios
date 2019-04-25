@@ -64,6 +64,7 @@
 
 "MeshSetup.ControlPanel.Cellular.DataLimit.Title" = "Monthly Data Limit";
 "MeshSetup.ControlPanel.Cellular.DataLimit.Text" = "Service will be paused once your SIM has reached the data limit below:";
+"MeshSetup.ControlPanel.Cellular.DataLimit.Note" = "Cellular data usage can take up to 24 hours to be reported. Overage costs in that timeframe may apply.";
 "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue" = "{{0}}MB";
 "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton" = "Set Data Limit";
 "MeshSetup.ControlPanel.Cellular.Active" = "Active";

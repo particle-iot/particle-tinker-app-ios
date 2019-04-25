@@ -100,6 +100,7 @@ class MeshSetupStrings {
             struct DataLimit {
                 static let Title = "MeshSetup.ControlPanel.Cellular.DataLimit.Title".meshLocalized()
                 static let Text = "MeshSetup.ControlPanel.Cellular.DataLimit.Text".meshLocalized()
+                static let Note = "MeshSetup.ControlPanel.Cellular.DataLimit.Note".meshLocalized()
 
                 static let DataLimitValue = "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue".meshLocalized()
                 static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton".meshLocalized()

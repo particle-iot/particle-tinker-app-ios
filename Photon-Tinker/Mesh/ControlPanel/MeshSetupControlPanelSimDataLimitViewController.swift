@@ -9,7 +9,8 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
 
     @IBOutlet weak var textLabel: MeshLabel!
     @IBOutlet weak var continueButton: MeshSetupButton!
-
+    @IBOutlet weak var noteLabel: MeshLabel!
+    
     private var currentLimitIdx: Int!
     private var selectedIdx: Int!
 
@@ -48,11 +49,13 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
         self.tableView.tableFooterView = UIView()
 
         textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        noteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.DetailsTextColor)
         continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
     }
 
     override func setContent() {
         textLabel.text = MeshSetupStrings.ControlPanel.Cellular.DataLimit.Text
+        noteLabel.text = MeshSetupStrings.ControlPanel.Cellular.DataLimit.Note
         continueButton.setTitle(MeshSetupStrings.ControlPanel.Cellular.DataLimit.ContinueButton, for: .normal)
 
         continueButton.isEnabled = false
