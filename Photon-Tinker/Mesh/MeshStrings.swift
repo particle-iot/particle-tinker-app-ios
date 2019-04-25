@@ -111,6 +111,15 @@ class MeshSetupStrings {
                 static let DataLimitValue = "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue".meshLocalized()
                 static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton".meshLocalized()
             }
+
+            struct DeactivateSim {
+                static let Title = "MeshSetup.ControlPanel.Cellular.DeactivateSim.Title".meshLocalized()
+                static let TextTitle = "MeshSetup.ControlPanel.Cellular.DeactivateSim.TextTitle".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.Cellular.DeactivateSim.Text".meshLocalized()
+                static let Note = "MeshSetup.ControlPanel.Cellular.DeactivateSim.Note".meshLocalized()
+
+                static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DeactivateSim.ContinueButton".meshLocalized()
+            }
         }
 
         struct Ethernet {

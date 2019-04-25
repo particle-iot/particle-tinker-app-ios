@@ -83,6 +83,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionToggleSimStatusFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepShowInfo(),
         StepEnsureCorrectSimState(),
         StepControlPanelFlowCompleted()
     ]

@@ -316,6 +316,27 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
+
+    override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
+        showDeactivateSimInfoView()
+    }
+
+    private func showDeactivateSimInfoView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelInfoDeactivateSimViewController.self)) {
+                let infoView = MeshSetupControlPanelInfoDeactivateSimViewController.loadedViewController()
+                infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted)
+                infoView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(infoView, animated: true)
+            }
+        }
+    }
+
+    func simInfoViewCompleted() {
+        self.controlPanelManager.setInfoDone()
+    }
+
+
     override func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
         self.currentStepType = type(of: sender)
         showSimDataLimitView()
