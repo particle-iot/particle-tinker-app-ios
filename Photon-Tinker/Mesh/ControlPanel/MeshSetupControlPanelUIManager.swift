@@ -316,15 +316,31 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-
     override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
-        showDeactivateSimInfoView()
+        if controlPanelManager.context.targetDevice.sim!.status! == .activate {
+            showDeactivateSimInfoView()
+        } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
+            //showResumeSimInfoView()
+        } else {
+            showActivateSimInfoView()
+        }
     }
 
     private func showDeactivateSimInfoView() {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelInfoDeactivateSimViewController.self)) {
                 let infoView = MeshSetupControlPanelInfoDeactivateSimViewController.loadedViewController()
+                infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted)
+                infoView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(infoView, animated: true)
+            }
+        }
+    }
+
+    private func showActivateSimInfoView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelInfoActivateSimViewController.self)) {
+                let infoView = MeshSetupControlPanelInfoActivateSimViewController.loadedViewController()
                 infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted)
                 infoView.ownerStepType = nil
                 self.embededNavigationController.pushViewController(infoView, animated: true)

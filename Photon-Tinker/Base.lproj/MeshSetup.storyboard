@@ -1848,7 +1848,7 @@
         <!--Pair Assisting Device-->
         <scene sceneID="AEC-S2-5vS">
             <objects>
-                <viewController storyboardIdentifier="MeshSetupControlPanelInfoActivateSimViewController" id="Eb9-ih-0d0" customClass="MeshSetupControlPanelUnclaimViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeshSetupControlPanelInfoActivateSimViewController" id="Eb9-ih-0d0" customClass="MeshSetupControlPanelInfoActivateSimViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UKb-i2-pgr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1956,6 +1956,9 @@
                     <navigationItem key="navigationItem" title="Pair Assisting Device" id="RHB-yV-2W2"/>
                     <connections>
                         <outlet property="continueButton" destination="plJ-NR-xtK" id="v1o-FE-9L6"/>
+                        <outlet property="noteLabel" destination="7yj-HY-uUH" id="Hj7-3U-1l4"/>
+                        <outlet property="priceInfo1Label" destination="5zF-g0-plD" id="z6G-WZ-4av"/>
+                        <outlet property="priceInfo2Label" destination="u99-Mq-icO" id="s44-N2-HMF"/>
                         <outlet property="textLabel" destination="7JO-fA-8hs" id="vbX-f6-Vea"/>
                         <outlet property="titleLabel" destination="fwG-Fs-U0s" id="5Sd-qj-nlY"/>
                         <outletCollection property="viewsToFade" destination="plJ-NR-xtK" collectionClass="NSMutableArray" id="9Cd-K4-PPp"/>

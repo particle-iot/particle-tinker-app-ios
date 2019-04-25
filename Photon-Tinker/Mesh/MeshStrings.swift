@@ -120,7 +120,23 @@ class MeshSetupStrings {
 
                 static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DeactivateSim.ContinueButton".meshLocalized()
             }
+
+            struct ActivateSim {
+                static let Title = "MeshSetup.ControlPanel.Cellular.ActivateSim.Title".meshLocalized()
+                static let TextTitle = "MeshSetup.ControlPanel.Cellular.ActivateSim.TextTitle".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.Cellular.ActivateSim.Text".meshLocalized()
+                static let Note = "MeshSetup.ControlPanel.Cellular.ActivateSim.Note".meshLocalized()
+
+                static let PriceInfo1 = "MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo1".meshLocalized()
+                static let PriceInfo2 = "MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo2".meshLocalized()
+
+                static let ContinueButton = "MeshSetup.ControlPanel.Cellular.ActivateSim.ContinueButton".meshLocalized()
+
+
+            }
         }
+
+
 
         struct Ethernet {
             static let Title = "MeshSetup.ControlPanel.Ethernet.Title".meshLocalized()
