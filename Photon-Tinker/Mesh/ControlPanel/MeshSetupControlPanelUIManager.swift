@@ -168,13 +168,13 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionChangeSimStatus:
                 if controlPanelManager.context.targetDevice.sim!.status! == .activate {
                     controlPanelManager.context.targetDevice.setSimActive = false
-                    controlPanelManager.actionDeactivateSIM()
+                    controlPanelManager.actionToggleSimStatus()
                 } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
                     controlPanelManager.context.targetDevice.setSimActive = true
-                    controlPanelManager.actionResumeSIM()
+                    controlPanelManager.actionToggleSimStatus()
                 } else {
                     controlPanelManager.context.targetDevice.setSimActive = true
-                    controlPanelManager.actionActivateSIM()
+                    controlPanelManager.actionToggleSimStatus()
                 }
             case .actionChangeDataLimit:
                 controlPanelManager.actionChangeDataLimit()
