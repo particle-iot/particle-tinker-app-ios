@@ -289,7 +289,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelFlowCompleteViewController.self)) {
                 let flowCompleteVC = MeshSetupControlPanelFlowCompleteViewController.loadedViewController()
-                flowCompleteVC.setup(didFinishScreen: self.flowCompleteViewCompleted, deviceType: self.device.type, deviceName: self.device.name!, action: self.currentAction!)
+                flowCompleteVC.setup(didFinishScreen: self.flowCompleteViewCompleted, deviceType: self.device.type, deviceName: self.device.name!, action: self.currentAction!, context: self.controlPanelManager.context)
                 flowCompleteVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(flowCompleteVC, animated: true)
             }

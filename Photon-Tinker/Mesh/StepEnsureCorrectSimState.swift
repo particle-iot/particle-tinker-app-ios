@@ -125,13 +125,13 @@ class StepEnsureCorrectSimState: MeshSetupStep {
         self.checkSimActiveRetryCount += 1
 
 
-        var newDataLimit: Int? = nil
+        var newDataLimit: NSNumber? = nil
         if let setDataLimit = context.targetDevice.setSimDataLimit,
            let dataLimit = context.targetDevice.sim?.dataLimit,
            setDataLimit != dataLimit {
-            newDataLimit = setDataLimit
+            newDataLimit = NSNumber(integerLiteral: setDataLimit)
         }
-        
+
         ParticleCloud.sharedInstance().updateSim(context.targetDevice.sim!.iccid!, action: context.targetDevice.setSimActive! ? ParticleUpdateSimAction.activate : ParticleUpdateSimAction.deactivate, dataLimit: newDataLimit, countryCode: nil, cardToken: nil) {
             [weak self, weak context] error in
 
