@@ -76,6 +76,7 @@ class MeshSetupStrings {
 
         struct Unclaim {
             static let Title = "MeshSetup.ControlPanel.Unclaim.Title".meshLocalized()
+            static let TextTitle = "MeshSetup.ControlPanel.Unclaim.TextTitle".meshLocalized()
             static let Text = "MeshSetup.ControlPanel.Unclaim.Text".meshLocalized()
             static let UnclaimButton = "MeshSetup.ControlPanel.Unclaim.UnclaimButton".meshLocalized()
         }

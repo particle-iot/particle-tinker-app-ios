@@ -38,7 +38,7 @@ class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Stor
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ControlPanel.Unclaim.Title
+        titleLabel.text = MeshSetupStrings.ControlPanel.Unclaim.TextTitle
         textLabel.text = MeshSetupStrings.ControlPanel.Unclaim.Text
         continueButton.setTitle(MeshSetupStrings.ControlPanel.Unclaim.UnclaimButton, for: .normal)
     }
