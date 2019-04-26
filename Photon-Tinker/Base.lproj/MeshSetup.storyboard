@@ -1981,7 +1981,7 @@
         <!--Pair Assisting Device-->
         <scene sceneID="tve-J8-S1M">
             <objects>
-                <viewController storyboardIdentifier="MeshSetupControlPanelResumeSimViewController" id="E9j-bP-CiU" customClass="MeshSetupControlPanelUnclaimViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeshSetupControlPanelInfoResumeSimViewController" id="E9j-bP-CiU" customClass="MeshSetupControlPanelInfoResumeSimViewController" customModule="Particle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wOL-eI-dVv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2044,7 +2044,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="51i-Rl-uLq">
-                                <rect key="frame" x="0.0" y="421" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="411" width="375" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="yPZ-8c-hz5"/>
@@ -2056,7 +2056,7 @@
                             <constraint firstItem="6mS-Wl-5D3" firstAttribute="trailing" secondItem="Bhc-W3-63O" secondAttribute="trailing" constant="20" id="9By-we-A1O"/>
                             <constraint firstItem="xUh-01-Cf5" firstAttribute="top" secondItem="Bhc-W3-63O" secondAttribute="bottom" constant="15" id="EC4-t7-pRd"/>
                             <constraint firstItem="XiP-mq-WdW" firstAttribute="leading" secondItem="6mS-Wl-5D3" secondAttribute="leading" constant="20" id="Fd1-9V-fxZ"/>
-                            <constraint firstItem="51i-Rl-uLq" firstAttribute="top" secondItem="XiP-mq-WdW" secondAttribute="bottom" constant="40" id="NBn-bD-Lib"/>
+                            <constraint firstItem="51i-Rl-uLq" firstAttribute="top" secondItem="XiP-mq-WdW" secondAttribute="bottom" constant="30" id="NBn-bD-Lib"/>
                             <constraint firstItem="6mS-Wl-5D3" firstAttribute="trailing" secondItem="xUh-01-Cf5" secondAttribute="trailing" constant="20" id="UVZ-rX-89a"/>
                             <constraint firstItem="6mS-Wl-5D3" firstAttribute="trailing" secondItem="XiP-mq-WdW" secondAttribute="trailing" constant="20" id="VlA-BW-Jlf"/>
                             <constraint firstItem="Bhc-W3-63O" firstAttribute="leading" secondItem="6mS-Wl-5D3" secondAttribute="leading" constant="20" id="d83-92-g06"/>
@@ -2071,6 +2071,8 @@
                     <navigationItem key="navigationItem" title="Pair Assisting Device" id="XNA-Uq-Lsu"/>
                     <connections>
                         <outlet property="continueButton" destination="Bhc-W3-63O" id="K9G-On-CMg"/>
+                        <outlet property="noteLabel" destination="xUh-01-Cf5" id="7VI-oj-Eag"/>
+                        <outlet property="tableView" destination="51i-Rl-uLq" id="Kf5-3A-XYR"/>
                         <outlet property="textLabel" destination="aAX-Wn-YHv" id="8c8-fa-9mw"/>
                         <outlet property="titleLabel" destination="nE4-vE-cCn" id="6bN-F5-BI1"/>
                         <outletCollection property="viewsToFade" destination="Bhc-W3-63O" collectionClass="NSMutableArray" id="7Td-uM-c0N"/>
@@ -2078,6 +2080,11 @@
                         <outletCollection property="viewsToFade" destination="XiP-mq-WdW" collectionClass="NSMutableArray" id="nac-RS-UyY"/>
                         <outletCollection property="viewsToFade" destination="51i-Rl-uLq" collectionClass="NSMutableArray" id="yXX-fB-bTz"/>
                         <outletCollection property="constraintsToShrinkOnSmallScreens" destination="NBn-bD-Lib" collectionClass="NSMutableArray" id="dN6-66-mJ1"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="fXt-px-VLR" collectionClass="NSMutableArray" id="gUj-vR-LcS"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="yzr-KZ-RwY" collectionClass="NSMutableArray" id="ShY-Qi-b6d"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="EC4-t7-pRd" collectionClass="NSMutableArray" id="3Zy-8G-0Uc"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="FPl-fn-A2z" collectionClass="NSMutableArray" id="KZ0-Ky-K4T"/>
+                        <outletCollection property="constraintsToShrinkOnSmallScreens" destination="jfz-ck-iW8" collectionClass="NSMutableArray" id="376-e3-ItL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s3f-a5-HHS" userLabel="First Responder" sceneMemberID="firstResponder"/>

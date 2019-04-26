@@ -320,7 +320,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         if controlPanelManager.context.targetDevice.sim!.status! == .activate {
             showDeactivateSimInfoView()
         } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
-            //showResumeSimInfoView()
+            showResumeSimInfoView()
         } else {
             showActivateSimInfoView()
         }
@@ -348,9 +348,25 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
+    private func showResumeSimInfoView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelInfoResumeSimViewController.self)) {
+                let infoView = MeshSetupControlPanelInfoResumeSimViewController.loadedViewController()
+                infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted, requestShowDataLimit: self.requestShowDataLimit)
+                infoView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(infoView, animated: true)
+            }
+        }
+    }
+
     func simInfoViewCompleted() {
         self.controlPanelManager.setInfoDone()
     }
+
+    func requestShowDataLimit() {
+        self.showSimDataLimitView()
+    }
+
 
 
     override func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
@@ -372,7 +388,13 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     private func simDataLimitViewCompleted(limit: Int) {
-        self.controlPanelManager.setSimDataLimit(dataLimit: limit)
+        if (self.currentAction == .actionChangeDataLimit) {
+            self.controlPanelManager.setSimDataLimit(dataLimit: limit)
+        } else {
+            //adjust value in context and pop to previous view
+            self.controlPanelManager.context.targetDevice.setSimDataLimit = limit
+            showResumeSimInfoView()
+        }
     }
 
     override func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {

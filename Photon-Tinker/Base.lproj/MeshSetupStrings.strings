@@ -83,6 +83,12 @@
 "MeshSetup.ControlPanel.Cellular.DeactivateSim.Note" = "Deactivation may take up to a few minutes. Please be patient.";
 "MeshSetup.ControlPanel.Cellular.DeactivateSim.ContinueButton" = "Deactivate SIM";
 
+"MeshSetup.ControlPanel.Cellular.ResumeSim.Title" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.TextTitle" = "Unpause SIM Card";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.Text" = "Unpausing your SIM with ICCID ending in …{{iccid}} will immediately resume cellular data transfer. You do have the option of waiting until the start of your next billing period when Particle will automatically unpause your SIM.\r\n\r\nPlease adjust your data limit below. Note that the new data limit will carry over to future billing periods.";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.Note" = "Unpausing may take up to a few minutes. Please be patient.";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.ContinueButton" = "Unpause SIM";
+
 "MeshSetup.ControlPanel.Cellular.ActivateSim.Title" = "SIM Status";
 "MeshSetup.ControlPanel.Cellular.ActivateSim.TextTitle" = "Reactivate SIM Card";
 "MeshSetup.ControlPanel.Cellular.ActivateSim.Text" = "We’re so glad you’d like to reactivate your Particle SIM with an ICCID ending in ...{{iccid}}. This will resume cellular data transfer and immediately allow devices using this SIM to connect to the Internet.\r\n\r\nAs a reminder, here are the cellular data usage pricing details for devices using this SIM:";
