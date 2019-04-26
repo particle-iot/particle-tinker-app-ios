@@ -143,4 +143,52 @@ enum MeshSetupControlPanelCellType {
                 return .disclosureIndicator
         }
     }
+
+
+    static func prepareTableView(_ tableView: UITableView) {
+        tableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
+        tableView.register(UINib.init(nibName: "MeshSetupBasicIconCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicIconCell")
+        tableView.register(UINib.init(nibName: "MeshSetupButtonCell", bundle: nil), forCellReuseIdentifier: "MeshSetupButtonCell")
+        tableView.register(UINib.init(nibName: "MeshSetupSubtitleCell", bundle: nil), forCellReuseIdentifier: "MeshSetupSubtitleCell")
+        tableView.register(UINib.init(nibName: "MeshSetupHorizontalDetailCell", bundle: nil), forCellReuseIdentifier: "MeshSetupHorizontalDetailCell")
+    }
+
+    func getConfiguredCell(_ tableView: UITableView, context: MeshSetupContext) -> UITableViewCell {
+        let image = self.getIcon(context: context)
+        let detail = self.getCellDetails(context: context)
+        let enabled = self.getCellEnabled(context: context)
+        let accessoryType = self.getDisclosureIndicator(context: context)
+
+        var cell:MeshCell! = nil
+
+        if (self == .unclaim) {
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.RedTextColor : MeshSetupStyle.DetailsTextColor)
+        } else if (self == .actionChangeSimStatus) {
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+            cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            cell.cellSubtitleLabel.text = detail
+        } else if image != nil {
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicIconCell") as! MeshCell
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DetailsTextColor)
+        } else if detail != nil {
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupHorizontalDetailCell") as! MeshCell
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DetailsTextColor)
+
+            cell.cellDetailLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.DetailsTextColor)
+            cell.cellDetailLabel.text = detail
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
+            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DetailsTextColor)
+        }
+
+        cell.tintColor = MeshSetupStyle.SecondaryTextColor
+        cell.accessoryType = accessoryType
+        cell.cellTitleLabel.text = self.getCellTitle(context: context)
+        cell.cellIconImageView?.image = image
+
+        return cell
+    }
 }
