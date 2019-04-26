@@ -153,7 +153,7 @@ enum MeshSetupControlPanelCellType {
         tableView.register(UINib.init(nibName: "MeshSetupHorizontalDetailCell", bundle: nil), forCellReuseIdentifier: "MeshSetupHorizontalDetailCell")
     }
 
-    func getConfiguredCell(_ tableView: UITableView, context: MeshSetupContext) -> UITableViewCell {
+    func getConfiguredCell(_ tableView: UITableView, context: MeshSetupContext) -> MeshCell {
         let image = self.getIcon(context: context)
         let detail = self.getCellDetails(context: context)
         let enabled = self.getCellEnabled(context: context)
@@ -184,7 +184,7 @@ enum MeshSetupControlPanelCellType {
             cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: enabled ? MeshSetupStyle.PrimaryTextColor : MeshSetupStyle.DetailsTextColor)
         }
 
-        cell.tintColor = MeshSetupStyle.SecondaryTextColor
+        cell.tintColor = MeshSetupStyle.DisclosureIndicatorColor
         cell.accessoryType = accessoryType
         cell.cellTitleLabel.text = self.getCellTitle(context: context)
         cell.cellIconImageView?.image = image

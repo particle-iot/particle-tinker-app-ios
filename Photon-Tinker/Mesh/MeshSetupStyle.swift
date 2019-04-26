@@ -26,6 +26,8 @@ class MeshSetupStyle {
     static var DetailsTextColor = UIColor.colorWithHexString("#8A8A8F")
     static var RedTextColor = UIColor.colorWithHexString("#ED1C24")
 
+    static var DisclosureIndicatorColor = UIColor.colorWithHexString("#B1B1B1")
+
     static var BillingTextColor = UIColor.colorWithHexString("#76777A")
     static var StrikeThroughColor = UIColor.colorWithHexString("#002F87")
 

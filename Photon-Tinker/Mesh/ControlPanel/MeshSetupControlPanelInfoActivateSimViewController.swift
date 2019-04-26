@@ -11,7 +11,7 @@ class MeshSetupControlPanelInfoActivateSimViewController : MeshSetupControlPanel
     @IBOutlet weak var priceInfo2Label: MeshLabel!
     
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.Cellular.DeactivateSim.Title
+        return MeshSetupStrings.ControlPanel.Cellular.ActivateSim.Title
     }
 
     override func setStyle() {

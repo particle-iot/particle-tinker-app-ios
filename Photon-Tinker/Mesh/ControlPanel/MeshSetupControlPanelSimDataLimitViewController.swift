@@ -81,7 +81,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
             cell.tintColor = MeshSetupStyle.ButtonColor
         } else if (indexPath.row == currentLimitIdx) {
             cell.accessoryType = .checkmark
-            cell.tintColor = MeshSetupStyle.SecondaryTextColor
+            cell.tintColor = MeshSetupStyle.DisclosureIndicatorColor
         } else {
             cell.accessoryType = .none
         }
