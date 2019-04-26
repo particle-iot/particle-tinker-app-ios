@@ -17,8 +17,13 @@ class MeshSetupControlPanelInfoActivateSimViewController : MeshSetupControlPanel
     override func setStyle() {
         super.setStyle()
 
-        priceInfo1Label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        priceInfo2Label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        if MeshScreenUtils.getPhoneScreenSizeClass() < .iPhone6 {
+            priceInfo1Label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            priceInfo2Label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+        } else {
+            priceInfo1Label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            priceInfo2Label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        }
     }
 
     override func setContent() {
