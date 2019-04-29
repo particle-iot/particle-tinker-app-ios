@@ -41,7 +41,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     
     func printTimestamp() -> String {
-//        let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .ShortStyle, timeStyle: .FullStyle)
         let t = (Date().timeIntervalSince1970 - self.startTime);
         return String(format:"%f", t)
     }
@@ -169,57 +168,15 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     func webViewDidFinishLoad(_ webView: UIWebView) {
         
         print("webViewDidFinishLoad:"+self.printTimestamp())
-//        print("DidFinishLoad")
-//        print(self.loadFramesCount)
         self.loadFramesCount-=1
         if self.loadFramesCount <= 0 {
             self.stopSpinner()
             self.closeButton.isHidden = false
         }
-        
-//        let contentSize = self.webView.scrollView.contentSize;
-//        let viewSize = self.view.bounds.size;
-//        
-//        let rw = viewSize.width / contentSize.width;
-//        
-//        self.webView.scrollView.minimumZoomScale = rw;
-//        self.webView.scrollView.maximumZoomScale = rw;
-//        self.webView.scrollView.zoomScale = rw;
-
-//        let jsCallBack = "window.getSelection().removeAllRanges();"
-//        self.webView.stringByEvaluatingJavaScriptFromString(jsCallBack) //disable user markings
-
-        /*
-
-        // old and laggy technique to inject access token to JS code - bye bye
-        // set global var
-        var jsFunc = "window.particleAccessToken=\(ParticleCloud.sharedInstance().accessToken)"
-        self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
-
-        jsFunc = "window.particleUsername=\(ParticleCloud.sharedInstance().loggedInUsername)"
-        self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
-        
-        jsFunc = "window.mobileClient='iOS'"
-        self.webView.stringByEvaluatingJavaScriptFromString(jsFunc)
-
-        */
-
-
     }
     
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-//        print("shouldStartLoadWithRequest \(request.description)");
-
-        /*
-        if let rurl = request.url {
-            print("shouldStartLoadWithRequest: "+rurl.description+" : "+self.printTimestamp())
-        } else {
-            print("shouldStartLoadWithRequest: "+self.printTimestamp())
-        }
-        */
-        
-        
         let myAppScheme = "particle"
         
         if request.url?.scheme != myAppScheme { //&& request.URL?.host != self.setupWebAddress?.host {
@@ -234,7 +191,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         }
         
         let actionType = request.url?.host;
-//        let jsonDictString = request.URL?.fragment?.stringByReplacingPercentEscapesUsingEncoding(NSASCIIStringEncoding)
         if actionType == "scanIccid" {
             SEGAnalytics.shared().track("Tinker_ElectronSetupScanICCID")
             self.performSegue(withIdentifier: "scan", sender: self)
@@ -244,9 +200,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             SEGAnalytics.shared().track("Tinker_ElectronSetupEnded", properties: ["result":"success"])
             self.dismiss(animated: true, completion: nil)
         } else if actionType == "notification" {
-//            print("\(request.URL)")
-            //            print("fragment: \(request.URL?.fragment?.unescape())")
-            
             let JSONDictionary : NSDictionary?
             if let JSONData = request.url?.fragment?.unescape().data(using: String.Encoding.utf8, allowLossyConversion: false) {
                 do {
@@ -256,7 +209,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                     print("could not deserialize request");
                     JSONDictionary = nil
                 }
-                //print (JSONDictionary?.description)
                 DispatchQueue.main.async {
                     if JSONDictionary != nil {
                         //crash is happening here, because unable to unwrap title/message. This is to prevent the crash
@@ -282,7 +234,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     // MARK: ScanBarcodeViewControllerDelegate functions
     
     func didFinishScanningBarcode(withResult scanBarcodeViewController: ScanBarcodeViewController!, barcodeValue: String!) {
-//        self.startSpinner()
         self.stopSpinner()
         scanBarcodeViewController.dismiss(animated: true, completion: {
             DispatchQueue.main.async {
@@ -294,9 +245,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                 jsCode+="inputElement.dispatchEvent(e);\n"
             
                 self.webView.stringByEvaluatingJavaScript(from: jsCode)
-//            self.context = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
-//            self.context!.evaluateScript(jsCode)  // this causes a crash for some strange reason
-            
             }
         })
         
@@ -305,7 +253,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     func didCancelScanningBarcode(_ scanBarcodeViewController: ScanBarcodeViewController!) {
         scanBarcodeViewController .dismiss(animated: true, completion: nil)
-//        print("ICCID barcode scanning cancelled by user")
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -314,6 +261,4 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             sbcvc!.delegate = self
         }
     }
-    
-
 }
