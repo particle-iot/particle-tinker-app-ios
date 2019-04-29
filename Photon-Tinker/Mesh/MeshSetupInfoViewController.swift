@@ -35,10 +35,27 @@ class MeshSetupInfoViewController: MeshSetupViewController {
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addFadableViews()
+    }
+
+    private func addFadableViews() {
+        if viewsToFade == nil {
+            viewsToFade = [UIView]()
+        }
+
+        viewsToFade!.append(titleLabel)
+        viewsToFade!.append(continueButton)
+
+        for textField in self.textLabels {
+            viewsToFade!.append(textField)
+        }
+    }
+
     internal func setLabelValues() {
         let tfCount = textLabels.count
         let valueCount = textLabelValues.count
-
 
         for i in 0 ..< valueCount {
             textLabels[i].isHidden = false
@@ -51,52 +68,10 @@ class MeshSetupInfoViewController: MeshSetupViewController {
         }
     }
 
-    internal func fadeContent() {
-        self.isBusy = true
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.titleLabel.alpha = 0.5
-            self.continueButton.alpha = 0.5
-
-            for textField in self.textLabels {
-                textField.alpha = 0.5
-            }
-        }
-    }
-
-    internal func unfadeContent(animated: Bool) {
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.titleLabel.alpha = 1
-                self.continueButton.alpha = 1
-
-                for textField in self.textLabels {
-                    textField.alpha = 1
-                }
-            }
-        } else {
-            self.titleLabel.alpha = 1
-            self.continueButton.alpha = 1
-
-            for textField in self.textLabels {
-                textField.alpha = 1
-            }
-
-            self.view.setNeedsDisplay()
-        }
-    }
-
     @IBAction func continuePressed(_ sender: Any) {
-        ParticleSpinner.show(view)
-        fadeContent()
+        self.fade()
 
         callback()
     }
 
-    override func resume(animated: Bool) {
-        super.resume(animated: animated)
-
-        ParticleSpinner.hide(view, animated: animated)
-        unfadeContent(animated: true)
-        isBusy = false
-    }
 }

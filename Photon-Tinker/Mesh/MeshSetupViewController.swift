@@ -9,7 +9,7 @@ extension Notification.Name {
     static let MeshSetupViewControllerBusyChanged = Notification.Name("io.particle.MeshSetupViewControllerBusyChanged")
 }
 
-class MeshSetupViewController: UIViewController {
+class MeshSetupViewController: UIViewController, Fadeable {
 
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint?
     @IBOutlet var buttonSideConstraints: [NSLayoutConstraint]?
@@ -22,6 +22,8 @@ class MeshSetupViewController: UIViewController {
     internal var deviceType: ParticleDeviceType?
     internal var networkName: String?
     internal var deviceName: String?
+
+    @IBOutlet var viewsToFade:[UIView]?
 
 
     var customTitle: String {
@@ -103,10 +105,6 @@ class MeshSetupViewController: UIViewController {
 
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-    }
-
-    func resume(animated: Bool) {
-        //do nothing
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {

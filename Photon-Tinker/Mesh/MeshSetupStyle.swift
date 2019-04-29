@@ -23,7 +23,10 @@ class MeshSetupStyle {
     //colors
     static var PrimaryTextColor = UIColor.colorWithHexString("#333333")
     static var SecondaryTextColor = UIColor.colorWithHexString("#B1B1B1")
+    static var DetailsTextColor = UIColor.colorWithHexString("#8A8A8F")
     static var RedTextColor = UIColor.colorWithHexString("#ED1C24")
+
+    static var DisclosureIndicatorColor = UIColor.colorWithHexString("#B1B1B1")
 
     static var BillingTextColor = UIColor.colorWithHexString("#76777A")
     static var StrikeThroughColor = UIColor.colorWithHexString("#002F87")
@@ -47,6 +50,7 @@ class MeshSetupStyle {
     static var AlternativeButtonTitleColor = UIColor.colorWithHexString("#02ADEF")
 
     static var ButtonColor = UIColor.colorWithHexString("#02ADEF")
+    static var ButtonRedColor = UIColor.colorWithHexString("#ED1C24")
     static var ButtonTitleColor = UIColor.colorWithHexString("#FFFFFF")
 
     static var TableViewBackgroundColor = UIColor.colorWithHexString("#EFEFF4")
@@ -118,6 +122,14 @@ class MeshSetupButton : UIButton {
             self.tintColor = MeshSetupStyle.ButtonTitleColor
             self.imageView?.tintColor = MeshSetupStyle.ButtonTitleColor
         }
+    }
+}
+
+class MeshSetupRedButton : MeshSetupButton {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.backgroundColor = MeshSetupStyle.ButtonRedColor
     }
 }
 

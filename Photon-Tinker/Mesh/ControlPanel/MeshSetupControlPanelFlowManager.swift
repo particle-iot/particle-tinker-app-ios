@@ -62,6 +62,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
+
+
     fileprivate let actionToggleEthernetFeatureFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
@@ -77,31 +79,21 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
 
 
-    fileprivate let actionDeactivateSIMFlow:[MeshSetupStep] = [
+
+    fileprivate let actionToggleSimStatusFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepShowInfo(),
         StepEnsureCorrectSimState(),
         StepControlPanelFlowCompleted()
     ]
 
-    func actionDeactivateSIM() {
-        self.currentFlow = actionDeactivateSIMFlow
+    func actionToggleSimStatus() {
+        self.currentFlow = actionToggleSimStatusFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
     }
 
-    fileprivate let actionActivateSIMFlow:[MeshSetupStep] = [
-        StepGetTargetDeviceInfo(),
-        StepConnectToTargetDevice(),
-        StepEnsureCorrectSimState(),
-        StepControlPanelFlowCompleted()
-    ]
-
-    func actionActivateSIM() {
-        self.currentFlow = actionActivateSIMFlow
-        self.currentStepIdx = 0
-        self.runCurrentStep()
-    }
 
 
     fileprivate let actionChangeDataLimitFlow:[MeshSetupStep] = [

@@ -19,14 +19,26 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
 
     @IBOutlet weak var continueButton: MeshSetupButton!
 
-
-    @IBOutlet var additionalViewsToFade: [UIView]?
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         inputTextField.delegate = self
         continueButton.isEnabled = validateInput()
+
+        addFadableViews()
+    }
+
+    private func addFadableViews() {
+        if viewsToFade == nil {
+            viewsToFade = [UIView]()
+        }
+
+        viewsToFade!.append(titleLabel)
+        viewsToFade!.append(inputTitleLabel)
+        viewsToFade!.append(inputTextField)
+        viewsToFade!.append(noteTextLabel)
+        viewsToFade!.append(noteTitleLabel)
+        viewsToFade!.append(continueButton)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -62,68 +74,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     }
 
     open func submit() {
-        ParticleSpinner.show(view)
-        fadeContent()
-    }
-
-    internal func fadeContent() {
-        self.isBusy = true
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.titleLabel.alpha = 0.5
-            self.inputTitleLabel.alpha = 0.5
-            self.inputTextField.alpha = 0.5
-            self.noteTextLabel.alpha = 0.5
-            self.noteTitleLabel.alpha = 0.5
-            self.continueButton.alpha = 0.5
-
-            if let additionalViewsToFade = self.additionalViewsToFade {
-                for childView in additionalViewsToFade {
-                    childView.alpha = 0.5
-                }
-            }
-        }
-    }
-
-    internal func unfadeContent(animated: Bool) {
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.titleLabel.alpha = 1
-                self.inputTitleLabel.alpha = 1
-                self.inputTextField.alpha = 1
-                self.noteTextLabel.alpha = 1
-                self.noteTitleLabel.alpha = 1
-                self.continueButton.alpha = 1
-
-                if let additionalViewsToFade = self.additionalViewsToFade {
-                    for childView in additionalViewsToFade {
-                        childView.alpha = 1
-                    }
-                }
-            }
-        } else {
-            self.titleLabel.alpha = 1
-            self.inputTitleLabel.alpha = 1
-            self.inputTextField.alpha = 1
-            self.noteTextLabel.alpha = 1
-            self.noteTitleLabel.alpha = 1
-            self.continueButton.alpha = 1
-
-            if let additionalViewsToFade = self.additionalViewsToFade {
-                for childView in additionalViewsToFade {
-                    childView.alpha = 1
-                }
-            }
-
-            self.view.setNeedsDisplay()
-        }
-    }
-
-    override func resume(animated: Bool) {
-        super.resume(animated: animated)
-
-        ParticleSpinner.hide(view, animated: animated)
-        unfadeContent(animated: true)
-        isBusy = false
+        self.fade()
     }
 
     open func validateInput() -> Bool {

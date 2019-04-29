@@ -176,75 +176,40 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
         return currencyFormatter.string(from: decimal)!
     }
 
-    internal func fadeContent() {
-        self.isBusy = true
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.titleLabel.alpha = 0.5
-            self.planTitleLabel.alpha = 0.5
-            self.planTextLabel.alpha = 0.5
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addFadableViews()
+    }
 
-
-            self.priceFreeLabel.alpha = 0.5
-            self.priceLabel.alpha = 0.5
-            self.priceNoteLabel.alpha = 0.5
-            self.priceStrikethroughView.alpha = 0.5
-
-
-            self.planTitleLabel.alpha = 0.5
-            self.planTitleLine1.alpha = 0.5
-            self.planTitleLine2.alpha = 0.5
-
-            self.planFeatureStackView.alpha = 0.5
-
-            self.continueButton.alpha = 0.5
+    private func addFadableViews() {
+        if viewsToFade == nil {
+            viewsToFade = [UIView]()
         }
+
+        viewsToFade!.append(titleLabel)
+
+        viewsToFade!.append(planTitleLabel)
+        viewsToFade!.append(planTextLabel)
+
+        viewsToFade!.append(priceFreeLabel)
+        viewsToFade!.append(priceLabel)
+        viewsToFade!.append(priceNoteLabel)
+        viewsToFade!.append(priceStrikethroughView)
+
+        viewsToFade!.append(planTitleLabel)
+        viewsToFade!.append(planTitleLine1)
+        viewsToFade!.append(planTitleLine2)
+        viewsToFade!.append(planFeatureStackView)
+
+        viewsToFade!.append(continueButton)
     }
 
-    internal func unfadeContent(animated: Bool) {
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
-                self.titleLabel.alpha = 1
-                self.planTitleLabel.alpha = 1
-                self.planTextLabel.alpha = 1
-                self.priceFreeLabel.alpha = 1
-                self.priceLabel.alpha = 1
-                self.priceNoteLabel.alpha = 1
-                self.priceStrikethroughView.alpha = 1
-                self.planTitleLabel.alpha = 1
-                self.planTitleLine1.alpha = 1
-                self.planTitleLine2.alpha = 1
-                self.planFeatureStackView.alpha = 1
-                self.continueButton.alpha = 1
-            }
-        } else {
-            self.titleLabel.alpha = 1
-            self.planTitleLabel.alpha = 1
-            self.planTextLabel.alpha = 1
-            self.priceFreeLabel.alpha = 1
-            self.priceLabel.alpha = 1
-            self.priceNoteLabel.alpha = 1
-            self.priceStrikethroughView.alpha = 1
-            self.planTitleLabel.alpha = 1
-            self.planTitleLine1.alpha = 1
-            self.planTitleLine2.alpha = 1
-            self.planFeatureStackView.alpha = 1
-            self.continueButton.alpha = 1
 
-            self.view.setNeedsDisplay()
-        }
-    }
 
-    override func resume(animated: Bool) {
-        super.resume(animated: animated)
 
-        ParticleSpinner.hide(view, animated: animated)
-        unfadeContent(animated: animated)
-        isBusy = false
-    }
 
     @IBAction func continueButtonTapped(_ sender: Any) {
-        ParticleSpinner.show(view)
-        fadeContent()
+        self.fade()
 
         callback()
     }

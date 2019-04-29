@@ -74,6 +74,13 @@ class MeshSetupStrings {
             static let UnclaimDevice = "MeshSetup.ControlPanel.Root.UnclaimDevice".meshLocalized()
         }
 
+        struct Unclaim {
+            static let Title = "MeshSetup.ControlPanel.Unclaim.Title".meshLocalized()
+            static let TextTitle = "MeshSetup.ControlPanel.Unclaim.TextTitle".meshLocalized()
+            static let Text = "MeshSetup.ControlPanel.Unclaim.Text".meshLocalized()
+            static let UnclaimButton = "MeshSetup.ControlPanel.Unclaim.UnclaimButton".meshLocalized()
+        }
+
         struct Wifi {
             static let Title = "MeshSetup.ControlPanel.Wifi.Title".meshLocalized()
 
@@ -84,27 +91,66 @@ class MeshSetupStrings {
         struct Cellular {
             static let Title = "MeshSetup.ControlPanel.Cellular.Title".meshLocalized()
 
-            static let ActivateSim = "MeshSetup.ControlPanel.Cellular.ActivateSim".meshLocalized()
-            static let DeactivateSim = "MeshSetup.ControlPanel.Cellular.DeactivateSim".meshLocalized()
+            static let CellularDataTitle = "MeshSetup.ControlPanel.Cellular.CellularDataTitle".meshLocalized()
+            static let SimActiveDescription = "MeshSetup.ControlPanel.Cellular.SimActiveDescription".meshLocalized()
+            static let SimPausedDescription = "MeshSetup.ControlPanel.Cellular.SimPausedDescription".meshLocalized()
+            static let SimDeactivatedDescription = "MeshSetup.ControlPanel.Cellular.SimDeactivatedDescription".meshLocalized()
+
+            static let ChangeSimStatus = "MeshSetup.ControlPanel.Cellular.ChangeSimStatus".meshLocalized()
             static let ChangeDataLimit = "MeshSetup.ControlPanel.Cellular.ChangeDataLimit".meshLocalized()
 
             static let Active = "MeshSetup.ControlPanel.Cellular.Active".meshLocalized()
             static let Inactive = "MeshSetup.ControlPanel.Cellular.Inactive".meshLocalized()
+            static let Paused = "MeshSetup.ControlPanel.Cellular.Paused".meshLocalized()
 
             struct DataLimit {
                 static let Title = "MeshSetup.ControlPanel.Cellular.DataLimit.Title".meshLocalized()
                 static let Text = "MeshSetup.ControlPanel.Cellular.DataLimit.Text".meshLocalized()
+                static let Note = "MeshSetup.ControlPanel.Cellular.DataLimit.Note".meshLocalized()
 
                 static let DataLimitValue = "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue".meshLocalized()
                 static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton".meshLocalized()
             }
+
+            struct DeactivateSim {
+                static let Title = "MeshSetup.ControlPanel.Cellular.DeactivateSim.Title".meshLocalized()
+                static let TextTitle = "MeshSetup.ControlPanel.Cellular.DeactivateSim.TextTitle".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.Cellular.DeactivateSim.Text".meshLocalized()
+                static let Note = "MeshSetup.ControlPanel.Cellular.DeactivateSim.Note".meshLocalized()
+
+                static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DeactivateSim.ContinueButton".meshLocalized()
+            }
+
+            struct ResumeSim {
+                static let Title = "MeshSetup.ControlPanel.Cellular.ResumeSim.Title".meshLocalized()
+                static let TextTitle = "MeshSetup.ControlPanel.Cellular.ResumeSim.TextTitle".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.Cellular.ResumeSim.Text".meshLocalized()
+                static let Note = "MeshSetup.ControlPanel.Cellular.ResumeSim.Note".meshLocalized()
+
+                static let ContinueButton = "MeshSetup.ControlPanel.Cellular.ResumeSim.ContinueButton".meshLocalized()
+            }
+
+            struct ActivateSim {
+                static let Title = "MeshSetup.ControlPanel.Cellular.ActivateSim.Title".meshLocalized()
+                static let TextTitle = "MeshSetup.ControlPanel.Cellular.ActivateSim.TextTitle".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.Cellular.ActivateSim.Text".meshLocalized()
+                static let Note = "MeshSetup.ControlPanel.Cellular.ActivateSim.Note".meshLocalized()
+
+                static let PriceInfo1 = "MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo1".meshLocalized()
+                static let PriceInfo2 = "MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo2".meshLocalized()
+
+                static let ContinueButton = "MeshSetup.ControlPanel.Cellular.ActivateSim.ContinueButton".meshLocalized()
+
+
+            }
         }
+
+
 
         struct Ethernet {
             static let Title = "MeshSetup.ControlPanel.Ethernet.Title".meshLocalized()
 
-            static let ActivateEthernet = "MeshSetup.ControlPanel.Ethernet.ActivateEthernet".meshLocalized()
-            static let DeactivateEthernet = "MeshSetup.ControlPanel.Ethernet.DeactivateEthernet".meshLocalized()
+            static let ChangePinsStatus = "MeshSetup.ControlPanel.Ethernet.ChangePinsStatus".meshLocalized()
 
             static let Active = "MeshSetup.ControlPanel.Ethernet.Active".meshLocalized()
             static let Inactive = "MeshSetup.ControlPanel.Ethernet.Inactive".meshLocalized()

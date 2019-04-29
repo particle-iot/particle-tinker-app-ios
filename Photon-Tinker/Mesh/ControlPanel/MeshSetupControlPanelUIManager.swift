@@ -79,17 +79,19 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     private func showUnclaim() {
-        let alert = UIAlertController(title: "Unclaim confirmation", message: "Are you sure you want to remove this device from your account?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) {
-            action in
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupViewController {
-                vc.resume(animated: false)
-            }
-        })
-        alert.addAction(UIAlertAction(title: "Unclaim", style: .default) { action in
+        self.currentAction = .unclaim
+        DispatchQueue.main.async {
+            let unclaimVC = MeshSetupControlPanelUnclaimViewController.loadedViewController()
+            unclaimVC.setup(deviceName: self.device.name!, callback: self.unclaimCompleted)
+            unclaimVC.ownerStepType = nil
+            self.embededNavigationController.pushViewController(unclaimVC, animated: true)
+        }
+    }
+
+    func unclaimCompleted(unclaimed: Bool) {
+        if (unclaimed) {
             self.unclaim()
-        })
-        self.present(alert, animated: true)
+        }
     }
 
     private func unclaim() {
@@ -97,13 +99,31 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             if let error = error as? NSError {
                 self.showNetworkError(error: error)
             } else {
-                DispatchQueue.main.async {
-                    (self.presentingViewController as! UINavigationController).popViewController(animated: false)
-                    self.dismiss(animated: true)
-                }
+                self.cancelTapped(self)
             }
         }
     }
+
+    internal func showNetworkError(error: NSError) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
+                    message: error.localizedDescription,
+                    preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
+                (self.embededNavigationController.topViewController! as! Fadeable).resume(animated: true)
+            })
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+                self.unclaim()
+            })
+
+            self.present(alert, animated: true)
+        }
+    }
+
+
+
 
     private func showControlPanelWifiView() {
         self.currentAction = .wifi
@@ -145,12 +165,17 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     func controlPanelCellularViewCompleted(action: MeshSetupControlPanelCellType) {
         currentAction = action
         switch action {
-            case .actionActivateSim:
-                controlPanelManager.context.targetDevice.setSimActive = true
-                controlPanelManager.actionActivateSIM()
-            case .actionDeactivateSim:
-                controlPanelManager.context.targetDevice.setSimActive = false
-                controlPanelManager.actionDeactivateSIM()
+            case .actionChangeSimStatus:
+                if controlPanelManager.context.targetDevice.sim!.status! == .activate {
+                    controlPanelManager.context.targetDevice.setSimActive = false
+                    controlPanelManager.actionToggleSimStatus()
+                } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
+                    controlPanelManager.context.targetDevice.setSimActive = true
+                    controlPanelManager.actionToggleSimStatus()
+                } else {
+                    controlPanelManager.context.targetDevice.setSimActive = true
+                    controlPanelManager.actionToggleSimStatus()
+                }
             case .actionChangeDataLimit:
                 controlPanelManager.actionChangeDataLimit()
             default:
@@ -218,12 +243,14 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     func controlPanelEthernetViewCompleted(action: MeshSetupControlPanelCellType) {
         currentAction = action
         switch action {
-            case .actionActivateEthernet:
-                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = true
-                controlPanelManager.actionToggleEthernetFeature()
-            case .actionDeactivateEthernet:
-                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = false
-                controlPanelManager.actionToggleEthernetFeature()
+            case .actionChangePinsStatus:
+                if (controlPanelManager.context.targetDevice.ethernetDetectionFeature!) {
+                    controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = false
+                    controlPanelManager.actionToggleEthernetFeature()
+                } else {
+                    controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = true
+                    controlPanelManager.actionToggleEthernetFeature()
+                }
             default:
                 fatalError("cellType \(action) should never be returned")
         }
@@ -243,8 +270,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi,
-                 .actionActivateEthernet, .actionDeactivateEthernet,
-                 .actionDeactivateSim, .actionActivateSim, .actionChangeDataLimit:
+                 .actionChangePinsStatus,
+                 .actionChangeSimStatus, .actionChangeDataLimit:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
@@ -262,7 +289,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelFlowCompleteViewController.self)) {
                 let flowCompleteVC = MeshSetupControlPanelFlowCompleteViewController.loadedViewController()
-                flowCompleteVC.setup(didFinishScreen: self.flowCompleteViewCompleted, deviceType: self.device.type, deviceName: self.device.name!, action: self.currentAction!)
+                flowCompleteVC.setup(didFinishScreen: self.flowCompleteViewCompleted, deviceType: self.device.type, deviceName: self.device.name!, action: self.currentAction!, context: self.controlPanelManager.context)
                 flowCompleteVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(flowCompleteVC, animated: true)
             }
@@ -273,16 +300,74 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
                 showControlPanelWifiView()
-            case .actionDeactivateSim, .actionActivateSim, .actionChangeDataLimit:
+            case .actionChangeSimStatus, .actionChangeDataLimit:
+                controlPanelManager.context.targetDevice.setSimDataLimit = nil
+                controlPanelManager.context.targetDevice.setSimActive = nil
+
                 currentAction = .cellular
                 controlPanelManager.actionPairCellular()
-            case .actionActivateEthernet, .actionDeactivateEthernet:
+            case .actionChangePinsStatus:
+                controlPanelManager.context.targetDevice.enableEthernetDetectionFeature = nil
+
                 currentAction = .ethernet
                 controlPanelManager.actionPairEthernet()
             default:
                 break;
         }
     }
+
+    override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
+        if controlPanelManager.context.targetDevice.sim!.status! == .activate {
+            showDeactivateSimInfoView()
+        } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
+            showResumeSimInfoView()
+        } else {
+            showActivateSimInfoView()
+        }
+    }
+
+    private func showDeactivateSimInfoView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelInfoDeactivateSimViewController.self)) {
+                let infoView = MeshSetupControlPanelInfoDeactivateSimViewController.loadedViewController()
+                infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted)
+                infoView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(infoView, animated: true)
+            }
+        }
+    }
+
+    private func showActivateSimInfoView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelInfoActivateSimViewController.self)) {
+                let infoView = MeshSetupControlPanelInfoActivateSimViewController.loadedViewController()
+                infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted)
+                infoView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(infoView, animated: true)
+            }
+        }
+    }
+
+    private func showResumeSimInfoView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelInfoResumeSimViewController.self)) {
+                let infoView = MeshSetupControlPanelInfoResumeSimViewController.loadedViewController()
+                infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted, requestShowDataLimit: self.requestShowDataLimit)
+                infoView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(infoView, animated: true)
+            }
+        }
+    }
+
+    func simInfoViewCompleted() {
+        self.controlPanelManager.setInfoDone()
+    }
+
+    func requestShowDataLimit() {
+        self.showSimDataLimitView()
+    }
+
+
 
     override func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
         self.currentStepType = type(of: sender)
@@ -293,7 +378,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         DispatchQueue.main.async {
             if (!self.rewindTo(MeshSetupControlPanelSimDataLimitViewController.self)) {
                 let dataLimitVC = MeshSetupControlPanelSimDataLimitViewController.loadedViewController()
-                dataLimitVC.setup(currentLimit: self.controlPanelManager.context.targetDevice.sim!.dataLimit!, callback: self.simDataLimitViewCompleted)
+                dataLimitVC.setup(currentLimit: self.controlPanelManager.context.targetDevice.sim!.dataLimit!,
+                        disableValuesSmallerThanCurrent: self.currentAction == .actionChangeDataLimit ? false : true,
+                        callback: self.simDataLimitViewCompleted)
                 dataLimitVC.ownerStepType = self.currentStepType
                 self.embededNavigationController.pushViewController(dataLimitVC, animated: true)
             }
@@ -301,7 +388,13 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     private func simDataLimitViewCompleted(limit: Int) {
-        self.controlPanelManager.setSimDataLimit(dataLimit: limit)
+        if (self.currentAction == .actionChangeDataLimit) {
+            self.controlPanelManager.setSimDataLimit(dataLimit: limit)
+        } else {
+            //adjust value in context and pop to previous view
+            self.controlPanelManager.context.targetDevice.setSimDataLimit = limit
+            showResumeSimInfoView()
+        }
     }
 
     override func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {
@@ -316,27 +409,6 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         super.targetPairingProcessViewCompleted()
     }
 
-    internal func showNetworkError(error: NSError) {
-        DispatchQueue.main.async {
-            if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
-                        message: error.localizedDescription,
-                        preferredStyle: .alert)
-
-                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
-                    if let vc = self.embededNavigationController.topViewController as? MeshSetupViewController {
-                        vc.resume(animated: false)
-                    }
-                })
-
-                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
-                    self.unclaim()
-                })
-
-                self.present(self.alert!, animated: true)
-            }
-        }
-    }
 
     internal func showExternalSim() {
         DispatchQueue.main.async {

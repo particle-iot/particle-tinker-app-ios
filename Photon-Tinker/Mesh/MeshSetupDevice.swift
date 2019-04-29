@@ -78,6 +78,15 @@ internal struct MeshSetupSim {
     var active: Bool?
     var dataLimit: Int?
     var status: ParticleSimDetailedStatus?
+
+    func iccidEnding() -> String? {
+        if let iccid = self.iccid {
+            let startIndex = iccid.index(iccid.endIndex, offsetBy: -4)
+            return String(iccid.suffix(from: startIndex))
+        }
+
+        return nil
+    }
 }
 
 internal struct MeshSetupPeripheralCredentials {

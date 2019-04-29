@@ -41,8 +41,6 @@
 
 "MeshSetup.Default.DeviceType" = "device";
 
-
-
 "MeshSetup.ControlPanel.Root.Title" = "Control Panel";
 "MeshSetup.ControlPanel.Root.Wifi" = "Wi-Fi";
 "MeshSetup.ControlPanel.Root.Mesh" = "Mesh";
@@ -51,27 +49,57 @@
 "MeshSetup.ControlPanel.Root.Documentation" = "Documentation";
 "MeshSetup.ControlPanel.Root.UnclaimDevice" = "Unclaim Device";
 
+"MeshSetup.ControlPanel.Unclaim.Title" = "Unclaim Device";
+"MeshSetup.ControlPanel.Unclaim.TextTitle" = "Unclaim Device";
+"MeshSetup.ControlPanel.Unclaim.Text" = "Are you sure you would like to unclaim the device {{deviceName}}?\r\n\r\nThe current owner will lose the ability to view or interact with the device via the Particle Cloud. The device will be returned to an unclaimed State.";
+"MeshSetup.ControlPanel.Unclaim.UnclaimButton" = "Yes, Unclaim Device";
+
 "MeshSetup.ControlPanel.Wifi.Title" = "Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.AddNewWifi" = "Connect to new Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.ManageWifi" = "Manage Wi-Fi";
 
 "MeshSetup.ControlPanel.Cellular.Title" = "Cellular";
-"MeshSetup.ControlPanel.Cellular.ActivateSim" = "SIM Status";
-"MeshSetup.ControlPanel.Cellular.DeactivateSim" = "SIM Status";
-"MeshSetup.ControlPanel.Cellular.ChangeDataLimit" = "Data Limit";
+"MeshSetup.ControlPanel.Cellular.ChangeSimStatus" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.ChangeDataLimit" = "Monthly Data Limit";
 
+"MeshSetup.ControlPanel.Cellular.CellularDataTitle" = "Cellular Data";
+"MeshSetup.ControlPanel.Cellular.SimActiveDescription" = "This Particle SIM card is active. The device using this SIM should be able to connect to the Internet via cellular.";
+"MeshSetup.ControlPanel.Cellular.SimPausedDescription" = "This Particle SIM card is paused. The device using this SIM cannot connect to the Internet via cellular until it is unpaused.";
+"MeshSetup.ControlPanel.Cellular.SimDeactivatedDescription" = "This Particle SIM card is deactivated. The device using this SIM cannot connect to the Internet via cellular until it is reactivated.";
 
-"MeshSetup.ControlPanel.Cellular.DataLimit.Title" = "Set Data Limit";
-"MeshSetup.ControlPanel.Cellular.DataLimit.Text" = "Service will be paused once your SIM has reached the data limit below:";
-"MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue" = "{{0}}MB";
-"MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton" = "Set Data Limit";
 "MeshSetup.ControlPanel.Cellular.Active" = "Active";
 "MeshSetup.ControlPanel.Cellular.Inactive" = "Deactivated";
+"MeshSetup.ControlPanel.Cellular.Paused" = "Paused";
+
+"MeshSetup.ControlPanel.Cellular.DataLimit.Title" = "Monthly Data Limit";
+"MeshSetup.ControlPanel.Cellular.DataLimit.Text" = "Service will be paused once your SIM has reached the data limit below:";
+"MeshSetup.ControlPanel.Cellular.DataLimit.Note" = "Cellular data usage can take up to 24 hours to be reported. Overage costs in that timeframe may apply.";
+"MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue" = "{{0}}MB";
+"MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton" = "Set Data Limit";
+
+"MeshSetup.ControlPanel.Cellular.DeactivateSim.Title" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.DeactivateSim.TextTitle" = "Deactivate SIM Card";
+"MeshSetup.ControlPanel.Cellular.DeactivateSim.Text" = "Are you sure that you want to deactivate data service of the SIM with an ICCID ending in ...{{iccid}}?\r\n\r\n\This will immediately stop {{device}} using this SIM from sending or receiving data via a cellular network, and will disrupt expected device behavior until an active SIM is used.";
+"MeshSetup.ControlPanel.Cellular.DeactivateSim.Note" = "Deactivation may take up to a few minutes. Please be patient.";
+"MeshSetup.ControlPanel.Cellular.DeactivateSim.ContinueButton" = "Deactivate SIM";
+
+"MeshSetup.ControlPanel.Cellular.ResumeSim.Title" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.TextTitle" = "Unpause SIM Card";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.Text" = "Unpausing your SIM with ICCID ending in …{{iccid}} will immediately resume cellular data transfer. You do have the option of waiting until the start of your next billing period when Particle will automatically unpause your SIM.\r\n\r\nPlease adjust your data limit below. Note that the new data limit will carry over to future billing periods.";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.Note" = "Unpausing may take up to a few minutes. Please be patient.";
+"MeshSetup.ControlPanel.Cellular.ResumeSim.ContinueButton" = "Unpause SIM";
+
+"MeshSetup.ControlPanel.Cellular.ActivateSim.Title" = "SIM Status";
+"MeshSetup.ControlPanel.Cellular.ActivateSim.TextTitle" = "Reactivate SIM Card";
+"MeshSetup.ControlPanel.Cellular.ActivateSim.Text" = "We’re so glad you’d like to reactivate your Particle SIM with an ICCID ending in ...{{iccid}}. This will resume cellular data transfer and immediately allow devices using this SIM to connect to the Internet.\r\n\r\nAs a reminder, here are the cellular data usage pricing details for devices using this SIM:";
+"MeshSetup.ControlPanel.Cellular.ActivateSim.Note" = "Reactivation may take up to a few minutes. Please be patient.";
+"MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo1" = "3MB included/mo.";
+"MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo2" = "$0.40+ additional MBs";
+"MeshSetup.ControlPanel.Cellular.ActivateSim.ContinueButton" = "Reactivate SIM";
 
 
 "MeshSetup.ControlPanel.Ethernet.Title" = "Ethernet";
-"MeshSetup.ControlPanel.Ethernet.ActivateEthernet" = "Ethernet Pins";
-"MeshSetup.ControlPanel.Ethernet.DeactivateEthernet" = "Ethernet Pins";
+"MeshSetup.ControlPanel.Ethernet.ChangePinsStatus" = "Ethernet Pins";
 "MeshSetup.ControlPanel.Ethernet.Active" = "Enabled";
 "MeshSetup.ControlPanel.Ethernet.Inactive" = "Disabled";
 

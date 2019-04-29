@@ -20,9 +20,9 @@ class MeshSetupControlPanelEthernetViewController : MeshSetupControlPanelRootVie
 
     override func prepareContent() {
         if (context.targetDevice.ethernetDetectionFeature!) {
-            cells = [[.actionDeactivateEthernet]]
+            cells = [[.actionChangePinsStatus]]
         } else {
-            cells = [[.actionActivateEthernet]]
+            cells = [[.actionChangePinsStatus]]
         }
     }
 

@@ -12,8 +12,11 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
     @IBOutlet weak var successTitleLabel: MeshLabel!
     @IBOutlet weak var successTextLabel: MeshLabel!
 
-    internal var action: MeshSetupControlPanelCellType!
-    internal var callback: (() -> ())!
+
+    internal private(set) weak var context: MeshSetupContext!
+    internal private(set) var action: MeshSetupControlPanelCellType!
+    internal private(set) var callback: (() -> ())!
+
     override var allowBack: Bool {
         get {
             return false
@@ -23,11 +26,12 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
         }
     }
 
-    func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType?, deviceName: String, action: MeshSetupControlPanelCellType) {
+    func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType?, deviceName: String, action: MeshSetupControlPanelCellType, context: MeshSetupContext) {
         self.callback = didFinishScreen
         self.deviceType = deviceType
         self.deviceName = deviceName
         self.action = action
+        self.context = context
     }
 
     override func setStyle() {
@@ -48,18 +52,20 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
             case .actionNewWifi:
                 self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.AddNewWifi.Title
                 self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.AddNewWifi.Text
-            case .actionActivateEthernet:
+            case .actionChangePinsStatus:
                 self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.Title
-                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.ActivateText
-            case .actionDeactivateEthernet:
-                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.Title
-                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText
-            case .actionActivateSim:
+                if (context.targetDevice.enableEthernetDetectionFeature!) {
+                    self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.ActivateText
+                } else {
+                    self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText
+                }
+            case .actionChangeSimStatus:
                 self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.Title
-                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.ActivateText
-            case .actionDeactivateSim:
-                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.Title
-                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.DeactivateText
+                if (context.targetDevice.setSimActive!) {
+                    self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.ActivateText
+                } else {
+                    self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.DeactivateText
+                }
             default:
                 break
         }
