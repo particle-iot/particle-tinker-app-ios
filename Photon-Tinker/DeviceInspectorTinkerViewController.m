@@ -1,11 +1,11 @@
 //
-//  SPKTinkerViewController.m
+//  DeviceInspectorTinkerViewController.m
 //  Particle IOS
 //
 //  Copyright (c) 2013 Particle Devices. All rights reserved.
 //
 
-#import "SPKTinkerViewController.h"
+#import "DeviceInspectorTinkerViewController.h"
 #import "Particle-SDK.h"
 #import "DevicePin.h"
 #import "ParticleDevice+pins.h"
@@ -16,7 +16,7 @@
 
 
 
-@interface SPKTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, ParticleDeviceDelegate>
+@interface DeviceInspectorTinkerViewController () <PinViewDelegate, PinFunctionViewDelegate, PinValueViewDelegate, ParticleDeviceDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *pinViews;
 //@property (nonatomic, strong) NSMutableDictionary *pinValueViews;
@@ -42,7 +42,7 @@
 @end
 
 
-@implementation SPKTinkerViewController
+@implementation DeviceInspectorTinkerViewController
 
 - (void)viewDidLoad
 {

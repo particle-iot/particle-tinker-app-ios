@@ -1,5 +1,5 @@
 //
-//  SPKTinkerViewController.h
+//  DeviceInspectorTinkerViewController.h
 //  Particle Photon Tinker for iOS
 //
 //  Copyright (c) 2015 Particle Devices. All rights reserved.
@@ -16,7 +16,7 @@
     This controller manages all aspects of Tinker including sub views via delegates. Any Tinker
     functionallity should following the same delegate pattern.
  */
-@interface SPKTinkerViewController : UIViewController 
+@interface DeviceInspectorTinkerViewController : UIViewController
 
 @property (nonatomic, strong) ParticleDevice *device;
 
