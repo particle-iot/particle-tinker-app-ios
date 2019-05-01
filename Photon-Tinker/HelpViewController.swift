@@ -8,47 +8,21 @@
 
 import UIKit
 
-//@objc protocol SettingsTableViewControllerDelegate
-//{
-//    func resetAllPinFunctions()
-//}
-
-
 class HelpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-//    @objc var device : ParticleDevice? = nil
-//    var delegate : SettingsTableViewControllerDelegate? = nil
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-    
+
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var helpTableView: UITableView!
+
     
     @IBAction func closeButtonTapped(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: { () -> Void in
-            //
+
         })
     }
-    
-   
-    // add a navigation bar to the popover like this:
-    /*
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.FullScreen
-    }
-    
-    func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-        let navController = UINavigationController(rootViewController: controller.presentedViewController)
-        return navController
-    }
-    */
-    @IBOutlet weak var helpTableView: UITableView!
-    
-    override func viewWillAppear(_ animated: Bool) {
-   
-//        SEGAnalytics.sharedAnalytics().timeEvent("Tinker: Support/Documentation screen activity")
-    }
-    
-  
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -57,7 +31,6 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (section==2) ? 1 : 3;
     }
-    
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 2 { //1?
@@ -81,44 +54,38 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         switch (indexPath as NSIndexPath).section
         {
-        case 0: // docs
-            switch (indexPath as NSIndexPath).row
-            {
-            case 0:
-                cell.helpItemLabel.text = "Particle App"
-            case 1:
-                cell.helpItemLabel.text = "Setting Up Your Device"
+            case 0: // docs
+                switch (indexPath as NSIndexPath).row
+                {
+                    case 0:
+                        cell.helpItemLabel.text = "Particle App"
+                    case 1:
+                        cell.helpItemLabel.text = "Setting Up Your Device"
+                    default:
+                        cell.helpItemLabel.text = "Create Your Own App"
+                }
+            case 1: // support
+                switch (indexPath as NSIndexPath).row
+                {
+                    case 0:
+                        cell.helpItemLabel.text = "Particle Community"
+                    case 1:
+                        cell.helpItemLabel.text = "Troubleshooting"
+                    default:
+                        cell.helpItemLabel.text = "Contact Us"
+                }
+
+            case 2:
+                cell.helpItemLabel.text = "Reset App Tutorials";
+
             default:
-                cell.helpItemLabel.text = "Create Your Own App"
-                
-                
-            }
-        case 1: // support
-            switch (indexPath as NSIndexPath).row
-            {
-            case 0:
-                cell.helpItemLabel.text = "Particle Community"
-            case 1:
-                cell.helpItemLabel.text = "Troubleshooting"
-            default:
-                cell.helpItemLabel.text = "Contact Us"
-                
-            }
-            
-        case 2:
-            cell.helpItemLabel.text = "Reset App Tutorials";
-            
-        default:
-            print()
-        
+                print()
         }
         
         return cell
-
-        
     }
     
-    @IBOutlet weak var closeButton: UIButton!
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
@@ -146,21 +113,14 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0: // docs
             SEGAnalytics.shared().track("Tinker_GoToDocumentation")
 
-            
             switch (indexPath as NSIndexPath).row
             {
-            case 0:
-//                print("documentation: app")
-                url = URL(string: "https://docs.particle.io/guide/getting-started/tinker/")
-            case 1:
-//                print("documentation: setup your device")
-                url = URL(string: "https://docs.particle.io/guide/getting-started/start/photon/#connect-your-photon")
-
-            default:
-//                print("documentation: make your mobile app")
-                url = URL(string: "https://docs.particle.io/guide/how-to-build-a-product/mobile-app/")
-                
-                
+                case 0:
+                    url = URL(string: "https://docs.particle.io/guide/getting-started/tinker/")
+                case 1:
+                    url = URL(string: "https://docs.particle.io/guide/getting-started/start/photon/#connect-your-photon")
+                default:
+                    url = URL(string: "https://docs.particle.io/guide/how-to-build-a-product/mobile-app/")
             }
         
             
@@ -201,9 +161,6 @@ class HelpViewController: UIViewController, UITableViewDelegate, UITableViewData
             webVC.linkTitle = cell.helpItemLabel.text
             self.present(webVC, animated: true, completion: nil)
         }
-        
-        
-    
     }
 
 }

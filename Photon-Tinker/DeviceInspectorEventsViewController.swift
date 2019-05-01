@@ -11,21 +11,29 @@
 class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate {
 
     @IBOutlet weak var deviceEventsTableView: UITableView!
-    
+    @IBOutlet weak var eventFilterSearchBar: UISearchBar!
     @IBOutlet weak var noEventsLabel: UILabel!
-    
+    @IBOutlet weak var clearEventsButton: UIButton!
+    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var backgroundView: UIView!
+
     var events : [ParticleEvent]?
     var filteredEvents : [ParticleEvent]?
-    
+    var filterText : String?
+
     var subscribeId : Any?
-    
-    
-//    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        return nil
-//    }
-    
-    @IBOutlet weak var eventFilterSearchBar: UISearchBar!
-    
+    var paused : Bool = false
+    var filtering : Bool = false
+
+    override func viewWillAppear(_ animated: Bool) {
+        subscribeToDeviceEvents()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        unsubscribeFromDeviceEvents()
+    }
+
+
     func subscribeToDeviceEvents() {
         guard let deviceId = self.device?.id else {
             //TODO: investigate why this is nil
@@ -77,15 +85,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     }
     
  
-    @IBOutlet weak var clearEventsButton: UIButton!
-    var paused : Bool = false
-    var filtering : Bool = false
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-            subscribeToDeviceEvents()
-    }
-    
+
     
     override func showTutorial() {
         
@@ -124,10 +124,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         }
     }
 
-    @IBOutlet weak var backgroundView: UIView!
+
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        
-        
         return true
     }
     
@@ -139,8 +137,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         self.deviceEventsTableView.reloadData()
     }
     
-    var filterText : String?
-    
+
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
@@ -179,51 +176,10 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     
 
 
-@IBAction func playPauseButtonTapped(_ sender: AnyObject) {
-        if paused {
-            paused = false
-            SEGAnalytics.shared().track("DeviceInspector_EventStreamPlay")
-            playPauseButton.setImage(UIImage(named: "imgPause"), for: UIControlState())
-            subscribeToDeviceEvents()
-        } else {
-            paused = true
-            SEGAnalytics.shared().track("DeviceInspector_EventStreamPause")
-            playPauseButton.setImage(UIImage(named: "imgPlay"), for: UIControlState())
-            unsubscribeFromDeviceEvents()
-        }
-    }
-    
-    @IBAction func clearButtonTapped(_ sender: AnyObject) {
-        
-        let dialog = ZAlertView(title: "Clear all events", message: "All events data will be deleted. Are you sure?", isOkButtonLeft: true, okButtonText: "No", cancelButtonText: "Yes",
-                                okButtonHandler: { alertView in
-                                    alertView.dismiss()
-                                    
-            },
-                                cancelButtonHandler: { alertView in
-                                    alertView.dismiss()
-                                    self.events = nil
-                                    self.filteredEvents = nil
-                                    self.deviceEventsTableView.reloadData()
-                                    self.noEventsLabel.isHidden = false
-                                    SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
 
-            }
-        )
-        
-        
-        
-        dialog.show()
+    
 
-    }
-    
-    
-    @IBOutlet weak var playPauseButton: UIButton!
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        unsubscribeFromDeviceEvents()
-    }
-    
+
     @objc func numberOfSectionsInTableView(_ tableView: UITableView) -> Int {
         return 1
     }
@@ -273,10 +229,46 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         return cell!
         
     }
-    
-    
-    
 
+
+
+    @IBAction func playPauseButtonTapped(_ sender: AnyObject) {
+        if paused {
+            paused = false
+            SEGAnalytics.shared().track("DeviceInspector_EventStreamPlay")
+            playPauseButton.setImage(UIImage(named: "imgPause"), for: UIControlState())
+            subscribeToDeviceEvents()
+        } else {
+            paused = true
+            SEGAnalytics.shared().track("DeviceInspector_EventStreamPause")
+            playPauseButton.setImage(UIImage(named: "imgPlay"), for: UIControlState())
+            unsubscribeFromDeviceEvents()
+        }
+    }
+
+    @IBAction func clearButtonTapped(_ sender: AnyObject) {
+
+        let dialog = ZAlertView(title: "Clear all events", message: "All events data will be deleted. Are you sure?", isOkButtonLeft: true, okButtonText: "No", cancelButtonText: "Yes",
+                okButtonHandler: { alertView in
+                    alertView.dismiss()
+
+                },
+                cancelButtonHandler: { alertView in
+                    alertView.dismiss()
+                    self.events = nil
+                    self.filteredEvents = nil
+                    self.deviceEventsTableView.reloadData()
+                    self.noEventsLabel.isHidden = false
+                    SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
+
+                }
+        )
+
+
+
+        dialog.show()
+
+    }
     
  
 }
