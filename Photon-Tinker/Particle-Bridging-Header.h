@@ -12,7 +12,6 @@
 // Other Obj-C project files
 #include "ParticleDevice+pins.h"
 #include "SPKTinkerViewController.h"
-#include "ScanBarcodeViewController.h"
 
 // pods
 #include "MBProgressHUD.h"
