@@ -136,12 +136,7 @@ class MeshSetupStrings {
                 static let Text = "MeshSetup.ControlPanel.Cellular.ActivateSim.Text".meshLocalized()
                 static let Note = "MeshSetup.ControlPanel.Cellular.ActivateSim.Note".meshLocalized()
 
-                static let PriceInfo1 = "MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo1".meshLocalized()
-                static let PriceInfo2 = "MeshSetup.ControlPanel.Cellular.ActivateSim.PriceInfo2".meshLocalized()
-
                 static let ContinueButton = "MeshSetup.ControlPanel.Cellular.ActivateSim.ContinueButton".meshLocalized()
-
-
             }
         }
 
