@@ -521,7 +521,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = "Particle Inc.";
+				ORGANIZATIONNAME = Particle;
 				TargetAttributes = {
 					9365493121232D3300E12BC0 = {
 						CreatedOnToolsVersion = 9.4.1;
