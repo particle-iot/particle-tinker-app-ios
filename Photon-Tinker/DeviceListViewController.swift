@@ -38,13 +38,21 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.viewsToFade = [self.tableView, self.moreButton, self.setupNewDeviceButton]
 
-        self.addRefreshControl()
-        self.fade(animated: false)
+        if ParticleCloud.sharedInstance().isAuthenticated {
+            self.addRefreshControl()
+            self.fade(animated: false)
+            self.noDevicesLabel.isHidden = true
+        } else {
+            self.noDevicesLabel.isHidden = false
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         if ParticleCloud.sharedInstance().isAuthenticated {
             self.loadDevices()
+        } else {
+            ParticleUtils.resetTutorialWasDisplayed()
+            self.showTutorial()
         }
 
         SEGAnalytics.shared().track("Tinker_DeviceListScreenActivity")
@@ -231,15 +239,22 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             DispatchQueue.main.asyncAfter(deadline: delayTime) {
                 
                 if self.navigationController?.visibleViewController == self {
-                    // 2
-                    var tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to set up a new Photon or Electron device you wish to add to your account")
-                    tutorial?.showAndFocus(self.setupNewDeviceButton)
-                    
-                    
-                    // 1
-                    let firstDeviceCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) // TODO: what is theres not cell
-                    tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "See and manage your devices.\n\nOnline devices have their indicator 'breathing' cyan, offline ones are gray.\n\nTap a device to enter Tinker or Device Inspector mode, device must run Tinker firmware to enter Tinker mode.\n\nSwipe left to remove a device from your account.\n\nPull down to refresh your list.")
-                    tutorial?.showAndFocus(firstDeviceCell)
+
+
+                    if (ParticleCloud.sharedInstance().isAuthenticated) {
+                        // 2
+                        var tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to set up a new Photon or Electron device you wish to add to your account")
+                        tutorial?.showAndFocus(self.setupNewDeviceButton)
+
+                        // 1
+                        let firstDeviceCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+                        tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "See and manage your devices.\n\nOnline devices have their indicator 'breathing' cyan, offline ones are gray.\n\nTap a device to enter Tinker or Device Inspector mode, device must run Tinker firmware to enter Tinker mode.\n\nSwipe left to remove a device from your account.\n\nPull down to refresh your list.")
+                        tutorial?.showAndFocus(firstDeviceCell)
+                    } else {
+                        // 2
+                        var tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to set up a new wifi credentials for your Photon device")
+                        tutorial?.showAndFocus(self.setupNewDeviceButton)
+                    }
                     
                     ParticleUtils.setTutorialWasDisplayedForViewController(self)
                 }
@@ -314,6 +329,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+
+        NotificationCenter.default.post(name: Notification.Name.ParticleDeviceSystemEvent, object: nil, userInfo: [
+            "device": device,
+            "event": event
+        ])
     }
     
 
@@ -501,14 +521,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func setupNewDeviceButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(title: "Setup up a new device", message: nil, preferredStyle: .actionSheet)
 
-        alert.addAction(UIAlertAction(title: "Argon / Boron / Xenon", style: .default) { action in
-            if (ParticleCloud.sharedInstance().isAuthenticated) {
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh setup started", withParameters: getVaList([]))
-                self.invokeMeshDeviceSetup()
-            } else {
-                RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Argon / Boron / Xenon ", type: .error, customTypeName: nil, callback: nil)
-            }
-        })
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
+            alert.addAction(UIAlertAction(title: "Argon / Boron / Xenon", style: .default) { action in
+                if (ParticleCloud.sharedInstance().isAuthenticated) {
+                    ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh setup started", withParameters: getVaList([]))
+                    self.invokeMeshDeviceSetup()
+                } else {
+                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Argon / Boron / Xenon ", type: .error, customTypeName: nil, callback: nil)
+                }
+            })
+        }
 
 
         alert.addAction(UIAlertAction(title: "Photon", style: .default) { action in
@@ -516,20 +538,22 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.invokePhotonDeviceSetup()
         })
 
-        alert.addAction(UIAlertAction(title: "Electron / SIM", style: .default) { action in
-            if (ParticleCloud.sharedInstance().isAuthenticated) {
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Electron setup started", withParameters: getVaList([]))
-                self.invokeElectronSetup()
-            } else {
-                RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, callback: nil)
-            }
-        })
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
+            alert.addAction(UIAlertAction(title: "Electron / SIM", style: .default) { action in
+                if (ParticleCloud.sharedInstance().isAuthenticated) {
+                    ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Electron setup started", withParameters: getVaList([]))
+                    self.invokeElectronSetup()
+                } else {
+                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, callback: nil)
+                }
+            })
 
-        alert.addAction(UIAlertAction(title: "Core", style: .default) { action in
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
-                self.showParticleCoreAppPopUp()
-            }
-        })
+            alert.addAction(UIAlertAction(title: "Core", style: .default) { action in
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
+                    self.showParticleCoreAppPopUp()
+                }
+            })
+        }
 
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
