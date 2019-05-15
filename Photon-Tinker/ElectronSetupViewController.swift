@@ -232,14 +232,14 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     // MARK: ScanBarcodeViewControllerDelegate functions
-    
-    func didFinishScanningBarcode(withResult scanBarcodeViewController: ScanBarcodeViewController!, barcodeValue: String!) {
+
+    func didFinishScanningBarcode(withResult scanBarcodeViewController: ScanBarcodeViewController, barcodeValue: String) {
         self.stopSpinner()
         scanBarcodeViewController.dismiss(animated: true, completion: {
             DispatchQueue.main.async {
             
                 var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
-                jsCode+="inputElement.value = '\(barcodeValue!)';\n"
+                jsCode+="inputElement.value = '\(barcodeValue)';\n"
                 jsCode+="var e = new Event('change');\n"
                 jsCode+="e.target = inputElement;\n"
                 jsCode+="inputElement.dispatchEvent(e);\n"
@@ -251,7 +251,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
     }
     
-    func didCancelScanningBarcode(_ scanBarcodeViewController: ScanBarcodeViewController!) {
+    func didCancelScanningBarcode(_ scanBarcodeViewController: ScanBarcodeViewController) {
         scanBarcodeViewController .dismiss(animated: true, completion: nil)
     }
 
