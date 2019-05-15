@@ -9,9 +9,8 @@
 #include "ParticleSetup.h"
 #include "ParticleSetupVideoViewController.h"
 
-// Other Obj-C project files
-#include "ParticleDevice+pins.h"
-#include "SPKTinkerViewController.h"
+// Particle SDK
+#include "Particle-SDK.h"
 
 // pods
 #include "MBProgressHUD.h"
@@ -22,6 +21,7 @@
 #include "DateTools.h"
 #include "SEGAnalytics.h"
 #include "Stripe.h"
+#include "ASValueTrackingSlider/ASValueTrackingSlider.h"
 #include "Segment-Firebase/SEGFirebaseIntegrationFactory.h"
-//#include "ParticleKeys.h"
+
 #endif
