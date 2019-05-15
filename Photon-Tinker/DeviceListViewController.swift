@@ -2,16 +2,14 @@
 //  DeviceListViewController.swift
 //  Photon-Tinker
 //
-//  Created by Ido on 4/16/15.
-//  Copyright (c) 2015 particle. All rights reserved.
+//  Copyright (c) 2019 particle. All rights reserved.
 //
 
 import UIKit
 import QuartzCore
-//import TSMessageView
 
 
-class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate {
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate, Fadeable {
 
     @IBOutlet weak var setupNewDeviceButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
@@ -21,8 +19,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet weak var tableView: UITableView!
 
+    var isBusy: Bool = false
+    var viewsToFade: [UIView]? = nil
+
     var devices : [ParticleDevice] = []
-    var selectedDevice : ParticleDevice? = nil
     var refreshControlAdded : Bool = false
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -33,14 +33,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.reloadData()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.viewsToFade = [self.tableView, self.moreButton, self.setupNewDeviceButton]
+
+        self.addRefreshControl()
+        self.fade(animated: false)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
-        if let d = self.selectedDevice {
-            d.delegate = self // reassign Device delegate to this VC to receive system events (in case some other VC down the line reassigned it)
-        }
-
-        if ParticleCloud.sharedInstance().isAuthenticated
-        {
+        if ParticleCloud.sharedInstance().isAuthenticated {
             self.loadDevices()
         }
 
@@ -48,24 +51,125 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
-
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
 
+
+
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "deviceInspector" {
             if let vc = segue.destination as? DeviceInspectorViewController {
-                let indexPath = sender as! IndexPath
+                let device = sender as! ParticleDevice
+                vc.setup(device: device)
 
-                vc.setup(device: self.devices[indexPath.row])
-
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - idx: %i device: %@", withParameters: getVaList([indexPath.row, "\(self.devices[indexPath.row])"]))
-                SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": self.devices[indexPath.row].type.description])
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@", withParameters: getVaList(["\(device)"]))
+                SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": device.type.description])
             }
         }
     }
 
+    func loadDevices()
+    {
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices started", withParameters: getVaList([]))
+
+        DispatchQueue.global().async {
+            ParticleCloud.sharedInstance().getDevices({ (devices:[ParticleDevice]?, error:Error?) -> Void in
+
+                self.handleGetDevicesResponse(devices, error: error)
+
+                DispatchQueue.main.async { [weak self] () -> () in
+                    if let self = self {
+                        self.resume(animated: true)
+                        self.showTutorial()
+                    }
+                }
+            })
+        }
+    }
+
+    func handleGetDevicesResponse(_ devices:[ParticleDevice]?, error:Error?)
+    {
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed", withParameters: getVaList([]))
+        if let e = error
+        {
+            self.devices = []
+
+            if (e as NSError).code == 401 {
+                self.logout()
+            } else {
+                ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
+                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
+            }
+
+            DispatchQueue.main.async {
+                self.noDevicesLabel.isHidden = false
+                self.tableView.reloadData()
+            }
+        }
+        else
+        {
+            if let d = devices
+            {
+                // if no devices offer user to setup a new one
+                if (d.count == 0) {
+                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
+                }
+
+                self.devices = d
+                for device in self.devices {
+                    device.delegate = self
+                }
+
+                self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
+
+                sortDevices()
+
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
+                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
+
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } else {
+                self.devices = []
+
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
+                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
+
+                DispatchQueue.main.async {
+                    self.noDevicesLabel.isHidden = false
+                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
+                    self.tableView.reloadData()
+                }
+            }
+
+        }
+    }
+
+    private func sortDevices() {
+        self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
+            if (firstDevice.connected != secondDevice.connected) {
+                return firstDevice.connected == true
+            } else {
+                var nameA = firstDevice.name ?? " "
+                var nameB = secondDevice.name ?? " "
+                return nameA.lowercased() < nameB.lowercased()
+            }
+        })
+    }
+
+    func addRefreshControl()
+    {
+        self.tableView.addPullToRefresh(withPullText: "Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
+            weak var weakSelf = self
+            ParticleCloud.sharedInstance().getDevices() { (devices:[ParticleDevice]?, error: Error?) -> Void in
+                weakSelf?.handleGetDevicesResponse(devices, error: error)
+                weakSelf?.tableView.finishLoading()
+            }
+        }
+    }
 
 
     func invokeElectronSetup() {
@@ -120,8 +224,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
-
-
     func showTutorial() {
        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
     
@@ -153,115 +255,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     
-    func loadDevices()
-    {
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices started", withParameters: getVaList([]))
-
-        // do a HUD only for first time load
-        if self.refreshControlAdded == false
-        {
-            ParticleSpinner.show(self.view)
-        }
-        
-        DispatchQueue.global().async {
-            
-            ParticleCloud.sharedInstance().getDevices({ (devices:[ParticleDevice]?, error:Error?) -> Void in
-
-                self.handleGetDevicesResponse(devices, error: error)
-                
-                // do anyway:
-                DispatchQueue.main.async { [weak self] () -> () in
-                    if let s = self {
-                        ParticleSpinner.hide(s.view)
-                        // first time add the custom pull to refresh control to the tableview
-                        if s.refreshControlAdded == false
-                        {
-                            s.addRefreshControl()
-                            s.refreshControlAdded = true
-                        }
-                        s.showTutorial()
-                    }
-                }
-            })
-        }
-    }
-
-
-    func addRefreshControl()
-    {
-        self.tableView.addPullToRefresh(withPullText: "Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
-            weak var weakSelf = self
-            ParticleCloud.sharedInstance().getDevices() { (devices:[ParticleDevice]?, error: Error?) -> Void in
-                weakSelf?.handleGetDevicesResponse(devices, error: error)
-                weakSelf?.tableView.finishLoading()
-            }
-        }
-    }
 
 
 
-    func handleGetDevicesResponse(_ devices:[ParticleDevice]?, error:Error?)
-    {
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed", withParameters: getVaList([]))
-        if let e = error
-        {
-            if (e as NSError).code == 401 {
-                self.logout()
-            } else {
-                ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
-                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
-            }
 
-            DispatchQueue.main.async {
-                self.noDevicesLabel.isHidden = false
-            }
-        }
-        else
-        {
-            if let d = devices
-            {
-                // if no devices offer user to setup a new one
-                if (d.count == 0) {
-                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
-                }
 
-                self.devices = d
-                for device in self.devices {
-                    device.delegate = self
-                }
-                
-                self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
 
-                self.devices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-                    if (firstDevice.connected != secondDevice.connected) {
-                        return firstDevice.connected == true
-                    } else {
-                        var nameA = firstDevice.name ?? " "
-                        var nameB = secondDevice.name ?? " "
-                        return nameA.lowercased() < nameB.lowercased()
-                    }
-                })
 
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
-                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
 
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-
-                
-            } else {
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
-                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
-
-                DispatchQueue.main.async {
-                    self.noDevicesLabel.isHidden = false
-                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
-                }
-            }
-            
-        }
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.devices.count
@@ -301,12 +302,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.deviceStateLabel.text = ""
             
             ParticleUtils.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[(indexPath as NSIndexPath).row].connected, flashing:self.devices[(indexPath as NSIndexPath).row].isFlashing)
-
-            // override everything else
-            if devices[(indexPath as NSIndexPath).row].isFlashing
-            {
-                cell.deviceStateImageView.image = UIImage(named: "imgCircle")
-            }
             
             masterCell = cell
         }
@@ -315,18 +310,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
-        if (event == .flashStarted) {
-            for cell in self.tableView.visibleCells {
-                let deviceCell = cell as! DeviceTableViewCell
-                if deviceCell.deviceNameLabel.text == device.name {
-                    DispatchQueue.main.async {
-                        deviceCell.deviceStateLabel.text = "(Flashing)"
-                    }
-                    ParticleUtils.animateOnlineIndicatorImageView(deviceCell.deviceStateImageView, online: true, flashing: true)
-                }
-            }
-        } else {
-            self.loadDevices()
+        self.sortDevices()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
@@ -354,7 +340,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
                 self.devices.remove(at: (indexPath as NSIndexPath).row)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
-                let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                let delayTime = DispatchTime.now() + .milliseconds(250)
 
                 ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device unclaim complete. Device count: %i, Devices: %@", withParameters: getVaList([self.devices.count, self.devices]))
 
@@ -402,7 +388,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     
                     let deviceName = MeshSetupStrings.getRandomDeviceName()
                     deviceAdded.rename(deviceName, completion: { (error : Error?) -> Void in
-                        if let _=error
+                        if let _ = error
                         {
                             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Added a new device to account but there was a problem communicating with it. Device has been named %@.", withParameters: getVaList([deviceName]))
                             RMessage.showNotification(withTitle: "Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .warning, customTypeName: nil, callback: nil)
@@ -488,10 +474,24 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if devices[(indexPath as NSIndexPath).row].isFlashing {
             RMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning, customTypeName: nil, callback: nil)
         } else {
-            self.selectedDevice = self.devices[indexPath.row]
-            self.performSegue(withIdentifier: "deviceInspector", sender: indexPath)
+            self.fade(animated: true)
+
+            let selectedDevice = self.devices[indexPath.row]
+            selectedDevice.refresh { [weak self] error in
+                if let self = self {
+                    self.resume(animated: true)
+
+                    if let error = error {
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, callback: nil)
+                    } else {
+                        self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
+                    }
+                }
+            }
         }
     }
+
+
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
@@ -540,7 +540,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @IBAction func moreButtonTapped(_ sender: UIButton) {
-
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "More tapped", withParameters: getVaList([]))
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
