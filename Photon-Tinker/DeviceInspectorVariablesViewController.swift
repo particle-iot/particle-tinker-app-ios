@@ -123,15 +123,16 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
                         self.variableValues[name] = resultValue
                     } else if let resultValue = variableValue as? NSNumber {
                         self.variableValues[name] = resultValue.stringValue
+                    } else {
+                        self.variableValues[name] = nil
                     }
-                }
+        }
 
                 DispatchQueue.main.async {
                     self.updateCellForVariable(name)
                 }
             }
         }
-
     }
 
     func updateCellForVariable(_ name: String) {

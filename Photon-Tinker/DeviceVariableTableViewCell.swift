@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DeviceVariableTableViewCellDelegate  {
+protocol DeviceVariableTableViewCellDelegate: class  {
     func tappedOnVariableValue(_ sender : DeviceVariableTableViewCell, name : String, value : String)
     func tappedOnVariableName(_ sender : DeviceVariableTableViewCell, name : String)
 }
@@ -25,7 +25,8 @@ internal class DeviceVariableTableViewCell: UITableViewCell {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var backgroundShadeView: UIView!
 
-    var delegate : DeviceVariableTableViewCellDelegate?
+    weak var delegate : DeviceVariableTableViewCellDelegate?
+
     var variableName : String!
     var variableValue : String?
 
