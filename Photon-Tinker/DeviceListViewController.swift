@@ -51,7 +51,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if ParticleCloud.sharedInstance().isAuthenticated {
             self.loadDevices()
         } else {
-            ParticleUtils.resetTutorialWasDisplayed()
             self.showTutorial()
         }
 
