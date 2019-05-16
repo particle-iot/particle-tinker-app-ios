@@ -23,9 +23,11 @@ extension Fadeable {
         unfadeContent(animated: animated)
     }
 
-    func fadeContent(animated: Bool) {
+    func fadeContent(animated: Bool, showSpinner: Bool = true) {
         self.isBusy = true
-        ParticleSpinner.show(view)
+        if (showSpinner) {
+            ParticleSpinner.show(view)
+        }
 
         if (animated) {
             UIView.animate(withDuration: 0.25) { () -> Void in
