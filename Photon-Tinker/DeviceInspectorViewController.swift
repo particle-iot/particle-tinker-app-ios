@@ -8,37 +8,28 @@
 
 import Foundation
 
-class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, ParticleDeviceDelegate {
-
-    @IBOutlet weak var deviceNameLabel: UILabel!
-
-
-    @IBOutlet weak var deviceEventsContainerView: UIView!
-    @IBOutlet weak var deviceDataContainerView: UIView!
-    @IBOutlet weak var deviceInfoContainerView: UIView!
-
-    @IBOutlet weak var infoContainerView: UIView!
-    @IBOutlet weak var moreActionsButton: UIButton!
-
-    @IBOutlet weak var tabBarView: DeviceInspectorTabBarView!
-    
-    var infoVC: DeviceInspectorInfoViewController?
-    var dataVC: DeviceInspectorDataViewController?
-    var eventsVC: DeviceInspectorEventsViewController?
-
-    var renameDialog: ZAlertView?
-    var flashedTinker: Bool = false
-
-    var device: ParticleDevice!
+class DeviceInspectorViewController : UIViewController, DeviceInspectorChildViewControllerDelegate, Fadeable {
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
 
-    func setup(device: ParticleDevice) {
-        self.device = device
-        self.device.delegate = self
-    }
+    @IBOutlet weak var deviceNameLabel: UILabel!
+    @IBOutlet weak var topBarView: UIView!
+    @IBOutlet weak var tabBarView: DeviceInspectorTabBarView!
+    @IBOutlet weak var moreActionsButton: UIButton!
+
+    @IBOutlet var viewsToFade:[UIView]?
+
+    var device: ParticleDevice!
+    var isBusy: Bool = false //required by fadeble protocol
+
+    var tabs:[DeviceInspectorChildViewController] = []
+
+    var tinkerVC: DeviceInspectorTinkerViewController?
+    var functionsVC: DeviceInspectorFunctionsViewController?
+    var variablesVC: DeviceInspectorVariablesViewController?
+    var eventsVC: DeviceInspectorEventsViewController?
 
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
@@ -46,76 +37,155 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
         self.tabBarView.setup(tabNames: ["Events", "Functions", "Variables", "Tinker"])
     }
 
-    @IBAction func backButtonTapped(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
+    override func viewWillAppear(_ animated: Bool) {
+        self.deviceNameLabel.text = self.device.name ?? "<no name>"
+        self.moreActionsButton.isHidden = !device.is3rdGen()
+
+        self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
     }
 
-
-    @IBAction func actionButtonTapped(_ sender: UIButton) {
-
-    }
-
-    @IBAction func tabChanged(_ sender: DeviceInspectorTabBarView) {
-        NSLog("sender = \(sender)")
-    }
-
-    // happens right as Device Inspector is displayed as all VCs are in an embed segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // if its either the info data or events VC then set the device to what we are inspecting
+        if let vc = segue.destination as? DeviceInspectorVariablesViewController {
+            vc.setup(device: device)
+            vc.delegate = self
+            self.variablesVC = vc
+        } else if let vc = segue.destination as? DeviceInspectorFunctionsViewController {
+            vc.setup(device: device)
+            vc.delegate = self
+            self.functionsVC = vc
+        } else if let vc = segue.destination as? DeviceInspectorEventsViewController {
+            vc.setup(device: device)
+            vc.delegate = self
+            self.eventsVC = vc
+        } else if let vc = segue.destination as? DeviceInspectorTinkerViewController {
+            vc.setup(device: device)
+            vc.delegate = self
+            self.tinkerVC = vc
+        }
+    }
 
 
-        DispatchQueue.global().async {
-            [unowned self] in
-            // do some task
-            if let vc = segue.destination as? DeviceInspectorChildViewController {
-                vc.device = self.device
 
-                if let i = vc as? DeviceInspectorInfoViewController {
-                    self.infoVC = i
-                    DispatchQueue.main.async {
-                        i.view.isHidden = false
-                    }
+    func setup(device: ParticleDevice) {
+        self.device = device
+    }
+
+    func reloadDeviceData() {
+        if (!self.isBusy) {
+            self.fade()
+        }
+
+        self.device.refresh({[weak self] (err: Error?) in
+            SEGAnalytics.shared().track("DeviceInspector_RefreshedData")
+
+            if let self = self {
+                for vc in self.tabs {
+                    vc.update()
                 }
 
-                if let d = vc as? DeviceInspectorDataViewController {
-                    self.dataVC = d
-                    DispatchQueue.main.async {
-                        d.view.isHidden = true
-                    }
+                if (err == nil) {
+                    self.deviceNameLabel.text = self.device.name ?? "<no name>"
                 }
 
-                if let e = vc as? DeviceInspectorEventsViewController {
-                    self.eventsVC = e
-                    DispatchQueue.main.async {
-                        e.view.isHidden = true
-                    }
-                }
+                self.resume(animated: true)
+            }
+        })
+    }
 
-            } else if let vc = segue.destination as? SPKTinkerViewController {
-                vc.device = self.device
 
-                let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.device)
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into tinker - device: %@", withParameters: getVaList([vc.device.description]))
-                SEGAnalytics.shared().track("Tinker_SegueToTinker", properties: ["device":deviceInfo.deviceType, "running_tinker":vc.device.isRunningTinker()])
+
+    private func selectTab(selectedTabIdx: Int, instant: Bool = false) {
+        if (tabs.isEmpty) {
+            tabs = [eventsVC!, functionsVC!, variablesVC!, tinkerVC!]
+        }
+
+        tabs[selectedTabIdx].view.superview!.isHidden = false
+        tabs[selectedTabIdx].view.superview!.alpha = 0
+        self.view.bringSubview(toFront: tabs[selectedTabIdx].view.superview!)
+        tabs[selectedTabIdx].update()
+        tabs[selectedTabIdx].showTutorial()
+
+        if (!instant) {
+            UIView.animate(withDuration: 0.25,
+                    animations: { () -> Void in
+                        self.tabs[selectedTabIdx].view.superview!.alpha = 1
+                    },
+                    completion: { success in
+                        self.hideOtherTabs()
+                    })
+        } else {
+            self.tabs[selectedTabIdx].view.superview!.alpha = 1
+            self.hideOtherTabs()
+        }
+    }
+
+    private func hideOtherTabs() {
+        for i in 0 ..< tabs.count {
+            if (i != self.tabBarView.selectedIdx) {
+                tabs[i].view.superview!.isHidden = true
             }
         }
     }
 
+    func childViewDidRequestDataRefresh(_ childView: DeviceInspectorChildViewController) {
+        self.reloadDeviceData()
+    }
+
+    func fade(animated: Bool = true) {
+        self.fadeContent(animated: animated, showSpinner: false)
+
+        self.view.bringSubview(toFront: self.topBarView)
+        self.moreActionsButton.isEnabled = false
+    }
+
+    func resume(animated: Bool) {
+        self.unfadeContent(animated: animated)
+
+        self.moreActionsButton.isEnabled = true
+    }
+
+
+
+    @IBAction func actionButtonTapped(_ sender: UIButton) {
+        if (self.device.is3rdGen()) {
+            let vc = MeshSetupControlPanelUIManager.loadedViewController()
+            vc.setDevice(self.device)
+            self.present(vc, animated: true)
+        } else {
+            fatalError("not implemented")
+        }
+    }
+
+    @IBAction func backButtonTapped(_ sender: AnyObject) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+
+    @IBAction func tabChanged(_ sender: DeviceInspectorTabBarView) {
+        self.selectTab(selectedTabIdx: sender.selectedIdx)
+    }
+
+
+
+
+
+//    func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
+//        //ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
+//        if self.flashedTinker && event == .flashSucceeded {
+//            SEGAnalytics.shared().track("DeviceInspector_ReflashTinkerSuccess")
+//            DispatchQueue.main.async {
+//                RMessage.showNotification(withTitle: "Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .success, customTypeName: nil, callback: nil)
+//            }
+//            self.flashedTinker = false
+//        }
+//
+//        self.refreshData()
+//    }
 
 
 //    @IBAction func actionButtonTapped(_ sender: UIButton) {
 //        // heading
 //        view.endEditing(true)
 //        let dialog = ZAlertView(title: "More Actions", message: nil, alertType: .multipleChoice)
-//
-//        if (self.device.is3rdGen() && self.device.mobileSecret != nil) {
-//            dialog.addButton("Control Panel", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
-//                dialog.dismiss()
-//                let vc = MeshSetupControlPanelUIManager.loadedViewController()
-//                vc.setDevice(self.device)
-//                self.present(vc, animated: true)
-//            }
-//        }
 //
 //        if (self.device.isRunningTinker()) {
 //            dialog.addButton("Tinker", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleCyanColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog: ZAlertView) in
@@ -174,8 +244,6 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
 //            DispatchQueue.main.asyncAfter(deadline: delayTime) {
 //                self.device.signal(false, completion: nil)
 //            }
-//
-//
 //        }
 //
 //        dialog.addButton("Support/Documentation", font: ParticleUtils.particleBoldFont, color: ParticleUtils.particleEmeraldColor, titleColor: ParticleUtils.particleAlmostWhiteColor) { (dialog : ZAlertView) in
@@ -284,61 +352,15 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
 //
 //
 //
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.refreshData()
-//
-//        self.deviceNameLabel.text = self.device.name ?? "<no name>"
-//        //ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
-//    }
+
 //
 //
-//    func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
-//        //ParticleUtils.animateOnlineIndicatorImageView(self.deviceOnlineIndicatorImageView, online: self.device.connected, flashing: self.device.isFlashing)
-//        if self.flashedTinker && event == .flashSucceeded {
-//            SEGAnalytics.shared().track("DeviceInspector_ReflashTinkerSuccess")
-//            DispatchQueue.main.async {
-//                RMessage.showNotification(withTitle: "Flashing successful", subtitle: "Your device has been flashed with Tinker firmware successfully", type: .success, customTypeName: nil, callback: nil)
-//            }
-//            self.flashedTinker = false
-//        }
-//
-//        self.refreshData()
-//    }
+
 //
 //
 //
 //
-//    func refreshData() {
-//        self.device.refresh({[weak self] (err: Error?) in
-//            SEGAnalytics.shared().track("DeviceInspector_RefreshedData")
-//
-//            if (err == nil) {
-//                if let s = self {
-//                    s.deviceNameLabel.text = s.device.name ?? "<no name>"
-//                    //ParticleUtils.animateOnlineIndicatorImageView(s.deviceOnlineIndicatorImageView, online: s.device.connected, flashing: s.device.isFlashing)
-//
-//                    if let info = s.infoVC {
-//                        info.device = s.device
-//                        info.updateDeviceInfoDisplay()
-//                    }
-//
-//                    if let data = s.dataVC {
-//                        data.device = s.device
-//                        data.refreshVariableList()
-//                    }
-//
-//                    if let events = s.eventsVC {
-//                        events.unsubscribeFromDeviceEvents()
-//                        events.device = s.device
-//                        if !events.paused {
-//                            events.subscribeToDeviceEvents()
-//                        }
-//
-//                    }
-//                }
-//            }
-//            })
-//    }
+
 //
 //
 //    // 2
@@ -410,14 +432,7 @@ class DeviceInspectorViewController : UIViewController, UITextFieldDelegate, Par
 //    }
 //
 //
-//    func popDocumentationViewController() {
-//
-//        SEGAnalytics.shared().track("DeviceInspector_DocumentationOpened")
-//        self.performSegue(withIdentifier: "help", sender: self)
-////        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-////        let vc : UIViewController = storyboard.instantiateViewControllerWithIdentifier("help")
-////        self.navigationController?.pushViewController(vc, animated: true)
-//    }
+
 //
 //
 //
