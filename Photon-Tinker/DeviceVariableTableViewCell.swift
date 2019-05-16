@@ -2,8 +2,8 @@
 //  DeviceVariableTableViewCell.swift
 //  Particle
 //
-//  Created by Ido Kleinman on 5/16/16.
-//  Copyright © 2016 particle. All rights reserved.
+//  Created by Raimundas Sakalauskas on 05/16/19.
+//  Copyright © 2019 Particle. All rights reserved.
 //
 
 import Foundation
@@ -13,7 +13,7 @@ protocol DeviceVariableTableViewCellDelegate  {
     func tappedOnVariableName(_ sender : DeviceVariableTableViewCell, name : String)
 }
 
-internal class DeviceVariableTableViewCell: DeviceDataTableViewCell {
+internal class DeviceVariableTableViewCell: UITableViewCell {
 
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!

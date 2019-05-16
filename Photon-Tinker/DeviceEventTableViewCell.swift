@@ -8,7 +8,7 @@
 
 
 
-class DeviceEventTableViewCell: DeviceDataTableViewCell {
+class DeviceEventTableViewCell: UITableViewCell {
 
     @IBOutlet weak var bkgView: UIView!
     
