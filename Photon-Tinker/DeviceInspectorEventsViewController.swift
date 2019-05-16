@@ -10,7 +10,6 @@
 
 class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var deviceEventsTableView: UITableView!
     @IBOutlet weak var eventFilterSearchBar: UISearchBar!
     @IBOutlet weak var noEventsLabel: UILabel!
     @IBOutlet weak var clearEventsButton: UIButton!
@@ -24,10 +23,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     var subscribeId: Any?
     var paused: Bool = false
     var filtering: Bool = false
-
-    func setup(device: ParticleDevice) {
-        self.device = device
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         subscribeToDeviceEvents()
@@ -61,14 +56,14 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                             self.events?.insert(e, at: 0)
                             if self.filtering {
                                 self.filterEvents()
-                                self.deviceEventsTableView.reloadData()
+                                self.tableView.reloadData()
                             } else {
                                 if !self.view.isHidden {
-                                    self.deviceEventsTableView.beginUpdates()
-                                    self.deviceEventsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
-                                    self.deviceEventsTableView.endUpdates()
+                                    self.tableView.beginUpdates()
+                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+                                    self.tableView.endUpdates()
                                 } else {
-                                    self.deviceEventsTableView.reloadData()
+                                    self.tableView.reloadData()
                                 }
                             }
                         }
@@ -107,11 +102,11 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                     // 1
                     tutorial = YCTutorialBox(headline: "Device Events", withHelpText: "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your clipboard.")
                     
-                    tutorial?.showAndFocus(self.deviceEventsTableView)
+                    tutorial?.showAndFocus(self.tableView)
                     
                     
                     ParticleUtils.setTutorialWasDisplayedForViewController(self)
-                    self.deviceEventsTableView.reloadData()
+                    self.tableView.reloadData()
                 }
                 
             }
@@ -128,7 +123,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         self.eventFilterSearchBar.showsCancelButton = false
         self.backgroundView.backgroundColor = UIColor.white
         self.filtering = false
-        self.deviceEventsTableView.reloadData()
+        self.tableView.reloadData()
     }
     
 
@@ -154,7 +149,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 
         SEGAnalytics.shared().track("DeviceInspector_EventFilterTyping")
         DispatchQueue.main.async {
-            self.deviceEventsTableView.reloadData()
+            self.tableView.reloadData()
         }
 
     }
@@ -178,7 +173,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DeviceEventTableViewCell = self.deviceEventsTableView.dequeueReusableCell(withIdentifier: "eventCell") as! DeviceEventTableViewCell
+        let cell: DeviceEventTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "eventCell") as! DeviceEventTableViewCell
 
         if filtering {
             if let eventsArr = self.filteredEvents {
@@ -219,7 +214,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             if let self = self {
                 self.events = nil
                 self.filteredEvents = nil
-                self.deviceEventsTableView.reloadData()
+                self.tableView.reloadData()
                 self.noEventsLabel.isHidden = false
             }
             SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
