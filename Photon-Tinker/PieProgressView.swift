@@ -10,44 +10,44 @@ class PieProgressView: UIView {
     static var defaultPieColor: UIColor = UIColor(red: 0.612, green: 0.710, blue: 0.839, alpha: 1.0)
     static let kAngleOffset: CGFloat = -90.0
 
-    var progress: CGFloat {
+    var progress: CGFloat = 0.0 {
         didSet {
             progress = max(0, min(1.0, progress))
             self.setNeedsDisplay()
         }
     }
 
-    var pieBorderWidth: CGFloat {
+    var pieBorderWidth: CGFloat = 2.0 {
         didSet {
             self.setNeedsDisplay()
         }
     }
 
-    var pieInnerBorderWidth: CGFloat{
+    var pieInnerBorderWidth: CGFloat = 0.0 {
         didSet {
             self.setNeedsDisplay()
         }
     }
 
-    var pieBorderColor: UIColor{
+    var pieBorderColor: UIColor = PieProgressView.defaultPieColor {
         didSet {
             self.setNeedsDisplay()
         }
     }
 
-    var pieInnerBorderColor: UIColor {
+    var pieInnerBorderColor: UIColor = PieProgressView.defaultPieColor {
         didSet {
             self.setNeedsDisplay()
         }
     }
 
-    var pieFillColor: UIColor {
+    var pieFillColor: UIColor = PieProgressView.defaultPieColor {
         didSet {
             self.setNeedsDisplay()
         }
     }
 
-    var pieBackgroundColor: UIColor {
+    var pieBackgroundColor: UIColor = .clear {
         didSet {
             self.setNeedsDisplay()
         }
@@ -56,33 +56,13 @@ class PieProgressView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setup()
+        backgroundColor = .clear
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    override required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        setup()
-    }
-
-    private func setup() {
-        self.backgroundColor = .clear
-
-        self.progress = 0.0;
-        self.pieBorderWidth = 2.0;
-        self.pieBorderColor = PieProgressView.defaultPieColor
-        self.pieFillColor = self.pieBorderColor;
-        self.pieBackgroundColor = .white
-    }
-
-    convenience init() {
-        self.backgroundColor = .clear
-
-        self.progress = 0.0;
-        self.pieBorderWidth = 2.0;
-        self.pieBorderColor = PieProgressView.defaultPieColor
-        self.pieFillColor = self.pieBorderColor;
-        self.pieBackgroundColor = .white
+        backgroundColor = .clear
     }
 
     override func draw(_ rect: CGRect) {
@@ -98,7 +78,7 @@ class PieProgressView: UIView {
         let center = CGPoint(x: rect.midX, y: rect.midY)
         let radius = center.y
         let angle = ((.pi * (360.0 * progress) + PieProgressView.kAngleOffset) / 180)
-        let points = [CGPoint(x: center.x, y: 0.0), center, CGPoint(x: center.x + radius * cosf(Float(angle)), y: center.y + radius * sinf(Float(angle)))]
+        let points = [CGPoint(x: center.x, y: 0.0), center, CGPoint(x: center.x + radius * cos(angle), y: center.y + radius * sin(angle))]
 
         // Fill
         pieFillColor.set()
