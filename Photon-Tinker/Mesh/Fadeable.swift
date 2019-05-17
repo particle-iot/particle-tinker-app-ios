@@ -27,24 +27,24 @@ extension Fadeable {
         self.isBusy = true
         if (showSpinner) {
             ParticleSpinner.show(view)
-        }
 
-        if (animated) {
-            UIView.animate(withDuration: 0.25) { () -> Void in
+            if (animated) {
+                UIView.animate(withDuration: 0.25) { () -> Void in
+                    if let viewsToFade = self.viewsToFade {
+                        for childView in viewsToFade {
+                            childView.alpha = 0.5
+                        }
+                    }
+                }
+            } else {
                 if let viewsToFade = self.viewsToFade {
                     for childView in viewsToFade {
                         childView.alpha = 0.5
                     }
                 }
-            }
-        } else {
-            if let viewsToFade = self.viewsToFade {
-                for childView in viewsToFade {
-                    childView.alpha = 0.5
-                }
-            }
 
-            self.view.setNeedsDisplay()
+                self.view.setNeedsDisplay()
+            }
         }
     }
 
