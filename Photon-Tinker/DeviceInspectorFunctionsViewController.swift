@@ -11,6 +11,7 @@
 class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController, UITableViewDelegate, UITableViewDataSource, DeviceFunctionTableViewCellDelegate {
 
     @IBOutlet weak var noFunctionsMessage: UILabel!
+    @IBOutlet var noFunctionsMessageView: UIView!
 
     var functionValues: [String: String?] = [:]
     var functionArguments: [String: String] = [:]
@@ -44,13 +45,23 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
         self.tableView.isUserInteractionEnabled = true
         self.refreshControl.endRefreshing()
 
-        self.noFunctionsMessage.isHidden = self.device.functions.count > 0
+        self.setupTableViewHeader()
+    }
+
+    private func setupTableViewHeader() {
         if (self.device.connected) {
             self.noFunctionsMessage.text = "(No exposed variables)"
         } else {
             self.noFunctionsMessage.text = "(Device is offline)"
         }
+
+        self.tableView.tableHeaderView = nil
+        self.noFunctionsMessageView.removeFromSuperview()
+        self.tableView.tableHeaderView = (self.functionNames.count > 0) ? nil : self.noFunctionsMessageView
+
+        self.adjustTableViewHeaderViewConstraints()
     }
+
 
     override func showTutorial() {
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {

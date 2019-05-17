@@ -36,6 +36,10 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
         self.tableView.isUserInteractionEnabled = true
         self.refreshControl.endRefreshing()
 
+        self.setupTableViewHeader()
+    }
+
+    private func setupTableViewHeader() {
         self.tableView.tableHeaderView = nil
         self.flashTinkerView.removeFromSuperview()
         self.tinkerView.removeFromSuperview()
@@ -51,17 +55,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
             self.tableView.tableHeaderView = self.deviceOfflineView
         }
 
-        if #available(iOS 11, *) {
-            NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor)
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor)
-            ])
-        }
+        self.adjustTableViewHeaderViewConstraints()
     }
 
     override func resetUserAppData() {

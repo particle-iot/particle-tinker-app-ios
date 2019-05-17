@@ -11,7 +11,8 @@
 class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DeviceVariableTableViewCellDelegate {
 
     @IBOutlet weak var noVariablesMessage: UILabel!
-
+    @IBOutlet var noVariablesMessageView: UIView!
+    
     var variableValues: [String: String?] = [:]
     var variableNames: [String] = []
 
@@ -43,12 +44,20 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
         self.tableView.isUserInteractionEnabled = true
         self.refreshControl.endRefreshing()
 
-        self.noVariablesMessage.isHidden = self.device.variables.count > 0
+        self.setupTableViewHeader()
+    }
+
+    private func setupTableViewHeader() {
         if (self.device.connected) {
             self.noVariablesMessage.text = "(No exposed variables)"
         } else {
             self.noVariablesMessage.text = "(Device is offline)"
         }
+
+        self.tableView.tableHeaderView = nil
+        self.noVariablesMessageView.removeFromSuperview()
+        self.tableView.tableHeaderView = (self.variableNames.count > 0) ? nil : self.noVariablesMessageView
+        self.adjustTableViewHeaderViewConstraints()
     }
 
     override func showTutorial() {

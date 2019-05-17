@@ -11,14 +11,15 @@
 class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var eventFilterSearchBar: UISearchBar!
-    @IBOutlet weak var noEventsLabel: UILabel!
     @IBOutlet weak var clearEventsButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var backgroundView: UIView!
 
-    var events: [ParticleEvent]?
-    var filteredEvents: [ParticleEvent]?
-    var filterText: String?
+    @IBOutlet var noEventsView: UIView!
+
+    var events: [ParticleEvent] = []
+    var filteredEvents: [ParticleEvent] = []
+    var filterText: String = ""
 
     var subscribeId: Any?
     var paused: Bool = false
@@ -41,8 +42,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     override func update() {
         super.update()
 
+        self.tableView.reloadData()
+
         self.tableView.isUserInteractionEnabled = true
         self.refreshControl.endRefreshing()
+
+        self.evalNoEventsViewVisibility()
     }
 
     func subscribeToDeviceEvents() {
@@ -54,13 +59,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                 DispatchQueue.main.async(execute: {
                     if let self = self {
                         if let e = event {
-                            if self.events == nil {
-                                self.events = [ParticleEvent]()
-                                self.filteredEvents = [ParticleEvent]()
-                                self.noEventsLabel.isHidden = true
-                            }
                             // insert new event to datasource
-                            self.events?.insert(e, at: 0)
+                            self.events.insert(e, at: 0)
                             if self.filtering {
                                 self.filterEvents()
                                 self.tableView.reloadData()
@@ -73,6 +73,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                                     self.tableView.reloadData()
                                 }
                             }
+
+                            self.evalNoEventsViewVisibility()
                         }
                     }
                 })
@@ -148,7 +150,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                     self.searchBarCancelButtonClicked(searchBar)
                 }
             })
-            // ANIMATE TABLE
         }
         
         self.filterText = searchText.lowercased()
@@ -163,33 +164,25 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 
     func filterEvents() {
         if self.filtering {
-            if let eventsArr = self.events {
-                self.filteredEvents = eventsArr.filter({$0.event.lowercased().contains(self.filterText!) || $0.data!.lowercased().contains(self.filterText!)}) // filter for both name and data
-            }
+            self.filteredEvents = self.events.filter({$0.event.lowercased().contains(self.filterText) || $0.data!.lowercased().contains(self.filterText)}) // filter for both name and data
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if filtering, let e = self.filteredEvents {
-            return e.count
-        } else if let e = self.events {
-            return e.count
+        if filtering {
+            return self.filteredEvents.count
+        } else {
+            return self.events.count
         }
-
-        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DeviceEventTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "eventCell") as! DeviceEventTableViewCell
 
         if filtering {
-            if let eventsArr = self.filteredEvents {
-                cell.setup(eventsArr[(indexPath as NSIndexPath).row])
-            }
+            cell.setup(self.filteredEvents[(indexPath as NSIndexPath).row])
         } else {
-            if let eventsArr = self.events {
-                cell.setup(eventsArr[(indexPath as NSIndexPath).row])
-            }
+            cell.setup(self.events[(indexPath as NSIndexPath).row])
         }
 
         return cell
@@ -219,10 +212,10 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default) { [weak self] action in
             if let self = self {
-                self.events = nil
-                self.filteredEvents = nil
+                self.events = []
+                self.filteredEvents = []
                 self.tableView.reloadData()
-                self.noEventsLabel.isHidden = false
+                self.evalNoEventsViewVisibility()
             }
             SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
         })
@@ -233,6 +226,33 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 
         self.present(alert, animated: true)
     }
-    
- 
+
+    func evalNoEventsViewVisibility() {
+        self.tableView.tableHeaderView = nil
+        self.noEventsView.removeFromSuperview()
+        self.tableView.tableHeaderView = (self.events.count > 0) ? nil : self.noEventsView
+
+        self.adjustTableViewHeaderViewConstraints()
+    }
+
+    override func adjustTableViewHeaderViewConstraints() {
+        if (self.tableView.tableHeaderView == nil) {
+            return
+        }
+
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.75, constant: 0),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, multiplier: 0.75, constant: 0),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor)
+            ])
+        }
+
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+    }
 }
