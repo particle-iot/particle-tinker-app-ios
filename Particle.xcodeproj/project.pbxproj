@@ -54,6 +54,7 @@
 		93C7C9E22208A15100ABEE85 /* b_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9DE2208A15100ABEE85 /* b_power_on.mov */; };
 		93C7C9E32208A15100ABEE85 /* series_commissioner_to_listening_mode.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9DF2208A15100ABEE85 /* series_commissioner_to_listening_mode.mov */; };
 		93C7C9E52208A1BA00ABEE85 /* series_featherwing_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9E42208A1BA00ABEE85 /* series_featherwing_power_on.mov */; };
+		93D0DD54228EF52C00FC2CCA /* tinker_pin_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */; };
 		93D36EAE216CC71E0088000C /* MeshSetupSuccessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */; };
 		93D36EB2216CC8B60088000C /* MeshSetupNetworkListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */; };
 		93D36EB4216CC9940088000C /* MeshSetupProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */; };
@@ -293,6 +294,7 @@
 		93C7C9DE2208A15100ABEE85 /* b_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = b_power_on.mov; path = Resources/b_power_on.mov; sourceTree = "<group>"; };
 		93C7C9DF2208A15100ABEE85 /* series_commissioner_to_listening_mode.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = series_commissioner_to_listening_mode.mov; path = Resources/series_commissioner_to_listening_mode.mov; sourceTree = "<group>"; };
 		93C7C9E42208A1BA00ABEE85 /* series_featherwing_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = series_featherwing_power_on.mov; path = Resources/series_featherwing_power_on.mov; sourceTree = "<group>"; };
+		93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = tinker_pin_data.json; path = "shared-assets-mobile/device_pin_info/tinker_pin_data.json"; sourceTree = SOURCE_ROOT; };
 		93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupSuccessView.xib; sourceTree = "<group>"; };
 		93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupNetworkListView.xib; sourceTree = "<group>"; };
 		93D36EB3216CC9940088000C /* MeshSetupProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupProgressView.xib; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 		50B1253A1AE06CF4003C29DC = {
 			isa = PBXGroup;
 			children = (
+				93D0DD50228EF51400FC2CCA /* SharedAssets */,
 				931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */,
 				50CF03C01D93420D0019E3F6 /* Particle.entitlements */,
 				50F62D721AE071AF00109F33 /* Assets */,
@@ -503,8 +506,8 @@
 		50B125451AE06CF4003C29DC /* Particle-Tinker */ = {
 			isa = PBXGroup;
 			children = (
-				C810B606D4FC39DA0CB50963 /* Global */,
 				931C378D215AA3360014811C /* MeshSetup */,
+				C810B606D4FC39DA0CB50963 /* Global */,
 				50EB76101AE6EE9C00C925A9 /* Model */,
 				50B125461AE06CF4003C29DC /* Supporting Files */,
 				5014D1EE1AE87B7000725BA8 /* ViewControllers */,
@@ -722,6 +725,14 @@
 			name = BLE;
 			sourceTree = "<group>";
 		};
+		93D0DD50228EF51400FC2CCA /* SharedAssets */ = {
+			isa = PBXGroup;
+			children = (
+				93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */,
+			);
+			path = SharedAssets;
+			sourceTree = "<group>";
+		};
 		93D36EB7216CD3AA0088000C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -754,17 +765,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		C810B0DEFDF7C90D27B7E01A /* Views */ = {
+		C810B0DEFDF7C90D27B7E01A /* Controls */ = {
 			isa = PBXGroup;
 			children = (
 				C810BDDE5D873554BBEC6D35 /* PinFunctionView.swift */,
 				C810B0EAB2DA044D022417A1 /* PinView.swift */,
-				C810B5B9D4A33EB025FFC03D /* PieProgressView.swift */,
 				C810B123D5E7031605920243 /* PinValueView.swift */,
 				C810BA3C69A84CF59D60E89D /* DeviceInspectorTabBarView.swift */,
 				C810BD0FD3277B763959CE55 /* Cells */,
 			);
-			name = Views;
+			name = Controls;
 			sourceTree = "<group>";
 		};
 		C810B173BA366BD98AD49A88 /* 3rd Party */ = {
@@ -776,20 +786,21 @@
 			path = ../../../TinkerApp;
 			sourceTree = "<group>";
 		};
-		C810B1B7FF43CDBDD815B5FB /* Views */ = {
+		C810B1B7FF43CDBDD815B5FB /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				C810B5B9D4A33EB025FFC03D /* PieProgressView.swift */,
 				C810B65986773963C46ABD5A /* ParticleSpinner.swift */,
 			);
-			path = Views;
+			path = Controls;
 			sourceTree = "<group>";
 		};
-		C810B3700452CAF69DD4F1A1 /* Views */ = {
+		C810B3700452CAF69DD4F1A1 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
 				C810BC9F56A5D07A322C3B2D /* Cells */,
 			);
-			name = Views;
+			name = Controls;
 			sourceTree = "<group>";
 		};
 		C810B49819BC127C142F34B1 /* Other */ = {
@@ -820,7 +831,7 @@
 				C810B14047147CD0007183D9 /* ParticleUtils.swift */,
 				C810B5A4543F7968B33C8435 /* Extensions */,
 				C810B173BA366BD98AD49A88 /* 3rd Party */,
-				C810B1B7FF43CDBDD815B5FB /* Views */,
+				C810B1B7FF43CDBDD815B5FB /* Controls */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -989,7 +1000,7 @@
 			isa = PBXGroup;
 			children = (
 				C810BFC5A017C9FCFE14AAA3 /* DeviceListViewController.swift */,
-				C810B3700452CAF69DD4F1A1 /* Views */,
+				C810B3700452CAF69DD4F1A1 /* Controls */,
 			);
 			name = DeviceList;
 			sourceTree = "<group>";
@@ -1010,7 +1021,7 @@
 				C810B44AA6315959E8013D4B /* DeviceInspectorVariablesViewController.swift */,
 				C810B47D6339367AC34EA6F4 /* DeviceInspectorEventsViewController.swift */,
 				C810B4B38EA8A15186965011 /* DeviceInspectorTinkerViewController.swift */,
-				C810B0DEFDF7C90D27B7E01A /* Views */,
+				C810B0DEFDF7C90D27B7E01A /* Controls */,
 			);
 			name = DeviceInspector;
 			sourceTree = "<group>";
@@ -1128,6 +1139,7 @@
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				9317FC16216807200054AE24 /* MeshSetupTextInputView.xib in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
+				93D0DD54228EF52C00FC2CCA /* tinker_pin_data.json in Resources */,
 				93FFD5B4215E7EDB005A469D /* FiraMono-Regular.ttf in Resources */,
 				93F607F6221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib in Resources */,
 				937EE24E224BF686004E58E8 /* MeshSetupButtonCell.xib in Resources */,
