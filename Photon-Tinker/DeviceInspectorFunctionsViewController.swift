@@ -13,6 +13,7 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
     @IBOutlet weak var noFunctionsMessage: UILabel!
 
     var functionValues: [String: String?] = [:]
+    var functionArguments: [String: String] = [:]
     var functionNames: [String] = []
 
     override func viewDidLoad() {
@@ -81,6 +82,21 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
 
         cell.setup(functionName: name)
 
+        if let argument = self.functionArguments[name] {
+            cell.argumentsTextField.text = argument
+        }
+
+        if self.functionValues.keys.contains(name) {
+            let value = self.functionValues[name]!
+
+            //if value is nil, we are currently running api call
+            if let value = value {
+                cell.setFunctionValue(value: value)
+            } else {
+                cell.startUpdating()
+            }
+        }
+
         cell.delegate = self
         cell.selectionStyle = .none
         cell.tag = indexPath.row
@@ -138,7 +154,9 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
 
     
 
- 
+    func updateArgument(_ sender: DeviceFunctionTableViewCell, argument: String) {
+        self.functionArguments[sender.functionName] = argument
+    }
 
     func tappedOnExpandButton(_ sender: DeviceFunctionTableViewCell) {
         self.tableView.beginUpdates()

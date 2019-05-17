@@ -11,6 +11,7 @@ import Foundation
 protocol DeviceFunctionTableViewCellDelegate: class  {
     func tappedOnFunctionName(_ sender : DeviceFunctionTableViewCell, name : String, argument: String)
     func tappedOnExpandButton(_ sender : DeviceFunctionTableViewCell)
+    func updateArgument(_ sender: DeviceFunctionTableViewCell, argument: String)
 }
 
 internal class DeviceFunctionTableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -34,7 +35,11 @@ internal class DeviceFunctionTableViewCell: UITableViewCell, UITextFieldDelegate
         self.nameLabel.text = self.functionName
 
         self.resultLabel.text = ""
-        self.expandIndicator.transform = CGAffineTransform.identity
+        if (self.isSelected) {
+            self.expandIndicator.transform = CGAffineTransform(rotationAngle: .pi)
+        } else {
+            self.expandIndicator.transform = CGAffineTransform.identity
+        }
         self.expandButton.isUserInteractionEnabled = true
     }
 
@@ -56,6 +61,7 @@ internal class DeviceFunctionTableViewCell: UITableViewCell, UITextFieldDelegate
     }
 
     func collapseAnim() {
+        self.endEditing(true)
         UIView.animate(withDuration: 0.25, animations: { [weak self] in
             self?.expandIndicator.transform = CGAffineTransform.identity
         })
@@ -65,13 +71,16 @@ internal class DeviceFunctionTableViewCell: UITableViewCell, UITextFieldDelegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return true
     }
-    
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.callButtonTapped(self)
 
         textField.selectAll(nil)
         return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.delegate?.updateArgument(self, argument: textField.text ?? "")
     }
 
     func setFunctionValue(value: String?) {
