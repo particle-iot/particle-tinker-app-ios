@@ -490,21 +490,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         let device = self.devices[(indexPath as NSIndexPath).row]
         tableView.deselectRow(at: indexPath, animated: false)
 
-        if devices[(indexPath as NSIndexPath).row].isFlashing {
-            RMessage.showNotification(withTitle: "Device is being flashed", subtitle: "Device is currently being flashed, please wait for the process to finish.", type: .warning, customTypeName: nil, callback: nil)
-        } else {
-            self.fade(animated: true)
+        self.fade(animated: true)
 
-            let selectedDevice = self.devices[indexPath.row]
-            selectedDevice.refresh { [weak self] error in
-                if let self = self {
-                    self.resume(animated: true)
+        let selectedDevice = self.devices[indexPath.row]
+        selectedDevice.refresh { [weak self] error in
+            if let self = self {
+                self.resume(animated: true)
 
-                    if let error = error {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, callback: nil)
-                    } else {
-                        self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
-                    }
+                if let error = error {
+                    RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, callback: nil)
+                } else {
+                    self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
                 }
             }
         }
