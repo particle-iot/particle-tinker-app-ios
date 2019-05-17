@@ -27,6 +27,12 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
         self.update()
     }
 
+    override func resetUserAppData() {
+        super.resetUserAppData()
+
+        self.variableNames = []
+        self.variableValues = [:]
+    }
 
     override func update() {
         super.update()
@@ -34,6 +40,7 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
         self.variableNames = self.device.variables.keys.sorted()
         self.loadAllVariables()
         self.tableView.reloadData()
+        self.tableView.isUserInteractionEnabled = true
         self.refreshControl.endRefreshing()
 
         self.noVariablesMessage.isHidden = self.device.variables.count > 0

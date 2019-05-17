@@ -36,6 +36,10 @@ class DeviceInspectorChildViewController: UIViewController {
         assert(false, "This method must be overriden by the DeviceInspectorChildViewController subclass")
     }
 
+    func resetUserAppData() {
+
+    }
+
     func update() {
 
     }
@@ -53,6 +57,7 @@ class DeviceInspectorChildViewController: UIViewController {
     }
 
     @objc func refreshData(sender: UIRefreshControl) {
+        self.tableView.isUserInteractionEnabled = false
         self.delegate?.childViewDidRequestDataRefresh(self)
     }
 }

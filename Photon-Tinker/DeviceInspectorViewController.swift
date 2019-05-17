@@ -26,10 +26,10 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     var tabs:[DeviceInspectorChildViewController] = []
 
-    var tinkerVC: DeviceInspectorTinkerViewController?
-    var functionsVC: DeviceInspectorFunctionsViewController?
-    var variablesVC: DeviceInspectorVariablesViewController?
-    var eventsVC: DeviceInspectorEventsViewController?
+    var tinkerVC: DeviceInspectorTinkerViewController!
+    var functionsVC: DeviceInspectorFunctionsViewController!
+    var variablesVC: DeviceInspectorVariablesViewController!
+    var eventsVC: DeviceInspectorEventsViewController!
 
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
@@ -42,6 +42,33 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.moreActionsButton.isHidden = !device.is3rdGen()
 
         self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveParticleDeviceSystemNotification), name: Notification.Name.ParticleDeviceSystemEvent, object: nil)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc func didReceiveParticleDeviceSystemNotification(notification: Notification) {
+        if let userInfo = notification.userInfo, let device = userInfo["device"] as? ParticleDevice, device.id == self.device.id, let event = userInfo["event"] as? ParticleDeviceSystemEvent {
+            if event == ParticleDeviceSystemEvent.appHashUpdated {
+                self.resetUserAppData()
+                self.reloadDeviceData()
+            }
+        }
+    }
+
+    func resetUserAppData() {
+        for tab in tabs {
+            tab.resetUserAppData()
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -132,7 +159,11 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     }
 
     func fade(animated: Bool = true) {
-        self.fadeContent(animated: animated, showSpinner: false)
+        if (self.tabs[self.tabBarView.selectedIdx].refreshControl.isRefreshing) {
+            self.fadeContent(animated: animated, showSpinner: false)
+        } else {
+            self.fadeContent(animated: animated, showSpinner: true)
+        }
 
         self.view.bringSubview(toFront: self.topBarView)
         self.moreActionsButton.isEnabled = false

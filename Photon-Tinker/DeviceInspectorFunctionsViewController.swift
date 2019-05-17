@@ -28,11 +28,20 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
         self.update()
     }
 
+    override func resetUserAppData() {
+        super.resetUserAppData()
+
+        self.functionNames = []
+        self.functionArguments = [:]
+        self.functionValues = [:]
+    }
+
     override func update() {
         super.update()
 
         self.functionNames = self.device.functions.sorted()
         self.tableView.reloadData()
+        self.tableView.isUserInteractionEnabled = true
         self.refreshControl.endRefreshing()
 
         self.noFunctionsMessage.isHidden = self.device.functions.count > 0
