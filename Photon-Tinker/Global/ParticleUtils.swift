@@ -8,6 +8,11 @@
 
 import Foundation
 
+extension NSNotification.Name {
+    public static let ParticleDeviceSystemEvent: NSNotification.Name = NSNotification.Name(rawValue: "io.particle.event.ParticleDeviceSystemEvent") 
+}
+
+
 class ParticleUtils: NSObject {
 
     static var particleCyanColor = UIColor(rgb: 0x00ADEF)
