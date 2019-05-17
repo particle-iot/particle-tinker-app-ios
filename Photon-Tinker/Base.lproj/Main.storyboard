@@ -487,7 +487,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="681"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" userLabel="chipView">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2">
+                                <rect key="frame" x="67" y="276" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru">
                                 <rect key="frame" x="8" y="52" width="359" height="587"/>
                                 <subviews>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="PinFunctionView" customModule="Particle" customModuleProvider="target">
@@ -669,6 +674,7 @@
                     </view>
                     <connections>
                         <outlet property="chipView" destination="HPv-oK-mru" id="jix-yd-G6j"/>
+                        <outlet property="flashTinkerView" destination="vxH-yP-sY2" id="gkq-qa-zS2"/>
                         <outlet property="functionView" destination="cp9-M3-Ao7" id="rVL-e0-RyI"/>
                         <outlet property="functionViewCenterXConstraint" destination="Hoo-UL-L46" id="y0l-35-cMT"/>
                         <outlet property="functionViewCenterYConstraint" destination="Ms8-ZE-rak" id="cFY-3G-354"/>

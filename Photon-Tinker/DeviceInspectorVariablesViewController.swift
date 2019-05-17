@@ -44,6 +44,11 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
         self.refreshControl.endRefreshing()
 
         self.noVariablesMessage.isHidden = self.device.variables.count > 0
+        if (self.device.connected) {
+            self.noVariablesMessage.text = "(No exposed variables)"
+        } else {
+            self.noVariablesMessage.text = "(Device is offline)"
+        }
     }
 
     override func showTutorial() {
@@ -63,6 +68,10 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
 
 
     func loadAllVariables() {
+        if (!self.device.connected) {
+            return
+        }
+
         self.variableValues.removeAll()
         if (self.shouldLoadVariables()) {
             for name in self.variableNames {
@@ -113,10 +122,14 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
             let value = self.variableValues[name]!
 
             cell.setup(variableName: name, variableType: type, variableValue: value)
-            cell.startUpdating()
+            if (value == nil) {
+                cell.startUpdating()
+            } else {
+                cell.stopUpdating()
+            }
         } else {
             cell.setup(variableName: name, variableType: type, variableValue: nil)
-            cell.setVariableError()
+            cell.stopUpdating()
         }
 
         cell.delegate = self
@@ -126,6 +139,11 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
     }
 
     func loadVariable(_ name: String) {
+        if (!self.device.connected) {
+            RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To update variable values device must be online.", type: .error, customTypeName: nil, callback: nil)
+            return
+        }
+
         variableValues.updateValue(nil, forKey: name)
 
         self.device.getVariable(name) { [weak self, name] variableValue, error in

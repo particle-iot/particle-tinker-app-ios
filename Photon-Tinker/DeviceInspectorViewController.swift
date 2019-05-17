@@ -2,8 +2,8 @@
 //  DeviceInspectorController.swift
 //  Particle
 //
-//  Created by Ido Kleinman on 6/27/16.
-//  Copyright © 2016 particle. All rights reserved.
+// Created by Raimundas Sakalauskas on 2019-05-09.
+// Copyright (c) 2019 Particle. All rights reserved.
 //
 
 import Foundation
@@ -60,6 +60,10 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         if let userInfo = notification.userInfo, let device = userInfo["device"] as? ParticleDevice, device.id == self.device.id, let event = userInfo["event"] as? ParticleDeviceSystemEvent {
             if event == ParticleDeviceSystemEvent.appHashUpdated {
                 self.resetUserAppData()
+                self.reloadDeviceData()
+            }
+
+            if event == ParticleDeviceSystemEvent.wentOffline || event == ParticleDeviceSystemEvent.cameOnline {
                 self.reloadDeviceData()
             }
         }

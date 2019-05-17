@@ -45,6 +45,11 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
         self.refreshControl.endRefreshing()
 
         self.noFunctionsMessage.isHidden = self.device.functions.count > 0
+        if (self.device.connected) {
+            self.noFunctionsMessage.text = "(No exposed variables)"
+        } else {
+            self.noFunctionsMessage.text = "(Device is offline)"
+        }
     }
 
     override func showTutorial() {
@@ -122,6 +127,11 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
     }
     
     func callFunction(_ name: String, argument: String) {
+        if (!self.device.connected) {
+            RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To execute functions device must be online.", type: .error, customTypeName: nil, callback: nil)
+            return
+        }
+
         functionValues.updateValue(nil, forKey: name)
 
         SEGAnalytics.shared().track("DeviceInspector_FunctionCalled")
