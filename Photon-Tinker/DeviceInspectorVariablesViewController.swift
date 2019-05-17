@@ -64,9 +64,18 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
 
     func loadAllVariables() {
         self.variableValues.removeAll()
+        if (self.shouldLoadVariables()) {
+            for name in self.variableNames {
+                self.loadVariable(name)
+            }
+        }
+    }
 
-        for name in self.variableNames {
-            self.loadVariable(name)
+    func shouldLoadVariables() -> Bool {
+        if (self.device.connected && self.variableNames.count <= 20) {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -104,9 +113,7 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
             let value = self.variableValues[name]!
 
             cell.setup(variableName: name, variableType: type, variableValue: value)
-            if value == nil && variableNames.count <= 20 {
-                cell.startUpdating()
-            }
+            cell.startUpdating()
         } else {
             cell.setup(variableName: name, variableType: type, variableValue: nil)
             cell.setVariableError()
