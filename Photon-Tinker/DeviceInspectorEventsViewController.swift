@@ -24,6 +24,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     var paused: Bool = false
     var filtering: Bool = false
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        addRefreshControl()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         subscribeToDeviceEvents()
     }
@@ -35,7 +41,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     override func update() {
         super.update()
 
-        //do nothing
+        self.tableView.isUserInteractionEnabled = true
+        self.refreshControl.endRefreshing()
     }
 
     func subscribeToDeviceEvents() {

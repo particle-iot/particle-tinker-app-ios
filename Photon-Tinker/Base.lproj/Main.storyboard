@@ -487,13 +487,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="681"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2">
-                                <rect key="frame" x="67" y="276" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FCK-My-SXb">
+                                <rect key="frame" x="0.0" y="52" width="375" height="629"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <sections/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2">
+                                <rect key="frame" x="0.0" y="39" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru">
-                                <rect key="frame" x="8" y="52" width="359" height="587"/>
+                                <rect key="frame" x="8" y="47" width="359" height="587"/>
                                 <subviews>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="PinFunctionView" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="77.666666666666686" y="231.66666666666669" width="204" height="124"/>
@@ -662,24 +667,58 @@
                                     <constraint firstItem="cp9-M3-Ao7" firstAttribute="centerY" secondItem="HPv-oK-mru" secondAttribute="centerY" id="Ms8-ZE-rak"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Xi-NW0">
+                                <rect key="frame" x="0.0" y="39" width="375" height="603"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Device is offline)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q07-zZ-fKd">
+                                        <rect key="frame" x="109.66666666666669" y="291.66666666666669" width="156" height="20"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="shadowOffset" width="0.0" height="2"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerX" secondItem="ZeE-Xi-NW0" secondAttribute="centerX" id="9W1-yX-sHq"/>
+                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerX" secondItem="ZeE-Xi-NW0" secondAttribute="centerX" id="EQs-rP-I9a"/>
+                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerY" secondItem="ZeE-Xi-NW0" secondAttribute="centerY" id="fsA-xV-fxd"/>
+                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerY" secondItem="ZeE-Xi-NW0" secondAttribute="centerY" id="iHV-Qb-ZgB"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="t9G-7z-ZF5" firstAttribute="trailing" secondItem="HPv-oK-mru" secondAttribute="trailing" constant="8" id="4Us-5k-5RT"/>
-                            <constraint firstItem="HPv-oK-mru" firstAttribute="top" secondItem="t9G-7z-ZF5" secondAttribute="top" constant="8" id="E3l-ea-Ojz"/>
-                            <constraint firstItem="t9G-7z-ZF5" firstAttribute="bottom" secondItem="HPv-oK-mru" secondAttribute="bottom" constant="8" id="e4o-NY-xWE"/>
-                            <constraint firstItem="HPv-oK-mru" firstAttribute="leading" secondItem="t9G-7z-ZF5" secondAttribute="leading" constant="8" id="g5D-kL-MLA"/>
+                            <constraint firstItem="FCK-My-SXb" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leading" id="36r-6h-Dha"/>
+                            <constraint firstItem="HPv-oK-mru" firstAttribute="width" secondItem="t9G-7z-ZF5" secondAttribute="width" constant="-16" id="5SX-LR-BSy"/>
+                            <constraint firstItem="vxH-yP-sY2" firstAttribute="centerX" secondItem="ucx-4a-6jp" secondAttribute="centerX" placeholder="YES" id="Ahd-8S-6qt"/>
+                            <constraint firstAttribute="bottom" secondItem="FCK-My-SXb" secondAttribute="bottom" id="Aym-T8-WPt"/>
+                            <constraint firstItem="ZeE-Xi-NW0" firstAttribute="height" secondItem="t9G-7z-ZF5" secondAttribute="height" id="Cdc-Xw-haD"/>
+                            <constraint firstItem="ZeE-Xi-NW0" firstAttribute="centerY" secondItem="ucx-4a-6jp" secondAttribute="centerY" placeholder="YES" id="HBS-ho-bUI"/>
+                            <constraint firstItem="vxH-yP-sY2" firstAttribute="height" secondItem="t9G-7z-ZF5" secondAttribute="height" id="JIg-hN-IUg"/>
+                            <constraint firstItem="vxH-yP-sY2" firstAttribute="centerY" secondItem="ucx-4a-6jp" secondAttribute="centerY" placeholder="YES" id="Q47-bg-Eop"/>
+                            <constraint firstItem="FCK-My-SXb" firstAttribute="top" secondItem="t9G-7z-ZF5" secondAttribute="top" constant="8" id="QYm-rd-YxW"/>
+                            <constraint firstItem="ZeE-Xi-NW0" firstAttribute="width" secondItem="t9G-7z-ZF5" secondAttribute="width" id="YzY-4Z-yr1"/>
+                            <constraint firstItem="HPv-oK-mru" firstAttribute="height" secondItem="t9G-7z-ZF5" secondAttribute="height" constant="-16" id="atV-HV-u5U"/>
+                            <constraint firstItem="ZeE-Xi-NW0" firstAttribute="centerX" secondItem="ucx-4a-6jp" secondAttribute="centerX" placeholder="YES" id="jbq-CG-aFm"/>
+                            <constraint firstItem="vxH-yP-sY2" firstAttribute="width" secondItem="t9G-7z-ZF5" secondAttribute="width" id="kuj-On-Jct"/>
+                            <constraint firstItem="HPv-oK-mru" firstAttribute="centerX" secondItem="ucx-4a-6jp" secondAttribute="centerX" placeholder="YES" id="nXm-9F-0Bv"/>
+                            <constraint firstAttribute="trailing" secondItem="FCK-My-SXb" secondAttribute="trailing" id="qxX-GM-efV"/>
+                            <constraint firstItem="HPv-oK-mru" firstAttribute="centerY" secondItem="ucx-4a-6jp" secondAttribute="centerY" placeholder="YES" id="yPs-40-34V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t9G-7z-ZF5"/>
                     </view>
                     <connections>
-                        <outlet property="chipView" destination="HPv-oK-mru" id="jix-yd-G6j"/>
+                        <outlet property="deviceOfflineView" destination="ZeE-Xi-NW0" id="GMg-gK-7fd"/>
                         <outlet property="flashTinkerView" destination="vxH-yP-sY2" id="gkq-qa-zS2"/>
                         <outlet property="functionView" destination="cp9-M3-Ao7" id="rVL-e0-RyI"/>
                         <outlet property="functionViewCenterXConstraint" destination="Hoo-UL-L46" id="y0l-35-cMT"/>
                         <outlet property="functionViewCenterYConstraint" destination="Ms8-ZE-rak" id="cFY-3G-354"/>
                         <outlet property="functionViewHeightConstraint" destination="zgg-gs-GEc" id="PIo-Wb-zLZ"/>
                         <outlet property="functionViewWidthConstraint" destination="8xW-Ni-Q5c" id="3Oh-cQ-osk"/>
+                        <outlet property="tableView" destination="FCK-My-SXb" id="hLi-As-FwD"/>
+                        <outlet property="tinkerView" destination="HPv-oK-mru" id="oEc-lx-9iT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxJ-10-rv0" userLabel="First Responder" sceneMemberID="firstResponder"/>

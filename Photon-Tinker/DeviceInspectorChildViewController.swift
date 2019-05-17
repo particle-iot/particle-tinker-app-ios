@@ -58,6 +58,9 @@ class DeviceInspectorChildViewController: UIViewController {
 
     @objc func refreshData(sender: UIRefreshControl) {
         self.tableView.isUserInteractionEnabled = false
+        self.tableView.panGestureRecognizer.isEnabled = false
+        self.tableView.panGestureRecognizer.isEnabled = true
+
         self.delegate?.childViewDidRequestDataRefresh(self)
     }
 }
