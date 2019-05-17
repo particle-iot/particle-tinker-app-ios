@@ -99,22 +99,24 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     func reloadDeviceData() {
         if (!self.isBusy) {
-            self.fade()
+            DispatchQueue.main.async {
+                self.fade()
+            }
         }
 
         self.device.refresh({[weak self] (err: Error?) in
             SEGAnalytics.shared().track("DeviceInspector_RefreshedData")
 
             if let self = self {
-                for vc in self.tabs {
-                    vc.update()
-                }
+                DispatchQueue.main.async {
+                    self.tabs[self.tabBarView.selectedIdx].update()
 
-                if (err == nil) {
-                    self.deviceNameLabel.text = self.device.name ?? "<no name>"
-                }
+                    if (err == nil) {
+                        self.deviceNameLabel.text = self.device.name ?? "<no name>"
+                    }
 
-                self.resume(animated: true)
+                    self.resume(animated: true)
+                }
             }
         })
     }
