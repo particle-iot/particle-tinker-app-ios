@@ -24,8 +24,6 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.update()
     }
 
     override func resetUserAppData() {
