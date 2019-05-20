@@ -198,6 +198,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     }
 
     @IBAction func tabChanged(_ sender: DeviceInspectorTabBarView) {
+        self.view.endEditing(true)
         self.selectTab(selectedTabIdx: sender.selectedIdx)
     }
 
