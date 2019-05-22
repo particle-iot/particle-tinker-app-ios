@@ -5,35 +5,74 @@
 
 import Foundation
 
+struct DevicePinsDefinition: Decodable {
+    var platformId: Int
+    var pins: [DevicePin]
 
-class DevicePin {
+    enum CodingKeys: String, CodingKey {
+        case pins = "pins"
+        case platformId = "deviceTypeId"
+    }
+}
 
-    enum DevicePinSide {
-        case left
-        case right
+struct DevicePin {
+    enum DevicePinSide: String, Decodable {
+        case left = "LEFT"
+        case right = "RIGHT"
     }
 
-    var label:String
-    var logicalName:String
-    var side:DevicePinSide
-    var row:Int
-    var availableFunctions:DevicePinFunction
+    var label: String
+    var logicalName: String
+    var side: DevicePinSide
+    var functions: DevicePinFunction
 
-    var value:Int
-    var selectedFunction:DevicePinFunction = .none
 
-    init(label: String, logicalName: String, side: DevicePinSide, row: Int, availableFunctions: DevicePinFunction) {
+    init(label: String, logicalName: String, side: DevicePinSide, functions: DevicePinFunction) {
         self.label = label
         self.logicalName = logicalName
         self.side = side
-        self.row = row
-        self.availableFunctions = availableFunctions
-        
-        self.value = 0
+        self.functions = functions
     }
 
-    func adjustValue(newValue: Int) {
-        self.value = newValue;
+}
+
+extension DevicePin: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case label
+        case logicalName = "tinkerName"
+        case side = "column"
+        case functions = "functions"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let label: String = try container.decode(String.self, forKey: .label)
+        let logicalName: String = try container.decode(String.self, forKey: .logicalName)
+        let side: DevicePinSide = try container.decode(DevicePinSide.self, forKey: .side)
+        let functionStrings: [String] = try container.decode([String].self, forKey: .functions)
+
+        var functions: DevicePinFunction = .none
+        if (functionStrings.contains("DigitalRead")) {
+            functions.update(with: .digitalRead)
+        }
+
+        if (functionStrings.contains("DigitalWrite")) {
+            functions.update(with: .digitalWrite)
+        }
+
+        if (functionStrings.contains("AnalogRead")) {
+            functions.update(with: .analogRead)
+        }
+
+        if (functionStrings.contains("AnalogWritePWM")) {
+            functions.update(with: .analogWritePWM)
+        }
+
+        if (functionStrings.contains("AnalogWriteDAC")) {
+            functions.update(with: .analogWriteDAC)
+        }
+
+        self.init(label: label, logicalName: logicalName, side: side, functions: functions)
     }
 }
 

@@ -515,11 +515,11 @@
                                     <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerY" secondItem="ZeE-Xi-NW0" secondAttribute="centerY" id="iHV-Qb-ZgB"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru">
-                                <rect key="frame" x="8" y="47" width="359" height="587"/>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" customClass="TinkerView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="189.66666666666666" width="375" height="301.66666666666674"/>
                                 <subviews>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="PinFunctionView" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="77.666666666666686" y="231.66666666666669" width="204" height="124"/>
+                                        <rect key="frame" x="85.666666666666686" y="89.000000000000028" width="204" height="124"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunflower" translatesAutoresizingMaskIntoConstraints="NO" id="0Dp-bl-5EV">
                                                 <rect key="frame" x="0.0" y="85.333333333333314" width="6" height="37"/>
@@ -679,17 +679,20 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="cp9-M3-Ao7" firstAttribute="centerX" secondItem="HPv-oK-mru" secondAttribute="centerX" id="Hoo-UL-L46"/>
                                     <constraint firstItem="cp9-M3-Ao7" firstAttribute="centerY" secondItem="HPv-oK-mru" secondAttribute="centerY" id="Ms8-ZE-rak"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="functionView" destination="cp9-M3-Ao7" id="hqR-6s-XZw"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FCK-My-SXb" firstAttribute="leading" secondItem="ucx-4a-6jp" secondAttribute="leading" id="36r-6h-Dha"/>
-                            <constraint firstItem="HPv-oK-mru" firstAttribute="width" secondItem="t9G-7z-ZF5" secondAttribute="width" constant="-16" id="5SX-LR-BSy"/>
+                            <constraint firstItem="HPv-oK-mru" firstAttribute="width" secondItem="t9G-7z-ZF5" secondAttribute="width" id="5SX-LR-BSy"/>
                             <constraint firstItem="vxH-yP-sY2" firstAttribute="centerX" secondItem="ucx-4a-6jp" secondAttribute="centerX" placeholder="YES" id="Ahd-8S-6qt"/>
                             <constraint firstAttribute="bottom" secondItem="FCK-My-SXb" secondAttribute="bottom" id="Aym-T8-WPt"/>
                             <constraint firstItem="ZeE-Xi-NW0" firstAttribute="height" secondItem="t9G-7z-ZF5" secondAttribute="height" multiplier="0.5" placeholder="YES" id="Cdc-Xw-haD"/>
@@ -698,7 +701,7 @@
                             <constraint firstItem="vxH-yP-sY2" firstAttribute="centerY" secondItem="ucx-4a-6jp" secondAttribute="centerY" placeholder="YES" id="Q47-bg-Eop"/>
                             <constraint firstItem="FCK-My-SXb" firstAttribute="top" secondItem="t9G-7z-ZF5" secondAttribute="top" constant="8" id="QYm-rd-YxW"/>
                             <constraint firstItem="ZeE-Xi-NW0" firstAttribute="width" secondItem="t9G-7z-ZF5" secondAttribute="width" placeholder="YES" id="YzY-4Z-yr1"/>
-                            <constraint firstItem="HPv-oK-mru" firstAttribute="height" secondItem="t9G-7z-ZF5" secondAttribute="height" constant="-16" id="atV-HV-u5U"/>
+                            <constraint firstItem="HPv-oK-mru" firstAttribute="height" secondItem="t9G-7z-ZF5" secondAttribute="height" multiplier="0.5" id="atV-HV-u5U"/>
                             <constraint firstItem="ZeE-Xi-NW0" firstAttribute="centerX" secondItem="ucx-4a-6jp" secondAttribute="centerX" placeholder="YES" id="jbq-CG-aFm"/>
                             <constraint firstItem="vxH-yP-sY2" firstAttribute="width" secondItem="t9G-7z-ZF5" secondAttribute="width" id="kuj-On-Jct"/>
                             <constraint firstItem="HPv-oK-mru" firstAttribute="centerX" secondItem="ucx-4a-6jp" secondAttribute="centerX" placeholder="YES" id="nXm-9F-0Bv"/>
@@ -710,11 +713,6 @@
                     <connections>
                         <outlet property="deviceOfflineView" destination="ZeE-Xi-NW0" id="GMg-gK-7fd"/>
                         <outlet property="flashTinkerView" destination="vxH-yP-sY2" id="gkq-qa-zS2"/>
-                        <outlet property="functionView" destination="cp9-M3-Ao7" id="rVL-e0-RyI"/>
-                        <outlet property="functionViewCenterXConstraint" destination="Hoo-UL-L46" id="y0l-35-cMT"/>
-                        <outlet property="functionViewCenterYConstraint" destination="Ms8-ZE-rak" id="cFY-3G-354"/>
-                        <outlet property="functionViewHeightConstraint" destination="zgg-gs-GEc" id="PIo-Wb-zLZ"/>
-                        <outlet property="functionViewWidthConstraint" destination="8xW-Ni-Q5c" id="3Oh-cQ-osk"/>
                         <outlet property="tableView" destination="FCK-My-SXb" id="hLi-As-FwD"/>
                         <outlet property="tinkerView" destination="HPv-oK-mru" id="oEc-lx-9iT"/>
                     </connections>
