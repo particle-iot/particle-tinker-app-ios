@@ -6,14 +6,20 @@
 import Foundation
 
 protocol PinViewDelegate: class {
-    func pinViewTapped(pinView: PinView)
-    func pinViewLongTapped(pinView: PinView)
+    func pinDidRequestToSelectFunction(_ pinView: PinView)
+//    func pinDidRequestToResetFunction(_ pinView: PinView)
+//    func pinDidRequestToReadValue(_ pinView: PinView) //analog read / digital read
+//    func pinDidRequestToToggleValue(_ pinView: PinView) //digital write
+//    func pinDidRequestToWriteAnalogValue(_ pinView: PinView, value: Int) //analog write
+//    func pinDidRequestToHighlightPin(_ pinView: PinView) //analog write
 }
 
-class PinView: UIView {
+class PinView: UIView, UIGestureRecognizerDelegate {
     weak var delegate: PinViewDelegate?
 
     var pin: DevicePin!
+
+    var selectedFunction: DevicePinFunction?
 
     private var button: UIButton!
     private var label: UILabel!
@@ -21,7 +27,8 @@ class PinView: UIView {
     private var outerPieValueView: PieProgressView!
     private var outerPieFrameView: PieProgressView!
 
-    private var tapGestureRecognizer: UILongPressGestureRecognizer!
+    private var longTapGestureRecognizer: UILongPressGestureRecognizer!
+    private var tapGestureRecognizer: UITapGestureRecognizer!
     private var touchStartTime: Date?
 
     convenience init(pin: DevicePin) {
@@ -33,27 +40,13 @@ class PinView: UIView {
     }
 
     func setup() {
-        button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.frame = .zero
-        button.setImage(UIImage(named: "imgCircle"), for: .normal)
-        button.setTitle("", for: .normal)
-        button.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
-        addSubview(button)
-        NSLayoutConstraint.activate([
-             button.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -8),
-             button.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -8),
-             button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-             button.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
-
         outerPieValueView = PieProgressView(frame: .zero)
         outerPieValueView.translatesAutoresizingMaskIntoConstraints = false
         outerPieValueView.backgroundColor = UIColor.clear
         outerPieValueView.pieBackgroundColor = UIColor.clear
         outerPieValueView.progress = 1
         outerPieValueView.pieBorderWidth = 0
-        outerPieFrameView.pieFillColor = UIColor.white // will change
+        outerPieValueView.pieFillColor = UIColor.white // will change
         outerPieValueView.isHidden = true
         addSubview(outerPieValueView)
         NSLayoutConstraint.activate([
@@ -84,6 +77,20 @@ class PinView: UIView {
             outerPieFrameView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
 
+        button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.frame = .zero
+        button.setImage(UIImage(named: "imgCircle"), for: .normal)
+        button.setTitle("", for: .normal)
+        button.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
+        button.isUserInteractionEnabled = false
+        addSubview(button)
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -8),
+            button.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -8),
+            button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
 
         label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -101,51 +108,86 @@ class PinView: UIView {
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
 
-        tapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(pinTapped))
-        tapGestureRecognizer.minimumPressDuration = 0
+        longTapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(pinLongTapped))
+        longTapGestureRecognizer.minimumPressDuration = 1.0
+        longTapGestureRecognizer.cancelsTouchesInView = false
+        longTapGestureRecognizer.isEnabled = false
+
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pinTapped))
         tapGestureRecognizer.cancelsTouchesInView = false
         tapGestureRecognizer.isEnabled = true
+        tapGestureRecognizer.delegate = self
+
+        self.addGestureRecognizer(longTapGestureRecognizer)
         self.addGestureRecognizer(tapGestureRecognizer)
     }
 
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer == self.tapGestureRecognizer) && (otherGestureRecognizer == self.longTapGestureRecognizer) {
+            return true
+        }
+
+        return false
+    }
 
     @objc func pinTapped(sender: UIGestureRecognizer) {
-        switch (sender.state) {
-            case .began:
-                self.touchStartTime = Date()
-                UIView.animate(withDuration: 0.25) { () -> Void in
-                    self.button.alpha = 0.25
-                }
-            case .ended:
-                if let startTime = self.touchStartTime {
-                    if abs(startTime.timeIntervalSinceNow) >= 1.0
-                    {
-                        self.delegate?.pinViewLongTapped(pinView: self)
-                    } else {
-                        self.delegate?.pinViewTapped(pinView: self)
-                    }
-                }
-                self.touchStartTime = nil
-                UIView.animate(withDuration: 0.25) { () -> Void in
-                    self.button.alpha = 1.0
-                }
-            case .cancelled, .failed:
-                self.touchStartTime = nil
-                UIView.animate(withDuration: 0.25) { () -> Void in
-                    self.button.alpha = 1.0
-                }
-            case .changed:
-                let touchLocation = sender.location(in: self)
-
-                if !self.bounds.contains(touchLocation) {
-                    sender.isEnabled = false
-                    sender.isEnabled = true
-                }
-            case .possible:
-                //do nothing
-                break
+        NSLog("sender.state.rawValue = \(sender.state.rawValue)")
+        if (sender.state == .ended) {
+            self.pinShortTapped()
         }
     }
+
+    private func pinShortTapped() {
+        if let selectedFunction = self.selectedFunction {
+            if (selectedFunction.contains(.analogRead) || selectedFunction.contains(.digitalRead)) {
+//                self.delegate?.pinDidRequestToReadValue(self)
+            } else if (selectedFunction.contains(.analogWriteDAC) || selectedFunction.contains(.analogWritePWM)) {
+//                self.delegate?.pinDidRequestToHighlightPin(self)
+            } else if (selectedFunction.contains(.digitalWrite)) {
+//                self.delegate?.pinDidRequestToToggleValue(self)
+            }
+        } else {
+            self.delegate?.pinDidRequestToSelectFunction(self)
+        }
+    }
+
+
+    @objc func pinLongTapped(sender: UIGestureRecognizer) {
+        if (sender.state == .began) {
+            self.selectedFunction = nil
+            self.update()
+        }
+    }
+
+    func update() {
+        if let function = self.selectedFunction {
+            self.longTapGestureRecognizer.isEnabled = true
+
+            self.outerPieValueView.isHidden = false
+            self.outerPieFrameView.isHidden = false
+
+            self.outerPieValueView.pieFillColor = function.getColor()
+            self.outerPieFrameView.pieBorderColor = function.getColor()
+
+            switch function {
+                case DevicePinFunction.analogWritePWM:
+                    self.outerPieValueView.progress = 1
+                case DevicePinFunction.analogWriteDAC:
+                    self.outerPieValueView.progress = 1
+                case DevicePinFunction.analogRead:
+                    self.outerPieValueView.progress = 1
+                default:
+                    self.outerPieValueView.progress = 1
+            }
+
+        } else {
+            self.longTapGestureRecognizer.isEnabled = false
+
+            self.outerPieValueView.isHidden = true
+            self.outerPieFrameView.isHidden = true
+        }
+    }
+
 
     func beginUpdating() {
         self.alpha = 0.35
@@ -201,6 +243,7 @@ class PinView: UIView {
 //            //self.valueView?.isUserInteractionEnabled = newValue
 //        }
 //    }
+
 
 
 }
