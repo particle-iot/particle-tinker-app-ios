@@ -15,7 +15,7 @@ struct DevicePinsDefinition: Decodable {
     }
 }
 
-struct DevicePin {
+struct DevicePin: Equatable {
     enum DevicePinSide: String, Decodable {
         case left = "LEFT"
         case right = "RIGHT"
@@ -25,7 +25,6 @@ struct DevicePin {
     var logicalName: String
     var side: DevicePinSide
     var functions: DevicePinFunction
-
 
     init(label: String, logicalName: String, side: DevicePinSide, functions: DevicePinFunction) {
         self.label = label

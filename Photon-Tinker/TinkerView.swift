@@ -5,7 +5,7 @@
 
 import Foundation
 
-class TinkerView: UIView {
+class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
 
     @IBOutlet weak var functionView: PinFunctionView!
 
@@ -15,10 +15,16 @@ class TinkerView: UIView {
     @IBOutlet weak var functionViewCenterYConstraint: NSLayoutConstraint!
 
     var device: ParticleDevice!
+    var pinViews: [String: PinView]!
     var pinDefinitions:[DevicePin]!
 
     var backgroundImageView: UIImageView!
 
+
+    deinit {
+        self.pinViews.removeAll()
+        self.pinDefinitions.removeAll()
+    }
 
     func setup(_ device: ParticleDevice) {
         self.device = device
@@ -26,8 +32,14 @@ class TinkerView: UIView {
         self.setupPinsDefinitions()
         self.setupDeviceImage()
         self.setupPins()
+        self.setupFunctionView()
     }
 
+
+    private func setupFunctionView() {
+        self.hideFunctionView(instant: true)
+        self.functionView.delegate = self
+    }
 
     private func setupPinsDefinitions() {
         if let path = Bundle.main.path(forResource: "tinker_pin_data", ofType: "json") {
@@ -50,9 +62,14 @@ class TinkerView: UIView {
 
     private func setupDeviceImage() {
         // add chip shadow
-        let shadowImage = UIImage(named: "imgDeviceShadow")!.withRenderingMode(.alwaysTemplate)
+        let outlineImage: UIImage!
+        if (device.is3rdGen()) {
+            outlineImage = UIImage(named: "Img3rdGenDevice")!.withRenderingMode(.alwaysTemplate)
+        } else {
+            outlineImage = UIImage(named: "imgDeviceShadow")!.withRenderingMode(.alwaysTemplate)
+        }
 
-        backgroundImageView = UIImageView(image: shadowImage)
+        backgroundImageView = UIImageView(image: outlineImage)
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.tintColor = UIColor(white: 0.2, alpha: 0.5)
         backgroundImageView.contentMode = .scaleToFill
@@ -66,7 +83,7 @@ class TinkerView: UIView {
         heightConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
-            backgroundImageView.heightAnchor.constraint(equalTo: backgroundImageView.widthAnchor, multiplier: shadowImage.size.height / shadowImage.size.width),
+            backgroundImageView.heightAnchor.constraint(equalTo: backgroundImageView.widthAnchor, multiplier: outlineImage.size.height / outlineImage.size.width),
             backgroundImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             backgroundImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -4),
             backgroundImageView.heightAnchor.constraint(lessThanOrEqualTo: self.heightAnchor, constant: -8),
@@ -76,7 +93,10 @@ class TinkerView: UIView {
         ])
     }
 
+
     private func setupPins() {
+        pinViews = [:]
+
         //create stacks
         var leftStack = UIStackView()
         leftStack.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +134,11 @@ class TinkerView: UIView {
 
         for pin in self.pinDefinitions {
             let pinView = PinView(pin: pin)
+            pinView.delegate = self
             pinView.translatesAutoresizingMaskIntoConstraints = false
+
+            pinViews[pin.label] = pinView
+
             if pin.side == .left {
                 leftStack.addArrangedSubview(pinView)
             } else {
@@ -150,7 +174,7 @@ class TinkerView: UIView {
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.backgroundColor = .clear
-                leftStack.addArrangedSubview(view)
+                leftStack.insertArrangedSubview(view, at: 0)
                 NSLayoutConstraint.activate([
                     view.widthAnchor.constraint(equalTo: rootPin!.widthAnchor),
                     view.heightAnchor.constraint(equalTo: rootPin!.heightAnchor)
@@ -163,13 +187,80 @@ class TinkerView: UIView {
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.backgroundColor = .clear
-                rightStack.addArrangedSubview(view)
+                rightStack.insertArrangedSubview(view, at: 0)
                 NSLayoutConstraint.activate([
                     view.widthAnchor.constraint(equalTo: rootPin!.widthAnchor),
                     view.heightAnchor.constraint(equalTo: rootPin!.heightAnchor)
                 ])
             }
         }
+    }
+
+    func pinDidRequestToSelectFunction(_ pinView: PinView) {
+        //hide if no function selected and function view not visible for current pin
+        if (pinView.selectedFunction == nil && pinView.pin != functionView.pin) {
+            self.functionView.setPin(pinView.pin)
+            self.showFunctionView(origin: pinView)
+        } else {
+            self.functionView.setPin(nil)
+            self.hideFunctionView(instant: false)
+        }
+    }
+
+    private func showFunctionView(origin: PinView) {
+        if (!self.functionView.isHidden) {
+            self.hideFunctionView(instant: true)
+        }
+
+        DispatchQueue.main.async {
+            self.bringSubview(toFront: self.functionView)
+            self.functionView.isHidden = false
+
+            UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                self.functionView.alpha = 1
+
+                for pinView in self.pinViews.values {
+                    if pinView != origin {
+                        pinView.alpha = 0.15
+                    }
+                }
+
+            }, completion: { finished in
+
+            })
+        }
+    }
+
+    private func hideFunctionView(instant: Bool) {
+        if (instant) {
+            self.functionView.alpha = 0
+            self.functionView.isHidden = true
+
+            for pinView in self.pinViews.values {
+                pinView.alpha = 1
+            }
+        } else {
+            UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                self.functionView.alpha = 0
+
+                for pinView in self.pinViews.values {
+                    pinView.alpha = 1
+                }
+            }, completion: { finished in
+                self.functionView.isHidden = true
+            })
+        }
+    }
+
+    func pinFunctionSelected(pin: DevicePin, function: DevicePinFunction?) {
+        self.functionView.setPin(nil)
+        self.hideFunctionView(instant: false)
+
+        if let function = function {
+            self.pinViews[pin.label]!.selectedFunction = function
+            self.pinViews[pin.label]!.update()
+        }
+
     }
 }
 
