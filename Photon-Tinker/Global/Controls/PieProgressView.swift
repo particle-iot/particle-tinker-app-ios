@@ -77,7 +77,7 @@ class PieProgressView: UIView {
         // Math
         let center = CGPoint(x: rect.midX, y: rect.midY)
         let radius = center.y
-        let angle = ((.pi * (360.0 * progress) + PieProgressView.kAngleOffset) / 180)
+        let angle = (.pi * (PieProgressView.kAngleOffset + (360.0 * progress)) / 180)
         let points = [CGPoint(x: center.x, y: 0.0), center, CGPoint(x: center.x + radius * cos(angle), y: center.y + radius * sin(angle))]
 
         // Fill
