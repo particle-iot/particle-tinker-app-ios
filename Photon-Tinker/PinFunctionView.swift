@@ -6,7 +6,7 @@
 import Foundation
 
 protocol PinFunctionViewDelegate: class {
-    func pinFunctionSelected(function: DevicePinFunction)
+    func pinFunctionSelected(pin: DevicePin, function: DevicePinFunction?)
 }
 
 class PinFunctionView: UIView {
@@ -14,93 +14,91 @@ class PinFunctionView: UIView {
     private let selectedColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
     private let unselectedColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
 
-    @IBOutlet var pinLabel:UILabel!
-    @IBOutlet var analogReadImageView:UIImageView!
 
+    @IBOutlet var pinLabel:UILabel!
+    
+    @IBOutlet var analogReadImageView:UIImageView!
     @IBOutlet var analogReadButton:UIButton!
+    
     @IBOutlet var analogWriteImageView:UIImageView!
     @IBOutlet var analogWriteButton:UIButton!
+    
     @IBOutlet var digitalReadImageView:UIImageView!
-
     @IBOutlet var digitalReadButton:UIButton!
+    
     @IBOutlet var digitalWriteImageView:UIImageView!
     @IBOutlet var digitalWriteButton:UIButton!
 
     var pin:DevicePin?
-    var pinView:PinView?
 
     weak var delegate:PinFunctionViewDelegate?
 
-    func setPin(_ pin: DevicePin) {
+    func setPin(_ pin: DevicePin?) {
         self.pin = pin
+
+        guard let pin = self.pin else {
+            return
+        }
 
         pinLabel.text = pin.label
 
-        analogReadImageView.isHidden = true
+        analogReadButton.isHidden = true
         analogReadButton.backgroundColor = unselectedColor
+        analogReadImageView.isHidden = true
 
-        analogWriteImageView.isHidden = true
-        analogWriteButton.backgroundColor = unselectedColor
-
-        digitalReadImageView.isHidden = false
+        digitalReadButton.isHidden = true
         digitalReadButton.backgroundColor = unselectedColor
+        digitalReadImageView.isHidden = true
 
-        digitalWriteImageView.isHidden = false
+        digitalWriteButton.isHidden = true
         digitalWriteButton.backgroundColor = unselectedColor
+        digitalWriteImageView.isHidden = true
 
-        if pin.availableFunctions.contains(.analogRead) {
+        analogWriteButton.isHidden = true
+        analogWriteButton.backgroundColor = unselectedColor
+        analogWriteImageView.isHidden = true
+
+        if pin.functions.contains(.analogRead) {
             analogReadButton.isHidden = false
             analogReadImageView.isHidden = false
-        } else {
-            analogReadButton.isHidden = true
-            analogReadImageView.isHidden = true
         }
 
-        if (pin.availableFunctions.contains(.analogWrite) || pin.availableFunctions.contains(.analogWriteDAC)) {
+        if pin.functions.contains(.digitalRead) {
+            digitalReadButton.isHidden = false
+            digitalReadImageView.isHidden = false
+        }
+
+        if pin.functions.contains(.digitalWrite) {
+            digitalWriteButton.isHidden = false
+            digitalWriteImageView.isHidden = false
+        }
+
+        if (pin.functions.contains(.analogWritePWM) || pin.functions.contains(.analogWriteDAC)) {
             analogWriteButton.isHidden = false
             analogWriteImageView.isHidden = false
 
-            if pin.availableFunctions.contains(.analogWriteDAC) {
-                analogWriteImageView.image = analogWriteImageView.image?.withRenderingMode(.alwaysTemplate)
+            analogWriteImageView.image = analogWriteImageView.image?.withRenderingMode(.alwaysTemplate)
+
+            if pin.functions.contains(.analogWriteDAC) {
                 analogWriteImageView.tintColor = DevicePinFunction.getColor(function: .analogWriteDAC)
             } else {
-                analogWriteImageView.image = analogWriteImageView.image?.withRenderingMode(.alwaysOriginal)
+                analogWriteImageView.tintColor = DevicePinFunction.getColor(function: .analogWritePWM)
             }
-        } else {
-            analogWriteButton.isHidden = true
-            analogWriteImageView.isHidden = true
-        }
-
-        switch pin.selectedFunction {
-            case .analogRead:
-                analogReadButton.backgroundColor = selectedColor
-                analogReadImageView.isHidden = false
-            case .analogWriteDAC, .analogWrite:
-                analogWriteButton.backgroundColor = selectedColor
-                analogWriteImageView.isHidden = false
-            case .digitalRead:
-                digitalReadButton.backgroundColor = selectedColor
-                digitalReadImageView.isHidden = false
-            case .digitalWrite:
-                digitalWriteButton.backgroundColor = selectedColor
-                digitalWriteImageView.isHidden = false
-            default:
-                break
         }
 
         pinLabel.sizeToFit()
     }
 
     @IBAction func functionSelected(_ sender: UIButton) {
-        var function = DevicePinFunction.none
+        var function:DevicePinFunction? = nil
 
         if sender == analogReadButton {
             function = .analogRead
         } else if sender == analogWriteButton {
-            if self.pin!.availableFunctions.contains(.analogWriteDAC) {
+            if self.pin!.functions.contains(.analogWriteDAC) {
                 function = .analogWriteDAC
             } else {
-                function = .analogWrite
+                function = .analogWritePWM
             }
         } else if sender == digitalReadButton {
             function = .digitalRead
@@ -108,7 +106,7 @@ class PinFunctionView: UIView {
             function = .digitalWrite
         }
 
-        delegate?.pinFunctionSelected(function: function)
+        self.delegate?.pinFunctionSelected(pin: self.pin!, function: function)
     }
 
 
