@@ -198,6 +198,8 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             self.adjustAlpha()
 
             if let selectedFunction = self.selectedFunction {
+                self.delegate?.pinDidShowSlider(self) //force slider hiding for everyone
+
                 if (selectedFunction.contains(.analogRead) || selectedFunction.contains(.digitalRead)) {
                     self.beginUpdating()
                 } else if (selectedFunction.contains(.analogWriteDAC) || selectedFunction.contains(.analogWritePWM)) {
@@ -224,6 +226,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             self.adjustAlpha()
             self.update()
 
+            self.delegate?.pinDidShowSlider(self) //force slider hiding for everyone
         }
     }
 
@@ -360,6 +363,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             if (self.selectedFunction != DevicePinFunction.digitalWrite) {
                 self.showSlider()
             }
+            self.beginUpdating()
         } else {
             self.pinValue = nil
             self.beginUpdating()
