@@ -6,6 +6,12 @@
 import Foundation
 
 struct DevicePinFunction: OptionSet {
+    enum Constants {
+        static var analogReadMaxValue: CGFloat = 4095.0
+        static var analogWritePWMMaxValue: CGFloat = 255.0
+        static var analogWriteDACMaxValue: CGFloat = 4095.0
+    }
+
     let rawValue: Int
 
     static let none                     = DevicePinFunction(rawValue: 0)
@@ -40,6 +46,14 @@ struct DevicePinFunction: OptionSet {
 
     func isDigital() -> Bool {
         return self == DevicePinFunction.digitalRead || self == DevicePinFunction.digitalWrite
+    }
+
+    func isRead() -> Bool {
+        return self == DevicePinFunction.analogRead || self == DevicePinFunction.digitalRead
+    }
+
+    func isWrite() -> Bool {
+        return self == DevicePinFunction.digitalWrite || self == DevicePinFunction.analogWritePWM || self == DevicePinFunction.analogWriteDAC
     }
 
     func getColor() -> UIColor {

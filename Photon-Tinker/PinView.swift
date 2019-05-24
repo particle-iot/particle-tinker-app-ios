@@ -7,54 +7,46 @@ import Foundation
 
 protocol PinViewDelegate: class {
     func pinDidRequestToSelectFunction(_ pinView: PinView)
-//    func pinDidRequestToResetFunction(_ pinView: PinView)
-//    func pinDidRequestToReadValue(_ pinView: PinView) //analog read / digital read
-//    func pinDidRequestToToggleValue(_ pinView: PinView) //digital write
-//    func pinDidRequestToWriteAnalogValue(_ pinView: PinView, value: Int) //analog write
-//    func pinDidRequestToHighlightPin(_ pinView: PinView) //analog write
+    func pinDidShowSlider(_ pinView: PinView)
 }
 
 class PinView: UIView, UIGestureRecognizerDelegate {
     weak var delegate: PinViewDelegate?
+    weak var device:ParticleDevice!
 
     var pin: DevicePin!
 
     var selectedFunction: DevicePinFunction?
 
+    private var slider: ASValueTrackingSlider!
     private var button: UIButton!
     private var label: UILabel!
+    private var valueLabel: UILabel!
 
     private var outerPieValueView: PieProgressView!
     private var outerPieFrameView: PieProgressView!
 
     private var longTapGestureRecognizer: UILongPressGestureRecognizer!
-    private var tapGestureRecognizer: UITapGestureRecognizer!
+    private var tapGestureRecognizer: UILongPressGestureRecognizer!
     private var touchStartTime: Date?
 
-    convenience init(pin: DevicePin) {
+    private var prefaded: Bool = false
+    private var updating: Bool = false
+    private var down: Bool = false
+    private var sliderVisible: Bool = false
+
+    private var pinValue: Int? = nil
+
+    convenience init(pin: DevicePin, device: ParticleDevice) {
         self.init(frame: .zero)
 
+        self.device = device
         self.pin = pin
 
         self.setup()
     }
 
     func setup() {
-        outerPieValueView = PieProgressView(frame: .zero)
-        outerPieValueView.translatesAutoresizingMaskIntoConstraints = false
-        outerPieValueView.backgroundColor = UIColor.clear
-        outerPieValueView.pieBackgroundColor = UIColor.clear
-        outerPieValueView.progress = 1
-        outerPieValueView.pieBorderWidth = 0
-        outerPieValueView.pieFillColor = UIColor.white // will change
-        outerPieValueView.isHidden = true
-        addSubview(outerPieValueView)
-        NSLayoutConstraint.activate([
-            outerPieValueView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            outerPieValueView.heightAnchor.constraint(equalTo: self.heightAnchor),
-            outerPieValueView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            outerPieValueView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
 
         outerPieFrameView = PieProgressView(frame: .zero)
         outerPieFrameView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,10 +63,25 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         outerPieFrameView.isHidden = true
         addSubview(outerPieFrameView)
         NSLayoutConstraint.activate([
-            outerPieFrameView.widthAnchor.constraint(equalTo: self.widthAnchor),
+            outerPieFrameView.widthAnchor.constraint(equalTo: self.heightAnchor),
             outerPieFrameView.heightAnchor.constraint(equalTo: self.heightAnchor),
-            outerPieFrameView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             outerPieFrameView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+
+        outerPieValueView = PieProgressView(frame: .zero)
+        outerPieValueView.translatesAutoresizingMaskIntoConstraints = false
+        outerPieValueView.backgroundColor = UIColor.clear
+        outerPieValueView.pieBackgroundColor = UIColor.clear
+        outerPieValueView.progress = 1
+        outerPieValueView.pieBorderWidth = 0
+        outerPieValueView.pieFillColor = UIColor.white // will change
+        outerPieValueView.isHidden = true
+        addSubview(outerPieValueView)
+        NSLayoutConstraint.activate([
+            outerPieValueView.widthAnchor.constraint(equalTo: self.heightAnchor),
+            outerPieValueView.heightAnchor.constraint(equalTo: self.heightAnchor),
+            outerPieValueView.centerXAnchor.constraint(equalTo: outerPieFrameView.centerXAnchor),
+        outerPieValueView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
 
         button = UIButton(type: .system)
@@ -83,18 +90,16 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         button.setImage(UIImage(named: "imgCircle"), for: .normal)
         button.setTitle("", for: .normal)
         button.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
-        button.isUserInteractionEnabled = false
         addSubview(button)
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -8),
+            button.widthAnchor.constraint(equalTo: self.heightAnchor, constant: -8),
             button.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -8),
-            button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            button.centerXAnchor.constraint(equalTo: outerPieFrameView.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
 
         label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.center = button.center
         label.text = pin.label
         label.font = UIFont(name: "Gotham-Medium", size: 16)
         label.adjustsFontSizeToFitWidth = true
@@ -102,24 +107,81 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         label.textAlignment = .center
         addSubview(label)
         NSLayoutConstraint.activate([
-            label.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1, constant: -10),
+            label.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1, constant: -10),
             label.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1, constant: -8),
-            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            label.centerXAnchor.constraint(equalTo: outerPieFrameView.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
+
+        valueLabel = UILabel(frame: .zero)
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+        valueLabel.font = UIFont(name: "Gotham-Medium", size: 15.0)
+        valueLabel.textColor = UIColor.white
+        valueLabel.text = ""
+        valueLabel.isHidden = true
+        addSubview(valueLabel)
+        NSLayoutConstraint.activate([
+            valueLabel.heightAnchor.constraint(equalTo: self.heightAnchor),
+            valueLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+
+
+        slider = ASValueTrackingSlider(frame: .zero)
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.addTarget(self, action: #selector(self.sliderMoved), for: .valueChanged)
+        slider.addTarget(self, action: #selector(self.sliderSetValue), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(self.sliderSetValue), for: .touchUpOutside)
+
+        slider.backgroundColor = UIColor.clear
+        slider.minimumValue = 0
+        slider.isContinuous = true
+        slider.value = 0
+        slider.isHidden = true
+        slider.isUserInteractionEnabled = false
+
+        slider.popUpViewCornerRadius = 3.0
+        slider.setMaxFractionDigitsDisplayed(0)
+        slider.font = UIFont(name: "Gotham-Medium", size: 20)
+        slider.textColor = UIColor.darkGray
+
+        addSubview(slider)
+
+        if (pin.side == .left) {
+            valueLabel.textAlignment = .left
+            NSLayoutConstraint.activate([
+                valueLabel.leftAnchor.constraint(equalTo: outerPieFrameView.rightAnchor, constant: 8),
+                valueLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
+                outerPieFrameView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            ])
+        } else {
+            valueLabel.textAlignment = .right
+
+            NSLayoutConstraint.activate([
+                valueLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
+                valueLabel.rightAnchor.constraint(equalTo: outerPieFrameView.leftAnchor, constant: -8),
+                outerPieFrameView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            ])
+        }
 
         longTapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(pinLongTapped))
         longTapGestureRecognizer.minimumPressDuration = 1.0
         longTapGestureRecognizer.cancelsTouchesInView = false
         longTapGestureRecognizer.isEnabled = false
 
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pinTapped))
+        tapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(pinTapped))
+        tapGestureRecognizer.minimumPressDuration = 0.0
         tapGestureRecognizer.cancelsTouchesInView = false
         tapGestureRecognizer.isEnabled = true
         tapGestureRecognizer.delegate = self
 
-        self.addGestureRecognizer(longTapGestureRecognizer)
-        self.addGestureRecognizer(tapGestureRecognizer)
+        self.button.addGestureRecognizer(longTapGestureRecognizer)
+        self.button.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.slider.frame = self.valueLabel.frame
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -131,36 +193,66 @@ class PinView: UIView, UIGestureRecognizerDelegate {
     }
 
     @objc func pinTapped(sender: UIGestureRecognizer) {
-        NSLog("sender.state.rawValue = \(sender.state.rawValue)")
         if (sender.state == .ended) {
-            self.pinShortTapped()
+            self.down = false
+            self.adjustAlpha()
+
+            if let selectedFunction = self.selectedFunction {
+                if (selectedFunction.contains(.analogRead) || selectedFunction.contains(.digitalRead)) {
+                    self.beginUpdating()
+                } else if (selectedFunction.contains(.analogWriteDAC) || selectedFunction.contains(.analogWritePWM)) {
+                    self.showSlider()
+                } else if (selectedFunction.contains(.digitalWrite)) {
+                    self.toggleValue()
+                }
+            } else {
+                self.delegate?.pinDidRequestToSelectFunction(self)
+            }
+        } else if (sender.state == .began) {
+            self.down = true
+            self.adjustAlpha()
         }
     }
 
-    private func pinShortTapped() {
-        if let selectedFunction = self.selectedFunction {
-            if (selectedFunction.contains(.analogRead) || selectedFunction.contains(.digitalRead)) {
-//                self.delegate?.pinDidRequestToReadValue(self)
-            } else if (selectedFunction.contains(.analogWriteDAC) || selectedFunction.contains(.analogWritePWM)) {
-//                self.delegate?.pinDidRequestToHighlightPin(self)
-            } else if (selectedFunction.contains(.digitalWrite)) {
-//                self.delegate?.pinDidRequestToToggleValue(self)
-            }
-        } else {
-            self.delegate?.pinDidRequestToSelectFunction(self)
-        }
-    }
 
 
     @objc func pinLongTapped(sender: UIGestureRecognizer) {
         if (sender.state == .began) {
             self.selectedFunction = nil
+            self.down = false
+            self.sliderVisible = false
+            self.adjustAlpha()
             self.update()
+
         }
     }
 
+
+    private func showSlider() {
+        self.slider.value = Float(self.pinValue!)
+        self.sliderVisible = true
+        self.update()
+
+        self.delegate?.pinDidShowSlider(self)
+    }
+
+    func hideSlider() {
+        self.sliderVisible = false
+        self.update()
+    }
+
+
     func update() {
+        self.isUserInteractionEnabled = true
+
+        if (self.updating) {
+            self.isUserInteractionEnabled = false
+        }
+
         if let function = self.selectedFunction {
+            if (self.prefaded) {
+                self.isUserInteractionEnabled = false
+            }
             self.longTapGestureRecognizer.isEnabled = true
 
             self.outerPieValueView.isHidden = false
@@ -169,15 +261,39 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             self.outerPieValueView.pieFillColor = function.getColor()
             self.outerPieFrameView.pieBorderColor = function.getColor()
 
+            self.valueLabel.isHidden = (self.pinValue == nil)
+
+            if (self.sliderVisible) {
+                self.valueLabel.isHidden = true
+
+                self.slider.isUserInteractionEnabled = true
+                self.slider.isHidden = false
+            } else {
+                self.slider.isUserInteractionEnabled = false
+                self.slider.isHidden = true
+            }
+
             switch function {
                 case DevicePinFunction.analogWritePWM:
-                    self.outerPieValueView.progress = 1
+                    let value = self.pinValue ?? 0
+                    self.outerPieValueView.progress = CGFloat(value) / DevicePinFunction.Constants.analogWritePWMMaxValue
+                    self.valueLabel.text = "\(value)"
                 case DevicePinFunction.analogWriteDAC:
-                    self.outerPieValueView.progress = 1
+                    let value = self.pinValue ?? 0
+                    self.outerPieValueView.progress = CGFloat(value) / DevicePinFunction.Constants.analogWriteDACMaxValue
+                    self.valueLabel.text = "\(value)"
                 case DevicePinFunction.analogRead:
+                    let value = self.pinValue ?? 0
+                    self.outerPieValueView.progress = CGFloat(value) / DevicePinFunction.Constants.analogReadMaxValue
+                    self.valueLabel.text = "\(value)"
+                case DevicePinFunction.digitalRead:
                     self.outerPieValueView.progress = 1
+                    self.valueLabel.text = self.pinValue ?? 0 > 0 ? "HIGH" : "LOW"
+                case DevicePinFunction.digitalWrite:
+                    self.outerPieValueView.progress = 1
+                    self.valueLabel.text = self.pinValue ?? 0 > 0 ? "HIGH" : "LOW"
                 default:
-                    self.outerPieValueView.progress = 1
+                    break
             }
 
         } else {
@@ -185,65 +301,158 @@ class PinView: UIView, UIGestureRecognizerDelegate {
 
             self.outerPieValueView.isHidden = true
             self.outerPieFrameView.isHidden = true
+
+            self.slider.isUserInteractionEnabled = false
+            self.slider.isHidden = true
+
+            self.valueLabel.isHidden = true
+        }
+    }
+
+    //used when showing function view
+    func fadePin() {
+        self.prefaded = true
+
+        self.adjustAlpha()
+        self.update()
+    }
+
+    func unfadePin() {
+        self.prefaded = false
+
+        self.adjustAlpha()
+        self.update()
+    }
+
+
+    private func toggleValue() {
+        if (self.pinValue! == 0) {
+            self.pinValue = 1
+        } else {
+            self.pinValue = 0
+        }
+
+        self.beginUpdating()
+    }
+
+    func beginUpdating() {
+        self.updating = true
+
+        guard let selectedFunction = self.selectedFunction else {
+            fatalError("function not selected!?!?")
+        }
+
+        if (self.selectedFunction == DevicePinFunction.analogRead || self.selectedFunction == DevicePinFunction.digitalRead) {
+            self.readValue()
+        } else {
+            self.postValue()
+        }
+
+        self.update()
+        self.adjustAlpha()
+    }
+
+    func setFunction(_ function: DevicePinFunction) {
+        self.selectedFunction = function
+
+        if (self.selectedFunction!.isWrite()) {
+            self.pinValue = 0
+            if (self.selectedFunction != DevicePinFunction.digitalWrite) {
+                self.showSlider()
+            }
+        } else {
+            self.pinValue = nil
+            self.beginUpdating()
+        }
+
+        slider.popUpViewColor = self.selectedFunction!.getColor()
+        switch self.selectedFunction! {
+            case .analogWriteDAC:
+                slider.maximumValue = Float(DevicePinFunction.Constants.analogWriteDACMaxValue)
+            case .analogWritePWM:
+                slider.maximumValue = Float(DevicePinFunction.Constants.analogWritePWMMaxValue)
+            default:
+                slider.maximumValue = 100
+        }
+
+        self.update()
+    }
+
+    func endUpdating() {
+        self.updating = false
+
+        self.update()
+        self.adjustAlpha()
+    }
+
+    func adjustAlpha() {
+        var targetAlpha:CGFloat = 1.0
+
+        if (self.down) {
+            targetAlpha = min(0.5, targetAlpha)
+        }
+
+        if (self.prefaded) {
+            targetAlpha = min(0.35, targetAlpha)
+        }
+
+        if (self.updating) {
+            targetAlpha = min(0.15, targetAlpha)
+        }
+
+        UIView.animate(withDuration: 0.125) { [weak self] () -> Void in
+            if let self = self {
+                self.alpha = targetAlpha
+            }
+        }
+    }
+
+    func readValue() {
+        self.device.callFunction(self.selectedFunction!.getLogicalName()!, withArguments: [self.pin.logicalName]) { [weak self] result, error in
+            if let self = self {
+                if (error == nil) {
+                    self.pinValue = Int(result!)
+                    self.endUpdating()
+                } else {
+                    //todo: show error
+
+                    self.pinValue = nil
+                    self.endUpdating()
+                }
+            }
         }
     }
 
 
-    func beginUpdating() {
-        self.alpha = 0.35
-        self.isUserInteractionEnabled = false
+    func postValue() {
+        var args: [Any] = [self.pin.logicalName]
+        if (self.selectedFunction == DevicePinFunction.digitalWrite) {
+            args.append(self.pinValue! > 0 ? "HIGH" : "LOW")
+        } else {
+            args.append(NSNumber(value: self.pinValue!))
+        }
+
+        self.device.callFunction(self.selectedFunction!.getLogicalName()!, withArguments: args) { [weak self] result, error in
+            if let self = self {
+                if (error == nil && Int(result!) > 0) {
+                    self.endUpdating()
+                } else {
+                    //todo: show error
+                    self.endUpdating()
+                }
+            }
+        }
     }
 
-    func endUpdating() {
-        self.alpha = 1
-        self.isUserInteractionEnabled = true
+    @objc func sliderMoved(_ slider: ASValueTrackingSlider) {
+        self.pinValue = Int(slider.value)
+        self.update()
     }
 
-
-
-
-//
-//    func refresh() {
-//        self.outerPieValueView.isHidden = true
-//        self.outerPieFrameView.isHidden = true
-//
-//        if (self.active) {
-//
-//            self.outerPieValueView.pieFillColor = self.pin.selectedFunction.getColor()
-//            self.outerPieValueView.pieBorderColor = self.pin.selectedFunction.getColor()
-//
-//            self.innerPinButton.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
-//            self.label.textColor = .white
-//
-//            switch (self.pin.selectedFunction) {
-//                case .analogRead:
-//                    self.outerPieValueView.progress = CGFloat(self.pin.value ?? 0) / PinValueView.Constants.analogReadMaxValue;
-//                case .analogWrite:
-//                    self.outerPieValueView.progress = CGFloat(self.pin.value ?? 0) / PinValueView.Constants.analogWriteMaxValue;
-//                case .analogWriteDAC:
-//                    self.outerPieValueView.progress = CGFloat(self.pin.value ?? 0) / PinValueView.Constants.analogWriteDACMaxValue;
-//                case .digitalRead, .digitalWrite:
-//                    self.outerPieValueView.progress = 1
-//                    self.innerPinButton.tintColor = UIColor(red: 0.8, green: 0.8, blue: 0.85, alpha: 1)
-//                    self.label.textColor = .black
-//                default:
-//                    break
-//            }
-//
-//            //self.valueView?.refresh()
-//        }
-//    }
-//
-//    override var isUserInteractionEnabled: Bool {
-//        get {
-//            return super.isUserInteractionEnabled
-//        }
-//        set {
-//            super.isUserInteractionEnabled = newValue
-//            //self.valueView?.isUserInteractionEnabled = newValue
-//        }
-//    }
-
+    @objc func sliderSetValue(_ slider: ASValueTrackingSlider) {
+        self.pinValue = Int(slider.value)
+        self.beginUpdating()
+    }
 
 
 }

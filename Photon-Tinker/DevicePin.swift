@@ -5,6 +5,7 @@
 
 import Foundation
 
+
 struct DevicePinsDefinition: Decodable {
     var platformId: Int
     var pins: [DevicePin]
