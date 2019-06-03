@@ -151,6 +151,11 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
             return
         }
 
+        if self.variableValues.keys.contains(name) && self.variableValues[name] == nil {
+            //already loading
+            return
+        }
+
         variableValues.updateValue(nil, forKey: name)
 
         self.device.getVariable(name) { [weak self, name] variableValue, error in

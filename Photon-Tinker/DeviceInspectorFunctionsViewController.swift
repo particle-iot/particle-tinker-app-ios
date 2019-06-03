@@ -141,6 +141,11 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
             return
         }
 
+        if self.functionValues.keys.contains(name) && self.functionValues[name] == nil {
+            //already loading
+            return
+        }
+
         functionValues.updateValue(nil, forKey: name)
 
         SEGAnalytics.shared().track("DeviceInspector_FunctionCalled")
