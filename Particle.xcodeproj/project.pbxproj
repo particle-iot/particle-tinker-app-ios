@@ -39,6 +39,9 @@
 		931C37F8215AAAE70014811C /* mbedTLSWrapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 931C3779215AA1020014811C /* mbedTLSWrapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		931C37FA215AAB2E0014811C /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37F9215AAB2E0014811C /* Storyboardable.swift */; };
 		9324E683228B73D5006B253D /* TinkerStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9324E67F228B73D5006B253D /* TinkerStrings.strings */; };
+		932BAFAA22A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA722A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin */; };
+		932BAFAB22A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA822A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin */; };
+		932BAFAC22A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA922A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin */; };
 		9348298D225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */; };
 		93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93522313216CFD4600CF8A69 /* wifi_new.pb.swift */; };
 		93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */; };
@@ -72,7 +75,6 @@
 		93FFD5AE215E7A6F005A469D /* common.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5A2215E7A6F005A469D /* common.pb.swift */; };
 		93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B2215E7ED7005A469D /* FiraMono-Medium.ttf */; };
 		93FFD5B4215E7EDB005A469D /* FiraMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B1215E7ED7005A469D /* FiraMono-Regular.ttf */; };
-		93FFD5C1215E7EFF005A469D /* tinker-0.8.0-rc.13-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5B9215E7EFE005A469D /* tinker-0.8.0-rc.13-xenon.bin */; };
 		93FFD5C2215E7EFF005A469D /* electron-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BA215E7EFE005A469D /* electron-tinker.bin */; };
 		93FFD5C3215E7EFF005A469D /* photon_wifi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */; };
 		93FFD5C4215E7EFF005A469D /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BC215E7EFE005A469D /* photon-tinker.bin */; };
@@ -257,8 +259,8 @@
 		8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Particle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupBasicIconCell.xib; sourceTree = "<group>"; };
 		9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupSubtitleIconCell.xib; sourceTree = "<group>"; };
-		9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = boron_power_on.mov; path = Resources/boron_power_on.mov; sourceTree = "<group>"; };
-		9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Avenir Next.ttc"; path = "Photon-Tinker/Fonts/Avenir Next.ttc"; sourceTree = "<group>"; };
+		9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = boron_power_on.mov; sourceTree = "<group>"; };
+		9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir Next.ttc"; sourceTree = "<group>"; };
 		9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupScanStickerView.xib; sourceTree = "<group>"; };
 		9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupTextInputView.xib; sourceTree = "<group>"; };
 		931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
@@ -277,22 +279,25 @@
 		931C37C8215AA4310014811C /* MeshSetupBluetoothConnectionHandshakeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupBluetoothConnectionHandshakeManager.swift; sourceTree = "<group>"; };
 		931C37F9215AAB2E0014811C /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		9324E680228B73D5006B253D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Photon-Tinker/Base.lproj/TinkerStrings.strings"; sourceTree = "<group>"; };
+		932BAFA722A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-argon.bin"; sourceTree = "<group>"; };
+		932BAFA822A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-boron.bin"; sourceTree = "<group>"; };
+		932BAFA922A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-xenon.bin"; sourceTree = "<group>"; };
 		9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupHorizontalDetailCell.xib; sourceTree = "<group>"; };
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
 		93522316216CFD4600CF8A69 /* wifi_new.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_new.proto; sourceTree = "<group>"; };
 		93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupControlPanelActionList.xib; sourceTree = "<group>"; };
 		937EE24B224BF686004E58E8 /* MeshSetupButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupButtonCell.xib; sourceTree = "<group>"; };
-		93B0F8562182236E00D8F8C0 /* argon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = argon_power_on.mov; path = Resources/argon_power_on.mov; sourceTree = "<group>"; };
-		93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = commissioner_to_listening_mode.mov; path = Resources/commissioner_to_listening_mode.mov; sourceTree = "<group>"; };
-		93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = boron_power_on_battery.mov; path = Resources/boron_power_on_battery.mov; sourceTree = "<group>"; };
-		93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = featherwing_power_on.mov; path = Resources/featherwing_power_on.mov; sourceTree = "<group>"; };
-		93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = xenon_power_on.mov; path = Resources/xenon_power_on.mov; sourceTree = "<group>"; };
-		93C21585220DB8CD007D34D3 /* x_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = x_power_on.mov; path = Resources/x_power_on.mov; sourceTree = "<group>"; };
-		93C7C9DA2208A15000ABEE85 /* a_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = a_power_on.mov; path = Resources/a_power_on.mov; sourceTree = "<group>"; };
-		93C7C9DD2208A15000ABEE85 /* b_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = b_power_on_battery.mov; path = Resources/b_power_on_battery.mov; sourceTree = "<group>"; };
-		93C7C9DE2208A15100ABEE85 /* b_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = b_power_on.mov; path = Resources/b_power_on.mov; sourceTree = "<group>"; };
-		93C7C9DF2208A15100ABEE85 /* series_commissioner_to_listening_mode.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = series_commissioner_to_listening_mode.mov; path = Resources/series_commissioner_to_listening_mode.mov; sourceTree = "<group>"; };
-		93C7C9E42208A1BA00ABEE85 /* series_featherwing_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = series_featherwing_power_on.mov; path = Resources/series_featherwing_power_on.mov; sourceTree = "<group>"; };
+		93B0F8562182236E00D8F8C0 /* argon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = argon_power_on.mov; sourceTree = "<group>"; };
+		93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = commissioner_to_listening_mode.mov; sourceTree = "<group>"; };
+		93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = boron_power_on_battery.mov; sourceTree = "<group>"; };
+		93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = featherwing_power_on.mov; sourceTree = "<group>"; };
+		93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = xenon_power_on.mov; sourceTree = "<group>"; };
+		93C21585220DB8CD007D34D3 /* x_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = x_power_on.mov; sourceTree = "<group>"; };
+		93C7C9DA2208A15000ABEE85 /* a_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = a_power_on.mov; sourceTree = "<group>"; };
+		93C7C9DD2208A15000ABEE85 /* b_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = b_power_on_battery.mov; sourceTree = "<group>"; };
+		93C7C9DE2208A15100ABEE85 /* b_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = b_power_on.mov; sourceTree = "<group>"; };
+		93C7C9DF2208A15100ABEE85 /* series_commissioner_to_listening_mode.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = series_commissioner_to_listening_mode.mov; sourceTree = "<group>"; };
+		93C7C9E42208A1BA00ABEE85 /* series_featherwing_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = series_featherwing_power_on.mov; sourceTree = "<group>"; };
 		93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = tinker_pin_data.json; path = "shared-assets-mobile/device_pin_info/tinker_pin_data.json"; sourceTree = SOURCE_ROOT; };
 		93D36EAD216CC71E0088000C /* MeshSetupSuccessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupSuccessView.xib; sourceTree = "<group>"; };
 		93D36EB1216CC8B60088000C /* MeshSetupNetworkListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupNetworkListView.xib; sourceTree = "<group>"; };
@@ -318,10 +323,9 @@
 		93FFD5A4215E7A6F005A469D /* mesh.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = mesh.proto; sourceTree = "<group>"; };
 		93FFD5B1215E7ED7005A469D /* FiraMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Regular.ttf"; sourceTree = "<group>"; };
 		93FFD5B2215E7ED7005A469D /* FiraMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMono-Medium.ttf"; sourceTree = "<group>"; };
-		93FFD5B9215E7EFE005A469D /* tinker-0.8.0-rc.13-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "tinker-0.8.0-rc.13-xenon.bin"; path = "Resources/tinker-0.8.0-rc.13-xenon.bin"; sourceTree = "<group>"; };
-		93FFD5BA215E7EFE005A469D /* electron-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "electron-tinker.bin"; path = "Resources/electron-tinker.bin"; sourceTree = "<group>"; };
-		93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = photon_wifi.mp4; path = Resources/photon_wifi.mp4; sourceTree = "<group>"; };
-		93FFD5BC215E7EFE005A469D /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "photon-tinker.bin"; path = "Resources/photon-tinker.bin"; sourceTree = "<group>"; };
+		93FFD5BA215E7EFE005A469D /* electron-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "electron-tinker.bin"; sourceTree = "<group>"; };
+		93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = photon_wifi.mp4; sourceTree = "<group>"; };
+		93FFD5BC215E7EFE005A469D /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "photon-tinker.bin"; sourceTree = "<group>"; };
 		93FFD5C5215E7F4A005A469D /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = SOURCE_ROOT; };
 		93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
@@ -546,16 +550,8 @@
 		50F62D721AE071AF00109F33 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				93C7C9DA2208A15000ABEE85 /* a_power_on.mov */,
-				93B0F8562182236E00D8F8C0 /* argon_power_on.mov */,
-				9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */,
-				93C7C9DD2208A15000ABEE85 /* b_power_on_battery.mov */,
-				93C7C9DE2208A15100ABEE85 /* b_power_on.mov */,
-				93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */,
-				9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */,
-				93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */,
-				93FFD5BA215E7EFE005A469D /* electron-tinker.bin */,
-				93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */,
+				932BAFA622A55297009F62DB /* Videos */,
+				932BAFA522A55274009F62DB /* Binaries */,
 				50F62D941AE0721200109F33 /* Fonts */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
@@ -563,14 +559,7 @@
 				93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */,
 				931C3780215AA2240014811C /* MeshSetupStrings.strings */,
 				9317FC122167F4190054AE24 /* MeshViews */,
-				93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */,
-				93FFD5BC215E7EFE005A469D /* photon-tinker.bin */,
-				93C7C9DF2208A15100ABEE85 /* series_commissioner_to_listening_mode.mov */,
-				93C7C9E42208A1BA00ABEE85 /* series_featherwing_power_on.mov */,
-				93FFD5B9215E7EFE005A469D /* tinker-0.8.0-rc.13-xenon.bin */,
 				9324E67F228B73D5006B253D /* TinkerStrings.strings */,
-				93C21585220DB8CD007D34D3 /* x_power_on.mov */,
-				93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -711,6 +700,39 @@
 				931C37B8215AA42F0014811C /* MeshSetupProtocolTransceiver.swift */,
 			);
 			name = BLE;
+			sourceTree = "<group>";
+		};
+		932BAFA522A55274009F62DB /* Binaries */ = {
+			isa = PBXGroup;
+			children = (
+				932BAFA722A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin */,
+				932BAFA822A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin */,
+				932BAFA922A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin */,
+				93FFD5BA215E7EFE005A469D /* electron-tinker.bin */,
+				93FFD5BC215E7EFE005A469D /* photon-tinker.bin */,
+			);
+			path = Binaries;
+			sourceTree = "<group>";
+		};
+		932BAFA622A55297009F62DB /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */,
+				93C7C9DF2208A15100ABEE85 /* series_commissioner_to_listening_mode.mov */,
+				93C7C9E42208A1BA00ABEE85 /* series_featherwing_power_on.mov */,
+				93C21585220DB8CD007D34D3 /* x_power_on.mov */,
+				93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */,
+				93C7C9DA2208A15000ABEE85 /* a_power_on.mov */,
+				93B0F8562182236E00D8F8C0 /* argon_power_on.mov */,
+				9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */,
+				93C7C9DD2208A15000ABEE85 /* b_power_on_battery.mov */,
+				93C7C9DE2208A15100ABEE85 /* b_power_on.mov */,
+				93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */,
+				9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */,
+				93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */,
+				93B0F8592182236F00D8F8C0 /* featherwing_power_on.mov */,
+			);
+			path = Videos;
 			sourceTree = "<group>";
 		};
 		93D0DD50228EF51400FC2CCA /* SharedAssets */ = {
@@ -1137,16 +1159,17 @@
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
 				9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */,
 				93D36EAE216CC71E0088000C /* MeshSetupSuccessView.xib in Resources */,
+				932BAFAB22A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin in Resources */,
 				931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */,
 				93D36EB6216CCAE10088000C /* MeshSetupPairingView.xib in Resources */,
 				93C7C9E32208A15100ABEE85 /* series_commissioner_to_listening_mode.mov in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				93FFD5C3215E7EFF005A469D /* photon_wifi.mp4 in Resources */,
-				93FFD5C1215E7EFF005A469D /* tinker-0.8.0-rc.13-xenon.bin in Resources */,
 				93B0F85C2182236F00D8F8C0 /* argon_power_on.mov in Resources */,
 				93B0F85F2182236F00D8F8C0 /* featherwing_power_on.mov in Resources */,
 				50B125501AE06CF4003C29DC /* Images.xcassets in Resources */,
 				93D36EB4216CC9940088000C /* MeshSetupProgressView.xib in Resources */,
+				932BAFAC22A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin in Resources */,
 				93FFD5C2215E7EFF005A469D /* electron-tinker.bin in Resources */,
 				9317FC142167F42C0054AE24 /* MeshSetupScanStickerView.xib in Resources */,
 				50F62D9A1AE0721200109F33 /* Gotham-Medium.otf in Resources */,
@@ -1155,6 +1178,7 @@
 				93C7C9E02208A15100ABEE85 /* a_power_on.mov in Resources */,
 				93FFD598215E7A01005A469D /* MeshSetupImages.xcassets in Resources */,
 				9324E683228B73D5006B253D /* TinkerStrings.strings in Resources */,
+				932BAFAA22A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin in Resources */,
 				93C21588220DB8CD007D34D3 /* x_power_on.mov in Resources */,
 				93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */,
 				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
