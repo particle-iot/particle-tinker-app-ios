@@ -7,6 +7,7 @@ import Foundation
 
 protocol Storyboardable: class {
     static var storyboardName: String { get }
+    static var storyboardId: String { get }
     static var nibName: String { get }
 
     static func loadedViewController() -> Self
@@ -17,6 +18,10 @@ protocol Storyboardable: class {
 
 extension Storyboardable where Self: UIViewController {
     static var storyboardName: String {
+        return "Main"
+    }
+
+    static var storyboardId: String {
         return String(describing: self)
     }
 
@@ -33,10 +38,10 @@ extension Storyboardable where Self: UIViewController {
     }
 
     static func storyboardViewController() -> Self {
-        let storyboard = UIStoryboard(name: "MeshSetup", bundle: nil)
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
 
-        guard let vc = storyboard.instantiateViewController(withIdentifier: storyboardName) as? Self else {
-            fatalError("Could not instantiate initial storyboard with name: \(storyboardName)")
+        guard let vc = storyboard.instantiateViewController(withIdentifier: storyboardId) as? Self else {
+            fatalError("Could not instantiate initial storyboard with name: \(storyboardId)")
         }
 
         return vc

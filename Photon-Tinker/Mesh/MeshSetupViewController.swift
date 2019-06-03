@@ -11,6 +11,10 @@ extension Notification.Name {
 
 class MeshSetupViewController: UIViewController, Fadeable {
 
+    static var storyboardName: String {
+        return "MeshSetup"
+    }
+
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint?
     @IBOutlet var buttonSideConstraints: [NSLayoutConstraint]?
     
