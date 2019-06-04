@@ -58,9 +58,18 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     @objc func didReceiveParticleDeviceSystemNotification(notification: Notification) {
         if let userInfo = notification.userInfo, let device = userInfo["device"] as? ParticleDevice, device.id == self.device.id, let event = userInfo["event"] as? ParticleDeviceSystemEvent {
-            if event == ParticleDeviceSystemEvent.appHashUpdated {
+            if event == ParticleDeviceSystemEvent.appHashUpdated || event == ParticleDeviceSystemEvent.flashSucceeded || event == ParticleDeviceSystemEvent.flashFailed {
                 self.resetUserAppData()
                 self.reloadDeviceData()
+
+                if (event == ParticleDeviceSystemEvent.flashFailed) {
+                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, callback: nil)
+                }
+            }
+
+            if (event == ParticleDeviceSystemEvent.flashStarted) {
+                self.resetUserAppData()
+                self.updateTab()
             }
 
             if event == ParticleDeviceSystemEvent.wentOffline || event == ParticleDeviceSystemEvent.cameOnline {
@@ -123,6 +132,12 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
                 }
             }
         })
+    }
+
+    func updateTab() {
+        DispatchQueue.main.async {
+            self.tabs[self.tabBarView.selectedIdx].update()
+        }
     }
 
 

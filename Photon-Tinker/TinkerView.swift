@@ -15,8 +15,8 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
     @IBOutlet weak var functionViewCenterYConstraint: NSLayoutConstraint!
 
     var device: ParticleDevice!
-    var pinViews: [String: PinView]!
-    var pinDefinitions:[DevicePin]!
+    var pinViews: [String: PinView]! = [:]
+    var pinDefinitions:[DevicePin]! = []
 
     var backgroundImageView: UIImageView!
 
@@ -60,7 +60,7 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
         NSLog("pins: \(pinDefinitions)")
     }
 
-    private func setupDeviceImage() {
+    func setupDeviceImage() {
         // add chip shadow
         let outlineImage: UIImage!
         if (device.is3rdGen()) {
@@ -71,7 +71,7 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
 
         backgroundImageView = UIImageView(image: outlineImage)
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.tintColor = UIColor(white: 0.2, alpha: 0.5)
+        backgroundImageView.tintColor = UIColor.colorWithHexString("D9D8D6")
         backgroundImageView.contentMode = .scaleToFill
 
         self.addSubview(backgroundImageView)

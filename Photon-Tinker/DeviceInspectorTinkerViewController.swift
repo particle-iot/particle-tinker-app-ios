@@ -8,7 +8,7 @@ import Foundation
 class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
 
     @IBOutlet var tinkerView: TinkerView!
-    @IBOutlet var flashTinkerView: UIView!
+    @IBOutlet var flashTinkerView: FlashTinkerView!
     @IBOutlet var deviceOfflineView: UIView!
     
     private var flashStarted: Bool = false
@@ -18,6 +18,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
 
         self.addRefreshControl()
         self.tinkerView.setup(device)
+        self.flashTinkerView.setup(device)
     }
 
     override func setup(device: ParticleDevice) {
@@ -58,10 +59,16 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
         super.resetUserAppData()
 
         self.flashStarted = false
+        self.flashTinkerView.resume()
     }
 
     override func showTutorial() {
 
+    }
+
+    @IBAction func flashTinkerButtonTapped(_ sender: Any) {
+        self.flashStarted = true
+        self.flashTinkerView.fade()
     }
 }
 

@@ -493,10 +493,6 @@
                                 <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2">
-                                <rect key="frame" x="0.0" y="39" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Xi-NW0">
                                 <rect key="frame" x="0.0" y="189.66666666666666" width="375" height="301.66666666666674"/>
                                 <subviews>
@@ -679,6 +675,47 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="functionView" destination="cp9-M3-Ao7" id="hqR-6s-XZw"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2" customClass="FlashTinkerView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="39" width="375" height="603"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTP-DK-5xb" customClass="ParticleButton" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="62.666666666666657" y="281.66666666666669" width="249.99999999999997" height="40"/>
+                                        <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="D40-n2-IAG"/>
+                                            <constraint firstAttribute="width" constant="250" id="gYZ-IE-U8O"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Scan assisting device">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="flashTinkerButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="Zwx-is-jYz"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To enable Tinker, you need to flash the Tinker firmware to this device." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lo-D1-pcJ">
+                                        <rect key="frame" x="47.666666666666657" y="230" width="280" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="ldt-x3-Cmr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="JM6-rU-il4"/>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerY" secondItem="vxH-yP-sY2" secondAttribute="centerY" id="KDS-O2-c5Z"/>
+                                    <constraint firstItem="5Lo-D1-pcJ" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="Zqj-WT-0fe"/>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="top" secondItem="5Lo-D1-pcJ" secondAttribute="bottom" constant="19.666666666666686" id="ncy-Wv-xNL"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="flashTinkerButton" destination="GTP-DK-5xb" id="go8-dj-VP2"/>
+                                    <outlet property="flashTinkerLabel" destination="5Lo-D1-pcJ" id="7W1-l8-0MM"/>
                                 </connections>
                             </view>
                         </subviews>

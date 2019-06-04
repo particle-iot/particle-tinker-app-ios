@@ -46,7 +46,9 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
     }
 
     private func setupTableViewHeader() {
-        if (self.device.connected) {
+        if (self.device.isFlashing) {
+            self.noVariablesMessage.text = "(Device is being flashed)"
+        } else if (self.device.connected) {
             self.noVariablesMessage.text = "(No exposed variables)"
         } else {
             self.noVariablesMessage.text = "(Device is offline)"
@@ -54,7 +56,7 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
 
         self.tableView.tableHeaderView = nil
         self.noVariablesMessageView.removeFromSuperview()
-        self.tableView.tableHeaderView = (self.variableNames.count > 0) ? nil : self.noVariablesMessageView
+        self.tableView.tableHeaderView = (self.variableNames.count > 0 || self.device.isFlashing) ? nil : self.noVariablesMessageView
         self.adjustTableViewHeaderViewConstraints()
     }
 
@@ -75,7 +77,7 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
 
 
     func loadAllVariables() {
-        if (!self.device.connected) {
+        if (!self.device.connected || self.device.isFlashing) {
             return
         }
 

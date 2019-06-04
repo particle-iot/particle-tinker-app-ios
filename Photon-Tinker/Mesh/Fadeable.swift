@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol Fadeable: class where Self: UIViewController {
+protocol Fadeable: class {
     var isBusy: Bool { get set }
     var viewsToFade: [UIView]? { get }
 
@@ -14,6 +14,16 @@ protocol Fadeable: class where Self: UIViewController {
 }
 
 extension Fadeable {
+
+    func getView() -> UIView? {
+        if let view = self as? UIView {
+            return view
+        } else if let vc = self as? UIViewController, let view = vc.view {
+            return view
+        } else {
+            return nil
+        }
+    }
 
     func fade(animated: Bool = true) {
         fadeContent(animated: animated)
@@ -25,8 +35,12 @@ extension Fadeable {
 
     func fadeContent(animated: Bool, showSpinner: Bool = true) {
         self.isBusy = true
+
+
         if (showSpinner) {
-            ParticleSpinner.show(view)
+            if let view = self.getView() {
+                ParticleSpinner.show(view)
+            }
 
             if (animated) {
                 UIView.animate(withDuration: 0.25) { () -> Void in
@@ -43,13 +57,17 @@ extension Fadeable {
                     }
                 }
 
-                self.view.setNeedsDisplay()
+                if let view = self.getView() {
+                    view.setNeedsDisplay()
+                }
             }
         }
     }
 
     func unfadeContent(animated: Bool) {
-        ParticleSpinner.hide(view, animated: animated)
+        if let view = self.getView() {
+            ParticleSpinner.hide(view, animated: animated)
+        }
         self.isBusy = false
 
         if (animated) {
@@ -67,7 +85,9 @@ extension Fadeable {
                 }
             }
 
-            self.view.setNeedsDisplay()
+            if let view = self.getView() {
+                view.setNeedsDisplay()
+            }
         }
     }
 
