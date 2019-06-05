@@ -47,9 +47,7 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
     }
 
     private func setupTableViewHeader() {
-        if (self.device.isFlashing) {
-            self.noFunctionsMessage.text = "(Device is being flashed)"
-        } else if (self.device.connected) {
+        if (self.device.connected) {
             self.noFunctionsMessage.text = "(No exposed variables)"
         } else {
             self.noFunctionsMessage.text = "(Device is offline)"
@@ -57,7 +55,7 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
 
         self.tableView.tableHeaderView = nil
         self.noFunctionsMessageView.removeFromSuperview()
-        self.tableView.tableHeaderView = (self.functionNames.count > 0 || self.device.isFlashing) ? nil : self.noFunctionsMessageView
+        self.tableView.tableHeaderView = (self.functionNames.count > 0) ? nil : self.noFunctionsMessageView
 
         self.adjustTableViewHeaderViewConstraints()
     }
@@ -140,10 +138,6 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
     func callFunction(_ name: String, argument: String) {
         if (!self.device.connected) {
             RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To execute functions device must be online.", type: .error, customTypeName: nil, callback: nil)
-            return
-        }
-
-        if (self.device.isFlashing) {
             return
         }
 
