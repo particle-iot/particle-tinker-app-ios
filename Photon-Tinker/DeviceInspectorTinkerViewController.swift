@@ -67,21 +67,16 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
     override func showTutorial() {
         if (self.device.connected && self.device.isRunningTinker()) {
             if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+                // 2
+                var tutorial2 = YCTutorialBox(headline: "Blink the onboard LED", withHelpText: "Tap any pin to get started. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens on your device. You've just flashed an LED over the internet! Reset any pin function by long-pressing it.")
 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500), execute: { [weak self] in
-                    if let self = self {
-                        // 2
-                        var tutorial2 = YCTutorialBox(headline: "Blink the onboard LED", withHelpText: "Tap any pin to get started. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens on your device. You've just flashed an LED over the internet! Reset any pin function by long-pressing it.")
+                // 1
+                var tutorial = YCTutorialBox(headline: "Welcome to Tinker!", withHelpText: "Tinker is the fastest and easiest way to prototype and play with your Particle device. Access the basic input/output functions of the device pins without writing a line of code.") {
+                    tutorial2?.showAndFocus(self.tinkerView.pinViews["D7"])
+                }
+                tutorial?.showAndFocus(self.tinkerView)
 
-                        // 1
-                        var tutorial = YCTutorialBox(headline: "Welcome to Tinker!", withHelpText: "Tinker is the fastest and easiest way to prototype and play with your Particle device. Access the basic input/output functions of the device pins without writing a line of code.") {
-                            tutorial2?.showAndFocus(self.tinkerView.pinViews["D7"])
-                        }
-                        tutorial?.showAndFocus(self.tinkerView)
-
-                        ParticleUtils.setTutorialWasDisplayedForViewController(self)
-                    }
-                })
+                ParticleUtils.setTutorialWasDisplayedForViewController(self)
             }
 
         }

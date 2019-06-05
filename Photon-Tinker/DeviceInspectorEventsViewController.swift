@@ -97,23 +97,21 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 
     override func showTutorial() {
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                //3
-                var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1)
+            //3
+            var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1)
 
-                //2
-                var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
-                    tutorial3?.showAndFocus(self.eventFilterSearchBar.superview)
-                }
-
-                // 1
-                var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
-                    tutorial2?.showAndFocus(self.eventFilterSearchBar)
-                }
-                tutorial?.showAndFocus(self.view)
-
-                ParticleUtils.setTutorialWasDisplayedForViewController(self)
+            //2
+            var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
+                tutorial3?.showAndFocus(self.eventFilterSearchBar.superview)
             }
+
+            // 1
+            var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
+                tutorial2?.showAndFocus(self.eventFilterSearchBar)
+            }
+            tutorial?.showAndFocus(self.view)
+
+            ParticleUtils.setTutorialWasDisplayedForViewController(self)
         }
     }
 
