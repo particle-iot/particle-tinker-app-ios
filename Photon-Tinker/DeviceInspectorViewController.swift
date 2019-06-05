@@ -48,6 +48,8 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         super.viewDidAppear(animated)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveParticleDeviceSystemNotification), name: Notification.Name.ParticleDeviceSystemEvent, object: nil)
+
+        self.showTutorial()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -158,7 +160,10 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         tabs[selectedTabIdx].view.superview!.alpha = 0
         self.view.bringSubview(toFront: tabs[selectedTabIdx].view.superview!)
         tabs[selectedTabIdx].update()
-        tabs[selectedTabIdx].showTutorial()
+        //only show child tutorial if tutorial for this VC was already shown
+        if !ParticleUtils.shouldDisplayTutorialForViewController(self) {
+            tabs[selectedTabIdx].showTutorial()
+        }
 
         if (!instant) {
             UIView.animate(withDuration: 0.25,
@@ -224,63 +229,34 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.selectTab(selectedTabIdx: sender.selectedIdx)
     }
 
+    let tutorials = [
+        ("Welcome to Device Inspector", "See advanced information on your device."),
+        ("Modes", "Device inspector has 4 views:\n\nEvents - view a real-time searchable list of published events.\n\nFunctions - interact with your device's functions.\n\nVariables - interact with your device's variables.\n\nTinker - control pin behavior for your device"),
+        ("Additional actions", "Tap the Control Panel button to access advanced actions.")
+    ]
 
+    func showTutorial() {
+        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                //3
+                var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1) {
+                    self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
+                }
 
+                //2
+                var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
+                    tutorial3?.showAndFocus(self.moreActionsButton)
+                }
 
+                // 1
+                var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].0) {
+                    tutorial2?.showAndFocus(self.tabBarView)
+                }
+                tutorial?.showAndFocus(self.view)
 
-
-
-//
-//
-//
-//    func showTutorial() {
-//
-//        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-//
-//            let delayTime = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-//            DispatchQueue.main.asyncAfter(deadline: delayTime) {
-//
-//                if self.navigationController?.visibleViewController == self {
-//                    // viewController is visible
-//
-//                    // 3
-////                    var tutorial = YCTutorialBox(headline: "Additional actions", withHelpText: "Tap the three dots button for more actions such as reflashing the Tinker firmware, force refreshing the device info/data, signal the device (LED shouting rainbows), changing device name and easily accessing Particle documentation and support portal.")
-////                    tutorial.showAndFocusView(self.moreActionsButton)
-////
-////                    // 2
-////                    tutorial = YCTutorialBox(headline: "Modes", withHelpText: "Device inspector has 3 modes - tap 'Info' to see your device network parameters, tap 'data' to interact with your device exposed functions and variables, tap 'events' to view a searchable list of the device published events.")
-////
-//
-//
-//                    // 1
-//                    let tutorial = YCTutorialBox(headline: "Welcome to Device Inspector", withHelpText: "See advanced information on your device. Tap the blue clipboard icon to copy device ID or ICCID field to the clipboard.", withCompletionBlock: {
-//                        // 2
-//                        let tutorial = YCTutorialBox(headline: "Modes", withHelpText: "Device inspector has 3 modes:\n\nInfo - see your device network parameters.\n\nData - interact with your device's functions and variables.\n\nEvents - view a real-time searchable list of published events.", withCompletionBlock:  {
-//                            let tutorial = YCTutorialBox(headline: "Additional actions", withHelpText: "Tap the additional actions button for reflashing Tinker firmware, force refreshing the device info and data, signal (identify a device by its LED color-cycling), renaming a device and easily accessing Particle documentation and support portal.")
-//
-//                            let delayTime = DispatchTime.now() + Double(Int64(0.2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-//                            DispatchQueue.main.asyncAfter(deadline: delayTime) {
-//                                tutorial?.showAndFocus(self.moreActionsButton)
-//                            }
-//
-//
-//                        })
-//                        let delayTime = DispatchTime.now() + Double(Int64(0.2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-//                        DispatchQueue.main.asyncAfter(deadline: delayTime) {
-//
-//                        }
-//
-//                    })
-//
-//                    tutorial?.showAndFocus(self.infoContainerView)
-//
-//                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
-//                }
-//
-//            }
-//        }
-//    }
-    
-    
+                ParticleUtils.setTutorialWasDisplayedForViewController(self)
+            }
+        }
+    }
     
 }

@@ -231,33 +231,31 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
+
+    let tutorials = [
+        ("Your devices", "See and manage your devices.\n\nOnline devices have their indicator 'breathing' cyan, offline ones are gray.\n\nTap a device to enter Device Inspector mode, device must run Tinker firmware to enter Tinker mode.\n\nSwipe left to remove a device from your account.\n\nPull down to refresh your list."),
+        ("Setup a new device", "Tap the plus button to set up a new Photon or Electron device you wish to add to your account"),
+    ]
+
     func showTutorial() {
        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-    
-            let delayTime = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                
-                if self.navigationController?.visibleViewController == self {
+           DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                if (ParticleCloud.sharedInstance().isAuthenticated && self.devices.count > 0) {
+                    // 1
+                    let tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1)
 
-
-                    if (ParticleCloud.sharedInstance().isAuthenticated) {
-                        // 2
-                        var tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to set up a new Photon or Electron device you wish to add to your account")
-                        tutorial?.showAndFocus(self.setupNewDeviceButton)
-
-                        // 1
-                        let firstDeviceCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-                        tutorial = YCTutorialBox(headline: "Your devices", withHelpText: "See and manage your devices.\n\nOnline devices have their indicator 'breathing' cyan, offline ones are gray.\n\nTap a device to enter Tinker or Device Inspector mode, device must run Tinker firmware to enter Tinker mode.\n\nSwipe left to remove a device from your account.\n\nPull down to refresh your list.")
-                        tutorial?.showAndFocus(firstDeviceCell)
-                    } else {
-                        // 2
-                        var tutorial = YCTutorialBox(headline: "Setup a new device", withHelpText: "Tap the plus button to set up a new wifi credentials for your Photon device")
-                        tutorial?.showAndFocus(self.setupNewDeviceButton)
+                    // 0
+                    let tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
+                        tutorial2?.showAndFocus(self.setupNewDeviceButton)
                     }
-                    
-                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                    let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
+                    tutorial?.showAndFocus(firstCell)
+                } else {
+                    var tutorial = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1)
+                    tutorial?.showAndFocus(self.setupNewDeviceButton)
                 }
-                
+
+                ParticleUtils.setTutorialWasDisplayedForViewController(self)
             }
         }
     }

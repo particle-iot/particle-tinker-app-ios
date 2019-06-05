@@ -87,38 +87,35 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             ParticleCloud.sharedInstance().unsubscribeFromEvent(withID: sid)
         }
     }
-    
- 
 
-    
+
+    let tutorials = [
+        ("Device Events", "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your clipboard."),
+        ("Search events", "Tap filter text field and type text to filter the events list and show only events containing the search text. Filtering is performed on event name and data."),
+        ("Play and pause", "Tap play/pause button to pause the events stream momentarily. Events published while stream is paused will not be added to the list.")
+    ]
+
     override func showTutorial() {
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            
-            let delayTime = DispatchTime.now() + Double(Int64(0.7 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                
-                if !self.view.isHidden {
-                    // 3
-                    var tutorial = YCTutorialBox(headline: "Play and pause", withHelpText: "Tap play/pause button to pause the events stream momentarily. Events published while stream is paused will not be added to the list.")
-                    tutorial?.showAndFocus(self.playPauseButton)
-                    
-                    // 2
-                    tutorial = YCTutorialBox(headline: "Search events", withHelpText: "Tap filter text field and type text to filter the events list and show only events containing the search text. Filtering is performed on event name and data.")
-                    tutorial?.showAndFocus(self.eventFilterSearchBar)
-                    
-                    
-                    // 1
-                    tutorial = YCTutorialBox(headline: "Device Events", withHelpText: "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your clipboard.")
-                    tutorial?.showAndFocus(self.tableView)
-                    
-                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
-                    self.tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                //3
+                var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1)
+
+                //2
+                var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
+                    tutorial3?.showAndFocus(self.eventFilterSearchBar.superview)
                 }
-                
+
+                // 1
+                var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
+                    tutorial2?.showAndFocus(self.eventFilterSearchBar)
+                }
+                tutorial?.showAndFocus(self.view)
+
+                ParticleUtils.setTutorialWasDisplayedForViewController(self)
             }
         }
     }
-
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return true

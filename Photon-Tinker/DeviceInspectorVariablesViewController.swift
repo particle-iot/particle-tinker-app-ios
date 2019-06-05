@@ -58,15 +58,20 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
         self.adjustTableViewHeaderViewConstraints()
     }
 
+    let tutorials = [
+        ("Device Variables", "Simply tap a variable name to read its current value. Tap any long variable value to show a popup with the full string value in case it has been truncated.")
+    ]
+
     override func showTutorial() {
-        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                if !self.view.isHidden {
+        if (variableNames.count > 0) {
+            if ParticleUtils.shouldDisplayTutorialForViewController(self) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    // 1
                     let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
 
-                    // 1
-                    let tutorial = YCTutorialBox(headline: "Variables", withHelpText: "Simply tap a variable name to read its current value. Tap any long variable value to show a popup with the full string value in case it has been truncated.")
+                    var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1)
                     tutorial?.showAndFocus(firstCell)
+
                     ParticleUtils.setTutorialWasDisplayedForViewController(self)
                 }
             }
