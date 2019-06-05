@@ -19,6 +19,10 @@ class DeviceInspectorChildViewController: UIViewController {
 
     var refreshControl: UIRefreshControl!
 
+    var isRefreshing: Bool {
+        return refreshControl.isRefreshing
+    }
+
     func setup(device: ParticleDevice) {
         self.device = device
     }
