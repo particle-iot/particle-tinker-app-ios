@@ -104,15 +104,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
                     
                     // 2
                     tutorial = YCTutorialBox(headline: "Search events", withHelpText: "Tap filter text field and type text to filter the events list and show only events containing the search text. Filtering is performed on event name and data.")
-                    
                     tutorial?.showAndFocus(self.eventFilterSearchBar)
                     
                     
                     // 1
                     tutorial = YCTutorialBox(headline: "Device Events", withHelpText: "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your clipboard.")
-                    
                     tutorial?.showAndFocus(self.tableView)
-                    
                     
                     ParticleUtils.setTutorialWasDisplayedForViewController(self)
                     self.tableView.reloadData()

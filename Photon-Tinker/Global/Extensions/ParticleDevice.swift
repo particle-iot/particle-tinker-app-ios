@@ -17,6 +17,10 @@ extension ParticleDevice {
     func is3rdGen() -> Bool {
         return self.type == .argon || self.type == .boron || self.type == .xenon || self.type == .aSeries || self.type == .bSeries || self.type == .xSeries
     }
+
+    func getName() -> String {
+        return self.name ?? "<no name>"
+    }
 }
 
 

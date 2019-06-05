@@ -291,15 +291,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if (indexPath as NSIndexPath).row < self.devices.count
         {
             let cell:DeviceTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "device_cell") as! DeviceTableViewCell
-            if let name = self.devices[(indexPath as NSIndexPath).row].name
-            {
-                cell.deviceNameLabel.text = name
-            }
-            else
-            {
-                cell.deviceNameLabel.text = "<no name>"
-            }
-            
+            cell.deviceNameLabel.text = self.devices[(indexPath as NSIndexPath).row].getName()
             let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[(indexPath as NSIndexPath).row])
 
             cell.deviceImageView.image = deviceInfo.deviceImage
