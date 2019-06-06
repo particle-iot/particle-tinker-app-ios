@@ -2,98 +2,134 @@
 //  DeviceFunctionTableViewCell.swift
 //  Particle
 //
-//  Created by Ido Kleinman on 5/16/16.
-//  Copyright © 2016 particle. All rights reserved.
+//  Created by Raimundas Sakalauskas on 05/16/19.
+//  Copyright © 2019 Particle. All rights reserved.
 //
 
 import Foundation
 
-internal class DeviceFunctionTableViewCell: DeviceDataTableViewCell, UITextFieldDelegate {
-    
-    var functionName : String? {
-        didSet {
-            if self.functionName == "" {
-                self.noFunctionsLabel.isHidden = false
-                self.functionNameButton.isHidden = true
-                self.argumentsButton.isHidden = true
-                self.bkgView.backgroundColor = UIColor.white
-                self.resultLabel.isHidden = true
-            } else {
-                self.functionNameButton.setTitle(self.functionName!+"  ", for: UIControlState())
-                self.noFunctionsLabel.isHidden = true
-                self.functionNameButton.isHidden = false
-                self.argumentsButton.isHidden = false
-                self.resultLabel.isHidden = false
-                self.bkgView.backgroundColor = ParticleUtils.particleAlmostWhiteColor
-            }
+protocol DeviceFunctionTableViewCellDelegate: class  {
+    func tappedOnFunctionName(_ sender : DeviceFunctionTableViewCell, name : String, argument: String)
+    func tappedOnExpandButton(_ sender : DeviceFunctionTableViewCell)
+    func updateArgument(_ sender: DeviceFunctionTableViewCell, argument: String)
+}
+
+internal class DeviceFunctionTableViewCell: UITableViewCell, UITextFieldDelegate {
+
+    @IBOutlet weak var backgroundShadeView: UIView!
+
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var expandIndicator: UIImageView!
+
+    @IBOutlet weak var argumentsTextField: UITextField!
+    @IBOutlet weak var expandButton: UIButton!
+
+    weak var delegate : DeviceFunctionTableViewCellDelegate?
+    var functionName : String!
+
+    func setup(functionName: String) {
+        self.functionName = functionName
+        self.nameLabel.text = self.functionName
+
+        self.resultLabel.text = ""
+        if (self.isSelected) {
+            self.expandIndicator.transform = CGAffineTransform(rotationAngle: .pi)
+        } else {
+            self.expandIndicator.transform = CGAffineTransform.identity
         }
+        self.expandButton.isUserInteractionEnabled = true
     }
 
-    @IBOutlet weak var noFunctionsLabel: UILabel!
-    @IBAction func callButtonTapped(_ sender: AnyObject) {
-        var args = [String]()
-        SEGAnalytics.shared().track("DeviceInspector_FunctionCalled")
-        args.append(self.argumentsTextField.text!)
-        self.resultLabel.isHidden = true
-        self.activityIndicator.startAnimating()
-        self.device?.callFunction(self.functionName!, withArguments: args, completion: { (resultValue :NSNumber?, error: Error?) in
-            self.resultLabel.isHidden = false
-            self.activityIndicator.stopAnimating()
-            if let _ = error  {
-                self.resultLabel.text = "Error"
-            } else {
-                self.resultLabel.text = resultValue?.stringValue
-            }
-        })
-    }
-    
-    @IBOutlet weak var argumentsButton: UIButton!
-    @IBOutlet weak var functionNameButton: UIButton!
-    @IBOutlet weak var argumentsTextField: UITextField!
-    @IBOutlet weak var resultLabel: UILabel!
-    
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.bkgView.layer.cornerRadius = 6
-        self.bkgView.layer.masksToBounds = true
-        
-        self.argumentsTextField.delegate = self
-        
 
-        // Initialization code
+        self.backgroundShadeView.layer.cornerRadius = 6
+        self.backgroundShadeView.layer.masksToBounds = true
+
+        self.argumentsTextField.delegate = self
     }
-    
+
+    func expandAnim() {
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            self?.expandIndicator.transform = CGAffineTransform(rotationAngle: .pi)
+        }, completion: { [weak self] done in
+            self?.argumentsTextField.becomeFirstResponder()
+        })
+    }
+
+    func collapseAnim() {
+        self.endEditing(true)
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            self?.expandIndicator.transform = CGAffineTransform.identity
+        })
+    }
+
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.setSelected(true, animated: true)
         return true
     }
-    
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-        self.callButtonTapped(textField)
+        self.callButtonTapped(self)
+
         textField.selectAll(nil)
         return true
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-//        self.argumentsTextField.hidden = !selected
-//        self.argumentsTitleLabel.hidden = !selected
-//        self.callButton.hidden = !selected
-//        self.centerFunctionNameLayoutConstraint.constant = selected ? -20 : 0
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.delegate?.updateArgument(self, argument: textField.text ?? "")
     }
-    
-    
-    @IBOutlet weak var bkgView: UIView!
-    
-    
-    @IBAction func argumentsButtonTapped(_ sender: AnyObject) {
-        self.setSelected(!self.isSelected, animated: true)
+
+    func setFunctionValue(value: String?) {
+        self.stopUpdating()
+
+        if let value = value {
+            self.resultLabel.text = value
+        } else {
+            self.resultLabel.text = ""
+        }
     }
-    
+
+    func setFunctionError() {
+        self.stopUpdating()
+
+        self.resultLabel.text = "Error"
+    }
+
+    func startUpdating() {
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+
+        self.callButton.isUserInteractionEnabled = false
+        self.resultLabel.isHidden = !self.activityIndicator.isHidden
+    }
+
+    func stopUpdating() {
+        self.activityIndicator.isHidden = true
+        self.activityIndicator.stopAnimating()
+
+        self.callButton.isUserInteractionEnabled = true
+
+        self.resultLabel.isHidden = !self.activityIndicator.isHidden
+    }
+
+    @IBAction func callButtonTapped(_ sender: AnyObject) {
+        self.delegate?.tappedOnFunctionName(self, name: self.functionName, argument: self.argumentsTextField.text ?? "")
+
+        self.startUpdating()
+    }
+
+    @IBAction func expandTapped(_ sender: AnyObject) {
+        if (self.isSelected) {
+            self.collapseAnim()
+        } else {
+            self.expandAnim()
+        }
+        self.delegate?.tappedOnExpandButton(self)
+    }
+
+
 }

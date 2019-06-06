@@ -5,41 +5,71 @@
 
 import Foundation
 
-protocol Fadeable: class where Self: UIViewController {
+protocol Fadeable: class {
     var isBusy: Bool { get set }
     var viewsToFade: [UIView]? { get }
 
-    func fade()
+    func fade(animated: Bool)
     func resume(animated: Bool)
 }
 
 extension Fadeable {
 
-    func fade() {
+    func getView() -> UIView? {
+        if let view = self as? UIView {
+            return view
+        } else if let vc = self as? UIViewController, let view = vc.view {
+            return view
+        } else {
+            return nil
+        }
+    }
+
+    func fade(animated: Bool = true) {
+        fadeContent(animated: animated)
+    }
+
+    func resume(animated: Bool = true) {
+        unfadeContent(animated: animated)
+    }
+
+    func fadeContent(animated: Bool, showSpinner: Bool = true) {
         self.isBusy = true
 
-        ParticleSpinner.show(view)
-        fadeContent()
-    }
 
-    func resume(animated: Bool) {
-        ParticleSpinner.hide(view, animated: animated)
-        unfadeContent(animated: true)
+        if (showSpinner) {
+            if let view = self.getView() {
+                ParticleSpinner.show(view)
+            }
 
-        self.isBusy = false
-    }
+            if (animated) {
+                UIView.animate(withDuration: 0.25) { () -> Void in
+                    if let viewsToFade = self.viewsToFade {
+                        for childView in viewsToFade {
+                            childView.alpha = 0.5
+                        }
+                    }
+                }
+            } else {
+                if let viewsToFade = self.viewsToFade {
+                    for childView in viewsToFade {
+                        childView.alpha = 0.5
+                    }
+                }
 
-    func fadeContent() {
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            if let viewsToFade = self.viewsToFade {
-                for childView in viewsToFade {
-                    childView.alpha = 0.5
+                if let view = self.getView() {
+                    view.setNeedsDisplay()
                 }
             }
         }
     }
 
     func unfadeContent(animated: Bool) {
+        if let view = self.getView() {
+            ParticleSpinner.hide(view, animated: animated)
+        }
+        self.isBusy = false
+
         if (animated) {
             UIView.animate(withDuration: 0.25) { () -> Void in
                 if let viewsToFade = self.viewsToFade {
@@ -55,7 +85,9 @@ extension Fadeable {
                 }
             }
 
-            self.view.setNeedsDisplay()
+            if let view = self.getView() {
+                view.setNeedsDisplay()
+            }
         }
     }
 

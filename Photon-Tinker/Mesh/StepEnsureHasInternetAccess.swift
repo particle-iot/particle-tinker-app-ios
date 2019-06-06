@@ -130,7 +130,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
         let diff = Date().timeIntervalSince(self.checkDeviceHasIPStartTime!)
 
         //simActive is going to be not nil only if cellular flow
-        let limit = (context.targetDevice.sim!.active != nil) ? MeshSetup.deviceObtainedIPCellularTimeout : MeshSetup.deviceObtainedIPTimeout
+        let limit = (context.targetDevice.sim?.active != nil) ? MeshSetup.deviceObtainedIPCellularTimeout : MeshSetup.deviceObtainedIPTimeout
 
         if (diff > limit) {
             self.checkDeviceHasIPStartTime = nil

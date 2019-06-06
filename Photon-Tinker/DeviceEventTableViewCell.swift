@@ -8,7 +8,7 @@
 
 
 
-class DeviceEventTableViewCell: DeviceDataTableViewCell {
+class DeviceEventTableViewCell: UITableViewCell {
 
     @IBOutlet weak var bkgView: UIView!
     
@@ -17,32 +17,22 @@ class DeviceEventTableViewCell: DeviceDataTableViewCell {
     @IBOutlet weak var eventNameValueLabel: UILabel!
     
     
-    var event : ParticleEvent? {
-        didSet {
-            if let e = event {
-                
-                
-                self.eventNameValueLabel.text = e.event
-                self.eventDataValueLabel.text = e.data
-                
-                // convert weird UTC stamp to human readable local time
-                let utcDateStr = e.time.description.replacingOccurrences(of: "+0000", with: "")
-                
-                // create dateFormatter with UTC time format
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                dateFormatter.timeZone = TimeZone(identifier: "UTC")
-                let date = dateFormatter.date(from: utcDateStr)
-                
-                // change to a readable time format and change to local time zone
-                dateFormatter.dateFormat = "MMM d, yyyy h:mm:ss a"
-                dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-                let timeStamp = dateFormatter.string(from: date!)
-                
-                self.eventTimeValueLabel.text = timeStamp
-            }
-            
-        }
+    var event: ParticleEvent!
+
+    func setup(_ event: ParticleEvent) {
+        self.eventNameValueLabel.text = event.event
+        self.eventDataValueLabel.text = event.data
+
+        // convert weird UTC stamp to human readable local time
+        let utcDateStr = event.time.description.replacingOccurrences(of: "+0000", with: "")
+
+        // create dateFormatter with UTC time format
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        let date = dateFormatter.date(from: utcDateStr)!
+
+        self.eventTimeValueLabel.text = "\(DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .medium)), \(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))"
     }
     
     override func awakeFromNib() {

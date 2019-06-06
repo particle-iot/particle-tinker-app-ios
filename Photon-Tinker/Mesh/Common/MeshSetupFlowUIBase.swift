@@ -10,6 +10,10 @@ import MessageUI
 
 class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
+    static var storyboardName: String {
+        return "MeshSetup"
+    }
+
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var backButtonImage: UIImageView!
 

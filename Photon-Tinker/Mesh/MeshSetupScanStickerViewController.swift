@@ -22,6 +22,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     private var captureSession: AVCaptureSession!
     private var videoCaptureDevice: AVCaptureDevice?
     private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var focusFadeView: FocusRectView!
 
     func setup(didFindStickerCode: @escaping (String) -> ()) {
         self.callback = didFindStickerCode
@@ -31,6 +32,21 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         super.viewDidLoad()
         evalPermissions()
         addFadableViews()
+        addFadeView()
+    }
+
+    private func addFadeView() {
+        focusFadeView = FocusRectView(frame: .zero)
+        focusFadeView.translatesAutoresizingMaskIntoConstraints = false
+        focusFadeView.focusRectSize = CGSize(width: 150, height: 150)
+
+        view.addSubview(focusFadeView)
+        NSLayoutConstraint.activate([
+            focusFadeView.leftAnchor.constraint(equalTo: cameraView.leftAnchor),
+            focusFadeView.rightAnchor.constraint(equalTo: cameraView.rightAnchor),
+            focusFadeView.topAnchor.constraint(equalTo: cameraView.topAnchor),
+            focusFadeView.bottomAnchor.constraint(equalTo: cameraView.bottomAnchor)
+        ])
     }
 
     private func evalPermissions() {

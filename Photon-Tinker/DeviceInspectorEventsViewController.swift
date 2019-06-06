@@ -8,66 +8,78 @@
 
 
 
-class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate {
+class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var deviceEventsTableView: UITableView!
-    
-    @IBOutlet weak var noEventsLabel: UILabel!
-    
-    var events : [ParticleEvent]?
-    var filteredEvents : [ParticleEvent]?
-    
-    var subscribeId : Any?
-    
-    
-//    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        return nil
-//    }
-    
     @IBOutlet weak var eventFilterSearchBar: UISearchBar!
-    
+    @IBOutlet weak var clearEventsButton: UIButton!
+    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var backgroundView: UIView!
+
+    @IBOutlet var noEventsView: UIView!
+
+    var events: [ParticleEvent] = []
+    var filteredEvents: [ParticleEvent] = []
+    var filterText: String = ""
+
+    var subscribeId: Any?
+    var paused: Bool = false
+    var filtering: Bool = false
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        addRefreshControl()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        subscribeToDeviceEvents()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        unsubscribeFromDeviceEvents()
+    }
+
+    override func update() {
+        super.update()
+
+        self.tableView.reloadData()
+
+        self.tableView.isUserInteractionEnabled = true
+        self.refreshControl.endRefreshing()
+
+        self.evalNoEventsViewVisibility()
+    }
+
     func subscribeToDeviceEvents() {
-        guard let deviceId = self.device?.id else {
-            //TODO: investigate why this is nil
-            // there's crash related to device being nil. Not sure why this is happening, just want to prevent crashes
-            // at this point
-            return;
-        }
-        self.subscribeId = ParticleCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: nil, deviceID: deviceId, handler: {[weak self] (event:ParticleEvent?, error:Error?) in
+        self.subscribeId = ParticleCloud.sharedInstance().subscribeToDeviceEvents(withPrefix: nil, deviceID: self.device.id, handler: {[weak self] (event:ParticleEvent?, error:Error?) in
             if let _ = error {
                 print ("could not subscribe to events to show in events inspector...")
             } else {
                 
                 DispatchQueue.main.async(execute: {
-                    // sequence must be all on the same thread otherwise we get NSInternalInconsistency exception on insertRowsAtIndexPaths
-                    if let s = self {
+                    if let self = self {
                         if let e = event {
-                            if s.events == nil {
-                                s.events = [ParticleEvent]()
-                                s.filteredEvents = [ParticleEvent]()
-                                s.noEventsLabel.isHidden = true
-                            }
                             // insert new event to datasource
-                            s.events?.insert(e, at: 0)
-                            if s.filtering {
-                                s.filterEvents()
-                                s.deviceEventsTableView.reloadData()
+                            self.events.insert(e, at: 0)
+                            if self.filtering {
+                                self.filterEvents()
+                                self.tableView.reloadData()
                             } else {
-                                if !s.view.isHidden {
-                                    // add new event row on top
-                                    
-                                    s.deviceEventsTableView.beginUpdates()
-                                    s.deviceEventsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
-                                    s.deviceEventsTableView.endUpdates()
+                                if !self.view.isHidden {
+                                    self.tableView.beginUpdates()
+                                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+                                    self.tableView.endUpdates()
                                 } else {
-                                    s.deviceEventsTableView.reloadData()
+                                    self.tableView.reloadData()
                                 }
                             }
+
+                            self.evalNoEventsViewVisibility()
                         }
                     }
                 })
             }
-            }) 
+        })
     }
     
     func unsubscribeFromDeviceEvents() {
@@ -75,59 +87,35 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             ParticleCloud.sharedInstance().unsubscribeFromEvent(withID: sid)
         }
     }
-    
- 
-    @IBOutlet weak var clearEventsButton: UIButton!
-    var paused : Bool = false
-    var filtering : Bool = false
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-            subscribeToDeviceEvents()
-    }
-    
-    
+
+
+    let tutorials = [
+        ("Device Events", "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your clipboard."),
+        ("Search events", "Tap filter text field and type text to filter the events list and show only events containing the search text. Filtering is performed on event name and data."),
+        ("Play and pause", "Tap play/pause button to pause the events stream momentarily. Events published while stream is paused will not be added to the list.")
+    ]
+
     override func showTutorial() {
-        
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            
-            let delayTime = DispatchTime.now() + Double(Int64(0.7 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                
-                if !self.view.isHidden {
-                    // viewController is visible
-                   
-//                    var tutorial = YCTutorialBox(headline: "Clear events", withHelpText: "Tap the trash can icon to remove all the events from the list.")
-//                    tutorial.showAndFocusView(self.clearEventsButton)
-                    
-                    // 3
-                    var tutorial = YCTutorialBox(headline: "Play and pause", withHelpText: "Tap play/pause button to pause the events stream momentarily. Events published while stream is paused will not be added to the list.")
-                    tutorial?.showAndFocus(self.playPauseButton)
-                    
-                    // 2
-                    tutorial = YCTutorialBox(headline: "Search events", withHelpText: "Tap filter text field and type text to filter the events list and show only events containing the search text. Filtering is performed on event name and data.")
-                    
-                    tutorial?.showAndFocus(self.eventFilterSearchBar)
-                    
-                    
-                    // 1
-                    tutorial = YCTutorialBox(headline: "Device Events", withHelpText: "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your clipboard.")
-                    
-                    tutorial?.showAndFocus(self.deviceEventsTableView)
-                    
-                    
-                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
-                    self.deviceEventsTableView.reloadData()
-                }
-                
+            //3
+            var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1)
+
+            //2
+            var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
+                tutorial3?.showAndFocus(self.eventFilterSearchBar.superview)
             }
+
+            // 1
+            var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
+                tutorial2?.showAndFocus(self.eventFilterSearchBar)
+            }
+            tutorial?.showAndFocus(self.view)
+
+            ParticleUtils.setTutorialWasDisplayedForViewController(self)
         }
     }
 
-    @IBOutlet weak var backgroundView: UIView!
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        
-        
         return true
     }
     
@@ -136,50 +124,68 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         self.eventFilterSearchBar.showsCancelButton = false
         self.backgroundView.backgroundColor = UIColor.white
         self.filtering = false
-        self.deviceEventsTableView.reloadData()
+        self.tableView.reloadData()
     }
     
-    var filterText : String?
-    
+
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
         self.filtering = (searchText != "")
         
         DispatchQueue.main.async {
-            
             UIView.animate(withDuration: 0.25, animations: {
                 if self.filtering {
                     self.eventFilterSearchBar.showsCancelButton = true
-                    self.backgroundView.backgroundColor = UIColor.color("#D5D5D5")
+                    self.backgroundView.backgroundColor = UIColor(rgb: 0xD5D5D5)
                     self.filtering = true
                 } else {
                     self.searchBarCancelButtonClicked(searchBar)
                 }
             })
-            // ANIMATE TABLE
         }
         
-        self.filterText = searchText
+        self.filterText = searchText.lowercased()
         self.filterEvents()
+
         SEGAnalytics.shared().track("DeviceInspector_EventFilterTyping")
         DispatchQueue.main.async {
-            self.deviceEventsTableView.reloadData()
+            self.tableView.reloadData()
         }
 
     }
 
     func filterEvents() {
         if self.filtering {
-            if let eventsArr = self.events {
-                self.filteredEvents = eventsArr.filter({$0.event.contains(self.filterText!) || $0.data!.contains(self.filterText!)}) // filter for both name and data
-            }
+            self.filteredEvents = self.events.filter({$0.event.lowercased().contains(self.filterText) || $0.data!.lowercased().contains(self.filterText)}) // filter for both name and data
         }
     }
-    
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if filtering {
+            return self.filteredEvents.count
+        } else {
+            return self.events.count
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: DeviceEventTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "eventCell") as! DeviceEventTableViewCell
+
+        if filtering {
+            cell.setup(self.filteredEvents[(indexPath as NSIndexPath).row])
+        } else {
+            cell.setup(self.events[(indexPath as NSIndexPath).row])
+        }
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 105.0
+    }
 
 
-@IBAction func playPauseButtonTapped(_ sender: AnyObject) {
+    @IBAction func playPauseButtonTapped(_ sender: AnyObject) {
         if paused {
             paused = false
             SEGAnalytics.shared().track("DeviceInspector_EventStreamPlay")
@@ -192,91 +198,53 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             unsubscribeFromDeviceEvents()
         }
     }
-    
+
     @IBAction func clearButtonTapped(_ sender: AnyObject) {
-        
-        let dialog = ZAlertView(title: "Clear all events", message: "All events data will be deleted. Are you sure?", isOkButtonLeft: true, okButtonText: "No", cancelButtonText: "Yes",
-                                okButtonHandler: { alertView in
-                                    alertView.dismiss()
-                                    
-            },
-                                cancelButtonHandler: { alertView in
-                                    alertView.dismiss()
-                                    self.events = nil
-                                    self.filteredEvents = nil
-                                    self.deviceEventsTableView.reloadData()
-                                    self.noEventsLabel.isHidden = false
-                                    SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
+        let alert = UIAlertController(title: "Clear all events", message: "All events data will be deleted. Are you sure?", preferredStyle: .alert)
 
+        alert.addAction(UIAlertAction(title: "Yes", style: .default) { [weak self] action in
+            if let self = self {
+                self.events = []
+                self.filteredEvents = []
+                self.tableView.reloadData()
+                self.evalNoEventsViewVisibility()
             }
-        )
-        
-        
-        
-        dialog.show()
+            SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
+        })
 
-    }
-    
-    
-    @IBOutlet weak var playPauseButton: UIButton!
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        unsubscribeFromDeviceEvents()
-    }
-    
-    @objc func numberOfSectionsInTableView(_ tableView: UITableView) -> Int {
-        return 1
+        alert.addAction(UIAlertAction(title: "No", style: .cancel) { action in
+
+        })
+
+        self.present(alert, animated: true)
     }
 
-    @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func evalNoEventsViewVisibility() {
+        self.tableView.tableHeaderView = nil
+        self.noEventsView.removeFromSuperview()
+        self.tableView.tableHeaderView = (self.events.count > 0) ? nil : self.noEventsView
 
-        if filtering {
-            if let e = self.filteredEvents {
-                return e.count
-            } else {
-                return 0
-            }
-        } else {
-            if let e = self.events {
-                return e.count
-            } else {
-                return 0
-            }
-        }
+        self.adjustTableViewHeaderViewConstraints()
     }
 
-    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        // kill section
-        return 0.0
-    }
-    
-    @objc func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return 105.0
-    }
-    
-    
-    @objc func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell : DeviceEventTableViewCell? = self.deviceEventsTableView.dequeueReusableCell(withIdentifier: "eventCell") as? DeviceEventTableViewCell
-        
-        if filtering {
-            if let eventsArr = self.filteredEvents {
-                cell?.event = eventsArr[(indexPath as NSIndexPath).row]
-            }
-        } else {
-            if let eventsArr = self.events {
-                cell?.event = eventsArr[(indexPath as NSIndexPath).row]
-            }
+    override func adjustTableViewHeaderViewConstraints() {
+        if (self.tableView.tableHeaderView == nil) {
+            return
         }
 
-        
-        return cell!
-        
-    }
-    
-    
-    
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.75, constant: 0),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, multiplier: 0.75, constant: 0),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor)
+            ])
+        }
 
-    
- 
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+    }
 }

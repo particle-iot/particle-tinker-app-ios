@@ -1,0 +1,3 @@
+[submodule "shared-assets-mobile"]
+	path = shared-assets-mobile
+	url = https://github.com/particle-iot/shared-assets-mobile
