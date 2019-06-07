@@ -37,6 +37,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         SEGAnalytics.shared().track("DeviceInspector_Started")
 
         self.tabBarView.setup(tabNames: ["Events", "Functions", "Variables", "Tinker"])
+
+
+        super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
