@@ -922,6 +922,14 @@
                                     <segue destination="ifs-oM-gOo" kind="embed" id="cqU-hY-Dss"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T8t-tZ-HJG" customClass="DeviceInspectorInfoSliderView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="-1" y="694" width="377" height="734"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="heightConstraint" destination="dkg-aW-1j5" id="To4-Ml-v0a"/>
+                                    <outlet property="yConstraint" destination="QXy-dE-YT4" id="aKq-7E-MQR"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -932,12 +940,16 @@
                             <constraint firstItem="nMB-Zs-QS8" firstAttribute="top" secondItem="G9s-Hy-T2h" secondAttribute="bottom" id="8wI-eb-Yvi"/>
                             <constraint firstAttribute="bottom" secondItem="7qE-LS-o5n" secondAttribute="bottom" id="BuQ-8X-ciQ"/>
                             <constraint firstItem="cbY-Lg-bFc" firstAttribute="top" secondItem="UkC-Ix-gKO" secondAttribute="top" id="DLG-BQ-lWI"/>
+                            <constraint firstItem="T8t-tZ-HJG" firstAttribute="width" secondItem="UkC-Ix-gKO" secondAttribute="width" constant="2" id="JrF-yA-mVX"/>
                             <constraint firstItem="AAG-IN-cc4" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="OPA-2H-Nkv"/>
                             <constraint firstAttribute="trailing" secondItem="nMB-Zs-QS8" secondAttribute="trailing" id="Pjf-BD-lZU"/>
+                            <constraint firstItem="T8t-tZ-HJG" firstAttribute="top" secondItem="rG0-PS-2Ri" secondAttribute="top" constant="650" id="QXy-dE-YT4"/>
                             <constraint firstAttribute="trailing" secondItem="cbY-Lg-bFc" secondAttribute="trailing" id="Uqi-RZ-INU"/>
                             <constraint firstItem="rG0-PS-2Ri" firstAttribute="top" secondItem="cbY-Lg-bFc" secondAttribute="bottom" constant="-44" id="V46-i6-qdW"/>
                             <constraint firstItem="nMB-Zs-QS8" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="V5v-Yl-9Mf"/>
+                            <constraint firstItem="T8t-tZ-HJG" firstAttribute="centerX" secondItem="UkC-Ix-gKO" secondAttribute="centerX" id="ax7-TD-zxg"/>
                             <constraint firstItem="7qE-LS-o5n" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="cxx-t2-OoW"/>
+                            <constraint firstItem="T8t-tZ-HJG" firstAttribute="height" secondItem="rG0-PS-2Ri" secondAttribute="height" id="dkg-aW-1j5"/>
                             <constraint firstItem="G9s-Hy-T2h" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="jqQ-AW-eFh"/>
                             <constraint firstAttribute="trailing" secondItem="G9s-Hy-T2h" secondAttribute="trailing" id="lk5-5e-v56"/>
                             <constraint firstAttribute="trailing" secondItem="7qE-LS-o5n" secondAttribute="trailing" id="oT3-NZ-Qu5"/>
@@ -954,6 +966,7 @@
                     <connections>
                         <outlet property="deviceNameLabel" destination="VOz-c8-Kfg" id="qiD-aM-lb0"/>
                         <outlet property="moreActionsButton" destination="8vy-mA-gxb" id="lag-RO-t3f"/>
+                        <outlet property="moreInfoView" destination="T8t-tZ-HJG" id="NXR-CS-LCh"/>
                         <outlet property="tabBarView" destination="G9s-Hy-T2h" id="cNL-E5-p8L"/>
                         <outlet property="topBarView" destination="cbY-Lg-bFc" id="iHN-FT-5Kr"/>
                         <outletCollection property="viewsToFade" destination="8vy-mA-gxb" collectionClass="NSMutableArray" id="BKm-dv-Ubm"/>
@@ -961,6 +974,7 @@
                         <outletCollection property="viewsToFade" destination="AAG-IN-cc4" collectionClass="NSMutableArray" id="FPu-wg-aH7"/>
                         <outletCollection property="viewsToFade" destination="7qE-LS-o5n" collectionClass="NSMutableArray" id="qKy-gT-swS"/>
                         <outletCollection property="viewsToFade" destination="HXc-fX-p4b" collectionClass="NSMutableArray" id="K3P-A3-AkY"/>
+                        <outletCollection property="viewsToFade" destination="T8t-tZ-HJG" collectionClass="NSMutableArray" id="7on-qe-e4q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fAC-7W-ve1" userLabel="First Responder" sceneMemberID="firstResponder"/>

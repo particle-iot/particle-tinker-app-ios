@@ -18,6 +18,8 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var tabBarView: DeviceInspectorTabBarView!
     @IBOutlet weak var moreActionsButton: UIButton!
+    @IBOutlet weak var moreInfoView: DeviceInspectorInfoSliderView!
+
 
     @IBOutlet var viewsToFade:[UIView]?
 
@@ -42,6 +44,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.moreActionsButton.isHidden = !device.is3rdGen()
 
         self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
+        self.moreInfoView.setup(self.device)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -158,7 +161,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
         tabs[selectedTabIdx].view.superview!.isHidden = false
         tabs[selectedTabIdx].view.superview!.alpha = 0
-        self.view.bringSubview(toFront: tabs[selectedTabIdx].view.superview!)
+        self.view.insertSubview(tabs[selectedTabIdx].view.superview!, belowSubview: self.moreInfoView)
         tabs[selectedTabIdx].update()
         //only show child tutorial if tutorial for this VC was already shown
         if !ParticleUtils.shouldDisplayTutorialForViewController(self) {
