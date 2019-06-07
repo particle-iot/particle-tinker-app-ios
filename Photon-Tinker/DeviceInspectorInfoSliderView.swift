@@ -157,21 +157,33 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
     }
 
 
+    @IBAction func expandTapped(_ sender: Any) {
+        if collapsed && !animating && !beingDragged {
+            self.expand()
+        }
+    }
+    
     func expand() {
         animating = true
 
         self.superview?.layoutIfNeeded()
-        let duration:Double = Double(self.yConstraint.constant / self.collapsedPosConstraint * 0.5)
+        let duration:Double = Double(self.yConstraint.constant / self.collapsedPosConstraint * 0.25)
         self.yConstraint.constant = 0
 
         animateStateChange(duration: duration, collapsed: false)
     }
 
+    @IBAction func collapseTapped(_ sender: Any) {
+        if !collapsed && !animating && !beingDragged {
+            self.collapse()
+        }
+    }
+    
     func collapse() {
         animating = true
 
         self.superview?.layoutIfNeeded()
-        let duration:Double = Double((self.collapsedPosConstraint - self.yConstraint.constant) / self.collapsedPosConstraint * 0.5)
+        let duration:Double = Double((self.collapsedPosConstraint - self.yConstraint.constant) / self.collapsedPosConstraint * 0.25)
         self.yConstraint.constant = self.collapsedPosConstraint
 
         animateStateChange(duration: duration, collapsed: true)
