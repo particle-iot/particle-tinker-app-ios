@@ -203,6 +203,7 @@
 		C810BEE780DE64326768D97F /* MeshSetupControlPanelEthernetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA450B897C6AC4793625 /* MeshSetupControlPanelEthernetViewController.swift */; };
 		C810BEFBDF0711FC95D70650 /* StepGetNewNetworkName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B020E939769A6DC0A174 /* StepGetNewNetworkName.swift */; };
 		C810BF378D103552B14AF327 /* MeshSetupInfoViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B823B691B9A9B139E4BD /* MeshSetupInfoViewControllers.swift */; };
+		C810BF44F954E2F9246AA078 /* ScaledHeightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBA624764829727882AB /* ScaledHeightImageView.swift */; };
 		C810BF551059B7D06F259BBB /* StepShowPricingImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5B5B1BE46062A1BABB3 /* StepShowPricingImpact.swift */; };
 		C810BF71BC9ADE53A4B501C9 /* StepCreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B70D0ED1C8CEE9EE1261 /* StepCreateNetwork.swift */; };
 		C810BF8EDF3AD29697CA3F57 /* DevicePinFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5A1251B215505F677E9 /* DevicePinFunction.swift */; };
@@ -426,6 +427,7 @@
 		C810BB2126DD63C1985B4FFC /* DeviceInspectorFunctionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorFunctionsViewController.swift; sourceTree = "<group>"; };
 		C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowRunner.swift; sourceTree = "<group>"; };
 		C810BB69653BD57BEAF53F5B /* FocusRectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRectView.swift; sourceTree = "<group>"; };
+		C810BBA624764829727882AB /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
 		C810BBABF94234D812CF6E15 /* DeviceInspectorInfoSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoSliderView.swift; sourceTree = "<group>"; };
 		C810BBBB5F657A788D817676 /* MeshSetupControlPanelDocumentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelDocumentationViewController.swift; path = "Photon-Tinker/MeshSetupControlPanelDocumentationViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C810BBC4DD68AB4B1BCA32F1 /* Fadeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fadeable.swift; sourceTree = "<group>"; };
@@ -800,6 +802,7 @@
 			children = (
 				C810B5B9D4A33EB025FFC03D /* PieProgressView.swift */,
 				C810B65986773963C46ABD5A /* ParticleSpinner.swift */,
+				C810BBA624764829727882AB /* ScaledHeightImageView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1468,6 +1471,7 @@
 				C810BAA713C48A6D9FC0EB8B /* FlashTinkerView.swift in Sources */,
 				C810B07B4EB86AFA0A4C1E4E /* AppStyle.swift in Sources */,
 				C810BD1790C7A8449B5BB3AB /* DeviceInspectorInfoSliderView.swift in Sources */,
+				C810BF44F954E2F9246AA078 /* ScaledHeightImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

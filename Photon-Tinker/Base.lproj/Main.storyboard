@@ -923,9 +923,57 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T8t-tZ-HJG" customClass="DeviceInspectorInfoSliderView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="-1" y="694" width="377" height="734"/>
+                                <rect key="frame" x="-1" y="44" width="377" height="734"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgD-Z1-enO">
+                                        <rect key="frame" x="0.0" y="10" width="377" height="724"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="pr9-fM-ahf" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="42" width="65" height="180"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="180" id="kx3-Bq-W2i"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="pr9-fM-ahf" firstAttribute="top" secondItem="UgD-Z1-enO" secondAttribute="top" constant="42" id="IjI-8c-6TH"/>
+                                            <constraint firstItem="pr9-fM-ahf" firstAttribute="leading" secondItem="UgD-Z1-enO" secondAttribute="leading" constant="20" id="jmZ-8K-KJD"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hlv-zG-BOP">
+                                        <rect key="frame" x="0.0" y="10" width="377" height="90"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="pI6-XB-A4D" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="12" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="65" id="Idm-z5-tOd"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="pI6-XB-A4D" firstAttribute="top" secondItem="hlv-zG-BOP" secondAttribute="top" constant="12" id="62U-z4-Q2m"/>
+                                            <constraint firstAttribute="height" constant="90" id="Ye6-J9-LlC"/>
+                                            <constraint firstItem="pI6-XB-A4D" firstAttribute="leading" secondItem="hlv-zG-BOP" secondAttribute="leading" constant="20" id="tI2-hm-gWG"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="hlv-zG-BOP" firstAttribute="top" secondItem="T8t-tZ-HJG" secondAttribute="top" constant="10" id="EGM-69-6qy"/>
+                                    <constraint firstItem="UgD-Z1-enO" firstAttribute="leading" secondItem="rGQ-3p-6gl" secondAttribute="leading" id="Fyi-5S-Kwt"/>
+                                    <constraint firstItem="hlv-zG-BOP" firstAttribute="leading" secondItem="rGQ-3p-6gl" secondAttribute="leading" id="KKi-8i-hf2"/>
+                                    <constraint firstItem="UgD-Z1-enO" firstAttribute="trailing" secondItem="rGQ-3p-6gl" secondAttribute="trailing" id="dDB-am-hYz"/>
+                                    <constraint firstItem="rGQ-3p-6gl" firstAttribute="trailing" secondItem="hlv-zG-BOP" secondAttribute="trailing" id="kEm-Mv-On4"/>
+                                    <constraint firstItem="UgD-Z1-enO" firstAttribute="top" secondItem="T8t-tZ-HJG" secondAttribute="top" constant="10" id="tYy-gd-rXp"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="rGQ-3p-6gl"/>
                                 <connections>
+                                    <outlet property="collapsedContent" destination="hlv-zG-BOP" id="DXX-fr-5J5"/>
+                                    <outlet property="collapsedDeviceImageView" destination="pI6-XB-A4D" id="ybz-hb-oHT"/>
+                                    <outlet property="expandedContent" destination="UgD-Z1-enO" id="jfe-Om-csh"/>
+                                    <outlet property="expandedDeviceImageView" destination="pr9-fM-ahf" id="XOV-km-UkC"/>
                                     <outlet property="heightConstraint" destination="dkg-aW-1j5" id="To4-Ml-v0a"/>
                                     <outlet property="yConstraint" destination="QXy-dE-YT4" id="aKq-7E-MQR"/>
                                 </connections>
@@ -943,11 +991,12 @@
                             <constraint firstItem="T8t-tZ-HJG" firstAttribute="width" secondItem="UkC-Ix-gKO" secondAttribute="width" constant="2" id="JrF-yA-mVX"/>
                             <constraint firstItem="AAG-IN-cc4" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="OPA-2H-Nkv"/>
                             <constraint firstAttribute="trailing" secondItem="nMB-Zs-QS8" secondAttribute="trailing" id="Pjf-BD-lZU"/>
-                            <constraint firstItem="T8t-tZ-HJG" firstAttribute="top" secondItem="rG0-PS-2Ri" secondAttribute="top" constant="650" id="QXy-dE-YT4"/>
+                            <constraint firstItem="T8t-tZ-HJG" firstAttribute="top" secondItem="rG0-PS-2Ri" secondAttribute="top" id="QXy-dE-YT4"/>
                             <constraint firstAttribute="trailing" secondItem="cbY-Lg-bFc" secondAttribute="trailing" id="Uqi-RZ-INU"/>
                             <constraint firstItem="rG0-PS-2Ri" firstAttribute="top" secondItem="cbY-Lg-bFc" secondAttribute="bottom" constant="-44" id="V46-i6-qdW"/>
                             <constraint firstItem="nMB-Zs-QS8" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="V5v-Yl-9Mf"/>
                             <constraint firstItem="T8t-tZ-HJG" firstAttribute="centerX" secondItem="UkC-Ix-gKO" secondAttribute="centerX" id="ax7-TD-zxg"/>
+                            <constraint firstItem="UgD-Z1-enO" firstAttribute="height" secondItem="rG0-PS-2Ri" secondAttribute="height" constant="-10" id="bqZ-5j-7nv"/>
                             <constraint firstItem="7qE-LS-o5n" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="cxx-t2-OoW"/>
                             <constraint firstItem="T8t-tZ-HJG" firstAttribute="height" secondItem="rG0-PS-2Ri" secondAttribute="height" id="dkg-aW-1j5"/>
                             <constraint firstItem="G9s-Hy-T2h" firstAttribute="leading" secondItem="UkC-Ix-gKO" secondAttribute="leading" id="jqQ-AW-eFh"/>
@@ -979,7 +1028,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fAC-7W-ve1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3249" y="991"/>
+            <point key="canvasLocation" x="3248.8000000000002" y="990.88669950738915"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="zeS-EI-8fe">
@@ -1670,6 +1719,7 @@
         <image name="imgCircle" width="85.333335876464844" height="85.333335876464844"/>
         <image name="imgCloseIcon" width="170.66667175292969" height="170.66667175292969"/>
         <image name="imgCopyToClipboard" width="400" height="400"/>
+        <image name="imgDeviceArgon" width="65" height="146.33332824707031"/>
         <image name="imgDeviceFamily" width="424" height="383"/>
         <image name="imgDeviceUnknown" width="200" height="376"/>
         <image name="imgPause" width="256" height="256"/>

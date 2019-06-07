@@ -9,6 +9,16 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
     @IBOutlet weak var yConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var collapsedContent: UIView!
+    @IBOutlet weak var collapsedDeviceImageView: UIImageView!
+    
+    
+    @IBOutlet weak var expandedContent: UIView!
+    @IBOutlet weak var expandedDeviceImageView: UIImageView!
+
+    let contentSwitchDistanceInPixels: CGFloat = 180
+    let contentSwitchDelayInPixels: CGFloat = 100
+
     var device: ParticleDevice!
     var collapsedPosConstraint: CGFloat!
     var collapsedPosFrame: CGFloat!
@@ -35,24 +45,26 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func internalInit() {
-        adjustConstraintPositions()
-
-        self.yConstraint.constant = collapsedPosConstraint
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor(rgb: 0xD9D8D6).cgColor
+
+        self.adjustConstraintPositions()
+        self.yConstraint.constant = collapsedPosConstraint
+
+        self.collapsedDeviceImageView.image = self.device.getImage()
+        self.expandedDeviceImageView.image = self.device.getImage()
+
 
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureTriggered))
         panGestureRecognizer.delegate = self
         panGestureRecognizer.isEnabled = true
         self.addGestureRecognizer(panGestureRecognizer)
-
-        collapsed = true
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        adjustConstraintPositions()
+        self.adjustConstraintPositions()
 
         //if safe area insets change during idle state
         if !animating && !beingDragged {
@@ -61,12 +73,15 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
             }
         }
 
-        let progress = min(120, self.collapsedPosFrame - self.frame.origin.y) / 120
+        let progress = min(self.contentSwitchDistanceInPixels, self.collapsedPosFrame - self.frame.origin.y - self.contentSwitchDelayInPixels) / self.contentSwitchDistanceInPixels
         updateState(progress: progress)
     }
 
     private func updateState(progress: CGFloat) {
         self.layer.cornerRadius = 10 * progress
+
+        self.collapsedContent.alpha = 1 - progress
+        self.expandedContent.alpha = progress
     }
 
 
@@ -76,7 +91,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
         if #available(iOS 11, *), let superview = self.superview {
             self.heightConstraint.constant = self.safeAreaInsets.bottom + 11
 
-            collapsedPosConstraint! -= superview.safeAreaInsets.bottom
+            collapsedPosConstraint! -= (superview.safeAreaInsets.bottom + superview.safeAreaInsets.top)
             collapsedPosFrame = collapsedPosConstraint + superview.safeAreaInsets.top
         }
     }
@@ -179,7 +194,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
     @objc func animationDidUpdate(displayLink: CADisplayLink) {
         let presentationLayer = self.layer.presentation() as! CALayer
 
-        let progress = min(120, self.collapsedPosFrame - presentationLayer.frame.origin.y) / 120
+        let progress = min(self.contentSwitchDistanceInPixels, self.collapsedPosFrame - presentationLayer.frame.origin.y - self.contentSwitchDelayInPixels) / self.contentSwitchDistanceInPixels
         self.updateState(progress: progress)
     }
 }
