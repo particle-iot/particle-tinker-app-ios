@@ -13,7 +13,7 @@ class FlashTinkerView: TinkerView, Fadeable {
     var isBusy: Bool = false
     private(set) var viewsToFade: [UIView]? = nil
 
-    @IBOutlet weak var flashTinkerButton: ParticleButton!
+    @IBOutlet weak var flashTinkerButton: MeshSetupButton!
     @IBOutlet weak var flashTinkerLabel: UILabel!
 
     override func setup(_ device: ParticleDevice) {
@@ -22,7 +22,7 @@ class FlashTinkerView: TinkerView, Fadeable {
         self.setupDeviceImage()
         
         self.flashTinkerButton.setTitle("FLASH TINKER", for: .normal)
-        self.flashTinkerButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
+        self.flashTinkerButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
 
         viewsToFade = [self.flashTinkerButton, self.flashTinkerLabel]
     }
