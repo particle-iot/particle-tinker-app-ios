@@ -21,9 +21,11 @@ extension ParticleDevice {
     func getName() -> String {
         return self.name ?? "<no name>"
     }
+}
 
+extension ParticleDeviceType {
     func getImage() -> UIImage? {
-        switch (self.type)
+        switch (self)
         {
             case .core:
                 return UIImage(named: "imgDeviceCore")
@@ -55,6 +57,56 @@ extension ParticleDevice {
                 return UIImage(named: "imgDeviceBoron")
             default:
                 return UIImage(named: "imgDeviceUnknown")
+        }
+    }
+
+    func getIconColor() -> UIColor {
+        switch (self)
+        {
+            case .electron:
+                return UIColor(rgb: 0xFE432C)
+            case .photon:
+                return UIColor(rgb: 0xF9CB00)
+            case .xenon, .argon, .boron, .bSeries, .aSeries, .xSeries:
+                return UIColor(rgb: 0x2ECC71)
+            default:
+                return UIColor(rgb: 0x999990)
+        }
+    }
+
+    func getIconText() -> String {
+        switch (self)
+        {
+            case .core:
+                return "C"
+            case .electron:
+                return "E"
+            case .photon:
+                return "P"
+            case .P1:
+                return "P"
+            case .raspberryPi:
+                return "R"
+            case .redBearDuo:
+                return "R"
+            case .bluz:
+                return "B"
+            case .digistumpOak:
+                return "D"
+            case .xenon:
+                return "X"
+            case .argon:
+                return "A"
+            case .boron:
+                return "B"
+            case .xSeries:
+                return "X"
+            case .aSeries:
+                return "A"
+            case .bSeries:
+                return "B"
+            default:
+                return " "
         }
     }
 }
