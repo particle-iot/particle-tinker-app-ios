@@ -11,11 +11,18 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var collapsedContent: UIView!
     @IBOutlet weak var collapsedDeviceImageView: UIImageView!
+    @IBOutlet weak var collapsedDeviceStateImageView: UIImageView!
+    @IBOutlet weak var collapsedDeviceNameLabel: MeshLabel!
+    @IBOutlet weak var collapsedDeviceTypeLabel: MeshLabel!
+    @IBOutlet weak var collapsedDeviceIconImage: DeviceTypeIcon!
     
     
     @IBOutlet weak var expandedContent: UIView!
     @IBOutlet weak var expandedDeviceImageView: UIImageView!
+    @IBOutlet weak var expandedDeviceStateImageView: UIImageView!
 
+    
+    
     let contentSwitchDistanceInPixels: CGFloat = 180
     let contentSwitchDelayInPixels: CGFloat = 100
 
@@ -51,14 +58,26 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
         self.adjustConstraintPositions()
         self.yConstraint.constant = collapsedPosConstraint
 
-        self.collapsedDeviceImageView.image = self.device.getImage()
-        self.expandedDeviceImageView.image = self.device.getImage()
+        self.collapsedDeviceImageView.image = self.device.type.getImage()
+        self.expandedDeviceImageView.image = self.device.type.getImage()
+
+        self.collapsedDeviceIconImage.setDeviceType(self.device.type)
+        self.collapsedDeviceNameLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.collapsedDeviceTypeLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.collapsedDeviceTypeLabel.text = self.device.type.description
+
 
 
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureTriggered))
         panGestureRecognizer.delegate = self
         panGestureRecognizer.isEnabled = true
         self.addGestureRecognizer(panGestureRecognizer)
+    }
+
+    func update() {
+        self.collapsedDeviceNameLabel.text = self.device.getName()
+        ParticleUtils.animateOnlineIndicatorImageView(self.collapsedDeviceStateImageView, online: self.device.connected, flashing: self.device.isFlashing)
+        ParticleUtils.animateOnlineIndicatorImageView(self.expandedDeviceStateImageView, online: self.device.connected, flashing: self.device.isFlashing)
     }
 
     override func layoutSubviews() {
