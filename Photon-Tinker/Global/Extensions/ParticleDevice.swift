@@ -21,6 +21,35 @@ extension ParticleDevice {
     func getName() -> String {
         return self.name ?? "<no name>"
     }
+
+    func getInfoDetails() -> [String: Any] {
+        var info: [String: Any] = [:]
+
+        info["Type"] = self.type
+        info["ID"] = self.id ?? "Unknown"
+        info["Serial"] = self.serialNumber ?? "Unknown"
+        info["Device OS"] = self.systemFirmwareVersion ?? "Unknown"
+        if let lastHeard = self.lastHeard {
+            info["Last Heard"] = DateFormatter.localizedString(from: lastHeard, dateStyle: .medium, timeStyle: .short)
+        } else {
+            info["Last Heard"] = "Never"
+        }
+
+        if (self.cellular) {
+            info["IMEI"] = self.imei ?? "Unknown"
+            info["Last ICCID"] = self.lastIccid ?? "Unknown"
+        }
+
+        return info
+    }
+
+    func getInfoDetailsOrder() -> [String] {
+        if (self.cellular) {
+            return ["Type", "ID", "Serial", "IMEI", "Last ICCID", "Device OS", "Last Heard"]
+        } else {
+            return ["Type", "ID", "Serial", "Device OS", "Last Heard"]    
+        }
+    }
 }
 
 extension ParticleDeviceType {
@@ -109,6 +138,7 @@ extension ParticleDeviceType {
                 return " "
         }
     }
+
 }
 
 

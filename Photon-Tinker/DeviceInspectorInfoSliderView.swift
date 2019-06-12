@@ -5,7 +5,7 @@
 
 import Foundation
 
-class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
+class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var yConstraint: NSLayoutConstraint!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
@@ -19,9 +19,21 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var expandedContent: UIView!
     @IBOutlet weak var expandedDeviceImageView: UIImageView!
+    @IBOutlet weak var expandedDeviceImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var expandedDeviceStateImageView: UIImageView!
-
+    @IBOutlet weak var expandedDeviceNameLabel: MeshLabel!
+    @IBOutlet weak var expandedDeviceStateLabel: MeshLabel!
+    @IBOutlet weak var expandedDeviceSignalLabel: MeshLabel!
+    @IBOutlet weak var expandedTableView: UITableView!
+    @IBOutlet weak var expandedTableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var expandedDeviceNotesTitleLabel: MeshLabel!
+    @IBOutlet weak var expandedDeviceNotesLabel: MeshLabel!
+    @IBOutlet weak var expandedPingButton: MeshSetupAlternativeButton!
+    @IBOutlet weak var expandedPingActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var expandedSignalToggle: UISwitch!
     
+    @IBOutlet var constraintsToShrinkOnSmallScreens: [NSLayoutConstraint]?
+
     
     let contentSwitchDistanceInPixels: CGFloat = 180
     let contentSwitchDelayInPixels: CGFloat = 100
@@ -38,6 +50,9 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
     var beingDragged: Bool = false
     var displayLink: CADisplayLink!
 
+    var details: [String: Any]!
+    var detailsOrder: [String]!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -48,6 +63,8 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
 
     func setup(_ device: ParticleDevice!) {
         self.device = device
+        self.details = device.getInfoDetails()
+        self.detailsOrder = device.getInfoDetailsOrder()
         internalInit()
     }
 
@@ -58,15 +75,8 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
         self.adjustConstraintPositions()
         self.yConstraint.constant = collapsedPosConstraint
 
-        self.collapsedDeviceImageView.image = self.device.type.getImage()
-        self.expandedDeviceImageView.image = self.device.type.getImage()
-
-        self.collapsedDeviceIconImage.setDeviceType(self.device.type)
-        self.collapsedDeviceNameLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.collapsedDeviceTypeLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.collapsedDeviceTypeLabel.text = self.device.type.description
-
-
+        self.setStyle()
+        self.setContent()
 
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureTriggered))
         panGestureRecognizer.delegate = self
@@ -74,10 +84,81 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate {
         self.addGestureRecognizer(panGestureRecognizer)
     }
 
-    func update() {
+    private func setContent() {
+        self.collapsedDeviceImageView.image = self.device.type.getImage()
         self.collapsedDeviceNameLabel.text = self.device.getName()
+        self.collapsedDeviceIconImage.setDeviceType(self.device.type)
+        self.collapsedDeviceTypeLabel.text = self.device.type.description
+
+        self.expandedDeviceImageView.image = self.device.type.getImage()
+        self.expandedDeviceNameLabel.text = self.device.getName()
+        self.expandedDeviceStateLabel.text = self.device.isFlashing ? "Flashing" : (self.device.connected ? "Online" : "Offline")
+        self.expandedDeviceSignalLabel.text = "Signal Device"
+        self.expandedDeviceNotesTitleLabel.text = "Notes"
+        self.expandedDeviceNotesLabel.text = self.device.notes ?? "Use this space to keep notes on this device. Add or edit them."
+
+        self.expandedPingButton.setTitle("Ping", for: .normal, upperCase: false)
+
+        self.expandedTableViewHeightConstraint.constant = CGFloat(self.detailsOrder.count * 30)
+
         ParticleUtils.animateOnlineIndicatorImageView(self.collapsedDeviceStateImageView, online: self.device.connected, flashing: self.device.isFlashing)
         ParticleUtils.animateOnlineIndicatorImageView(self.expandedDeviceStateImageView, online: self.device.connected, flashing: self.device.isFlashing)
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return detailsOrder.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceInfoSliderCell") as! DeviceInfoSliderCell
+        let key = detailsOrder[indexPath.row]
+        cell.setup(title: key, value: details[key])
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 30
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! DeviceInfoSliderCell
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        UIPasteboard.general.string = cell.valueLabel.text!
+        RMessage.showNotification(withTitle: "Copied", subtitle: "\(cell.titleLabel.text!) value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+    }
+
+    private func setStyle() {
+        if (MeshScreenUtils.isIPhone() && (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5)) {
+            if let constraints = constraintsToShrinkOnSmallScreens {
+                self.expandedDeviceImageViewHeightConstraint.constant = 120
+                for constraint in constraints {
+                    constraint.constant = constraint.constant / 2
+                }
+            }
+        }
+
+        self.expandedTableView.separatorColor = .clear
+
+        self.collapsedDeviceNameLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.collapsedDeviceTypeLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+        self.expandedDeviceNameLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.expandedDeviceStateLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.expandedDeviceSignalLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+
+        self.expandedDeviceNotesTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.expandedDeviceNotesLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.DetailsTextColor)
+
+        self.expandedPingButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        self.expandedPingButton.layer.shadowColor = UIColor.clear.cgColor
+        self.expandedPingButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+
+        self.expandedPingActivityIndicator.hidesWhenStopped = true
+    }
+
+    func update() {
+        self.setContent()
     }
 
     override func layoutSubviews() {
