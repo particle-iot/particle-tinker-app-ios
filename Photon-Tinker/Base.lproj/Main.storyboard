@@ -1127,10 +1127,16 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ViH-eb-LBM">
                                                 <rect key="frame" x="308" y="100.66666666666666" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="signalSwitchValueChanged:" destination="T8t-tZ-HJG" eventType="valueChanged" id="q9Z-nB-rta"/>
+                                                </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8T-4p-go2" customClass="MeshSetupAlternativeButton" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="311" y="68" width="46" height="30"/>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="pingButtonTapped:" destination="T8t-tZ-HJG" eventType="touchUpInside" id="Pgy-xq-Z7j"/>
+                                                </connections>
                                             </button>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fSK-3Q-eSq">
                                                 <rect key="frame" x="324" y="73" width="20" height="20"/>

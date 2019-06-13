@@ -125,6 +125,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         tableView.deselectRow(at: indexPath, animated: true)
 
         UIPasteboard.general.string = cell.valueLabel.text!
+        RMessage.dismissActiveNotification()
         RMessage.showNotification(withTitle: "Copied", subtitle: "\(cell.titleLabel.text!) value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
     }
 
@@ -282,6 +283,9 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     func collapse() {
         animating = true
 
+        self.device.signal(false)
+        self.expandedSignalToggle.setOn(false, animated: true)
+
         self.superview?.layoutIfNeeded()
         let duration:Double = Double((self.collapsedPosConstraint - self.yConstraint.constant) / self.collapsedPosConstraint * 0.25)
         self.yConstraint.constant = self.collapsedPosConstraint
@@ -309,4 +313,38 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         let progress = min(self.contentSwitchDistanceInPixels, self.collapsedPosFrame - presentationLayer.frame.origin.y - self.contentSwitchDelayInPixels) / self.contentSwitchDistanceInPixels
         self.updateState(progress: progress)
     }
+
+    @IBAction func signalSwitchValueChanged(_ sender: Any) {
+        if expandedSignalToggle.isOn {
+            self.device.signal(true)
+        } else {
+            self.device.signal(false)
+        }
+    }
+
+    @IBAction func pingButtonTapped(_ sender: Any) {
+        self.expandedPingActivityIndicator.startAnimating()
+        self.expandedPingButton.isHidden = true
+
+        RMessage.dismissActiveNotification()
+        RMessage.showNotification(withTitle: "Pinging device", subtitle: "The Particle Cloud has sent a ping to this device. It will wait up to 15 seconds to hear back.", type: .warning, customTypeName: nil, callback: nil)
+
+        self.device.ping { [weak self] connected, error in
+            if let self = self {
+                DispatchQueue.main.async {
+                    self.expandedPingActivityIndicator.stopAnimating()
+                    self.expandedPingButton.isHidden = false
+                }
+            }
+
+            if error != nil || !connected {
+                RMessage.dismissActiveNotification()
+                RMessage.showNotification(withTitle: "Error", subtitle: "This device was unreachable by the Particle cloud within 15 seconds. The device may be powered off, or may be having trouble connecting to the Particle Cloud.", type: .error, customTypeName: nil, callback: nil)
+            } else {
+                RMessage.dismissActiveNotification()
+                RMessage.showNotification(withTitle: "Success", subtitle: "This device is online and connected!", type: .success, customTypeName: nil, callback: nil)
+            }
+        }
+    }
+
 }
