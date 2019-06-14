@@ -105,6 +105,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         label.adjustsFontSizeToFitWidth = true
         label.textColor = UIColor.white
         label.textAlignment = .center
+        label.baselineAdjustment = .alignCenters
         addSubview(label)
         NSLayoutConstraint.activate([
             label.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1, constant: -10),

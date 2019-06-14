@@ -62,13 +62,17 @@ class DeviceTypeIcon: UIView {
 
         self.deviceTypeLabel = MeshLabel(frame: .zero)
         self.deviceTypeLabel!.translatesAutoresizingMaskIntoConstraints = false
+        self.deviceTypeLabel!.adjustsFontSizeToFitWidth = true
+        self.deviceTypeLabel!.textAlignment = .center
+        self.deviceTypeLabel!.baselineAdjustment = .alignCenters
 
         self.deviceTypeLabel?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.DetailsTextColor)
 
         self.addSubview(self.deviceTypeLabel!)
         NSLayoutConstraint.activate([
             self.deviceTypeLabel!.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.deviceTypeLabel!.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            self.deviceTypeLabel!.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.deviceTypeLabel!.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.0, constant: -8)
         ])
 
         if let deviceType = self.deviceType {
