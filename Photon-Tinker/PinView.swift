@@ -92,8 +92,8 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         button.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
         addSubview(button)
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalTo: self.heightAnchor, constant: -8),
-            button.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -8),
+            button.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
+            button.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
             button.centerXAnchor.constraint(equalTo: outerPieFrameView.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
@@ -108,8 +108,8 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         label.baselineAdjustment = .alignCenters
         addSubview(label)
         NSLayoutConstraint.activate([
-            label.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1, constant: -10),
-            label.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1, constant: -8),
+            label.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
+            label.heightAnchor.constraint(equalTo: self.heightAnchor),
             label.centerXAnchor.constraint(equalTo: outerPieFrameView.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
