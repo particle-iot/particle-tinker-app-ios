@@ -347,4 +347,11 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         }
     }
 
+    @IBAction func renameButtonTapped(_ sender: Any) {
+    }
+    
+    
+    
+    @IBAction func editNotesButtonTapped(_ sender: Any) {
+    }
 }

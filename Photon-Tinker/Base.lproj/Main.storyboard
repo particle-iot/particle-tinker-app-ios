@@ -1016,6 +1016,17 @@
                                                 <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2J9-sN-DoN">
+                                                <rect key="frame" x="199.66666666666666" y="30" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="C0W-jA-t9d"/>
+                                                    <constraint firstAttribute="height" constant="40" id="JCL-by-mF3"/>
+                                                </constraints>
+                                                <state key="normal" image="IconEditInfo"/>
+                                                <connections>
+                                                    <action selector="renameButtonTapped:" destination="IJz-KH-ZCV" eventType="touchUpInside" id="bjE-aF-6G1"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xB4-Z1-PdP" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="126" y="75" width="99.666666666666686" height="16"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
@@ -1119,6 +1130,17 @@
                                                 <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXR-CL-UzO">
+                                                <rect key="frame" x="59.666666666666657" y="407" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="FY2-mg-v7H"/>
+                                                    <constraint firstAttribute="height" constant="40" id="gBt-Bq-3Ew"/>
+                                                </constraints>
+                                                <state key="normal" image="IconEditInfo"/>
+                                                <connections>
+                                                    <action selector="editNotesButtonTapped:" destination="IJz-KH-ZCV" eventType="touchUpInside" id="U1Y-MV-z4r"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="some notes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqV-iV-jg6" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="440" width="337" height="16"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
@@ -1152,6 +1174,7 @@
                                             <constraint firstItem="aCw-Qh-qyp" firstAttribute="trailing" secondItem="ViH-eb-LBM" secondAttribute="trailing" constant="20" id="9g2-rC-q0R"/>
                                             <constraint firstItem="R0E-7p-u4p" firstAttribute="leading" secondItem="UgD-Z1-enO" secondAttribute="leading" constant="20" id="AG8-D6-NtF"/>
                                             <constraint firstItem="aCw-Qh-qyp" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rqV-iV-jg6" secondAttribute="bottom" constant="20" id="B42-bZ-Ncb"/>
+                                            <constraint firstItem="aCw-Qh-qyp" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2J9-sN-DoN" secondAttribute="trailing" constant="20" id="FoB-dD-Zd4"/>
                                             <constraint firstItem="kCS-DT-gA2" firstAttribute="top" secondItem="xB4-Z1-PdP" secondAttribute="bottom" constant="17" id="FwE-sH-fDj"/>
                                             <constraint firstItem="zSJ-hl-UUU" firstAttribute="centerX" secondItem="Ihd-qj-mjd" secondAttribute="centerX" id="Gmj-uO-bin"/>
                                             <constraint firstItem="pr9-fM-ahf" firstAttribute="top" secondItem="UgD-Z1-enO" secondAttribute="top" constant="42" id="IjI-8c-6TH"/>
@@ -1164,7 +1187,9 @@
                                             <constraint firstAttribute="trailing" secondItem="86h-pi-EGX" secondAttribute="trailing" id="Tir-hT-5Uf"/>
                                             <constraint firstItem="OU5-Ff-uuJ" firstAttribute="leading" secondItem="aCw-Qh-qyp" secondAttribute="leading" constant="19.999999999999996" id="VMo-dI-H0r"/>
                                             <constraint firstItem="fw8-0a-gkK" firstAttribute="trailing" secondItem="R0E-7p-u4p" secondAttribute="trailing" id="W25-1g-MXN"/>
+                                            <constraint firstItem="aXR-CL-UzO" firstAttribute="leading" secondItem="OU5-Ff-uuJ" secondAttribute="trailing" constant="-5" id="Zcn-Pw-b8M"/>
                                             <constraint firstItem="rqV-iV-jg6" firstAttribute="trailing" secondItem="fw8-0a-gkK" secondAttribute="trailing" id="c26-2c-Fl5"/>
+                                            <constraint firstItem="2J9-sN-DoN" firstAttribute="leading" secondItem="99B-W2-Og8" secondAttribute="trailing" constant="-5" id="cgT-le-opP"/>
                                             <constraint firstItem="YI7-Cl-aGR" firstAttribute="leading" secondItem="UgD-Z1-enO" secondAttribute="leading" id="clQ-Vr-3hQ"/>
                                             <constraint firstItem="OU5-Ff-uuJ" firstAttribute="top" secondItem="fw8-0a-gkK" secondAttribute="bottom" constant="25" id="eEf-yy-BWh"/>
                                             <constraint firstItem="f8T-4p-go2" firstAttribute="centerY" secondItem="xB4-Z1-PdP" secondAttribute="centerY" id="fUI-ia-nFm"/>
@@ -1180,6 +1205,8 @@
                                             <constraint firstItem="fw8-0a-gkK" firstAttribute="top" secondItem="YI7-Cl-aGR" secondAttribute="bottom" constant="20" id="uwn-7c-LBA"/>
                                             <constraint firstItem="rqV-iV-jg6" firstAttribute="leading" secondItem="fw8-0a-gkK" secondAttribute="leading" id="vku-v8-WdC"/>
                                             <constraint firstItem="fSK-3Q-eSq" firstAttribute="centerY" secondItem="f8T-4p-go2" secondAttribute="centerY" id="wb7-cl-4mb"/>
+                                            <constraint firstItem="2J9-sN-DoN" firstAttribute="centerY" secondItem="99B-W2-Og8" secondAttribute="centerY" id="ylS-xm-bkI"/>
+                                            <constraint firstItem="aXR-CL-UzO" firstAttribute="centerY" secondItem="OU5-Ff-uuJ" secondAttribute="centerY" id="z1q-RP-v7J"/>
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="aCw-Qh-qyp"/>
                                     </view>
@@ -1272,6 +1299,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fAC-7W-ve1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="IJz-KH-ZCV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3248.8000000000002" y="990.88669950738915"/>
         </scene>
@@ -1320,7 +1348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FU3-TN-HU4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4266" y="275"/>
+            <point key="canvasLocation" x="5174" y="275"/>
         </scene>
         <!--Electron Setup View Controller-->
         <scene sceneID="0be-go-T1o">
@@ -1367,7 +1395,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BT8-SR-WAS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4266" y="991"/>
+            <point key="canvasLocation" x="5174" y="991"/>
         </scene>
         <!--Scan Barcode View Controller-->
         <scene sceneID="zAP-gq-UWS">
@@ -1382,7 +1410,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vr9-fe-eOc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5002" y="991"/>
+            <point key="canvasLocation" x="5910" y="991"/>
         </scene>
         <!--Device Inspector Events View Controller-->
         <scene sceneID="mpT-va-E1c">
@@ -1954,6 +1982,7 @@
     </scenes>
     <resources>
         <image name="IconCollapseInfo" width="36" height="11"/>
+        <image name="IconEditInfo" width="13" height="16"/>
         <image name="IconExpandInfo" width="20" height="13"/>
         <image name="L" width="32" height="32"/>
         <image name="MeshControlPanelIcon" width="20" height="20"/>
