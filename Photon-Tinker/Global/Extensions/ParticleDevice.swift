@@ -92,14 +92,26 @@ extension ParticleDeviceType {
     func getIconColor() -> UIColor {
         switch (self)
         {
+            case .core:
+                return UIColor(rgb: 0x00AEEF)
             case .electron:
-                return UIColor(rgb: 0xFE432C)
+                return UIColor(rgb: 0xeb543c)
             case .photon:
-                return UIColor(rgb: 0xF9CB00)
+                return UIColor(rgb: 0xf3cb00)
+            case .P1:
+                return UIColor(rgb: 0xf3cb00)
+            case .raspberryPi:
+                return UIColor(rgb: 0x8e44ad)
+            case .redBearDuo:
+                return UIColor(rgb: 0xf39c12)
+            case .ESP32:
+                return UIColor(rgb: 0x000000)
+            case .bluz:
+                return UIColor(rgb: 0x2980b9)
             case .xenon, .argon, .boron, .bSeries, .aSeries, .xSeries:
                 return UIColor(rgb: 0x2ECC71)
             default:
-                return UIColor(rgb: 0x999990)
+                return UIColor(rgb: 0x777777)
         }
     }
 
@@ -113,29 +125,23 @@ extension ParticleDeviceType {
             case .photon:
                 return "P"
             case .P1:
-                return "P"
+                return "1"
             case .raspberryPi:
                 return "R"
             case .redBearDuo:
-                return "R"
-            case .bluz:
-                return "B"
-            case .digistumpOak:
                 return "D"
-            case .xenon:
+            case .ESP32:
+                return "ES"
+            case .bluz:
+                return "BZ"
+            case .xenon, .xSeries:
                 return "X"
-            case .argon:
+            case .argon, .aSeries:
                 return "A"
-            case .boron:
-                return "B"
-            case .xSeries:
-                return "X"
-            case .aSeries:
-                return "A"
-            case .bSeries:
+            case .boron, .bSeries:
                 return "B"
             default:
-                return " "
+                return "?"
         }
     }
 
