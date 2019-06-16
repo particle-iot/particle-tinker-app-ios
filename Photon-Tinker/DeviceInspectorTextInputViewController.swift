@@ -5,7 +5,7 @@
 
 import Foundation
 
-class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyboardable {
+class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyboardable, UITextFieldDelegate {
 
     
     var isBusy: Bool = false
@@ -60,6 +60,8 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
         blurEffectView.frame = self.view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.view.insertSubview(blurEffectView, at: 0)
+
+        self.inputTextField.delegate = self
 
         self.setStyle()
         self.setContent()
@@ -118,6 +120,11 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
             self.inputTextField.selectAll(nil)
         }
 
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.saveTapped(self)
+        return false
     }
 
     override func viewDidDisappear(_ animated: Bool) {
