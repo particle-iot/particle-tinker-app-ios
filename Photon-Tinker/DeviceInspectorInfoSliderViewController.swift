@@ -5,6 +5,10 @@
 
 import Foundation
 
+protocol DeviceInspectorInfoSliderViewDelegate: class {
+    func infoSliderDidUpdateDevice()
+}
+
 class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var yConstraint: NSLayoutConstraint?
     @IBOutlet weak var heightConstraint: NSLayoutConstraint?
@@ -34,7 +38,8 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     
     @IBOutlet var constraintsToShrinkOnSmallScreens: [NSLayoutConstraint]?
 
-    
+    weak var delegate: DeviceInspectorInfoSliderViewDelegate?
+
     let contentSwitchDistanceInPixels: CGFloat = 180
     let contentSwitchDelayInPixels: CGFloat = 100
 
@@ -361,7 +366,17 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     @IBAction func renameButtonTapped(_ sender: Any) {
         var vc = DeviceInspectorTextInputViewController.storyboardViewController()
         vc.setup(caption: "Name", multiline: false, value: self.device.name, onCompletion: {
-            value in
+            [weak self] value in
+            if let self = self {
+                self.device.rename(value) { error in
+                    if let error = error {
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                    } else {
+                        self.delegate?.infoSliderDidUpdateDevice()
+                        vc.dismiss(animated: true)
+                    }
+                }
+            }
         })
         self.present(vc, animated: true)
 
@@ -371,7 +386,18 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     @IBAction func editNotesButtonTapped(_ sender: Any) {
         var vc = DeviceInspectorTextInputViewController.storyboardViewController()
         vc.setup(caption: "Notes", multiline: true, value: self.device.notes, onCompletion: {
-            value in
+            [weak self] value in
+            if let self = self {
+                self.device.setNotes(value) { error in
+                    if let error = error {
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                    } else {
+                        self.delegate?.infoSliderDidUpdateDevice()
+                        vc.dismiss(animated: true)
+                    }
+                }
+            }
+
         })
         self.present(vc, animated: true)
     }

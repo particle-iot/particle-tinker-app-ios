@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceInspectorViewController : UIViewController, DeviceInspectorChildViewControllerDelegate, Fadeable {
+class DeviceInspectorViewController : UIViewController, DeviceInspectorChildViewControllerDelegate, Fadeable, DeviceInspectorInfoSliderViewDelegate {
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -74,24 +74,19 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
             if event == ParticleDeviceSystemEvent.wentOffline || event == ParticleDeviceSystemEvent.cameOnline {
                 self.reloadDeviceData()
-                self.infoSlider.update()
             }
 
             if (event == ParticleDeviceSystemEvent.flashStarted) {
-                self.updateTab()
-                self.infoSlider.update()
+                self.updateWithoutReload()
             }
 
             if event == ParticleDeviceSystemEvent.flashSucceeded || event == ParticleDeviceSystemEvent.flashFailed {
                 self.reloadDeviceData()
-                self.infoSlider.update()
 
                 if (event == ParticleDeviceSystemEvent.flashFailed) {
                     RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, callback: nil)
                 }
             }
-
-
         }
     }
 
@@ -123,6 +118,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         } else if let vc = segue.destination as? DeviceInspectorInfoSliderViewController {
             vc.setup(device, yConstraint: self.infoSliderYConstraint, heightConstraint: self.infoSliderHeightConstraint)
             self.infoSlider = vc
+            self.infoSlider.delegate = self
         }
     }
 
@@ -144,6 +140,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
             if let self = self {
                 DispatchQueue.main.async {
+                    self.infoSlider.update()
                     self.tabs[self.tabBarView.selectedIdx].update()
 
                     if (err == nil) {
@@ -156,12 +153,13 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         })
     }
 
-    func updateTab() {
+    func updateWithoutReload() {
         DispatchQueue.main.async {
+            self.deviceNameLabel.text = self.device.getName()
             self.tabs[self.tabBarView.selectedIdx].update()
+            self.infoSlider.update()
         }
     }
-
 
 
     private func selectTab(selectedTabIdx: Int, instant: Bool = false) {
@@ -272,5 +270,8 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
             }
         }
     }
-    
+
+    func infoSliderDidUpdateDevice() {
+        self.updateWithoutReload()
+    }
 }
