@@ -189,13 +189,19 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
 
     private func adjustConstraintPositions() {
-        collapsedPosConstraint = UIScreen.main.bounds.height - 100
-        collapsedPosFrame = collapsedPosConstraint
         if #available(iOS 11, *), let superview = self.view.superview?.superview, let heightConstraint = self.heightConstraint {
+            collapsedPosConstraint = UIScreen.main.bounds.height - 100
+            collapsedPosFrame = collapsedPosConstraint
+
             heightConstraint.constant = self.view.safeAreaInsets.bottom + 11
 
             collapsedPosConstraint! -= (superview.safeAreaInsets.bottom + superview.safeAreaInsets.top)
             collapsedPosFrame = collapsedPosConstraint + superview.safeAreaInsets.top
+        } else if let heightConstraint = self.heightConstraint {
+            collapsedPosConstraint = UIScreen.main.bounds.height - 120 //top bar included
+            collapsedPosFrame = collapsedPosConstraint
+
+            heightConstraint.constant = -9
         }
     }
 
