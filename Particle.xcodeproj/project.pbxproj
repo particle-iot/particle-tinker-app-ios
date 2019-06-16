@@ -120,6 +120,7 @@
 		C810B3713861AC5680067968 /* MeshSetupStandAloneOrMeshSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA4DEFE6AE5E02AF1691 /* MeshSetupStandAloneOrMeshSetupViewController.swift */; };
 		C810B37660D9D7305CD238DF /* DeviceInspectorChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BC9989556EA84E10C5E5 /* DeviceInspectorChildViewController.swift */; };
 		C810B3A0E822F793B440371A /* StepGetTargetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B262CE82C2AFC9F4EB07 /* StepGetTargetInfo.swift */; };
+		C810B3D2EF25A5EAC2B7E768 /* DeviceInspectorTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA7E214CF0C04EFBE4EC /* DeviceInspectorTextInputViewController.swift */; };
 		C810B3E2F3DB83C6FF13CDD4 /* DeviceInspectorFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB2126DD63C1985B4FFC /* DeviceInspectorFunctionsViewController.swift */; };
 		C810B3FD9C729A78A9F7A5D6 /* MeshSetupSelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD14B6CD42737D656BCF /* MeshSetupSelectNetworkViewController.swift */; };
 		C810B410634A800737771C20 /* StepOfferToSwitchToControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDA71E22E114BE07EA93 /* StepOfferToSwitchToControlPanel.swift */; };
@@ -143,6 +144,7 @@
 		C810B7532248EB34DB8E355F /* MeshSetupStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5D870413FD9CA543093 /* MeshSetupStep.swift */; };
 		C810B757924A9596A91DBA01 /* StepCheckHasNetworkInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8CDDE324D38A2432ACB /* StepCheckHasNetworkInterfaces.swift */; };
 		C810B777D7B8F9B7157D6D0B /* MeshSetupTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD4A5AD59EE85C510591 /* MeshSetupTextInputViewController.swift */; };
+		C810B7857566C1627130F6A4 /* DeviceInspectorInfoSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BC6999ADD5CBB7F6C034 /* DeviceInspectorInfoSliderViewController.swift */; };
 		C810B7925D1EF72386572B80 /* MeshSetupFindStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2A47DC32CB492A6373C /* MeshSetupFindStickerViewController.swift */; };
 		C810B7A427A13150BE1923D8 /* ScanBarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4E0C34219EA31B1F5DA /* ScanBarcodeViewController.swift */; };
 		C810B7A53664B650998F33A8 /* ElectronSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B38B730BE95201A8F1E6 /* ElectronSetupViewController.swift */; };
@@ -187,7 +189,6 @@
 		C810BC9DCA98EFDA30A8FC52 /* DeviceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B76DA1F1580C99BAEDFE /* DeviceInspectorViewController.swift */; };
 		C810BCA6C880C2B655CFA2F8 /* MeshSetupControlPanelRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B95492E74D03F350532A /* MeshSetupControlPanelRootViewController.swift */; };
 		C810BD03E694E7F3AE821E4D /* ParticleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B14047147CD0007183D9 /* ParticleUtils.swift */; };
-		C810BD1790C7A8449B5BB3AB /* DeviceInspectorInfoSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBABF94234D812CF6E15 /* DeviceInspectorInfoSliderView.swift */; };
 		C810BD363B8DD799293FAB91 /* TinkerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD8F81831FA1158C0593 /* TinkerStrings.swift */; };
 		C810BDA3464764900E879125 /* StepEnsureCorrectSimState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF15DD9491959B0E186C /* StepEnsureCorrectSimState.swift */; };
 		C810BDE2AA87A347CBABDFC5 /* StepGetNewNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B85E5279D0283A14D356 /* StepGetNewNetworkPassword.swift */; };
@@ -424,18 +425,19 @@
 		C810BA3C69A84CF59D60E89D /* DeviceInspectorTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorTabBarView.swift; sourceTree = "<group>"; };
 		C810BA450B897C6AC4793625 /* MeshSetupControlPanelEthernetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelEthernetViewController.swift; path = ControlPanel/MeshSetupControlPanelEthernetViewController.swift; sourceTree = "<group>"; };
 		C810BA4DEFE6AE5E02AF1691 /* MeshSetupStandAloneOrMeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupStandAloneOrMeshSetupViewController.swift; sourceTree = "<group>"; };
+		C810BA7E214CF0C04EFBE4EC /* DeviceInspectorTextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorTextInputViewController.swift; sourceTree = "<group>"; };
 		C810BAF19BA3CABD429F6A14 /* StepEnsureCommissionerNetworkMatches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCommissionerNetworkMatches.swift; sourceTree = "<group>"; };
 		C810BB2126DD63C1985B4FFC /* DeviceInspectorFunctionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorFunctionsViewController.swift; sourceTree = "<group>"; };
 		C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowRunner.swift; sourceTree = "<group>"; };
 		C810BB69653BD57BEAF53F5B /* FocusRectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRectView.swift; sourceTree = "<group>"; };
 		C810BBA624764829727882AB /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
-		C810BBABF94234D812CF6E15 /* DeviceInspectorInfoSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoSliderView.swift; sourceTree = "<group>"; };
 		C810BBBB5F657A788D817676 /* MeshSetupControlPanelDocumentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelDocumentationViewController.swift; path = "Photon-Tinker/MeshSetupControlPanelDocumentationViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C810BBC4DD68AB4B1BCA32F1 /* Fadeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fadeable.swift; sourceTree = "<group>"; };
 		C810BBDE0699745CC6F5DCDE /* StepOfferSetupStandAloneOrWithNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferSetupStandAloneOrWithNetwork.swift; sourceTree = "<group>"; };
 		C810BBE1E4C0FD8B27FC0926 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C810BC04924C8DF17E86DB65 /* MeshSetupContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupContext.swift; sourceTree = "<group>"; };
 		C810BC5EF3D94548AAFE4FA1 /* MeshSetupNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkPasswordViewController.swift; sourceTree = "<group>"; };
+		C810BC6999ADD5CBB7F6C034 /* DeviceInspectorInfoSliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoSliderViewController.swift; sourceTree = "<group>"; };
 		C810BC69F197C9BC53B06A85 /* TinkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinkerView.swift; sourceTree = "<group>"; };
 		C810BC6C1831D8F655D2FE99 /* StepGetAPINetworks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetAPINetworks.swift; sourceTree = "<group>"; };
 		C810BC9989556EA84E10C5E5 /* DeviceInspectorChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorChildViewController.swift; sourceTree = "<group>"; };
@@ -794,7 +796,6 @@
 				C810BD0FD3277B763959CE55 /* Cells */,
 				C810BC69F197C9BC53B06A85 /* TinkerView.swift */,
 				C810B79C6374F75D8AD759CA /* FlashTinkerView.swift */,
-				C810BBABF94234D812CF6E15 /* DeviceInspectorInfoSliderView.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -1048,6 +1049,8 @@
 				C810B4B38EA8A15186965011 /* DeviceInspectorTinkerViewController.swift */,
 				C810B0DEFDF7C90D27B7E01A /* Controls */,
 				C810B9B3228A10E059FFAF71 /* Model */,
+				C810BA7E214CF0C04EFBE4EC /* DeviceInspectorTextInputViewController.swift */,
+				C810BC6999ADD5CBB7F6C034 /* DeviceInspectorInfoSliderViewController.swift */,
 			);
 			name = DeviceInspector;
 			sourceTree = "<group>";
@@ -1472,10 +1475,11 @@
 				C810B4EB95CDA25B47CD5C2F /* ParticleDevice.swift in Sources */,
 				C810B0EFA8F1F55F24038BD1 /* FocusRectView.swift in Sources */,
 				C810BAA713C48A6D9FC0EB8B /* FlashTinkerView.swift in Sources */,
-				C810BD1790C7A8449B5BB3AB /* DeviceInspectorInfoSliderView.swift in Sources */,
 				C810BF44F954E2F9246AA078 /* ScaledHeightImageView.swift in Sources */,
 				C810B0F48A85D26643DE6039 /* DeviceTypeIcon.swift in Sources */,
 				C810BE4EFCCCA9836503A3F8 /* DeviceInfoSliderCell.swift in Sources */,
+				C810B3D2EF25A5EAC2B7E768 /* DeviceInspectorTextInputViewController.swift in Sources */,
+				C810B7857566C1627130F6A4 /* DeviceInspectorInfoSliderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1625,7 +1629,7 @@
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftProtobuf/SwiftProtobuf.modulemap\" $(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
@@ -1656,7 +1660,7 @@
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftProtobuf/SwiftProtobuf.modulemap\" $(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;

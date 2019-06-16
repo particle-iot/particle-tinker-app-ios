@@ -18,8 +18,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var tabBarView: DeviceInspectorTabBarView!
     @IBOutlet weak var moreActionsButton: UIButton!
-    @IBOutlet weak var infoSlider: DeviceInspectorInfoSliderView!
 
+    @IBOutlet weak var infoSliderYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var infoSliderHeightConstraint: NSLayoutConstraint!
 
     @IBOutlet var viewsToFade:[UIView]?
 
@@ -32,6 +33,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     var functionsVC: DeviceInspectorFunctionsViewController!
     var variablesVC: DeviceInspectorVariablesViewController!
     var eventsVC: DeviceInspectorEventsViewController!
+    var infoSlider: DeviceInspectorInfoSliderViewController!
 
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
@@ -47,7 +49,6 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.moreActionsButton.isHidden = !device.is3rdGen()
 
         self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
-        self.infoSlider.setup(self.device)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -119,6 +120,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
             vc.setup(device: device)
             vc.delegate = self
             self.tinkerVC = vc
+        } else if let vc = segue.destination as? DeviceInspectorInfoSliderViewController {
+            vc.setup(device, yConstraint: self.infoSliderYConstraint, heightConstraint: self.infoSliderHeightConstraint)
+            self.infoSlider = vc
         }
     }
 
@@ -167,7 +171,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
         tabs[selectedTabIdx].view.superview!.isHidden = false
         tabs[selectedTabIdx].view.superview!.alpha = 0
-        self.view.insertSubview(tabs[selectedTabIdx].view.superview!, belowSubview: self.infoSlider)
+        self.view.insertSubview(tabs[selectedTabIdx].view.superview!, belowSubview: self.infoSlider.view.superview!)
         tabs[selectedTabIdx].update()
         //only show child tutorial if tutorial for this VC was already shown
         if !ParticleUtils.shouldDisplayTutorialForViewController(self) {
@@ -208,7 +212,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         }
 
         self.view.bringSubview(toFront: self.topBarView)
-        self.view.bringSubview(toFront: self.infoSlider)
+        self.view.bringSubview(toFront: self.infoSlider.view.superview!)
         self.moreActionsButton.isEnabled = false
     }
 

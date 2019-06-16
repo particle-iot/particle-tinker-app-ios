@@ -96,6 +96,13 @@ class MeshTextField: UITextField {
     }
 }
 
+class MeshTextView: UITextView {
+    func setStyle(font: String, size: Int, color: UIColor) {
+        self.textColor = color
+        self.font = UIFont(name: font, size: CGFloat(size))
+    }
+}
+
 class MeshSetupButton : UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()

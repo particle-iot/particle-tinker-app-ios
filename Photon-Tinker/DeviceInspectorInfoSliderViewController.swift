@@ -5,12 +5,12 @@
 
 import Foundation
 
-class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var yConstraint: NSLayoutConstraint!
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet weak var yConstraint: NSLayoutConstraint?
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var collapsedContent: UIView!
-    @IBOutlet weak var collapsedDeviceImageView: UIImageView!
+    @IBOutlet weak var collapsedDeviceImageView: ScaledHeightImageView!
     @IBOutlet weak var collapsedDeviceStateImageView: UIImageView!
     @IBOutlet weak var collapsedDeviceNameLabel: MeshLabel!
     @IBOutlet weak var collapsedDeviceTypeLabel: MeshLabel!
@@ -18,7 +18,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     
     
     @IBOutlet weak var expandedContent: UIView!
-    @IBOutlet weak var expandedDeviceImageView: UIImageView!
+    @IBOutlet weak var expandedDeviceImageView: ScaledHeightImageView!
     @IBOutlet weak var expandedDeviceImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var expandedDeviceStateImageView: UIImageView!
     @IBOutlet weak var expandedDeviceNameLabel: MeshLabel!
@@ -53,27 +53,23 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     var details: [String: Any]!
     var detailsOrder: [String]!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+    func setup(_ device: ParticleDevice!, yConstraint: NSLayoutConstraint, heightConstraint: NSLayoutConstraint) {
+        self.yConstraint = yConstraint
+        self.heightConstraint = heightConstraint
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    func setup(_ device: ParticleDevice!) {
         self.device = device
         self.details = device.getInfoDetails()
         self.detailsOrder = device.getInfoDetailsOrder()
+
         internalInit()
     }
 
     private func internalInit() {
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(rgb: 0xD9D8D6).cgColor
+        self.view.layer.borderWidth = 1
+        self.view.layer.borderColor = UIColor(rgb: 0xD9D8D6).cgColor
 
         self.adjustConstraintPositions()
-        self.yConstraint.constant = collapsedPosConstraint
+        self.yConstraint!.constant = collapsedPosConstraint
 
         self.setStyle()
         self.setContent()
@@ -81,7 +77,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureTriggered))
         panGestureRecognizer.delegate = self
         panGestureRecognizer.isEnabled = true
-        self.addGestureRecognizer(panGestureRecognizer)
+        self.view.addGestureRecognizer(panGestureRecognizer)
     }
 
     private func setContent() {
@@ -125,6 +121,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         tableView.deselectRow(at: indexPath, animated: true)
 
         UIPasteboard.general.string = cell.valueLabel.text!
+
         RMessage.dismissActiveNotification()
         RMessage.showNotification(withTitle: "Copied", subtitle: "\(cell.titleLabel.text!) value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
     }
@@ -162,24 +159,24 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         self.setContent()
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
 
         self.adjustConstraintPositions()
 
         //if safe area insets change during idle state
-        if !animating && !beingDragged {
-            if (self.yConstraint.constant > 0) {
-                self.yConstraint.constant = collapsedPosConstraint
+        if !animating && !beingDragged, let yConstraint = yConstraint {
+            if (yConstraint.constant > 0) {
+                yConstraint.constant = collapsedPosConstraint
             }
         }
 
-        let progress = min(self.contentSwitchDistanceInPixels, self.collapsedPosFrame - self.frame.origin.y - self.contentSwitchDelayInPixels) / self.contentSwitchDistanceInPixels
+        let progress = min(self.contentSwitchDistanceInPixels, self.collapsedPosFrame - self.view.superview!.frame.origin.y - self.contentSwitchDelayInPixels) / self.contentSwitchDistanceInPixels
         updateState(progress: progress)
     }
 
     private func updateState(progress: CGFloat) {
-        self.layer.cornerRadius = 10 * progress
+        self.view.layer.cornerRadius = 10 * progress
 
         self.collapsedContent.alpha = 1 - progress
         self.expandedContent.alpha = progress
@@ -189,8 +186,8 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     private func adjustConstraintPositions() {
         collapsedPosConstraint = UIScreen.main.bounds.height - 100
         collapsedPosFrame = collapsedPosConstraint
-        if #available(iOS 11, *), let superview = self.superview {
-            self.heightConstraint.constant = self.safeAreaInsets.bottom + 11
+        if #available(iOS 11, *), let superview = self.view.superview?.superview, let heightConstraint = self.heightConstraint {
+            heightConstraint.constant = self.view.safeAreaInsets.bottom + 11
 
             collapsedPosConstraint! -= (superview.safeAreaInsets.bottom + superview.safeAreaInsets.top)
             collapsedPosFrame = collapsedPosConstraint + superview.safeAreaInsets.top
@@ -200,13 +197,17 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
 
     @objc
     func panGestureTriggered(_ recognizer:UIPanGestureRecognizer) {
+        guard let yConstraint = self.yConstraint else {
+            return
+        }
+
         switch (recognizer.state) {
             case.began:
                 self.beingDragged = true
-                let pos = recognizer.translation(in: self)
+                let pos = recognizer.translation(in: self.view)
                 self.startY = yConstraint.constant
             case .changed:
-                let change = recognizer.translation(in: self)
+                let change = recognizer.translation(in: self.view)
 
                 var offset = startY + change.y
                 if (offset >= collapsedPosConstraint) {
@@ -222,7 +223,9 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
                 }
 
                 yConstraint.constant = offset
-                self.layoutSubviews()
+
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
             case .failed:
                 fallthrough
             case.cancelled:
@@ -230,8 +233,8 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
             case .ended:
                 self.beingDragged = false
 
-                let change = recognizer.translation(in: self)
-                let velocity = recognizer.velocity(in: self)
+                let change = recognizer.translation(in: self.view)
+                let velocity = recognizer.velocity(in: self.view)
 
                 if (collapsed) {
                     if (-1 * change.y > collapsedPosConstraint / 4) || (-1 * (change.y + velocity.y) > collapsedPosConstraint) {
@@ -253,7 +256,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         }
     }
 
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return !animating
     }
 
@@ -265,11 +268,15 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     }
     
     func expand() {
+        guard let yConstraint = self.yConstraint else {
+            return
+        }
+
         animating = true
 
-        self.superview?.layoutIfNeeded()
-        let duration:Double = Double(self.yConstraint.constant / self.collapsedPosConstraint * 0.25)
-        self.yConstraint.constant = 0
+        self.view.superview?.layoutIfNeeded()
+        let duration:Double = Double(yConstraint.constant / self.collapsedPosConstraint * 0.25)
+        yConstraint.constant = 0
 
         animateStateChange(duration: duration, collapsed: false)
     }
@@ -281,14 +288,18 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     }
     
     func collapse() {
+        guard let yConstraint = self.yConstraint else {
+            return
+        }
+
         animating = true
 
         self.device.signal(false)
         self.expandedSignalToggle.setOn(false, animated: true)
 
-        self.superview?.layoutIfNeeded()
-        let duration:Double = Double((self.collapsedPosConstraint - self.yConstraint.constant) / self.collapsedPosConstraint * 0.25)
-        self.yConstraint.constant = self.collapsedPosConstraint
+        self.view.superview?.layoutIfNeeded()
+        let duration:Double = Double((self.collapsedPosConstraint - yConstraint.constant) / self.collapsedPosConstraint * 0.25)
+        yConstraint.constant = self.collapsedPosConstraint
 
         animateStateChange(duration: duration, collapsed: true)
     }
@@ -298,7 +309,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
 
         UIView.animate(withDuration: duration, delay:0, options:.curveEaseOut, animations: { () -> Void in
-            self.superview?.layoutIfNeeded()
+            self.view.superview?.superview?.layoutIfNeeded()
         }, completion: { [weak self] b in
             self?.displayLink.invalidate()
             self?.displayLink = nil
@@ -308,7 +319,7 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     }
 
     @objc func animationDidUpdate(displayLink: CADisplayLink) {
-        let presentationLayer = self.layer.presentation() as! CALayer
+        let presentationLayer = self.view.superview!.layer.presentation() as! CALayer
 
         let progress = min(self.contentSwitchDistanceInPixels, self.collapsedPosFrame - presentationLayer.frame.origin.y - self.contentSwitchDelayInPixels) / self.contentSwitchDistanceInPixels
         self.updateState(progress: progress)
@@ -348,10 +359,20 @@ class DeviceInspectorInfoSliderView: UIView, UIGestureRecognizerDelegate, UITabl
     }
 
     @IBAction func renameButtonTapped(_ sender: Any) {
+        var vc = DeviceInspectorTextInputViewController.storyboardViewController()
+        vc.setup(caption: "Name", multiline: false, value: self.device.name, onCompletion: {
+            value in
+        })
+        self.present(vc, animated: true)
+
     }
-    
-    
+
     
     @IBAction func editNotesButtonTapped(_ sender: Any) {
+        var vc = DeviceInspectorTextInputViewController.storyboardViewController()
+        vc.setup(caption: "Notes", multiline: true, value: self.device.notes, onCompletion: {
+            value in
+        })
+        self.present(vc, animated: true)
     }
 }
