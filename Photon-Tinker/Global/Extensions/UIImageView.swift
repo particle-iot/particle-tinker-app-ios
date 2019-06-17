@@ -6,6 +6,7 @@
 import Foundation
 
 extension UIImageView {
+    //overcome a tint bug in uiimageview of the button
     override open func awakeFromNib() {
         super.awakeFromNib()
         tintColorDidChange()
