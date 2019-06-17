@@ -74,7 +74,7 @@ class ParticleLabel: UILabel {
     }
 }
 
-class MeshSegmentedControl : UISegmentedControl {
+class ParticleSegmentedControl: UISegmentedControl {
     func setStyle(font: String, size: Int, color: UIColor) {
         self.tintColor = color
         self.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: font, size: CGFloat(size))], for: .normal)
