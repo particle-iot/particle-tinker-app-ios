@@ -15,7 +15,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     @IBOutlet weak var noteTextLabel: ParticleLabel!
 
     @IBOutlet weak var inputTitleLabel: ParticleLabel!
-    @IBOutlet weak var inputTextField: MeshTextField!
+    @IBOutlet weak var inputTextField: ParticleTextField!
 
     @IBOutlet weak var continueButton: MeshSetupButton!
 

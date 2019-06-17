@@ -81,7 +81,7 @@ class ParticleSegmentedControl: UISegmentedControl {
     }
 }
 
-class MeshTextField: UITextField {
+class ParticleTextField: UITextField {
     func setStyle(font: String, size: Int, color: UIColor) {
         self.textColor = color
         self.font = UIFont(name: font, size: CGFloat(size))

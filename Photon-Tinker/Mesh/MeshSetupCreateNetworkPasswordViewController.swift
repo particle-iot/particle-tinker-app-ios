@@ -8,7 +8,7 @@ import UIKit
 class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
 
     @IBOutlet weak var repeatTitleLabel: ParticleLabel!
-    @IBOutlet weak var repeatPasswordTextField: MeshTextField!
+    @IBOutlet weak var repeatPasswordTextField: ParticleTextField!
     
     internal var callback: ((String) -> ())!
 
