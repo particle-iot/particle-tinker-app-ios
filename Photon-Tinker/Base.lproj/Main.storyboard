@@ -989,7 +989,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zUO-Yl-2xh">
-                                <rect key="frame" x="0.0" y="10" width="377" height="656"/>
+                                <rect key="frame" x="0.0" y="10" width="377" height="646"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="ua2-zp-dih" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="20" y="42" width="65" height="180"/>
@@ -1281,7 +1281,7 @@
                             <constraint firstItem="K8d-2V-pMq" firstAttribute="leading" secondItem="NBG-PU-aPF" secondAttribute="leading" id="79n-4z-l1W"/>
                             <constraint firstItem="NBG-PU-aPF" firstAttribute="trailing" secondItem="K8d-2V-pMq" secondAttribute="trailing" id="DW4-Hp-Ygl"/>
                             <constraint firstItem="K8d-2V-pMq" firstAttribute="top" secondItem="gEx-Th-dzF" secondAttribute="top" constant="10" id="W88-HB-H2e"/>
-                            <constraint firstItem="zUO-Yl-2xh" firstAttribute="height" secondItem="NBG-PU-aPF" secondAttribute="height" id="c4i-g0-Twe"/>
+                            <constraint firstItem="zUO-Yl-2xh" firstAttribute="height" secondItem="NBG-PU-aPF" secondAttribute="height" constant="-10" id="c4i-g0-Twe"/>
                             <constraint firstItem="zUO-Yl-2xh" firstAttribute="leading" secondItem="NBG-PU-aPF" secondAttribute="leading" id="ebZ-sh-yGI"/>
                             <constraint firstItem="NBG-PU-aPF" firstAttribute="trailing" secondItem="zUO-Yl-2xh" secondAttribute="trailing" id="hLM-GD-EdZ"/>
                             <constraint firstItem="zUO-Yl-2xh" firstAttribute="top" secondItem="gEx-Th-dzF" secondAttribute="top" constant="10" id="neL-fn-W7D"/>
