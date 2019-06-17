@@ -36,7 +36,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBOutlet weak var ethernetToggleTitle: ParticleLabel?
     @IBOutlet weak var ethernetToggleText: ParticleLabel?
     
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
 
     override func viewDidLoad() {

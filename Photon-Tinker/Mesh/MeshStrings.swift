@@ -14,8 +14,8 @@ extension UIView {
             if subview is UILabel {
                 let label = subview as! UILabel
                 label.text = label.text?.replaceMeshSetupStrings(deviceType: deviceType, networkName: networkName, deviceName: deviceName)
-            } else if (subview is MeshSetupButton) {
-                let button = subview as! MeshSetupButton
+            } else if (subview is ParticleButton) {
+                let button = subview as! ParticleButton
                 button.setTitle(button.currentTitle?.replaceMeshSetupStrings(deviceType: deviceType, networkName: networkName, deviceName: deviceName), for: .normal)
             } else if (subview is UIView) {
                 subview.replaceMeshSetupStrings(deviceType: deviceType, networkName: networkName, deviceName: deviceName)

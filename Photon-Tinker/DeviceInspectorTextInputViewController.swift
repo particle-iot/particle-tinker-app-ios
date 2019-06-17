@@ -13,8 +13,8 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var inputTextField: ParticleTextField!
-    @IBOutlet weak var inputTextArea: MeshTextView!
-    @IBOutlet weak var saveButton: MeshSetupButton!
+    @IBOutlet weak var inputTextArea: ParticleTextView!
+    @IBOutlet weak var saveButton: ParticleButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var promptBackground: UIView!
     @IBOutlet weak var inputFrameView: UIView!

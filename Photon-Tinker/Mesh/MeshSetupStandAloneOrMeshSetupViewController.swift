@@ -9,8 +9,8 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var textLabel: ParticleLabel!
 
-    @IBOutlet weak var meshButton: MeshSetupButton!
-    @IBOutlet weak var standaloneButton: MeshSetupAlternativeButton!
+    @IBOutlet weak var meshButton: ParticleButton!
+    @IBOutlet weak var standaloneButton: ParticleAlternativeButton!
 
     internal var callback: ((Bool) -> ())!
 

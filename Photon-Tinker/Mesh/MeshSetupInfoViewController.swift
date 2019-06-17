@@ -12,7 +12,7 @@ class MeshSetupInfoViewController: MeshSetupViewController {
     @IBOutlet var textLabels: [ParticleLabel]!
     @IBOutlet var textLabelValues: [String]!
 
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     internal var setupMesh:Bool?
     internal var callback: (() -> ())!

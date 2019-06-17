@@ -11,7 +11,7 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
     @IBOutlet weak var videoView: UIView!
 
     @IBOutlet weak var textLabel: ParticleLabel!
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     internal var callback: (() -> ())!
 

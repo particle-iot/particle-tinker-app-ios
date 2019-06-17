@@ -17,7 +17,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     @IBOutlet weak var inputTitleLabel: ParticleLabel!
     @IBOutlet weak var inputTextField: ParticleTextField!
 
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()

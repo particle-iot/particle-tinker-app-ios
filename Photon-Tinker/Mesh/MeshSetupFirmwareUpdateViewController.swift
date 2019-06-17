@@ -11,7 +11,7 @@ class MeshSetupFirmwareUpdateViewController: MeshSetupViewController, Storyboard
     @IBOutlet weak var videoView: UIView!
 
     @IBOutlet weak var textLabel: ParticleLabel!
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     @IBOutlet weak var noteTitleLabel: ParticleLabel!
     @IBOutlet weak var noteTextLabel: ParticleLabel!

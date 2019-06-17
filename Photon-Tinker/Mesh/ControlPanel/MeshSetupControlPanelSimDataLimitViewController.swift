@@ -8,7 +8,7 @@ import Foundation
 class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRootViewController {
 
     @IBOutlet weak var textLabel: ParticleLabel!
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
     @IBOutlet weak var noteLabel: ParticleLabel!
     
     private var currentLimitIdx: Int!

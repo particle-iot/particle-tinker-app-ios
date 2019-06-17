@@ -9,7 +9,7 @@ class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Stor
 
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var textLabel: ParticleLabel!
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     private var unclaimCallback: ((Bool) -> ())!
 

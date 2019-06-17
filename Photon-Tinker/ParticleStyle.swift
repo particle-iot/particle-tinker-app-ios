@@ -96,14 +96,14 @@ class ParticleTextField: UITextField {
     }
 }
 
-class MeshTextView: UITextView {
+class ParticleTextView: UITextView {
     func setStyle(font: String, size: Int, color: UIColor) {
         self.textColor = color
         self.font = UIFont(name: font, size: CGFloat(size))
     }
 }
 
-class MeshSetupButton : UIButton {
+class ParticleButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -136,7 +136,7 @@ class MeshSetupButton : UIButton {
     }
 }
 
-class MeshSetupRedButton : MeshSetupButton {
+class ParticleDestructiveButton: ParticleButton {
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -145,7 +145,7 @@ class MeshSetupRedButton : MeshSetupButton {
 }
 
 
-class MeshSetupAlternativeButton : UIButton {
+class ParticleAlternativeButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
 

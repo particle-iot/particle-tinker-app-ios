@@ -24,7 +24,7 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
     @IBOutlet weak var planFeatureStackView: UIStackView!
     @IBOutlet var planFeatureLables: [ParticleLabel]!
     
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     private var pricingInfo: ParticlePricingInfo!
     private var callback: (() -> ())!

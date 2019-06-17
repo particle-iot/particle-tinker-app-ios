@@ -32,7 +32,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     @IBOutlet weak var expandedTableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var expandedDeviceNotesTitleLabel: ParticleLabel!
     @IBOutlet weak var expandedDeviceNotesLabel: ParticleLabel!
-    @IBOutlet weak var expandedPingButton: MeshSetupAlternativeButton!
+    @IBOutlet weak var expandedPingButton: ParticleAlternativeButton!
     @IBOutlet weak var expandedPingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var expandedSignalToggle: UISwitch!
     

@@ -11,7 +11,7 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewCo
         return "MeshSetupNetworkListWithCreateView"
     }
 
-    @IBOutlet weak var createNetworkButton: MeshSetupAlternativeButton!
+    @IBOutlet weak var createNetworkButton: ParticleAlternativeButton!
     
 
 
