@@ -19,7 +19,7 @@ enum PhoneScreenSizeClass: Int, Comparable {
     }
 }
 
-class MeshScreenUtils {
+class ScreenUtils {
 
     static func isIPad() -> Bool {
         return UI_USER_INTERFACE_IDIOM() == .pad
