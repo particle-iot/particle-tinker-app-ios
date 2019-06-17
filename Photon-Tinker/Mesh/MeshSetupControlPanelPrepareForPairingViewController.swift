@@ -17,11 +17,11 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
     internal var defaultVideoURL: URL!
     internal var isSOM:Bool!
 
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
     @IBOutlet weak var videoView: UIControl!
     @IBOutlet weak var signalSwitch: UISwitch!
-    @IBOutlet weak var signalLabel: MeshLabel!
-    @IBOutlet weak var signalWarningLabel: MeshLabel!
+    @IBOutlet weak var signalLabel: ParticleLabel!
+    @IBOutlet weak var signalWarningLabel: ParticleLabel!
     
     private var device: ParticleDevice!
 

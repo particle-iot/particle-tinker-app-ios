@@ -9,8 +9,8 @@ import CoreBluetooth
 class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, Storyboardable {
 
     @IBOutlet weak var successView: UIView!
-    @IBOutlet weak var successTitleLabel: MeshLabel!
-    @IBOutlet weak var successTextLabel: MeshLabel!
+    @IBOutlet weak var successTitleLabel: ParticleLabel!
+    @IBOutlet weak var successTextLabel: ParticleLabel!
 
 
     internal private(set) weak var context: MeshSetupContext!

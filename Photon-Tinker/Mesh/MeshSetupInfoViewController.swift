@@ -7,9 +7,9 @@ import UIKit
 
 class MeshSetupInfoViewController: MeshSetupViewController {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
 
-    @IBOutlet var textLabels: [MeshLabel]!
+    @IBOutlet var textLabels: [ParticleLabel]!
     @IBOutlet var textLabelValues: [String]!
 
     @IBOutlet weak var continueButton: MeshSetupButton!

@@ -15,7 +15,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     
     @IBOutlet weak var checkboxView: UIView?
     @IBOutlet weak var checkboxButton: MeshCheckBoxButton?
-    @IBOutlet weak var checkboxLabel: MeshLabel?
+    @IBOutlet weak var checkboxLabel: ParticleLabel?
     
     internal var videoPlayer: AVPlayer?
     internal var layer: AVPlayerLayer?
@@ -30,11 +30,11 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
     @IBOutlet weak var ethernetToggleBackground: UIView!
     
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var videoView: UIControl!
 
-    @IBOutlet weak var ethernetToggleTitle: MeshLabel?
-    @IBOutlet weak var ethernetToggleText: MeshLabel?
+    @IBOutlet weak var ethernetToggleTitle: ParticleLabel?
+    @IBOutlet weak var ethernetToggleText: ParticleLabel?
     
     @IBOutlet weak var continueButton: MeshSetupButton!
 

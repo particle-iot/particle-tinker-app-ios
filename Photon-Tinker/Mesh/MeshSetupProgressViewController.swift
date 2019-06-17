@@ -8,15 +8,15 @@ import UIKit
 class MeshSetupProgressViewController: MeshSetupViewController {
 
     @IBOutlet weak var progressView: UIView!
-    @IBOutlet weak var progressTitleLabel: MeshLabel!
+    @IBOutlet weak var progressTitleLabel: ParticleLabel!
     @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
 
-    @IBOutlet var progressTextLabels: [MeshLabel]!
+    @IBOutlet var progressTextLabels: [ParticleLabel]!
     @IBOutlet var progressTextLabelValues: [String]!
 
     @IBOutlet weak var successView: UIView!
-    @IBOutlet weak var successTitleLabel: MeshLabel!
-    @IBOutlet weak var successTextLabel: MeshLabel!
+    @IBOutlet weak var successTitleLabel: ParticleLabel!
+    @IBOutlet weak var successTextLabel: ParticleLabel!
     
     internal var callback: (() -> ())!
 

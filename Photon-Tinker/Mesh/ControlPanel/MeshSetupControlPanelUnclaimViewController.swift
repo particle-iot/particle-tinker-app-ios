@@ -7,8 +7,8 @@ import Foundation
 
 class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Storyboardable {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
     @IBOutlet weak var continueButton: MeshSetupButton!
 
     private var unclaimCallback: ((Bool) -> ())!

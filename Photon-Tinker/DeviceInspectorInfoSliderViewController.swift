@@ -16,8 +16,8 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     @IBOutlet weak var collapsedContent: UIView!
     @IBOutlet weak var collapsedDeviceImageView: ScaledHeightImageView!
     @IBOutlet weak var collapsedDeviceStateImageView: UIImageView!
-    @IBOutlet weak var collapsedDeviceNameLabel: MeshLabel!
-    @IBOutlet weak var collapsedDeviceTypeLabel: MeshLabel!
+    @IBOutlet weak var collapsedDeviceNameLabel: ParticleLabel!
+    @IBOutlet weak var collapsedDeviceTypeLabel: ParticleLabel!
     @IBOutlet weak var collapsedDeviceIconImage: DeviceTypeIcon!
     
     
@@ -25,13 +25,13 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     @IBOutlet weak var expandedDeviceImageView: ScaledHeightImageView!
     @IBOutlet weak var expandedDeviceImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var expandedDeviceStateImageView: UIImageView!
-    @IBOutlet weak var expandedDeviceNameLabel: MeshLabel!
-    @IBOutlet weak var expandedDeviceStateLabel: MeshLabel!
-    @IBOutlet weak var expandedDeviceSignalLabel: MeshLabel!
+    @IBOutlet weak var expandedDeviceNameLabel: ParticleLabel!
+    @IBOutlet weak var expandedDeviceStateLabel: ParticleLabel!
+    @IBOutlet weak var expandedDeviceSignalLabel: ParticleLabel!
     @IBOutlet weak var expandedTableView: UITableView!
     @IBOutlet weak var expandedTableViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var expandedDeviceNotesTitleLabel: MeshLabel!
-    @IBOutlet weak var expandedDeviceNotesLabel: MeshLabel!
+    @IBOutlet weak var expandedDeviceNotesTitleLabel: ParticleLabel!
+    @IBOutlet weak var expandedDeviceNotesLabel: ParticleLabel!
     @IBOutlet weak var expandedPingButton: MeshSetupAlternativeButton!
     @IBOutlet weak var expandedPingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var expandedSignalToggle: UISwitch!

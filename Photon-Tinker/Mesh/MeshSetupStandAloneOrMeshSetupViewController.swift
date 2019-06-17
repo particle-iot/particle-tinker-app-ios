@@ -6,8 +6,8 @@
 import Foundation
 
 class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, Storyboardable {
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
 
     @IBOutlet weak var meshButton: MeshSetupButton!
     @IBOutlet weak var standaloneButton: MeshSetupAlternativeButton!

@@ -7,22 +7,22 @@ import UIKit
 
 class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardable {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
 
-    @IBOutlet weak var planTitleLabel: MeshLabel!
-    @IBOutlet weak var planTextLabel: MeshLabel!
+    @IBOutlet weak var planTitleLabel: ParticleLabel!
+    @IBOutlet weak var planTextLabel: ParticleLabel!
     
-    @IBOutlet weak var priceFreeLabel: MeshLabel!
-    @IBOutlet weak var priceLabel: MeshLabel!
-    @IBOutlet weak var priceNoteLabel: MeshLabel!
+    @IBOutlet weak var priceFreeLabel: ParticleLabel!
+    @IBOutlet weak var priceLabel: ParticleLabel!
+    @IBOutlet weak var priceNoteLabel: ParticleLabel!
     @IBOutlet weak var priceStrikethroughView: UIView!
     
-    @IBOutlet weak var planFeaturesTitleLabel: MeshLabel!
+    @IBOutlet weak var planFeaturesTitleLabel: ParticleLabel!
     @IBOutlet weak var planTitleLine1: UIView!
     @IBOutlet weak var planTitleLine2: UIView!
     
     @IBOutlet weak var planFeatureStackView: UIStackView!
-    @IBOutlet var planFeatureLables: [MeshLabel]!
+    @IBOutlet var planFeatureLables: [ParticleLabel]!
     
     @IBOutlet weak var continueButton: MeshSetupButton!
 

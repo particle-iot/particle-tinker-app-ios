@@ -12,14 +12,14 @@ class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
     }
 
     @IBOutlet weak var successView: UIView!
-    @IBOutlet weak var successTitleLabel: MeshLabel!
-    @IBOutlet weak var successTextLabel: MeshLabel!
+    @IBOutlet weak var successTitleLabel: ParticleLabel!
+    @IBOutlet weak var successTextLabel: ParticleLabel!
     
     
-    @IBOutlet weak var continueLabel: MeshLabel!
+    @IBOutlet weak var continueLabel: ParticleLabel!
     @IBOutlet weak var continueButton: MeshSetupButton!
     
-    @IBOutlet weak var doneLabel: MeshLabel!
+    @IBOutlet weak var doneLabel: ParticleLabel!
     @IBOutlet weak var doneButton: MeshSetupButton!
     
     @IBOutlet var splitterView: UIView!

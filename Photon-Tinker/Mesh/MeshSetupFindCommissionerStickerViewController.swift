@@ -7,8 +7,8 @@ import UIKit
 
 class MeshSetupFindCommissionerStickerViewController: MeshSetupFindStickerViewController {
 
-    @IBOutlet weak var noteTitleLabel: MeshLabel!
-    @IBOutlet weak var noteTextLabel: MeshLabel!
+    @IBOutlet weak var noteTitleLabel: ParticleLabel!
+    @IBOutlet weak var noteTextLabel: ParticleLabel!
 
     @IBOutlet weak var noteView: UIView!
 

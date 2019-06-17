@@ -13,7 +13,7 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
 
     @IBOutlet weak var networksTableView: UITableView!
 
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var scanActivityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {

@@ -7,10 +7,10 @@ import UIKit
 
 class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardable {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var videoView: UIView!
 
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
     @IBOutlet weak var continueButton: MeshSetupButton!
 
     internal var callback: (() -> ())!

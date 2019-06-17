@@ -11,7 +11,7 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     var isBusy: Bool = false
     @IBOutlet var viewsToFade: [UIView]?
     
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var inputTextField: MeshTextField!
     @IBOutlet weak var inputTextArea: MeshTextView!
     @IBOutlet weak var saveButton: MeshSetupButton!

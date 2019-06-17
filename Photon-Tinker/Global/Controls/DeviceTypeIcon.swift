@@ -7,7 +7,7 @@ import Foundation
 
 class DeviceTypeIcon: UIView {
     private var backgroundCircle: PieProgressView?
-    private var deviceTypeLabel: MeshLabel?
+    private var deviceTypeLabel: ParticleLabel?
 
     private var deviceType: ParticleDeviceType?
 
@@ -60,7 +60,7 @@ class DeviceTypeIcon: UIView {
         ])
 
 
-        self.deviceTypeLabel = MeshLabel(frame: .zero)
+        self.deviceTypeLabel = ParticleLabel(frame: .zero)
         self.deviceTypeLabel!.translatesAutoresizingMaskIntoConstraints = false
         self.deviceTypeLabel!.adjustsFontSizeToFitWidth = true
         self.deviceTypeLabel!.textAlignment = .center

@@ -17,7 +17,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var backButtonImage: UIImageView!
 
-    @IBOutlet weak var navigationBarTitle: MeshLabel!
+    @IBOutlet weak var navigationBarTitle: ParticleLabel!
 
     internal var flowRunner: MeshSetupFlowRunner!
     internal var embededNavigationController: UINavigationController!

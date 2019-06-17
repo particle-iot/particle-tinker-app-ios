@@ -13,12 +13,12 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboard
     }
 
     @IBOutlet weak var pairingView: UIView!
-    @IBOutlet weak var pairingTextLabel: MeshLabel!
+    @IBOutlet weak var pairingTextLabel: ParticleLabel!
     @IBOutlet weak var pairingIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var successView: UIView!
-    @IBOutlet weak var successTitleLabel: MeshLabel!
-    @IBOutlet weak var successTextLabel: MeshLabel!
+    @IBOutlet weak var successTitleLabel: ParticleLabel!
+    @IBOutlet weak var successTextLabel: ParticleLabel!
 
     internal var callback: (() -> ())!
 

@@ -67,7 +67,7 @@ class ParticleStyle {
 
 }
 
-class MeshLabel : UILabel {
+class ParticleLabel: UILabel {
     func setStyle(font: String, size: Int, color: UIColor) {
         self.textColor = color
         self.font = UIFont(name: font, size: CGFloat(size))

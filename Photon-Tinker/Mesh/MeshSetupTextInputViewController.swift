@@ -8,13 +8,13 @@ import UIKit
 
 class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
 
     @IBOutlet weak var noteView: UIView!
-    @IBOutlet weak var noteTitleLabel: MeshLabel!
-    @IBOutlet weak var noteTextLabel: MeshLabel!
+    @IBOutlet weak var noteTitleLabel: ParticleLabel!
+    @IBOutlet weak var noteTextLabel: ParticleLabel!
 
-    @IBOutlet weak var inputTitleLabel: MeshLabel!
+    @IBOutlet weak var inputTitleLabel: ParticleLabel!
     @IBOutlet weak var inputTextField: MeshTextField!
 
     @IBOutlet weak var continueButton: MeshSetupButton!

@@ -7,12 +7,12 @@ import UIKit
 
 class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, Storyboardable {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
 
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
 
-    @IBOutlet weak var noteTitleLabel: MeshLabel!
-    @IBOutlet weak var noteTextLabel: MeshLabel!
+    @IBOutlet weak var noteTitleLabel: ParticleLabel!
+    @IBOutlet weak var noteTextLabel: ParticleLabel!
 
     @IBOutlet weak var noteView: UIView!
     
@@ -21,8 +21,8 @@ class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, St
     @IBOutlet weak var activityView: UIActivityIndicatorView!
 
     @IBOutlet weak var successView: UIView!
-    @IBOutlet weak var successTitleLabel: MeshLabel!
-    @IBOutlet weak var successTextLabel: MeshLabel!
+    @IBOutlet weak var successTitleLabel: ParticleLabel!
+    @IBOutlet weak var successTextLabel: ParticleLabel!
 
     private var progress: Int = 0
     private var file: Int = 1

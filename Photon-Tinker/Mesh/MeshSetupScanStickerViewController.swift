@@ -13,8 +13,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     @IBOutlet weak var cameraView: UIView!
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
     @IBOutlet weak var imageView: UIImageView!
     
     internal var callback: ((String) -> ())!

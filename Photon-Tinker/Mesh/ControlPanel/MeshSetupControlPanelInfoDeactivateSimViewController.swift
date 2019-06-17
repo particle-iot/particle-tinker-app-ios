@@ -7,11 +7,11 @@ import Foundation
 
 class MeshSetupControlPanelInfoDeactivateSimViewController : MeshSetupViewController, Storyboardable {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
 
     @IBOutlet weak var continueButton: MeshSetupButton!
-    @IBOutlet weak var noteLabel: MeshLabel!
+    @IBOutlet weak var noteLabel: ParticleLabel!
 
     override var customTitle: String {
         return MeshSetupStrings.ControlPanel.Cellular.DeactivateSim.Title

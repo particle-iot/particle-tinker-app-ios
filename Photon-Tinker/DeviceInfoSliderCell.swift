@@ -6,8 +6,8 @@
 import Foundation
 
 class DeviceInfoSliderCell: UITableViewCell {
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var valueLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var valueLabel: ParticleLabel!
     @IBOutlet weak var iconImage: DeviceTypeIcon!
 
     func setup(title: String, value:Any) {
