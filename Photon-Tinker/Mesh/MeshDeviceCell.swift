@@ -17,7 +17,7 @@ class MeshCell : UITableViewCell {
         super.awakeFromNib()
 
         let cellHighlight = UIView()
-        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
+        cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
         self.selectedBackgroundView = cellHighlight
 
         self.preservesSuperviewLayoutMargins = false

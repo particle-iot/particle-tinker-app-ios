@@ -36,10 +36,10 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
     override func setStyle() {
         networksTableView.tableFooterView = UIView()
 
-        scanActivityIndicator.color = MeshSetupStyle.NetworkScanActivityIndicatorColor
+        scanActivityIndicator.color = ParticleStyle.NetworkScanActivityIndicatorColor
         scanActivityIndicator.hidesWhenStopped = true
 
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
     }
 
     func startScanning() {

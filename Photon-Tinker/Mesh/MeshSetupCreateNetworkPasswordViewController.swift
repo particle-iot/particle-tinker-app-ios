@@ -24,7 +24,7 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
 
     //this screen is too big for iphone6 so we don't open keyboard for it
     override func shouldAutoFocusInput() -> Bool {
-        return MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone6
+        return ScreenUtils.getPhoneScreenSizeClass() > .iPhone6
     }
 
     override func setContent() {
@@ -58,8 +58,8 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
     override func setStyle() {
         super.setStyle()
 
-        self.repeatTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.InputTitleColor)
-        self.repeatPasswordTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.repeatTitleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.DetailSize, color: ParticleStyle.InputTitleColor)
+        self.repeatPasswordTextField.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
         self.inputTextField.isSecureTextEntry = true
         self.repeatPasswordTextField.isSecureTextEntry = true

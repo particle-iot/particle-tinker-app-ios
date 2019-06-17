@@ -24,11 +24,11 @@ class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelIn
         tableView.separatorStyle = .none;
 
         let header = UIView(frame: CGRect(x: 0, y: 0, width: max(UIScreen.main.bounds.width, UIScreen.main.bounds.height), height: 1))
-        header.backgroundColor = MeshSetupStyle.NoteBorderColor.withAlphaComponent(0.5)
+        header.backgroundColor = ParticleStyle.NoteBorderColor.withAlphaComponent(0.5)
         tableView.tableHeaderView = header
 
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: max(UIScreen.main.bounds.width, UIScreen.main.bounds.height), height: 1))
-        footer.backgroundColor = MeshSetupStyle.NoteBorderColor.withAlphaComponent(0.5)
+        footer.backgroundColor = ParticleStyle.NoteBorderColor.withAlphaComponent(0.5)
         tableView.tableFooterView = footer
 
 

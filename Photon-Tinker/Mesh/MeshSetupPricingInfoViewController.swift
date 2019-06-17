@@ -35,55 +35,55 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
     }
 
     override func setStyle() {
-        if (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {
+        if (ScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {
             planFeatureStackView.spacing = 10
 
-            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
-            planTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
-            planTextLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
+            planTitleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.SmallSize, color: ParticleStyle.BillingTextColor)
+            planTextLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.SmallSize, color: ParticleStyle.BillingTextColor)
 
-            priceFreeLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            priceFreeLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
-            priceLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.PriceSize - 10, color: MeshSetupStyle.PrimaryTextColor)
-            priceNoteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.BillingTextColor)
+            priceLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.PriceSize - 10, color: ParticleStyle.PrimaryTextColor)
+            priceNoteLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.BillingTextColor)
 
-            priceStrikethroughView.backgroundColor = MeshSetupStyle.StrikeThroughColor
+            priceStrikethroughView.backgroundColor = ParticleStyle.StrikeThroughColor
 
-            planFeaturesTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.SecondaryTextColor)
-            planTitleLine1.backgroundColor = MeshSetupStyle.SecondaryTextColor
-            planTitleLine2.backgroundColor = MeshSetupStyle.SecondaryTextColor
+            planFeaturesTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.DetailSize, color: ParticleStyle.SecondaryTextColor)
+            planTitleLine1.backgroundColor = ParticleStyle.SecondaryTextColor
+            planTitleLine2.backgroundColor = ParticleStyle.SecondaryTextColor
 
             for label in planFeatureLables {
-                label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+                label.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
             }
 
-            continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+            continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
 
         } else {
             planFeatureStackView.spacing = 15
 
-            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+            titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
 
-            planTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
-            planTextLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.BillingTextColor)
+            planTitleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.SmallSize, color: ParticleStyle.BillingTextColor)
+            planTextLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.SmallSize, color: ParticleStyle.BillingTextColor)
 
-            priceFreeLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+            priceFreeLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
 
-            priceLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.PriceSize, color: MeshSetupStyle.PrimaryTextColor)
-            priceNoteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.BillingTextColor)
+            priceLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.PriceSize, color: ParticleStyle.PrimaryTextColor)
+            priceNoteLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.BillingTextColor)
 
-            priceStrikethroughView.backgroundColor = MeshSetupStyle.StrikeThroughColor
+            priceStrikethroughView.backgroundColor = ParticleStyle.StrikeThroughColor
 
-            planFeaturesTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.SecondaryTextColor)
-            planTitleLine1.backgroundColor = MeshSetupStyle.SecondaryTextColor
-            planTitleLine2.backgroundColor = MeshSetupStyle.SecondaryTextColor
+            planFeaturesTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.DetailSize, color: ParticleStyle.SecondaryTextColor)
+            planTitleLine1.backgroundColor = ParticleStyle.SecondaryTextColor
+            planTitleLine2.backgroundColor = ParticleStyle.SecondaryTextColor
 
             for label in planFeatureLables {
-                label.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+                label.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
             }
 
-            continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+            continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
         }
     }
 

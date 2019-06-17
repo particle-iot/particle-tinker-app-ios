@@ -51,9 +51,9 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     override func setStyle() {
         self.tableView.tableFooterView = UIView()
 
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        noteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.DetailsTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        noteLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.DetailsTextColor)
+        continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     override func setContent() {
@@ -68,20 +68,20 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
         var cell:MeshCell! = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
 
         if (!self.disableValuesSmallerThanCurrent) {
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
         } else if (indexPath.row > self.currentLimitIdx) {
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
         } else {
-            cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.SecondaryTextColor)
+            cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.SecondaryTextColor)
         }
 
 
         if let selected = selectedIdx, indexPath.row == selected {
             cell.accessoryType = .checkmark
-            cell.tintColor = MeshSetupStyle.ButtonColor
+            cell.tintColor = ParticleStyle.ButtonColor
         } else if (indexPath.row == currentLimitIdx) {
             cell.accessoryType = .checkmark
-            cell.tintColor = MeshSetupStyle.DisclosureIndicatorColor
+            cell.tintColor = ParticleStyle.DisclosureIndicatorColor
         } else {
             cell.accessoryType = .none
         }
@@ -115,7 +115,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
 
         let cell = tableView.cellForRow(at: indexPath)!
         cell.accessoryType = .checkmark
-        cell.tintColor = MeshSetupStyle.ButtonColor
+        cell.tintColor = ParticleStyle.ButtonColor
 
         self.continueButton.isEnabled = selectedIdx! != currentLimitIdx
     }

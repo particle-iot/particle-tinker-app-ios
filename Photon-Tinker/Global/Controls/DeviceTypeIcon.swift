@@ -49,7 +49,7 @@ class DeviceTypeIcon: UIView {
         self.backgroundCircle!.progress = 1
         self.backgroundCircle!.pieFillColor = .clear
         self.backgroundCircle!.pieBorderWidth = 1
-        self.backgroundCircle!.pieBorderColor = MeshSetupStyle.RedTextColor
+        self.backgroundCircle!.pieBorderColor = ParticleStyle.RedTextColor
 
         self.addSubview(self.backgroundCircle!)
         NSLayoutConstraint.activate([
@@ -66,7 +66,7 @@ class DeviceTypeIcon: UIView {
         self.deviceTypeLabel!.textAlignment = .center
         self.deviceTypeLabel!.baselineAdjustment = .alignCenters
 
-        self.deviceTypeLabel?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.DetailsTextColor)
+        self.deviceTypeLabel?.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.DetailSize, color: ParticleStyle.DetailsTextColor)
 
         self.addSubview(self.deviceTypeLabel!)
         NSLayoutConstraint.activate([

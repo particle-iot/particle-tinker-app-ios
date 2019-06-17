@@ -22,7 +22,7 @@ class FlashTinkerView: TinkerView, Fadeable {
         self.setupDeviceImage()
         
         self.flashTinkerButton.setTitle("FLASH TINKER", for: .normal)
-        self.flashTinkerButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        self.flashTinkerButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
 
         viewsToFade = [self.flashTinkerButton, self.flashTinkerLabel]
     }

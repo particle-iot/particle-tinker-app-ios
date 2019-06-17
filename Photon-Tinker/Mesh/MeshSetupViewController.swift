@@ -59,7 +59,7 @@ class MeshSetupViewController: UIViewController, Fadeable {
     }
 
     private func setCommonStyle() {
-        if (MeshScreenUtils.isIPhone() && (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5)) {
+        if (ScreenUtils.isIPhone() && (ScreenUtils.getPhoneScreenSizeClass() <= .iPhone5)) {
             if let constraints = constraintsToShrinkOnSmallScreens {
                 for constraint in constraints {
                     constraint.constant = constraint.constant / 2
@@ -67,7 +67,7 @@ class MeshSetupViewController: UIViewController, Fadeable {
             }
         }
 
-        view.backgroundColor = MeshSetupStyle.ViewBackgroundColor
+        view.backgroundColor = ParticleStyle.ViewBackgroundColor
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -113,7 +113,7 @@ class MeshSetupViewController: UIViewController, Fadeable {
 
     @objc func keyboardWillShow(notification: NSNotification) {
         //TODO: if we add ipad support, review this
-        if (MeshScreenUtils.getPhoneScreenSizeClass() >= .iPhone5) {
+        if (ScreenUtils.getPhoneScreenSizeClass() >= .iPhone5) {
             if let constraint = buttonBottomConstraint {
                 if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
                     let keyboardHeight = keyboardSize.height
@@ -147,7 +147,7 @@ class MeshSetupViewController: UIViewController, Fadeable {
     @objc func keyboardWillHide(notification: NSNotification) {
         //TODO: if we add ipad support, review this
         //on iphone 4s, the button covers the input, so lets keep it snapped to the bottom of the screen.
-        if (MeshScreenUtils.getPhoneScreenSizeClass() >= .iPhone5) {
+        if (ScreenUtils.getPhoneScreenSizeClass() >= .iPhone5) {
             if let constraint = buttonBottomConstraint {
                 constraint.constant = bottomConstraintConstant!
 

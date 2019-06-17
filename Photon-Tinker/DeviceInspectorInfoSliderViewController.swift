@@ -132,7 +132,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     }
 
     private func setStyle() {
-        if (MeshScreenUtils.isIPhone() && (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5)) {
+        if (ScreenUtils.isIPhone() && (ScreenUtils.getPhoneScreenSizeClass() <= .iPhone5)) {
             if let constraints = constraintsToShrinkOnSmallScreens {
                 self.expandedDeviceImageViewHeightConstraint.constant = 120
                 for constraint in constraints {
@@ -143,17 +143,17 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
         self.expandedTableView.separatorColor = .clear
 
-        self.collapsedDeviceNameLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.collapsedDeviceTypeLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.collapsedDeviceNameLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        self.collapsedDeviceTypeLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
-        self.expandedDeviceNameLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.expandedDeviceStateLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.expandedDeviceSignalLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.expandedDeviceNameLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        self.expandedDeviceStateLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        self.expandedDeviceSignalLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
-        self.expandedDeviceNotesTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.expandedDeviceNotesLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.DetailsTextColor)
+        self.expandedDeviceNotesTitleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        self.expandedDeviceNotesLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.DetailsTextColor)
 
-        self.expandedPingButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        self.expandedPingButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
         self.expandedPingButton.layer.shadowColor = UIColor.clear.cgColor
         self.expandedPingButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
 
