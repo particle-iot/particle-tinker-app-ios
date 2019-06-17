@@ -190,6 +190,7 @@
 		C810BC9DCA98EFDA30A8FC52 /* DeviceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B76DA1F1580C99BAEDFE /* DeviceInspectorViewController.swift */; };
 		C810BCA6C880C2B655CFA2F8 /* MeshSetupControlPanelRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B95492E74D03F350532A /* MeshSetupControlPanelRootViewController.swift */; };
 		C810BD03E694E7F3AE821E4D /* ParticleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B14047147CD0007183D9 /* ParticleUtils.swift */; };
+		C810BD1B8E863528A6D0E092 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BEE8D1DE3F0C650E1D61 /* CALayer.swift */; };
 		C810BD363B8DD799293FAB91 /* TinkerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD8F81831FA1158C0593 /* TinkerStrings.swift */; };
 		C810BDA3464764900E879125 /* StepEnsureCorrectSimState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF15DD9491959B0E186C /* StepEnsureCorrectSimState.swift */; };
 		C810BDE2AA87A347CBABDFC5 /* StepGetNewNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B85E5279D0283A14D356 /* StepGetNewNetworkPassword.swift */; };
@@ -463,6 +464,7 @@
 		C810BEBECF35E8953DFCEE4E /* StepEnsureGotClaimed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureGotClaimed.swift; sourceTree = "<group>"; };
 		C810BEDB6E7092E0BB0DAC11 /* StepEnsureLatestFirmware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureLatestFirmware.swift; sourceTree = "<group>"; };
 		C810BEE3D60F33C7D963BE7C /* MeshSetupStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupStyle.swift; sourceTree = "<group>"; };
+		C810BEE8D1DE3F0C650E1D61 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		C810BEFDCAD2D5C0EFE9472A /* ParticleStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleStyle.swift; sourceTree = "<group>"; };
 		C810BF0C4D1265CF40DD7F16 /* StepSetClaimCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepSetClaimCode.swift; sourceTree = "<group>"; };
 		C810BF15DD9491959B0E186C /* StepEnsureCorrectSimState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCorrectSimState.swift; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 				C810B271587C713B5F8604A6 /* UIImageView.swift */,
 				C810B82CF0B5F9A47B814486 /* ParticleDevice.swift */,
 				C810BC36225037371D9C201A /* UIView.swift */,
+				C810BEE8D1DE3F0C650E1D61 /* CALayer.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1488,6 +1491,7 @@
 				C810B56C512865CA9A1B26CB /* Storyboardable.swift in Sources */,
 				C810B1119B7C43D5A5CAB084 /* UIView.swift in Sources */,
 				C810B5A53B911083FE320913 /* MeshSetupStyle.swift in Sources */,
+				C810BD1B8E863528A6D0E092 /* CALayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
