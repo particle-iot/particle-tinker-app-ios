@@ -30,7 +30,7 @@ class FlashTinkerView: TinkerView, Fadeable {
     override func setupDeviceImage() {
         super.setupDeviceImage()
 
-        backgroundImageView.tintColor = UIColor.colorWithHexString("D9D8D6", alpha: 0.15)
+        backgroundImageView.tintColor = UIColor(rgb: 0xD9D8D6, alpha: 0.15)
     }
 
 }
