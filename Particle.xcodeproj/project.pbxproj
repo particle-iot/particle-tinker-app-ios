@@ -682,7 +682,6 @@
 				931C37EA215AA54E0014811C /* Controls */,
 				C810B8FD320C084FA74FF5F9 /* SetupFlow */,
 				C810B8E315414284C6D925B9 /* ControlPanel */,
-				C810BE33F6EB8EB5134FD266 /* Common */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1038,13 +1037,6 @@
 				C810B3700452CAF69DD4F1A1 /* Controls */,
 			);
 			name = DeviceList;
-			sourceTree = "<group>";
-		};
-		C810BE33F6EB8EB5134FD266 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Common;
 			sourceTree = "<group>";
 		};
 		C810BE997CF660EA2E9380E1 /* DeviceInspector */ = {
