@@ -49,7 +49,7 @@ class DeviceTypeIcon: UIView {
         self.backgroundCircle!.progress = 1
         self.backgroundCircle!.pieFillColor = .clear
         self.backgroundCircle!.pieBorderWidth = 1
-        self.backgroundCircle!.pieBorderColor = ParticleStyle.RedTextColor
+        self.backgroundCircle!.pieBorderColor = .clear
 
         self.addSubview(self.backgroundCircle!)
         NSLayoutConstraint.activate([
