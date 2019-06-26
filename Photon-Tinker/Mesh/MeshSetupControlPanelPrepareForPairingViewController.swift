@@ -17,11 +17,11 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
     internal var defaultVideoURL: URL!
     internal var isSOM:Bool!
 
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
     @IBOutlet weak var videoView: UIControl!
     @IBOutlet weak var signalSwitch: UISwitch!
-    @IBOutlet weak var signalLabel: MeshLabel!
-    @IBOutlet weak var signalWarningLabel: MeshLabel!
+    @IBOutlet weak var signalLabel: ParticleLabel!
+    @IBOutlet weak var signalWarningLabel: ParticleLabel!
     
     private var device: ParticleDevice!
 
@@ -50,9 +50,9 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
         videoView.layer.cornerRadius = 5
         videoView.clipsToBounds = true
 
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        signalLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        signalWarningLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+        textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        signalLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        signalWarningLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
     }
 
 

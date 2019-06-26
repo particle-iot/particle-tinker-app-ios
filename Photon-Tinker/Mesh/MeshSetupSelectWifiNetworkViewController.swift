@@ -54,7 +54,7 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
         let cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupWifiNetworkCell") as! MeshCell
 
         cell.cellTitleLabel.text = networks![indexPath.row].ssid
-        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
 
 
         if (networks![indexPath.row].rssi > -56) {
@@ -73,7 +73,7 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
         cell.cellSecondaryAccessoryImageView.isHidden = (cell.cellSecondaryAccessoryImageView.image == nil)
 
         let cellHighlight = UIView()
-        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
+        cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
         cell.selectedBackgroundView = cellHighlight
 
         cell.preservesSuperviewLayoutMargins = false
@@ -93,7 +93,7 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
 
         if let cell = tableView.cellForRow(at: indexPath) {
             let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-            activityIndicator.color = MeshSetupStyle.NetworkJoinActivityIndicatorColor
+            activityIndicator.color = ParticleStyle.NetworkJoinActivityIndicatorColor
             activityIndicator.startAnimating()
 
             cell.accessoryView = activityIndicator

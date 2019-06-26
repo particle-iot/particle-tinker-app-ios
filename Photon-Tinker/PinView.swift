@@ -53,7 +53,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         outerPieFrameView.backgroundColor = UIColor.clear
         outerPieFrameView.pieBackgroundColor = UIColor.clear
         outerPieFrameView.progress = 1
-        if (MeshScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {
+        if (ScreenUtils.getPhoneScreenSizeClass() <= .iPhone5) {
             outerPieFrameView.pieBorderWidth = 1.0
         } else {
             outerPieFrameView.pieBorderWidth = 1.5

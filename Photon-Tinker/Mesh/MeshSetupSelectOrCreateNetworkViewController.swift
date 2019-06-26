@@ -11,14 +11,14 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewCo
         return "MeshSetupNetworkListWithCreateView"
     }
 
-    @IBOutlet weak var createNetworkButton: MeshSetupAlternativeButton!
+    @IBOutlet weak var createNetworkButton: ParticleAlternativeButton!
     
 
 
 
     override func setStyle() {
         super.setStyle()
-        createNetworkButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        createNetworkButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     override func setContent() {

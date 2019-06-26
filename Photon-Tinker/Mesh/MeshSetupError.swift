@@ -90,63 +90,63 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
                 //unproofread
-            case .CriticalFlowError : return "There was a problem with the setup. Please contact support with the latest device log to help us fix it as soon as possible."
-            case .SimBelongsToOtherAccount : return "The SIM you are trying to interact with is owned by a different user account."
-            case .ExternalSimNotSupported : return "We have detected that you are using external SIM card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete."
-            case .StickerError : return "There is a problem with the sticker on your device. Please contact support for a solution."
-            case .NetworkError : return "There was a network error communicating to Particle Device Cloud."
-            case .InvalidDeviceState : return "Device is in invalid state, please reset the device and start again."
-            case .NameInUse : return "You already own a network with this name. Please use different name."
-            case .FailedToObtainIpBoron : return "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area."
-            case .WrongTargetDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
-            case .WrongCommissionerDeviceType : return "This is not valid device sticker. Please scan 3rd generation device sticker."
-            case .BoronModemError : return "There was an error in accessing the modem on the device. The modem is now being rebooted in an attempt to recover. Wait a few seconds and then try again. If the error persists, try resetting the device manually by tapping the RESET button, and restart the setup process."
-            case .FailedToChangeSimDataLimit : return "There was an error changing data limit for SIM card. If you have retried multiple times, please contact support."
-            case .FailedToGetDeviceInfo : return "Unable to get information about the device from Device Cloud."
+            case .CriticalFlowError : return MeshSetupStrings.Error.CriticalFlowError.meshLocalized()
+            case .SimBelongsToOtherAccount : return MeshSetupStrings.Error.SimBelongsToOtherAccount.meshLocalized()
+            case .ExternalSimNotSupported : return MeshSetupStrings.Error.ExternalSimNotSupported.meshLocalized()
+            case .StickerError : return MeshSetupStrings.Error.StickerError.meshLocalized()
+            case .NetworkError : return MeshSetupStrings.Error.NetworkError.meshLocalized()
+            case .InvalidDeviceState : return MeshSetupStrings.Error.InvalidDeviceState.meshLocalized()
+            case .NameInUse : return MeshSetupStrings.Error.NameInUse.meshLocalized()
+            case .FailedToObtainIpBoron : return MeshSetupStrings.Error.FailedToObtainIpBoron.meshLocalized()
+            case .WrongTargetDeviceType : return MeshSetupStrings.Error.WrongTargetDeviceType.meshLocalized()
+            case .WrongCommissionerDeviceType : return MeshSetupStrings.Error.WrongCommissionerDeviceType.meshLocalized()
+            case .BoronModemError : return MeshSetupStrings.Error.BoronModemError.meshLocalized()
+            case .FailedToChangeSimDataLimit : return MeshSetupStrings.Error.FailedToChangeSimDataLimit.meshLocalized()
+            case .FailedToGetDeviceInfo : return MeshSetupStrings.Error.FailedToGetDeviceInfo.meshLocalized()
 
 
                 //these errors are handled instantly
-            case .FailedToUpdateDeviceOS : return "There was an error while performing a Device OS update."
-            case .FailedToFlashBecauseOfTimeout : return "It seems that your device has exited listening mode. Please put your device in listening mode (blinking blue) and retry."
-            case .UnableToDownloadFirmwareBinary : return "Failed to download the firmware update. Please try again later."
-            case .CannotAddGatewayDeviceAsJoiner : return "Support for adding multiple gateways to a single network is coming soon. Argons, Borons, and Xenons with Ethernet FeatherWings, must be set up as a standalone device or as the first gateway in a new mesh network."
-            case .WrongNetworkPassword : return "The password you entered is incorrect."
-            case .WifiPasswordTooShort : return "The password you entered is too short."
-            case .PasswordTooShort : return "Your network password must be between 6 and 16 characters."
-            case .IllegalOperation : return "Illegal operation."
-            case .UnableToRenameDevice : return "Unable to rename your device at this time. Please try again later."
-            case .NameTooShort : return "Your device name cannot be empty."
+            case .FailedToUpdateDeviceOS : return MeshSetupStrings.Error.FailedToUpdateDeviceOS.meshLocalized()
+            case .FailedToFlashBecauseOfTimeout : return MeshSetupStrings.Error.FailedToFlashBecauseOfTimeout.meshLocalized()
+            case .UnableToDownloadFirmwareBinary : return MeshSetupStrings.Error.UnableToDownloadFirmwareBinary.meshLocalized()
+            case .CannotAddGatewayDeviceAsJoiner : return MeshSetupStrings.Error.CannotAddGatewayDeviceAsJoiner.meshLocalized()
+            case .WrongNetworkPassword : return MeshSetupStrings.Error.WrongNetworkPassword.meshLocalized()
+            case .WifiPasswordTooShort : return MeshSetupStrings.Error.WifiPasswordTooShort.meshLocalized()
+            case .PasswordTooShort : return MeshSetupStrings.Error.PasswordTooShort.meshLocalized()
+            case .IllegalOperation : return MeshSetupStrings.Error.IllegalOperation.meshLocalized()
+            case .UnableToRenameDevice : return MeshSetupStrings.Error.UnableToRenameDevice.meshLocalized()
+            case .NameTooShort : return MeshSetupStrings.Error.NameTooShort.meshLocalized()
                 //user facing errors
-            case .FailedToActivateSim : return "SIM activation is taking longer than expected. Please retry your SIM activation. If you have retried multiple times, please contact support."
-            case .FailedToDeactivateSim : return "SIM deactivation is taking longer than expected. Please retry your SIM deactivation. If you have retried multiple times, please contact support."
+            case .FailedToActivateSim : return MeshSetupStrings.Error.FailedToActivateSim.meshLocalized()
+            case .FailedToDeactivateSim : return MeshSetupStrings.Error.FailedToDeactivateSim.meshLocalized()
 
-            case .CCMissing : return "You need to add a credit card to your account to continue. Please visit https://console.particle.io/billing/edit-card to add a card and return here when you're done."
-            case .UnableToGetPricingInformation : return "There was an error while retrieving pricing information. Please try again."
-            case .UnableToGetSimStatus : return "There was an error while reading internal SIM card status. Please try again."
-            case .UnableToPublishDeviceSetupEvent : return "There was an error while notifying the Particle Device Cloud about successful device setup. Please try again."
-            case .UnableToLeaveNetwork : return "There was an error while removing your device from the mesh network on Particle Device Cloud."
-            case .UnableToJoinNetwork : return "There was an error while adding your device to mesh network on Particle Device Cloud."
-            case .UnableToJoinOldNetwork : return "The network you are trying to join was created locally with test version of the app. Please create new network."
-            case .UnableToRetrieveNetworks : return "There was an error while accessing your mesh network information on Particle Device Cloud."
-            case .UnableToCreateNetwork : return "There was an error while registering your new network with Particle Device Cloud."
-            case .UnableToGenerateClaimCode : return "There was an error attempting to claim this device to your account."
-            case .DeviceTooFar : return "Your mesh device is too far away from your phone. Please hold your phone closer and try again."
-            case .FailedToStartScan : return "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again."
-            case .FailedToScanBecauseOfTimeout : return "Unable to find your mesh device. Make sure the mesh device's LED is blinking blue and that it's not connected to any other devices."
-            case .FailedToConnect : return "You phone failed to connect to your mesh device. Please try again."
-            case .BluetoothDisabled : return "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again."
-            case .BluetoothTimeout : return "Sending Bluetooth messages failed. Please try again."
-            case .BluetoothError : return "Something went wrong with Bluetooth. Please restart the set up process and try again."
-            case .CommissionerNetworkDoesNotMatch : return "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network."
-            case .SameDeviceScannedTwice : return "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join."
-            case .FailedToObtainIp : return "Your device failed to obtain an IP address. Please make sure your device has internet access."
-            case .BluetoothConnectionDropped : return "The Bluetooth connection was dropped unexpectedly. Please restart the set up and try again."
-            case .DeviceIsNotAllowedToJoinNetwork : return "Your device was unable to join the network (NOT_ALLOWED). Please press try again."
-            case .DeviceIsUnableToFindNetworkToJoin : return "Your device was unable to join the network (NOT_FOUND). Please press try again."
-            case .DeviceTimeoutWhileJoiningNetwork : return "Your device was unable to join the network (TIMEOUT). Please press try again."
-            case .DeviceConnectToCloudTimeout : return "Your device could not connect to Device Cloud. Please try again."
-            case .DeviceGettingClaimedTimeout : return "Your device failed to be claimed. Please try again."
-            case .ThisDeviceIsACommissioner : return "This device now acts as commissioner. Please restart the setup if you want to set it up again."
+            case .CCMissing : return MeshSetupStrings.Error.CCMissing.meshLocalized()
+            case .UnableToGetPricingInformation : return MeshSetupStrings.Error.UnableToGetPricingInformation.meshLocalized()
+            case .UnableToGetSimStatus : return MeshSetupStrings.Error.UnableToGetSimStatus.meshLocalized()
+            case .UnableToPublishDeviceSetupEvent : return MeshSetupStrings.Error.UnableToPublishDeviceSetupEvent.meshLocalized()
+            case .UnableToLeaveNetwork : return MeshSetupStrings.Error.UnableToLeaveNetwork.meshLocalized()
+            case .UnableToJoinNetwork : return MeshSetupStrings.Error.UnableToJoinNetwork.meshLocalized()
+            case .UnableToJoinOldNetwork : return MeshSetupStrings.Error.UnableToJoinOldNetwork.meshLocalized()
+            case .UnableToRetrieveNetworks : return MeshSetupStrings.Error.UnableToRetrieveNetworks.meshLocalized()
+            case .UnableToCreateNetwork : return MeshSetupStrings.Error.UnableToCreateNetwork.meshLocalized()
+            case .UnableToGenerateClaimCode : return MeshSetupStrings.Error.UnableToGenerateClaimCode.meshLocalized()
+            case .DeviceTooFar : return MeshSetupStrings.Error.DeviceTooFar.meshLocalized()
+            case .FailedToStartScan : return MeshSetupStrings.Error.FailedToStartScan.meshLocalized()
+            case .FailedToScanBecauseOfTimeout : return MeshSetupStrings.Error.FailedToScanBecauseOfTimeout.meshLocalized()
+            case .FailedToConnect : return MeshSetupStrings.Error.FailedToConnect.meshLocalized()
+            case .BluetoothDisabled : return MeshSetupStrings.Error.BluetoothDisabled.meshLocalized()
+            case .BluetoothTimeout : return MeshSetupStrings.Error.BluetoothTimeout.meshLocalized()
+            case .BluetoothError : return MeshSetupStrings.Error.BluetoothError.meshLocalized()
+            case .CommissionerNetworkDoesNotMatch : return MeshSetupStrings.Error.CommissionerNetworkDoesNotMatch.meshLocalized()
+            case .SameDeviceScannedTwice : return MeshSetupStrings.Error.SameDeviceScannedTwice.meshLocalized()
+            case .FailedToObtainIp : return MeshSetupStrings.Error.FailedToObtainIp.meshLocalized()
+            case .BluetoothConnectionDropped : return MeshSetupStrings.Error.BluetoothConnectionDropped.meshLocalized()
+            case .DeviceIsNotAllowedToJoinNetwork : return MeshSetupStrings.Error.DeviceIsNotAllowedToJoinNetwork.meshLocalized()
+            case .DeviceIsUnableToFindNetworkToJoin : return MeshSetupStrings.Error.DeviceIsUnableToFindNetworkToJoin.meshLocalized()
+            case .DeviceTimeoutWhileJoiningNetwork : return MeshSetupStrings.Error.DeviceTimeoutWhileJoiningNetwork.meshLocalized()
+            case .DeviceConnectToCloudTimeout : return MeshSetupStrings.Error.DeviceConnectToCloudTimeout.meshLocalized()
+            case .DeviceGettingClaimedTimeout : return MeshSetupStrings.Error.DeviceGettingClaimedTimeout.meshLocalized()
+            case .ThisDeviceIsACommissioner : return MeshSetupStrings.Error.ThisDeviceIsACommissioner.meshLocalized()
         }
     }
 }

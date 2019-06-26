@@ -35,7 +35,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your {{device}} is joining {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTU-yW-pp6" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your {{device}} is joining {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTU-yW-pp6" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                     <rect key="frame" x="20" y="35" width="335" height="32"/>
                     <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                     <nil key="textColor"/>
@@ -44,25 +44,25 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="bVX-QQ-fqe">
                     <rect key="frame" x="30" y="117" width="315" height="187"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDz-AZ-BFR" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDz-AZ-BFR" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="315" height="32"/>
                             <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLo-Gx-ffn" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLo-Gx-ffn" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="57" width="315" height="16"/>
                             <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1s-fL-vln" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1s-fL-vln" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="98" width="315" height="32"/>
                             <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtV-CW-ki7" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtV-CW-ki7" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="155" width="315" height="32"/>
                             <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                             <nil key="textColor"/>
@@ -70,7 +70,7 @@
                         </label>
                     </subviews>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uir-IG-RYX" customClass="MeshSetupButton" customModule="Particle" customModuleProvider="target">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uir-IG-RYX" customClass="ParticleButton" customModule="Particle" customModuleProvider="target">
                     <rect key="frame" x="20" y="607" width="335" height="40"/>
                     <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>

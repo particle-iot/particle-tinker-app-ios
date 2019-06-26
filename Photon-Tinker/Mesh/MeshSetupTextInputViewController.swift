@@ -8,16 +8,16 @@ import UIKit
 
 class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
 
     @IBOutlet weak var noteView: UIView!
-    @IBOutlet weak var noteTitleLabel: MeshLabel!
-    @IBOutlet weak var noteTextLabel: MeshLabel!
+    @IBOutlet weak var noteTitleLabel: ParticleLabel!
+    @IBOutlet weak var noteTextLabel: ParticleLabel!
 
-    @IBOutlet weak var inputTitleLabel: MeshLabel!
-    @IBOutlet weak var inputTextField: MeshTextField!
+    @IBOutlet weak var inputTitleLabel: ParticleLabel!
+    @IBOutlet weak var inputTextField: ParticleTextField!
 
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     }
 
     open func shouldAutoFocusInput() -> Bool {
-        return MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone5
+        return ScreenUtils.getPhoneScreenSizeClass() > .iPhone5
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -64,13 +64,13 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
     }
 
     override func setStyle() {
-        noteTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        noteTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.PrimaryTextColor)
+        noteTextLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        noteTitleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.DetailSize, color: ParticleStyle.PrimaryTextColor)
 
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
-        inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        inputTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.InputTitleColor)
+        titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
+        inputTextField.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        inputTitleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.DetailSize, color: ParticleStyle.InputTitleColor)
     }
 
     open func submit() {

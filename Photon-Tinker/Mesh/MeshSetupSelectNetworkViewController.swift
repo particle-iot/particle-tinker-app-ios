@@ -53,16 +53,16 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
             devicesString = devicesString.replacingOccurrences(of: "{{0}}", with: String(network.deviceCount!))
 
             cell.cellSubtitleLabel.text = devicesString
-            cell.cellSubtitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            cell.cellSubtitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
         }
 
         cell.cellTitleLabel.text = network.name
-        cell.cellTitleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
 
         let cellHighlight = UIView()
-        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
+        cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
         cell.selectedBackgroundView = cellHighlight
 
         cell.preservesSuperviewLayoutMargins = false
@@ -81,7 +81,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
 
         if let cell = tableView.cellForRow(at: indexPath) {
             let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
-            activityIndicator.color = MeshSetupStyle.NetworkJoinActivityIndicatorColor
+            activityIndicator.color = ParticleStyle.NetworkJoinActivityIndicatorColor
             activityIndicator.startAnimating()
 
             cell.accessoryView = activityIndicator

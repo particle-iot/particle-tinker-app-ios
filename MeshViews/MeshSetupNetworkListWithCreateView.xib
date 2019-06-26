@@ -33,7 +33,7 @@
                     <rect key="frame" x="0.0" y="111" width="375" height="476"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8L3-wl-7yJ" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8L3-wl-7yJ" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                     <rect key="frame" x="20" y="35" width="335" height="16"/>
                     <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                     <nil key="textColor"/>
@@ -42,7 +42,7 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="48e-eG-xKV">
                     <rect key="frame" x="177.5" y="61" width="20" height="20"/>
                 </activityIndicatorView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibh-gS-dX1" customClass="MeshSetupAlternativeButton" customModule="Particle" customModuleProvider="target">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibh-gS-dX1" customClass="ParticleAlternativeButton" customModule="Particle" customModuleProvider="target">
                     <rect key="frame" x="20" y="607" width="335" height="40"/>
                     <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>

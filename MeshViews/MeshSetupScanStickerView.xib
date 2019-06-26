@@ -34,7 +34,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mix-AT-vYR" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mix-AT-vYR" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                     <rect key="frame" x="20" y="433" width="280" height="17"/>
                     <viewLayoutGuide key="safeArea" id="5lw-bS-lNw"/>
                     <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
@@ -48,7 +48,7 @@
                         <constraint firstAttribute="width" secondItem="sOJ-0C-E4V" secondAttribute="height" multiplier="10:9" id="j9u-wy-4dD"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Point camera at code sticker on the device to start pairing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMW-KC-Qkt" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Point camera at code sticker on the device to start pairing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMW-KC-Qkt" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                     <rect key="frame" x="20" y="455" width="280" height="32"/>
                     <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
                     <nil key="textColor"/>

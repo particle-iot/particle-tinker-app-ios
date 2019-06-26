@@ -6,14 +6,14 @@
 import Foundation
 
 class DeviceInfoSliderCell: UITableViewCell {
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var valueLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var valueLabel: ParticleLabel!
     @IBOutlet weak var iconImage: DeviceTypeIcon!
 
     func setup(title: String, value:Any) {
 
-        self.titleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.valueLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.titleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        self.valueLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
         self.titleLabel.text = title
         if let type = value as? ParticleDeviceType {

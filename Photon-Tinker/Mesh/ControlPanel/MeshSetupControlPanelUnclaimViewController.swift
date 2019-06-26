@@ -7,9 +7,9 @@ import Foundation
 
 class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Storyboardable {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
+    @IBOutlet weak var continueButton: ParticleButton!
 
     private var unclaimCallback: ((Bool) -> ())!
 
@@ -32,9 +32,9 @@ class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Stor
     }
 
     override func setStyle() {
-        titleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.ExtraLargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        titleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.ExtraLargeSize, color: ParticleStyle.PrimaryTextColor)
+        textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     override func setContent() {

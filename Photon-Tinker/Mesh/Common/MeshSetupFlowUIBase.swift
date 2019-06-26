@@ -17,7 +17,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var backButtonImage: UIImageView!
 
-    @IBOutlet weak var navigationBarTitle: MeshLabel!
+    @IBOutlet weak var navigationBarTitle: ParticleLabel!
 
     internal var flowRunner: MeshSetupFlowRunner!
     internal var embededNavigationController: UINavigationController!
@@ -403,20 +403,20 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func pricingInfoViewCompleted() {
         if let error = self.flowRunner.setPricingImpactDone() {
             DispatchQueue.main.async {
-                STPTheme.default().emphasisFont = UIFont(name: MeshSetupStyle.BoldFont, size: CGFloat(MeshSetupStyle.RegularSize))
-                STPTheme.default().font = UIFont(name: MeshSetupStyle.RegularFont, size: CGFloat(MeshSetupStyle.RegularSize))
-                STPTheme.default().errorColor = MeshSetupStyle.RedTextColor
-                STPTheme.default().accentColor = MeshSetupStyle.ButtonColor
-                STPTheme.default().primaryForegroundColor = MeshSetupStyle.PrimaryTextColor
-                STPTheme.default().secondaryForegroundColor = MeshSetupStyle.SecondaryTextColor
-                STPTheme.default().primaryBackgroundColor = MeshSetupStyle.TableViewBackgroundColor
+                STPTheme.default().emphasisFont = UIFont(name: ParticleStyle.BoldFont, size: CGFloat(ParticleStyle.RegularSize))
+                STPTheme.default().font = UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))
+                STPTheme.default().errorColor = ParticleStyle.RedTextColor
+                STPTheme.default().accentColor = ParticleStyle.ButtonColor
+                STPTheme.default().primaryForegroundColor = ParticleStyle.PrimaryTextColor
+                STPTheme.default().secondaryForegroundColor = ParticleStyle.SecondaryTextColor
+                STPTheme.default().primaryBackgroundColor = ParticleStyle.TableViewBackgroundColor
 
                 let addCardViewController = STPAddCardViewController()
 
                 let navigationController = UINavigationController(rootViewController: addCardViewController)
                 navigationController.navigationBar.titleTextAttributes = [
-                    NSAttributedString.Key.font: UIFont(name: MeshSetupStyle.BoldFont, size: CGFloat(MeshSetupStyle.RegularSize)),
-                    NSAttributedString.Key.foregroundColor: MeshSetupStyle.PrimaryTextColor
+                    NSAttributedString.Key.font: UIFont(name: ParticleStyle.BoldFont, size: CGFloat(ParticleStyle.RegularSize)),
+                    NSAttributedString.Key.foregroundColor: ParticleStyle.PrimaryTextColor
                 ]
 
                 self.present(navigationController, animated: true)

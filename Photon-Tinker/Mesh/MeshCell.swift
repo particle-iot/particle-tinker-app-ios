@@ -6,18 +6,18 @@
 import Foundation
 
 class MeshCell : UITableViewCell {
-    @IBOutlet weak var cellTitleLabel: MeshLabel!
-    @IBOutlet weak var cellSubtitleLabel: MeshLabel!
+    @IBOutlet weak var cellTitleLabel: ParticleLabel!
+    @IBOutlet weak var cellSubtitleLabel: ParticleLabel!
     @IBOutlet weak var cellIconImageView: UIImageView?
     @IBOutlet weak var cellAccessoryImageView: UIImageView!
     @IBOutlet weak var cellSecondaryAccessoryImageView: UIImageView!
-    @IBOutlet weak var cellDetailLabel: MeshLabel!
+    @IBOutlet weak var cellDetailLabel: ParticleLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
 
         let cellHighlight = UIView()
-        cellHighlight.backgroundColor = MeshSetupStyle.CellHighlightColor
+        cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
         self.selectedBackgroundView = cellHighlight
 
         self.preservesSuperviewLayoutMargins = false

@@ -13,8 +13,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     @IBOutlet weak var cameraView: UIView!
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
     @IBOutlet weak var imageView: UIImageView!
     
     internal var callback: ((String) -> ())!
@@ -166,12 +166,12 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     override func setStyle() {
-        if (MeshScreenUtils.getPhoneScreenSizeClass() > .iPhone4) {
-            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        if (ScreenUtils.getPhoneScreenSizeClass() > .iPhone4) {
+            titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+            textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
         } else {
-            titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+            titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+            textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
         }
     }
 

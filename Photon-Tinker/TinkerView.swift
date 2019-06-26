@@ -71,7 +71,7 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
 
         backgroundImageView = UIImageView(image: outlineImage)
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.tintColor = UIColor.colorWithHexString("D9D8D6")
+        backgroundImageView.tintColor = UIColor(rgb: 0xD9D8D6)
         backgroundImageView.contentMode = .scaleToFill
 
         self.addSubview(backgroundImageView)

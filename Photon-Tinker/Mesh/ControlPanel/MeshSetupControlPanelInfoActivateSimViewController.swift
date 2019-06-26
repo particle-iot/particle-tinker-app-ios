@@ -7,8 +7,8 @@ import Foundation
 
 class MeshSetupControlPanelInfoActivateSimViewController : MeshSetupControlPanelInfoDeactivateSimViewController {
 
-    @IBOutlet weak var priceInfo1Label: MeshLabel!
-    @IBOutlet weak var priceInfo2Label: MeshLabel!
+    @IBOutlet weak var priceInfo1Label: ParticleLabel!
+    @IBOutlet weak var priceInfo2Label: ParticleLabel!
     
     override var customTitle: String {
         return MeshSetupStrings.ControlPanel.Cellular.ActivateSim.Title

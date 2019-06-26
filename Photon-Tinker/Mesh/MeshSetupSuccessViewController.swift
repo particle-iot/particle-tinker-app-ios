@@ -12,15 +12,15 @@ class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
     }
 
     @IBOutlet weak var successView: UIView!
-    @IBOutlet weak var successTitleLabel: MeshLabel!
-    @IBOutlet weak var successTextLabel: MeshLabel!
+    @IBOutlet weak var successTitleLabel: ParticleLabel!
+    @IBOutlet weak var successTextLabel: ParticleLabel!
     
     
-    @IBOutlet weak var continueLabel: MeshLabel!
-    @IBOutlet weak var continueButton: MeshSetupButton!
+    @IBOutlet weak var continueLabel: ParticleLabel!
+    @IBOutlet weak var continueButton: ParticleButton!
     
-    @IBOutlet weak var doneLabel: MeshLabel!
-    @IBOutlet weak var doneButton: MeshSetupButton!
+    @IBOutlet weak var doneLabel: ParticleLabel!
+    @IBOutlet weak var doneButton: ParticleButton!
     
     @IBOutlet var splitterView: UIView!
 
@@ -33,14 +33,14 @@ class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
     }
 
     override func setStyle() {
-        successTitleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        successTextLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
+        successTitleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        successTextLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
 
-        continueLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        continueLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
 
-        doneLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        doneButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        doneLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        doneButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     override func setContent() {

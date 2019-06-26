@@ -41,13 +41,13 @@
                                 <constraint firstAttribute="height" constant="64" id="WL1-yd-465"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3q-cm-Qhn" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3q-cm-Qhn" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="79" width="315" height="17"/>
                             <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTY-It-eT9" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTY-It-eT9" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="101" width="315" height="17"/>
                             <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                             <nil key="textColor"/>
@@ -70,7 +70,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLC-RO-P40" userLabel="PairingView">
                     <rect key="frame" x="30" y="268" width="315" height="64"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLY-8n-5JS" customClass="MeshLabel" customModule="Particle" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLY-8n-5JS" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="47" width="315" height="17"/>
                             <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
                             <nil key="textColor"/>

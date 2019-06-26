@@ -7,11 +7,11 @@ import Foundation
 
 class MeshSetupControlPanelInfoDeactivateSimViewController : MeshSetupViewController, Storyboardable {
 
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
 
-    @IBOutlet weak var continueButton: MeshSetupButton!
-    @IBOutlet weak var noteLabel: MeshLabel!
+    @IBOutlet weak var continueButton: ParticleButton!
+    @IBOutlet weak var noteLabel: ParticleLabel!
 
     override var customTitle: String {
         return MeshSetupStrings.ControlPanel.Cellular.DeactivateSim.Title
@@ -36,18 +36,18 @@ class MeshSetupControlPanelInfoDeactivateSimViewController : MeshSetupViewContro
     }
 
     override func setStyle() {
-        if MeshScreenUtils.getPhoneScreenSizeClass() < .iPhone6 {
-            titleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.PrimaryTextColor)
+        if ScreenUtils.getPhoneScreenSizeClass() < .iPhone6 {
+            titleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+            textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
 
-            continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
-            noteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.DetailsTextColor)
+            continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
+            noteLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.DetailSize, color: ParticleStyle.DetailsTextColor)
         } else {
-            titleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.ExtraLargeSize, color: MeshSetupStyle.PrimaryTextColor)
-            textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+            titleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.ExtraLargeSize, color: ParticleStyle.PrimaryTextColor)
+            textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
-            continueButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
-            noteLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.SmallSize, color: MeshSetupStyle.DetailsTextColor)
+            continueButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
+            noteLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.DetailsTextColor)
         }
 
     }

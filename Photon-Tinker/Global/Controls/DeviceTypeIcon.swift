@@ -7,7 +7,7 @@ import Foundation
 
 class DeviceTypeIcon: UIView {
     private var backgroundCircle: PieProgressView?
-    private var deviceTypeLabel: MeshLabel?
+    private var deviceTypeLabel: ParticleLabel?
 
     private var deviceType: ParticleDeviceType?
 
@@ -49,7 +49,7 @@ class DeviceTypeIcon: UIView {
         self.backgroundCircle!.progress = 1
         self.backgroundCircle!.pieFillColor = .clear
         self.backgroundCircle!.pieBorderWidth = 1
-        self.backgroundCircle!.pieBorderColor = MeshSetupStyle.RedTextColor
+        self.backgroundCircle!.pieBorderColor = .clear
 
         self.addSubview(self.backgroundCircle!)
         NSLayoutConstraint.activate([
@@ -60,13 +60,13 @@ class DeviceTypeIcon: UIView {
         ])
 
 
-        self.deviceTypeLabel = MeshLabel(frame: .zero)
+        self.deviceTypeLabel = ParticleLabel(frame: .zero)
         self.deviceTypeLabel!.translatesAutoresizingMaskIntoConstraints = false
         self.deviceTypeLabel!.adjustsFontSizeToFitWidth = true
         self.deviceTypeLabel!.textAlignment = .center
         self.deviceTypeLabel!.baselineAdjustment = .alignCenters
 
-        self.deviceTypeLabel?.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.DetailSize, color: MeshSetupStyle.DetailsTextColor)
+        self.deviceTypeLabel?.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.DetailSize, color: ParticleStyle.DetailsTextColor)
 
         self.addSubview(self.deviceTypeLabel!)
         NSLayoutConstraint.activate([

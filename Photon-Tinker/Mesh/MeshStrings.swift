@@ -14,8 +14,8 @@ extension UIView {
             if subview is UILabel {
                 let label = subview as! UILabel
                 label.text = label.text?.replaceMeshSetupStrings(deviceType: deviceType, networkName: networkName, deviceName: deviceName)
-            } else if (subview is MeshSetupButton) {
-                let button = subview as! MeshSetupButton
+            } else if (subview is ParticleButton) {
+                let button = subview as! ParticleButton
                 button.setTitle(button.currentTitle?.replaceMeshSetupStrings(deviceType: deviceType, networkName: networkName, deviceName: deviceName), for: .normal)
             } else if (subview is UIView) {
                 subview.replaceMeshSetupStrings(deviceType: deviceType, networkName: networkName, deviceName: deviceName)
@@ -140,8 +140,6 @@ class MeshSetupStrings {
             }
         }
 
-
-
         struct Ethernet {
             static let Title = "MeshSetup.ControlPanel.Ethernet.Title".meshLocalized()
 
@@ -206,6 +204,67 @@ class MeshSetupStrings {
             }
 
         }
+    }
+
+    struct Error {
+        //unproofread
+        static let CriticalFlowError = "MeshSetup.Error.CriticalFlowError"
+        static let SimBelongsToOtherAccount = "MeshSetup.Error.SimBelongsToOtherAccount"
+        static let ExternalSimNotSupported = "MeshSetup.Error.ExternalSimNotSupported"
+        static let StickerError = "MeshSetup.Error.StickerError"
+        static let NetworkError = "MeshSetup.Error.NetworkError"
+        static let InvalidDeviceState = "MeshSetup.Error.InvalidDeviceState"
+        static let NameInUse = "MeshSetup.Error.NameInUse"
+        static let FailedToObtainIpBoron = "MeshSetup.Error.FailedToObtainIpBoron"
+        static let WrongTargetDeviceType = "MeshSetup.Error.WrongTargetDeviceType"
+        static let WrongCommissionerDeviceType = "MeshSetup.Error.WrongCommissionerDeviceType"
+        static let BoronModemError = "MeshSetup.Error.BoronModemError"
+        static let FailedToChangeSimDataLimit = "MeshSetup.Error.FailedToChangeSimDataLimit"
+        static let FailedToGetDeviceInfo = "MeshSetup.Error.FailedToGetDeviceInfo"
+
+
+        //these errors are handled instantly
+        static let FailedToUpdateDeviceOS = "MeshSetup.Error.FailedToUpdateDeviceOS"
+        static let FailedToFlashBecauseOfTimeout = "MeshSetup.Error.FailedToFlashBecauseOfTimeout"
+        static let UnableToDownloadFirmwareBinary = "MeshSetup.Error.UnableToDownloadFirmwareBinary"
+        static let CannotAddGatewayDeviceAsJoiner = "MeshSetup.Error.CannotAddGatewayDeviceAsJoiner"
+        static let WrongNetworkPassword = "MeshSetup.Error.WrongNetworkPassword"
+        static let WifiPasswordTooShort = "MeshSetup.Error.WifiPasswordTooShort"
+        static let PasswordTooShort = "MeshSetup.Error.PasswordTooShort"
+        static let IllegalOperation = "MeshSetup.Error.IllegalOperation"
+        static let UnableToRenameDevice = "MeshSetup.Error.UnableToRenameDevice"
+        static let NameTooShort = "MeshSetup.Error.NameTooShort"
+        //user facing errors
+        static let FailedToActivateSim = "MeshSetup.Error.FailedToActivateSim"
+        static let FailedToDeactivateSim = "MeshSetup.Error.FailedToDeactivateSim"
+
+        static let CCMissing = "MeshSetup.Error.CCMissing"
+        static let UnableToGetPricingInformation = "MeshSetup.Error.UnableToGetPricingInformation"
+        static let UnableToGetSimStatus = "MeshSetup.Error.UnableToGetSimStatus"
+        static let UnableToPublishDeviceSetupEvent = "MeshSetup.Error.UnableToPublishDeviceSetupEvent"
+        static let UnableToLeaveNetwork = "MeshSetup.Error.UnableToLeaveNetwork"
+        static let UnableToJoinNetwork = "MeshSetup.Error.UnableToJoinNetwork"
+        static let UnableToJoinOldNetwork = "MeshSetup.Error.UnableToJoinOldNetwork"
+        static let UnableToRetrieveNetworks = "MeshSetup.Error.UnableToRetrieveNetworks"
+        static let UnableToCreateNetwork = "MeshSetup.Error.UnableToCreateNetwork"
+        static let UnableToGenerateClaimCode = "MeshSetup.Error.UnableToGenerateClaimCode"
+        static let DeviceTooFar = "MeshSetup.Error.DeviceTooFar"
+        static let FailedToStartScan = "MeshSetup.Error.FailedToStartScan"
+        static let FailedToScanBecauseOfTimeout = "MeshSetup.Error.FailedToScanBecauseOfTimeout"
+        static let FailedToConnect = "MeshSetup.Error.FailedToConnect"
+        static let BluetoothDisabled = "MeshSetup.Error.BluetoothDisabled"
+        static let BluetoothTimeout = "MeshSetup.Error.BluetoothTimeout"
+        static let BluetoothError = "MeshSetup.Error.BluetoothError"
+        static let CommissionerNetworkDoesNotMatch = "MeshSetup.Error.CommissionerNetworkDoesNotMatch"
+        static let SameDeviceScannedTwice = "MeshSetup.Error.SameDeviceScannedTwice"
+        static let FailedToObtainIp = "MeshSetup.Error.FailedToObtainIp"
+        static let BluetoothConnectionDropped = "MeshSetup.Error.BluetoothConnectionDropped"
+        static let DeviceIsNotAllowedToJoinNetwork = "MeshSetup.Error.DeviceIsNotAllowedToJoinNetwork"
+        static let DeviceIsUnableToFindNetworkToJoin = "MeshSetup.Error.DeviceIsUnableToFindNetworkToJoin"
+        static let DeviceTimeoutWhileJoiningNetwork = "MeshSetup.Error.DeviceTimeoutWhileJoiningNetwork"
+        static let DeviceConnectToCloudTimeout = "MeshSetup.Error.DeviceConnectToCloudTimeout"
+        static let DeviceGettingClaimedTimeout = "MeshSetup.Error.DeviceGettingClaimedTimeout"
+        static let ThisDeviceIsACommissioner = "MeshSetup.Error.ThisDeviceIsACommissioner"
     }
 
     struct Prompt {

@@ -6,11 +6,11 @@
 import Foundation
 
 class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, Storyboardable {
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var textLabel: MeshLabel!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var textLabel: ParticleLabel!
 
-    @IBOutlet weak var meshButton: MeshSetupButton!
-    @IBOutlet weak var standaloneButton: MeshSetupAlternativeButton!
+    @IBOutlet weak var meshButton: ParticleButton!
+    @IBOutlet weak var standaloneButton: ParticleAlternativeButton!
 
     internal var callback: ((Bool) -> ())!
 
@@ -20,11 +20,11 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
     }
 
     override func setStyle() {
-        titleLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        textLabel.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        textLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
-        meshButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
-        standaloneButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        meshButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
+        standaloneButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     override func setContent() {

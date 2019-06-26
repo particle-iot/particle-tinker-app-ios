@@ -11,10 +11,10 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     var isBusy: Bool = false
     @IBOutlet var viewsToFade: [UIView]?
     
-    @IBOutlet weak var titleLabel: MeshLabel!
-    @IBOutlet weak var inputTextField: MeshTextField!
-    @IBOutlet weak var inputTextArea: MeshTextView!
-    @IBOutlet weak var saveButton: MeshSetupButton!
+    @IBOutlet weak var titleLabel: ParticleLabel!
+    @IBOutlet weak var inputTextField: ParticleTextField!
+    @IBOutlet weak var inputTextArea: ParticleTextView!
+    @IBOutlet weak var saveButton: ParticleButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var promptBackground: UIView!
     @IBOutlet weak var inputFrameView: UIView!
@@ -80,11 +80,11 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
         self.inputFrameView.layer.borderWidth = 1
 
 
-        self.titleLabel.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.LargeSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.inputTextField.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
-        self.inputTextArea.setStyle(font: MeshSetupStyle.RegularFont, size: MeshSetupStyle.RegularSize, color: MeshSetupStyle.PrimaryTextColor)
+        self.titleLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+        self.inputTextField.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        self.inputTextArea.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
-        self.saveButton.setStyle(font: MeshSetupStyle.BoldFont, size: MeshSetupStyle.RegularSize)
+        self.saveButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     private func setContent() {
