@@ -110,7 +110,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtG-5o-q53" customClass="MeshCheckBoxButton" customModule="Particle" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtG-5o-q53" customClass="ParticleCheckBoxButton" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="mHY-gG-MC5"/>
@@ -919,7 +919,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Q1-NW-JWm" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Q1-NW-JWm" customClass="ParticleNoteView" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="15" y="222" width="345" height="118"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fza-kU-P9N" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
@@ -1096,7 +1096,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="MeshSetupFindStickerImage" translatesAutoresizingMaskIntoConstraints="NO" id="tHU-6r-7dt">
                                 <rect key="frame" x="30" y="285.66666666666674" width="315" height="392.33333333333326"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHv-1p-IH0" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHv-1p-IH0" customClass="ParticleNoteView" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="15" y="173.66666666666666" width="345" height="86.999999999999972"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbz-8G-PUF" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
@@ -1577,7 +1577,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="MeshSetupFirmwareUpdateImage" translatesAutoresizingMaskIntoConstraints="NO" id="rAG-J3-H7I">
                                 <rect key="frame" x="30" y="282.66666666666674" width="315" height="395.33333333333326"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VoE-1S-5AK" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VoE-1S-5AK" customClass="ParticleNoteView" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="15" y="163" width="345" height="94.666666666666686"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGX-n0-U0u" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
@@ -2373,7 +2373,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2Y-2m-XLf" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2Y-2m-XLf" customClass="ParticleNoteView" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="132" width="345" height="94.666666666666686"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This device will act as the assisting device, to allow your {{device}} to join the {{network}} mesh network" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJu-vM-PaJ" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">

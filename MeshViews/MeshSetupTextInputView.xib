@@ -77,7 +77,7 @@
                         <constraint firstAttribute="trailing" secondItem="sC1-dN-Nic" secondAttribute="trailing" constant="8" id="pXo-5l-niB"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvA-g3-vaD" customClass="MeshSetupNoteView" customModule="Particle" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvA-g3-vaD" customClass="ParticleNoteView" customModule="Particle" customModuleProvider="target">
                     <rect key="frame" x="15" y="132" width="345" height="118"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpg-xy-IQf" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">

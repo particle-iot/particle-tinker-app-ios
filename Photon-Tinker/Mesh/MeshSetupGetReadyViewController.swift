@@ -14,7 +14,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     @IBOutlet weak var videoToCheckboxConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var checkboxView: UIView?
-    @IBOutlet weak var checkboxButton: MeshCheckBoxButton?
+    @IBOutlet weak var checkboxButton: ParticleCheckBoxButton?
     @IBOutlet weak var checkboxLabel: ParticleLabel?
     
     internal var videoPlayer: AVPlayer?
@@ -243,7 +243,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
 
-    @IBAction func checkboxTapped(_ sender: MeshCheckBoxButton) {
+    @IBAction func checkboxTapped(_ sender: ParticleCheckBoxButton) {
         sender.isSelected = !sender.isSelected
     }
     
