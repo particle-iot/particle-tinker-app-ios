@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeviceInspectorViewController : UIViewController, DeviceInspectorChildViewControllerDelegate, Fadeable {
+class DeviceInspectorViewController : UIViewController, DeviceInspectorChildViewControllerDelegate, Fadeable, DeviceInspectorInfoSliderViewDelegate {
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -18,6 +18,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var tabBarView: DeviceInspectorTabBarView!
     @IBOutlet weak var moreActionsButton: UIButton!
+
+    @IBOutlet weak var infoSliderYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var infoSliderHeightConstraint: NSLayoutConstraint!
 
     @IBOutlet var viewsToFade:[UIView]?
 
@@ -30,11 +33,15 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     var functionsVC: DeviceInspectorFunctionsViewController!
     var variablesVC: DeviceInspectorVariablesViewController!
     var eventsVC: DeviceInspectorEventsViewController!
+    var infoSlider: DeviceInspectorInfoSliderViewController!
 
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
 
         self.tabBarView.setup(tabNames: ["Events", "Functions", "Variables", "Tinker"])
+
+
+        super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +77,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
             }
 
             if (event == ParticleDeviceSystemEvent.flashStarted) {
-                self.updateTab()
+                self.updateWithoutReload()
             }
 
             if event == ParticleDeviceSystemEvent.flashSucceeded || event == ParticleDeviceSystemEvent.flashFailed {
@@ -80,8 +87,6 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
                     RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, callback: nil)
                 }
             }
-
-
         }
     }
 
@@ -110,6 +115,10 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
             vc.setup(device: device)
             vc.delegate = self
             self.tinkerVC = vc
+        } else if let vc = segue.destination as? DeviceInspectorInfoSliderViewController {
+            vc.setup(device, yConstraint: self.infoSliderYConstraint, heightConstraint: self.infoSliderHeightConstraint)
+            self.infoSlider = vc
+            self.infoSlider.delegate = self
         }
     }
 
@@ -131,6 +140,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
             if let self = self {
                 DispatchQueue.main.async {
+                    self.infoSlider.update()
                     self.tabs[self.tabBarView.selectedIdx].update()
 
                     if (err == nil) {
@@ -143,12 +153,13 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         })
     }
 
-    func updateTab() {
+    func updateWithoutReload() {
         DispatchQueue.main.async {
+            self.deviceNameLabel.text = self.device.getName()
             self.tabs[self.tabBarView.selectedIdx].update()
+            self.infoSlider.update()
         }
     }
-
 
 
     private func selectTab(selectedTabIdx: Int, instant: Bool = false) {
@@ -158,7 +169,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
         tabs[selectedTabIdx].view.superview!.isHidden = false
         tabs[selectedTabIdx].view.superview!.alpha = 0
-        self.view.bringSubview(toFront: tabs[selectedTabIdx].view.superview!)
+        self.view.insertSubview(tabs[selectedTabIdx].view.superview!, belowSubview: self.infoSlider.view.superview!)
         tabs[selectedTabIdx].update()
         //only show child tutorial if tutorial for this VC was already shown
         if !ParticleUtils.shouldDisplayTutorialForViewController(self) {
@@ -199,6 +210,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         }
 
         self.view.bringSubview(toFront: self.topBarView)
+        self.view.bringSubview(toFront: self.infoSlider.view.superview!)
         self.moreActionsButton.isEnabled = false
     }
 
@@ -258,5 +270,8 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
             }
         }
     }
-    
+
+    func infoSliderDidUpdateDevice() {
+        self.updateWithoutReload()
+    }
 }

@@ -96,6 +96,13 @@ class MeshTextField: UITextField {
     }
 }
 
+class MeshTextView: UITextView {
+    func setStyle(font: String, size: Int, color: UIColor) {
+        self.textColor = color
+        self.font = UIFont(name: font, size: CGFloat(size))
+    }
+}
+
 class MeshSetupButton : UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -106,8 +113,12 @@ class MeshSetupButton : UIButton {
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
     }
 
-    override func setTitle(_ title: String?, for state: UIControlState) {
-        super.setTitle(title?.uppercased(), for: state)
+    func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
+        if (upperCase) {
+            super.setTitle(title?.uppercased(), for: state)
+        } else {
+            super.setTitle(title, for: state)
+        }
     }
 
     func setStyle(font: String, size: Int) {
@@ -147,8 +158,12 @@ class MeshSetupAlternativeButton : UIButton {
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
     }
 
-    override func setTitle(_ title: String?, for state: UIControlState) {
-        super.setTitle(title?.uppercased(), for: state)
+    func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
+        if (upperCase) {
+            super.setTitle(title?.uppercased(), for: state)
+        } else {
+            super.setTitle(title, for: state)
+        }
     }
 
     func setStyle(font: String, size: Int) {
@@ -219,13 +234,13 @@ class MeshCheckBoxButton : UIButton {
 }
 
 extension UIColor {
-    static func colorWithHexString(_ hexString: String, alpha:CGFloat? = 1.0) -> UIColor {
+    static func colorWithHexString(_ hexString: String, alpha:CGFloat = 1.0) -> UIColor {
         // Convert hex string to an integer
         let hexint = Int(UIColor.intFromHexString(hexStr: hexString))
         let red = CGFloat((hexint & 0xff0000) >> 16) / 255.0
         let green = CGFloat((hexint & 0xff00) >> 8) / 255.0
         let blue = CGFloat((hexint & 0xff) >> 0) / 255.0
-        let alpha = alpha!
+        let alpha = alpha
 
         // Create color object, specifying alpha as well
         let color = UIColor(red: red, green: green, blue: blue, alpha: alpha)

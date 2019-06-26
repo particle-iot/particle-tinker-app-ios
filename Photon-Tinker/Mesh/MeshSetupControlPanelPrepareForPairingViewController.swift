@@ -91,6 +91,7 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
     }
 
 
+
     func initializeVideoPlayerWithVideo(videoFileName: String) {
         if (self.videoPlayer != nil) {
             return
@@ -125,6 +126,9 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+
+        self.device.signal(false)
+        self.signalSwitch.setOn(false, animated: false)
 
         desetVideoLoopObserver()
     }
