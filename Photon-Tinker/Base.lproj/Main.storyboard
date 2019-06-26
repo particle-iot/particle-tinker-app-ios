@@ -77,11 +77,18 @@
                                     <constraint firstItem="on1-jM-hGs" firstAttribute="centerY" secondItem="Wau-Dg-MaI" secondAttribute="centerY" id="ecL-Hi-GIj"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hld-fG-JSH">
+                                <rect key="frame" x="329" y="766" width="30" height="30"/>
+                                <connections>
+                                    <action selector="versionButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8JB-Sj-TUw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UFP-vH-xVN" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="1qa-e9-69c"/>
                             <constraint firstItem="ig4-wA-vaA" firstAttribute="bottom" secondItem="cQK-Nl-VbT" secondAttribute="bottom" constant="36" id="1sz-eh-AtD"/>
+                            <constraint firstItem="Hld-fG-JSH" firstAttribute="top" secondItem="UFP-vH-xVN" secondAttribute="top" id="3MN-zz-kpU"/>
                             <constraint firstAttribute="bottom" secondItem="UFP-vH-xVN" secondAttribute="bottom" constant="16" id="D6O-Af-t7V"/>
                             <constraint firstItem="ig4-wA-vaA" firstAttribute="centerX" secondItem="iA9-Xk-N8F" secondAttribute="centerX" id="EdA-xY-4a3"/>
                             <constraint firstItem="Wau-Dg-MaI" firstAttribute="top" secondItem="iA9-Xk-N8F" secondAttribute="bottom" id="NCV-dh-nLi"/>
@@ -89,7 +96,10 @@
                             <constraint firstItem="iA9-Xk-N8F" firstAttribute="top" secondItem="ig4-wA-vaA" secondAttribute="top" constant="20" id="SnU-6L-0if"/>
                             <constraint firstItem="ig4-wA-vaA" firstAttribute="centerX" secondItem="cQK-Nl-VbT" secondAttribute="centerX" id="XoL-Ra-0rM"/>
                             <constraint firstAttribute="centerY" secondItem="cQK-Nl-VbT" secondAttribute="centerY" id="gz7-cC-c4Z"/>
+                            <constraint firstItem="Hld-fG-JSH" firstAttribute="trailing" secondItem="UFP-vH-xVN" secondAttribute="trailing" id="hZy-kG-7xv"/>
                             <constraint firstItem="Wau-Dg-MaI" firstAttribute="leading" secondItem="ig4-wA-vaA" secondAttribute="leading" constant="30" id="j8i-K2-ffK"/>
+                            <constraint firstItem="Hld-fG-JSH" firstAttribute="leading" secondItem="UFP-vH-xVN" secondAttribute="leading" id="lrd-A9-6XU"/>
+                            <constraint firstItem="Hld-fG-JSH" firstAttribute="bottom" secondItem="UFP-vH-xVN" secondAttribute="bottom" id="m1l-ae-J1w"/>
                             <constraint firstItem="cQK-Nl-VbT" firstAttribute="top" secondItem="Wau-Dg-MaI" secondAttribute="bottom" id="x2g-ep-KKr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ig4-wA-vaA"/>

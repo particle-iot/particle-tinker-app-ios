@@ -125,6 +125,8 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
             }
         }
     }
+    @IBAction func versionButtonTapped(_ sender: Any) {
+    }
       
 }
 
