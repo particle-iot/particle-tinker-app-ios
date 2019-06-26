@@ -6,6 +6,69 @@
   Copyright © 2018 Particle. All rights reserved.
 */
 
+
+
+//unproofread
+"MeshSetup.Error.CriticalFlowError" = "There was a problem with the setup. Please contact support with the latest device log to help us fix it as soon as possible.";
+"MeshSetup.Error.SimBelongsToOtherAccount" = "The SIM you are trying to interact with is owned by a different user account.";
+"MeshSetup.Error.ExternalSimNotSupported" = "We have detected that you are using external SIM card. Use the internal SIM to complete setup. You may use an external SIM after setup is complete.";
+"MeshSetup.Error.StickerError" = "There is a problem with the sticker on your device. Please contact support for a solution.";
+"MeshSetup.Error.NetworkError" = "There was a network error communicating to Particle Device Cloud.";
+"MeshSetup.Error.InvalidDeviceState" = "Device is in invalid state, please reset the device and start again.";
+"MeshSetup.Error.NameInUse" = "You already own a network with this name. Please use different name.";
+"MeshSetup.Error.FailedToObtainIpBoron" = "Your device is taking longer than expected to connect to the Internet. If you are setting up a Boron 2/3G, it may take up to 5 minutes to establish a connection with the cellular tower in your area.";
+"MeshSetup.Error.WrongTargetDeviceType" = "This is not valid device sticker. Please scan 3rd generation device sticker.";
+"MeshSetup.Error.WrongCommissionerDeviceType" = "This is not valid device sticker. Please scan 3rd generation device sticker.";
+"MeshSetup.Error.BoronModemError" = "There was an error in accessing the modem on the device. The modem is now being rebooted in an attempt to recover. Wait a few seconds and then try again. If the error persists, try resetting the device manually by tapping the RESET button, and restart the setup process.";
+"MeshSetup.Error.FailedToChangeSimDataLimit" = "There was an error changing data limit for SIM card. If you have retried multiple times, please contact support.";
+"MeshSetup.Error.FailedToGetDeviceInfo" = "Unable to get information about the device from Device Cloud.";
+
+//these errors are handled instantly
+"MeshSetup.Error.FailedToUpdateDeviceOS" = "There was an error while performing a Device OS update.";
+"MeshSetup.Error.FailedToFlashBecauseOfTimeout" = "It seems that your device has exited listening mode. Please put your device in listening mode (blinking blue) and retry.";
+"MeshSetup.Error.UnableToDownloadFirmwareBinary" = "Failed to download the firmware update. Please try again later.";
+"MeshSetup.Error.CannotAddGatewayDeviceAsJoiner" = "Support for adding multiple gateways to a single network is coming soon. Argons, Borons, and Xenons with Ethernet FeatherWings, must be set up as a standalone device or as the first gateway in a new mesh network.";
+"MeshSetup.Error.WrongNetworkPassword" = "The password you entered is incorrect.";
+"MeshSetup.Error.WifiPasswordTooShort" = "The password you entered is too short.";
+"MeshSetup.Error.PasswordTooShort" = "Your network password must be between 6 and 16 characters.";
+"MeshSetup.Error.IllegalOperation" = "Illegal operation.";
+"MeshSetup.Error.UnableToRenameDevice" = "Unable to rename your device at this time. Please try again later.";
+"MeshSetup.Error.NameTooShort" = "Your device name cannot be empty.";
+
+//user facing errors
+"MeshSetup.Error.FailedToActivateSim" = "SIM activation is taking longer than expected. Please retry your SIM activation. If you have retried multiple times, please contact support.";
+"MeshSetup.Error.FailedToDeactivateSim" = "SIM deactivation is taking longer than expected. Please retry your SIM deactivation. If you have retried multiple times, please contact support.";
+
+"MeshSetup.Error.CCMissing" = "You need to add a credit card to your account to continue. Please visit https://console.particle.io/billing/edit-card to add a card and return here when you're done.";
+"MeshSetup.Error.UnableToGetPricingInformation" = "There was an error while retrieving pricing information. Please try again.";
+"MeshSetup.Error.UnableToGetSimStatus" = "There was an error while reading internal SIM card status. Please try again.";
+"MeshSetup.Error.UnableToPublishDeviceSetupEvent" = "There was an error while notifying the Particle Device Cloud about successful device setup. Please try again.";
+"MeshSetup.Error.UnableToLeaveNetwork" = "There was an error while removing your device from the mesh network on Particle Device Cloud.";
+"MeshSetup.Error.UnableToJoinNetwork" = "There was an error while adding your device to mesh network on Particle Device Cloud.";
+"MeshSetup.Error.UnableToJoinOldNetwork" = "The network you are trying to join was created locally with test version of the app. Please create new network.";
+"MeshSetup.Error.UnableToRetrieveNetworks" = "There was an error while accessing your mesh network information on Particle Device Cloud.";
+"MeshSetup.Error.UnableToCreateNetwork" = "There was an error while registering your new network with Particle Device Cloud.";
+"MeshSetup.Error.UnableToGenerateClaimCode" = "There was an error attempting to claim this device to your account.";
+"MeshSetup.Error.DeviceTooFar" = "Your mesh device is too far away from your phone. Please hold your phone closer and try again.";
+"MeshSetup.Error.FailedToStartScan" = "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again.";
+"MeshSetup.Error.FailedToScanBecauseOfTimeout" = "Unable to find your mesh device. Make sure the mesh device's LED is blinking blue and that it's not connected to any other devices.";
+"MeshSetup.Error.FailedToConnect" = "You phone failed to connect to your mesh device. Please try again.";
+"MeshSetup.Error.BluetoothDisabled" = "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again.";
+"MeshSetup.Error.BluetoothTimeout" = "Sending Bluetooth messages failed. Please try again.";
+"MeshSetup.Error.BluetoothError" = "Something went wrong with Bluetooth. Please restart the set up process and try again.";
+"MeshSetup.Error.CommissionerNetworkDoesNotMatch" = "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network.";
+"MeshSetup.Error.SameDeviceScannedTwice" = "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join.";
+"MeshSetup.Error.FailedToObtainIp" = "Your device failed to obtain an IP address. Please make sure your device has internet access.";
+"MeshSetup.Error.BluetoothConnectionDropped" = "The Bluetooth connection was dropped unexpectedly. Please restart the set up and try again.";
+"MeshSetup.Error.DeviceIsNotAllowedToJoinNetwork" = "Your device was unable to join the network (NOT_ALLOWED). Please press try again.";
+"MeshSetup.Error.DeviceIsUnableToFindNetworkToJoin" = "Your device was unable to join the network (NOT_FOUND). Please press try again.";
+"MeshSetup.Error.DeviceTimeoutWhileJoiningNetwork" = "Your device was unable to join the network (TIMEOUT). Please press try again.";
+"MeshSetup.Error.DeviceConnectToCloudTimeout" = "Your device could not connect to Device Cloud. Please try again.";
+"MeshSetup.Error.DeviceGettingClaimedTimeout" = "Your device failed to be claimed. Please try again.";
+"MeshSetup.Error.ThisDeviceIsACommissioner" = "This device now acts as commissioner. Please restart the setup if you want to set it up again.";
+
+
+
 "MeshSetup.Prompt.ErrorTitle" = "Error";
 "MeshSetup.Prompt.CancelSetupTitle" = "Cancel setup";
 "MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to cancel setup?";
