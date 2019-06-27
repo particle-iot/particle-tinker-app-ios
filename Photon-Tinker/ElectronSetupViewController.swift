@@ -53,8 +53,8 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.startTime = Date().timeIntervalSince1970
         
         print("start:"+self.printTimestamp())
-        
-        if kParticleAPIBaseURL.contains("staging") {
+
+        if ParticleCloud.sharedInstance().currentBaseURL.contains("staging") {
             self.setupWebAddress = URL(string: "https://setup.staging.particle.io?mobile=true")
         } else {
             self.setupWebAddress = URL(string: "https://setup.particle.io?mobile=true")

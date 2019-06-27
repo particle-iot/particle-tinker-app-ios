@@ -9,7 +9,8 @@
 import UIKit
 
 class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelegate {
-    
+
+    private var versionLabelTapCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +33,12 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         {
             self.performSegue(withIdentifier: "start_no_animation", sender: self)
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        versionLabelTapCount = 0
     }
 
     func checkFontNames()
@@ -109,8 +116,12 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
     }
       
     @IBOutlet weak var versionLabel: UILabel!
-    @IBAction func startButtonTapped(_ sender: UIButton)
+    @IBAction func startButtonTapped(_ sender: UIButton?)
     {
+        if (sender != nil) {
+            ParticleCloud.sharedInstance().customAPIBaseURL = nil
+        }
+
         if let _ = ParticleCloud.sharedInstance().loggedInUsername
         {
             self.performSegue(withIdentifier: "start", sender: self)
@@ -125,6 +136,33 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
             }
         }
     }
+    
+    
+    @IBAction func versionButtonTapped(_ sender: Any) {
+        versionLabelTapCount += 1
+
+        if (versionLabelTapCount >= 10) {
+            versionLabelTapCount = 0
+
+            let ac = UIAlertController(title: "API Base URL", message: "Please enter Particle API Base URL", preferredStyle: .alert)
+            ac.addTextField { field in
+                field.placeholder = "API Base URL"
+                field.text = kDefaultParticleAPIBaseURL
+            }
+
+            ac.addAction(UIAlertAction(title: "Use", style: .default) { action in
+                let baseURL = ac.textFields?[0].text
+
+                ParticleCloud.sharedInstance().customAPIBaseURL = baseURL
+                self.startButtonTapped(nil)
+            })
+
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+            self.present(ac, animated: true)
+        }
+    }
+    
       
 }
 
