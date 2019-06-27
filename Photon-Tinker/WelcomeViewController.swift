@@ -26,7 +26,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         layer.borderColor = UIColor.white.cgColor
         layer.cornerRadius = 3.0
         layer.borderWidth = 2.0
-        let verStr = "V"+(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+        let verStr =  "v\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)b\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)"
         self.versionLabel.text = verStr
         
         if let _ = ParticleCloud.sharedInstance().loggedInUsername
