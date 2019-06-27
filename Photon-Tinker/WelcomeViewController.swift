@@ -147,7 +147,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
             let ac = UIAlertController(title: "API Base URL", message: "Please enter Particle API Base URL", preferredStyle: .alert)
             ac.addTextField { field in
                 field.placeholder = "API Base URL"
-                field.text = kDefaultParticleAPIBaseURL
+                field.text = kParticleAPIBaseURL
             }
 
             ac.addAction(UIAlertAction(title: "Use", style: .default) { action in
