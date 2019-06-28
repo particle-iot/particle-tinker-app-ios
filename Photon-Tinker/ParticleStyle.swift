@@ -113,9 +113,13 @@ class ParticleButton: UIButton {
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
     }
 
+    override func setTitle(_ title: String?, for state: State) {
+        super.setTitle(title?.uppercased(), for: state)
+    }
+
     func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
         if (upperCase) {
-            super.setTitle(title?.uppercased(), for: state)
+            self.setTitle(title, for: state)
         } else {
             super.setTitle(title, for: state)
         }
@@ -158,9 +162,13 @@ class ParticleAlternativeButton: UIButton {
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
     }
 
+    override func setTitle(_ title: String?, for state: State) {
+        super.setTitle(title?.uppercased(), for: state)
+    }
+
     func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
         if (upperCase) {
-            super.setTitle(title?.uppercased(), for: state)
+            self.setTitle(title, for: state)
         } else {
             super.setTitle(title, for: state)
         }
