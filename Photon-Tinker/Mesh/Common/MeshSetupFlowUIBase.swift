@@ -779,7 +779,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         flowRunner.setSelectedNetworkPassword(password) { error in
             if error == nil {
                 //self.showJoiningNetworkView()
-                //this will happen based on
+                //this will trigger based on JoiningNetworkStarted event
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNetworkPasswordViewController {
                 vc.setWrongInput(message: error!.description)
             }
