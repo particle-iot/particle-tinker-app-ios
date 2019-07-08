@@ -412,6 +412,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 STPTheme.default().primaryBackgroundColor = ParticleStyle.TableViewBackgroundColor
 
                 let addCardViewController = STPAddCardViewController()
+                addCardViewController.delegate = self
 
                 let navigationController = UINavigationController(rootViewController: addCardViewController)
                 navigationController.navigationBar.titleTextAttributes = [
