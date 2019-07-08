@@ -778,7 +778,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func networkPasswordViewCompleted(password: String) {
         flowRunner.setSelectedNetworkPassword(password) { error in
             if error == nil {
-                self.showJoiningNetworkView()
+                //self.showJoiningNetworkView()
+                //this will happen based on
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNetworkPasswordViewController {
                 vc.setWrongInput(message: error!.description)
             }
@@ -1019,11 +1020,14 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
             case .JoiningNetworkStarted, .JoiningNetworkStep1Done, .JoiningNetworkStep2Done, .JoiningNetworkCompleted:
+
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupJoiningNetworkViewController {
                     if state == .JoiningNetworkCompleted {
                         self.flowRunner.pauseSetup()
                     }
                     vc.setState(state)
+                } else if state == .JoiningNetworkStarted {
+                    self.showJoiningNetworkView()
                 } else {
                     self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupJoiningNetworkViewController.setState was attempted when it shouldn't be: \(state)")
                 }
