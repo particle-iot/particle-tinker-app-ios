@@ -36,8 +36,8 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
     }
 
 
-    func resume(animated: Bool) {
-        (self as Fadeable).resume(animated: animated)
+    override func resume(animated: Bool) {
+        super.resume(animated: true)
 
         self.networks = []
         self.networksTableView.reloadData()

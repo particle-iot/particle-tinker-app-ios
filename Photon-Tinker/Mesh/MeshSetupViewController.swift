@@ -97,6 +97,14 @@ class MeshSetupViewController: UIViewController, Fadeable {
         view.replaceMeshSetupStrings(deviceType: self.deviceType?.description, networkName: networkName, deviceName: deviceName)
     }
 
+    func resume(animated: Bool) {
+        self.unfadeContent(animated: animated)
+    }
+
+    func fade(animated: Bool) {
+        self.fadeContent(animated: animated)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 

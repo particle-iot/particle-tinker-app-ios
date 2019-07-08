@@ -1102,6 +1102,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 self.flowRunner.rewindTo(step: vcPrev.ownerStepType!)
             } else {
                 log("Popping")
+                vcPrev.resume(animated: false)
                 self.embededNavigationController.popViewController(animated: true)
             }
         } else {

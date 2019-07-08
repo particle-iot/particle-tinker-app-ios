@@ -36,7 +36,6 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewCo
         super.resume(animated: animated)
 
         ParticleSpinner.hide(view, animated: animated)
-        unfadeContent(animated: animated)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
