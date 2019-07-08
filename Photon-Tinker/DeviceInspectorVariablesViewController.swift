@@ -65,13 +65,15 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
     override func showTutorial() {
         if (variableNames.count > 0) {
             if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-                // 1
-                let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                    // 1
+                    let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
 
-                var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1)
-                tutorial?.showAndFocus(firstCell)
+                    var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1)
+                    tutorial?.showAndFocus(firstCell)
 
-                ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
+                }
             }
         }
     }

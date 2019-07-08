@@ -249,7 +249,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     func showTutorial() {
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 //3
                 var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1) {
                     self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
