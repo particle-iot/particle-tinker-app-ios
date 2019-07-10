@@ -20,7 +20,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     func setDevice(_ device: ParticleDevice, context: MeshSetupContext? = nil) {
         self.device = device
-        self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
+        if let serial = device.serialNumber, let mobileSecret = device.mobileSecret {
+            self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
+        }
         self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self, context: context)
     }
 

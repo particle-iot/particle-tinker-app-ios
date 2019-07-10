@@ -46,7 +46,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     override func viewWillAppear(_ animated: Bool) {
         self.deviceNameLabel.text = self.device.getName()
-        self.moreActionsButton.isHidden = !device.is3rdGen()
+        //self.moreActionsButton.isHidden = !device.is3rdGen()
 
         self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
     }
@@ -223,13 +223,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
 
     @IBAction func actionButtonTapped(_ sender: UIButton) {
-        if (self.device.is3rdGen()) {
-            let vc = MeshSetupControlPanelUIManager.loadedViewController()
-            vc.setDevice(self.device)
-            self.present(vc, animated: true)
-        } else {
-            fatalError("not implemented")
-        }
+        let vc = MeshSetupControlPanelUIManager.loadedViewController()
+        vc.setDevice(self.device)
+        self.present(vc, animated: true)
     }
 
     @IBAction func backButtonTapped(_ sender: AnyObject) {
