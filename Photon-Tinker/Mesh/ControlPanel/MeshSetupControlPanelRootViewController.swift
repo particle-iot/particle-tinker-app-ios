@@ -53,7 +53,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
 
     internal func prepareContent() {
-        cells = []
+        cells = [[.name, .notes]]
 
         switch device.type {
             case .xenon, .xSeries:

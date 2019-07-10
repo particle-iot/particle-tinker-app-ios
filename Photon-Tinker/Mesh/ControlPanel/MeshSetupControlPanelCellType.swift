@@ -6,6 +6,9 @@
 import Foundation
 
 enum MeshSetupControlPanelCellType {
+    case name
+    case notes
+
     case wifi
     case cellular
     case ethernet
@@ -30,6 +33,10 @@ enum MeshSetupControlPanelCellType {
 
     func getCellTitle(context: MeshSetupContext) -> String {
         switch self {
+            case .name:
+                return MeshSetupStrings.ControlPanel.Root.Name
+            case .notes:
+                return MeshSetupStrings.ControlPanel.Root.Notes
             case .wifi:
                 return MeshSetupStrings.ControlPanel.Root.Wifi
             case .cellular:

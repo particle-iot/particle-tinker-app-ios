@@ -66,6 +66,8 @@ class MeshSetupStrings {
         struct Root {
             static let Title = "MeshSetup.ControlPanel.Root.Title".meshLocalized()
 
+            static let Name = "MeshSetup.ControlPanel.Root.Name".meshLocalized()
+            static let Notes = "MeshSetup.ControlPanel.Root.Notes".meshLocalized()
             static let Wifi = "MeshSetup.ControlPanel.Root.Wifi".meshLocalized()
             static let Mesh = "MeshSetup.ControlPanel.Root.Mesh".meshLocalized()
             static let Ethernet = "MeshSetup.ControlPanel.Root.Ethernet".meshLocalized()

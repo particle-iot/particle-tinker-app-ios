@@ -105,6 +105,8 @@
 "MeshSetup.Default.DeviceType" = "device";
 
 "MeshSetup.ControlPanel.Root.Title" = "Control Panel";
+"MeshSetup.ControlPanel.Root.Name" = "Device Name";
+"MeshSetup.ControlPanel.Root.Notes" = "Notes";
 "MeshSetup.ControlPanel.Root.Wifi" = "Wi-Fi";
 "MeshSetup.ControlPanel.Root.Mesh" = "Mesh";
 "MeshSetup.ControlPanel.Root.Ethernet" = "Ethernet";
