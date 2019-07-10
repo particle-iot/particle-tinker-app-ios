@@ -1116,7 +1116,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     }
     
     @IBAction func cancelTapped(_ sender: Any) {
-        if let _ = sender as? MeshSetupUIBase {
+        if (sender is MeshSetupUIBase) || (self.flowRunner.currentFlow == nil) {
             self.flowRunner.cancelSetup()
             self.dismiss(animated: true)
         } else {

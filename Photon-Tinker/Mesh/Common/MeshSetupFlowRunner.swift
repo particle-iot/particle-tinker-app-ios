@@ -16,7 +16,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
     internal var context: MeshSetupContext
 
-    internal var currentFlow: [MeshSetupStep]!
+    internal var currentFlow: [MeshSetupStep]?
     internal var currentStepIdx: Int = 0
     internal var currentStep: MeshSetupStep? {
         if let currentFlow = currentFlow {
@@ -70,8 +70,12 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
         currentStep!.rewindFrom()
 
-        for i in 0 ..< self.currentFlow.count {
-            if (self.currentFlow[i].isKind(of: step)) {
+        guard let currentFlow = self.currentFlow else {
+            return .IllegalOperation
+        }
+
+        for i in 0 ..< currentFlow.count {
+            if (currentFlow[i].isKind(of: step)) {
                 if (i >= self.currentStepIdx) {
                     //trying to "rewind" forward
                     return .IllegalOperation
@@ -115,6 +119,10 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
     internal func runCurrentStep() {
         if (context.canceled) {
+            return
+        }
+
+        guard let currentFlow = self.currentFlow else {
             return
         }
 

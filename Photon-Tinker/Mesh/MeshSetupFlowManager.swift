@@ -108,8 +108,12 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
             self.log("Rewinding flow to internetConnectedPreflow")
         }
 
-        for i in 0 ..< self.currentFlow.count {
-            if (self.currentFlow[i].isKind(of: step)) {
+        guard let currentFlow = self.currentFlow else {
+            return .IllegalOperation
+        }
+
+        for i in 0 ..< currentFlow.count {
+            if (currentFlow[i].isKind(of: step)) {
                 if (i >= self.currentStepIdx) {
                     //trying to "rewind" forward
                     return .IllegalOperation
