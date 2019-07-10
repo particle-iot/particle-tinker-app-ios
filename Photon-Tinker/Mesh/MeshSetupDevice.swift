@@ -15,6 +15,7 @@ internal struct MeshSetupDevice {
 
     var credentials: MeshSetupPeripheralCredentials?
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
+    var notes: String? //notes stored in cloud
 
     var transceiver: MeshSetupProtocolTransceiver?
 
