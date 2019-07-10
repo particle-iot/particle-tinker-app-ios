@@ -230,8 +230,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
 
-    func resume(animated: Bool) {
-        (self as Fadeable).resume(animated: animated)
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
         self.startCaptureSession()
     }
 

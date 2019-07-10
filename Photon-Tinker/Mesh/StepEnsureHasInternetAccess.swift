@@ -8,20 +8,31 @@ import Foundation
 class StepEnsureHasInternetAccess : MeshSetupStep {
     private var checkDeviceHasIPStartTime: Date?
     private var checkSimActiveRetryCount: Int = 0
+    private var activeStateBroadcasted: Bool = false
+    private var startStateBroadcasted: Bool = false
 
     override func start() {
         guard let context = self.context else {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStarted)
-
-        if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone! == false) {
+        if (!startStateBroadcasted) {
+            self.startStateBroadcasted = true
+            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStarted)
+            self.start()
+        } else if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone! == false) {
             self.setDeviceSetupDone()
         } else if (context.targetDevice.hasActiveInternetInterface() &&
                 context.targetDevice.activeInternetInterface! == .ppp &&
                 (context.targetDevice.sim!.active == nil || context.targetDevice.sim!.active! == false)) {
             self.activateSim()
+        } else if (!self.activeStateBroadcasted) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                //if sim was active, the progress screen would get stuck in activating sim card view
+                self.activeStateBroadcasted = true
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
+                self.start()
+            }
         } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == true) {
             self.stopTargetDeviceListening()
         } else if (context.targetDevice.hasInternetAddress == nil || context.targetDevice.hasInternetAddress! == false) {
@@ -35,6 +46,8 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
     override func reset() {
         self.checkDeviceHasIPStartTime = nil
         self.checkSimActiveRetryCount = 0
+        self.startStateBroadcasted = false
+        self.activeStateBroadcasted = false
     }
 
     private func setDeviceSetupDone() {
@@ -57,6 +70,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             }
         }
     }
+
 
 
     private func activateSim() {
@@ -89,6 +103,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
                 self.fail(withReason: .FailedToActivateSim, nsError: error!)
                 return
             } else {
+                self.activeStateBroadcasted = true
                 context.targetDevice.sim!.active = true
                 context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
                 self.start()

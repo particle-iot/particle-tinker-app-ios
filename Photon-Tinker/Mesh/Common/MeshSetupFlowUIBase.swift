@@ -412,6 +412,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 STPTheme.default().primaryBackgroundColor = ParticleStyle.TableViewBackgroundColor
 
                 let addCardViewController = STPAddCardViewController()
+                addCardViewController.delegate = self
 
                 let navigationController = UINavigationController(rootViewController: addCardViewController)
                 navigationController.navigationBar.titleTextAttributes = [
@@ -777,7 +778,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func networkPasswordViewCompleted(password: String) {
         flowRunner.setSelectedNetworkPassword(password) { error in
             if error == nil {
-                self.showJoiningNetworkView()
+                //self.showJoiningNetworkView()
+                //this will trigger based on JoiningNetworkStarted event
             } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNetworkPasswordViewController {
                 vc.setWrongInput(message: error!.description)
             }
@@ -1018,11 +1020,14 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
             case .JoiningNetworkStarted, .JoiningNetworkStep1Done, .JoiningNetworkStep2Done, .JoiningNetworkCompleted:
+
                 if let vc = self.embededNavigationController.topViewController as? MeshSetupJoiningNetworkViewController {
                     if state == .JoiningNetworkCompleted {
                         self.flowRunner.pauseSetup()
                     }
                     vc.setState(state)
+                } else if state == .JoiningNetworkStarted {
+                    self.showJoiningNetworkView()
                 } else {
                     self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupJoiningNetworkViewController.setState was attempted when it shouldn't be: \(state)")
                 }
@@ -1102,6 +1107,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 self.flowRunner.rewindTo(step: vcPrev.ownerStepType!)
             } else {
                 log("Popping")
+                vcPrev.resume(animated: false)
                 self.embededNavigationController.popViewController(animated: true)
             }
         } else {
