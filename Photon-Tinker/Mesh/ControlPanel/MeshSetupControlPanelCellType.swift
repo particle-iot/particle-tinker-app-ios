@@ -99,6 +99,10 @@ enum MeshSetupControlPanelCellType {
                     return ""
                     //return MeshSetupStrings.ControlPanel.Mesh.NoNetworkInfo
                 }
+            case .name:
+                return context.targetDevice.name
+            case .notes:
+                return context.targetDevice.notes
             default:
                 return nil
         }

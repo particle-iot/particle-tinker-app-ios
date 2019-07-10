@@ -66,9 +66,21 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 break
             case .wifi:
                 showControlPanelWifiView()
+            case .notes:
+                showNotes()
+            case .name:
+                showName()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
+    }
+
+    private func showNotes() {
+
+    }
+
+    private func showName() {
+
     }
 
     private func showDocumentation() {
