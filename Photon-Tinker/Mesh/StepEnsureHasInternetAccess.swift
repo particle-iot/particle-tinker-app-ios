@@ -26,7 +26,8 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
                 context.targetDevice.activeInternetInterface! == .ppp &&
                 (context.targetDevice.sim!.active == nil || context.targetDevice.sim!.active! == false)) {
             self.activateSim()
-        } else if (!self.activeStateBroadcasted) {
+        } else if (!self.activeStateBroadcasted && context.targetDevice.hasActiveInternetInterface() &&
+                context.targetDevice.activeInternetInterface! == .ppp) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 //if sim was active, the progress screen would get stuck in activating sim card view
                 self.activeStateBroadcasted = true
