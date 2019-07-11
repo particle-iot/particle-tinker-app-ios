@@ -313,6 +313,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     internal func flowCompleteViewCompleted() {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi:
+                controlPanelManager.context.selectedWifiNetworkInfo = nil
+
                 showControlPanelWifiView()
             case .actionChangeSimStatus, .actionChangeDataLimit:
                 controlPanelManager.context.targetDevice.setSimDataLimit = nil
