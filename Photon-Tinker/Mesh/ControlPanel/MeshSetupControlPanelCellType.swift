@@ -175,7 +175,7 @@ enum MeshSetupControlPanelCellType {
         if (self == .unclaim) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.RedTextColor : ParticleStyle.DetailsTextColor)
-        } else if (self == .actionChangeSimStatus) {
+        } else if (self == .actionChangeSimStatus || self == .actionChangePinsStatus) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 

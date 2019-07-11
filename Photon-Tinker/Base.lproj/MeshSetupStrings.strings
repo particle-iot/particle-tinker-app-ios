@@ -163,8 +163,9 @@
 
 "MeshSetup.ControlPanel.Ethernet.Title" = "Ethernet";
 "MeshSetup.ControlPanel.Ethernet.ChangePinsStatus" = "Ethernet Pins";
-"MeshSetup.ControlPanel.Ethernet.Active" = "Enabled";
-"MeshSetup.ControlPanel.Ethernet.Inactive" = "Disabled";
+"MeshSetup.ControlPanel.Ethernet.Active" = "Active";
+"MeshSetup.ControlPanel.Ethernet.Inactive" = "Inactive";
+"MeshSetup.ControlPanel.Ethernet.Footer" = "To enable Ethernet connectivity using the Particle Ethernet Featherwing, the SPI interface (SCK, MOSI, MISO) is used. Activating the Ethernet interface uses pins D3, D4, and D5 for control signals, and you will not be able to use those pins in your project.";
 
 "MeshSetup.ControlPanel.Mesh.Title" = "Mesh";
 "MeshSetup.ControlPanel.Mesh.JoinNetwork" = "Join network";

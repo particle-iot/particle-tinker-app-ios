@@ -149,6 +149,7 @@ class MeshSetupStrings {
 
             static let Active = "MeshSetup.ControlPanel.Ethernet.Active".meshLocalized()
             static let Inactive = "MeshSetup.ControlPanel.Ethernet.Inactive".meshLocalized()
+            static let Footer = "MeshSetup.ControlPanel.Ethernet.Footer".meshLocalized()
         }
 
         struct Mesh {
