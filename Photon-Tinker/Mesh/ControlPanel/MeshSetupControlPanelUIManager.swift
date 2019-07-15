@@ -212,13 +212,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     func controlPanelMeshViewCompleted(action: MeshSetupControlPanelCellType) {
         currentAction = action
         switch action {
-            case .actionMeshNetworkInfo:
-                showMeshNetworkInfo()
-            case .actionJoinNetwork:
+            case .actionAddToMeshNetwork:
                 break
-            case .actionCreateNetwork:
-                break
-            case .actionLeaveNetwork:
+            case .actionLeaveMeshNetwork:
                 break
             case .actionPromoteToGateway:
                 break

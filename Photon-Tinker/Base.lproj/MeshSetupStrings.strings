@@ -70,8 +70,8 @@
 
 
 "MeshSetup.Prompt.ErrorTitle" = "Error";
-"MeshSetup.Prompt.CancelSetupTitle" = "Cancel setup";
-"MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to cancel setup?";
+"MeshSetup.Prompt.CancelSetupTitle" = "End setup";
+"MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to stop setting up your device?";
 "MeshSetup.Prompt.LeaveNetworkTitle" = "Leave current network?";
 "MeshSetup.Prompt.LeaveNetworkText" = "The device you are trying to set up is already part of a mesh network. Would you like to have the device leave its current mesh network to continue setup?";
 "MeshSetup.Prompt.NoCameraPermissionsTitle" = "Error";
@@ -91,8 +91,8 @@
 "MeshSetup.Action.Continue" = "Continue";
 "MeshSetup.Action.LeaveNetwork" = "Leave Network";
 "MeshSetup.Action.DontLeaveNetwork" = "Cancel Setup";
-"MeshSetup.Action.CancelSetup" = "Cancel";
-"MeshSetup.Action.ContinueSetup" = "Don't Cancel";
+"MeshSetup.Action.CancelSetup" = "Yes";
+"MeshSetup.Action.ContinueSetup" = "No";
 "MeshSetup.Action.ContactSupport" = "Contact Support";
 "MeshSetup.Action.OpenSettings" = "Open Settings";
 "MeshSetup.Action.SwitchToControlPanel" = "Switch to Control Panel";
@@ -168,17 +168,21 @@
 "MeshSetup.ControlPanel.Ethernet.Footer" = "To enable Ethernet connectivity using the Particle Ethernet Featherwing, the SPI interface (SCK, MOSI, MISO) is used. Activating the Ethernet interface uses pins D3, D4, and D5 for control signals, and you will not be able to use those pins in your project.";
 
 "MeshSetup.ControlPanel.Mesh.Title" = "Mesh";
-"MeshSetup.ControlPanel.Mesh.JoinNetwork" = "Join network";
-"MeshSetup.ControlPanel.Mesh.CreateNetwork" = "Create network";
+"MeshSetup.ControlPanel.Mesh.AddToNetwork" = "Add to network";
 "MeshSetup.ControlPanel.Mesh.LeaveNetwork" = "Leave network";
 "MeshSetup.ControlPanel.Mesh.NetworkInfo" = "Network Info";
-"MeshSetup.ControlPanel.Mesh.NoNetworkInfo" = "No Network";
+"MeshSetup.ControlPanel.Mesh.DeviceInfo" = "Device Info";
+"MeshSetup.ControlPanel.Mesh.NoNetworkInfo" = "No network";
 
 "MeshSetup.ControlPanel.Mesh.NetworkName" = "Name";
 "MeshSetup.ControlPanel.Mesh.NetworkID" = "ID";
 "MeshSetup.ControlPanel.Mesh.NetworkExtPanID" = "ExtPanID";
 "MeshSetup.ControlPanel.Mesh.NetworkPanID" = "PanID";
 "MeshSetup.ControlPanel.Mesh.NetworkChannel" = "Channel";
+"MeshSetup.ControlPanel.Mesh.DeviceCount" = "Device Count";
+"MeshSetup.ControlPanel.Mesh.DeviceRole" = "Role";
+"MeshSetup.ControlPanel.Mesh.DeviceRoleNode" = "Node";
+"MeshSetup.ControlPanel.Mesh.DeviceRoleGateway" = "Gateway";
 
 "MeshSetup.ControlPanel.Mesh.PromoteToGateway" = "Promote to gateway";
 "MeshSetup.ControlPanel.Mesh.DemoteFromGateway" = "Demote from gateway";

@@ -24,12 +24,20 @@ enum MeshSetupControlPanelCellType {
 
     case actionChangePinsStatus
 
-    case actionJoinNetwork
-    case actionCreateNetwork
-    case actionLeaveNetwork
     case actionPromoteToGateway
     case actionDemoteFromGateway
-    case actionMeshNetworkInfo
+
+
+    case meshInfoNetworkName
+    case meshInfoNetworkID
+    case meshInfoNetworkExtPanID
+    case meshInfoNetworkPanID
+    case meshInfoNetworkChannel
+    case meshInfoNetworkDeviceCount
+    case meshInfoDeviceRole
+
+    case actionLeaveMeshNetwork
+    case actionAddToMeshNetwork
 
     func getCellTitle(context: MeshSetupContext) -> String {
         switch self {
@@ -63,19 +71,32 @@ enum MeshSetupControlPanelCellType {
             case .actionChangePinsStatus:
                 return MeshSetupStrings.ControlPanel.Ethernet.ChangePinsStatus
 
-            case .actionJoinNetwork:
-                return MeshSetupStrings.ControlPanel.Mesh.JoinNetwork
-            case .actionCreateNetwork:
-                return MeshSetupStrings.ControlPanel.Mesh.CreateNetwork
-            case .actionLeaveNetwork:
+
+            case .meshInfoNetworkName:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkName
+            case .meshInfoNetworkID:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkID
+            case .meshInfoNetworkExtPanID:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkExtPanID
+            case .meshInfoNetworkPanID:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkPanID
+            case .meshInfoNetworkChannel:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkChannel
+            case .meshInfoNetworkDeviceCount:
+                return MeshSetupStrings.ControlPanel.Mesh.DeviceCount
+            case .meshInfoDeviceRole:
+                return MeshSetupStrings.ControlPanel.Mesh.DeviceRole
+
+            case .actionLeaveMeshNetwork:
                 return MeshSetupStrings.ControlPanel.Mesh.LeaveNetwork
+            case .actionAddToMeshNetwork:
+                return MeshSetupStrings.ControlPanel.Mesh.AddToNetwork
             case .actionPromoteToGateway:
                 return MeshSetupStrings.ControlPanel.Mesh.PromoteToGateway
             case .actionDemoteFromGateway:
                 return MeshSetupStrings.ControlPanel.Mesh.DemoteFromGateway
-            case .actionMeshNetworkInfo:
-                return MeshSetupStrings.ControlPanel.Mesh.NetworkInfo
-        }
+
+}
     }
 
     func getCellDetails(context: MeshSetupContext) -> String? {
@@ -92,17 +113,36 @@ enum MeshSetupControlPanelCellType {
                 return context.targetDevice.ethernetDetectionFeature! ? MeshSetupStrings.ControlPanel.Ethernet.Active : MeshSetupStrings.ControlPanel.Ethernet.Inactive
             case .actionChangeDataLimit:
                 return MeshSetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(context.targetDevice.sim!.dataLimit!))
-            case .actionMeshNetworkInfo:
-                if let network = context.targetDevice.meshNetworkInfo {
-                    return network.name
-                } else {
-                    return ""
-                    //return MeshSetupStrings.ControlPanel.Mesh.NoNetworkInfo
-                }
             case .name:
                 return context.targetDevice.name
             case .notes:
                 return context.targetDevice.notes
+
+            case .meshInfoNetworkName:
+                if let _ = context.targetDevice.meshNetworkInfo {
+                    return context.targetDevice.meshNetworkInfo!.name
+                } else {
+                    return MeshSetupStrings.ControlPanel.Mesh.NoNetworkInfo
+                }
+            case .meshInfoNetworkID:
+                return context.targetDevice.meshNetworkInfo!.networkID
+            case .meshInfoNetworkExtPanID:
+                return context.targetDevice.meshNetworkInfo!.extPanID
+            case .meshInfoNetworkPanID:
+                return String(context.targetDevice.meshNetworkInfo!.panID)
+            case .meshInfoNetworkChannel:
+                return String(context.targetDevice.meshNetworkInfo!.channel)
+            case .meshInfoNetworkDeviceCount:
+                if let apiNetworks = context.apiNetworks {
+                    for network in apiNetworks {
+                        if (context.targetDevice.meshNetworkInfo!.networkID == network.id) {
+                            return String(network.deviceCount)
+                        }
+                    }
+                }
+                return nil
+            case .meshInfoDeviceRole:
+                return context.targetDevice.networkRole! == .gateway ? MeshSetupStrings.ControlPanel.Mesh.DeviceRoleGateway : MeshSetupStrings.ControlPanel.Mesh.DeviceRoleNode
             default:
                 return nil
         }
@@ -110,13 +150,9 @@ enum MeshSetupControlPanelCellType {
 
     func getCellEnabled(context: MeshSetupContext) -> Bool {
         switch self {
-            case .actionMeshNetworkInfo:
-                if let network = context.targetDevice.meshNetworkInfo {
-                    return true
-                } else {
-                    return false
-                }
             case .actionChangeSimStatus:
+                return false
+            case .meshInfoNetworkName, .meshInfoNetworkID, .meshInfoNetworkExtPanID, .meshInfoNetworkPanID, .meshInfoNetworkPanID, .meshInfoNetworkChannel, .meshInfoDeviceRole, .meshInfoNetworkDeviceCount:
                 return false
             default:
                 return true
@@ -140,14 +176,10 @@ enum MeshSetupControlPanelCellType {
 
     func getDisclosureIndicator(context: MeshSetupContext) -> UITableViewCell.AccessoryType {
         switch self {
-            case .unclaim:
+            case .unclaim, .actionLeaveMeshNetwork:
                 return .none
-            case .actionMeshNetworkInfo:
-                if let network = context.targetDevice.meshNetworkInfo {
-                    return .disclosureIndicator
-                } else {
-                    return .none
-                }
+            case .meshInfoNetworkName, .meshInfoNetworkID, .meshInfoNetworkExtPanID, .meshInfoNetworkPanID, .meshInfoNetworkPanID, .meshInfoNetworkChannel, .meshInfoNetworkDeviceCount, .meshInfoDeviceRole:
+                return .none
             case .actionChangeSimStatus:
                 return .none
             default:
@@ -172,7 +204,7 @@ enum MeshSetupControlPanelCellType {
 
         var cell:MeshCell! = nil
 
-        if (self == .unclaim) {
+        if (self == .unclaim || self == .actionLeaveMeshNetwork) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.RedTextColor : ParticleStyle.DetailsTextColor)
         } else if (self == .actionChangeSimStatus || self == .actionChangePinsStatus) {

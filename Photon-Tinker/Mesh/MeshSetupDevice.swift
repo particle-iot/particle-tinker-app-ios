@@ -14,8 +14,11 @@ internal struct MeshSetupDevice {
     var setSimDataLimit: Int? //set by user
 
     var credentials: MeshSetupPeripheralCredentials?
+
+    //used by control panel
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
     var notes: String? //notes stored in cloud
+    var networkRole: ParticleDeviceNetworkRole?
 
     var transceiver: MeshSetupProtocolTransceiver?
 

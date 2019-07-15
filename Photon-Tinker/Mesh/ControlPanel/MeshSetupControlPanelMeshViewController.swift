@@ -27,12 +27,26 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
 
     override func prepareContent() {
         if (self.context.targetDevice.meshNetworkInfo != nil) {
-            cells = [[.actionMeshNetworkInfo]]
+            cells = [[.meshInfoNetworkName, .meshInfoNetworkID, .meshInfoNetworkExtPanID, .meshInfoNetworkPanID, .meshInfoNetworkChannel, .meshInfoNetworkDeviceCount], [.meshInfoDeviceRole], [.actionLeaveMeshNetwork]]
         } else {
-            cells = [[.actionMeshNetworkInfo]]
+            cells = [[.meshInfoNetworkName], [.actionAddToMeshNetwork]]
+        }
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+            case 0:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkInfo
+            case 1:
+                if (self.context.targetDevice.meshNetworkInfo != nil) {
+                    return MeshSetupStrings.ControlPanel.Mesh.DeviceInfo
+                } else {
+                    return ""
+                }
+            default:
+                return ""
         }
 
-        //cells = [[.actionJoinNetwork, .actionLeaveNetwork, .actionCreateNetwork, .actionPromoteToGateway, .actionDemoteFromGateway]]
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
