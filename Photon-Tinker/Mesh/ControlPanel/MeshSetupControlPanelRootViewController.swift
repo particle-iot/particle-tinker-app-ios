@@ -89,6 +89,11 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         MeshSetupControlPanelCellType.prepareTableView(tableView)
     }
 
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        self.tableView.reloadData()
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return cells.count
@@ -121,7 +126,6 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         tableView.deselectRow(at: indexPath, animated: true)
 
         self.fade()
-
         self.callback(cells[indexPath.section][indexPath.row])
     }
 

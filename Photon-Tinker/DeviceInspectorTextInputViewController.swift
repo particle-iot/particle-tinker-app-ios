@@ -30,14 +30,14 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
         super.init(nibName: nil, bundle: nil)
 
         self.modalTransitionStyle = .crossDissolve
-        self.modalPresentationStyle = .overCurrentContext
+        self.modalPresentationStyle = .overFullScreen
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         self.modalTransitionStyle = .crossDissolve
-        self.modalPresentationStyle = .overCurrentContext
+        self.modalPresentationStyle = .overFullScreen
     }
 
     func setup(caption: String, multiline: Bool, value: String? = "", onCompletion: @escaping (String) -> ()) {

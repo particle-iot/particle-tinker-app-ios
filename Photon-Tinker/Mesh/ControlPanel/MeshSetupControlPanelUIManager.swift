@@ -67,20 +67,55 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .wifi:
                 showControlPanelWifiView()
             case .notes:
-                showNotes()
+                editNotes()
             case .name:
-                showName()
+                rename()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
     }
 
-    private func showNotes() {
+    func rename() {
+        var vc = DeviceInspectorTextInputViewController.storyboardViewController()
+        vc.setup(caption: "Name", multiline: false, value: self.device.name, onCompletion: {
+            [weak self] value in
+            if let self = self {
+                self.device.rename(value) { error in
+                    if let error = error {
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                    } else {
+                        self.controlPanelManager.context.targetDevice.name = self.device.getName()
+                        let root = self.embededNavigationController!.topViewController as! MeshSetupViewController
+                        root.resume(animated: false)
+                        vc.dismiss(animated: true)
+                    }
+                }
+            }
+        })
+        self.present(vc, animated: true)
 
     }
 
-    private func showName() {
 
+    func editNotes() {
+        var vc = DeviceInspectorTextInputViewController.storyboardViewController()
+        vc.setup(caption: "Notes", multiline: true, value: self.device.notes, onCompletion: {
+            [weak self] value in
+            if let self = self {
+                self.device.setNotes(value) { error in
+                    if let error = error {
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                    } else {
+                        self.controlPanelManager.context.targetDevice.notes = self.device.notes
+                        let root = self.embededNavigationController!.topViewController as! MeshSetupViewController
+                        root.resume(animated: false)
+                        vc.dismiss(animated: true)
+                    }
+                }
+            }
+
+        })
+        self.present(vc, animated: true)
     }
 
     private func showDocumentation() {

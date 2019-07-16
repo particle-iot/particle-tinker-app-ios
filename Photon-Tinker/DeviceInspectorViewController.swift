@@ -46,7 +46,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     override func viewWillAppear(_ animated: Bool) {
         self.deviceNameLabel.text = self.device.getName()
-        //self.moreActionsButton.isHidden = !device.is3rdGen()
+        self.updateWithoutReload()
 
         self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
     }
