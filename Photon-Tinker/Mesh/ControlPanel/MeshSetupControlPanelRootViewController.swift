@@ -125,7 +125,11 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        self.fade()
+        let command = cells[indexPath.section][indexPath.row]
+
+        let showSpinner = (command != .notes && command != .name)
+        self.fadeContent(animated: true, showSpinner: showSpinner)
+
         self.callback(cells[indexPath.section][indexPath.row])
     }
 

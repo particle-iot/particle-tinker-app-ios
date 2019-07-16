@@ -25,6 +25,7 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     private var multiline: Bool!
     private var caption: String!
     private var inputValue: String!
+    private var blurBackground:Bool!
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -40,11 +41,12 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
         self.modalPresentationStyle = .overFullScreen
     }
 
-    func setup(caption: String, multiline: Bool, value: String? = "", onCompletion: @escaping (String) -> ()) {
+    func setup(caption: String, multiline: Bool, value: String? = "", blurBackground: Bool = true, onCompletion: @escaping (String) -> ()) {
         self.multiline = multiline
         self.caption = caption
         self.inputValue = value
         self.onCompletion = onCompletion
+        self.blurBackground = blurBackground
     }
 
     override func viewDidLoad() {
@@ -54,12 +56,20 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
         //make transparent
         self.view.backgroundColor = .clear
 
-        //add blur
-        let blurEffect = UIBlurEffect(style: .dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.insertSubview(blurEffectView, at: 0)
+        if (self.blurBackground) {
+            //add blur
+            let blurEffect = UIBlurEffect(style: .dark)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = self.view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.view.insertSubview(blurEffectView, at: 0)
+        } else {
+            //add fade
+            let fadeView = UIView(frame: self.view.bounds)
+            fadeView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            fadeView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+            self.view.insertSubview(fadeView, at: 0)
+        }
 
         self.inputTextField.delegate = self
 

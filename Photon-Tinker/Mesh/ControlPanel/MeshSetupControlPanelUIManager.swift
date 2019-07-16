@@ -77,7 +77,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     func rename() {
         var vc = DeviceInspectorTextInputViewController.storyboardViewController()
-        vc.setup(caption: "Name", multiline: false, value: self.device.name, onCompletion: {
+        vc.setup(caption: "Name", multiline: false, value: self.device.name, blurBackground: false, onCompletion: {
             [weak self] value in
             if let self = self {
                 self.device.rename(value) { error in
@@ -99,7 +99,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     func editNotes() {
         var vc = DeviceInspectorTextInputViewController.storyboardViewController()
-        vc.setup(caption: "Notes", multiline: true, value: self.device.notes, onCompletion: {
+        vc.setup(caption: "Notes", multiline: true, value: self.device.notes, blurBackground: false, onCompletion: {
             [weak self] value in
             if let self = self {
                 self.device.setNotes(value) { error in
