@@ -199,6 +199,9 @@
 "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Title" = "Success";
 "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text" = "Wi-Fi credentials were successfully added to {{deviceName}}";
 
+"MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Title" = "Success";
+"MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Text" = "{{deviceName}} was removed from mesh network";
+
 "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Title" = "Success";
 "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Text" = "SIM data limit was changed";
 

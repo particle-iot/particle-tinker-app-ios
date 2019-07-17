@@ -195,6 +195,13 @@ class MeshSetupStrings {
                 static let Text = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text".meshLocalized()
             }
 
+            struct LeaveMeshNetwork {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Text".meshLocalized()
+            }
+
+
+
             struct ChangeDataLimit {
                 static let Title = "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Title".meshLocalized()
                 static let Text = "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Text".meshLocalized()

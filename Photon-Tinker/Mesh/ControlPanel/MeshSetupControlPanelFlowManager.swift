@@ -117,6 +117,20 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
 
+    fileprivate let actionLeaveMeshNetworkFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepEnsureNotOnMeshNetwork(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionLeaveMeshNetwork() {
+        self.currentFlow = actionLeaveMeshNetworkFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
+
     override func switchFlow() {
         self.currentFlow = nil
         self.currentStepIdx = 0

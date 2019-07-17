@@ -256,7 +256,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionAddToMeshNetwork:
                 break
             case .actionLeaveMeshNetwork:
-                break
+                controlPanelManager.context.targetDevice.networkRole = nil
+                controlPanelManager.context.userSelectedToLeaveNetwork = true
+                controlPanelManager.actionLeaveMeshNetwork()
             case .actionPromoteToGateway:
                 break
             case .actionDemoteFromGateway:
@@ -322,7 +324,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         switch currentAction! {
             case .actionNewWifi, .actionManageWifi,
                  .actionChangePinsStatus,
-                 .actionChangeSimStatus, .actionChangeDataLimit:
+                 .actionChangeSimStatus, .actionChangeDataLimit,
+                 .actionLeaveMeshNetwork, .actionAddToMeshNetwork:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
@@ -364,6 +367,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
                 currentAction = .ethernet
                 controlPanelManager.actionPairEthernet()
+            case .actionLeaveMeshNetwork:
+                controlPanelManager.context.userSelectedToLeaveNetwork = nil
+
+                currentAction = .mesh
+                controlPanelManager.actionPairMesh()
             default:
                 break;
         }
