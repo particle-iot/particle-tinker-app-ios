@@ -48,10 +48,6 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         self.context = context
         self.device = device
 
-        self.context.targetDevice.name = self.device.getName()
-        self.context.targetDevice.notes = self.device.notes
-        self.context.targetDevice.networkRole = self.device.networkRole
-
         self.prepareContent()
     }
 

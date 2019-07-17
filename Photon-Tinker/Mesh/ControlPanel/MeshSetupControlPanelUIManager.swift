@@ -23,7 +23,13 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         if let serial = device.serialNumber, let mobileSecret = device.mobileSecret {
             self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
         }
+
         self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self, context: context)
+
+        self.flowRunner.context.targetDevice.deviceId = self.device.id
+        self.flowRunner.context.targetDevice.name = self.device.getName()
+        self.flowRunner.context.targetDevice.notes = self.device.notes
+        self.flowRunner.context.targetDevice.networkRole = self.device.networkRole
     }
 
     override internal func setupInitialViewController() {
