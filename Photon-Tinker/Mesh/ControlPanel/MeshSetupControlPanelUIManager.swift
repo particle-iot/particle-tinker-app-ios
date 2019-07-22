@@ -63,15 +63,12 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 showUnclaim()
             case .mesh:
                 controlPanelManager.actionPairMesh()
-                break
             case .cellular:
                 controlPanelManager.actionPairCellular()
-                break
             case .ethernet:
                 controlPanelManager.actionPairEthernet()
-                break
             case .wifi:
-                showControlPanelWifiView()
+                controlPanelManager.actionPairWifi()
             case .notes:
                 editNotes()
             case .name:
@@ -331,6 +328,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 showControlPanelMeshView()
             case .ethernet:
                 showControlPanelEthernetView()
+            case .wifi:
+                showControlPanelWifiView()
             case .cellular:
                 showControlPanelCellularView()
             default:
@@ -355,7 +354,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionNewWifi, .actionManageWifi:
                 controlPanelManager.context.selectedWifiNetworkInfo = nil
 
-                showControlPanelWifiView()
+                currentAction = .wifi
+                controlPanelManager.actionPairWifi()
             case .actionChangeSimStatus, .actionChangeDataLimit:
                 controlPanelManager.context.targetDevice.setSimDataLimit = nil
                 controlPanelManager.context.targetDevice.setSimActive = nil

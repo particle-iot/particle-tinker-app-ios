@@ -844,7 +844,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetCurrentWifiNetworks(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
+    func sendGetCurrentWifiNetwork(callback: @escaping (ControlReplyErrorType, MeshSetupNewWifiNetworkInfo?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_GetCurrentNetworkRequest()
 
         let data = self.prepareRequestMessage(type: .GetCurrentWifiNetwork, payload: self.serialize(message: requestMsgPayload))
@@ -852,7 +852,14 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Wifi_GetCurrentNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_GetCurrentNetworkReply
-                callback(rm.result, decodedReply.ssid)
+
+                var network = MeshSetupNewWifiNetworkInfo()
+                network.ssid = decodedReply.ssid
+                network.bssid = decodedReply.bssid
+                network.channel = decodedReply.channel
+                network.rssi = decodedReply.rssi
+
+                callback(rm.result, network)
             } else {
                 callback(.TIMEOUT, nil)
             }

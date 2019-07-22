@@ -51,6 +51,7 @@ internal struct MeshSetupDevice {
     var meshNetworkInfo: MeshSetupNetworkInfo?
     var meshNetworks: [MeshSetupNetworkInfo]?
 
+    var wifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
 
     var bluetoothName: String? {

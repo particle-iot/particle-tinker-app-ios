@@ -52,6 +52,20 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
+    fileprivate let actionPairWifiFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepExitListeningMode(),
+        StepGetWifiNetwork(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionPairWifi() {
+        self.currentFlow = actionPairMeshFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
     fileprivate let actionPairCellularFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
