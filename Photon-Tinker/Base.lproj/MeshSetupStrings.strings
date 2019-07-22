@@ -122,6 +122,12 @@
 "MeshSetup.ControlPanel.Wifi.Title" = "Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.AddNewWifi" = "Connect to new Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.ManageWifi" = "Manage Wi-Fi";
+"MeshSetup.ControlPanel.Wifi.NetworkInfo" = "Network Info";
+"MeshSetup.ControlPanel.Wifi.SSID" = "SSID";
+"MeshSetup.ControlPanel.Wifi.BSSID " = "BSSID";
+"MeshSetup.ControlPanel.Wifi.Channel" = "Channel";
+"MeshSetup.ControlPanel.Wifi.RSSI" = "RSSI";
+"MeshSetup.ControlPanel.Wifi.NoNetworkInfo" = "No network";
 
 "MeshSetup.ControlPanel.Cellular.Title" = "Cellular";
 "MeshSetup.ControlPanel.Cellular.ChangeSimStatus" = "SIM Status";

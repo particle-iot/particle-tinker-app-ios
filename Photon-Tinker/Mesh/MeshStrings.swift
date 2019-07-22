@@ -88,6 +88,13 @@ class MeshSetupStrings {
 
             static let AddNewWifi = "MeshSetup.ControlPanel.Wifi.AddNewWifi".meshLocalized()
             static let ManageWifi = "MeshSetup.ControlPanel.Wifi.ManageWifi".meshLocalized()
+
+            static let NetworkInfo = "MeshSetup.ControlPanel.Wifi.NetworkInfo".meshLocalized()
+            static let SSID = "MeshSetup.ControlPanel.Wifi.SSID".meshLocalized()
+            static let BSSID = "MeshSetup.ControlPanel.Wifi.BSSID ".meshLocalized()
+            static let Channel = "MeshSetup.ControlPanel.Wifi.Channel".meshLocalized()
+            static let RSSI = "MeshSetup.ControlPanel.Wifi.RSSI".meshLocalized()
+            static let NoNetworkInfo = "MeshSetup.ControlPanel.Wifi.NoNetworkInfo".meshLocalized()
         }
 
         struct Cellular {

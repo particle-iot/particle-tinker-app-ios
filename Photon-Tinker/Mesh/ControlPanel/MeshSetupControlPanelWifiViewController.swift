@@ -19,10 +19,28 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
     }
 
     override func prepareContent() {
-        cells = [[.actionNewWifi]]//, .actionManageWifi]]
+        if (self.context.targetDevice.wifiNetworkInfo != nil) {
+            cells = [[.wifiInfoSSID, .wifiInfoChannel, .wifiInfoRSSI], [.actionNewWifi]]
+        } else {
+            cells = [[.wifiInfoSSID], [.actionNewWifi]]
+        }
     }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+            case 0:
+                return MeshSetupStrings.ControlPanel.Wifi.NetworkInfo
+            default:
+                return ""
+        }
+
+    }
+
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+
+
+
 }

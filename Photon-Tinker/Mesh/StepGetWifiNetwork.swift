@@ -18,7 +18,7 @@ class StepGetWifiNetwork: MeshSetupStep {
             return
         }
 
-        if (context.targetDevice.wifiNetworkInfo == nil && !wifiNetworkInfoLoaded) {
+        if (!wifiNetworkInfoLoaded) {
             self.getTargetDeviceWifiNetworkInfo()
         } else {
             self.stepCompleted()
@@ -35,7 +35,7 @@ class StepGetWifiNetwork: MeshSetupStep {
             self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
             self.log("\(networkInfo as Optional)");
 
-            if (result == .NOT_FOUND) {
+            if (result == .NOT_FOUND || result == .INVALID_STATE) {
                 self.wifiNetworkInfoLoaded = true
                 context.targetDevice.wifiNetworkInfo = nil
                 self.start()

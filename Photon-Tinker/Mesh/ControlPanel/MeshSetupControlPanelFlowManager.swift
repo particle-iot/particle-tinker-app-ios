@@ -61,7 +61,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     ]
 
     func actionPairWifi() {
-        self.currentFlow = actionPairMeshFlow
+        self.currentFlow = actionPairWifiFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
     }

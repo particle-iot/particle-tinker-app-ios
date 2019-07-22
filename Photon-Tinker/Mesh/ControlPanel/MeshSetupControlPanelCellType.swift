@@ -36,6 +36,12 @@ enum MeshSetupControlPanelCellType {
     case meshInfoNetworkDeviceCount
     case meshInfoDeviceRole
 
+
+    case wifiInfoSSID
+    case wifiInfoChannel
+    case wifiInfoRSSI
+
+
     case actionLeaveMeshNetwork
     case actionAddToMeshNetwork
 
@@ -62,6 +68,14 @@ enum MeshSetupControlPanelCellType {
                 return MeshSetupStrings.ControlPanel.Wifi.AddNewWifi
             case .actionManageWifi:
                 return MeshSetupStrings.ControlPanel.Wifi.ManageWifi
+
+            case .wifiInfoSSID:
+                return MeshSetupStrings.ControlPanel.Wifi.SSID
+            case .wifiInfoChannel:
+                return MeshSetupStrings.ControlPanel.Wifi.Channel
+            case .wifiInfoRSSI:
+                return MeshSetupStrings.ControlPanel.Wifi.RSSI
+
 
             case .actionChangeSimStatus:
                 return MeshSetupStrings.ControlPanel.Cellular.ChangeSimStatus
@@ -143,6 +157,19 @@ enum MeshSetupControlPanelCellType {
                 return nil
             case .meshInfoDeviceRole:
                 return context.targetDevice.networkRole! == .gateway ? MeshSetupStrings.ControlPanel.Mesh.DeviceRoleGateway : MeshSetupStrings.ControlPanel.Mesh.DeviceRoleNode
+
+
+            case .wifiInfoSSID:
+                if let _ = context.targetDevice.wifiNetworkInfo {
+                    return context.targetDevice.wifiNetworkInfo!.ssid
+                } else {
+                    return MeshSetupStrings.ControlPanel.Wifi.NoNetworkInfo
+                }
+            case .wifiInfoChannel:
+                return String(context.targetDevice.wifiNetworkInfo!.channel)
+            case .wifiInfoRSSI:
+                return String(context.targetDevice.wifiNetworkInfo!.rssi)
+
             default:
                 return nil
         }
@@ -153,6 +180,8 @@ enum MeshSetupControlPanelCellType {
             case .actionChangeSimStatus:
                 return false
             case .meshInfoNetworkName, .meshInfoNetworkID, .meshInfoNetworkExtPanID, .meshInfoNetworkPanID, .meshInfoNetworkPanID, .meshInfoNetworkChannel, .meshInfoDeviceRole, .meshInfoNetworkDeviceCount:
+                return false
+            case .wifiInfoChannel, .wifiInfoRSSI, .wifiInfoSSID:
                 return false
             default:
                 return true
@@ -179,6 +208,8 @@ enum MeshSetupControlPanelCellType {
             case .unclaim, .actionLeaveMeshNetwork:
                 return .none
             case .meshInfoNetworkName, .meshInfoNetworkID, .meshInfoNetworkExtPanID, .meshInfoNetworkPanID, .meshInfoNetworkPanID, .meshInfoNetworkChannel, .meshInfoNetworkDeviceCount, .meshInfoDeviceRole:
+                return .none
+            case .wifiInfoChannel, .wifiInfoRSSI, .wifiInfoSSID:
                 return .none
             case .actionChangeSimStatus:
                 return .none
