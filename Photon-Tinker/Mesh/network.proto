@@ -77,21 +77,6 @@ message NetworkConfiguration {
 // New network interface API
 //
 
-message Ipv4Address {
-  fixed32 address = 1;
-}
-
-message Ipv6Address {
-  bytes address = 1 [(nanopb).max_size = 16, (nanopb).fixed_length = true];
-}
-
-message IpAddress {
-  oneof address {
-    Ipv4Address v4 = 1;
-    Ipv6Address v6 = 2;
-  }
-}
-
 message InterfaceAddress {
   IpAddress address = 1;
   uint32 prefix_length = 2;

@@ -87,6 +87,79 @@ extension Particle_Ctrl_ResultCode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+struct Particle_Ctrl_Ipv4Address {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var address: UInt32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_Ipv6Address {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var address: Data = SwiftProtobuf.Internal.emptyData
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_IpAddress {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var address: OneOf_Address? {
+    get {return _storage._address}
+    set {_uniqueStorage()._address = newValue}
+  }
+
+  var v4: Particle_Ctrl_Ipv4Address {
+    get {
+      if case .v4(let v)? = _storage._address {return v}
+      return Particle_Ctrl_Ipv4Address()
+    }
+    set {_uniqueStorage()._address = .v4(newValue)}
+  }
+
+  var v6: Particle_Ctrl_Ipv6Address {
+    get {
+      if case .v6(let v)? = _storage._address {return v}
+      return Particle_Ctrl_Ipv6Address()
+    }
+    set {_uniqueStorage()._address = .v6(newValue)}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum OneOf_Address: Equatable {
+    case v4(Particle_Ctrl_Ipv4Address)
+    case v6(Particle_Ctrl_Ipv6Address)
+
+  #if !swift(>=4.1)
+    static func ==(lhs: Particle_Ctrl_IpAddress.OneOf_Address, rhs: Particle_Ctrl_IpAddress.OneOf_Address) -> Bool {
+      switch (lhs, rhs) {
+      case (.v4(let l), .v4(let r)): return l == r
+      case (.v6(let l), .v6(let r)): return l == r
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// Deprecated, IpAddress should be used instead
 struct Particle_Ctrl_IPAddress {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -160,6 +233,145 @@ extension Particle_Ctrl_ResultCode: SwiftProtobuf._ProtoNameProviding {
     6: .same(proto: "NO_MEMORY"),
     7: .same(proto: "INVALID_PARAM"),
   ]
+}
+
+extension Particle_Ctrl_Ipv4Address: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Ipv4Address"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "address"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFixed32Field(value: &self.address)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.address != 0 {
+      try visitor.visitSingularFixed32Field(value: self.address, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Ipv4Address, rhs: Particle_Ctrl_Ipv4Address) -> Bool {
+    if lhs.address != rhs.address {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Ipv6Address: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Ipv6Address"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "address"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBytesField(value: &self.address)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.address.isEmpty {
+      try visitor.visitSingularBytesField(value: self.address, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Ipv6Address, rhs: Particle_Ctrl_Ipv6Address) -> Bool {
+    if lhs.address != rhs.address {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_IpAddress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".IpAddress"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "v4"),
+    2: .same(proto: "v6"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _address: Particle_Ctrl_IpAddress.OneOf_Address?
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _address = source._address
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1:
+          var v: Particle_Ctrl_Ipv4Address?
+          if let current = _storage._address {
+            try decoder.handleConflictingOneOf()
+            if case .v4(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._address = .v4(v)}
+        case 2:
+          var v: Particle_Ctrl_Ipv6Address?
+          if let current = _storage._address {
+            try decoder.handleConflictingOneOf()
+            if case .v6(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._address = .v6(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      switch _storage._address {
+      case .v4(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .v6(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case nil: break
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_IpAddress, rhs: Particle_Ctrl_IpAddress) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._address != rhs_storage._address {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
 
 extension Particle_Ctrl_IPAddress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -142,6 +142,9 @@ enum Particle_Ctrl_FirmwareModuleType: SwiftProtobuf.Enum {
 
   /// Monolithic firmware
   case monoFirmware // = 4
+
+  /// NCP firmware
+  case ncpFirmware // = 5
   case UNRECOGNIZED(Int)
 
   init() {
@@ -155,6 +158,7 @@ enum Particle_Ctrl_FirmwareModuleType: SwiftProtobuf.Enum {
     case 2: self = .systemPart
     case 3: self = .userPart
     case 4: self = .monoFirmware
+    case 5: self = .ncpFirmware
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -166,6 +170,7 @@ enum Particle_Ctrl_FirmwareModuleType: SwiftProtobuf.Enum {
     case .systemPart: return 2
     case .userPart: return 3
     case .monoFirmware: return 4
+    case .ncpFirmware: return 5
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -182,6 +187,55 @@ extension Particle_Ctrl_FirmwareModuleType: CaseIterable {
     .systemPart,
     .userPart,
     .monoFirmware,
+    .ncpFirmware,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+enum Particle_Ctrl_FirmwareModuleValidityFlag: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case noValidationErrors // = 0
+
+  /// Integrity check failed
+  case integrityCheckFailed // = 1
+
+  /// Dependency check failed
+  case dependencyCheckFailed // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .noValidationErrors
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .noValidationErrors
+    case 1: self = .integrityCheckFailed
+    case 2: self = .dependencyCheckFailed
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .noValidationErrors: return 0
+    case .integrityCheckFailed: return 1
+    case .dependencyCheckFailed: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_FirmwareModuleValidityFlag: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_FirmwareModuleValidityFlag] = [
+    .noValidationErrors,
+    .integrityCheckFailed,
+    .dependencyCheckFailed,
   ]
 }
 
@@ -590,6 +644,78 @@ struct Particle_Ctrl_GetSectionDataSizeReply {
   init() {}
 }
 
+///*
+/// Get firmware module info.
+struct Particle_Ctrl_GetModuleInfoRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Particle_Ctrl_GetModuleInfoReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Firmware modules
+  var modules: [Particle_Ctrl_GetModuleInfoReply.Module] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  struct Dependency {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Module type
+    var type: Particle_Ctrl_FirmwareModuleType = .invalidFirmwareModule
+
+    /// Module index
+    var index: UInt32 = 0
+
+    /// Module version
+    var version: UInt32 = 0
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+  }
+
+  struct Module {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Module type
+    var type: Particle_Ctrl_FirmwareModuleType = .invalidFirmwareModule
+
+    /// Module index
+    var index: UInt32 = 0
+
+    /// Module version
+    var version: UInt32 = 0
+
+    /// Module size
+    var size: UInt32 = 0
+
+    /// Validity flags (see FirmwareModuleValidityFlag)
+    var validity: UInt32 = 0
+
+    /// Module dependencies
+    var dependencies: [Particle_Ctrl_GetModuleInfoReply.Dependency] = []
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+  }
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "particle.ctrl"
@@ -619,6 +745,15 @@ extension Particle_Ctrl_FirmwareModuleType: SwiftProtobuf._ProtoNameProviding {
     2: .same(proto: "SYSTEM_PART"),
     3: .same(proto: "USER_PART"),
     4: .same(proto: "MONO_FIRMWARE"),
+    5: .same(proto: "NCP_FIRMWARE"),
+  ]
+}
+
+extension Particle_Ctrl_FirmwareModuleValidityFlag: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NO_VALIDATION_ERRORS"),
+    1: .same(proto: "INTEGRITY_CHECK_FAILED"),
+    2: .same(proto: "DEPENDENCY_CHECK_FAILED"),
   ]
 }
 
@@ -1302,6 +1437,154 @@ extension Particle_Ctrl_GetSectionDataSizeReply: SwiftProtobuf.Message, SwiftPro
 
   static func ==(lhs: Particle_Ctrl_GetSectionDataSizeReply, rhs: Particle_Ctrl_GetSectionDataSizeReply) -> Bool {
     if lhs.size != rhs.size {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetModuleInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetModuleInfoRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetModuleInfoRequest, rhs: Particle_Ctrl_GetModuleInfoRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetModuleInfoReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetModuleInfoReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "modules"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.modules)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.modules.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.modules, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetModuleInfoReply, rhs: Particle_Ctrl_GetModuleInfoReply) -> Bool {
+    if lhs.modules != rhs.modules {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetModuleInfoReply.Dependency: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_GetModuleInfoReply.protoMessageName + ".Dependency"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "index"),
+    3: .same(proto: "version"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.type)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.index)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.version)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.type != .invalidFirmwareModule {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
+    }
+    if self.index != 0 {
+      try visitor.visitSingularUInt32Field(value: self.index, fieldNumber: 2)
+    }
+    if self.version != 0 {
+      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetModuleInfoReply.Dependency, rhs: Particle_Ctrl_GetModuleInfoReply.Dependency) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.index != rhs.index {return false}
+    if lhs.version != rhs.version {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_GetModuleInfoReply.Module: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_GetModuleInfoReply.protoMessageName + ".Module"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "index"),
+    3: .same(proto: "version"),
+    4: .same(proto: "size"),
+    5: .same(proto: "validity"),
+    6: .same(proto: "dependencies"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.type)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.index)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.version)
+      case 4: try decoder.decodeSingularUInt32Field(value: &self.size)
+      case 5: try decoder.decodeSingularUInt32Field(value: &self.validity)
+      case 6: try decoder.decodeRepeatedMessageField(value: &self.dependencies)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.type != .invalidFirmwareModule {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
+    }
+    if self.index != 0 {
+      try visitor.visitSingularUInt32Field(value: self.index, fieldNumber: 2)
+    }
+    if self.version != 0 {
+      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 3)
+    }
+    if self.size != 0 {
+      try visitor.visitSingularUInt32Field(value: self.size, fieldNumber: 4)
+    }
+    if self.validity != 0 {
+      try visitor.visitSingularUInt32Field(value: self.validity, fieldNumber: 5)
+    }
+    if !self.dependencies.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.dependencies, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_GetModuleInfoReply.Module, rhs: Particle_Ctrl_GetModuleInfoReply.Module) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.index != rhs.index {return false}
+    if lhs.version != rhs.version {return false}
+    if lhs.size != rhs.size {return false}
+    if lhs.validity != rhs.validity {return false}
+    if lhs.dependencies != rhs.dependencies {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
