@@ -87,7 +87,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
             cell.accessoryView = activityIndicator
         }
 
-        scanActivityIndicator.stopAnimating()
+        scanActivityIndicator?.stopAnimating()
         callback(networks![indexPath.row])
     }
 }

@@ -267,18 +267,6 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    private func showMeshNetworkInfo() {
-        self.currentAction = .mesh
-        DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelMeshNetworkInfoViewController.self)) {
-                let meshVC = MeshSetupControlPanelMeshNetworkInfoViewController.loadedViewController()
-                meshVC.setup(device: self.device, context: self.controlPanelManager.context)
-                meshVC.ownerStepType = nil
-                self.embededNavigationController.pushViewController(meshVC, animated: true)
-            }
-        }
-    }
-
     private func showControlPanelEthernetView() {
         self.currentAction = .ethernet
         DispatchQueue.main.async {
@@ -391,7 +379,20 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
 
     private func showManageWifiView() {
+        DispatchQueue.main.async {
+            if (!self.rewindTo(MeshSetupControlPanelManageWifiViewController.self)) {
+                let manageWifiView = MeshSetupControlPanelManageWifiViewController.loadedViewController()
+                manageWifiView.setup(didSelectNetwork: self.selectKnownWifiNetworkViewCompleted)
+                manageWifiView.setNetworks(networks: self.controlPanelManager.context.targetDevice.knownWifiNetworks!)
+                manageWifiView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(manageWifiView, animated: true)
+            }
+        }
+    }
 
+    internal func selectKnownWifiNetworkViewCompleted(network: MeshSetupKnownWifiNetworkInfo) {
+        self.controlPanelManager.context.selectedForRemovalWifiNetworkInfo = network
+        self.controlPanelManager.actionRemoveWifiCredentials()
     }
 
     private func showDeactivateSimInfoView() {
