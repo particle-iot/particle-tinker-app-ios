@@ -33,9 +33,7 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
             default:
                 return ""
         }
-
     }
-
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension

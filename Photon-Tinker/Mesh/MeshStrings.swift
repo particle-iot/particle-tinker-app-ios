@@ -63,6 +63,23 @@ class MeshSetupStrings {
 
 
     struct ControlPanel {
+
+        struct Prompt {
+            static let LeaveNetworkTitle = "MeshSetup.ControlPanel.Prompt.LeaveNetworkTitle".meshLocalized()
+            static let LeaveNetworkText = "MeshSetup.ControlPanel.Prompt.LeaveNetworkText".meshLocalized()
+
+            static let DeleteWifiTitle = "MeshSetup.ControlPanel.Prompt.DeleteWifiTitle".meshLocalized()
+            static let DeleteWifiText = "MeshSetup.ControlPanel.Prompt.DeleteWifiText".meshLocalized()
+        }
+
+        struct Action {
+            static let LeaveNetwork = "MeshSetup.ControlPanel.Action.LeaveNetwork".meshLocalized()
+            static let DontLeaveNetwork = "MeshSetup.ControlPanel.Action.DontLeaveNetwork".meshLocalized()
+
+            static let DeleteWifi = "MeshSetup.ControlPanel.Action.DeleteWifi".meshLocalized()
+            static let DontDeleteWifi = "MeshSetup.ControlPanel.Action.DontDeleteWifi".meshLocalized()
+        }
+
         struct Root {
             static let Title = "MeshSetup.ControlPanel.Root.Title".meshLocalized()
 
@@ -100,9 +117,6 @@ class MeshSetupStrings {
         struct ManageWifi {
             static let Title = "MeshSetup.ControlPanel.ManageWifi.Title".meshLocalized()
             static let Text = "MeshSetup.ControlPanel.ManageWifi.Text".meshLocalized()
-
-            static let PromptTitle = "MeshSetup.ControlPanel.ManageWifi.PromptTitle".meshLocalized()
-            static let PromptText = "MeshSetup.ControlPanel.ManageWifi.PromptText".meshLocalized()
         }
 
         struct Cellular {

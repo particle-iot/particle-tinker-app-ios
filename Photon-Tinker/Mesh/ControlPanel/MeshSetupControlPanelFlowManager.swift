@@ -15,6 +15,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepExitListeningMode(),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
+        StepGetWifiNetwork(),
         StepControlPanelFlowCompleted()
     ]
 

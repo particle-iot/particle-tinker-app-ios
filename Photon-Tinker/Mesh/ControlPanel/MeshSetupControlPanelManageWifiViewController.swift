@@ -97,11 +97,22 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.isBusy = true
         tableView.deselectRow(at: indexPath, animated: true)
-        tableView.isUserInteractionEnabled = false
 
-        self.fade(animated: true)
-        callback(networks![indexPath.row])
+        let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Prompt.DeleteWifiTitle, message: MeshSetupStrings.ControlPanel.Prompt.DeleteWifiText.replacingOccurrences(of: "{{0}}", with: self.networks![indexPath.row].ssid), preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.DeleteWifi, style: .default) { action in
+            tableView.isUserInteractionEnabled = false
+            self.isBusy = true
+
+            self.fade(animated: true)
+            self.callback(self.networks![indexPath.row])
+        })
+
+        alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.DontDeleteWifi, style: .cancel) { action in
+
+        })
+
+        self.present(alert, animated: true)
     }
 }

@@ -104,6 +104,16 @@
 
 "MeshSetup.Default.DeviceType" = "device";
 
+"MeshSetup.ControlPanel.Prompt.LeaveNetworkTitle" = "Leave current network?";
+"MeshSetup.ControlPanel.Prompt.LeaveNetworkText" =  "Are you sure you want to remove this device from current mesh network?";
+"MeshSetup.ControlPanel.Prompt.DeleteWifiTitle" = "Remove WiFi credentials?";
+"MeshSetup.ControlPanel.Prompt.DeleteWifiText" = "Are you sure you want to remove WiFi credentials for '{{0}}'";
+
+"MeshSetup.ControlPanel.Action.LeaveNetwork" = "Leave Network";
+"MeshSetup.ControlPanel.Action.DontLeaveNetwork" = "Cancel";
+"MeshSetup.ControlPanel.Action.DeleteWifi" = "Remove";
+"MeshSetup.ControlPanel.Action.DontDeleteWifi" = "Cancel";
+
 "MeshSetup.ControlPanel.Root.Title" = "Control Panel";
 "MeshSetup.ControlPanel.Root.Name" = "Device Name";
 "MeshSetup.ControlPanel.Root.Notes" = "Notes";
