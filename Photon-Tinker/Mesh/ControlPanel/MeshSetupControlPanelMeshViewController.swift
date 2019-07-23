@@ -52,4 +52,26 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let command = cells[indexPath.section][indexPath.row]
+
+        if (command == .actionLeaveMeshNetwork) {
+            let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.ControlPanel.Prompt.LeaveNetworkText, preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.LeaveNetwork, style: .default) { action in
+                super.tableView(tableView, didSelectRowAt: indexPath)
+            })
+
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.DontLeaveNetwork, style: .cancel) { action in
+
+            })
+
+            self.present(alert, animated: true)
+        } else {
+            super.tableView(tableView, didSelectRowAt: indexPath)
+        }
+    }
 }
