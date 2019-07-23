@@ -20,9 +20,9 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
 
     override func prepareContent() {
         if (self.context.targetDevice.wifiNetworkInfo != nil) {
-            cells = [[.wifiInfoSSID, .wifiInfoChannel, .wifiInfoRSSI], [.actionNewWifi]]
+            cells = [[.wifiInfoSSID, .wifiInfoChannel, .wifiInfoRSSI], [.actionNewWifi, .actionManageWifi]]
         } else {
-            cells = [[.wifiInfoSSID], [.actionNewWifi]]
+            cells = [[.wifiInfoSSID], [.actionNewWifi, .actionManageWifi]]
         }
     }
 

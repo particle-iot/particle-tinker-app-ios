@@ -195,8 +195,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionNewWifi:
                 controlPanelManager.actionNewWifi()
             case .actionManageWifi:
-                break
-
+                controlPanelManager.actionManageWifi()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
@@ -319,7 +318,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
         switch currentAction! {
-            case .actionNewWifi, .actionManageWifi,
+            case .actionNewWifi,
                  .actionChangePinsStatus,
                  .actionChangeSimStatus, .actionChangeDataLimit,
                  .actionLeaveMeshNetwork, .actionAddToMeshNetwork:
@@ -332,11 +331,12 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 showControlPanelWifiView()
             case .cellular:
                 showControlPanelCellularView()
+            case .actionManageWifi:
+                showManageWifiView()
             default:
                 break;
         }
     }
-
 
     private func showFlowCompleteView() {
         DispatchQueue.main.async {
@@ -351,7 +351,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     internal func flowCompleteViewCompleted() {
         switch currentAction! {
-            case .actionNewWifi, .actionManageWifi:
+            case .actionNewWifi:
                 controlPanelManager.context.selectedWifiNetworkInfo = nil
 
                 currentAction = .wifi
@@ -385,6 +385,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         } else {
             showActivateSimInfoView()
         }
+    }
+
+
+    private func showManageWifiView() {
+
     }
 
     private func showDeactivateSimInfoView() {

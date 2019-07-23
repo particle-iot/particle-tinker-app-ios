@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetWifiNetwork: MeshSetupStep {
+class StepGetKnownWifiNetworks: MeshSetupStep {
 
     private var wifiNetworkInfoLoaded = false
 
@@ -19,29 +19,29 @@ class StepGetWifiNetwork: MeshSetupStep {
         }
 
         if (!wifiNetworkInfoLoaded) {
-            self.getTargetDeviceWifiNetworkInfo()
+            self.getTargetDeviceStoredWifiNetworkInfo()
         } else {
             self.stepCompleted()
         }
     }
 
-    private func getTargetDeviceWifiNetworkInfo() {
-        context?.targetDevice.transceiver!.sendGetCurrentWifiNetwork { [weak self, weak context] result, networkInfo in
+    private func getTargetDeviceStoredWifiNetworkInfo() {
+        context?.targetDevice.transceiver!.sendGetKnownWifiNetworks { [weak self, weak context] result, knownWifiNetworks in
 
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
-            self.log("targetDevice.sendGetCurrentWifiNetwork: \(result.description())")
-            self.log("\(networkInfo as Optional)");
+            self.log("targetDevice.sendGetKnownWifiNetworks: \(result.description())")
+            self.log("\(knownWifiNetworks as Optional)");
 
-            if (result == .NOT_FOUND || result == .INVALID_STATE) {
+            if (result == .NOT_FOUND) {
                 self.wifiNetworkInfoLoaded = true
-                context.targetDevice.wifiNetworkInfo = nil
+                context.targetDevice.knownWifiNetworks = nil
                 self.start()
             } else if (result == .NONE) {
                 self.wifiNetworkInfoLoaded = true
-                context.targetDevice.wifiNetworkInfo = networkInfo
+                context.targetDevice.knownWifiNetworks = knownWifiNetworks
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -56,7 +56,7 @@ class StepGetWifiNetwork: MeshSetupStep {
             return
         }
 
-        context.targetDevice.wifiNetworkInfo = nil
+        context.targetDevice.knownWifiNetworks = nil
     }
 }
 
