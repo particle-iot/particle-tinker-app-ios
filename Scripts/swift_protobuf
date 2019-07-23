@@ -1,0 +1,40 @@
+#!/bin/bash
+# A sample Bash script, by Raimundas Sakalauskas
+
+#1. install protobuf (https://github.com/protocolbuffers/protobuf)
+#1a. make sure to use ~/Users/USER_NAME/include for include path rather than usr/local/include
+#2. install swift extension by running "brew install swift-protobuf" (https://github.com/apple/swift-protobuf)
+#3 check out https://github.com/particle-iot/firmware-protobuf into the folder that holds tinker app source
+#4. run ./swift_protobuf 
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ wifi_new.proto
+cp ../../firmware-protobuf/control/wifi_new.proto ../Photon-Tinker/Mesh/wifi_new.proto
+touch ../Photon-Tinker/Mesh/wifi_new.proto
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ cloud.proto
+cp ../../firmware-protobuf/control/cloud.proto ../Photon-Tinker/Mesh/cloud.proto
+touch ../Photon-Tinker/Mesh/cloud.proto
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ common.proto
+cp ../../firmware-protobuf/control/common.proto ../Photon-Tinker/Mesh/common.proto
+touch ../Photon-Tinker/Mesh/common.proto
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ config.proto
+cp ../../firmware-protobuf/control/config.proto ../Photon-Tinker/Mesh/config.proto
+touch ../Photon-Tinker/Mesh/config.proto
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ network.proto
+cp ../../firmware-protobuf/control/network.proto ../Photon-Tinker/Mesh/network.proto
+touch ../Photon-Tinker/Mesh/network.proto
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ storage.proto
+cp ../../firmware-protobuf/control/storage.proto ../Photon-Tinker/Mesh/storage.proto
+touch ../Photon-Tinker/Mesh/storage.proto
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ mesh.proto
+cp ../../firmware-protobuf/control/mesh.proto ../Photon-Tinker/Mesh/mesh.proto
+touch ../Photon-Tinker/Mesh/mesh.proto
+
+protoc --swift_out=../Photon-Tinker/Mesh/ --proto_path=../../firmware-protobuf/control/ cellular.proto
+cp ../../firmware-protobuf/control/cellular.proto ../Photon-Tinker/Mesh/cellular.proto
+touch ../Photon-Tinker/Mesh/cellular.proto
