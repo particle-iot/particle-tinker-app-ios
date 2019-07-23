@@ -376,7 +376,8 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
             if let self = self {
                 self.device.rename(value) { error in
                     if let error = error {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error renaming device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        vc.resume(animated: true)
                     } else {
                         self.delegate?.infoSliderDidUpdateDevice()
                         vc.dismiss(animated: true)
@@ -397,6 +398,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
                 self.device.setNotes(value) { error in
                     if let error = error {
                         RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        vc.resume(animated: true)
                     } else {
                         self.delegate?.infoSliderDidUpdateDevice()
                         vc.dismiss(animated: true)
