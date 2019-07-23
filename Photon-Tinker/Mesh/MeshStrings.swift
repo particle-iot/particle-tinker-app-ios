@@ -99,6 +99,7 @@ class MeshSetupStrings {
 
         struct ManageWifi {
             static let Title = "MeshSetup.ControlPanel.ManageWifi.Title".meshLocalized()
+            static let Text = "MeshSetup.ControlPanel.ManageWifi.Text".meshLocalized()
 
             static let PromptTitle = "MeshSetup.ControlPanel.ManageWifi.PromptTitle".meshLocalized()
             static let PromptText = "MeshSetup.ControlPanel.ManageWifi.PromptText".meshLocalized()

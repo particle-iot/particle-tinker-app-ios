@@ -81,7 +81,7 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
         cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
 
         NSLog("networks![indexPath.row].security = \(networks![indexPath.row].security)")
-        if networks![indexPath.row].security == .noSecurity {
+        if networks![indexPath.row].credentialsType == .noCredentials {
             cell.cellSecondaryAccessoryImageView.image = nil
         } else {
             cell.cellSecondaryAccessoryImageView.image = UIImage.init(named: "MeshSetupWifiProtectedIcon")
