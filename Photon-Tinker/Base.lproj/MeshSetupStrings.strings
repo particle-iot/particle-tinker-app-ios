@@ -129,7 +129,8 @@
 "MeshSetup.ControlPanel.Wifi.RSSI" = "RSSI";
 "MeshSetup.ControlPanel.Wifi.NoNetworkInfo" = "No network";
 
-"MeshSetup.ControlPanel.ManageWifi.Title" = "Select stored WiFi credentials you want to remove";
+"MeshSetup.ControlPanel.ManageWifi.Title" = "Manage Wi-Fi";
+"MeshSetup.ControlPanel.ManageWifi.Text" = "Select stored WiFi credentials you want to remove";
 
 "MeshSetup.ControlPanel.Cellular.Title" = "Cellular";
 "MeshSetup.ControlPanel.Cellular.ChangeSimStatus" = "SIM Status";

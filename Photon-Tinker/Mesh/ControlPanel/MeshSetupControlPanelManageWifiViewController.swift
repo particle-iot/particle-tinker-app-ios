@@ -28,8 +28,12 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
         super.setStyle()
     }
 
+    override var customTitle: String {
+        return MeshSetupStrings.ControlPanel.ManageWifi.Title
+    }
+
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ControlPanel.ManageWifi.Title
+        titleLabel.text = MeshSetupStrings.ControlPanel.ManageWifi.Text
     }
 
     override func viewWillAppear(_ animated: Bool) {
