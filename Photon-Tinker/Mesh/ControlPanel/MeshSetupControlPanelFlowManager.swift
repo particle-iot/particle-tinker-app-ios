@@ -12,9 +12,9 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionNewWifiFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
-        StepExitListeningMode(),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
+        StepExitListeningMode(),
         StepGetWifiNetwork(),
         StepControlPanelFlowCompleted()
     ]

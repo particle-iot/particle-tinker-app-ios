@@ -18,6 +18,13 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
         return MeshSetupStrings.ControlPanel.Wifi.Title
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.prepareContent()
+        self.tableView.reloadData()
+    }
+
     override func prepareContent() {
         if (self.context.targetDevice.wifiNetworkInfo != nil) {
             cells = [[.wifiInfoSSID, .wifiInfoChannel, .wifiInfoRSSI], [.actionNewWifi, .actionManageWifi]]
