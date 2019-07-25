@@ -132,7 +132,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepExitListeningMode(),
-        StepShowInfo(),
+        StepShowInfo(.simStatusToggle),
         StepEnsureCorrectSimState(),
         StepControlPanelFlowCompleted()
     ]

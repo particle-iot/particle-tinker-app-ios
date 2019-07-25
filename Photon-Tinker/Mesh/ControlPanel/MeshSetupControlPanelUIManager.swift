@@ -252,7 +252,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         currentAction = action
         switch action {
             case .actionAddToMeshNetwork:
-                break
+                controlPanelManager.actionAddToMesh()
             case .actionLeaveMeshNetwork:
                 controlPanelManager.context.targetDevice.networkRole = nil
                 controlPanelManager.context.userSelectedToLeaveNetwork = true
@@ -368,15 +368,38 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
-        if controlPanelManager.context.targetDevice.sim!.status! == .activate {
-            showDeactivateSimInfoView()
-        } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
-            showResumeSimInfoView()
+        let type = (sender as! StepShowInfo).infoType
+
+        if type == .joinerFlow {
+            if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
+                let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
+                infoVC.allowBack = true
+                infoVC.ownerStepType = self.currentStepType
+                infoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: self.flowRunner.context.userSelectedToSetupMesh, deviceType: self.flowRunner.context.targetDevice.type!)
+                self.embededNavigationController.pushViewController(infoVC, animated: true)
+            }
+        } else if type == .creatorFlow {
+            if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
+                let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
+                infoVC.allowBack = true
+                infoVC.ownerStepType = self.currentStepType
+                infoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: self.flowRunner.context.userSelectedToSetupMesh, deviceType: self.flowRunner.context.targetDevice.type!)
+                self.embededNavigationController.pushViewController(infoVC, animated: true)
+            }
         } else {
-            showActivateSimInfoView()
+            if controlPanelManager.context.targetDevice.sim!.status! == .activate {
+                showDeactivateSimInfoView()
+            } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
+                showResumeSimInfoView()
+            } else {
+                showActivateSimInfoView()
+            }
         }
     }
 
+    func infoViewCompleted() {
+        self.flowRunner.setInfoDone()
+    }
 
     private func showManageWifiView() {
         DispatchQueue.main.async {

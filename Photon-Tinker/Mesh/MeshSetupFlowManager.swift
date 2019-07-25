@@ -22,7 +22,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
     ]
 
     fileprivate let joinerFlow: [MeshSetupStep] = [
-        StepShowInfo(),
+        StepShowInfo(.joinerFlow),
         StepGetUserNetworkSelection(),
         StepGetCommissionerDeviceInfo(),
         StepConnectToCommissionerDevice(),
@@ -46,7 +46,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
     fileprivate let ethernetFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo(),
+        StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
         StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent()
@@ -54,7 +54,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
     fileprivate let wifiFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo(),
+        StepShowInfo(.creatorFlow),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
         StepEnsureHasInternetAccess(),
@@ -64,7 +64,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
     fileprivate let cellularFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo(),
+        StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
         StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent()

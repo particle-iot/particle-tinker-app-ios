@@ -203,10 +203,13 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
     override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
         currentStepType = type(of: sender)
 
-        showInfoView()
+        showInfoView(type: (sender as! StepShowInfo).infoType)
     }
 
-    private func showInfoView() { //xenon joiner flow = activeInternetInterface == nil, userSelectedToSetupMesh = nil, userSelectedToCreateNetwork = nil
+    private func showInfoView(type: MeshInfoType) {
+        //TODO: review this based on mesh info type
+
+        //xenon joiner flow = activeInternetInterface == nil, userSelectedToSetupMesh = nil, userSelectedToCreateNetwork = nil
         //argon / boron joiner flow = activeInternetInterface != nil, userSelectedToSetupMesh = true, userSelectedToCreateNetwork = false
 
         //gateway flow = activeInternetInterface != nil, userSelectedToSetupMesh = true, userSelectedToCreateNetwork = true
