@@ -372,6 +372,21 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
+    func sendGetDeviceIsInListeningMode(callback: @escaping (ControlReplyErrorType, Bool?) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_GetDeviceModeRequest();
+
+        let data = self.prepareRequestMessage(type: .GetDeviceMode, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_GetDeviceModeReply(serializedData: rm.data) as! Particle_Ctrl_GetDeviceModeReply
+                callback(rm.result, decodedReply.mode == .listeningMode)
+            } else {
+                callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
 
     func sendDeviceSetupDone(done: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_SetDeviceSetupDoneRequest();
