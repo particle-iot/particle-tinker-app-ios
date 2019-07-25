@@ -30,6 +30,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureCorrectSelectedNetworkPassword(),
         StepJoinSelectedNetwork(),
         StepFinishJoinSelectedNetwork(),
+        StepExitListeningMode(),
         StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent(),
         StepGetNewDeviceName(),

@@ -20,8 +20,6 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             self.stopCommissioner()
         } else if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone == false) {
             self.setTargetDeviceSetupDone()
-        } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode == true) {
-            self.stopTargetDeviceListening()
         } else {
             self.stepCompleted()
         }
@@ -97,29 +95,6 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
 
             if (result == .NONE) {
                 context.targetDevice.isSetupDone = true
-                self.start()
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
-    }
-
-    private func stopTargetDeviceListening() {
-        guard let context = self.context else {
-            return
-        }
-
-        context.targetDevice.transceiver!.sendStopListening {
-            [weak self, weak context] result in
-
-            guard let self = self, let context = context, !context.canceled else {
-                return
-            }
-
-            self.log("targetDevice.sendStopListening: \(result.description())")
-
-            if (result == .NONE) {
-                context.targetDevice.isListeningMode = false
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
