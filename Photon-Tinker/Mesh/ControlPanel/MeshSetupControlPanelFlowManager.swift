@@ -7,6 +7,44 @@ import Foundation
 
 class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
+    fileprivate let actionAddToMeshFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepEnsureNotOnMeshNetwork(),
+        StepCheckHasNetworkInterfaces(),
+        StepOfferSelectOrCreateNetwork()
+    ]
+
+    //runs post ethernet/wifi/cellular flows
+    fileprivate let networkCreatorFlow: [MeshSetupStep] = [
+        StepShowPricingImpact(),
+        StepShowInfo(.creatorFlow),
+        StepEnsureHasInternetAccess(),
+        StepGetNewNetworkName(),
+        StepGetNewNetworkPassword(),
+        StepCreateNetwork()
+    ]
+
+    fileprivate let joinerFlow: [MeshSetupStep] = [
+        StepShowInfo(.joinerFlow),
+        StepGetCommissionerDeviceInfo(),
+        StepConnectToCommissionerDevice(),
+        StepEnsureCommissionerNetworkMatches(),
+        StepEnsureCorrectSelectedNetworkPassword(),
+        StepJoinSelectedNetwork(),
+        StepFinishJoinSelectedNetwork(),
+        StepExitListeningMode(),
+        StepEnsureGotClaimed()
+    ]
+
+
+
+
+    func actionAddToMesh() {
+        self.currentFlow = actionAddToMeshFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
 
 
     fileprivate let actionNewWifiFlow:[MeshSetupStep] = [
@@ -164,6 +202,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepEnsureNotOnMeshNetwork(),
+        StepExitListeningMode(),
         StepControlPanelFlowCompleted()
     ]
 
@@ -171,12 +210,6 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.currentFlow = actionLeaveMeshNetworkFlow
         self.currentStepIdx = 0
         self.runCurrentStep()
-    }
-
-
-    override func switchFlow() {
-        self.currentFlow = nil
-        self.currentStepIdx = 0
     }
 
     func stopCurrentFlow() {
@@ -189,6 +222,63 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.currentStepIdx = 0
     }
 
+
+    //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
+    override internal func rewindTo(step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupFlowError? {
+        currentStep!.rewindFrom()
+
+        if (currentStepIdx == 0) {
+            //if we are backing from one of these flows, we need to switch the flow type.
+            if (currentFlow == joinerFlow || currentFlow == networkCreatorFlow) {
+                currentFlow = actionAddToMeshFlow
+            }
+            currentStepIdx = actionAddToMeshFlow.count
+            self.log("Rewinding flow to internetConnectedPreflow")
+        }
+
+        guard let currentFlow = self.currentFlow else {
+            return .IllegalOperation
+        }
+
+        for i in 0 ..< currentFlow.count {
+            if (currentFlow[i].isKind(of: step)) {
+                if (i >= self.currentStepIdx) {
+                    //trying to "rewind" forward
+                    return .IllegalOperation
+                }
+
+                self.currentStepIdx = i
+                self.log("returning to step: \(self.currentStepIdx)")
+                self.currentStep!.rewindTo(context: self.context)
+                if (runStep) {
+                    self.runCurrentStep()
+
+                }
+
+                return nil
+            }
+        }
+
+        return .IllegalOperation
+    }
+
+    override internal func switchFlow() {
+        log("stepComplete\n\n" +
+                "--------------------------------------------------------------------------------------------\n" +
+                "Switching flow!!!")
+
+        if (currentFlow == actionAddToMeshFlow) {
+            if (context.selectedNetworkMeshInfo == nil) {
+                self.currentFlow = networkCreatorFlow
+            } else {
+                self.currentFlow = joinerFlow
+            }
+        } else {
+            self.currentFlow = nil
+        }
+
+        self.currentStepIdx = 0
+    }
 
 
 }
