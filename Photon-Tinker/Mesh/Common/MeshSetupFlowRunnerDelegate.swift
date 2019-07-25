@@ -31,6 +31,7 @@ enum MeshSetupFlowState {
     case TargetDeviceConnectingToInternetCompleted
 
     case CommissionerDeviceConnecting
+    case CommissionerDeviceDiscovered
     case CommissionerDeviceConnected
     case CommissionerDeviceReady
 

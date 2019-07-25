@@ -123,7 +123,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceDiscovered)
+        context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceDiscovered)
 
         return true
     }
