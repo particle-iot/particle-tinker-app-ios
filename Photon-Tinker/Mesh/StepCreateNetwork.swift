@@ -100,6 +100,9 @@ class StepCreateNetwork : MeshSetupStep {
                 context.selectedNetworkMeshInfo = networkInfo!
                 context.selectedNetworkPassword = context.newNetworkPassword
 
+                //this is used in control panel
+                context.targetDevice.networkRole = .gateway
+
                 context.delegate.meshSetupDidCreateNetwork(self, network: MeshSetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
                 context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkCompleted)
                 self.start()

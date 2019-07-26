@@ -149,6 +149,8 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             self.log("targetDevice.sendJoinNetwork: \(result.description())")
 
             if (result == .NONE) {
+                context.targetDevice.networkRole = .node
+
                 self.networkJoined = true
                 self.failureReason = nil
                 self.start()
