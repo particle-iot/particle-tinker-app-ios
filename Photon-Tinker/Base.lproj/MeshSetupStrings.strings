@@ -56,7 +56,7 @@
 "MeshSetup.Error.BluetoothDisabled" = "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again.";
 "MeshSetup.Error.BluetoothTimeout" = "Sending Bluetooth messages failed. Please try again.";
 "MeshSetup.Error.BluetoothError" = "Something went wrong with Bluetooth. Please restart the set up process and try again.";
-"MeshSetup.Error.CommissionerNetworkDoesNotMatch" = "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network.";
+"MeshSetup.Error.CommissionerNetworkDoesNotMatch" = "This device is on a different mesh network than the one you are trying to join. Please find the device that belongs to selected mesh network and try again.";
 "MeshSetup.Error.SameDeviceScannedTwice" = "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join.";
 "MeshSetup.Error.FailedToObtainIp" = "Your device failed to obtain an IP address. Please make sure your device has internet access.";
 "MeshSetup.Error.BluetoothConnectionDropped" = "The Bluetooth connection was dropped unexpectedly. Please restart the set up and try again.";
