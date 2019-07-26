@@ -24,7 +24,7 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
 
     //this screen is too big for iphone6 so we don't open keyboard for it
     override func shouldAutoFocusInput() -> Bool {
-        return ScreenUtils.getPhoneScreenSizeClass() > .iPhone6
+        return ScreenUtils.getPhoneScreenSizeClass() >= .iPhone6
     }
 
     override func setContent() {
