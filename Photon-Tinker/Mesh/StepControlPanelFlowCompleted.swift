@@ -11,7 +11,7 @@ class StepControlPanelFlowCompleted: MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidCompleteControlPanelFlow(self)
         self.stepCompleted()
+        context.delegate.meshSetupDidCompleteControlPanelFlow(self)
     }
 }
