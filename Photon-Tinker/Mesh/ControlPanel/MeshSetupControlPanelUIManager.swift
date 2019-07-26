@@ -153,7 +153,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             if let error = error as? NSError {
                 self.showNetworkError(error: error)
             } else {
-                self.cancelTapped(self)
+                if let callback = self.callback {
+                    callback(MeshSetupFlowResult.unclaimed)
+                }
+                self.terminate()
             }
         }
     }

@@ -8,6 +8,16 @@ import UIKit
 import Crashlytics
 import MessageUI
 
+public enum MeshSetupFlowResult {
+    case success
+    case error
+    case canceled
+    case switchToControlPanel
+    case unclaimed
+}
+
+typealias MeshSetupFlowCallback = (MeshSetupFlowResult) -> ()
+
 class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
     static var storyboardName: String {
@@ -32,6 +42,12 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         didSet {
             self.log("Switching currentStepType: \(currentStepType)")
         }
+    }
+
+    internal var callback: MeshSetupFlowCallback?
+
+    func setCallback(_ callback: @escaping MeshSetupFlowCallback) {
+        self.callback = callback
     }
 
     internal func log(_ message: String) {
@@ -1069,7 +1085,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
                 if (severity == .Fatal) {
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
-                        self.cancelTapped(self)
+                        if let callback = self.callback {
+                            callback(MeshSetupFlowResult.error)
+                        }
+                        self.terminate()
                     })
                 } else {
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
@@ -1122,15 +1141,20 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     
     @IBAction func cancelTapped(_ sender: Any) {
         if (sender is MeshSetupUIBase) || (self.flowRunner.currentFlow == nil) {
-            self.flowRunner.cancelSetup()
-            self.dismiss(animated: true)
+            if let callback = self.callback {
+                callback(MeshSetupFlowResult.canceled)
+            }
+            self.terminate()
         } else {
             DispatchQueue.main.async {
                 if (self.hideAlertIfVisible()) {
                     self.alert = UIAlertController(title: MeshSetupStrings.Prompt.CancelSetupTitle, message: MeshSetupStrings.Prompt.CancelSetupText, preferredStyle: .alert)
 
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .default) { action in
-                        self.cancelTapped(self)
+                        if let callback = self.callback {
+                            callback(MeshSetupFlowResult.canceled)
+                        }
+                        self.terminate()
                     })
 
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContinueSetup, style: .cancel) { action in
@@ -1141,6 +1165,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 }
             }
         }
+    }
+
+    func terminate() {
+        self.flowRunner.cancelSetup()
+        self.dismiss(animated: true)
     }
 
     @objc func isBusyChanged(notification: Notification) {

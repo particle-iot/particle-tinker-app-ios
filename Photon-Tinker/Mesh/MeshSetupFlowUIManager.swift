@@ -155,6 +155,9 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
                     self.dismiss(animated: true) {
                         presentingVC?.present(vc, animated: true)
                     }
+                    if let callback = self.callback {
+                        callback(MeshSetupFlowResult.switchToControlPanel)
+                    }
                 })
 
                 self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.DontSwitchToControlPanel, style: .cancel) { action in
@@ -315,7 +318,10 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
 
         if (done) {
             //setup done
-            self.dismiss(animated: true)
+            self.terminate()
+            if let callback = self.callback {
+                callback(MeshSetupFlowResult.success)
+            }
         } else {
             self.setupInitialViewController()
         }
