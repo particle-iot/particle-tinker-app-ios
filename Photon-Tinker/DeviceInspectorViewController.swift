@@ -225,7 +225,14 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     @IBAction func actionButtonTapped(_ sender: UIButton) {
         let vc = MeshSetupControlPanelUIManager.loadedViewController()
         vc.setDevice(self.device)
+        vc.setCallback(self.controlPanelCompleted)
         self.present(vc, animated: true)
+    }
+
+    func controlPanelCompleted(result: MeshSetupFlowResult) {
+        if result == .unclaimed {
+            _ = self.navigationController?.popViewController(animated: false)
+        }
     }
 
     @IBAction func backButtonTapped(_ sender: AnyObject) {
