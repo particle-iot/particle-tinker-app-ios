@@ -18,11 +18,11 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     //runs post ethernet/wifi/cellular flows
     fileprivate let networkCreatorFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo(.creatorFlow),
-        StepEnsureHasInternetAccess(),
         StepGetNewNetworkName(),
         StepGetNewNetworkPassword(),
-        StepCreateNetwork()
+        StepCreateNetwork(),
+        StepExitListeningMode(),
+        StepControlPanelFlowCompleted()
     ]
 
     fileprivate let joinerFlow: [MeshSetupStep] = [
@@ -34,7 +34,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepJoinSelectedNetwork(),
         StepFinishJoinSelectedNetwork(),
         StepExitListeningMode(),
-        StepEnsureGotClaimed()
+        StepEnsureGotClaimed(),
+        StepControlPanelFlowCompleted()
     ]
 
 

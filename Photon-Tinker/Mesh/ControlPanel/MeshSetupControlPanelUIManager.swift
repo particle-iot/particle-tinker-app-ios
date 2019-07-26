@@ -252,6 +252,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         currentAction = action
         switch action {
             case .actionAddToMeshNetwork:
+                controlPanelManager.context.userSelectedToSetupMesh = true
                 controlPanelManager.actionAddToMesh()
             case .actionLeaveMeshNetwork:
                 controlPanelManager.context.targetDevice.networkRole = nil
@@ -311,7 +312,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionNewWifi,
                  .actionChangePinsStatus,
                  .actionChangeSimStatus, .actionChangeDataLimit,
-                 .actionLeaveMeshNetwork, .actionAddToMeshNetwork:
+                 .actionLeaveMeshNetwork:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
@@ -323,6 +324,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 showControlPanelCellularView()
             case .actionManageWifi:
                 showManageWifiView()
+            case .actionAddToMeshNetwork:
+                controlPanelManager.context.selectedNetworkMeshInfo = nil
+                controlPanelManager.context.newNetworkName = nil
+                controlPanelManager.context.newNetworkPassword = nil
+                controlPanelManager.context.newNetworkId = nil
+                controlPanelManager.context.selectedNetworkPassword = nil
+
+                currentAction = .mesh
+                controlPanelManager.actionPairMesh()
             default:
                 break;
         }
@@ -368,17 +378,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
-        let type = (sender as! StepShowInfo).infoType
+        currentStepType = type(of: sender)
+        let infoType = (sender as! StepShowInfo).infoType
 
-        if type == .joinerFlow {
-            if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
-                let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
-                infoVC.allowBack = true
-                infoVC.ownerStepType = self.currentStepType
-                infoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: self.flowRunner.context.userSelectedToSetupMesh, deviceType: self.flowRunner.context.targetDevice.type!)
-                self.embededNavigationController.pushViewController(infoVC, animated: true)
-            }
-        } else if type == .creatorFlow {
+        if infoType == .joinerFlow {
             if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
                 let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
                 infoVC.allowBack = true
