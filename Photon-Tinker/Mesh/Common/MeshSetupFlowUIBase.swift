@@ -572,7 +572,12 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             return
         }
 
-        flowRunner.setSelectedNetwork(selectedNetworkExtPanID: network!.extPanID)
+        //in control panel it's possible that this screen is shown to disable network creation
+        if let currentStep = flowRunner.currentStep, type(of: currentStep) == StepOfferSelectOrCreateNetwork.self {
+            flowRunner.setOptionalSelectedNetwork(selectedNetworkExtPanID: network?.extPanID)
+        } else {
+            flowRunner.setSelectedNetwork(selectedNetworkExtPanID: network!.extPanID)
+        }
     }
 
 
@@ -608,7 +613,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         self.log("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
-        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
             currentStepType = type(of: sender)
             vc.setNetworks(networks: availableNetworks)
 

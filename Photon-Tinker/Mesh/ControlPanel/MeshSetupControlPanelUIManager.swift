@@ -325,6 +325,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionManageWifi:
                 showManageWifiView()
             case .actionAddToMeshNetwork:
+                controlPanelManager.context.userSelectedToCreateNetwork = nil
                 controlPanelManager.context.selectedNetworkMeshInfo = nil
                 controlPanelManager.context.newNetworkName = nil
                 controlPanelManager.context.newNetworkPassword = nil

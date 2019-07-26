@@ -19,8 +19,14 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
             //if user has already selected the mesh network we also complete the step
             self.stepCompleted()
         } else {
-            context.delegate.meshSetupDidEnterState(self, state: .TargetInternetConnectedDeviceScanningForNetworks)
-            self.scanNetworks()
+            //if device has no network interfaces, this will trigger UI to show the screen that has
+            if context.targetDevice.hasActiveInternetInterface() {
+                context.delegate.meshSetupDidEnterState(self, state: .TargetInternetConnectedDeviceScanningForNetworks)
+                self.scanNetworks()
+            } else {
+                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceScanningForNetworks)
+                self.scanNetworks()
+            }
         }
     }
 
