@@ -45,6 +45,9 @@ public enum ControlRequestMessageType: UInt16 {
     case SetFeature = 33
     case GetFeature = 34
 
+    case StartNyanSignal = 230
+    case StopNyanSignal = 231
+
     case GetSystemCapabilities = 32
     case GetNcpFirmwareVersion = 31
     case GetSystemVersion = 30

@@ -896,4 +896,34 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             }
         })
     }
+
+
+    func sendStarNyanSignal(callback: @escaping (ControlReplyErrorType) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_StartNyanSignalRequest();
+
+        let data = self.prepareRequestMessage(type: .StartNyanSignal, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+
+    func sendStopNyanSignal(callback: @escaping (ControlReplyErrorType) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_StopNyanSignalRequest();
+
+        let data = self.prepareRequestMessage(type: .StopNyanSignal, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
 }
