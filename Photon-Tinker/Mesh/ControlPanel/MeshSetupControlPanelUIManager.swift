@@ -330,10 +330,12 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionAddToMeshNetwork:
                 controlPanelManager.context.userSelectedToCreateNetwork = nil
                 controlPanelManager.context.selectedNetworkMeshInfo = nil
+                controlPanelManager.context.selectedNetworkPassword = nil
+
                 controlPanelManager.context.newNetworkName = nil
                 controlPanelManager.context.newNetworkPassword = nil
                 controlPanelManager.context.newNetworkId = nil
-                controlPanelManager.context.selectedNetworkPassword = nil
+
 
                 currentAction = .mesh
                 controlPanelManager.actionPairMesh()

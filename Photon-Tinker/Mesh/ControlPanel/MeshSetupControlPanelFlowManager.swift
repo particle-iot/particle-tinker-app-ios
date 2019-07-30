@@ -32,7 +32,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepEnsureCommissionerNetworkMatches(),
         StepEnsureCorrectSelectedNetworkPassword(),
         StepJoinSelectedNetwork(),
-        StepFinishJoinSelectedNetwork(),
+        StepFinishJoinSelectedNetwork(dropCommissionerConnection: true),
         StepExitListeningMode(),
         StepEnsureGotClaimed(),
         StepControlPanelFlowCompleted()

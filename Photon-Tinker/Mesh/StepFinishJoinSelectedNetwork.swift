@@ -8,6 +8,11 @@ import Foundation
 class StepFinishJoinSelectedNetwork: MeshSetupStep {
 
     private var networkJoinedInAPI: Bool = false
+    private var dropCommissionerConnection: Bool = false
+
+    init(dropCommissionerConnection: Bool = false) {
+        self.dropCommissionerConnection = dropCommissionerConnection
+    }
 
     override func start() {
         guard let context = self.context else {
@@ -20,6 +25,8 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             self.stopCommissioner()
         } else if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone == false) {
             self.setTargetDeviceSetupDone()
+        } else if (dropCommissionerConnection && context.commissionerDevice != nil) {
+            self.dropCommissioner()
         } else {
             self.stepCompleted()
         }
@@ -100,5 +107,18 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
                 self.handleBluetoothErrorResult(result)
             }
         }
+    }
+
+    private func dropCommissioner() {
+        guard let context = self.context else {
+            return
+        }
+
+        let connection = context.commissionerDevice!.transceiver!.connection
+        context.commissionerDevice!.transceiver = nil
+        context.commissionerDevice = nil
+        context.bluetoothManager.dropConnection(with: connection)
+
+        self.start()
     }
 }
