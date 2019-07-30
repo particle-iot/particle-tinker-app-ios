@@ -546,7 +546,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
 
     override func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
-        if error == .FailedToScanBecauseOfTimeout {
+        //don't show timeout error when pairing to target device
+        if error == .FailedToScanBecauseOfTimeout,  let currentStep = flowRunner.currentStep, type(of: currentStep) == StepConnectToTargetDevice.self {
             self.flowRunner.retryLastAction()
         } else if (error == .ExternalSimNotSupported) {
             self.controlPanelManager.stopCurrentFlow()
