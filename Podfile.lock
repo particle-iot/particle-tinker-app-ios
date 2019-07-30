@@ -45,12 +45,12 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Particle-SDK (0.9.6):
-    - Particle-SDK/Helpers (= 0.9.6)
-    - Particle-SDK/SDK (= 0.9.6)
-  - Particle-SDK/Helpers (0.9.6):
+  - Particle-SDK (0.9.7):
+    - Particle-SDK/Helpers (= 0.9.7)
+    - Particle-SDK/SDK (= 0.9.7)
+  - Particle-SDK/Helpers (0.9.7):
     - AFNetworking (~> 3.0)
-  - Particle-SDK/SDK (0.9.6):
+  - Particle-SDK/SDK (0.9.7):
     - AFNetworking (~> 3.0)
     - Particle-SDK/Helpers
   - ParticleSetup (0.9.0):
@@ -144,7 +144,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 29514134ef0334a6fa33cf4eee11c36c064baeaf
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Particle-SDK: c56ee5c689bb18c25e3ecd21a2a0fb9f38219e45
+  Particle-SDK: aebdb0fc9fb634f55cc3ede6ce03b6fe6510c807
   ParticleSetup: 8a0b767d26c5c5d355f8b9929ba2d65a3a498313
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
@@ -157,4 +157,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 95e83b11dfb8269a6968772e226bff46e25c6067
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.7.5
