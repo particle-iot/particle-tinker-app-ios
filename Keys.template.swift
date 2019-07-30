@@ -16,6 +16,7 @@ let segmentAnalyticsWriteKey = "segment-source-key"
 let oAuthClientId = "myapp-auth-client"
 let oAuthSecret = "myapp-auth-secret"
 
+let stripeKey = "your-stripe-key"
 
 #if DEBUG
     let launchDarkly = "mob-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
