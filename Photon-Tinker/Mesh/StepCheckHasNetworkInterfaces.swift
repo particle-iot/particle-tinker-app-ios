@@ -7,7 +7,12 @@ import Foundation
 
 class StepCheckHasNetworkInterfaces: MeshSetupStep {
 
-    var simStatusReceived: Bool = false
+    private var simStatusReceived: Bool = false
+    private var forceSimStatus: Bool = false
+
+    init(forceSimStatus: Bool = false) {
+        self.forceSimStatus = forceSimStatus
+    }
 
     override func start() {
         guard let context = self.context else {
@@ -75,7 +80,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
                 }
 
                 if let interface = context.targetDevice.activeInternetInterface {
-                    if (interface == .ppp) {
+                    if (interface == .ppp || self.forceSimStatus) {
                         context.targetDevice.sim = MeshSetupSim()
                     } else {
                         context.targetDevice.sim = nil

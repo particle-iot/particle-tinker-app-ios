@@ -138,7 +138,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepExitListeningMode(),
-        StepCheckHasNetworkInterfaces(),
+        StepCheckHasNetworkInterfaces(forceSimStatus: true),
         StepControlPanelFlowCompleted()
     ]
 
