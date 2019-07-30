@@ -69,6 +69,8 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
             }
 
             context.targetDevice.ethernetDetectionFeature = nil
+            context.targetDevice.activeInternetInterface = nil
+            context.targetDevice.sim = nil
             self.log("targetDevice.sendSetFeature: \(result.description())")
             if (context.canceled) {
                 return
