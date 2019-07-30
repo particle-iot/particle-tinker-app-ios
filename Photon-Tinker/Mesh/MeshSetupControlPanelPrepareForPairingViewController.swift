@@ -62,7 +62,7 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
         signalWarningLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.SignalWarning
 
 
-        initializeVideoPlayerWithVideo(videoFileName: "commissioner_to_listening_mode")
+        initializeVideoPlayerWithVideo(videoFileName: "prepare_for_pairing")
         videoView.addTarget(self, action: #selector(videoViewTapped), for: .touchUpInside)
 
         view.setNeedsLayout()

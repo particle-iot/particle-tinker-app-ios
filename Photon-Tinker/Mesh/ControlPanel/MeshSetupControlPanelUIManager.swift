@@ -410,6 +410,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showManageWifiView() {
         DispatchQueue.main.async {
+            if let manageWifiView = self.embededNavigationController.topViewController as? MeshSetupControlPanelManageWifiViewController {
+                manageWifiView.setNetworks(networks: self.controlPanelManager.context.targetDevice.knownWifiNetworks!)
+            }
+
             if (!self.rewindTo(MeshSetupControlPanelManageWifiViewController.self)) {
                 let manageWifiView = MeshSetupControlPanelManageWifiViewController.loadedViewController()
                 manageWifiView.setup(didSelectNetwork: self.selectKnownWifiNetworkViewCompleted)

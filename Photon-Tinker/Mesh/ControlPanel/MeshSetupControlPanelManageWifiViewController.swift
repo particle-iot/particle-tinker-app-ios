@@ -53,8 +53,7 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
 
     override func resume(animated: Bool) {
         super.resume(animated: true)
-
-        self.networks = []
+        
         self.networksTableView.reloadData()
         self.networksTableView.isUserInteractionEnabled = true
         self.isBusy = false

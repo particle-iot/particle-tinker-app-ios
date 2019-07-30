@@ -31,6 +31,7 @@ class StepRemoveSelectedWifiCredentials: MeshSetupStep {
             self.log("targetDevice.sendRemoveKnownWifiNetwork: \(result.description())")
 
             if (result == .NONE) {
+                context.targetDevice.knownWifiNetworks = nil
                 context.selectedForRemovalWifiNetworkInfo = nil
                 self.start()
             } else {
