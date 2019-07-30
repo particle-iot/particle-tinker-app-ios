@@ -156,7 +156,8 @@ enum MeshSetupControlPanelCellType {
                 }
                 return nil
             case .meshInfoDeviceRole:
-                return context.targetDevice.networkRole! == .gateway ? MeshSetupStrings.ControlPanel.Mesh.DeviceRoleGateway : MeshSetupStrings.ControlPanel.Mesh.DeviceRoleNode
+                //BUG: fix a bug where this is called for device that has no network role
+                return (context.targetDevice.networkRole ?? .node) == .gateway ? MeshSetupStrings.ControlPanel.Mesh.DeviceRoleGateway : MeshSetupStrings.ControlPanel.Mesh.DeviceRoleNode
 
 
             case .wifiInfoSSID:
