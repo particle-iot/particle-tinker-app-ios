@@ -10,6 +10,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionAddToMeshFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepEnsureNotOnMeshNetwork(),
         StepCheckHasNetworkInterfaces(),
         StepOfferSelectOrCreateNetwork()
@@ -51,6 +52,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionNewWifiFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
         StepExitListeningMode(),
@@ -68,6 +70,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionManageWifiFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepGetKnownWifiNetworks(),
         StepControlPanelFlowCompleted()
@@ -95,6 +98,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionPairMeshFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepGetMeshNetwork(),
         StepControlPanelFlowCompleted()
@@ -109,6 +113,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionPairEthernetFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepGetEthernetFeatureStatus(),
         StepControlPanelFlowCompleted()
@@ -123,6 +128,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionPairWifiFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepGetWifiNetwork(),
         StepControlPanelFlowCompleted()
@@ -137,6 +143,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionPairCellularFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepCheckHasNetworkInterfaces(forceSimStatus: true),
         StepControlPanelFlowCompleted()
@@ -153,6 +160,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionToggleEthernetFeatureFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepEnsureCorrectEthernetFeatureStatus(),
         StepControlPanelFlowCompleted()
@@ -170,6 +178,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionToggleSimStatusFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepShowInfo(.simStatusToggle),
         StepEnsureCorrectSimState(),
@@ -187,6 +196,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionChangeDataLimitFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepExitListeningMode(),
         StepSetSimDataLimit(),
         StepControlPanelFlowCompleted()
@@ -202,6 +212,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionLeaveMeshNetworkFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepEnsureNotOnMeshNetwork(),
         StepExitListeningMode(),
         StepControlPanelFlowCompleted()
