@@ -137,6 +137,7 @@
 		C810B66AD9D1DBDAF82367A4 /* StepConnectToTargetDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4C07A6F2E5AB8E86DC0 /* StepConnectToTargetDevice.swift */; };
 		C810B6AFC4F2110BD16520ED /* StepEnsureCanBeClaimed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B81B858EFBF69C522D60 /* StepEnsureCanBeClaimed.swift */; };
 		C810B6B490B3E0F0DEE3A09E /* MeshSetupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8843593B1542D03BA54 /* MeshSetupProgressViewController.swift */; };
+		C810B7195DB886D211B31B66 /* prepare_for_pairing.mov in Resources */ = {isa = PBXBuildFile; fileRef = C810BBCD2C07F62F6C6350F1 /* prepare_for_pairing.mov */; };
 		C810B7422FDBB9BE33C0282D /* MeshSetupPairingCommissionerProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7DBADAA9D6B112594EA /* MeshSetupPairingCommissionerProcessViewController.swift */; };
 		C810B7532248EB34DB8E355F /* MeshSetupStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5D870413FD9CA543093 /* MeshSetupStep.swift */; };
 		C810B757924A9596A91DBA01 /* StepCheckHasNetworkInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8CDDE324D38A2432ACB /* StepCheckHasNetworkInterfaces.swift */; };
@@ -430,6 +431,7 @@
 		C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowRunner.swift; sourceTree = "<group>"; };
 		C810BBA624764829727882AB /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
 		C810BBBB5F657A788D817676 /* MeshSetupControlPanelDocumentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelDocumentationViewController.swift; path = "Photon-Tinker/MeshSetupControlPanelDocumentationViewController.swift"; sourceTree = SOURCE_ROOT; };
+		C810BBCD2C07F62F6C6350F1 /* prepare_for_pairing.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = prepare_for_pairing.mov; sourceTree = "<group>"; };
 		C810BBDE0699745CC6F5DCDE /* StepOfferSetupStandAloneOrWithNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferSetupStandAloneOrWithNetwork.swift; sourceTree = "<group>"; };
 		C810BBE1E4C0FD8B27FC0926 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C810BC04924C8DF17E86DB65 /* MeshSetupContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupContext.swift; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 				9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */,
 				93B0F8572182236E00D8F8C0 /* commissioner_to_listening_mode.mov */,
 				93B0F8592182236F00D8F8C0 /* ethernet_power_on.mov */,
+				C810BBCD2C07F62F6C6350F1 /* prepare_for_pairing.mov */,
 			);
 			path = Videos;
 			sourceTree = "<group>";
@@ -1206,6 +1209,7 @@
 				C810B18620497AAC8EF99E79 /* MeshSetupInfoView.xib in Resources */,
 				93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */,
 				C810B4F84F91FF574E316EDC /* MeshSetupWifiNetworkCell.xib in Resources */,
+				C810B7195DB886D211B31B66 /* prepare_for_pairing.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
