@@ -39,6 +39,8 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
     }
 
     override func resume(animated: Bool) {
+        self.prepareContent()
+
         super.resume(animated: animated)
 
         self.tableView.refreshControl?.endRefreshing()
