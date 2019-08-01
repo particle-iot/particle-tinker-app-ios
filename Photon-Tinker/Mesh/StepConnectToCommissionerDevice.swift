@@ -97,7 +97,11 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             if (error == .FailedToStartScan) {
                 self.fail(withReason: .FailedToStartScan)
             } else if (error == .FailedToScanBecauseOfTimeout) {
-                self.fail(withReason: .FailedToScanBecauseOfTimeout)
+                if let context = self.context, context.targetDevice.state == .connected {
+                    self.fail(withReason: .FailedToHandshakeBecauseOfTimeout)
+                } else {
+                    self.fail(withReason: .FailedToScanBecauseOfTimeout)
+                }
             } else { //FailedToConnect
                 self.fail(withReason: .FailedToConnect)
             }

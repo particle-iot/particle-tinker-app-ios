@@ -22,6 +22,7 @@
 "MeshSetup.Error.BoronModemError" = "There was an error in accessing the modem on the device. The modem is now being rebooted in an attempt to recover. Wait a few seconds and then try again. If the error persists, try resetting the device manually by tapping the RESET button, and restart the setup process.";
 "MeshSetup.Error.FailedToChangeSimDataLimit" = "There was an error changing data limit for SIM card. If you have retried multiple times, please contact support.";
 "MeshSetup.Error.FailedToGetDeviceInfo" = "Unable to get information about the device from Device Cloud.";
+"MeshSetup.Error.FailedToHandshakeBecauseOfTimeout" = "Unable to establish secure connection with your device. Usually this happens because bluetooth modem on your phone does not send the data. Please restart your device and try again. If you have retried multiple times, please contact support.";
 
 //these errors are handled instantly
 "MeshSetup.Error.FailedToUpdateDeviceOS" = "There was an error while performing a Device OS update.";

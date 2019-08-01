@@ -266,11 +266,11 @@ class MeshSetupStrings {
         static let BoronModemError = "MeshSetup.Error.BoronModemError"
         static let FailedToChangeSimDataLimit = "MeshSetup.Error.FailedToChangeSimDataLimit"
         static let FailedToGetDeviceInfo = "MeshSetup.Error.FailedToGetDeviceInfo"
-
+        static let FailedToFlashBecauseOfTimeout = "MeshSetup.Error.FailedToFlashBecauseOfTimeout"
+        static let FailedToHandshakeBecauseOfTimeout = "MeshSetup.Error.FailedToHandshakeBecauseOfTimeout"
 
         //these errors are handled instantly
         static let FailedToUpdateDeviceOS = "MeshSetup.Error.FailedToUpdateDeviceOS"
-        static let FailedToFlashBecauseOfTimeout = "MeshSetup.Error.FailedToFlashBecauseOfTimeout"
         static let UnableToDownloadFirmwareBinary = "MeshSetup.Error.UnableToDownloadFirmwareBinary"
         static let CannotAddGatewayDeviceAsJoiner = "MeshSetup.Error.CannotAddGatewayDeviceAsJoiner"
         static let WrongNetworkPassword = "MeshSetup.Error.WrongNetworkPassword"
