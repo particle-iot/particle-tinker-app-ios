@@ -6,6 +6,8 @@
 import Foundation
 
 class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewController {
+    private let refreshControl = UIRefreshControl()
+
     override var allowBack: Bool {
         get {
             return true
@@ -23,6 +25,29 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
 
         self.prepareContent()
         self.tableView.reloadData()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+    }
+
+    @objc private func refreshData(_ sender: Any) {
+        self.fadeContent(animated: true, showSpinner: false)
+        self.callback(.mesh)
+    }
+
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        self.tableView.refreshControl?.endRefreshing()
     }
 
     override func prepareContent() {

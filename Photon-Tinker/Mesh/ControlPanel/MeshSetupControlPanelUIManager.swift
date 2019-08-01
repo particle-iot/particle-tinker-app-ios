@@ -201,6 +201,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 controlPanelManager.actionNewWifi()
             case .actionManageWifi:
                 controlPanelManager.actionManageWifi()
+            case .wifi:
+                controlPanelManager.actionPairWifi()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
@@ -261,6 +263,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 controlPanelManager.context.targetDevice.networkRole = nil
                 controlPanelManager.context.userSelectedToLeaveNetwork = true
                 controlPanelManager.actionLeaveMeshNetwork()
+            case .mesh:
+                controlPanelManager.actionPairMesh()
             case .actionPromoteToGateway:
                 break
             case .actionDemoteFromGateway:
