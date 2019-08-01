@@ -91,6 +91,8 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
+        context.targetDevice.state = .connected
+
         if (!self.reconnectAfterForcedReboot) {
             context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnected)
         }
@@ -102,6 +104,8 @@ class StepConnectToTargetDevice: MeshSetupStep {
         guard let context = self.context else {
             return false
         }
+
+        context.targetDevice.state = .discovered
 
         if (peripheral.name == context.targetDevice.credentials!.name) {
             if (!self.reconnectAfterForcedReboot) {
@@ -117,6 +121,8 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
+        context.targetDevice.state = .ready
+
         if (!self.reconnectAfterForcedReboot) {
             context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceReady)
         }
@@ -131,12 +137,24 @@ class StepConnectToTargetDevice: MeshSetupStep {
             return false
         }
 
+        context.targetDevice.state = .credentialsSet
+
         if (reconnect) {
             reconnect = false
             start()
         }
 
         return true
+    }
+
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.targetDevice.state = .credentialsSet
     }
 }
 

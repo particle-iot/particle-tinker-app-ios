@@ -14,6 +14,7 @@ internal struct MeshSetupDevice {
     var setSimDataLimit: Int? //set by user
 
     var credentials: MeshSetupPeripheralCredentials?
+    var state: MeshSetupDeviceState = .none
 
     //used by control panel
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
@@ -75,6 +76,14 @@ internal struct MeshSetupDevice {
         }
         return nil
     }
+}
+
+internal enum MeshSetupDeviceState: Int {
+    case none = 0
+    case credentialsSet
+    case discovered
+    case connected
+    case ready
 }
 
 
