@@ -277,4 +277,16 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     func infoSliderDidUpdateDevice() {
         self.updateWithoutReload()
     }
+
+    func infoSliderDidExpand() {
+        if let ipr = self.navigationController?.interactivePopGestureRecognizer?.delegate as? InteractivePopGestureRecognizerDelegateHelper {
+            ipr.isEnabled = false
+        }
+    }
+
+    func infoSliderDidCollapse() {
+        if let ipr = self.navigationController?.interactivePopGestureRecognizer?.delegate as? InteractivePopGestureRecognizerDelegateHelper {
+            ipr.isEnabled = true
+        }
+    }
 }

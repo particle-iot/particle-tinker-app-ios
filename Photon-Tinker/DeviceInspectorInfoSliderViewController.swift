@@ -7,6 +7,8 @@ import Foundation
 
 protocol DeviceInspectorInfoSliderViewDelegate: class {
     func infoSliderDidUpdateDevice()
+    func infoSliderDidExpand()
+    func infoSliderDidCollapse()
 }
 
 class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
@@ -326,6 +328,11 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
             self?.displayLink = nil
             self?.animating = false
             self?.collapsed = collapsed
+            if (collapsed) {
+                self?.delegate?.infoSliderDidCollapse()
+            } else {
+                self?.delegate?.infoSliderDidExpand()
+            }
         })
     }
 

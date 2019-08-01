@@ -25,6 +25,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var devices : [ParticleDevice] = []
     var refreshControlAdded : Bool = false
 
+    var popRecognizer: InteractivePopGestureRecognizerDelegateHelper?
+
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -44,6 +46,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.noDevicesLabel.isHidden = true
         } else {
             self.noDevicesLabel.isHidden = false
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if let controller = navigationController, popRecognizer == nil {
+            popRecognizer = InteractivePopGestureRecognizerDelegateHelper(controller: controller, minViewControllers: 2)
+            controller.interactivePopGestureRecognizer?.delegate = popRecognizer
         }
     }
 
