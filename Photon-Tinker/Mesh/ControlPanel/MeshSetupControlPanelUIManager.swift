@@ -577,9 +577,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             return
         }
 
-        vcPrev.resume(animated: false)
+        if vcCurr.allowBack {
+            vcPrev.resume(animated: false)
 
-        if (vcs.last! as! MeshSetupViewController).allowBack {
             if vcPrev.ownerStepType != nil, vcCurr.ownerStepType != vcPrev.ownerStepType {
                 log("Rewinding flow from: \(vcCurr.ownerStepType) to: \(vcPrev.ownerStepType!)")
                 self.flowRunner.rewindTo(step: vcPrev.ownerStepType!)
