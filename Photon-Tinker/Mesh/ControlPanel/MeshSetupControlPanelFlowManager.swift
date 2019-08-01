@@ -86,6 +86,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionRemoveWifiCredentialsFlow:[MeshSetupStep] = [
         StepRemoveSelectedWifiCredentials(),
         StepGetKnownWifiNetworks(),
+        StepDisconnectFromCurrentWifiNetworkIfNeeded(),
+        StepGetWifiNetwork(),
         StepControlPanelFlowCompleted()
     ]
 
