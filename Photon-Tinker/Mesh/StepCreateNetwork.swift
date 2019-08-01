@@ -65,7 +65,7 @@ class StepCreateNetwork : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendStarListening { [weak self, weak context] result in
+        context.targetDevice.transceiver!.sendStartListening { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

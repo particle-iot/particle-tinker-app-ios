@@ -343,7 +343,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendStarListening(callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendStartListening(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_StartListeningModeRequest();
 
         let data = self.prepareRequestMessage(type: .StartListening, payload: self.serialize(message: requestMsgPayload))
