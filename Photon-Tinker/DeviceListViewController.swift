@@ -118,7 +118,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.logout()
             } else {
                 ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
-                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, duration: -1, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, duration: -1, callback: nil)
             }
 
             DispatchQueue.main.async {
