@@ -368,7 +368,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
             if error != nil || !connected {
                 RMessage.dismissActiveNotification()
-                RMessage.showNotification(withTitle: "Error", subtitle: "This device was unreachable by the Particle cloud within 15 seconds. The device may be powered off, or may be having trouble connecting to the Particle Cloud.", type: .error, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: "Error", subtitle: "This device was unreachable by the Particle cloud within 15 seconds. The device may be powered off, or may be having trouble connecting to the Particle Cloud.", type: .error, customTypeName: nil, duration: -1, callback: nil)
             } else {
                 RMessage.dismissActiveNotification()
                 RMessage.showNotification(withTitle: "Success", subtitle: "This device is online and connected!", type: .success, customTypeName: nil, callback: nil)
@@ -383,7 +383,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
             if let self = self {
                 self.device.rename(value) { error in
                     if let error = error {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "Error renaming device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error renaming device: \(error.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
                         vc.resume(animated: true)
                     } else {
                         self.delegate?.infoSliderDidUpdateDevice()
@@ -404,7 +404,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
             if let self = self {
                 self.device.setNotes(value) { error in
                     if let error = error {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
                         vc.resume(animated: true)
                     } else {
                         self.delegate?.infoSliderDidUpdateDevice()

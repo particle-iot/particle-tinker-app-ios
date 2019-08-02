@@ -84,7 +84,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
                 self.reloadDeviceData()
 
                 if (event == ParticleDeviceSystemEvent.flashFailed) {
-                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             }
         }
