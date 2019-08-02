@@ -165,6 +165,7 @@
 		C810B96EDEC32BDCA4F3C45A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B017C35C456634DA90F5 /* WebViewController.swift */; };
 		C810B99039A1C45E0999ED90 /* DevicePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5A2732EF43C3B85446F /* DevicePin.swift */; };
 		C810B9B0A4E36F013312323A /* MeshSetupJoiningNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B17C87748CB6AB16A8A1 /* MeshSetupJoiningNetworkViewController.swift */; };
+		C810B9CC8DC2D88012EA4158 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BFCA06DC015C2037AE19 /* Date.swift */; };
 		C810B9DCBABC359EB32A1C5D /* DeviceInspectorVariablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B44AA6315959E8013D4B /* DeviceInspectorVariablesViewController.swift */; };
 		C810B9DD7B4F15AD2CAF5A10 /* DeviceInspectorTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA3C69A84CF59D60E89D /* DeviceInspectorTabBarView.swift */; };
 		C810B9E226DC71E4B44C032A /* MeshSetupCreateNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B0BAEB751EEF01988108 /* MeshSetupCreateNetworkPasswordViewController.swift */; };
@@ -480,6 +481,7 @@
 		C810BF27FEAF13802E04D370 /* StepConnectToCommissionerDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepConnectToCommissionerDevice.swift; sourceTree = "<group>"; };
 		C810BF96B80E35D10BB3B8AF /* MeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupViewController.swift; sourceTree = "<group>"; };
 		C810BFC5A017C9FCFE14AAA3 /* DeviceListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
+		C810BFCA06DC015C2037AE19 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		C810BFDAC2BAD223AF2D14AC /* Fadeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fadeable.swift; sourceTree = "<group>"; };
 		C810BFF23EF2269E12E6F37A /* ScreenUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenUtils.swift; sourceTree = "<group>"; };
 		E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				C810B82CF0B5F9A47B814486 /* ParticleDevice.swift */,
 				C810BC36225037371D9C201A /* UIView.swift */,
 				C810BEE8D1DE3F0C650E1D61 /* CALayer.swift */,
+				C810BFCA06DC015C2037AE19 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1500,6 +1503,7 @@
 				C810B728C1CD7B4E188943BC /* StepStopSignal.swift in Sources */,
 				C810B045C656154CED6574D6 /* InteractivePopGestureRecognizerDelegateHelper.swift in Sources */,
 				C810B810ACEAEBCF17F7B7C9 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift in Sources */,
+				C810B9CC8DC2D88012EA4158 /* Date.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

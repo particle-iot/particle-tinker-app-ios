@@ -6,7 +6,10 @@
 //  Copyright © 2016 particle. All rights reserved.
 //
 
-
+protocol DeviceEventTableViewCellDelegate: class  {
+    func tappedOnCopyButton(_ sender : DeviceEventTableViewCell, event : ParticleEvent)
+    func tappedOnPayloadButton(_ sender : DeviceEventTableViewCell, event : ParticleEvent)
+}
 
 class DeviceEventTableViewCell: UITableViewCell {
 
@@ -15,7 +18,8 @@ class DeviceEventTableViewCell: UITableViewCell {
     @IBOutlet weak var eventTimeValueLabel: UILabel!
     @IBOutlet weak var eventDataValueLabel: UILabel!
     @IBOutlet weak var eventNameValueLabel: UILabel!
-    
+
+    weak var delegate : DeviceEventTableViewCellDelegate?
     
     var event: ParticleEvent!
 
@@ -23,18 +27,8 @@ class DeviceEventTableViewCell: UITableViewCell {
         self.event = event
 
         self.eventNameValueLabel.text = event.event
-        self.eventDataValueLabel.text = event.data
-
-        // convert weird UTC stamp to human readable local time
-        let utcDateStr = event.time.description.replacingOccurrences(of: "+0000", with: "")
-
-        // create dateFormatter with UTC time format
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        let date = dateFormatter.date(from: utcDateStr)!
-
-        self.eventTimeValueLabel.text = "\(DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .medium)), \(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))"
+        self.eventDataValueLabel.text = event.data ?? ""
+        self.eventTimeValueLabel.text = event.time.tinkerFormattedString()
     }
     
     override func awakeFromNib() {
@@ -43,11 +37,12 @@ class DeviceEventTableViewCell: UITableViewCell {
         self.bkgView.layer.masksToBounds = true
     
     }
-    
+
+    @IBAction func payloadButtonTapped(_ sender: UIButton) {
+        self.delegate?.tappedOnPayloadButton(self, event: self.event)
+    }
     
     @IBAction func copyEventButtonTapped(_ sender: UIButton) {
-        UIPasteboard.general.string = event.description
-        RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
-        SEGAnalytics.shared().track("DeviceInspector_EventCopied")
+        self.delegate?.tappedOnCopyButton(self, event: self.event)
     }
 }
