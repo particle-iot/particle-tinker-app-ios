@@ -5,6 +5,7 @@
 
 import UIKit
 import Crashlytics
+import Zip
 
 class LogList {
 
@@ -82,26 +83,6 @@ class LogList {
         }
     }
 
-    static func getLogs() -> [(URL, Int)] {
-        let urls = getLogURLs()
-
-        let fileManager = FileManager.default
-
-        var output = [(URL, Int)]()
-
-        for i in 0..<urls.count {
-            let url = urls[i]
-            if let optionalSize = try? FileManager.default.attributesOfItem(atPath: urls[i].path)[.size] as? Int, let size = optionalSize {
-                output.append((urls[i], size/1024))
-            } else {
-                output.append((urls[i], 0))
-            }
-
-        }
-
-        return output
-    }
-
     static func getLogURLs() -> [URL] {
         let fileManager = FileManager.default
 
@@ -115,86 +96,22 @@ class LogList {
 
         return []
     }
-}
 
-class LogListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    static func getZip() -> URL? {
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd HH-mm"
 
-    @IBOutlet weak var tableView: UITableView!
-    var logs : [(URL, Int)] = []
-
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 60
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        loadLogs()
-    }
-
-    private func loadLogs() {
-        logs = LogList.getLogs()
-
-        tableView.reloadData()
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.logs.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:DeviceTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "log_cell") as! DeviceTableViewCell
-        cell.deviceNameLabel.text = getCellTitle(filename: logs[indexPath.row].0.deletingPathExtension().lastPathComponent)
-        if (indexPath.row == 0) {
-            cell.deviceTypeLabel.text = "\(logs[indexPath.row].1) KB - Current session"
-        } else {
-
-            cell.deviceTypeLabel.text = "\(logs[indexPath.row].1) KB"
+        let title = "\(dateFormatter.string(from: Date())) Particle app logs"
+        do {
+            let zipFilePath = try Zip.quickZipFiles(getLogURLs(), fileName: title)
+            ParticleLogger.logInfo("LogList", format: "Zip.quickZipFiles: %@", withParameters: getVaList([zipFilePath.absoluteString]))
+            return zipFilePath
+        } catch {
+            ParticleLogger.logError("LogList", format: "Zip.quickZipFiles error: %@", withParameters: getVaList([error.localizedDescription]))
         }
 
-
-        return cell
+        return nil
     }
 
 
-    private func getCellTitle(filename: String) -> String {
-        var fileNameDateFormatter = DateFormatter()
-        fileNameDateFormatter.dateFormat = "yyyy-MM-dd HH-mm"
-
-        var cellTitleDateFormatter = DateFormatter()
-        cellTitleDateFormatter.dateStyle = .short
-        cellTitleDateFormatter.timeStyle = .none
-
-        var cellTitleTimeFormatter = DateFormatter()
-        cellTitleTimeFormatter.dateStyle = .none
-        cellTitleTimeFormatter.timeStyle = .short
-
-        if let date = fileNameDateFormatter.date(from: filename) {
-            return "\(cellTitleTimeFormatter.string(from: date)) \(cellTitleDateFormatter.string(from: date))"
-        } else {
-            return filename
-        }
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        let avc = UIActivityViewController(activityItems: [logs[indexPath.row].0], applicationActivities: nil)
-        self.present(avc, animated: true)
-    }
-
-    @IBAction func clearTapped(_ sender: Any) {
-        LogList.clearAllLogs()
-
-        loadLogs()
-    }
-
-    @IBAction func closeButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
 }

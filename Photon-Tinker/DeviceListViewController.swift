@@ -580,8 +580,16 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }))
         }
 
-        alert.addAction(UIAlertAction(title: "Access application logs", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Share application logs", style: .default, handler: { action in
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device logs selected", withParameters: getVaList([]))
+
+            if let zipURL = LogList.getZip() {
+                let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
+                self.present(avc, animated: true)
+            } else {
+                RMessage.showNotification(withTitle: "Error", subtitle: "There was an error exporting application logs.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+            }
+
             self.performSegue(withIdentifier: "logList", sender: self)    
         }))
 
