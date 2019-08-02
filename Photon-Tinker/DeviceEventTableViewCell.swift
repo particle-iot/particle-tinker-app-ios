@@ -20,6 +20,8 @@ class DeviceEventTableViewCell: UITableViewCell {
     var event: ParticleEvent!
 
     func setup(_ event: ParticleEvent) {
+        self.event = event
+
         self.eventNameValueLabel.text = event.event
         self.eventDataValueLabel.text = event.data
 
@@ -44,10 +46,8 @@ class DeviceEventTableViewCell: UITableViewCell {
     
     
     @IBAction func copyEventButtonTapped(_ sender: UIButton) {
-        if let e = event {
-            UIPasteboard.general.string = e.description
-            RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
-            SEGAnalytics.shared().track("DeviceInspector_EventCopied")
-        }
+        UIPasteboard.general.string = event.description
+        RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+        SEGAnalytics.shared().track("DeviceInspector_EventCopied")
     }
 }
