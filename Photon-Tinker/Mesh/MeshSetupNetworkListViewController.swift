@@ -14,7 +14,7 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
     @IBOutlet weak var networksTableView: UITableView!
 
     @IBOutlet weak var titleLabel: ParticleLabel!
-    @IBOutlet weak var scanActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var scanActivityIndicator: UIActivityIndicatorView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,21 +36,21 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
     override func setStyle() {
         networksTableView.tableFooterView = UIView()
 
-        scanActivityIndicator.color = ParticleStyle.NetworkScanActivityIndicatorColor
-        scanActivityIndicator.hidesWhenStopped = true
+        scanActivityIndicator?.color = ParticleStyle.NetworkScanActivityIndicatorColor
+        scanActivityIndicator?.hidesWhenStopped = true
 
         titleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
     }
 
     func startScanning() {
         DispatchQueue.main.async {
-            self.scanActivityIndicator.startAnimating()
+            self.scanActivityIndicator?.startAnimating()
         }
     }
 
     func stopScanning() {
         DispatchQueue.main.async {
-            self.scanActivityIndicator.stopAnimating()
+            self.scanActivityIndicator?.stopAnimating()
             self.networksTableView.reloadData()
         }
     }

@@ -26,6 +26,13 @@ enum FirmwareModuleType {
   SYSTEM_PART = 2; // System part
   USER_PART = 3; // User part
   MONO_FIRMWARE = 4; // Monolithic firmware
+  NCP_FIRMWARE = 5; // NCP firmware
+}
+
+enum FirmwareModuleValidityFlag {
+  NO_VALIDATION_ERRORS = 0;
+  INTEGRITY_CHECK_FAILED = 0x01; // Integrity check failed
+  DEPENDENCY_CHECK_FAILED = 0x02; // Dependency check failed
 }
 
 enum SectionFlag {
@@ -138,4 +145,28 @@ message GetSectionDataSizeRequest {
 
 message GetSectionDataSizeReply {
   uint32 size = 1;
+}
+
+/**
+ * Get firmware module info.
+ */
+message GetModuleInfoRequest {
+  option (type_id) = 90; // CTRL_REQUEST_GET_MODULE_INFO
+}
+
+message GetModuleInfoReply {
+  message Dependency {
+    FirmwareModuleType type = 1; // Module type
+    uint32 index = 2; // Module index
+    uint32 version = 3; // Module version
+  }
+  message Module {
+    FirmwareModuleType type = 1; // Module type
+    uint32 index = 2; // Module index
+    uint32 version = 3; // Module version
+    uint32 size = 4; // Module size
+    uint32 validity = 5; // Validity flags (see FirmwareModuleValidityFlag)
+    repeated Dependency dependencies = 6; // Module dependencies
+  }
+  repeated Module modules = 1; // Firmware modules
 }

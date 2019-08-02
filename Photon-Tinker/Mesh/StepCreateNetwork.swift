@@ -65,7 +65,7 @@ class StepCreateNetwork : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendStarListening { [weak self, weak context] result in
+        context.targetDevice.transceiver!.sendStartListening { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -99,6 +99,9 @@ class StepCreateNetwork : MeshSetupStep {
                 self.log("Setting current target device as commissioner device part 1")
                 context.selectedNetworkMeshInfo = networkInfo!
                 context.selectedNetworkPassword = context.newNetworkPassword
+
+                //this is used in control panel
+                context.targetDevice.networkRole = .gateway
 
                 context.delegate.meshSetupDidCreateNetwork(self, network: MeshSetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
                 context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkCompleted)

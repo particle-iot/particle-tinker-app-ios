@@ -22,6 +22,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case FailedToStartScan
     case FailedToFlashBecauseOfTimeout
     case FailedToScanBecauseOfTimeout
+    case FailedToHandshakeBecauseOfTimeout
     case FailedToConnect
 
     case CannotAddGatewayDeviceAsJoiner
@@ -103,11 +104,12 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .BoronModemError : return MeshSetupStrings.Error.BoronModemError.meshLocalized()
             case .FailedToChangeSimDataLimit : return MeshSetupStrings.Error.FailedToChangeSimDataLimit.meshLocalized()
             case .FailedToGetDeviceInfo : return MeshSetupStrings.Error.FailedToGetDeviceInfo.meshLocalized()
+            case .FailedToFlashBecauseOfTimeout : return MeshSetupStrings.Error.FailedToFlashBecauseOfTimeout.meshLocalized()
+            case .FailedToHandshakeBecauseOfTimeout : return MeshSetupStrings.Error.FailedToHandshakeBecauseOfTimeout.meshLocalized()
 
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return MeshSetupStrings.Error.FailedToUpdateDeviceOS.meshLocalized()
-            case .FailedToFlashBecauseOfTimeout : return MeshSetupStrings.Error.FailedToFlashBecauseOfTimeout.meshLocalized()
             case .UnableToDownloadFirmwareBinary : return MeshSetupStrings.Error.UnableToDownloadFirmwareBinary.meshLocalized()
             case .CannotAddGatewayDeviceAsJoiner : return MeshSetupStrings.Error.CannotAddGatewayDeviceAsJoiner.meshLocalized()
             case .WrongNetworkPassword : return MeshSetupStrings.Error.WrongNetworkPassword.meshLocalized()

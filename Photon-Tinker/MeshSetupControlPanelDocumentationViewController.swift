@@ -35,8 +35,10 @@ class MeshSetupControlPanelDocumentationViewController: MeshSetupViewController,
                 self.url = URL(string: "https://docs.particle.io/argon/")
             case .boron, .bSeries:
                 self.url = URL(string: "https://docs.particle.io/boron/")
+            case .xenon, .xSeries:
+                self.url = URL(string: "https://docs.particle.io/xenon/")
             case .photon, .P1:
-                self.url = URL(string: "https://docs.particle.io/photon/")
+                self.url = URL(string: "https://docs.particle.io/photon/")            
             case .electron:
                 self.url = URL(string: "https://docs.particle.io/electron/")
             default:

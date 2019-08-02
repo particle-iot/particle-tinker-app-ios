@@ -5,7 +5,20 @@
 
 import Foundation
 
+enum MeshInfoType {
+    case joinerFlow
+    case creatorFlow
+    case simStatusToggle
+}
+
 class StepShowInfo : MeshSetupStep {
+
+    public let infoType: MeshInfoType
+
+    init(_ infoType: MeshInfoType) {
+        self.infoType = infoType
+    }
+
     override func start() {
 
         guard let context = self.context else {

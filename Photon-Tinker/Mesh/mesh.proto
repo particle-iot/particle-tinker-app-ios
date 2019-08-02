@@ -2,6 +2,7 @@ syntax = "proto3";
 package particle.ctrl.mesh;
 
 import "extensions.proto";
+import "common.proto";
 
 option java_package = "io.particle.firmwareprotos.ctrl.mesh";
 
@@ -178,8 +179,274 @@ message GetNetworkInfoReply {
 // Scan networks
 message ScanNetworksRequest {
   option (type_id) = 1011;
+
+  // Time in milliseconds to spend scanning each channel. A value of 0 sets the default OpenThread
+  // timeout (300 ms)
+  uint32 duration = 1;
 }
 
 message ScanNetworksReply {
   repeated NetworkInfo networks = 1;
+}
+
+// Diagnostics
+
+enum DiagnosticType {
+  // IMPORTANT: values here should match ot::NetworkDiagnostic::NetworkDiagnosticTlv::Type (network_diagnostic_tlvs.hpp)
+  option allow_alias = true;
+  MAC_EXTENDED_ADDRESS = 0;
+  RLOC = 1;
+  MAC_ADDRESS = 1;
+  MODE = 2;
+  TIMEOUT = 3;
+  CONNECTIVITY = 4;
+  ROUTE64 = 5;
+  LEADER_DATA = 6;
+  NETWORK_DATA = 7;
+  IPV6_ADDRESS_LIST = 8;
+  MAC_COUNTERS = 9;
+  BATTERY_LEVEL = 14;
+  SUPPLY_VOLTAGE = 15;
+  CHILD_TABLE = 16;
+  CHANNEL_PAGES = 17;
+  TYPE_LIST = 18;
+  MAX_CHILD_TIMEOUT = 19;
+}
+
+// Mapping of Diagnostic TLVs
+message DiagnosticInfo {
+  // MAC Extended Address (64-bit): MAC Extended Address TLV
+  bytes ext_mac_address = 1 [(nanopb).max_size = 8];
+  // MAC Address (16-bit): Address16 TLV (RLOC)
+  uint32 rloc = 2;
+
+  // Mode TLV
+  enum Mode {
+    option allow_alias = true;
+    INVALID = 0x00;
+    RECEIVER_ON_WHEN_IDLE = 0x10;
+    SECURE_DATA_REQUESTS = 0x20;
+
+    DEVICE_TYPE = 0x30;
+    DEVICE_TYPE_FTD = 0x30;
+
+    NETWORK_DATA = 0x40;
+    NETWORK_DATA_FULL = 0x40;
+  }
+
+  // Mode (Capability Information): Mode TLV
+  uint32 mode = 3;
+
+  // Timeout: Timeout TLV
+  uint32 timeout = 4;
+
+  // Connectivity TLV
+  message Connectivity {
+    uint32 parent_priority = 1;
+    uint32 link_quality_1 = 2;
+    uint32 link_quality_2 = 3;
+    uint32 link_quality_3 = 4;
+    uint32 leader_cost = 5;
+    uint32 id_sequence = 6;
+    uint32 active_routers = 7;
+    uint32 sed_buffer_size = 8;
+    uint32 sed_datagram_count = 9;
+  }
+
+  // Connectivity : Connectivity TLV
+  Connectivity connectivity = 5;
+
+  // Route64 TLV
+  message Route64 {
+    uint32 id_sequence = 1;
+    // Originally this is represented as bitmask, we are simplifying
+    // representation here a bit
+    message RouteData {
+      uint32 router_rloc = 1;
+      uint32 link_quality_out = 2;
+      uint32 link_quality_in = 3;
+      uint32 route_cost = 4;
+    }
+
+    repeated RouteData routes = 2;
+  }
+
+  // Route64: Route64 TLV
+  Route64 route64 = 6;
+
+  // Leader Data TLV
+  message LeaderData {
+    uint32 partition_id = 1;
+    uint32 weighting = 2;
+    uint32 data_version = 3;
+    uint32 stable_data_version = 4;
+    uint32 leader_rloc = 5;
+  }
+
+  enum RoutePreference {
+    MEDIUM = 0;
+    HIGH = 1;
+    LOW = -1;
+  }
+
+  // Network Data TLV
+  message NetworkData {
+    // Has Route TLV
+    message HasRoute {
+      message HasRouteEntry {
+        uint32 rloc = 1;
+        RoutePreference preference = 2;
+      }
+
+      repeated HasRouteEntry entries = 1;
+    }
+
+    // Border Router TLV
+    message BorderRouter {
+      message BorderRouterEntry {
+        enum Flags {
+          NONE = 0x00;
+          PREFERRED = 0x01;
+          SLAAC = 0x02;
+          DHCP = 0x04;
+          CONFIGURE = 0x08;
+          DEFAULT_ROUTE = 0x10;
+          ON_MESH = 0x20;
+          ND_DNS = 0x40;
+        }
+
+        uint32 rloc = 1;
+        RoutePreference preference = 2;
+        uint32 flags = 3;
+      }
+
+      repeated BorderRouterEntry entries = 1;
+    }
+
+    // 6LoWPAN ID TLV
+    message Context {
+      uint32 cid = 1;
+      bool compress = 2;
+      uint32 context_length = 3;
+    }
+
+    // Prefix TLV
+    message Prefix {
+      uint32 domain_id = 1;
+      uint32 prefix_length = 2;
+      bytes prefix = 3 [(nanopb).max_size = 16];
+
+      // Sub-TLVs
+      repeated Context context = 4;
+      HasRoute has_route = 5;
+      BorderRouter border_router = 6;
+    }
+
+    // Server TLV
+    message Server {
+      uint32 rloc = 1;
+      bytes data = 2;
+    }
+
+    // Service TLV
+    message Service {
+      // NOTE: THREAD_ENTERPRISE_NUMBER = 44970
+      uint32 sid = 1;
+      uint32 enterprise_number = 2;
+      bytes data = 3;
+
+      repeated Server servers = 4;
+    }
+
+    message Data {
+      repeated Prefix prefixes = 1;
+      repeated Service services = 2;
+      // TODO: Commissioning Data TLV?
+    }
+
+    Data stable = 1;
+    Data temporary = 2;
+  }
+
+  // Leader Data: Leader Data TLV
+  LeaderData leader_data = 7;
+  // Network Data: Network Data TLV
+  NetworkData network_data = 8;
+
+  // IPv6 address list: IPv6 Address List TLV
+  repeated Ipv6Address ipv6_address_list = 9;
+
+  // MAC Counters TLV
+  message MacCounters {
+    uint32 if_in_unknown_protos = 1;
+    uint32 if_in_errors = 2;
+    uint32 if_out_errors = 3;
+    uint32 if_in_ucast_pkts = 4;
+    uint32 if_in_broadcast_pkts = 5;
+    uint32 if_in_discards = 6;
+    uint32 if_out_ucast_pkts = 7;
+    uint32 if_out_broadcast_pkts = 8;
+    uint32 if_out_discards = 9;
+  }
+
+  // MAC Counters: MAC Counters TLV
+  MacCounters mac_counters = 10;
+
+  // NOTE: 11-14 reserved
+
+  // Battery Level: Battery Level TLV
+  uint32 battery_level = 15;
+
+  // Supply Voltage: Supply Voltage TLV
+  uint32 supply_voltage = 16;
+
+  // Child Table TLV
+  message ChildTable {
+    message ChildEntry {
+      uint32 timeout = 1;
+      uint32 child_id = 2;
+      // Mode TLV
+      uint32 mode = 3;
+    }
+    repeated ChildEntry children = 1;
+  }
+
+  // Child Table: Child Table TLV
+  ChildTable child_table = 17;
+
+  // Channel Pages: Channel Pages TLV
+  bytes channel_pages = 18 [(nanopb).max_size = 3];
+
+  // Type List: Type List TLV
+  // List of DiagnosticType
+  repeated DiagnosticType type_list = 19;
+
+  // Max Child Timeout: Timeout TLV
+  uint32 max_child_timeout = 20;
+
+  // Particle-specific Device Id
+  bytes device_id = 100 [(nanopb).max_size = 12];
+}
+
+message GetNetworkDiagnosticsRequest {
+  option (type_id) = 1012;
+
+  enum Flags {
+    INVALID = 0x00;
+    QUERY_CHILDREN = 0x01;
+    RESOLVE_DEVICE_ID = 0x02;
+  }
+
+  // Bitmask of Flags
+  uint32 flags = 1;
+
+  // List of DiagnosticType to request
+  repeated DiagnosticType diagnostic_types = 2;
+
+  // Maximum time in seconds to wait for diagnostic replies
+  uint32 timeout = 3;
+}
+
+message GetNetworkDiagnosticsReply {
+  repeated DiagnosticInfo nodes = 1;
 }

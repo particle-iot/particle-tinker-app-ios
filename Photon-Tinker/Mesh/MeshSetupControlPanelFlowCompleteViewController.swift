@@ -66,6 +66,9 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
                 } else {
                     self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.ToggleSim.DeactivateText
                 }
+            case .actionLeaveMeshNetwork:
+                self.successTitleLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.LeaveMeshNetwork.Title
+                self.successTextLabel.text = MeshSetupStrings.ControlPanel.FlowComplete.LeaveMeshNetwork.Text
             default:
                 break
         }

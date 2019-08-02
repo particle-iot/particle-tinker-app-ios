@@ -8,6 +8,11 @@ import Foundation
 class StepFinishJoinSelectedNetwork: MeshSetupStep {
 
     private var networkJoinedInAPI: Bool = false
+    private var dropCommissionerConnection: Bool = false
+
+    init(dropCommissionerConnection: Bool = false) {
+        self.dropCommissionerConnection = dropCommissionerConnection
+    }
 
     override func start() {
         guard let context = self.context else {
@@ -20,8 +25,8 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             self.stopCommissioner()
         } else if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone == false) {
             self.setTargetDeviceSetupDone()
-        } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode == true) {
-            self.stopTargetDeviceListening()
+        } else if (dropCommissionerConnection && context.commissionerDevice != nil) {
+            self.dropCommissioner()
         } else {
             self.stepCompleted()
         }
@@ -104,26 +109,16 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
         }
     }
 
-    private func stopTargetDeviceListening() {
+    private func dropCommissioner() {
         guard let context = self.context else {
             return
         }
 
-        context.targetDevice.transceiver!.sendStopListening {
-            [weak self, weak context] result in
+        let connection = context.commissionerDevice!.transceiver!.connection
+        context.commissionerDevice!.transceiver = nil
+        context.commissionerDevice = nil
+        context.bluetoothManager.dropConnection(with: connection)
 
-            guard let self = self, let context = context, !context.canceled else {
-                return
-            }
-
-            self.log("targetDevice.sendStopListening: \(result.description())")
-
-            if (result == .NONE) {
-                context.targetDevice.isListeningMode = false
-                self.start()
-            } else {
-                self.handleBluetoothErrorResult(result)
-            }
-        }
+        self.start()
     }
 }

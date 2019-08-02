@@ -13,6 +13,8 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
         self.callback = didPressReady
         self.deviceType = deviceType
         self.networkName = networkName
+
+        self.isSOM = false
     }
 
     @IBAction override func nextButtonTapped(_ sender: Any) {

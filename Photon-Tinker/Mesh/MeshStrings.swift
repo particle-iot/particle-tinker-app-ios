@@ -63,9 +63,28 @@ class MeshSetupStrings {
 
 
     struct ControlPanel {
+
+        struct Prompt {
+            static let LeaveNetworkTitle = "MeshSetup.ControlPanel.Prompt.LeaveNetworkTitle".meshLocalized()
+            static let LeaveNetworkText = "MeshSetup.ControlPanel.Prompt.LeaveNetworkText".meshLocalized()
+
+            static let DeleteWifiTitle = "MeshSetup.ControlPanel.Prompt.DeleteWifiTitle".meshLocalized()
+            static let DeleteWifiText = "MeshSetup.ControlPanel.Prompt.DeleteWifiText".meshLocalized()
+        }
+
+        struct Action {
+            static let LeaveNetwork = "MeshSetup.ControlPanel.Action.LeaveNetwork".meshLocalized()
+            static let DontLeaveNetwork = "MeshSetup.ControlPanel.Action.DontLeaveNetwork".meshLocalized()
+
+            static let DeleteWifi = "MeshSetup.ControlPanel.Action.DeleteWifi".meshLocalized()
+            static let DontDeleteWifi = "MeshSetup.ControlPanel.Action.DontDeleteWifi".meshLocalized()
+        }
+
         struct Root {
             static let Title = "MeshSetup.ControlPanel.Root.Title".meshLocalized()
 
+            static let Name = "MeshSetup.ControlPanel.Root.Name".meshLocalized()
+            static let Notes = "MeshSetup.ControlPanel.Root.Notes".meshLocalized()
             static let Wifi = "MeshSetup.ControlPanel.Root.Wifi".meshLocalized()
             static let Mesh = "MeshSetup.ControlPanel.Root.Mesh".meshLocalized()
             static let Ethernet = "MeshSetup.ControlPanel.Root.Ethernet".meshLocalized()
@@ -86,6 +105,18 @@ class MeshSetupStrings {
 
             static let AddNewWifi = "MeshSetup.ControlPanel.Wifi.AddNewWifi".meshLocalized()
             static let ManageWifi = "MeshSetup.ControlPanel.Wifi.ManageWifi".meshLocalized()
+
+            static let NetworkInfo = "MeshSetup.ControlPanel.Wifi.NetworkInfo".meshLocalized()
+            static let SSID = "MeshSetup.ControlPanel.Wifi.SSID".meshLocalized()
+            static let BSSID = "MeshSetup.ControlPanel.Wifi.BSSID ".meshLocalized()
+            static let Channel = "MeshSetup.ControlPanel.Wifi.Channel".meshLocalized()
+            static let RSSI = "MeshSetup.ControlPanel.Wifi.RSSI".meshLocalized()
+            static let NoNetworkInfo = "MeshSetup.ControlPanel.Wifi.NoNetworkInfo".meshLocalized()
+        }
+
+        struct ManageWifi {
+            static let Title = "MeshSetup.ControlPanel.ManageWifi.Title".meshLocalized()
+            static let Text = "MeshSetup.ControlPanel.ManageWifi.Text".meshLocalized()
         }
 
         struct Cellular {
@@ -147,17 +178,20 @@ class MeshSetupStrings {
 
             static let Active = "MeshSetup.ControlPanel.Ethernet.Active".meshLocalized()
             static let Inactive = "MeshSetup.ControlPanel.Ethernet.Inactive".meshLocalized()
+            static let Footer = "MeshSetup.ControlPanel.Ethernet.Footer".meshLocalized()
         }
 
         struct Mesh {
             static let Title = "MeshSetup.ControlPanel.Mesh.Title".meshLocalized()
 
-            static let JoinNetwork = "MeshSetup.ControlPanel.Mesh.JoinNetwork".meshLocalized()
-            static let CreateNetwork = "MeshSetup.ControlPanel.Mesh.CreateNetwork".meshLocalized()
+            static let AddToNetwork = "MeshSetup.ControlPanel.Mesh.AddToNetwork".meshLocalized()
             static let LeaveNetwork = "MeshSetup.ControlPanel.Mesh.LeaveNetwork".meshLocalized()
+
             static let PromoteToGateway = "MeshSetup.ControlPanel.Mesh.PromoteToGateway".meshLocalized()
             static let DemoteFromGateway = "MeshSetup.ControlPanel.Mesh.DemoteFromGateway".meshLocalized()
+
             static let NetworkInfo = "MeshSetup.ControlPanel.Mesh.NetworkInfo".meshLocalized()
+            static let DeviceInfo = "MeshSetup.ControlPanel.Mesh.DeviceInfo".meshLocalized()
             static let NoNetworkInfo = "MeshSetup.ControlPanel.Mesh.NoNetworkInfo".meshLocalized()
 
             static let NetworkName = "MeshSetup.ControlPanel.Mesh.NetworkName".meshLocalized()
@@ -165,6 +199,10 @@ class MeshSetupStrings {
             static let NetworkExtPanID = "MeshSetup.ControlPanel.Mesh.NetworkExtPanID".meshLocalized()
             static let NetworkPanID = "MeshSetup.ControlPanel.Mesh.NetworkPanID".meshLocalized()
             static let NetworkChannel = "MeshSetup.ControlPanel.Mesh.NetworkChannel".meshLocalized()
+            static let DeviceCount = "MeshSetup.ControlPanel.Mesh.DeviceCount".meshLocalized()
+            static let DeviceRole = "MeshSetup.ControlPanel.Mesh.DeviceRole".meshLocalized()
+            static let DeviceRoleGateway = "MeshSetup.ControlPanel.Mesh.DeviceRoleGateway".meshLocalized()
+            static let DeviceRoleNode = "MeshSetup.ControlPanel.Mesh.DeviceRoleNode".meshLocalized()
         }
 
         struct Documentation {
@@ -185,6 +223,13 @@ class MeshSetupStrings {
                 static let Title = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Title".meshLocalized()
                 static let Text = "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text".meshLocalized()
             }
+
+            struct LeaveMeshNetwork {
+                static let Title = "MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Title".meshLocalized()
+                static let Text = "MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Text".meshLocalized()
+            }
+
+
 
             struct ChangeDataLimit {
                 static let Title = "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Title".meshLocalized()
@@ -221,11 +266,11 @@ class MeshSetupStrings {
         static let BoronModemError = "MeshSetup.Error.BoronModemError"
         static let FailedToChangeSimDataLimit = "MeshSetup.Error.FailedToChangeSimDataLimit"
         static let FailedToGetDeviceInfo = "MeshSetup.Error.FailedToGetDeviceInfo"
-
+        static let FailedToFlashBecauseOfTimeout = "MeshSetup.Error.FailedToFlashBecauseOfTimeout"
+        static let FailedToHandshakeBecauseOfTimeout = "MeshSetup.Error.FailedToHandshakeBecauseOfTimeout"
 
         //these errors are handled instantly
         static let FailedToUpdateDeviceOS = "MeshSetup.Error.FailedToUpdateDeviceOS"
-        static let FailedToFlashBecauseOfTimeout = "MeshSetup.Error.FailedToFlashBecauseOfTimeout"
         static let UnableToDownloadFirmwareBinary = "MeshSetup.Error.UnableToDownloadFirmwareBinary"
         static let CannotAddGatewayDeviceAsJoiner = "MeshSetup.Error.CannotAddGatewayDeviceAsJoiner"
         static let WrongNetworkPassword = "MeshSetup.Error.WrongNetworkPassword"

@@ -8,8 +8,7 @@
 
 
 
-class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-
+class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, DeviceEventTableViewCellDelegate {
     @IBOutlet weak var eventFilterSearchBar: UISearchBar!
     @IBOutlet weak var clearEventsButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
@@ -179,6 +178,8 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             cell.setup(self.events[(indexPath as NSIndexPath).row])
         }
 
+        cell.delegate = self
+
         return cell
     }
 
@@ -249,4 +250,33 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
     }
+
+    func tappedOnCopyButton(_ sender: DeviceEventTableViewCell, event: ParticleEvent) {
+        UIPasteboard.general.string = event.description
+        RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+        SEGAnalytics.shared().track("DeviceInspector_EventCopied")
+    }
+
+    func tappedOnPayloadButton(_ sender: DeviceEventTableViewCell, event: ParticleEvent) {
+        let alert = UIAlertController(title: event.event, message: "\(event.data ?? "")\r\n\r\n\(event.time.tinkerFormattedString())", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Copy data to clipboard", style: .default) { [weak self] action in
+            UIPasteboard.general.string = event.data ?? ""
+            RMessage.showNotification(withTitle: "Copied", subtitle: "Event data was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+            SEGAnalytics.shared().track("DeviceInspector_EventDataCopied")
+        })
+
+        alert.addAction(UIAlertAction(title: "Copy event to clipboard", style: .default) { [weak self] action in
+            UIPasteboard.general.string = event.description
+            RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+            SEGAnalytics.shared().track("DeviceInspector_EventPayloadCopied")
+        })
+
+        alert.addAction(UIAlertAction(title: "Close", style: .cancel) { action in
+
+        })
+
+        self.present(alert, animated: true)
+    }
+
 }

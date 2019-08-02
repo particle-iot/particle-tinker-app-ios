@@ -16,6 +16,7 @@ class MeshSetupContext: NSObject {
     var commissionerDevice: MeshSetupDevice?
 
     var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
+    var selectedForRemovalWifiNetworkInfo: MeshSetupKnownWifiNetworkInfo?
 
     var selectedNetworkMeshInfo: MeshSetupNetworkInfo?
     var selectedNetworkPassword: String?

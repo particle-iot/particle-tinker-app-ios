@@ -53,15 +53,15 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
 
     internal func prepareContent() {
-        cells = []
+        cells = [[.name, .notes]]
 
         switch device.type {
             case .xenon, .xSeries:
-                cells.append([.mesh]) //.ethernet
+                cells.append([.ethernet, .mesh])
             case .boron, .bSeries:
-                cells.append([.cellular, .mesh]) //.ethernet
+                cells.append([.cellular, .ethernet, .mesh])
             case .argon, .aSeries:
-                cells.append([.wifi, .mesh]) //.ethernet
+                cells.append([.wifi, .ethernet, .mesh])
             default:
                 break
         }
@@ -85,6 +85,11 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         MeshSetupControlPanelCellType.prepareTableView(tableView)
     }
 
+    override func resume(animated: Bool) {
+        super.resume(animated: animated)
+
+        self.tableView.reloadData()
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return cells.count
@@ -116,7 +121,10 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        self.fade()
+        let command = cells[indexPath.section][indexPath.row]
+
+        let showSpinner = (command != .notes && command != .name)
+        self.fadeContent(animated: true, showSpinner: showSpinner)
 
         self.callback(cells[indexPath.section][indexPath.row])
     }

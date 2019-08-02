@@ -97,7 +97,11 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             if (error == .FailedToStartScan) {
                 self.fail(withReason: .FailedToStartScan)
             } else if (error == .FailedToScanBecauseOfTimeout) {
-                self.fail(withReason: .FailedToScanBecauseOfTimeout)
+                if let context = self.context, context.targetDevice.state == .connected {
+                    self.fail(withReason: .FailedToHandshakeBecauseOfTimeout, severity: .Fatal)
+                } else {
+                    self.fail(withReason: .FailedToScanBecauseOfTimeout)
+                }
             } else { //FailedToConnect
                 self.fail(withReason: .FailedToConnect)
             }
@@ -113,6 +117,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return false
         }
 
+        context.commissionerDevice?.state = .connected
         context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceConnected)
 
         return true
@@ -123,7 +128,8 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return false
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceDiscovered)
+        context.commissionerDevice?.state = .discovered
+        context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceDiscovered)
 
         return true
     }
@@ -133,6 +139,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return false
         }
 
+        context.commissionerDevice?.state = .ready
         context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceReady)
 
         commissionerDeviceConnected(connection: connection)
@@ -145,11 +152,23 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
             return false
         }
 
+        context.commissionerDevice?.state = .credentialsSet
+
         if (reconnect) {
             reconnect = false
             start()
         }
 
         return true
+    }
+
+    override func rewindTo(context: MeshSetupContext) {
+        super.rewindTo(context: context)
+
+        guard let context = self.context else {
+            return
+        }
+
+        context.commissionerDevice?.state = .credentialsSet
     }
 }

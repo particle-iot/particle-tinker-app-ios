@@ -140,7 +140,7 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
     
     func callFunction(_ name: String, argument: String) {
         if (!self.device.connected) {
-            RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To execute functions device must be online.", type: .error, customTypeName: nil, callback: nil)
+            RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To execute functions device must be online.", type: .error, customTypeName: nil, duration: -1, callback: nil)
             return
         }
 

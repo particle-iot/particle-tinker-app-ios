@@ -19,7 +19,11 @@ extension ParticleDevice {
     }
 
     func getName() -> String {
-        return self.name ?? "<no name>"
+        if let name = self.name, name.count > 0 {
+            return name
+        } else {
+            return "<no name>"
+        }
     }
 
     func getInfoDetails() -> [String: Any] {

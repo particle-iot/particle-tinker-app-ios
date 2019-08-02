@@ -14,7 +14,12 @@ internal struct MeshSetupDevice {
     var setSimDataLimit: Int? //set by user
 
     var credentials: MeshSetupPeripheralCredentials?
+    var state: MeshSetupDeviceState = .none
+
+    //used by control panel
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
+    var notes: String? //notes stored in cloud
+    var networkRole: ParticleDeviceNetworkRole?
 
     var transceiver: MeshSetupProtocolTransceiver?
 
@@ -47,7 +52,9 @@ internal struct MeshSetupDevice {
     var meshNetworkInfo: MeshSetupNetworkInfo?
     var meshNetworks: [MeshSetupNetworkInfo]?
 
+    var wifiNetworkInfo: MeshSetupNewWifiNetworkInfo? //used in control panel
     var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
+    var knownWifiNetworks: [MeshSetupKnownWifiNetworkInfo]? //used in control panel
 
     var bluetoothName: String? {
         get {
@@ -69,6 +76,14 @@ internal struct MeshSetupDevice {
         }
         return nil
     }
+}
+
+internal enum MeshSetupDeviceState: Int {
+    case none = 0
+    case credentialsSet
+    case discovered
+    case connected
+    case ready
 }
 
 

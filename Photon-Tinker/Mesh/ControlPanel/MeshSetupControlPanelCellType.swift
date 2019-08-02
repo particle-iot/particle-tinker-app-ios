@@ -6,6 +6,9 @@
 import Foundation
 
 enum MeshSetupControlPanelCellType {
+    case name
+    case notes
+
     case wifi
     case cellular
     case ethernet
@@ -21,15 +24,33 @@ enum MeshSetupControlPanelCellType {
 
     case actionChangePinsStatus
 
-    case actionJoinNetwork
-    case actionCreateNetwork
-    case actionLeaveNetwork
     case actionPromoteToGateway
     case actionDemoteFromGateway
-    case actionMeshNetworkInfo
+
+
+    case meshInfoNetworkName
+    case meshInfoNetworkID
+    case meshInfoNetworkExtPanID
+    case meshInfoNetworkPanID
+    case meshInfoNetworkChannel
+    case meshInfoNetworkDeviceCount
+    case meshInfoDeviceRole
+
+
+    case wifiInfoSSID
+    case wifiInfoChannel
+    case wifiInfoRSSI
+
+
+    case actionLeaveMeshNetwork
+    case actionAddToMeshNetwork
 
     func getCellTitle(context: MeshSetupContext) -> String {
         switch self {
+            case .name:
+                return MeshSetupStrings.ControlPanel.Root.Name
+            case .notes:
+                return MeshSetupStrings.ControlPanel.Root.Notes
             case .wifi:
                 return MeshSetupStrings.ControlPanel.Root.Wifi
             case .cellular:
@@ -48,6 +69,14 @@ enum MeshSetupControlPanelCellType {
             case .actionManageWifi:
                 return MeshSetupStrings.ControlPanel.Wifi.ManageWifi
 
+            case .wifiInfoSSID:
+                return MeshSetupStrings.ControlPanel.Wifi.SSID
+            case .wifiInfoChannel:
+                return MeshSetupStrings.ControlPanel.Wifi.Channel
+            case .wifiInfoRSSI:
+                return MeshSetupStrings.ControlPanel.Wifi.RSSI
+
+
             case .actionChangeSimStatus:
                 return MeshSetupStrings.ControlPanel.Cellular.ChangeSimStatus
             case .actionChangeDataLimit:
@@ -56,19 +85,32 @@ enum MeshSetupControlPanelCellType {
             case .actionChangePinsStatus:
                 return MeshSetupStrings.ControlPanel.Ethernet.ChangePinsStatus
 
-            case .actionJoinNetwork:
-                return MeshSetupStrings.ControlPanel.Mesh.JoinNetwork
-            case .actionCreateNetwork:
-                return MeshSetupStrings.ControlPanel.Mesh.CreateNetwork
-            case .actionLeaveNetwork:
+
+            case .meshInfoNetworkName:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkName
+            case .meshInfoNetworkID:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkID
+            case .meshInfoNetworkExtPanID:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkExtPanID
+            case .meshInfoNetworkPanID:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkPanID
+            case .meshInfoNetworkChannel:
+                return MeshSetupStrings.ControlPanel.Mesh.NetworkChannel
+            case .meshInfoNetworkDeviceCount:
+                return MeshSetupStrings.ControlPanel.Mesh.DeviceCount
+            case .meshInfoDeviceRole:
+                return MeshSetupStrings.ControlPanel.Mesh.DeviceRole
+
+            case .actionLeaveMeshNetwork:
                 return MeshSetupStrings.ControlPanel.Mesh.LeaveNetwork
+            case .actionAddToMeshNetwork:
+                return MeshSetupStrings.ControlPanel.Mesh.AddToNetwork
             case .actionPromoteToGateway:
                 return MeshSetupStrings.ControlPanel.Mesh.PromoteToGateway
             case .actionDemoteFromGateway:
                 return MeshSetupStrings.ControlPanel.Mesh.DemoteFromGateway
-            case .actionMeshNetworkInfo:
-                return MeshSetupStrings.ControlPanel.Mesh.NetworkInfo
-        }
+
+}
     }
 
     func getCellDetails(context: MeshSetupContext) -> String? {
@@ -85,13 +127,50 @@ enum MeshSetupControlPanelCellType {
                 return context.targetDevice.ethernetDetectionFeature! ? MeshSetupStrings.ControlPanel.Ethernet.Active : MeshSetupStrings.ControlPanel.Ethernet.Inactive
             case .actionChangeDataLimit:
                 return MeshSetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(context.targetDevice.sim!.dataLimit!))
-            case .actionMeshNetworkInfo:
-                if let network = context.targetDevice.meshNetworkInfo {
-                    return network.name
+            case .name:
+                return context.targetDevice.name
+            case .notes:
+                return context.targetDevice.notes
+
+            case .meshInfoNetworkName:
+                if let _ = context.targetDevice.meshNetworkInfo {
+                    return context.targetDevice.meshNetworkInfo!.name
                 } else {
-                    return ""
-                    //return MeshSetupStrings.ControlPanel.Mesh.NoNetworkInfo
+                    return MeshSetupStrings.ControlPanel.Mesh.NoNetworkInfo
                 }
+            case .meshInfoNetworkID:
+                return context.targetDevice.meshNetworkInfo!.networkID
+            case .meshInfoNetworkExtPanID:
+                return context.targetDevice.meshNetworkInfo!.extPanID
+            case .meshInfoNetworkPanID:
+                return String(context.targetDevice.meshNetworkInfo!.panID)
+            case .meshInfoNetworkChannel:
+                return String(context.targetDevice.meshNetworkInfo!.channel)
+            case .meshInfoNetworkDeviceCount:
+                if let apiNetworks = context.apiNetworks {
+                    for network in apiNetworks {
+                        if (context.targetDevice.meshNetworkInfo!.networkID == network.id) {
+                            return String(network.deviceCount)
+                        }
+                    }
+                }
+                return nil
+            case .meshInfoDeviceRole:
+                //BUG: fix a bug where this is called for device that has no network role
+                return (context.targetDevice.networkRole ?? .node) == .gateway ? MeshSetupStrings.ControlPanel.Mesh.DeviceRoleGateway : MeshSetupStrings.ControlPanel.Mesh.DeviceRoleNode
+
+
+            case .wifiInfoSSID:
+                if let _ = context.targetDevice.wifiNetworkInfo {
+                    return context.targetDevice.wifiNetworkInfo!.ssid
+                } else {
+                    return MeshSetupStrings.ControlPanel.Wifi.NoNetworkInfo
+                }
+            case .wifiInfoChannel:
+                return String(context.targetDevice.wifiNetworkInfo!.channel)
+            case .wifiInfoRSSI:
+                return String(context.targetDevice.wifiNetworkInfo!.rssi)
+
             default:
                 return nil
         }
@@ -99,13 +178,11 @@ enum MeshSetupControlPanelCellType {
 
     func getCellEnabled(context: MeshSetupContext) -> Bool {
         switch self {
-            case .actionMeshNetworkInfo:
-                if let network = context.targetDevice.meshNetworkInfo {
-                    return true
-                } else {
-                    return false
-                }
             case .actionChangeSimStatus:
+                return false
+            case .meshInfoNetworkName, .meshInfoNetworkID, .meshInfoNetworkExtPanID, .meshInfoNetworkPanID, .meshInfoNetworkPanID, .meshInfoNetworkChannel, .meshInfoDeviceRole, .meshInfoNetworkDeviceCount:
+                return false
+            case .wifiInfoChannel, .wifiInfoRSSI, .wifiInfoSSID:
                 return false
             default:
                 return true
@@ -129,14 +206,12 @@ enum MeshSetupControlPanelCellType {
 
     func getDisclosureIndicator(context: MeshSetupContext) -> UITableViewCell.AccessoryType {
         switch self {
-            case .unclaim:
+            case .unclaim, .actionLeaveMeshNetwork:
                 return .none
-            case .actionMeshNetworkInfo:
-                if let network = context.targetDevice.meshNetworkInfo {
-                    return .disclosureIndicator
-                } else {
-                    return .none
-                }
+            case .meshInfoNetworkName, .meshInfoNetworkID, .meshInfoNetworkExtPanID, .meshInfoNetworkPanID, .meshInfoNetworkPanID, .meshInfoNetworkChannel, .meshInfoNetworkDeviceCount, .meshInfoDeviceRole:
+                return .none
+            case .wifiInfoChannel, .wifiInfoRSSI, .wifiInfoSSID:
+                return .none
             case .actionChangeSimStatus:
                 return .none
             default:
@@ -161,10 +236,10 @@ enum MeshSetupControlPanelCellType {
 
         var cell:MeshCell! = nil
 
-        if (self == .unclaim) {
+        if (self == .unclaim || self == .actionLeaveMeshNetwork) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.RedTextColor : ParticleStyle.DetailsTextColor)
-        } else if (self == .actionChangeSimStatus) {
+        } else if (self == .actionChangeSimStatus || self == .actionChangePinsStatus) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 

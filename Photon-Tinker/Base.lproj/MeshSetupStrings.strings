@@ -22,6 +22,7 @@
 "MeshSetup.Error.BoronModemError" = "There was an error in accessing the modem on the device. The modem is now being rebooted in an attempt to recover. Wait a few seconds and then try again. If the error persists, try resetting the device manually by tapping the RESET button, and restart the setup process.";
 "MeshSetup.Error.FailedToChangeSimDataLimit" = "There was an error changing data limit for SIM card. If you have retried multiple times, please contact support.";
 "MeshSetup.Error.FailedToGetDeviceInfo" = "Unable to get information about the device from Device Cloud.";
+"MeshSetup.Error.FailedToHandshakeBecauseOfTimeout" = "Unable to establish a secure connection with your device. Usually, this happens because the Bluetooth modem on your mobile phone has become unresponsive. Please restart the Bluetooth radio in settings, or restart your phone to try again. If this problem persists once you’ve done so, please contact support.";
 
 //these errors are handled instantly
 "MeshSetup.Error.FailedToUpdateDeviceOS" = "There was an error while performing a Device OS update.";
@@ -56,7 +57,7 @@
 "MeshSetup.Error.BluetoothDisabled" = "Bluetooth appears to be disabled on your phone. Please enable Bluetooth and try again.";
 "MeshSetup.Error.BluetoothTimeout" = "Sending Bluetooth messages failed. Please try again.";
 "MeshSetup.Error.BluetoothError" = "Something went wrong with Bluetooth. Please restart the set up process and try again.";
-"MeshSetup.Error.CommissionerNetworkDoesNotMatch" = "The assisting device is on a different mesh network than the one you are trying to join. Please make sure the devices are trying to use the same network.";
+"MeshSetup.Error.CommissionerNetworkDoesNotMatch" = "This device is on a different mesh network than the one you are trying to join. Please find the device that belongs to selected mesh network and try again.";
 "MeshSetup.Error.SameDeviceScannedTwice" = "This is the device that is being setup. Please scan the sticker of device that is on the mesh network you are trying to join.";
 "MeshSetup.Error.FailedToObtainIp" = "Your device failed to obtain an IP address. Please make sure your device has internet access.";
 "MeshSetup.Error.BluetoothConnectionDropped" = "The Bluetooth connection was dropped unexpectedly. Please restart the set up and try again.";
@@ -70,8 +71,8 @@
 
 
 "MeshSetup.Prompt.ErrorTitle" = "Error";
-"MeshSetup.Prompt.CancelSetupTitle" = "Cancel setup";
-"MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to cancel setup?";
+"MeshSetup.Prompt.CancelSetupTitle" = "End setup";
+"MeshSetup.Prompt.CancelSetupText" = "Are you sure you want to stop setting up your device?";
 "MeshSetup.Prompt.LeaveNetworkTitle" = "Leave current network?";
 "MeshSetup.Prompt.LeaveNetworkText" = "The device you are trying to set up is already part of a mesh network. Would you like to have the device leave its current mesh network to continue setup?";
 "MeshSetup.Prompt.NoCameraPermissionsTitle" = "Error";
@@ -91,8 +92,8 @@
 "MeshSetup.Action.Continue" = "Continue";
 "MeshSetup.Action.LeaveNetwork" = "Leave Network";
 "MeshSetup.Action.DontLeaveNetwork" = "Cancel Setup";
-"MeshSetup.Action.CancelSetup" = "Cancel";
-"MeshSetup.Action.ContinueSetup" = "Don't Cancel";
+"MeshSetup.Action.CancelSetup" = "Yes";
+"MeshSetup.Action.ContinueSetup" = "No";
 "MeshSetup.Action.ContactSupport" = "Contact Support";
 "MeshSetup.Action.OpenSettings" = "Open Settings";
 "MeshSetup.Action.SwitchToControlPanel" = "Switch to Control Panel";
@@ -104,7 +105,19 @@
 
 "MeshSetup.Default.DeviceType" = "device";
 
+"MeshSetup.ControlPanel.Prompt.LeaveNetworkTitle" = "Leave current network?";
+"MeshSetup.ControlPanel.Prompt.LeaveNetworkText" =  "Are you sure you want to remove this device from current mesh network?";
+"MeshSetup.ControlPanel.Prompt.DeleteWifiTitle" = "Remove WiFi credentials?";
+"MeshSetup.ControlPanel.Prompt.DeleteWifiText" = "Are you sure you want to remove WiFi credentials for '{{0}}'";
+
+"MeshSetup.ControlPanel.Action.LeaveNetwork" = "Leave Network";
+"MeshSetup.ControlPanel.Action.DontLeaveNetwork" = "Cancel";
+"MeshSetup.ControlPanel.Action.DeleteWifi" = "Remove";
+"MeshSetup.ControlPanel.Action.DontDeleteWifi" = "Cancel";
+
 "MeshSetup.ControlPanel.Root.Title" = "Control Panel";
+"MeshSetup.ControlPanel.Root.Name" = "Device Name";
+"MeshSetup.ControlPanel.Root.Notes" = "Notes";
 "MeshSetup.ControlPanel.Root.Wifi" = "Wi-Fi";
 "MeshSetup.ControlPanel.Root.Mesh" = "Mesh";
 "MeshSetup.ControlPanel.Root.Ethernet" = "Ethernet";
@@ -120,6 +133,15 @@
 "MeshSetup.ControlPanel.Wifi.Title" = "Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.AddNewWifi" = "Connect to new Wi-Fi";
 "MeshSetup.ControlPanel.Wifi.ManageWifi" = "Manage Wi-Fi";
+"MeshSetup.ControlPanel.Wifi.NetworkInfo" = "Network Info";
+"MeshSetup.ControlPanel.Wifi.SSID" = "SSID";
+"MeshSetup.ControlPanel.Wifi.BSSID " = "BSSID";
+"MeshSetup.ControlPanel.Wifi.Channel" = "Channel";
+"MeshSetup.ControlPanel.Wifi.RSSI" = "RSSI";
+"MeshSetup.ControlPanel.Wifi.NoNetworkInfo" = "No network";
+
+"MeshSetup.ControlPanel.ManageWifi.Title" = "Manage Wi-Fi";
+"MeshSetup.ControlPanel.ManageWifi.Text" = "Select stored WiFi credentials you want to remove";
 
 "MeshSetup.ControlPanel.Cellular.Title" = "Cellular";
 "MeshSetup.ControlPanel.Cellular.ChangeSimStatus" = "SIM Status";
@@ -161,21 +183,26 @@
 
 "MeshSetup.ControlPanel.Ethernet.Title" = "Ethernet";
 "MeshSetup.ControlPanel.Ethernet.ChangePinsStatus" = "Ethernet Pins";
-"MeshSetup.ControlPanel.Ethernet.Active" = "Enabled";
-"MeshSetup.ControlPanel.Ethernet.Inactive" = "Disabled";
+"MeshSetup.ControlPanel.Ethernet.Active" = "Active";
+"MeshSetup.ControlPanel.Ethernet.Inactive" = "Inactive";
+"MeshSetup.ControlPanel.Ethernet.Footer" = "To enable Ethernet connectivity using the Particle Ethernet Featherwing, the SPI interface (SCK, MOSI, MISO) is used. Activating the Ethernet interface uses pins D3, D4, and D5 for control signals, and you will not be able to use those pins in your project.";
 
 "MeshSetup.ControlPanel.Mesh.Title" = "Mesh";
-"MeshSetup.ControlPanel.Mesh.JoinNetwork" = "Join network";
-"MeshSetup.ControlPanel.Mesh.CreateNetwork" = "Create network";
+"MeshSetup.ControlPanel.Mesh.AddToNetwork" = "Add to network";
 "MeshSetup.ControlPanel.Mesh.LeaveNetwork" = "Leave network";
 "MeshSetup.ControlPanel.Mesh.NetworkInfo" = "Network Info";
-"MeshSetup.ControlPanel.Mesh.NoNetworkInfo" = "No Network";
+"MeshSetup.ControlPanel.Mesh.DeviceInfo" = "Device Info";
+"MeshSetup.ControlPanel.Mesh.NoNetworkInfo" = "No network";
 
 "MeshSetup.ControlPanel.Mesh.NetworkName" = "Name";
 "MeshSetup.ControlPanel.Mesh.NetworkID" = "ID";
 "MeshSetup.ControlPanel.Mesh.NetworkExtPanID" = "ExtPanID";
 "MeshSetup.ControlPanel.Mesh.NetworkPanID" = "PanID";
 "MeshSetup.ControlPanel.Mesh.NetworkChannel" = "Channel";
+"MeshSetup.ControlPanel.Mesh.DeviceCount" = "Device Count";
+"MeshSetup.ControlPanel.Mesh.DeviceRole" = "Role";
+"MeshSetup.ControlPanel.Mesh.DeviceRoleNode" = "Node";
+"MeshSetup.ControlPanel.Mesh.DeviceRoleGateway" = "Gateway";
 
 "MeshSetup.ControlPanel.Mesh.PromoteToGateway" = "Promote to gateway";
 "MeshSetup.ControlPanel.Mesh.DemoteFromGateway" = "Demote from gateway";
@@ -191,6 +218,9 @@
 
 "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Title" = "Success";
 "MeshSetup.ControlPanel.FlowComplete.AddNewWifi.Text" = "Wi-Fi credentials were successfully added to {{deviceName}}";
+
+"MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Title" = "Success";
+"MeshSetup.ControlPanel.FlowComplete.LeaveMeshNetwork.Text" = "{{deviceName}} was removed from mesh network";
 
 "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Title" = "Success";
 "MeshSetup.ControlPanel.FlowComplete.ChangeDataLimit.Text" = "SIM data limit was changed";

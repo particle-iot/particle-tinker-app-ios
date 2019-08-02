@@ -20,8 +20,16 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     func setDevice(_ device: ParticleDevice, context: MeshSetupContext? = nil) {
         self.device = device
-        self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
+        if let serial = device.serialNumber, let mobileSecret = device.mobileSecret {
+            self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
+        }
+
         self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self, context: context)
+
+        self.flowRunner.context.targetDevice.deviceId = self.device.id
+        self.flowRunner.context.targetDevice.name = self.device.getName()
+        self.flowRunner.context.targetDevice.notes = self.device.notes
+        self.flowRunner.context.targetDevice.networkRole = self.device.networkRole
     }
 
     override internal func setupInitialViewController() {
@@ -55,18 +63,64 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 showUnclaim()
             case .mesh:
                 controlPanelManager.actionPairMesh()
-                break
             case .cellular:
                 controlPanelManager.actionPairCellular()
-                break
             case .ethernet:
                 controlPanelManager.actionPairEthernet()
-                break
             case .wifi:
-                showControlPanelWifiView()
+                controlPanelManager.actionPairWifi()
+            case .notes:
+                editNotes()
+            case .name:
+                rename()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
+    }
+
+    func rename() {
+        var vc = DeviceInspectorTextInputViewController.storyboardViewController()
+        vc.setup(caption: "Name", multiline: false, value: self.device.name, blurBackground: false, onCompletion: {
+            [weak self] value in
+            if let self = self {
+                self.device.rename(value) { error in
+                    if let error = error {
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error renaming device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        vc.resume(animated: true)
+                    } else {
+                        self.controlPanelManager.context.targetDevice.name = self.device.getName()
+                        let root = self.embededNavigationController!.topViewController as! MeshSetupViewController
+                        root.resume(animated: false)
+                        vc.dismiss(animated: true)
+                    }
+                }
+            }
+        })
+        self.present(vc, animated: true)
+
+    }
+
+
+    func editNotes() {
+        var vc = DeviceInspectorTextInputViewController.storyboardViewController()
+        vc.setup(caption: "Notes", multiline: true, value: self.device.notes, blurBackground: false, onCompletion: {
+            [weak self] value in
+            if let self = self {
+                self.device.setNotes(value) { error in
+                    if let error = error {
+                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        vc.resume(animated: true)
+                    } else {
+                        self.controlPanelManager.context.targetDevice.notes = self.device.notes
+                        let root = self.embededNavigationController!.topViewController as! MeshSetupViewController
+                        root.resume(animated: false)
+                        vc.dismiss(animated: true)
+                    }
+                }
+            }
+
+        })
+        self.present(vc, animated: true)
     }
 
     private func showDocumentation() {
@@ -99,7 +153,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             if let error = error as? NSError {
                 self.showNetworkError(error: error)
             } else {
-                self.cancelTapped(self)
+                if let callback = self.callback {
+                    callback(MeshSetupFlowResult.unclaimed)
+                }
+                self.terminate()
             }
         }
     }
@@ -143,8 +200,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             case .actionNewWifi:
                 controlPanelManager.actionNewWifi()
             case .actionManageWifi:
-                break
-
+                controlPanelManager.actionManageWifi()
+            case .wifi:
+                controlPanelManager.actionPairWifi()
             default:
                 fatalError("cellType \(action) should never be returned")
         }
@@ -198,14 +256,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     func controlPanelMeshViewCompleted(action: MeshSetupControlPanelCellType) {
         currentAction = action
         switch action {
-            case .actionMeshNetworkInfo:
-                showMeshNetworkInfo()
-            case .actionJoinNetwork:
-                break
-            case .actionCreateNetwork:
-                break
-            case .actionLeaveNetwork:
-                break
+            case .actionAddToMeshNetwork:
+                controlPanelManager.context.userSelectedToSetupMesh = true
+                controlPanelManager.actionAddToMesh()
+            case .actionLeaveMeshNetwork:
+                controlPanelManager.context.targetDevice.networkRole = nil
+                controlPanelManager.context.userSelectedToLeaveNetwork = true
+                controlPanelManager.actionLeaveMeshNetwork()
+            case .mesh:
+                controlPanelManager.actionPairMesh()
             case .actionPromoteToGateway:
                 break
             case .actionDemoteFromGateway:
@@ -213,18 +272,6 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
             default:
                 fatalError("cellType \(action) should never be returned")
-        }
-    }
-
-    private func showMeshNetworkInfo() {
-        self.currentAction = .mesh
-        DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelMeshNetworkInfoViewController.self)) {
-                let meshVC = MeshSetupControlPanelMeshNetworkInfoViewController.loadedViewController()
-                meshVC.setup(device: self.device, context: self.controlPanelManager.context)
-                meshVC.ownerStepType = nil
-                self.embededNavigationController.pushViewController(meshVC, animated: true)
-            }
         }
     }
 
@@ -269,21 +316,37 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
         switch currentAction! {
-            case .actionNewWifi, .actionManageWifi,
+            case .actionNewWifi,
                  .actionChangePinsStatus,
-                 .actionChangeSimStatus, .actionChangeDataLimit:
+                 .actionChangeSimStatus, .actionChangeDataLimit,
+                 .actionLeaveMeshNetwork:
                 showFlowCompleteView()
             case .mesh:
                 showControlPanelMeshView()
             case .ethernet:
                 showControlPanelEthernetView()
+            case .wifi:
+                showControlPanelWifiView()
             case .cellular:
                 showControlPanelCellularView()
+            case .actionManageWifi:
+                showManageWifiView()
+            case .actionAddToMeshNetwork:
+                controlPanelManager.context.userSelectedToCreateNetwork = nil
+                controlPanelManager.context.selectedNetworkMeshInfo = nil
+                controlPanelManager.context.selectedNetworkPassword = nil
+
+                controlPanelManager.context.newNetworkName = nil
+                controlPanelManager.context.newNetworkPassword = nil
+                controlPanelManager.context.newNetworkId = nil
+
+
+                currentAction = .mesh
+                controlPanelManager.actionPairMesh()
             default:
                 break;
         }
     }
-
 
     private func showFlowCompleteView() {
         DispatchQueue.main.async {
@@ -298,8 +361,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     internal func flowCompleteViewCompleted() {
         switch currentAction! {
-            case .actionNewWifi, .actionManageWifi:
-                showControlPanelWifiView()
+            case .actionNewWifi:
+                controlPanelManager.context.selectedWifiNetworkInfo = nil
+
+                currentAction = .wifi
+                controlPanelManager.actionPairWifi()
             case .actionChangeSimStatus, .actionChangeDataLimit:
                 controlPanelManager.context.targetDevice.setSimDataLimit = nil
                 controlPanelManager.context.targetDevice.setSimActive = nil
@@ -311,19 +377,62 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
                 currentAction = .ethernet
                 controlPanelManager.actionPairEthernet()
+            case .actionLeaveMeshNetwork:
+                controlPanelManager.context.userSelectedToLeaveNetwork = nil
+
+                currentAction = .mesh
+                controlPanelManager.actionPairMesh()
             default:
                 break;
         }
     }
 
     override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
-        if controlPanelManager.context.targetDevice.sim!.status! == .activate {
-            showDeactivateSimInfoView()
-        } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
-            showResumeSimInfoView()
+        currentStepType = type(of: sender)
+        let infoType = (sender as! StepShowInfo).infoType
+
+        if infoType == .joinerFlow {
+            if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
+                let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
+                infoVC.allowBack = true
+                infoVC.ownerStepType = self.currentStepType
+                infoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: self.flowRunner.context.userSelectedToSetupMesh, deviceType: self.flowRunner.context.targetDevice.type!)
+                self.embededNavigationController.pushViewController(infoVC, animated: true)
+            }
         } else {
-            showActivateSimInfoView()
+            if controlPanelManager.context.targetDevice.sim!.status! == .activate {
+                showDeactivateSimInfoView()
+            } else if (controlPanelManager.context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
+                showResumeSimInfoView()
+            } else {
+                showActivateSimInfoView()
+            }
         }
+    }
+
+    func infoViewCompleted() {
+        self.flowRunner.setInfoDone()
+    }
+
+    private func showManageWifiView() {
+        DispatchQueue.main.async {
+            if let manageWifiView = self.embededNavigationController.topViewController as? MeshSetupControlPanelManageWifiViewController {
+                manageWifiView.setNetworks(networks: self.controlPanelManager.context.targetDevice.knownWifiNetworks!)
+            }
+
+            if (!self.rewindTo(MeshSetupControlPanelManageWifiViewController.self)) {
+                let manageWifiView = MeshSetupControlPanelManageWifiViewController.loadedViewController()
+                manageWifiView.setup(didSelectNetwork: self.selectKnownWifiNetworkViewCompleted)
+                manageWifiView.setNetworks(networks: self.controlPanelManager.context.targetDevice.knownWifiNetworks!)
+                manageWifiView.ownerStepType = nil
+                self.embededNavigationController.pushViewController(manageWifiView, animated: true)
+            }
+        }
+    }
+
+    internal func selectKnownWifiNetworkViewCompleted(network: MeshSetupKnownWifiNetworkInfo) {
+        self.controlPanelManager.context.selectedForRemovalWifiNetworkInfo = network
+        self.controlPanelManager.actionRemoveWifiCredentials()
     }
 
     private func showDeactivateSimInfoView() {
@@ -441,7 +550,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
 
     override func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
-        if error == .FailedToScanBecauseOfTimeout {
+        //don't show timeout error when pairing to target device
+        if error == .FailedToScanBecauseOfTimeout,  let currentStep = flowRunner.currentStep, type(of: currentStep) == StepConnectToTargetDevice.self {
             self.flowRunner.retryLastAction()
         } else if (error == .ExternalSimNotSupported) {
             self.controlPanelManager.stopCurrentFlow()
@@ -467,9 +577,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             return
         }
 
-        vcPrev.resume(animated: false)
+        if vcCurr.allowBack {
+            vcPrev.resume(animated: false)
 
-        if (vcs.last! as! MeshSetupViewController).allowBack {
             if vcPrev.ownerStepType != nil, vcCurr.ownerStepType != vcPrev.ownerStepType {
                 log("Rewinding flow from: \(vcCurr.ownerStepType) to: \(vcPrev.ownerStepType!)")
                 self.flowRunner.rewindTo(step: vcPrev.ownerStepType!)

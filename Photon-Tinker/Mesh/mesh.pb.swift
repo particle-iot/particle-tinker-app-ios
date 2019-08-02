@@ -19,6 +19,103 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+enum Particle_Ctrl_Mesh_DiagnosticType: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case macExtendedAddress // = 0
+  case rloc // = 1
+  static let macAddress = rloc
+  case mode // = 2
+  case timeout // = 3
+  case connectivity // = 4
+  case route64 // = 5
+  case leaderData // = 6
+  case networkData // = 7
+  case ipv6AddressList // = 8
+  case macCounters // = 9
+  case batteryLevel // = 14
+  case supplyVoltage // = 15
+  case childTable // = 16
+  case channelPages // = 17
+  case typeList // = 18
+  case maxChildTimeout // = 19
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .macExtendedAddress
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .macExtendedAddress
+    case 1: self = .rloc
+    case 2: self = .mode
+    case 3: self = .timeout
+    case 4: self = .connectivity
+    case 5: self = .route64
+    case 6: self = .leaderData
+    case 7: self = .networkData
+    case 8: self = .ipv6AddressList
+    case 9: self = .macCounters
+    case 14: self = .batteryLevel
+    case 15: self = .supplyVoltage
+    case 16: self = .childTable
+    case 17: self = .channelPages
+    case 18: self = .typeList
+    case 19: self = .maxChildTimeout
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .macExtendedAddress: return 0
+    case .rloc: return 1
+    case .mode: return 2
+    case .timeout: return 3
+    case .connectivity: return 4
+    case .route64: return 5
+    case .leaderData: return 6
+    case .networkData: return 7
+    case .ipv6AddressList: return 8
+    case .macCounters: return 9
+    case .batteryLevel: return 14
+    case .supplyVoltage: return 15
+    case .childTable: return 16
+    case .channelPages: return 17
+    case .typeList: return 18
+    case .maxChildTimeout: return 19
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_Mesh_DiagnosticType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_Mesh_DiagnosticType] = [
+    .macExtendedAddress,
+    .rloc,
+    .mode,
+    .timeout,
+    .connectivity,
+    .route64,
+    .leaderData,
+    .networkData,
+    .ipv6AddressList,
+    .macCounters,
+    .batteryLevel,
+    .supplyVoltage,
+    .childTable,
+    .channelPages,
+    .typeList,
+    .maxChildTimeout,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// Network info
 struct Particle_Ctrl_Mesh_NetworkInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -365,6 +462,10 @@ struct Particle_Ctrl_Mesh_ScanNetworksRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Time in milliseconds to spend scanning each channel. A value of 0 sets the default OpenThread
+  /// timeout (300 ms)
+  var duration: UInt32 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -382,9 +483,736 @@ struct Particle_Ctrl_Mesh_ScanNetworksReply {
   init() {}
 }
 
+/// Mapping of Diagnostic TLVs
+struct Particle_Ctrl_Mesh_DiagnosticInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// MAC Extended Address (64-bit): MAC Extended Address TLV
+  var extMacAddress: Data {
+    get {return _storage._extMacAddress}
+    set {_uniqueStorage()._extMacAddress = newValue}
+  }
+
+  /// MAC Address (16-bit): Address16 TLV (RLOC)
+  var rloc: UInt32 {
+    get {return _storage._rloc}
+    set {_uniqueStorage()._rloc = newValue}
+  }
+
+  /// Mode (Capability Information): Mode TLV
+  var mode: UInt32 {
+    get {return _storage._mode}
+    set {_uniqueStorage()._mode = newValue}
+  }
+
+  /// Timeout: Timeout TLV
+  var timeout: UInt32 {
+    get {return _storage._timeout}
+    set {_uniqueStorage()._timeout = newValue}
+  }
+
+  /// Connectivity : Connectivity TLV
+  var connectivity: Particle_Ctrl_Mesh_DiagnosticInfo.Connectivity {
+    get {return _storage._connectivity ?? Particle_Ctrl_Mesh_DiagnosticInfo.Connectivity()}
+    set {_uniqueStorage()._connectivity = newValue}
+  }
+  /// Returns true if `connectivity` has been explicitly set.
+  var hasConnectivity: Bool {return _storage._connectivity != nil}
+  /// Clears the value of `connectivity`. Subsequent reads from it will return its default value.
+  mutating func clearConnectivity() {_uniqueStorage()._connectivity = nil}
+
+  /// Route64: Route64 TLV
+  var route64: Particle_Ctrl_Mesh_DiagnosticInfo.Route64 {
+    get {return _storage._route64 ?? Particle_Ctrl_Mesh_DiagnosticInfo.Route64()}
+    set {_uniqueStorage()._route64 = newValue}
+  }
+  /// Returns true if `route64` has been explicitly set.
+  var hasRoute64: Bool {return _storage._route64 != nil}
+  /// Clears the value of `route64`. Subsequent reads from it will return its default value.
+  mutating func clearRoute64() {_uniqueStorage()._route64 = nil}
+
+  /// Leader Data: Leader Data TLV
+  var leaderData: Particle_Ctrl_Mesh_DiagnosticInfo.LeaderData {
+    get {return _storage._leaderData ?? Particle_Ctrl_Mesh_DiagnosticInfo.LeaderData()}
+    set {_uniqueStorage()._leaderData = newValue}
+  }
+  /// Returns true if `leaderData` has been explicitly set.
+  var hasLeaderData: Bool {return _storage._leaderData != nil}
+  /// Clears the value of `leaderData`. Subsequent reads from it will return its default value.
+  mutating func clearLeaderData() {_uniqueStorage()._leaderData = nil}
+
+  /// Network Data: Network Data TLV
+  var networkData: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData {
+    get {return _storage._networkData ?? Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData()}
+    set {_uniqueStorage()._networkData = newValue}
+  }
+  /// Returns true if `networkData` has been explicitly set.
+  var hasNetworkData: Bool {return _storage._networkData != nil}
+  /// Clears the value of `networkData`. Subsequent reads from it will return its default value.
+  mutating func clearNetworkData() {_uniqueStorage()._networkData = nil}
+
+  /// IPv6 address list: IPv6 Address List TLV
+  var ipv6AddressList: [Particle_Ctrl_Ipv6Address] {
+    get {return _storage._ipv6AddressList}
+    set {_uniqueStorage()._ipv6AddressList = newValue}
+  }
+
+  /// MAC Counters: MAC Counters TLV
+  var macCounters: Particle_Ctrl_Mesh_DiagnosticInfo.MacCounters {
+    get {return _storage._macCounters ?? Particle_Ctrl_Mesh_DiagnosticInfo.MacCounters()}
+    set {_uniqueStorage()._macCounters = newValue}
+  }
+  /// Returns true if `macCounters` has been explicitly set.
+  var hasMacCounters: Bool {return _storage._macCounters != nil}
+  /// Clears the value of `macCounters`. Subsequent reads from it will return its default value.
+  mutating func clearMacCounters() {_uniqueStorage()._macCounters = nil}
+
+  /// Battery Level: Battery Level TLV
+  var batteryLevel: UInt32 {
+    get {return _storage._batteryLevel}
+    set {_uniqueStorage()._batteryLevel = newValue}
+  }
+
+  /// Supply Voltage: Supply Voltage TLV
+  var supplyVoltage: UInt32 {
+    get {return _storage._supplyVoltage}
+    set {_uniqueStorage()._supplyVoltage = newValue}
+  }
+
+  /// Child Table: Child Table TLV
+  var childTable: Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable {
+    get {return _storage._childTable ?? Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable()}
+    set {_uniqueStorage()._childTable = newValue}
+  }
+  /// Returns true if `childTable` has been explicitly set.
+  var hasChildTable: Bool {return _storage._childTable != nil}
+  /// Clears the value of `childTable`. Subsequent reads from it will return its default value.
+  mutating func clearChildTable() {_uniqueStorage()._childTable = nil}
+
+  /// Channel Pages: Channel Pages TLV
+  var channelPages: Data {
+    get {return _storage._channelPages}
+    set {_uniqueStorage()._channelPages = newValue}
+  }
+
+  /// Type List: Type List TLV
+  /// List of DiagnosticType
+  var typeList: [Particle_Ctrl_Mesh_DiagnosticType] {
+    get {return _storage._typeList}
+    set {_uniqueStorage()._typeList = newValue}
+  }
+
+  /// Max Child Timeout: Timeout TLV
+  var maxChildTimeout: UInt32 {
+    get {return _storage._maxChildTimeout}
+    set {_uniqueStorage()._maxChildTimeout = newValue}
+  }
+
+  /// Particle-specific Device Id
+  var deviceID: Data {
+    get {return _storage._deviceID}
+    set {_uniqueStorage()._deviceID = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Mode TLV
+  enum Mode: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case invalid // = 0
+    case receiverOnWhenIdle // = 16
+    case secureDataRequests // = 32
+    case deviceType // = 48
+    static let deviceTypeFtd = deviceType
+    case networkData // = 64
+    static let networkDataFull = networkData
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .invalid
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .invalid
+      case 16: self = .receiverOnWhenIdle
+      case 32: self = .secureDataRequests
+      case 48: self = .deviceType
+      case 64: self = .networkData
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .invalid: return 0
+      case .receiverOnWhenIdle: return 16
+      case .secureDataRequests: return 32
+      case .deviceType: return 48
+      case .networkData: return 64
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  enum RoutePreference: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case medium // = 0
+    case high // = 1
+    case low // = -1
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .medium
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case -1: self = .low
+      case 0: self = .medium
+      case 1: self = .high
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .low: return -1
+      case .medium: return 0
+      case .high: return 1
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  /// Connectivity TLV
+  struct Connectivity {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var parentPriority: UInt32 = 0
+
+    var linkQuality1: UInt32 = 0
+
+    var linkQuality2: UInt32 = 0
+
+    var linkQuality3: UInt32 = 0
+
+    var leaderCost: UInt32 = 0
+
+    var idSequence: UInt32 = 0
+
+    var activeRouters: UInt32 = 0
+
+    var sedBufferSize: UInt32 = 0
+
+    var sedDatagramCount: UInt32 = 0
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+  }
+
+  /// Route64 TLV
+  struct Route64 {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var idSequence: UInt32 = 0
+
+    var routes: [Particle_Ctrl_Mesh_DiagnosticInfo.Route64.RouteData] = []
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    /// Originally this is represented as bitmask, we are simplifying
+    /// representation here a bit
+    struct RouteData {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var routerRloc: UInt32 = 0
+
+      var linkQualityOut: UInt32 = 0
+
+      var linkQualityIn: UInt32 = 0
+
+      var routeCost: UInt32 = 0
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    init() {}
+  }
+
+  /// Leader Data TLV
+  struct LeaderData {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var partitionID: UInt32 = 0
+
+    var weighting: UInt32 = 0
+
+    var dataVersion: UInt32 = 0
+
+    var stableDataVersion: UInt32 = 0
+
+    var leaderRloc: UInt32 = 0
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+  }
+
+  /// Network Data TLV
+  struct NetworkData {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var stable: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage {
+      get {return _storage._stable ?? Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage()}
+      set {_uniqueStorage()._stable = newValue}
+    }
+    /// Returns true if `stable` has been explicitly set.
+    var hasStable: Bool {return _storage._stable != nil}
+    /// Clears the value of `stable`. Subsequent reads from it will return its default value.
+    mutating func clearStable() {_uniqueStorage()._stable = nil}
+
+    var temporary: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage {
+      get {return _storage._temporary ?? Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage()}
+      set {_uniqueStorage()._temporary = newValue}
+    }
+    /// Returns true if `temporary` has been explicitly set.
+    var hasTemporary: Bool {return _storage._temporary != nil}
+    /// Clears the value of `temporary`. Subsequent reads from it will return its default value.
+    mutating func clearTemporary() {_uniqueStorage()._temporary = nil}
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    /// Has Route TLV
+    struct HasRoute {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var entries: [Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute.HasRouteEntry] = []
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct HasRouteEntry {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var rloc: UInt32 = 0
+
+        var preference: Particle_Ctrl_Mesh_DiagnosticInfo.RoutePreference = .medium
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      init() {}
+    }
+
+    /// Border Router TLV
+    struct BorderRouter {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var entries: [Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter.BorderRouterEntry] = []
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct BorderRouterEntry {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var rloc: UInt32 = 0
+
+        var preference: Particle_Ctrl_Mesh_DiagnosticInfo.RoutePreference = .medium
+
+        var flags: UInt32 = 0
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        enum Flags: SwiftProtobuf.Enum {
+          typealias RawValue = Int
+          case none // = 0
+          case preferred // = 1
+          case slaac // = 2
+          case dhcp // = 4
+          case configure // = 8
+          case defaultRoute // = 16
+          case onMesh // = 32
+          case ndDns // = 64
+          case UNRECOGNIZED(Int)
+
+          init() {
+            self = .none
+          }
+
+          init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .none
+            case 1: self = .preferred
+            case 2: self = .slaac
+            case 4: self = .dhcp
+            case 8: self = .configure
+            case 16: self = .defaultRoute
+            case 32: self = .onMesh
+            case 64: self = .ndDns
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          var rawValue: Int {
+            switch self {
+            case .none: return 0
+            case .preferred: return 1
+            case .slaac: return 2
+            case .dhcp: return 4
+            case .configure: return 8
+            case .defaultRoute: return 16
+            case .onMesh: return 32
+            case .ndDns: return 64
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+        }
+
+        init() {}
+      }
+
+      init() {}
+    }
+
+    /// 6LoWPAN ID TLV
+    struct Context {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var cid: UInt32 = 0
+
+      var compress: Bool = false
+
+      var contextLength: UInt32 = 0
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    /// Prefix TLV
+    struct Prefix {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var domainID: UInt32 {
+        get {return _storage._domainID}
+        set {_uniqueStorage()._domainID = newValue}
+      }
+
+      var prefixLength: UInt32 {
+        get {return _storage._prefixLength}
+        set {_uniqueStorage()._prefixLength = newValue}
+      }
+
+      var prefix: Data {
+        get {return _storage._prefix}
+        set {_uniqueStorage()._prefix = newValue}
+      }
+
+      /// Sub-TLVs
+      var context: [Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Context] {
+        get {return _storage._context}
+        set {_uniqueStorage()._context = newValue}
+      }
+
+      var hasRoute_p: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute {
+        get {return _storage._hasRoute_p ?? Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute()}
+        set {_uniqueStorage()._hasRoute_p = newValue}
+      }
+      /// Returns true if `hasRoute_p` has been explicitly set.
+      var hasHasRoute_p: Bool {return _storage._hasRoute_p != nil}
+      /// Clears the value of `hasRoute_p`. Subsequent reads from it will return its default value.
+      mutating func clearHasRoute_p() {_uniqueStorage()._hasRoute_p = nil}
+
+      var borderRouter: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter {
+        get {return _storage._borderRouter ?? Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter()}
+        set {_uniqueStorage()._borderRouter = newValue}
+      }
+      /// Returns true if `borderRouter` has been explicitly set.
+      var hasBorderRouter: Bool {return _storage._borderRouter != nil}
+      /// Clears the value of `borderRouter`. Subsequent reads from it will return its default value.
+      mutating func clearBorderRouter() {_uniqueStorage()._borderRouter = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+
+      fileprivate var _storage = _StorageClass.defaultInstance
+    }
+
+    /// Server TLV
+    struct Server {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var rloc: UInt32 = 0
+
+      var data: Data = SwiftProtobuf.Internal.emptyData
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    /// Service TLV
+    struct Service {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      /// NOTE: THREAD_ENTERPRISE_NUMBER = 44970
+      var sid: UInt32 = 0
+
+      var enterpriseNumber: UInt32 = 0
+
+      var data: Data = SwiftProtobuf.Internal.emptyData
+
+      var servers: [Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Server] = []
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    struct DataMessage {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var prefixes: [Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Prefix] = []
+
+      /// TODO: Commissioning Data TLV?
+      var services: [Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Service] = []
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    init() {}
+
+    fileprivate var _storage = _StorageClass.defaultInstance
+  }
+
+  /// MAC Counters TLV
+  struct MacCounters {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var ifInUnknownProtos: UInt32 = 0
+
+    var ifInErrors: UInt32 = 0
+
+    var ifOutErrors: UInt32 = 0
+
+    var ifInUcastPkts: UInt32 = 0
+
+    var ifInBroadcastPkts: UInt32 = 0
+
+    var ifInDiscards: UInt32 = 0
+
+    var ifOutUcastPkts: UInt32 = 0
+
+    var ifOutBroadcastPkts: UInt32 = 0
+
+    var ifOutDiscards: UInt32 = 0
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+  }
+
+  /// Child Table TLV
+  struct ChildTable {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var children: [Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable.ChildEntry] = []
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    struct ChildEntry {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var timeout: UInt32 = 0
+
+      var childID: UInt32 = 0
+
+      /// Mode TLV
+      var mode: UInt32 = 0
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    init() {}
+  }
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.Mode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_Mesh_DiagnosticInfo.Mode] = [
+    .invalid,
+    .receiverOnWhenIdle,
+    .secureDataRequests,
+    .deviceType,
+    .networkData,
+  ]
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.RoutePreference: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_Mesh_DiagnosticInfo.RoutePreference] = [
+    .medium,
+    .high,
+    .low,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+struct Particle_Ctrl_Mesh_GetNetworkDiagnosticsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Bitmask of Flags
+  var flags: UInt32 = 0
+
+  /// List of DiagnosticType to request
+  var diagnosticTypes: [Particle_Ctrl_Mesh_DiagnosticType] = []
+
+  /// Maximum time in seconds to wait for diagnostic replies
+  var timeout: UInt32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum Flags: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case invalid // = 0
+    case queryChildren // = 1
+    case resolveDeviceID // = 2
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .invalid
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .invalid
+      case 1: self = .queryChildren
+      case 2: self = .resolveDeviceID
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .invalid: return 0
+      case .queryChildren: return 1
+      case .resolveDeviceID: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension Particle_Ctrl_Mesh_GetNetworkDiagnosticsRequest.Flags: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Particle_Ctrl_Mesh_GetNetworkDiagnosticsRequest.Flags] = [
+    .invalid,
+    .queryChildren,
+    .resolveDeviceID,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+struct Particle_Ctrl_Mesh_GetNetworkDiagnosticsReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var nodes: [Particle_Ctrl_Mesh_DiagnosticInfo] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "particle.ctrl.mesh"
+
+extension Particle_Ctrl_Mesh_DiagnosticType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "MAC_EXTENDED_ADDRESS"),
+    1: .aliased(proto: "RLOC", aliases: ["MAC_ADDRESS"]),
+    2: .same(proto: "MODE"),
+    3: .same(proto: "TIMEOUT"),
+    4: .same(proto: "CONNECTIVITY"),
+    5: .same(proto: "ROUTE64"),
+    6: .same(proto: "LEADER_DATA"),
+    7: .same(proto: "NETWORK_DATA"),
+    8: .same(proto: "IPV6_ADDRESS_LIST"),
+    9: .same(proto: "MAC_COUNTERS"),
+    14: .same(proto: "BATTERY_LEVEL"),
+    15: .same(proto: "SUPPLY_VOLTAGE"),
+    16: .same(proto: "CHILD_TABLE"),
+    17: .same(proto: "CHANNEL_PAGES"),
+    18: .same(proto: "TYPE_LIST"),
+    19: .same(proto: "MAX_CHILD_TIMEOUT"),
+  ]
+}
 
 extension Particle_Ctrl_Mesh_NetworkInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".NetworkInfo"
@@ -1053,18 +1881,28 @@ extension Particle_Ctrl_Mesh_GetNetworkInfoReply: SwiftProtobuf.Message, SwiftPr
 
 extension Particle_Ctrl_Mesh_ScanNetworksRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ScanNetworksRequest"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "duration"),
+  ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.duration)
+      default: break
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.duration != 0 {
+      try visitor.visitSingularUInt32Field(value: self.duration, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Particle_Ctrl_Mesh_ScanNetworksRequest, rhs: Particle_Ctrl_Mesh_ScanNetworksRequest) -> Bool {
+    if lhs.duration != rhs.duration {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1094,6 +1932,1125 @@ extension Particle_Ctrl_Mesh_ScanNetworksReply: SwiftProtobuf.Message, SwiftProt
 
   static func ==(lhs: Particle_Ctrl_Mesh_ScanNetworksReply, rhs: Particle_Ctrl_Mesh_ScanNetworksReply) -> Bool {
     if lhs.networks != rhs.networks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DiagnosticInfo"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "ext_mac_address"),
+    2: .same(proto: "rloc"),
+    3: .same(proto: "mode"),
+    4: .same(proto: "timeout"),
+    5: .same(proto: "connectivity"),
+    6: .same(proto: "route64"),
+    7: .standard(proto: "leader_data"),
+    8: .standard(proto: "network_data"),
+    9: .standard(proto: "ipv6_address_list"),
+    10: .standard(proto: "mac_counters"),
+    15: .standard(proto: "battery_level"),
+    16: .standard(proto: "supply_voltage"),
+    17: .standard(proto: "child_table"),
+    18: .standard(proto: "channel_pages"),
+    19: .standard(proto: "type_list"),
+    20: .standard(proto: "max_child_timeout"),
+    100: .standard(proto: "device_id"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _extMacAddress: Data = SwiftProtobuf.Internal.emptyData
+    var _rloc: UInt32 = 0
+    var _mode: UInt32 = 0
+    var _timeout: UInt32 = 0
+    var _connectivity: Particle_Ctrl_Mesh_DiagnosticInfo.Connectivity? = nil
+    var _route64: Particle_Ctrl_Mesh_DiagnosticInfo.Route64? = nil
+    var _leaderData: Particle_Ctrl_Mesh_DiagnosticInfo.LeaderData? = nil
+    var _networkData: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData? = nil
+    var _ipv6AddressList: [Particle_Ctrl_Ipv6Address] = []
+    var _macCounters: Particle_Ctrl_Mesh_DiagnosticInfo.MacCounters? = nil
+    var _batteryLevel: UInt32 = 0
+    var _supplyVoltage: UInt32 = 0
+    var _childTable: Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable? = nil
+    var _channelPages: Data = SwiftProtobuf.Internal.emptyData
+    var _typeList: [Particle_Ctrl_Mesh_DiagnosticType] = []
+    var _maxChildTimeout: UInt32 = 0
+    var _deviceID: Data = SwiftProtobuf.Internal.emptyData
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _extMacAddress = source._extMacAddress
+      _rloc = source._rloc
+      _mode = source._mode
+      _timeout = source._timeout
+      _connectivity = source._connectivity
+      _route64 = source._route64
+      _leaderData = source._leaderData
+      _networkData = source._networkData
+      _ipv6AddressList = source._ipv6AddressList
+      _macCounters = source._macCounters
+      _batteryLevel = source._batteryLevel
+      _supplyVoltage = source._supplyVoltage
+      _childTable = source._childTable
+      _channelPages = source._channelPages
+      _typeList = source._typeList
+      _maxChildTimeout = source._maxChildTimeout
+      _deviceID = source._deviceID
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularBytesField(value: &_storage._extMacAddress)
+        case 2: try decoder.decodeSingularUInt32Field(value: &_storage._rloc)
+        case 3: try decoder.decodeSingularUInt32Field(value: &_storage._mode)
+        case 4: try decoder.decodeSingularUInt32Field(value: &_storage._timeout)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._connectivity)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._route64)
+        case 7: try decoder.decodeSingularMessageField(value: &_storage._leaderData)
+        case 8: try decoder.decodeSingularMessageField(value: &_storage._networkData)
+        case 9: try decoder.decodeRepeatedMessageField(value: &_storage._ipv6AddressList)
+        case 10: try decoder.decodeSingularMessageField(value: &_storage._macCounters)
+        case 15: try decoder.decodeSingularUInt32Field(value: &_storage._batteryLevel)
+        case 16: try decoder.decodeSingularUInt32Field(value: &_storage._supplyVoltage)
+        case 17: try decoder.decodeSingularMessageField(value: &_storage._childTable)
+        case 18: try decoder.decodeSingularBytesField(value: &_storage._channelPages)
+        case 19: try decoder.decodeRepeatedEnumField(value: &_storage._typeList)
+        case 20: try decoder.decodeSingularUInt32Field(value: &_storage._maxChildTimeout)
+        case 100: try decoder.decodeSingularBytesField(value: &_storage._deviceID)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._extMacAddress.isEmpty {
+        try visitor.visitSingularBytesField(value: _storage._extMacAddress, fieldNumber: 1)
+      }
+      if _storage._rloc != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._rloc, fieldNumber: 2)
+      }
+      if _storage._mode != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._mode, fieldNumber: 3)
+      }
+      if _storage._timeout != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._timeout, fieldNumber: 4)
+      }
+      if let v = _storage._connectivity {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if let v = _storage._route64 {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+      if let v = _storage._leaderData {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }
+      if let v = _storage._networkData {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
+      if !_storage._ipv6AddressList.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._ipv6AddressList, fieldNumber: 9)
+      }
+      if let v = _storage._macCounters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      }
+      if _storage._batteryLevel != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._batteryLevel, fieldNumber: 15)
+      }
+      if _storage._supplyVoltage != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._supplyVoltage, fieldNumber: 16)
+      }
+      if let v = _storage._childTable {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
+      }
+      if !_storage._channelPages.isEmpty {
+        try visitor.visitSingularBytesField(value: _storage._channelPages, fieldNumber: 18)
+      }
+      if !_storage._typeList.isEmpty {
+        try visitor.visitPackedEnumField(value: _storage._typeList, fieldNumber: 19)
+      }
+      if _storage._maxChildTimeout != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._maxChildTimeout, fieldNumber: 20)
+      }
+      if !_storage._deviceID.isEmpty {
+        try visitor.visitSingularBytesField(value: _storage._deviceID, fieldNumber: 100)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo, rhs: Particle_Ctrl_Mesh_DiagnosticInfo) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._extMacAddress != rhs_storage._extMacAddress {return false}
+        if _storage._rloc != rhs_storage._rloc {return false}
+        if _storage._mode != rhs_storage._mode {return false}
+        if _storage._timeout != rhs_storage._timeout {return false}
+        if _storage._connectivity != rhs_storage._connectivity {return false}
+        if _storage._route64 != rhs_storage._route64 {return false}
+        if _storage._leaderData != rhs_storage._leaderData {return false}
+        if _storage._networkData != rhs_storage._networkData {return false}
+        if _storage._ipv6AddressList != rhs_storage._ipv6AddressList {return false}
+        if _storage._macCounters != rhs_storage._macCounters {return false}
+        if _storage._batteryLevel != rhs_storage._batteryLevel {return false}
+        if _storage._supplyVoltage != rhs_storage._supplyVoltage {return false}
+        if _storage._childTable != rhs_storage._childTable {return false}
+        if _storage._channelPages != rhs_storage._channelPages {return false}
+        if _storage._typeList != rhs_storage._typeList {return false}
+        if _storage._maxChildTimeout != rhs_storage._maxChildTimeout {return false}
+        if _storage._deviceID != rhs_storage._deviceID {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.Mode: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "INVALID"),
+    16: .same(proto: "RECEIVER_ON_WHEN_IDLE"),
+    32: .same(proto: "SECURE_DATA_REQUESTS"),
+    48: .aliased(proto: "DEVICE_TYPE", aliases: ["DEVICE_TYPE_FTD"]),
+    64: .aliased(proto: "NETWORK_DATA", aliases: ["NETWORK_DATA_FULL"]),
+  ]
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.RoutePreference: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    -1: .same(proto: "LOW"),
+    0: .same(proto: "MEDIUM"),
+    1: .same(proto: "HIGH"),
+  ]
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.Connectivity: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.protoMessageName + ".Connectivity"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "parent_priority"),
+    2: .standard(proto: "link_quality_1"),
+    3: .standard(proto: "link_quality_2"),
+    4: .standard(proto: "link_quality_3"),
+    5: .standard(proto: "leader_cost"),
+    6: .standard(proto: "id_sequence"),
+    7: .standard(proto: "active_routers"),
+    8: .standard(proto: "sed_buffer_size"),
+    9: .standard(proto: "sed_datagram_count"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.parentPriority)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.linkQuality1)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.linkQuality2)
+      case 4: try decoder.decodeSingularUInt32Field(value: &self.linkQuality3)
+      case 5: try decoder.decodeSingularUInt32Field(value: &self.leaderCost)
+      case 6: try decoder.decodeSingularUInt32Field(value: &self.idSequence)
+      case 7: try decoder.decodeSingularUInt32Field(value: &self.activeRouters)
+      case 8: try decoder.decodeSingularUInt32Field(value: &self.sedBufferSize)
+      case 9: try decoder.decodeSingularUInt32Field(value: &self.sedDatagramCount)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.parentPriority != 0 {
+      try visitor.visitSingularUInt32Field(value: self.parentPriority, fieldNumber: 1)
+    }
+    if self.linkQuality1 != 0 {
+      try visitor.visitSingularUInt32Field(value: self.linkQuality1, fieldNumber: 2)
+    }
+    if self.linkQuality2 != 0 {
+      try visitor.visitSingularUInt32Field(value: self.linkQuality2, fieldNumber: 3)
+    }
+    if self.linkQuality3 != 0 {
+      try visitor.visitSingularUInt32Field(value: self.linkQuality3, fieldNumber: 4)
+    }
+    if self.leaderCost != 0 {
+      try visitor.visitSingularUInt32Field(value: self.leaderCost, fieldNumber: 5)
+    }
+    if self.idSequence != 0 {
+      try visitor.visitSingularUInt32Field(value: self.idSequence, fieldNumber: 6)
+    }
+    if self.activeRouters != 0 {
+      try visitor.visitSingularUInt32Field(value: self.activeRouters, fieldNumber: 7)
+    }
+    if self.sedBufferSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.sedBufferSize, fieldNumber: 8)
+    }
+    if self.sedDatagramCount != 0 {
+      try visitor.visitSingularUInt32Field(value: self.sedDatagramCount, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.Connectivity, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.Connectivity) -> Bool {
+    if lhs.parentPriority != rhs.parentPriority {return false}
+    if lhs.linkQuality1 != rhs.linkQuality1 {return false}
+    if lhs.linkQuality2 != rhs.linkQuality2 {return false}
+    if lhs.linkQuality3 != rhs.linkQuality3 {return false}
+    if lhs.leaderCost != rhs.leaderCost {return false}
+    if lhs.idSequence != rhs.idSequence {return false}
+    if lhs.activeRouters != rhs.activeRouters {return false}
+    if lhs.sedBufferSize != rhs.sedBufferSize {return false}
+    if lhs.sedDatagramCount != rhs.sedDatagramCount {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.Route64: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.protoMessageName + ".Route64"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "id_sequence"),
+    2: .same(proto: "routes"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.idSequence)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.routes)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.idSequence != 0 {
+      try visitor.visitSingularUInt32Field(value: self.idSequence, fieldNumber: 1)
+    }
+    if !self.routes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.routes, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.Route64, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.Route64) -> Bool {
+    if lhs.idSequence != rhs.idSequence {return false}
+    if lhs.routes != rhs.routes {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.Route64.RouteData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.Route64.protoMessageName + ".RouteData"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "router_rloc"),
+    2: .standard(proto: "link_quality_out"),
+    3: .standard(proto: "link_quality_in"),
+    4: .standard(proto: "route_cost"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.routerRloc)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.linkQualityOut)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.linkQualityIn)
+      case 4: try decoder.decodeSingularUInt32Field(value: &self.routeCost)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.routerRloc != 0 {
+      try visitor.visitSingularUInt32Field(value: self.routerRloc, fieldNumber: 1)
+    }
+    if self.linkQualityOut != 0 {
+      try visitor.visitSingularUInt32Field(value: self.linkQualityOut, fieldNumber: 2)
+    }
+    if self.linkQualityIn != 0 {
+      try visitor.visitSingularUInt32Field(value: self.linkQualityIn, fieldNumber: 3)
+    }
+    if self.routeCost != 0 {
+      try visitor.visitSingularUInt32Field(value: self.routeCost, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.Route64.RouteData, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.Route64.RouteData) -> Bool {
+    if lhs.routerRloc != rhs.routerRloc {return false}
+    if lhs.linkQualityOut != rhs.linkQualityOut {return false}
+    if lhs.linkQualityIn != rhs.linkQualityIn {return false}
+    if lhs.routeCost != rhs.routeCost {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.LeaderData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.protoMessageName + ".LeaderData"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "partition_id"),
+    2: .same(proto: "weighting"),
+    3: .standard(proto: "data_version"),
+    4: .standard(proto: "stable_data_version"),
+    5: .standard(proto: "leader_rloc"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.partitionID)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.weighting)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.dataVersion)
+      case 4: try decoder.decodeSingularUInt32Field(value: &self.stableDataVersion)
+      case 5: try decoder.decodeSingularUInt32Field(value: &self.leaderRloc)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.partitionID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.partitionID, fieldNumber: 1)
+    }
+    if self.weighting != 0 {
+      try visitor.visitSingularUInt32Field(value: self.weighting, fieldNumber: 2)
+    }
+    if self.dataVersion != 0 {
+      try visitor.visitSingularUInt32Field(value: self.dataVersion, fieldNumber: 3)
+    }
+    if self.stableDataVersion != 0 {
+      try visitor.visitSingularUInt32Field(value: self.stableDataVersion, fieldNumber: 4)
+    }
+    if self.leaderRloc != 0 {
+      try visitor.visitSingularUInt32Field(value: self.leaderRloc, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.LeaderData, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.LeaderData) -> Bool {
+    if lhs.partitionID != rhs.partitionID {return false}
+    if lhs.weighting != rhs.weighting {return false}
+    if lhs.dataVersion != rhs.dataVersion {return false}
+    if lhs.stableDataVersion != rhs.stableDataVersion {return false}
+    if lhs.leaderRloc != rhs.leaderRloc {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.protoMessageName + ".NetworkData"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "stable"),
+    2: .same(proto: "temporary"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _stable: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage? = nil
+    var _temporary: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _stable = source._stable
+      _temporary = source._temporary
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._stable)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._temporary)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._stable {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._temporary {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._stable != rhs_storage._stable {return false}
+        if _storage._temporary != rhs_storage._temporary {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.protoMessageName + ".HasRoute"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "entries"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.entries)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.entries.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.entries, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute) -> Bool {
+    if lhs.entries != rhs.entries {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute.HasRouteEntry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute.protoMessageName + ".HasRouteEntry"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "rloc"),
+    2: .same(proto: "preference"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.rloc)
+      case 2: try decoder.decodeSingularEnumField(value: &self.preference)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rloc != 0 {
+      try visitor.visitSingularUInt32Field(value: self.rloc, fieldNumber: 1)
+    }
+    if self.preference != .medium {
+      try visitor.visitSingularEnumField(value: self.preference, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute.HasRouteEntry, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute.HasRouteEntry) -> Bool {
+    if lhs.rloc != rhs.rloc {return false}
+    if lhs.preference != rhs.preference {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.protoMessageName + ".BorderRouter"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "entries"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.entries)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.entries.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.entries, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter) -> Bool {
+    if lhs.entries != rhs.entries {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter.BorderRouterEntry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter.protoMessageName + ".BorderRouterEntry"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "rloc"),
+    2: .same(proto: "preference"),
+    3: .same(proto: "flags"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.rloc)
+      case 2: try decoder.decodeSingularEnumField(value: &self.preference)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.flags)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rloc != 0 {
+      try visitor.visitSingularUInt32Field(value: self.rloc, fieldNumber: 1)
+    }
+    if self.preference != .medium {
+      try visitor.visitSingularEnumField(value: self.preference, fieldNumber: 2)
+    }
+    if self.flags != 0 {
+      try visitor.visitSingularUInt32Field(value: self.flags, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter.BorderRouterEntry, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter.BorderRouterEntry) -> Bool {
+    if lhs.rloc != rhs.rloc {return false}
+    if lhs.preference != rhs.preference {return false}
+    if lhs.flags != rhs.flags {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter.BorderRouterEntry.Flags: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NONE"),
+    1: .same(proto: "PREFERRED"),
+    2: .same(proto: "SLAAC"),
+    4: .same(proto: "DHCP"),
+    8: .same(proto: "CONFIGURE"),
+    16: .same(proto: "DEFAULT_ROUTE"),
+    32: .same(proto: "ON_MESH"),
+    64: .same(proto: "ND_DNS"),
+  ]
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Context: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.protoMessageName + ".Context"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "cid"),
+    2: .same(proto: "compress"),
+    3: .standard(proto: "context_length"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.cid)
+      case 2: try decoder.decodeSingularBoolField(value: &self.compress)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.contextLength)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.cid != 0 {
+      try visitor.visitSingularUInt32Field(value: self.cid, fieldNumber: 1)
+    }
+    if self.compress != false {
+      try visitor.visitSingularBoolField(value: self.compress, fieldNumber: 2)
+    }
+    if self.contextLength != 0 {
+      try visitor.visitSingularUInt32Field(value: self.contextLength, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Context, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Context) -> Bool {
+    if lhs.cid != rhs.cid {return false}
+    if lhs.compress != rhs.compress {return false}
+    if lhs.contextLength != rhs.contextLength {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Prefix: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.protoMessageName + ".Prefix"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "domain_id"),
+    2: .standard(proto: "prefix_length"),
+    3: .same(proto: "prefix"),
+    4: .same(proto: "context"),
+    5: .standard(proto: "has_route"),
+    6: .standard(proto: "border_router"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _domainID: UInt32 = 0
+    var _prefixLength: UInt32 = 0
+    var _prefix: Data = SwiftProtobuf.Internal.emptyData
+    var _context: [Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Context] = []
+    var _hasRoute_p: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.HasRoute? = nil
+    var _borderRouter: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.BorderRouter? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _domainID = source._domainID
+      _prefixLength = source._prefixLength
+      _prefix = source._prefix
+      _context = source._context
+      _hasRoute_p = source._hasRoute_p
+      _borderRouter = source._borderRouter
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularUInt32Field(value: &_storage._domainID)
+        case 2: try decoder.decodeSingularUInt32Field(value: &_storage._prefixLength)
+        case 3: try decoder.decodeSingularBytesField(value: &_storage._prefix)
+        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._context)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._hasRoute_p)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._borderRouter)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._domainID != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._domainID, fieldNumber: 1)
+      }
+      if _storage._prefixLength != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._prefixLength, fieldNumber: 2)
+      }
+      if !_storage._prefix.isEmpty {
+        try visitor.visitSingularBytesField(value: _storage._prefix, fieldNumber: 3)
+      }
+      if !_storage._context.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._context, fieldNumber: 4)
+      }
+      if let v = _storage._hasRoute_p {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if let v = _storage._borderRouter {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Prefix, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Prefix) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._domainID != rhs_storage._domainID {return false}
+        if _storage._prefixLength != rhs_storage._prefixLength {return false}
+        if _storage._prefix != rhs_storage._prefix {return false}
+        if _storage._context != rhs_storage._context {return false}
+        if _storage._hasRoute_p != rhs_storage._hasRoute_p {return false}
+        if _storage._borderRouter != rhs_storage._borderRouter {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Server: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.protoMessageName + ".Server"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "rloc"),
+    2: .same(proto: "data"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.rloc)
+      case 2: try decoder.decodeSingularBytesField(value: &self.data)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rloc != 0 {
+      try visitor.visitSingularUInt32Field(value: self.rloc, fieldNumber: 1)
+    }
+    if !self.data.isEmpty {
+      try visitor.visitSingularBytesField(value: self.data, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Server, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Server) -> Bool {
+    if lhs.rloc != rhs.rloc {return false}
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Service: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.protoMessageName + ".Service"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "sid"),
+    2: .standard(proto: "enterprise_number"),
+    3: .same(proto: "data"),
+    4: .same(proto: "servers"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.sid)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.enterpriseNumber)
+      case 3: try decoder.decodeSingularBytesField(value: &self.data)
+      case 4: try decoder.decodeRepeatedMessageField(value: &self.servers)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.sid != 0 {
+      try visitor.visitSingularUInt32Field(value: self.sid, fieldNumber: 1)
+    }
+    if self.enterpriseNumber != 0 {
+      try visitor.visitSingularUInt32Field(value: self.enterpriseNumber, fieldNumber: 2)
+    }
+    if !self.data.isEmpty {
+      try visitor.visitSingularBytesField(value: self.data, fieldNumber: 3)
+    }
+    if !self.servers.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.servers, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Service, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.Service) -> Bool {
+    if lhs.sid != rhs.sid {return false}
+    if lhs.enterpriseNumber != rhs.enterpriseNumber {return false}
+    if lhs.data != rhs.data {return false}
+    if lhs.servers != rhs.servers {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.protoMessageName + ".Data"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "prefixes"),
+    2: .same(proto: "services"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.prefixes)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.services)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.prefixes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.prefixes, fieldNumber: 1)
+    }
+    if !self.services.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.services, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.NetworkData.DataMessage) -> Bool {
+    if lhs.prefixes != rhs.prefixes {return false}
+    if lhs.services != rhs.services {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.MacCounters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.protoMessageName + ".MacCounters"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "if_in_unknown_protos"),
+    2: .standard(proto: "if_in_errors"),
+    3: .standard(proto: "if_out_errors"),
+    4: .standard(proto: "if_in_ucast_pkts"),
+    5: .standard(proto: "if_in_broadcast_pkts"),
+    6: .standard(proto: "if_in_discards"),
+    7: .standard(proto: "if_out_ucast_pkts"),
+    8: .standard(proto: "if_out_broadcast_pkts"),
+    9: .standard(proto: "if_out_discards"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.ifInUnknownProtos)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.ifInErrors)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.ifOutErrors)
+      case 4: try decoder.decodeSingularUInt32Field(value: &self.ifInUcastPkts)
+      case 5: try decoder.decodeSingularUInt32Field(value: &self.ifInBroadcastPkts)
+      case 6: try decoder.decodeSingularUInt32Field(value: &self.ifInDiscards)
+      case 7: try decoder.decodeSingularUInt32Field(value: &self.ifOutUcastPkts)
+      case 8: try decoder.decodeSingularUInt32Field(value: &self.ifOutBroadcastPkts)
+      case 9: try decoder.decodeSingularUInt32Field(value: &self.ifOutDiscards)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.ifInUnknownProtos != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifInUnknownProtos, fieldNumber: 1)
+    }
+    if self.ifInErrors != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifInErrors, fieldNumber: 2)
+    }
+    if self.ifOutErrors != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifOutErrors, fieldNumber: 3)
+    }
+    if self.ifInUcastPkts != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifInUcastPkts, fieldNumber: 4)
+    }
+    if self.ifInBroadcastPkts != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifInBroadcastPkts, fieldNumber: 5)
+    }
+    if self.ifInDiscards != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifInDiscards, fieldNumber: 6)
+    }
+    if self.ifOutUcastPkts != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifOutUcastPkts, fieldNumber: 7)
+    }
+    if self.ifOutBroadcastPkts != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifOutBroadcastPkts, fieldNumber: 8)
+    }
+    if self.ifOutDiscards != 0 {
+      try visitor.visitSingularUInt32Field(value: self.ifOutDiscards, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.MacCounters, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.MacCounters) -> Bool {
+    if lhs.ifInUnknownProtos != rhs.ifInUnknownProtos {return false}
+    if lhs.ifInErrors != rhs.ifInErrors {return false}
+    if lhs.ifOutErrors != rhs.ifOutErrors {return false}
+    if lhs.ifInUcastPkts != rhs.ifInUcastPkts {return false}
+    if lhs.ifInBroadcastPkts != rhs.ifInBroadcastPkts {return false}
+    if lhs.ifInDiscards != rhs.ifInDiscards {return false}
+    if lhs.ifOutUcastPkts != rhs.ifOutUcastPkts {return false}
+    if lhs.ifOutBroadcastPkts != rhs.ifOutBroadcastPkts {return false}
+    if lhs.ifOutDiscards != rhs.ifOutDiscards {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.protoMessageName + ".ChildTable"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "children"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.children)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.children.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.children, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable) -> Bool {
+    if lhs.children != rhs.children {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable.ChildEntry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable.protoMessageName + ".ChildEntry"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "timeout"),
+    2: .standard(proto: "child_id"),
+    3: .same(proto: "mode"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.timeout)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.childID)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.mode)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timeout != 0 {
+      try visitor.visitSingularUInt32Field(value: self.timeout, fieldNumber: 1)
+    }
+    if self.childID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.childID, fieldNumber: 2)
+    }
+    if self.mode != 0 {
+      try visitor.visitSingularUInt32Field(value: self.mode, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable.ChildEntry, rhs: Particle_Ctrl_Mesh_DiagnosticInfo.ChildTable.ChildEntry) -> Bool {
+    if lhs.timeout != rhs.timeout {return false}
+    if lhs.childID != rhs.childID {return false}
+    if lhs.mode != rhs.mode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_GetNetworkDiagnosticsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetNetworkDiagnosticsRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "flags"),
+    2: .standard(proto: "diagnostic_types"),
+    3: .same(proto: "timeout"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.flags)
+      case 2: try decoder.decodeRepeatedEnumField(value: &self.diagnosticTypes)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.timeout)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.flags != 0 {
+      try visitor.visitSingularUInt32Field(value: self.flags, fieldNumber: 1)
+    }
+    if !self.diagnosticTypes.isEmpty {
+      try visitor.visitPackedEnumField(value: self.diagnosticTypes, fieldNumber: 2)
+    }
+    if self.timeout != 0 {
+      try visitor.visitSingularUInt32Field(value: self.timeout, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_GetNetworkDiagnosticsRequest, rhs: Particle_Ctrl_Mesh_GetNetworkDiagnosticsRequest) -> Bool {
+    if lhs.flags != rhs.flags {return false}
+    if lhs.diagnosticTypes != rhs.diagnosticTypes {return false}
+    if lhs.timeout != rhs.timeout {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Particle_Ctrl_Mesh_GetNetworkDiagnosticsRequest.Flags: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "INVALID"),
+    1: .same(proto: "QUERY_CHILDREN"),
+    2: .same(proto: "RESOLVE_DEVICE_ID"),
+  ]
+}
+
+extension Particle_Ctrl_Mesh_GetNetworkDiagnosticsReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetNetworkDiagnosticsReply"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "nodes"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.nodes)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.nodes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.nodes, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Particle_Ctrl_Mesh_GetNetworkDiagnosticsReply, rhs: Particle_Ctrl_Mesh_GetNetworkDiagnosticsReply) -> Bool {
+    if lhs.nodes != rhs.nodes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

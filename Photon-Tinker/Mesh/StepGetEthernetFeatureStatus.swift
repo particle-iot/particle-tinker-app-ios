@@ -29,12 +29,14 @@ class StepGetEthernetFeatureStatus: MeshSetupStep {
                 return
             }
 
-            context.targetDevice.ethernetDetectionFeature = enabled!
+
             self.log("targetDevice.sendGetFeature: \(result.description()) enabled: \(enabled as Optional)")
 
             if (result == .NONE) {
+                context.targetDevice.ethernetDetectionFeature = enabled!
                 self.start()
             } else if (result == .NOT_SUPPORTED) {
+                context.targetDevice.ethernetDetectionFeature = false
                 self.stepCompleted()
             } else {
                 self.handleBluetoothErrorResult(result)

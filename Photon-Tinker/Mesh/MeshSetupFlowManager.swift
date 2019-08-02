@@ -22,7 +22,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
     ]
 
     fileprivate let joinerFlow: [MeshSetupStep] = [
-        StepShowInfo(),
+        StepShowInfo(.joinerFlow),
         StepGetUserNetworkSelection(),
         StepGetCommissionerDeviceInfo(),
         StepConnectToCommissionerDevice(),
@@ -30,6 +30,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureCorrectSelectedNetworkPassword(),
         StepJoinSelectedNetwork(),
         StepFinishJoinSelectedNetwork(),
+        StepExitListeningMode(),
         StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent(),
         StepGetNewDeviceName(),
@@ -45,7 +46,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
     fileprivate let ethernetFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo(),
+        StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
         StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent()
@@ -53,7 +54,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
     fileprivate let wifiFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo(),
+        StepShowInfo(.creatorFlow),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
         StepEnsureHasInternetAccess(),
@@ -63,7 +64,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
 
     fileprivate let cellularFlow: [MeshSetupStep] = [
         StepShowPricingImpact(),
-        StepShowInfo(),
+        StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
         StepEnsureGotClaimed(),
         StepPublishDeviceSetupDoneEvent()
@@ -108,8 +109,12 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
             self.log("Rewinding flow to internetConnectedPreflow")
         }
 
-        for i in 0 ..< self.currentFlow.count {
-            if (self.currentFlow[i].isKind(of: step)) {
+        guard let currentFlow = self.currentFlow else {
+            return .IllegalOperation
+        }
+
+        for i in 0 ..< currentFlow.count {
+            if (currentFlow[i].isKind(of: step)) {
                 if (i >= self.currentStepIdx) {
                     //trying to "rewind" forward
                     return .IllegalOperation

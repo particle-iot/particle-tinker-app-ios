@@ -62,7 +62,7 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
         signalWarningLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.SignalWarning
 
 
-        initializeVideoPlayerWithVideo(videoFileName: "commissioner_to_listening_mode")
+        initializeVideoPlayerWithVideo(videoFileName: "prepare_for_pairing")
         videoView.addTarget(self, action: #selector(videoViewTapped), for: .touchUpInside)
 
         view.setNeedsLayout()
@@ -72,14 +72,15 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
 
 
     @objc public func videoViewTapped(sender: UIControl) {
-        let player = AVPlayer(url: defaultVideoURL)
+// TODO: uncomment this, but figure out how to exit fullscreen video mode if device enters listening mode while it is visible (otherwise flow stops)
+//        let player = AVPlayer(url: defaultVideoURL)
+//
+//        let playerController = AVPlayerViewController()
+//        playerController.player = player
+//        present(playerController, animated: true) {
+//            player.play()
+//        }
 
-        let playerController = AVPlayerViewController()
-        playerController.player = player
-
-        present(playerController, animated: true) {
-            player.play()
-        }
     }
 
     @IBAction func signalSwitchValueChanged(_ sender: Any) {

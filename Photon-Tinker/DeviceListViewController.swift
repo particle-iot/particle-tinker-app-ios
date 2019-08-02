@@ -25,6 +25,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var devices : [ParticleDevice] = []
     var refreshControlAdded : Bool = false
 
+    var popRecognizer: InteractivePopGestureRecognizerDelegateHelper?
+
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -44,6 +46,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.noDevicesLabel.isHidden = true
         } else {
             self.noDevicesLabel.isHidden = false
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if let controller = navigationController, popRecognizer == nil {
+            popRecognizer = InteractivePopGestureRecognizerDelegateHelper(controller: controller, minViewControllers: 2)
+            controller.interactivePopGestureRecognizer?.delegate = popRecognizer
         }
     }
 
@@ -107,7 +118,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.logout()
             } else {
                 ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
-                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, duration: -1, callback: nil)
             }
 
             DispatchQueue.main.async {
@@ -342,7 +353,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
                     if let err = error
                     {
-                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, callback: nil)
+                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, duration: -1, callback: nil)
                         self.tableView.reloadData()
                     }
                 }
@@ -488,7 +499,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.resume(animated: true)
 
                 if let error = error {
-                    RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 } else {
                     self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
                 }
@@ -512,7 +523,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh setup started", withParameters: getVaList([]))
                     self.invokeMeshDeviceSetup()
                 } else {
-                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Argon / Boron / Xenon ", type: .error, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Argon / Boron / Xenon ", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             })
         }
@@ -529,7 +540,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Electron setup started", withParameters: getVaList([]))
                     self.invokeElectronSetup()
                 } else {
-                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             })
 

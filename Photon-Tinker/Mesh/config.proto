@@ -239,3 +239,17 @@ message GetFeatureRequest {
 message GetFeatureReply {
   bool enabled = 1;
 }
+
+message StartNyanSignalRequest {
+  option (type_id) = 230; // CTRL_REQUEST_START_NYAN_SIGNAL
+}
+
+message StartNyanSignalReply {
+}
+
+message StopNyanSignalRequest {
+  option (type_id) = 231; // CTRL_REQUEST_STOP_NYAN_SIGNAL
+}
+
+message StopNyanSignalReply {
+}

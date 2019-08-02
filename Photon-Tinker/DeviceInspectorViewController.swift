@@ -46,7 +46,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     override func viewWillAppear(_ animated: Bool) {
         self.deviceNameLabel.text = self.device.getName()
-        self.moreActionsButton.isHidden = !device.is3rdGen()
+        self.updateWithoutReload()
 
         self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
     }
@@ -84,7 +84,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
                 self.reloadDeviceData()
 
                 if (event == ParticleDeviceSystemEvent.flashFailed) {
-                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             }
         }
@@ -223,12 +223,15 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
 
     @IBAction func actionButtonTapped(_ sender: UIButton) {
-        if (self.device.is3rdGen()) {
-            let vc = MeshSetupControlPanelUIManager.loadedViewController()
-            vc.setDevice(self.device)
-            self.present(vc, animated: true)
-        } else {
-            fatalError("not implemented")
+        let vc = MeshSetupControlPanelUIManager.loadedViewController()
+        vc.setDevice(self.device)
+        vc.setCallback(self.controlPanelCompleted)
+        self.present(vc, animated: true)
+    }
+
+    func controlPanelCompleted(result: MeshSetupFlowResult) {
+        if result == .unclaimed {
+            _ = self.navigationController?.popViewController(animated: false)
         }
     }
 
@@ -273,5 +276,17 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     func infoSliderDidUpdateDevice() {
         self.updateWithoutReload()
+    }
+
+    func infoSliderDidExpand() {
+        if let ipr = self.navigationController?.interactivePopGestureRecognizer?.delegate as? InteractivePopGestureRecognizerDelegateHelper {
+            ipr.isEnabled = false
+        }
+    }
+
+    func infoSliderDidCollapse() {
+        if let ipr = self.navigationController?.interactivePopGestureRecognizer?.delegate as? InteractivePopGestureRecognizerDelegateHelper {
+            ipr.isEnabled = true
+        }
     }
 }

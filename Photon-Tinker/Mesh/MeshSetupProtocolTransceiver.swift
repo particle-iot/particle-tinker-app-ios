@@ -343,7 +343,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendStarListening(callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendStartListening(callback: @escaping (ControlReplyErrorType) -> ()) {
         let requestMsgPayload = Particle_Ctrl_StartListeningModeRequest();
 
         let data = self.prepareRequestMessage(type: .StartListening, payload: self.serialize(message: requestMsgPayload))
@@ -368,6 +368,21 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                 callback(rm.result)
             } else {
                 callback(.TIMEOUT)
+            }
+        })
+    }
+
+    func sendGetDeviceIsInListeningMode(callback: @escaping (ControlReplyErrorType, Bool?) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_GetDeviceModeRequest();
+
+        let data = self.prepareRequestMessage(type: .GetDeviceMode, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                let decodedReply = try! Particle_Ctrl_GetDeviceModeReply(serializedData: rm.data) as! Particle_Ctrl_GetDeviceModeReply
+                callback(rm.result, decodedReply.mode == .listeningMode)
+            } else {
+                callback(.TIMEOUT, nil)
             }
         })
     }
@@ -844,7 +859,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetCurrentWifiNetworks(callback: @escaping (ControlReplyErrorType, String?) -> ()) {
+    func sendGetCurrentWifiNetwork(callback: @escaping (ControlReplyErrorType, MeshSetupNewWifiNetworkInfo?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_GetCurrentNetworkRequest()
 
         let data = self.prepareRequestMessage(type: .GetCurrentWifiNetwork, payload: self.serialize(message: requestMsgPayload))
@@ -852,7 +867,14 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             replyMessage in
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Wifi_GetCurrentNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_GetCurrentNetworkReply
-                callback(rm.result, decodedReply.ssid)
+
+                var network = MeshSetupNewWifiNetworkInfo()
+                network.ssid = decodedReply.ssid
+                network.bssid = decodedReply.bssid
+                network.channel = decodedReply.channel
+                network.rssi = decodedReply.rssi
+
+                callback(rm.result, network)
             } else {
                 callback(.TIMEOUT, nil)
             }
@@ -871,6 +893,36 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
                 callback(rm.result, decodedReply.networks)
             } else {
                 callback(.TIMEOUT, nil)
+            }
+        })
+    }
+
+
+    func sendStarNyanSignal(callback: @escaping (ControlReplyErrorType) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_StartNyanSignalRequest();
+
+        let data = self.prepareRequestMessage(type: .StartNyanSignal, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
+            }
+        })
+    }
+
+
+    func sendStopNyanSignal(callback: @escaping (ControlReplyErrorType) -> ()) {
+        let requestMsgPayload = Particle_Ctrl_StopNyanSignalRequest();
+
+        let data = self.prepareRequestMessage(type: .StopNyanSignal, payload: self.serialize(message: requestMsgPayload))
+        self.sendRequestMessage(data: data, onReply: {
+            replyMessage in
+            if let rm = replyMessage {
+                callback(rm.result)
+            } else {
+                callback(.TIMEOUT)
             }
         })
     }

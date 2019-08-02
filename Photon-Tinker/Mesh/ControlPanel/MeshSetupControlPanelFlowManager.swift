@@ -7,13 +7,56 @@ import Foundation
 
 class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
+    fileprivate let actionAddToMeshFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepEnsureNotOnMeshNetwork(),
+        StepCheckHasNetworkInterfaces(),
+        StepOfferSelectOrCreateNetwork()
+    ]
+
+    //runs post ethernet/wifi/cellular flows
+    fileprivate let networkCreatorFlow: [MeshSetupStep] = [
+        StepShowPricingImpact(),
+        StepGetNewNetworkName(),
+        StepGetNewNetworkPassword(),
+        StepCreateNetwork(),
+        StepExitListeningMode(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    fileprivate let joinerFlow: [MeshSetupStep] = [
+        StepShowInfo(.joinerFlow),
+        StepGetCommissionerDeviceInfo(),
+        StepConnectToCommissionerDevice(),
+        StepEnsureCommissionerNetworkMatches(),
+        StepEnsureCorrectSelectedNetworkPassword(),
+        StepJoinSelectedNetwork(),
+        StepFinishJoinSelectedNetwork(dropCommissionerConnection: true),
+        StepExitListeningMode(),
+        StepEnsureGotClaimed(),
+        StepControlPanelFlowCompleted()
+    ]
+
+
+
+
+    func actionAddToMesh() {
+        self.currentFlow = actionAddToMeshFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
 
 
     fileprivate let actionNewWifiFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
+        StepExitListeningMode(),
+        StepGetWifiNetwork(),
         StepControlPanelFlowCompleted()
     ]
 
@@ -23,9 +66,42 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
+
+    fileprivate let actionManageWifiFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepExitListeningMode(),
+        StepGetKnownWifiNetworks(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionManageWifi() {
+        self.currentFlow = actionManageWifiFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
+
+    fileprivate let actionRemoveWifiCredentialsFlow:[MeshSetupStep] = [
+        StepRemoveSelectedWifiCredentials(),
+        StepGetKnownWifiNetworks(),
+        StepDisconnectFromCurrentWifiNetworkIfNeeded(),
+        StepGetWifiNetwork(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionRemoveWifiCredentials() {
+        self.currentFlow = actionRemoveWifiCredentialsFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
     fileprivate let actionPairMeshFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepExitListeningMode(),
         StepGetMeshNetwork(),
         StepControlPanelFlowCompleted()
     ]
@@ -39,6 +115,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionPairEthernetFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepExitListeningMode(),
         StepGetEthernetFeatureStatus(),
         StepControlPanelFlowCompleted()
     ]
@@ -49,10 +127,27 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
+    fileprivate let actionPairWifiFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepExitListeningMode(),
+        StepGetWifiNetwork(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionPairWifi() {
+        self.currentFlow = actionPairWifiFlow
+        self.currentStepIdx = 0
+        self.runCurrentStep()
+    }
+
     fileprivate let actionPairCellularFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
-        StepCheckHasNetworkInterfaces(),
+        StepStopSignal(),
+        StepExitListeningMode(),
+        StepCheckHasNetworkInterfaces(forceSimStatus: true),
         StepControlPanelFlowCompleted()
     ]
 
@@ -67,6 +162,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionToggleEthernetFeatureFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepExitListeningMode(),
         StepEnsureCorrectEthernetFeatureStatus(),
         StepControlPanelFlowCompleted()
     ]
@@ -83,7 +180,9 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionToggleSimStatusFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
-        StepShowInfo(),
+        StepStopSignal(),
+        StepExitListeningMode(),
+        StepShowInfo(.simStatusToggle),
         StepEnsureCorrectSimState(),
         StepControlPanelFlowCompleted()
     ]
@@ -99,6 +198,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionChangeDataLimitFlow:[MeshSetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepExitListeningMode(),
         StepSetSimDataLimit(),
         StepControlPanelFlowCompleted()
     ]
@@ -110,9 +211,19 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
 
-    override func switchFlow() {
-        self.currentFlow = nil
+    fileprivate let actionLeaveMeshNetworkFlow:[MeshSetupStep] = [
+        StepGetTargetDeviceInfo(),
+        StepConnectToTargetDevice(),
+        StepStopSignal(),
+        StepEnsureNotOnMeshNetwork(),
+        StepExitListeningMode(),
+        StepControlPanelFlowCompleted()
+    ]
+
+    func actionLeaveMeshNetwork() {
+        self.currentFlow = actionLeaveMeshNetworkFlow
         self.currentStepIdx = 0
+        self.runCurrentStep()
     }
 
     func stopCurrentFlow() {
@@ -125,6 +236,63 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.currentStepIdx = 0
     }
 
+
+    //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
+    override internal func rewindTo(step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupFlowError? {
+        currentStep!.rewindFrom()
+
+        if (currentStepIdx == 0) {
+            //if we are backing from one of these flows, we need to switch the flow type.
+            if (currentFlow == joinerFlow || currentFlow == networkCreatorFlow) {
+                currentFlow = actionAddToMeshFlow
+            }
+            currentStepIdx = actionAddToMeshFlow.count
+            self.log("Rewinding flow to internetConnectedPreflow")
+        }
+
+        guard let currentFlow = self.currentFlow else {
+            return .IllegalOperation
+        }
+
+        for i in 0 ..< currentFlow.count {
+            if (currentFlow[i].isKind(of: step)) {
+                if (i >= self.currentStepIdx) {
+                    //trying to "rewind" forward
+                    return .IllegalOperation
+                }
+
+                self.currentStepIdx = i
+                self.log("returning to step: \(self.currentStepIdx)")
+                self.currentStep!.rewindTo(context: self.context)
+                if (runStep) {
+                    self.runCurrentStep()
+
+                }
+
+                return nil
+            }
+        }
+
+        return .IllegalOperation
+    }
+
+    override internal func switchFlow() {
+        log("stepComplete\n\n" +
+                "--------------------------------------------------------------------------------------------\n" +
+                "Switching flow!!!")
+
+        if (currentFlow == actionAddToMeshFlow) {
+            if (context.selectedNetworkMeshInfo == nil) {
+                self.currentFlow = networkCreatorFlow
+            } else {
+                self.currentFlow = joinerFlow
+            }
+        } else {
+            self.currentFlow = nil
+        }
+
+        self.currentStepIdx = 0
+    }
 
 
 }

@@ -22,6 +22,7 @@ public enum ControlRequestMessageType: UInt16 {
     case StopCommissioner = 1004
     case StartListening = 70
     case StopListening = 71
+    case GetDeviceMode = 72
     case DeviceSetupDone = 73
     case IsDeviceSetupDone = 74
     case PrepareJoiner = 1005
@@ -43,6 +44,9 @@ public enum ControlRequestMessageType: UInt16 {
     case SystemReset = 40
     case SetFeature = 33
     case GetFeature = 34
+
+    case StartNyanSignal = 230
+    case StopNyanSignal = 231
 
     case GetSystemCapabilities = 32
     case GetNcpFirmwareVersion = 31

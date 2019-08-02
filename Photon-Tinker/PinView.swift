@@ -419,7 +419,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                     self.pinValue = Int(result!)
                     self.endUpdating()
                 } else {
-                    RMessage.showNotification(withTitle: "Error", subtitle: "There was an error while reading value of \(self.pin.label) pin.", type: .error, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Error", subtitle: "There was an error while reading value of \(self.pin.label) pin.", type: .error, customTypeName: nil, duration: -1, callback: nil)
 
                     self.pinValue = nil
                     self.endUpdating()
@@ -442,7 +442,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                 if (error == nil && Int(result!) > 0) {
                     self.endUpdating()
                 } else {
-                    RMessage.showNotification(withTitle: "Error", subtitle: "There was an error while updating value of \(self.pin.label) pin.", type: .error, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: "Error", subtitle: "There was an error while updating value of \(self.pin.label) pin.", type: .error, customTypeName: nil, duration: -1, callback: nil)
 
                     self.endUpdating()
                 }

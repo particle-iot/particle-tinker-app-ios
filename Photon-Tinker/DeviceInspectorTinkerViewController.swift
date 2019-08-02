@@ -104,7 +104,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
                         self.flashStarted = false
                         self.flashTinkerView.resume()
 
-                        RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, callback: nil)
+                        RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
                     }
                 }
             }
@@ -127,7 +127,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
             case .xenon:
                 flashTinkerBinary("tinker-0.8.0-rc.27-xenon")
             default:
-                RMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "App does not support flashing tinker to this device.", type: .error, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "App does not support flashing tinker to this device.", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 return
         }
 

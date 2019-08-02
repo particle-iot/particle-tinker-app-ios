@@ -99,7 +99,6 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
             cell.accessoryView = activityIndicator
         }
 
-        scanActivityIndicator.stopAnimating()
         callback(networks![indexPath.row])
     }
 }

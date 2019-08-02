@@ -140,7 +140,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                 checkboxLabel?.text = MeshSetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
             case .aSeries:
-                initializeVideoPlayerWithVideo(videoFileName: "a_power_on")
+                initializeVideoPlayerWithVideo(videoFileName: "b_power_on") //a_power_on
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.SOMWifiCheckboxText
                 checkboxView?.isHidden = false
@@ -155,7 +155,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                 checkboxView?.isHidden = false
             case .bSeries:
                 if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
-                    initializeVideoPlayerWithVideo(videoFileName: "b_power_on_battery")
+                    initializeVideoPlayerWithVideo(videoFileName: "b_power_on") //b_power_on_battery
                 } else {
                     initializeVideoPlayerWithVideo(videoFileName: "b_power_on")
                 }
@@ -163,7 +163,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                 checkboxLabel?.text = MeshSetupStrings.GetReady.SOMCellularCheckboxText
                 checkboxView?.isHidden = false
             case .xSeries:
-                initializeVideoPlayerWithVideo(videoFileName: "x_power_on")
+                initializeVideoPlayerWithVideo(videoFileName: "b_power_on") //x_power_on
 
                 checkboxLabel?.text = MeshSetupStrings.GetReady.SOMBluetoothCheckboxText
                 checkboxView?.isHidden = false
@@ -267,7 +267,11 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
         // Create a new AVPlayerItem with the asset and an
         // array of asset keys to be automatically loaded
-        let ethernetVideoString:String? = Bundle.main.path(forResource: "featherwing_power_on", ofType: "mov")
+        var ethernetVideoString:String? = Bundle.main.path(forResource: "ethernet_power_on", ofType: "mov")
+        if (self.isSOM) {
+            ethernetVideoString = Bundle.main.path(forResource: "som_ethernet_power_on", ofType: "mov")
+        }
+
         ethernetVideoURL = URL(fileURLWithPath: ethernetVideoString!)
         ethernetVideo = AVPlayerItem(url: ethernetVideoURL)
 
@@ -280,7 +284,6 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         layer!.frame = videoView.bounds
         layer!.videoGravity = AVLayerVideoGravity.resizeAspect
 
-        NSLog("initializing layer?")
         videoView.layer.addSublayer(layer!)
     }
 

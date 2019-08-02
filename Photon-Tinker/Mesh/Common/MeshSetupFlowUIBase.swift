@@ -8,6 +8,16 @@ import UIKit
 import Crashlytics
 import MessageUI
 
+public enum MeshSetupFlowResult {
+    case success
+    case error
+    case canceled
+    case switchToControlPanel
+    case unclaimed
+}
+
+typealias MeshSetupFlowCallback = (MeshSetupFlowResult) -> ()
+
 class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
     static var storyboardName: String {
@@ -32,6 +42,12 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         didSet {
             self.log("Switching currentStepType: \(currentStepType)")
         }
+    }
+
+    internal var callback: MeshSetupFlowCallback?
+
+    func setCallback(_ callback: @escaping MeshSetupFlowCallback) {
+        self.callback = callback
     }
 
     internal func log(_ message: String) {
@@ -572,7 +588,12 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             return
         }
 
-        flowRunner.setSelectedNetwork(selectedNetworkExtPanID: network!.extPanID)
+        //in control panel it's possible that this screen is shown to disable network creation
+        if let currentStep = flowRunner.currentStep, type(of: currentStep) == StepOfferSelectOrCreateNetwork.self {
+            flowRunner.setOptionalSelectedNetwork(selectedNetworkExtPanID: network?.extPanID)
+        } else {
+            flowRunner.setSelectedNetwork(selectedNetworkExtPanID: network!.extPanID)
+        }
     }
 
 
@@ -608,7 +629,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         self.log("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
-        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
             currentStepType = type(of: sender)
             vc.setNetworks(networks: availableNetworks)
 
@@ -1064,7 +1085,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
                 if (severity == .Fatal) {
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
-                        self.cancelTapped(self)
+                        if let callback = self.callback {
+                            callback(MeshSetupFlowResult.error)
+                        }
+                        self.terminate()
                     })
                 } else {
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
@@ -1099,15 +1123,14 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             return
         }
 
-        vcPrev.resume(animated: false)
+        if vcCurr.allowBack {
+            vcPrev.resume(animated: false)
 
-        if (vcs.last! as! MeshSetupViewController).allowBack {
             if vcPrev.ownerStepType != nil, vcCurr.ownerStepType != vcPrev.ownerStepType {
                 log("Rewinding flow from: \(vcCurr.ownerStepType) to: \(vcPrev.ownerStepType!)")
                 self.flowRunner.rewindTo(step: vcPrev.ownerStepType!)
             } else {
                 log("Popping")
-                vcPrev.resume(animated: false)
                 self.embededNavigationController.popViewController(animated: true)
             }
         } else {
@@ -1116,16 +1139,21 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     }
     
     @IBAction func cancelTapped(_ sender: Any) {
-        if let _ = sender as? MeshSetupUIBase {
-            self.flowRunner.cancelSetup()
-            self.dismiss(animated: true)
+        if (sender is MeshSetupUIBase) || (self.flowRunner.currentFlow == nil) {
+            if let callback = self.callback {
+                callback(MeshSetupFlowResult.canceled)
+            }
+            self.terminate()
         } else {
             DispatchQueue.main.async {
                 if (self.hideAlertIfVisible()) {
                     self.alert = UIAlertController(title: MeshSetupStrings.Prompt.CancelSetupTitle, message: MeshSetupStrings.Prompt.CancelSetupText, preferredStyle: .alert)
 
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .default) { action in
-                        self.cancelTapped(self)
+                        if let callback = self.callback {
+                            callback(MeshSetupFlowResult.canceled)
+                        }
+                        self.terminate()
                     })
 
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.ContinueSetup, style: .cancel) { action in
@@ -1136,6 +1164,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 }
             }
         }
+    }
+
+    func terminate() {
+        self.flowRunner.cancelSetup()
+        self.dismiss(animated: true)
     }
 
     @objc func isBusyChanged(notification: Notification) {

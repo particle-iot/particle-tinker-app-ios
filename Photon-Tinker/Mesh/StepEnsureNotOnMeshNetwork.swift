@@ -143,6 +143,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
             if (result == .NONE) {
                 self.leftNetworkOnDevice = true
                 context.targetDevice.meshNetworkInfo = nil
+                context.targetDevice.isListeningMode = nil
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
