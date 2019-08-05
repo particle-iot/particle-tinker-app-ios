@@ -62,7 +62,7 @@ class LogList {
     static func clearAllLogs() {
         let fileManager = FileManager.default
 
-        let fileURLs = getLogURLs()
+        let fileURLs = getFileURLs()
         for i in 0 ..< fileURLs.count {
             try? fileManager.removeItem(at: fileURLs[i])
         }
@@ -74,7 +74,7 @@ class LogList {
 
     static func clearStaleLogs() {
         let fileManager = FileManager.default
-        let fileURLs = getLogURLs()
+        let fileURLs = getFileURLs()
 
         if (fileURLs.count > FILE_COUNT) {
             for i in FILE_COUNT..<fileURLs.count {
@@ -83,13 +83,25 @@ class LogList {
         }
     }
 
-    static func getLogURLs() -> [URL] {
+    static func clearAllZips() {
+        let fileManager = FileManager.default
+        let fileURLs = getFileURLs(fileExtension: "zip")
+
+        for i in 0..<fileURLs.count {
+            try? fileManager.removeItem(at: fileURLs[i])
+        }
+    }
+
+    static func getFileURLs(fileExtension: String = "log") -> [URL] {
         let fileManager = FileManager.default
 
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         if var fileURLs = try? fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil) {
             fileURLs = fileURLs.sorted { url, url2 in
                 return url.absoluteString > url2.absoluteString
+            }
+            fileURLs = fileURLs.filter {
+                (url: URL) -> Bool in url.pathExtension == fileExtension
             }
             return fileURLs
         }
@@ -98,12 +110,15 @@ class LogList {
     }
 
     static func getZip() -> URL? {
+        //remove previous files if they exist
+        LogList.clearAllZips()
+
         var dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd HH-mm"
 
         let title = "\(dateFormatter.string(from: Date())) Particle app logs"
         do {
-            let zipFilePath = try Zip.quickZipFiles(getLogURLs(), fileName: title)
+            let zipFilePath = try Zip.quickZipFiles(getFileURLs(), fileName: title)
             ParticleLogger.logInfo("LogList", format: "Zip.quickZipFiles: %@", withParameters: getVaList([zipFilePath.absoluteString]))
             return zipFilePath
         } catch {

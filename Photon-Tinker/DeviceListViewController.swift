@@ -589,8 +589,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             } else {
                 RMessage.showNotification(withTitle: "Error", subtitle: "There was an error exporting application logs.", type: .error, customTypeName: nil, duration: -1, callback: nil)
             }
-
-            self.performSegue(withIdentifier: "logList", sender: self)    
         }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
