@@ -10,7 +10,6 @@ target 'Particle' do
     pod 'SwiftProtobuf', '~> 1.0'
     pod 'MBProgressHUD', '~> 0.9'
     pod 'RMessage'
-    pod 'PullToRefreshCoreText', '~> 0.1'
     pod 'ASValueTrackingSlider'
     pod 'DateTools'
     pod 'IQKeyboardManager'
