@@ -258,7 +258,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     }
 
     func tappedOnPayloadButton(_ sender: DeviceEventTableViewCell, event: ParticleEvent) {
-        let alert = UIAlertController(title: event.event, message: "\(event.data ?? "")\r\n\r\n\(event.time.tinkerFormattedString())", preferredStyle: .alert)
+        let alert = UIAlertController(title: event.event, message: "\(event.data ?? "")\r\n\r\n\(event.time.eventTimeFormattedString())", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Copy data to clipboard", style: .default) { [weak self] action in
             UIPasteboard.general.string = event.data ?? ""

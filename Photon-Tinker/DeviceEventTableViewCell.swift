@@ -28,7 +28,7 @@ class DeviceEventTableViewCell: UITableViewCell {
 
         self.eventNameValueLabel.text = event.event
         self.eventDataValueLabel.text = event.data ?? ""
-        self.eventTimeValueLabel.text = event.time.tinkerFormattedString()
+        self.eventTimeValueLabel.text = event.time.eventTimeFormattedString()
     }
     
     override func awakeFromNib() {

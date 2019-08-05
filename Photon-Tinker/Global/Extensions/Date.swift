@@ -7,7 +7,7 @@ import Foundation
 
 extension Date {
 
-    func tinkerFormattedString() -> String {
+    func eventTimeFormattedString() -> String {
 
         // convert weird UTC stamp to human readable local time
         let utcDateStr = self.description.replacingOccurrences(of: "+0000", with: "")
