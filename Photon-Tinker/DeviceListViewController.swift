@@ -18,18 +18,19 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var noDevicesLabel: UILabel!
 
     @IBOutlet weak var tableView: UITableView!
+    var refreshControl: UIRefreshControl!
 
     var isBusy: Bool = false
     var viewsToFade: [UIView]? = nil
 
     var devices : [ParticleDevice] = []
-    var refreshControlAdded : Bool = false
-
     var popRecognizer: InteractivePopGestureRecognizerDelegateHelper?
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
+
+
 
     @objc func appDidBecomeActive(_ sender : AnyObject) {
         self.tableView.reloadData()
@@ -178,72 +179,33 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
 
-    func addRefreshControl()
-    {
-        self.tableView.addPullToRefresh(withPullText: "Pull To Refresh", refreshingText: "Refreshing Devices") { () -> Void in
-            weak var weakSelf = self
-            ParticleCloud.sharedInstance().getDevices() { (devices:[ParticleDevice]?, error: Error?) -> Void in
-                weakSelf?.handleGetDevicesResponse(devices, error: error)
-                weakSelf?.tableView.finishLoading()
-                weakSelf?.tableView.finishLoading()
-            }
+    //MARK: Refresh control
+    func addRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
+        self.refreshControl = refreshControl
+
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
         }
     }
 
-
-    func invokeElectronSetup() {
-        SEGAnalytics.shared().track("Tinker_ElectronSetupInvoked")
-
-        let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewController(withIdentifier: "electronSetup") as! ElectronSetupViewController
-        self.present(esVC, animated: true, completion: nil)
-    }
-
-    func invokeMeshDeviceSetup() {
-        self.present(MeshSetupFlowUIManager.loadedViewController(), animated: true)
-    }
-
-
-    func invokePhotonDeviceSetup()
-    {
-        self.customizeSetupForSetupFlow()
-        if let vc = ParticleSetupMainController(setupOnly: !ParticleCloud.sharedInstance().isAuthenticated)
-        {
-            SEGAnalytics.shared().track("Tinker_PhotonSetupInvoked")
-            vc.delegate = self
-            self.present(vc, animated: true, completion: nil)
-        }
-
-    }
-
-
-    func showParticleCoreAppPopUp()
-    {
-        SEGAnalytics.shared().track("Tinker_UserWantsToSetupACore")
-
-        var alert = UIAlertController(title: "Core setup", message: "Setting up a Core requires the legacy Particle Core app. Do you want to install/open it now?", preferredStyle: .alert) 
-
-        alert.addAction(UIAlertAction(title: "No", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Yes", style: .default) { action in
-            let particleCoreAppStoreLink = "itms://itunes.apple.com/us/app/apple-store/id760157884?mt=8";
-            SEGAnalytics.shared().track("Tinker_SendUserToOldParticleCoreApp")
-            UIApplication.shared.openURL(URL(string: particleCoreAppStoreLink)!)
+    @objc func refreshData(sender: UIRefreshControl) {
+        ParticleCloud.sharedInstance().getDevices({ [weak self] devices, error in
+            guard let self = self else { return }
+            self.handleGetDevicesResponse(devices, error: error)
+            self.tableView.refreshControl!.endRefreshing()
         })
-
-        self.present(alert, animated: true)
     }
 
 
 
-    private func logout() {
-        ParticleCloud.sharedInstance().logout()
-
-        if let navController = self.navigationController {
-            navController.popViewController(animated: true)
-        }
-    }
 
 
 
+    //MARK: Tutorials
     let tutorials = [
         ("Your devices", "See and manage your devices.\n\nOnline devices have their indicator 'breathing' cyan, offline ones are gray.\n\nTap a device to enter Device Inspector mode, device must run Tinker firmware to enter Tinker mode.\n\nSwipe left to remove a device from your account.\n\nPull down to refresh your list."),
         ("Setup a new device", "Tap the plus button to set up a new Photon or Electron device you wish to add to your account"),
@@ -288,19 +250,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.devices.count
-    }
-    
 
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DeviceListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListTableViewCell
-        cell.setup(device: self.devices[indexPath.row])
-        return cell
-    }
-    
-    
+    //MARK: Particle device delegate
     func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
         self.sortDevices()
         DispatchQueue.main.async {
@@ -312,62 +264,32 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             "event": event
         ])
     }
-    
 
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        // user swiped left
-        if editingStyle == .delete
+
+
+    //MARK: Device setup setup
+    func invokeElectronSetup() {
+        SEGAnalytics.shared().track("Tinker_ElectronSetupInvoked")
+
+        let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewController(withIdentifier: "electronSetup") as! ElectronSetupViewController
+        self.present(esVC, animated: true, completion: nil)
+    }
+
+    func invokeMeshDeviceSetup() {
+        self.present(MeshSetupFlowUIManager.loadedViewController(), animated: true)
+    }
+
+
+    func invokePhotonDeviceSetup()
+    {
+        self.customizeSetupForSetupFlow()
+        if let vc = ParticleSetupMainController(setupOnly: !ParticleCloud.sharedInstance().isAuthenticated)
         {
-            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Showing unclaim confirmation", withParameters: getVaList([]))
-
-            let alert = UIAlertController(title: "Unclaim confirmation", message: "Are you sure you want to remove this device from your account?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            alert.addAction(UIAlertAction(title: "Unclaim", style: .default) { action in
-
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Unclaiming device: %@", withParameters: getVaList([self.devices[(indexPath as NSIndexPath).row]]))
-
-                self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
-                    if let err = error
-                    {
-                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, duration: -1, callback: nil)
-                        self.tableView.reloadData()
-                    }
-                }
-
-                self.devices.remove(at: (indexPath as NSIndexPath).row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                let delayTime = DispatchTime.now() + .milliseconds(250)
-
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device unclaim complete. Device count: %i, Devices: %@", withParameters: getVaList([self.devices.count, self.devices]))
-
-                // update table view display to show dark/light cells with delay so that delete animation can complete nicely
-                DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                    tableView.reloadData()
-                }
-            })
-            self.present(alert, animated: true)
+            SEGAnalytics.shared().track("Tinker_PhotonSetupInvoked")
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
         }
-    }
-
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Remove"
-    }
-
-
-
-
-    
-    func showSetupSuccessMessageAndReload() {
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Setup success message and reloading table view", withParameters: getVaList([]))
-
-        if (self.devices.count <= 1) {
-            RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
-        } else {
-            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
-        }
-
-        self.tableView.reloadData()
 
     }
     
@@ -428,7 +350,18 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
         }
     }
-    
+
+    func showSetupSuccessMessageAndReload() {
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Setup success message and reloading table view", withParameters: getVaList([]))
+
+        if (self.devices.count <= 1) {
+            RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
+        } else {
+            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
+        }
+
+        self.tableView.reloadData()
+    }
     
     func customizeSetupForSetupFlow()
     {
@@ -455,8 +388,58 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         c?.disableLogOutOption = true
     }
 
+    //MARK: Tableview delegate
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.devices.count
+    }
 
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: DeviceListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListTableViewCell
+        cell.setup(device: self.devices[indexPath.row])
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        // user swiped left
+        if editingStyle == .delete
+        {
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Showing unclaim confirmation", withParameters: getVaList([]))
+
+            let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Unclaim.TextTitle.meshLocalized(),
+                    message: MeshSetupStrings.ControlPanel.Unclaim.Text.meshLocalized().replaceMeshSetupStrings(deviceName: self.devices[(indexPath as NSIndexPath).row].getName()),
+                    preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.Cancel.meshLocalized(), style: .cancel))
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Unclaim.UnclaimButton.meshLocalized(), style: .default) { action in
+
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Unclaiming device: %@", withParameters: getVaList([self.devices[(indexPath as NSIndexPath).row]]))
+
+                self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
+                    if let err = error
+                    {
+                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        self.tableView.reloadData()
+                    }
+                }
+
+                self.devices.remove(at: (indexPath as NSIndexPath).row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                let delayTime = DispatchTime.now() + .milliseconds(250)
+
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device unclaim complete. Device count: %i, Devices: %@", withParameters: getVaList([self.devices.count, self.devices]))
+
+                // update table view display to show dark/light cells with delay so that delete animation can complete nicely
+                DispatchQueue.main.asyncAfter(deadline: delayTime) {
+                    tableView.reloadData()
+                }
+            })
+            self.present(alert, animated: true)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Unclaim"
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Selected indexPath: %i", withParameters: getVaList([indexPath.row]))
 
@@ -484,12 +467,19 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
 
+
+    //MARK: Handle actions
+    private func logout() {
+        ParticleCloud.sharedInstance().logout()
+
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
+    }
 
     @IBAction func setupNewDeviceButtonTapped(_ sender: UIButton) {
         let alert = UIAlertController(title: "Setup up a new device", message: nil, preferredStyle: .actionSheet)
@@ -520,12 +510,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             })
-
-            alert.addAction(UIAlertAction(title: "Core", style: .default) { action in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(50)) { () -> Void in
-                    self.showParticleCoreAppPopUp()
-                }
-            })
         }
 
 
@@ -535,6 +519,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.present(alert, animated: true)
     }
+
+
 
     @IBAction func moreButtonTapped(_ sender: UIButton) {
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "More tapped", withParameters: getVaList([]))

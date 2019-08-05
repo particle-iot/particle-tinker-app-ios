@@ -73,6 +73,8 @@ class MeshSetupStrings {
         }
 
         struct Action {
+            static let Cancel = "MeshSetup.ControlPanel.Action.Cancel".meshLocalized()
+
             static let LeaveNetwork = "MeshSetup.ControlPanel.Action.LeaveNetwork".meshLocalized()
             static let DontLeaveNetwork = "MeshSetup.ControlPanel.Action.DontLeaveNetwork".meshLocalized()
 
