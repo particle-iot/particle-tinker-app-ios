@@ -83,7 +83,7 @@
 		C810B045C656154CED6574D6 /* InteractivePopGestureRecognizerDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA68B54832E91E5EC273 /* InteractivePopGestureRecognizerDelegateHelper.swift */; };
 		C810B06D6A4BF214ABB7AC3C /* StepPublishDeviceSetupDoneEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B92817D3AE87A027F26C /* StepPublishDeviceSetupDoneEvent.swift */; };
 		C810B07500909F42EAE7ED66 /* MeshSetupControlPanelUnclaimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5B4C2E55C2A8FABBA46 /* MeshSetupControlPanelUnclaimViewController.swift */; };
-		C810B07AB4BECDFB914983CB /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B460CF70E03001091C59 /* DeviceTableViewCell.swift */; };
+		C810B07AB4BECDFB914983CB /* DeviceListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B460CF70E03001091C59 /* DeviceListTableViewCell.swift */; };
 		C810B08649914DE77E382599 /* DeviceVariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B166032F6F03DD1D262D /* DeviceVariableTableViewCell.swift */; };
 		C810B0A1A832038CD99CB275 /* MeshSetupNameDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2DF1B1869489DD02643 /* MeshSetupNameDeviceViewController.swift */; };
 		C810B0AEEA4C1DDD97225639 /* MeshSetupControlPanelMeshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8FD09B7EE71A655564A /* MeshSetupControlPanelMeshViewController.swift */; };
@@ -376,7 +376,7 @@
 		C810B42273609A1681692BD1 /* MeshSetupGetCommissionerReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetCommissionerReadyViewController.swift; sourceTree = "<group>"; };
 		C810B42DE794AE7C405FF7C5 /* MeshSetupNetworkCreatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkCreatedViewController.swift; sourceTree = "<group>"; };
 		C810B44AA6315959E8013D4B /* DeviceInspectorVariablesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorVariablesViewController.swift; sourceTree = "<group>"; };
-		C810B460CF70E03001091C59 /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		C810B460CF70E03001091C59 /* DeviceListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListTableViewCell.swift; sourceTree = "<group>"; };
 		C810B47D6339367AC34EA6F4 /* DeviceInspectorEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorEventsViewController.swift; sourceTree = "<group>"; };
 		C810B4B38EA8A15186965011 /* DeviceInspectorTinkerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorTinkerViewController.swift; sourceTree = "<group>"; };
 		C810B4B4DE630715ADDA55F0 /* StepExitListeningMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepExitListeningMode.swift; sourceTree = "<group>"; };
@@ -1029,7 +1029,7 @@
 		C810BC9F56A5D07A322C3B2D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				C810B460CF70E03001091C59 /* DeviceTableViewCell.swift */,
+				C810B460CF70E03001091C59 /* DeviceListTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1473,7 +1473,7 @@
 				C810B08649914DE77E382599 /* DeviceVariableTableViewCell.swift in Sources */,
 				C810B610039F0E5F376016F3 /* DeviceFunctionTableViewCell.swift in Sources */,
 				C810BC3A3353CBD61B3DBA33 /* DeviceEventTableViewCell.swift in Sources */,
-				C810B07AB4BECDFB914983CB /* DeviceTableViewCell.swift in Sources */,
+				C810B07AB4BECDFB914983CB /* DeviceListTableViewCell.swift in Sources */,
 				C810B9DCBABC359EB32A1C5D /* DeviceInspectorVariablesViewController.swift in Sources */,
 				C810B8D3F490D74DD9BA8FA6 /* UIImageView.swift in Sources */,
 				C810B99039A1C45E0999ED90 /* DevicePin.swift in Sources */,

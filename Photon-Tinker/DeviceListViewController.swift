@@ -185,6 +185,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             ParticleCloud.sharedInstance().getDevices() { (devices:[ParticleDevice]?, error: Error?) -> Void in
                 weakSelf?.handleGetDevicesResponse(devices, error: error)
                 weakSelf?.tableView.finishLoading()
+                weakSelf?.tableView.finishLoading()
             }
         }
     }
@@ -294,33 +295,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var masterCell : UITableViewCell?
-        
-        if (indexPath as NSIndexPath).row < self.devices.count
-        {
-            let cell:DeviceTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "device_cell") as! DeviceTableViewCell
-            cell.deviceNameLabel.text = self.devices[(indexPath as NSIndexPath).row].getName()
-            let deviceInfo = ParticleUtils.getDeviceTypeAndImage(self.devices[(indexPath as NSIndexPath).row])
-
-            cell.deviceImageView.image = deviceInfo.deviceImage
-            cell.deviceTypeLabel.text = "  "+deviceInfo.deviceType+"  "
-            
-            let deviceTypeColor = ParticleUtils.particleCyanColor// UIColor(red: 0, green: 157.0/255.0, blue: 207.0/255.0, alpha: 1.0)
-            cell.deviceTypeLabel.layer.borderColor = deviceTypeColor.cgColor
-            cell.deviceTypeLabel.textColor = deviceTypeColor
-            
-            cell.deviceTypeLabel.layer.borderWidth = 1.0
-            cell.deviceTypeLabel.layer.cornerRadius = 4.0
-            cell.deviceTypeLabel.layer.masksToBounds = true
-
-            cell.deviceStateLabel.text = ""
-            
-            ParticleUtils.animateOnlineIndicatorImageView(cell.deviceStateImageView, online: self.devices[(indexPath as NSIndexPath).row].connected, flashing:self.devices[(indexPath as NSIndexPath).row].isFlashing)
-            
-            masterCell = cell
-        }
-        return masterCell!
+        let cell: DeviceListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListTableViewCell
+        cell.setup(device: self.devices[indexPath.row])
+        return cell
     }
     
     
