@@ -112,8 +112,12 @@ extension ParticleDeviceType {
                 return UIColor(rgb: 0x000000)
             case .bluz:
                 return UIColor(rgb: 0x2980b9)
-            case .xenon, .argon, .boron, .bSeries, .aSeries, .xSeries:
-                return UIColor(rgb: 0x2ECC71)
+            case .argon, .aSeries:
+                return UIColor(rgb: 0x00AE42)
+            case .boron, .bSeries:
+                return UIColor(rgb: 0xF5A800)
+            case .xenon, .xSeries:
+                return UIColor(rgb: 0xB31983)
             default:
                 return UIColor(rgb: 0x777777)
         }
