@@ -426,6 +426,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard self.isBusy == false else {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Selected indexPath: %i", withParameters: getVaList([indexPath.row]))
 
         RMessage.dismissActiveNotification()
@@ -437,14 +442,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         let selectedDevice = self.devices[indexPath.row]
         selectedDevice.refresh { [weak self] error in
             if let self = self {
-                self.resume(animated: true)
-                self.isBusy = false
-
                 if let error = error {
                     RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 } else {
                     self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
                 }
+
+                self.resume(animated: true)
+                self.isBusy = false
             }
         }
     }
