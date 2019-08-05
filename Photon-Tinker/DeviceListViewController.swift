@@ -30,10 +30,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         return UIStatusBarStyle.lightContent
     }
 
-
-
     @objc func appDidBecomeActive(_ sender : AnyObject) {
-        self.tableView.reloadData()
+        if (!self.isBusy) {
+            self.fade(animated: true)
+            self.loadDevices()
+        }
     }
 
     override func viewDidLoad() {
@@ -43,7 +44,12 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         if ParticleCloud.sharedInstance().isAuthenticated {
             self.addRefreshControl()
-            self.fade(animated: false)
+
+            if (!self.isBusy) {
+                self.fade(animated: false)
+                self.loadDevices()
+            }
+
             self.noDevicesLabel.isHidden = true
         } else {
             self.noDevicesLabel.isHidden = false
@@ -57,55 +63,34 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             popRecognizer = InteractivePopGestureRecognizerDelegateHelper(controller: controller, minViewControllers: 2)
             controller.interactivePopGestureRecognizer?.delegate = popRecognizer
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        if ParticleCloud.sharedInstance().isAuthenticated {
-            self.loadDevices()
-        } else {
-            self.showTutorial()
-        }
 
         SEGAnalytics.shared().track("Tinker_DeviceListScreenActivity")
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-    }
-
-
-
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "deviceInspector" {
-            if let vc = segue.destination as? DeviceInspectorViewController {
-                let device = sender as! ParticleDevice
-                vc.setup(device: device)
-
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@", withParameters: getVaList(["\(device)"]))
-                SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": device.type.description])
-            }
-        }
     }
 
     func loadDevices()
     {
+        self.isBusy = true
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices started", withParameters: getVaList([]))
 
-        DispatchQueue.global().async {
-            ParticleCloud.sharedInstance().getDevices({ (devices:[ParticleDevice]?, error:Error?) -> Void in
+        ParticleCloud.sharedInstance().getDevices({ [weak self] devices, error in
+            guard let self = self else { return }
 
-                self.handleGetDevicesResponse(devices, error: error)
-
-                DispatchQueue.main.async { [weak self] () -> () in
-                    if let self = self {
-                        self.resume(animated: true)
-                        self.showTutorial()
-                    }
+            DispatchQueue.main.async { [weak self] () -> () in
+                if let self = self {
+                    self.handleGetDevicesResponse(devices, error: error)
+                    self.resume(animated: true)
+                    self.tableView.refreshControl!.endRefreshing()
+                    self.showTutorial()
+                    self.isBusy = false
                 }
-            })
-        }
+            }
+        })
     }
 
     func handleGetDevicesResponse(_ devices:[ParticleDevice]?, error:Error?)
@@ -179,6 +164,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
 
+
     //MARK: Refresh control
     func addRefreshControl() {
         let refreshControl = UIRefreshControl()
@@ -193,11 +179,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @objc func refreshData(sender: UIRefreshControl) {
-        ParticleCloud.sharedInstance().getDevices({ [weak self] devices, error in
-            guard let self = self else { return }
-            self.handleGetDevicesResponse(devices, error: error)
-            self.tableView.refreshControl!.endRefreshing()
-        })
+        if (!self.isBusy) {
+            self.fadeContent(animated: true, showSpinner: false)
+            self.loadDevices()
+        }
     }
 
 
@@ -443,26 +428,34 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Selected indexPath: %i", withParameters: getVaList([indexPath.row]))
 
-
         RMessage.dismissActiveNotification()
         tableView.deselectRow(at: indexPath, animated: true)
 
-
-        let device = self.devices[(indexPath as NSIndexPath).row]
-        tableView.deselectRow(at: indexPath, animated: false)
-
+        self.isBusy = true
         self.fade(animated: true)
 
         let selectedDevice = self.devices[indexPath.row]
         selectedDevice.refresh { [weak self] error in
             if let self = self {
                 self.resume(animated: true)
+                self.isBusy = false
 
                 if let error = error {
                     RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 } else {
                     self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
                 }
+            }
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "deviceInspector" {
+            if let vc = segue.destination as? DeviceInspectorViewController {
+                let device = sender as! ParticleDevice
+                vc.setup(device: device)
+
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@", withParameters: getVaList(["\(device)"]))
+                SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": device.type.description])
             }
         }
     }
