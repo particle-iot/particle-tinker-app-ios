@@ -114,41 +114,25 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         else
         {
-            if let d = devices
-            {
-                // if no devices offer user to setup a new one
-                if (d.count == 0) {
-                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
-                }
-
-                self.devices = d
-                for device in self.devices {
-                    device.delegate = self
-                }
-
-                self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
-
-                sortDevices()
-
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
-                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
-
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } else {
-                self.devices = []
-
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
-                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
-
-                DispatchQueue.main.async {
-                    self.noDevicesLabel.isHidden = false
-                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
-                    self.tableView.reloadData()
-                }
+           self.devices = devices!
+            for device in self.devices {
+                device.delegate = self
             }
 
+            self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
+            self.sortDevices()
+
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
+            ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
+
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+
+                // if no devices offer user to setup a new one
+                if (devices!.count == 0) {
+                    self.setupNewDeviceButtonTapped(self.setupNewDeviceButton)
+                }
+            }
         }
     }
 
