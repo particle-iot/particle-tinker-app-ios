@@ -249,10 +249,30 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.present(MeshSetupFlowUIManager.loadedViewController(), animated: true)
     }
 
-
     func invokePhotonDeviceSetup()
     {
-        self.customizeSetupForSetupFlow()
+        let c = ParticleSetupCustomization.sharedInstance()
+
+        c?.pageBackgroundColor = UIColor(rgb: 0xF0F0F0)
+        c?.pageBackgroundImage = nil
+
+        c?.normalTextColor = ParticleUtils.particleDarkGrayColor
+        c?.linkTextColor = ParticleUtils.particleDarkGrayColor
+
+        c?.modeButtonName = "SETUP button"
+
+        c?.elementTextColor = UIColor.white//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c?.elementBackgroundColor = ParticleUtils.particleCyanColor
+        c?.brandImage = UIImage(named: "particle-horizontal-head")
+        c?.brandImageBackgroundColor = .clear
+        c?.brandImageBackgroundImage = UIImage(named: "imgTrianglifyHeader")
+
+        c?.tintSetupImages = false
+        c?.instructionalVideoFilename = "photon_wifi.mp4"
+        c?.allowPasswordManager = true
+        c?.lightStatusAndNavBar = true
+        c?.disableLogOutOption = true
+
         if let vc = ParticleSetupMainController(setupOnly: !ParticleCloud.sharedInstance().isAuthenticated)
         {
             SEGAnalytics.shared().track("Tinker_PhotonSetupInvoked")
@@ -265,97 +285,33 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func particleSetupViewController(_ controller: ParticleSetupMainController!, didFinishWith result: ParticleSetupMainControllerResult, device: ParticleDevice!) {
         if result == .success
         {
-            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup ended", withParameters: getVaList([]))
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup ended successfully", withParameters: getVaList([]))
             SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"success"])
             
-            if let deviceAdded = device
-            {
-                if (deviceAdded.name == nil) // might be the setup naming BUG here
-                {
-                    print("! null name device detected"); //@@@
-                    
-                    let deviceName = MeshSetupStrings.getRandomDeviceName()
-                    deviceAdded.rename(deviceName, completion: { (error : Error?) -> Void in
-                        if let _ = error
-                        {
-                            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Added a new device to account but there was a problem communicating with it. Device has been named %@.", withParameters: getVaList([deviceName]))
-                            RMessage.showNotification(withTitle: "Device added", subtitle: "You successfully added a new device to your account but there was a problem communicating with it. Device has been named \(deviceName).", type: .warning, customTypeName: nil, callback: nil)
-                        }
-                        else
-                        {
-                            DispatchQueue.main.async {
-                                self.showSetupSuccessMessageAndReload()
-                            }
-                        }
-                    })
-                    
-                    
-                }
-                else
-                {
-                    self.showSetupSuccessMessageAndReload()
-                }
-            }
-            else // Device is nil so we treat it as not claimed
-            {
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "You successfully setup the device Wi-Fi credentials.", withParameters: getVaList([]))
-
-                RMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success, customTypeName: nil, callback: nil)
-                self.tableView.reloadData()
+            if (self.devices.count == 1) {
+                RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
+            } else {
+                RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
             }
         }
         else if result == .successNotClaimed
         {
-            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "You successfully setup the device Wi-Fi credentials.", withParameters: getVaList([]))
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup ended successfully, not claimed (Wi-Fi credentials flow).", withParameters: getVaList([]))
+            SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"successNotClaimed"])
 
             RMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success, customTypeName: nil, callback: nil)
-            self.tableView.reloadData()
         }
         else
         {
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup cancelled or failed.", withParameters: getVaList([]))
+            SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"failed or canceled"])
 
-            SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"cancelled or failed"])
             RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
-        }
-    }
-
-    func showSetupSuccessMessageAndReload() {
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Setup success message and reloading table view", withParameters: getVaList([]))
-
-        if (self.devices.count <= 1) {
-            RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
-        } else {
-            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
         }
 
         self.tableView.reloadData()
     }
-    
-    func customizeSetupForSetupFlow()
-    {
-        let c = ParticleSetupCustomization.sharedInstance()
-        
-        c?.pageBackgroundColor = UIColor(rgb: 0xF0F0F0)
-        c?.pageBackgroundImage = nil
-        
-        c?.normalTextColor = ParticleUtils.particleDarkGrayColor
-        c?.linkTextColor = ParticleUtils.particleDarkGrayColor
 
-        c?.modeButtonName = "SETUP button"
-        
-        c?.elementTextColor = UIColor.white//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
-        c?.elementBackgroundColor = ParticleUtils.particleCyanColor
-        c?.brandImage = UIImage(named: "particle-horizontal-head")
-        c?.brandImageBackgroundColor = .clear
-        c?.brandImageBackgroundImage = UIImage(named: "imgTrianglifyHeader")
-
-        c?.tintSetupImages = false
-        c?.instructionalVideoFilename = "photon_wifi.mp4"
-        c?.allowPasswordManager = true
-        c?.lightStatusAndNavBar = true
-        c?.disableLogOutOption = true
-    }
 
     //MARK: Tableview delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -377,7 +333,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Unclaim.TextTitle.meshLocalized(),
                     message: MeshSetupStrings.ControlPanel.Unclaim.Text.meshLocalized().replaceMeshSetupStrings(deviceName: self.devices[(indexPath as NSIndexPath).row].getName()),
                     preferredStyle: .alert)
+
             alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.Cancel.meshLocalized(), style: .cancel))
+
             alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Unclaim.UnclaimButton.meshLocalized(), style: .default) { action in
 
                 ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Unclaiming device: %@", withParameters: getVaList([self.devices[(indexPath as NSIndexPath).row]]))
