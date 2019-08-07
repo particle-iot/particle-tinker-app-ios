@@ -15,7 +15,6 @@ protocol SearchBarViewDelegate: class {
 class SearchBarView: UIView, UITextFieldDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var inputText: CustomizableTextField!
-    
     @IBOutlet weak var cancelButton: UIButton!
 
     weak var delegate: SearchBarViewDelegate?
@@ -86,8 +85,8 @@ class SearchBarView: UIView, UITextFieldDelegate {
 
     @objc
     public func textChanged() {
-        if var searchTerm = inputText.text {
-            self.delegate?.searchBarTextDidChange(searchBar: self, text: searchTerm.trimmingCharacters(in: .whitespacesAndNewlines))
+        if var searchTerm = inputText.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines), searchTerm.count > 0 {
+            self.delegate?.searchBarTextDidChange(searchBar: self, text: searchTerm)
         } else {
             self.delegate?.searchBarTextDidChange(searchBar: self, text: nil)
         }
