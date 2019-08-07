@@ -9,7 +9,7 @@ import UIKit
 import QuartzCore
 
 
-class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate, Fadeable {
+class DeviceListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ParticleSetupMainControllerDelegate, ParticleDeviceDelegate, Fadeable, SearchBarViewDelegate {
 
     @IBOutlet weak var setupNewDeviceButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
@@ -17,14 +17,21 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var noDevicesLabel: UILabel!
 
+    @IBOutlet weak var searchBar: SearchBarView!
     @IBOutlet weak var tableView: UITableView!
+
     var refreshControl: UIRefreshControl!
 
     var isBusy: Bool = false
     var viewsToFade: [UIView]? = nil
 
-    var devices : [ParticleDevice] = []
+    var devices: [ParticleDevice] = []
+    var viewDevices: [ParticleDevice] = []
     var popRecognizer: InteractivePopGestureRecognizerDelegateHelper?
+    var tapGestureRecognizer: UITapGestureRecognizer?
+
+
+    var searchTerm: String?
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -41,6 +48,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
 
         self.viewsToFade = [self.tableView, self.moreButton, self.setupNewDeviceButton]
+        self.setupSearch()
+
 
         if ParticleCloud.sharedInstance().isAuthenticated {
             self.addRefreshControl()
@@ -54,6 +63,20 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             self.noDevicesLabel.isHidden = false
         }
+    }
+
+    private func setupSearch() {
+        self.tapGestureRecognizer = UITapGestureRecognizer(
+                target: view,
+                action: #selector(UIView.endEditing))
+
+        self.tapGestureRecognizer!.isEnabled = false
+        self.view.addGestureRecognizer(self.tapGestureRecognizer!)
+
+        self.tableView.tableFooterView = UIView()
+
+        searchBar.inputText.placeholder = "Search devices..."
+        searchBar.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -108,8 +131,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
 
             DispatchQueue.main.async {
-                self.noDevicesLabel.isHidden = false
-                self.tableView.reloadData()
+                self.reloadData()
             }
         }
         else
@@ -118,15 +140,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             for device in self.devices {
                 device.delegate = self
             }
-
-            self.noDevicesLabel.isHidden = self.devices.count == 0 ? false : true
             self.sortDevices()
 
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([self.devices.count]))
             ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([self.devices]))
 
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.reloadData()
 
                 // if no devices offer user to setup a new one
                 if (devices!.count == 0) {
@@ -183,7 +203,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func showTutorial() {
        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                if (ParticleCloud.sharedInstance().isAuthenticated && self.devices.count > 0) {
+                if (ParticleCloud.sharedInstance().isAuthenticated && self.viewDevices.count > 0) {
                     // 1
                     let tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1)
 
@@ -202,30 +222,29 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
-    
-    
-
-    
-    
-    
-    
 
 
 
+    //MARK: Search bar delegate
+    func searchBarTextDidChange(searchBar: SearchBarView, text: String?) {
+        self.searchTerm = text
+        self.reloadData()
+    }
+
+    func searchBarDidBeginEditing(searchBar: SearchBarView) {
+        //self.tapGestureRecognizer?.isEnabled = true
+    }
+
+    func searchBarDidEndEditing(searchBar: SearchBarView) {
+        //self.tapGestureRecognizer?.isEnabled = false
+    }
 
 
-
-
-
-
-
-    
     //MARK: Particle device delegate
     func particleDevice(_ device: ParticleDevice, didReceive event: ParticleDeviceSystemEvent) {
         self.sortDevices()
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.reloadData()
         }
 
         NotificationCenter.default.post(name: Notification.Name.ParticleDeviceSystemEvent, object: nil, userInfo: [
@@ -234,7 +253,19 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         ])
     }
 
+    private func reloadData() {
+        self.viewDevices = self.devices
 
+        if let searchTerm = searchTerm {
+            NSLog("searchTerm = '\(searchTerm)'")
+            self.viewDevices = self.viewDevices.filter { (device: ParticleDevice) -> Bool in
+                return device.getName().lowercased().contains(searchTerm)
+            }
+        }
+
+        self.noDevicesLabel.isHidden = self.viewDevices.count == 0 ? false : true
+        self.tableView.reloadData()
+    }
 
 
     //MARK: Device setup setup
@@ -309,18 +340,18 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
         }
 
-        self.tableView.reloadData()
+        self.reloadData()
     }
 
 
     //MARK: Tableview delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.devices.count
+        return self.viewDevices.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DeviceListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListTableViewCell
-        cell.setup(device: self.devices[indexPath.row])
+        cell.setup(device: self.viewDevices[indexPath.row])
         return cell
     }
 
@@ -331,32 +362,38 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Showing unclaim confirmation", withParameters: getVaList([]))
 
             let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Unclaim.TextTitle.meshLocalized(),
-                    message: MeshSetupStrings.ControlPanel.Unclaim.Text.meshLocalized().replaceMeshSetupStrings(deviceName: self.devices[(indexPath as NSIndexPath).row].getName()),
+                    message: MeshSetupStrings.ControlPanel.Unclaim.Text.meshLocalized().replaceMeshSetupStrings(deviceName: self.viewDevices[(indexPath as NSIndexPath).row].getName()),
                     preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.Cancel.meshLocalized(), style: .cancel))
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Unclaim.UnclaimButton.meshLocalized(), style: .default) { action in
+            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Unclaim.UnclaimButton.meshLocalized(), style: .default) { [weak self] action in
+                guard let self = self else {
+                    return
+                }
 
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Unclaiming device: %@", withParameters: getVaList([self.devices[(indexPath as NSIndexPath).row]]))
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Unclaiming device: %@", withParameters: getVaList([self.viewDevices[(indexPath as NSIndexPath).row]]))
 
-                self.devices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
+                self.viewDevices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
                     if let err = error
                     {
                         RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, duration: -1, callback: nil)
-                        self.tableView.reloadData()
+                        self.reloadData()
                     }
                 }
 
-                self.devices.remove(at: (indexPath as NSIndexPath).row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.tableView.isUserInteractionEnabled = false
+
+                self.viewDevices.remove(at: (indexPath as NSIndexPath).row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
                 let delayTime = DispatchTime.now() + .milliseconds(250)
 
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device unclaim complete. Device count: %i, Devices: %@", withParameters: getVaList([self.devices.count, self.devices]))
+                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device unclaim complete. Device count: %i, Devices: %@", withParameters: getVaList([self.viewDevices.count, self.viewDevices]))
 
                 // update table view display to show dark/light cells with delay so that delete animation can complete nicely
                 DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                    tableView.reloadData()
+                    self.tableView.isUserInteractionEnabled = true
+                    self.reloadData()
                 }
             })
             self.present(alert, animated: true)
@@ -366,6 +403,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Unclaim"
     }
+
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard self.isBusy == false else {
@@ -381,7 +419,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.isBusy = true
         self.fade(animated: true)
 
-        let selectedDevice = self.devices[indexPath.row]
+        let selectedDevice = self.viewDevices[indexPath.row]
         selectedDevice.refresh { [weak self] error in
             if let self = self {
                 if let error = error {
