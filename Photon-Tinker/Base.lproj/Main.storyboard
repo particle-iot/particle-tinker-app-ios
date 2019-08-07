@@ -192,16 +192,16 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="ahE-YY-IaF"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
-                                <rect key="frame" x="0.0" y="66" width="320" height="414"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
+                                <rect key="frame" x="0.0" y="112" width="320" height="368"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.78431372549019607" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="deviceCell" rowHeight="60" id="1mV-nl-jbN" customClass="DeviceListTableViewCell" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="1mV-nl-jbN" id="dgu-A9-Zku">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oje-Nu-H4B">
@@ -270,16 +270,75 @@
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="2"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPe-UK-gb5" customClass="SearchBarView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="16" y="64" width="288" height="45"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pfa-Xu-Iam">
+                                        <rect key="frame" x="34" y="7.5" width="254" height="30"/>
+                                        <subviews>
+                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vss-qM-L3f" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="196" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbB-aB-Stn">
+                                                <rect key="frame" x="206" y="0.0" width="48" height="30"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelClicked" destination="fPe-UK-gb5" eventType="touchUpInside" id="fVO-oX-Zme"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="YsP-ZC-vKb">
+                                        <rect key="frame" x="0.0" y="10.5" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="Bgz-Kx-kpc"/>
+                                            <constraint firstAttribute="height" constant="24" id="dLL-aj-dme"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="YsP-ZC-vKb" firstAttribute="centerY" secondItem="Pfa-Xu-Iam" secondAttribute="centerY" id="6a9-Dn-GhW"/>
+                                    <constraint firstItem="YsP-ZC-vKb" firstAttribute="leading" secondItem="fPe-UK-gb5" secondAttribute="leading" id="I0F-mf-xMM"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pfa-Xu-Iam" secondAttribute="trailing" id="JtZ-7Q-t9i"/>
+                                    <constraint firstAttribute="height" constant="45" id="gBv-Cf-Hu3"/>
+                                    <constraint firstItem="Pfa-Xu-Iam" firstAttribute="leading" secondItem="YsP-ZC-vKb" secondAttribute="trailing" constant="10" id="jA1-Vb-DZD"/>
+                                    <constraint firstItem="Pfa-Xu-Iam" firstAttribute="centerY" secondItem="fPe-UK-gb5" secondAttribute="centerY" id="tCk-MY-4I3"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="cancelButton" destination="TbB-aB-Stn" id="C3e-kA-NOS"/>
+                                    <outlet property="imageView" destination="YsP-ZC-vKb" id="rQ0-y8-8ou"/>
+                                    <outlet property="inputText" destination="Vss-qM-L3f" id="R2q-01-QuB"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DmZ-hI-cQj">
+                                <rect key="frame" x="0.0" y="109" width="320" height="1"/>
+                                <color key="backgroundColor" red="0.78431372549019607" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Ry1-c5-CcT"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="bottom" constant="2" id="0C6-W6-nHa"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" id="1vk-uV-3Sq"/>
+                            <constraint firstItem="DmZ-hI-cQj" firstAttribute="top" secondItem="fPe-UK-gb5" secondAttribute="bottom" id="3rS-aR-dtn"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailing" id="4tY-y9-6tC"/>
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerY" secondItem="doS-be-EZj" secondAttribute="centerY" constant="30" id="BhF-q9-8Pt"/>
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerX" secondItem="2Ds-AZ-r34" secondAttribute="centerX" id="DGb-m6-Do1"/>
+                            <constraint firstItem="fPe-UK-gb5" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" constant="16" id="QJ2-Ky-abf"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="DmZ-hI-cQj" secondAttribute="bottom" constant="2" id="Qsq-bg-ftU"/>
+                            <constraint firstItem="DmZ-hI-cQj" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="UVj-y1-Md2"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
+                            <constraint firstAttribute="trailing" secondItem="fPe-UK-gb5" secondAttribute="trailing" constant="16" id="fC7-H3-5gS"/>
+                            <constraint firstItem="fPe-UK-gb5" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="bottom" id="lLd-gh-WvI"/>
+                            <constraint firstAttribute="trailing" secondItem="DmZ-hI-cQj" secondAttribute="trailing" id="rwd-Px-D5V"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="uVc-GF-F2a"/>
                             <constraint firstAttribute="bottom" secondItem="l8r-gu-33x" secondAttribute="bottom" id="wR8-9O-PrK"/>
                             <constraint firstItem="2Ds-AZ-r34" firstAttribute="top" secondItem="xB3-Ur-rz3" secondAttribute="bottom" constant="-44" id="ybq-BW-Onn"/>
@@ -1988,6 +2047,7 @@
         <image name="MeshControlPanelIcon" width="20" height="20"/>
         <image name="MeshSetupSignalIcon" width="14" height="14"/>
         <image name="MoreIcon" width="24" height="24"/>
+        <image name="SearchIcon" width="24" height="24"/>
         <image name="alizarin" width="2.5" height="18.5"/>
         <image name="cyan" width="2.5" height="18.5"/>
         <image name="emerald" width="2.5" height="18.5"/>
@@ -2007,6 +2067,6 @@
         <image name="v" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RCA-Cb-lAe"/>
+        <segue reference="3ox-ek-eEM"/>
     </inferredMetricsTieBreakers>
 </document>

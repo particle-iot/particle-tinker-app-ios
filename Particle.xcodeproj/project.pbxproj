@@ -220,6 +220,7 @@
 		C810BF71BC9ADE53A4B501C9 /* StepCreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B70D0ED1C8CEE9EE1261 /* StepCreateNetwork.swift */; };
 		C810BF8EDF3AD29697CA3F57 /* DevicePinFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5A1251B215505F677E9 /* DevicePinFunction.swift */; };
 		C810BFCBE4384F1089876AC3 /* StepGetCommissionerDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B0F312CB28F6DDA7E0B6 /* StepGetCommissionerDeviceInfo.swift */; };
+		C810BFD2A7960D07F6144934 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB52C682B5868A31FA3F /* SearchBarView.swift */; };
 		C810BFDF43DB6941A9699851 /* PinFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDDE5D873554BBEC6D35 /* PinFunctionView.swift */; };
 		C810BFE346DE2268C8CFC79F /* MeshSetupControlPanelInfoDeactivateSimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDE0E7BDBD92A4184F6A /* MeshSetupControlPanelInfoDeactivateSimViewController.swift */; };
 		C810BFED853B6F5E608F0C8F /* StepGetUserWifiNetworkSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4F91F65B39B88C58D5B /* StepGetUserWifiNetworkSelection.swift */; };
@@ -440,6 +441,7 @@
 		C810BAF19BA3CABD429F6A14 /* StepEnsureCommissionerNetworkMatches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCommissionerNetworkMatches.swift; sourceTree = "<group>"; };
 		C810BB2126DD63C1985B4FFC /* DeviceInspectorFunctionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorFunctionsViewController.swift; sourceTree = "<group>"; };
 		C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowRunner.swift; sourceTree = "<group>"; };
+		C810BB52C682B5868A31FA3F /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		C810BBA624764829727882AB /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
 		C810BBBB5F657A788D817676 /* MeshSetupControlPanelDocumentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelDocumentationViewController.swift; path = "Photon-Tinker/MeshSetupControlPanelDocumentationViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C810BBCD2C07F62F6C6350F1 /* prepare_for_pairing.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = prepare_for_pairing.mov; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				C810B16A225C1ED1D4F03ACC /* DeviceTypeIcon.swift */,
 				C810BCCA537FFE16C2EE2C25 /* FocusRectView.swift */,
 				C810BA68B54832E91E5EC273 /* InteractivePopGestureRecognizerDelegateHelper.swift */,
+				C810BB52C682B5868A31FA3F /* SearchBarView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1508,6 +1511,7 @@
 				C810B810ACEAEBCF17F7B7C9 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift in Sources */,
 				C810B9CC8DC2D88012EA4158 /* Date.swift in Sources */,
 				C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */,
+				C810BFD2A7960D07F6144934 /* SearchBarView.swift in Sources */,
 				C810B403E746BEC82F1C62D3 /* UIImage.swift in Sources */,
 				C810BCCB56045A6C71A9CC77 /* Comparable.swift in Sources */,
 			);
