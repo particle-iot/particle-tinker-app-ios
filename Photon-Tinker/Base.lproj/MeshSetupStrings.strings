@@ -110,6 +110,7 @@
 "MeshSetup.ControlPanel.Prompt.DeleteWifiTitle" = "Remove WiFi credentials?";
 "MeshSetup.ControlPanel.Prompt.DeleteWifiText" = "Are you sure you want to remove WiFi credentials for '{{0}}'";
 
+"MeshSetup.ControlPanel.Action.Cancel" = "Cancel";
 "MeshSetup.ControlPanel.Action.LeaveNetwork" = "Leave Network";
 "MeshSetup.ControlPanel.Action.DontLeaveNetwork" = "Cancel";
 "MeshSetup.ControlPanel.Action.DeleteWifi" = "Remove";

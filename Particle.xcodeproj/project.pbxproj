@@ -83,7 +83,7 @@
 		C810B045C656154CED6574D6 /* InteractivePopGestureRecognizerDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA68B54832E91E5EC273 /* InteractivePopGestureRecognizerDelegateHelper.swift */; };
 		C810B06D6A4BF214ABB7AC3C /* StepPublishDeviceSetupDoneEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B92817D3AE87A027F26C /* StepPublishDeviceSetupDoneEvent.swift */; };
 		C810B07500909F42EAE7ED66 /* MeshSetupControlPanelUnclaimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5B4C2E55C2A8FABBA46 /* MeshSetupControlPanelUnclaimViewController.swift */; };
-		C810B07AB4BECDFB914983CB /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B460CF70E03001091C59 /* DeviceTableViewCell.swift */; };
+		C810B07AB4BECDFB914983CB /* DeviceListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B460CF70E03001091C59 /* DeviceListTableViewCell.swift */; };
 		C810B08649914DE77E382599 /* DeviceVariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B166032F6F03DD1D262D /* DeviceVariableTableViewCell.swift */; };
 		C810B0A1A832038CD99CB275 /* MeshSetupNameDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2DF1B1869489DD02643 /* MeshSetupNameDeviceViewController.swift */; };
 		C810B0AEEA4C1DDD97225639 /* MeshSetupControlPanelMeshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8FD09B7EE71A655564A /* MeshSetupControlPanelMeshViewController.swift */; };
@@ -119,6 +119,7 @@
 		C810B3D2EF25A5EAC2B7E768 /* DeviceInspectorTextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA7E214CF0C04EFBE4EC /* DeviceInspectorTextInputViewController.swift */; };
 		C810B3E2F3DB83C6FF13CDD4 /* DeviceInspectorFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB2126DD63C1985B4FFC /* DeviceInspectorFunctionsViewController.swift */; };
 		C810B3FD9C729A78A9F7A5D6 /* MeshSetupSelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD14B6CD42737D656BCF /* MeshSetupSelectNetworkViewController.swift */; };
+		C810B403E746BEC82F1C62D3 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA816D7A30C2AC191658 /* UIImage.swift */; };
 		C810B410634A800737771C20 /* StepOfferToSwitchToControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDA71E22E114BE07EA93 /* StepOfferToSwitchToControlPanel.swift */; };
 		C810B425D07A5B3FDB527A53 /* MeshSetupControlPanelCellularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD51550B8E86543C8C99 /* MeshSetupControlPanelCellularViewController.swift */; };
 		C810B429138BE4FC38D3FC39 /* StepGetMeshNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2F167CCE7B313A3BE42 /* StepGetMeshNetwork.swift */; };
@@ -157,7 +158,6 @@
 		C810B8D2FDB12D382EB86A80 /* MeshSetupFlowRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */; };
 		C810B8D3F490D74DD9BA8FA6 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B271587C713B5F8604A6 /* UIImageView.swift */; };
 		C810B8E63928DA00F3BC698D /* MeshSetupError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDE99766ED2242865DEF /* MeshSetupError.swift */; };
-		C810B8EBA61477549E2F3C0A /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B76794112C4C84712014 /* LogListViewController.swift */; };
 		C810B8FE4CC3D99A389598A3 /* MeshSetupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BC04924C8DF17E86DB65 /* MeshSetupContext.swift */; };
 		C810B902D6FB536E65F75760 /* StepSetSimDataLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD814F971D049F08F800 /* StepSetSimDataLimit.swift */; };
 		C810B948477E6D3DB607A005 /* MeshSetupControlPanelInfoActivateSimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDE729BDB4DF5D76F027 /* MeshSetupControlPanelInfoActivateSimViewController.swift */; };
@@ -169,6 +169,7 @@
 		C810B9DCBABC359EB32A1C5D /* DeviceInspectorVariablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B44AA6315959E8013D4B /* DeviceInspectorVariablesViewController.swift */; };
 		C810B9DD7B4F15AD2CAF5A10 /* DeviceInspectorTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA3C69A84CF59D60E89D /* DeviceInspectorTabBarView.swift */; };
 		C810B9E226DC71E4B44C032A /* MeshSetupCreateNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B0BAEB751EEF01988108 /* MeshSetupCreateNetworkPasswordViewController.swift */; };
+		C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7325DEF0029CCB800DC /* LogList.swift */; };
 		C810BA6D41F43204736E6512 /* MeshSetupNetworkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8D0878C6A9470C14CD8 /* MeshSetupNetworkListViewController.swift */; };
 		C810BA905D364AED123BCA1A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBE1E4C0FD8B27FC0926 /* UIColor.swift */; };
 		C810BA916934753E61C695B0 /* StepShowInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B32155C0434B05042B32 /* StepShowInfo.swift */; };
@@ -193,11 +194,13 @@
 		C810BC9DCA98EFDA30A8FC52 /* DeviceInspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B76DA1F1580C99BAEDFE /* DeviceInspectorViewController.swift */; };
 		C810BCA6C880C2B655CFA2F8 /* MeshSetupControlPanelRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B95492E74D03F350532A /* MeshSetupControlPanelRootViewController.swift */; };
 		C810BCBE7B4CD7B0EEC27127 /* StepGetWifiNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B71F2B8216B6E666858C /* StepGetWifiNetwork.swift */; };
+		C810BCCB56045A6C71A9CC77 /* Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B84261ECB0D766CDA3D6 /* Comparable.swift */; };
 		C810BD03E694E7F3AE821E4D /* ParticleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B14047147CD0007183D9 /* ParticleUtils.swift */; };
 		C810BD1B8E863528A6D0E092 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BEE8D1DE3F0C650E1D61 /* CALayer.swift */; };
 		C810BD363B8DD799293FAB91 /* TinkerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD8F81831FA1158C0593 /* TinkerStrings.swift */; };
 		C810BDA3464764900E879125 /* StepEnsureCorrectSimState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF15DD9491959B0E186C /* StepEnsureCorrectSimState.swift */; };
 		C810BDE2AA87A347CBABDFC5 /* StepGetNewNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B85E5279D0283A14D356 /* StepGetNewNetworkPassword.swift */; };
+		C810BE02053E01038671ED64 /* HairlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BC3C254D3DA74FFBF06C /* HairlineView.swift */; };
 		C810BE05C14B913DE0A65F51 /* TinkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BC69F197C9BC53B06A85 /* TinkerView.swift */; };
 		C810BE11B8CF188B09CEEF4E /* StepEnsureGotClaimed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BEBECF35E8953DFCEE4E /* StepEnsureGotClaimed.swift */; };
 		C810BE25763B592953B09CFE /* MeshSetupFindCommissionerStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5E6BC6E42C45882C8FC /* MeshSetupFindCommissionerStickerViewController.swift */; };
@@ -218,6 +221,7 @@
 		C810BF71BC9ADE53A4B501C9 /* StepCreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B70D0ED1C8CEE9EE1261 /* StepCreateNetwork.swift */; };
 		C810BF8EDF3AD29697CA3F57 /* DevicePinFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5A1251B215505F677E9 /* DevicePinFunction.swift */; };
 		C810BFCBE4384F1089876AC3 /* StepGetCommissionerDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B0F312CB28F6DDA7E0B6 /* StepGetCommissionerDeviceInfo.swift */; };
+		C810BFD2A7960D07F6144934 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BB52C682B5868A31FA3F /* SearchBarView.swift */; };
 		C810BFDF43DB6941A9699851 /* PinFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDDE5D873554BBEC6D35 /* PinFunctionView.swift */; };
 		C810BFE346DE2268C8CFC79F /* MeshSetupControlPanelInfoDeactivateSimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDE0E7BDBD92A4184F6A /* MeshSetupControlPanelInfoDeactivateSimViewController.swift */; };
 		C810BFED853B6F5E608F0C8F /* StepGetUserWifiNetworkSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4F91F65B39B88C58D5B /* StepGetUserWifiNetworkSelection.swift */; };
@@ -376,7 +380,7 @@
 		C810B42273609A1681692BD1 /* MeshSetupGetCommissionerReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetCommissionerReadyViewController.swift; sourceTree = "<group>"; };
 		C810B42DE794AE7C405FF7C5 /* MeshSetupNetworkCreatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkCreatedViewController.swift; sourceTree = "<group>"; };
 		C810B44AA6315959E8013D4B /* DeviceInspectorVariablesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorVariablesViewController.swift; sourceTree = "<group>"; };
-		C810B460CF70E03001091C59 /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		C810B460CF70E03001091C59 /* DeviceListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceListTableViewCell.swift; sourceTree = "<group>"; };
 		C810B47D6339367AC34EA6F4 /* DeviceInspectorEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorEventsViewController.swift; sourceTree = "<group>"; };
 		C810B4B38EA8A15186965011 /* DeviceInspectorTinkerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorTinkerViewController.swift; sourceTree = "<group>"; };
 		C810B4B4DE630715ADDA55F0 /* StepExitListeningMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepExitListeningMode.swift; sourceTree = "<group>"; };
@@ -403,9 +407,9 @@
 		C810B72F1796C24058AB6FB9 /* StepEnsureNotOnMeshNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureNotOnMeshNetwork.swift; sourceTree = "<group>"; };
 		C810B730004492A7C74FCC39 /* DeviceFunctionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceFunctionTableViewCell.swift; sourceTree = "<group>"; };
 		C810B73014CF2413F6DE6758 /* StepJoinSelectedNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepJoinSelectedNetwork.swift; sourceTree = "<group>"; };
+		C810B7325DEF0029CCB800DC /* LogList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogList.swift; sourceTree = "<group>"; };
 		C810B732B625EFDC289D0BB6 /* StepGetEthernetFeatureStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetEthernetFeatureStatus.swift; sourceTree = "<group>"; };
 		C810B7553841E661ECF0A0B8 /* StepGetNewDeviceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewDeviceName.swift; sourceTree = "<group>"; };
-		C810B76794112C4C84712014 /* LogListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
 		C810B76DA1F1580C99BAEDFE /* DeviceInspectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorViewController.swift; sourceTree = "<group>"; };
 		C810B7809DBC4488C9BEF72B /* MeshSetupScanCommissionerStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupScanCommissionerStickerViewController.swift; sourceTree = "<group>"; };
 		C810B79C6374F75D8AD759CA /* FlashTinkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashTinkerView.swift; sourceTree = "<group>"; };
@@ -417,6 +421,7 @@
 		C810B81B858EFBF69C522D60 /* StepEnsureCanBeClaimed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCanBeClaimed.swift; sourceTree = "<group>"; };
 		C810B823B691B9A9B139E4BD /* MeshSetupInfoViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupInfoViewControllers.swift; sourceTree = "<group>"; };
 		C810B82CF0B5F9A47B814486 /* ParticleDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleDevice.swift; sourceTree = "<group>"; };
+		C810B84261ECB0D766CDA3D6 /* Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comparable.swift; sourceTree = "<group>"; };
 		C810B842B15A84D7BD37B421 /* StepOfferSelectOrCreateNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferSelectOrCreateNetwork.swift; sourceTree = "<group>"; };
 		C810B85E5279D0283A14D356 /* StepGetNewNetworkPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewNetworkPassword.swift; sourceTree = "<group>"; };
 		C810B8843593B1542D03BA54 /* MeshSetupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupProgressViewController.swift; sourceTree = "<group>"; };
@@ -433,9 +438,11 @@
 		C810BA4DEFE6AE5E02AF1691 /* MeshSetupStandAloneOrMeshSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupStandAloneOrMeshSetupViewController.swift; sourceTree = "<group>"; };
 		C810BA68B54832E91E5EC273 /* InteractivePopGestureRecognizerDelegateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractivePopGestureRecognizerDelegateHelper.swift; sourceTree = "<group>"; };
 		C810BA7E214CF0C04EFBE4EC /* DeviceInspectorTextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorTextInputViewController.swift; sourceTree = "<group>"; };
+		C810BA816D7A30C2AC191658 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C810BAF19BA3CABD429F6A14 /* StepEnsureCommissionerNetworkMatches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCommissionerNetworkMatches.swift; sourceTree = "<group>"; };
 		C810BB2126DD63C1985B4FFC /* DeviceInspectorFunctionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorFunctionsViewController.swift; sourceTree = "<group>"; };
 		C810BB2FDD4056560A6B21CE /* MeshSetupFlowRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowRunner.swift; sourceTree = "<group>"; };
+		C810BB52C682B5868A31FA3F /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		C810BBA624764829727882AB /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
 		C810BBBB5F657A788D817676 /* MeshSetupControlPanelDocumentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelDocumentationViewController.swift; path = "Photon-Tinker/MeshSetupControlPanelDocumentationViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C810BBCD2C07F62F6C6350F1 /* prepare_for_pairing.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = prepare_for_pairing.mov; sourceTree = "<group>"; };
@@ -443,6 +450,7 @@
 		C810BBE1E4C0FD8B27FC0926 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		C810BC04924C8DF17E86DB65 /* MeshSetupContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupContext.swift; sourceTree = "<group>"; };
 		C810BC36225037371D9C201A /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		C810BC3C254D3DA74FFBF06C /* HairlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HairlineView.swift; sourceTree = "<group>"; };
 		C810BC5EF3D94548AAFE4FA1 /* MeshSetupNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNetworkPasswordViewController.swift; sourceTree = "<group>"; };
 		C810BC6999ADD5CBB7F6C034 /* DeviceInspectorInfoSliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorInfoSliderViewController.swift; sourceTree = "<group>"; };
 		C810BC69F197C9BC53B06A85 /* TinkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinkerView.swift; sourceTree = "<group>"; };
@@ -817,6 +825,8 @@
 				C810B16A225C1ED1D4F03ACC /* DeviceTypeIcon.swift */,
 				C810BCCA537FFE16C2EE2C25 /* FocusRectView.swift */,
 				C810BA68B54832E91E5EC273 /* InteractivePopGestureRecognizerDelegateHelper.swift */,
+				C810BB52C682B5868A31FA3F /* SearchBarView.swift */,
+				C810BC3C254D3DA74FFBF06C /* HairlineView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -833,7 +843,6 @@
 			isa = PBXGroup;
 			children = (
 				C810B38B730BE95201A8F1E6 /* ElectronSetupViewController.swift */,
-				C810B76794112C4C84712014 /* LogListViewController.swift */,
 				C810B4E0C34219EA31B1F5DA /* ScanBarcodeViewController.swift */,
 				C810B017C35C456634DA90F5 /* WebViewController.swift */,
 				C810B1AB336F645258CC0841 /* WelcomeViewController.swift */,
@@ -850,6 +859,8 @@
 				C810BC36225037371D9C201A /* UIView.swift */,
 				C810BEE8D1DE3F0C650E1D61 /* CALayer.swift */,
 				C810BFCA06DC015C2037AE19 /* Date.swift */,
+				C810BA816D7A30C2AC191658 /* UIImage.swift */,
+				C810B84261ECB0D766CDA3D6 /* Comparable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -951,6 +962,7 @@
 				C810BFDAC2BAD223AF2D14AC /* Fadeable.swift */,
 				C810BFF23EF2269E12E6F37A /* ScreenUtils.swift */,
 				C810BCE8AF3C66B55136CAB4 /* Storyboardable.swift */,
+				C810B7325DEF0029CCB800DC /* LogList.swift */,
 			);
 			name = Model;
 			path = "Photon-Tinker";
@@ -1029,7 +1041,7 @@
 		C810BC9F56A5D07A322C3B2D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				C810B460CF70E03001091C59 /* DeviceTableViewCell.swift */,
+				C810B460CF70E03001091C59 /* DeviceListTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1239,7 +1251,6 @@
 				"${PODS_ROOT}/DateTools/DateTools/DateTools/DateTools.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ParticleSetup/ParticleSetup.bundle",
-				"${PODS_ROOT}/PullToRefreshCoreText/PullToRefreshCoreText/PullToRefreshCoreText/Mask.png",
 				"${PODS_ROOT}/RMessage/RMessage/Resources/RMessageView.xib",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/Contents.json",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationBackgroundErrorIcon.imageset/Contents.json",
@@ -1264,7 +1275,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DateTools.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ParticleSetup.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Mask.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RMessageView.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Contents.json",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationBackgroundErrorIcon.png",
@@ -1462,7 +1472,6 @@
 				C810BC17DEFB8BC0A8444FA3 /* DeviceInspectorTinkerViewController.swift in Sources */,
 				C810BC9CB2BCA7A79A76571E /* DeviceListViewController.swift in Sources */,
 				C810B7A53664B650998F33A8 /* ElectronSetupViewController.swift in Sources */,
-				C810B8EBA61477549E2F3C0A /* LogListViewController.swift in Sources */,
 				C810B7A427A13150BE1923D8 /* ScanBarcodeViewController.swift in Sources */,
 				C810B96EDEC32BDCA4F3C45A /* WebViewController.swift in Sources */,
 				C810B5A532205676E431CA7D /* WelcomeViewController.swift in Sources */,
@@ -1474,7 +1483,7 @@
 				C810B08649914DE77E382599 /* DeviceVariableTableViewCell.swift in Sources */,
 				C810B610039F0E5F376016F3 /* DeviceFunctionTableViewCell.swift in Sources */,
 				C810BC3A3353CBD61B3DBA33 /* DeviceEventTableViewCell.swift in Sources */,
-				C810B07AB4BECDFB914983CB /* DeviceTableViewCell.swift in Sources */,
+				C810B07AB4BECDFB914983CB /* DeviceListTableViewCell.swift in Sources */,
 				C810B9DCBABC359EB32A1C5D /* DeviceInspectorVariablesViewController.swift in Sources */,
 				C810B8D3F490D74DD9BA8FA6 /* UIImageView.swift in Sources */,
 				C810B99039A1C45E0999ED90 /* DevicePin.swift in Sources */,
@@ -1504,6 +1513,11 @@
 				C810B045C656154CED6574D6 /* InteractivePopGestureRecognizerDelegateHelper.swift in Sources */,
 				C810B810ACEAEBCF17F7B7C9 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift in Sources */,
 				C810B9CC8DC2D88012EA4158 /* Date.swift in Sources */,
+				C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */,
+				C810BFD2A7960D07F6144934 /* SearchBarView.swift in Sources */,
+				C810B403E746BEC82F1C62D3 /* UIImage.swift in Sources */,
+				C810BCCB56045A6C71A9CC77 /* Comparable.swift in Sources */,
+				C810BE02053E01038671ED64 /* HairlineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

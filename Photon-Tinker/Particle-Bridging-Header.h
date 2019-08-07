@@ -17,7 +17,6 @@
 #include "RMessage.h"
 #include "IQKeyboardManager.h"
 #include "YCTutorialBox.h"
-#include "UIScrollView+PullToRefreshCoreText.h"
 #include "DateTools.h"
 #include "SEGAnalytics.h"
 #include "Stripe.h"

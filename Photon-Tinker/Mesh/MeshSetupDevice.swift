@@ -168,9 +168,9 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .argon : return "Argon"
             case .boron : return "Boron"
             case .xenon : return "Xenon"
-            case .aSeries : return "A Series"
-            case .bSeries : return "B Series"
-            case .xSeries : return "X Series"
+            case .aSeries : return "A SoM"
+            case .bSeries : return "B SoM"
+            case .xSeries : return "X SoM"
         }
     }
 

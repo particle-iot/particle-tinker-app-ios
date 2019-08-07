@@ -62,7 +62,6 @@ PODS:
     - Particle-SDK
     - ParticleSetup/Comm
   - PPTopMostController (0.0.1)
-  - PullToRefreshCoreText (0.2)
   - Reveal-SDK (20)
   - RMessage (2.3.2):
     - HexColors (~> 4.0)
@@ -78,6 +77,7 @@ PODS:
   - SwiftProtobuf (1.1.2)
   - YCTutorialBox (1.0.9):
     - FXBlurView
+  - Zip (1.1.0)
 
 DEPENDENCIES:
   - Analytics
@@ -88,13 +88,13 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9)
   - Particle-SDK
   - ParticleSetup
-  - PullToRefreshCoreText (~> 0.1)
   - Reveal-SDK
   - RMessage
   - Segment-Firebase
   - Stripe
   - SwiftProtobuf (~> 1.0)
   - YCTutorialBox
+  - Zip (~> 1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -118,13 +118,13 @@ SPEC REPOS:
     - Particle-SDK
     - ParticleSetup
     - PPTopMostController
-    - PullToRefreshCoreText
     - Reveal-SDK
     - RMessage
     - Segment-Firebase
     - Stripe
     - SwiftProtobuf
     - YCTutorialBox
+    - Zip
 
 SPEC CHECKSUMS:
   1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
@@ -147,14 +147,14 @@ SPEC CHECKSUMS:
   Particle-SDK: aebdb0fc9fb634f55cc3ede6ce03b6fe6510c807
   ParticleSetup: 8a0b767d26c5c5d355f8b9929ba2d65a3a498313
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
-  PullToRefreshCoreText: c843e71fc5ae5b033c0281067368905efd05c7b2
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RMessage: 761f8ff71247b8d72d0c4a0be5a8e6ce8dfdedd0
   Segment-Firebase: 05a04c7a69901841d2f6b6670e5be2e20d56b2d6
   Stripe: 312b22a67af9fa55c246d26148b3f3a9636a0ff2
   SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
+  Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 95e83b11dfb8269a6968772e226bff46e25c6067
+PODFILE CHECKSUM: 1afa767cc2b8b9e24215872997e8eca348baf351
 
 COCOAPODS: 1.7.5
