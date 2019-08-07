@@ -193,7 +193,7 @@
                                 <viewLayoutGuide key="safeArea" id="ahE-YY-IaF"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
-                                <rect key="frame" x="0.0" y="112" width="320" height="368"/>
+                                <rect key="frame" x="0.0" y="120" width="320" height="360"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.78431372549019607" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -316,11 +316,11 @@
                                     <outlet property="inputText" destination="Vss-qM-L3f" id="R2q-01-QuB"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DmZ-hI-cQj">
-                                <rect key="frame" x="0.0" y="109" width="320" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DmZ-hI-cQj" customClass="HairlineView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="109" width="320" height="10"/>
                                 <color key="backgroundColor" red="0.78431372549019607" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="Ry1-c5-CcT"/>
+                                    <constraint firstAttribute="height" constant="10" id="Ry1-c5-CcT"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -332,7 +332,7 @@
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerY" secondItem="doS-be-EZj" secondAttribute="centerY" constant="30" id="BhF-q9-8Pt"/>
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerX" secondItem="2Ds-AZ-r34" secondAttribute="centerX" id="DGb-m6-Do1"/>
                             <constraint firstItem="fPe-UK-gb5" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" constant="16" id="QJ2-Ky-abf"/>
-                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="DmZ-hI-cQj" secondAttribute="bottom" constant="2" id="Qsq-bg-ftU"/>
+                            <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="DmZ-hI-cQj" secondAttribute="bottom" constant="1" id="Qsq-bg-ftU"/>
                             <constraint firstItem="DmZ-hI-cQj" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="UVj-y1-Md2"/>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" id="duk-0x-88H"/>
                             <constraint firstAttribute="trailing" secondItem="xB3-Ur-rz3" secondAttribute="trailing" id="elq-1U-VXb"/>
