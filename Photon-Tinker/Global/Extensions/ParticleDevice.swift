@@ -100,9 +100,7 @@ extension ParticleDeviceType {
                 return UIColor(rgb: 0x00AEEF)
             case .electron:
                 return UIColor(rgb: 0xeb543c)
-            case .photon:
-                return UIColor(rgb: 0xf3cb00)
-            case .P1:
+            case .photon, .P1:
                 return UIColor(rgb: 0xf3cb00)
             case .raspberryPi:
                 return UIColor(rgb: 0x8e44ad)
