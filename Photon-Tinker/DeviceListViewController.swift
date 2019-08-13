@@ -351,7 +351,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DeviceListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListTableViewCell
+        let cell: DeviceListCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListCell
         cell.setup(device: self.viewDevices[indexPath.row])
         return cell
     }

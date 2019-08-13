@@ -7,7 +7,7 @@
 import UIKit
 import QuartzCore
 
-internal class SortTypeListTableViewCell: UITableViewCell {
+internal class FilterSortTypeCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
 

@@ -64,7 +64,7 @@ class SortByView: UIView, UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath) as! SortTypeListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "sortCell", for: indexPath) as! FilterSortTypeCell
         cell.setup(option: DeviceListSortingOptions(rawValue: indexPath.row)!)
         return cell
     }

@@ -83,7 +83,7 @@ class DeviceTypeView: UIView, UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "deviceTypeCell", for: indexPath) as! DeviceTypeListTableViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "deviceTypeCell", for: indexPath) as! FilterDeviceTypeCell
         cell.setup(option: DeviceTypeOptions(rawValue: indexPath.row)!)
         return cell
     }

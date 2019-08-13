@@ -71,7 +71,7 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "deviceStatusCell", for: indexPath) as! DeviceStatusListTableViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "deviceStatusCell", for: indexPath) as! FilterDeviceOnlineStatusCell
         cell.setup(option: DeviceStatusOptions(rawValue: indexPath.row)!)
         return cell
     }

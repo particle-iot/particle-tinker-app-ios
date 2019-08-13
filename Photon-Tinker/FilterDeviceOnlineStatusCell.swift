@@ -7,7 +7,7 @@
 import UIKit
 import QuartzCore
 
-internal class DeviceStatusListTableViewCell: UICollectionViewCell {
+internal class FilterDeviceOnlineStatusCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var deviceStateImageView: UIImageView!

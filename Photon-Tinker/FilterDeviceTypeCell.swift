@@ -7,7 +7,7 @@
 import UIKit
 import QuartzCore
 
-internal class DeviceTypeListTableViewCell: UICollectionViewCell {
+internal class FilterDeviceTypeCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var deviceTypeImage: DeviceTypeIcon!

@@ -7,7 +7,7 @@
 import UIKit
 import QuartzCore
 
-internal class DeviceListTableViewCell: UITableViewCell {
+internal class DeviceListCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
