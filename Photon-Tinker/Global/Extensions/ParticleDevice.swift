@@ -97,27 +97,21 @@ extension ParticleDeviceType {
         switch (self)
         {
             case .core:
-                return UIColor(rgb: 0x00AEEF)
+                return UIColor(rgb: 0x76777A)
             case .electron:
-                return UIColor(rgb: 0xeb543c)
-            case .photon, .P1:
-                return UIColor(rgb: 0xf3cb00)
-            case .raspberryPi:
-                return UIColor(rgb: 0x8e44ad)
-            case .redBearDuo:
-                return UIColor(rgb: 0xf39c12)
-            case .ESP32:
-                return UIColor(rgb: 0x000000)
-            case .bluz:
-                return UIColor(rgb: 0x2980b9)
-            case .argon, .aSeries:
                 return UIColor(rgb: 0x00AE42)
-            case .boron, .bSeries:
-                return UIColor(rgb: 0xF5A800)
-            case .xenon, .xSeries:
+            case .photon, .P1:
+                return UIColor(rgb: 0x00AEEF)
+            case .raspberryPi, .redBearDuo, .ESP32, .bluz:
+                return UIColor(rgb: 0x76777A)
+            case .argon, .aSeries:
                 return UIColor(rgb: 0xB31983)
+            case .boron, .bSeries:
+                return UIColor(rgb: 0xED1C24)
+            case .xenon, .xSeries:
+                return UIColor(rgb: 0xF5A800)
             default:
-                return UIColor(rgb: 0x777777)
+                return UIColor(rgb: 0x76777A)
         }
     }
 
