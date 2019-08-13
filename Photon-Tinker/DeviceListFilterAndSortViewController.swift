@@ -13,6 +13,7 @@ class DeviceListFilterAndSortViewController: UIViewController {
     @IBOutlet weak var showButton: UIButton!
     @IBOutlet weak var sortByView: SortByView!
     @IBOutlet weak var deviceStatusView: DeviceStatusView!
+    @IBOutlet weak var deviceTypeView: DeviceTypeView!
     
     @IBAction func closeClicked(_ sender: Any) {
         self.dismiss(animated: true) { }
@@ -21,6 +22,7 @@ class DeviceListFilterAndSortViewController: UIViewController {
     @IBAction func resetClicked(_ sender: Any) {
         self.sortByView.reset()
         self.deviceStatusView.reset()
+        self.deviceTypeView.reset()
     }
     
     @IBAction func showClicked(_ sender: Any) {

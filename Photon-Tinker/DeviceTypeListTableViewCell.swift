@@ -7,11 +7,12 @@
 import UIKit
 import QuartzCore
 
-internal class DeviceStatusListTableViewCell: UICollectionViewCell {
+internal class DeviceTypeListTableViewCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var deviceStateImageView: UIImageView!
-
+    @IBOutlet weak var deviceTypeImage: DeviceTypeIcon!
+    @IBOutlet weak var stackviewYConstraint: NSLayoutConstraint!
+    
     var cellHighlight: UIView!
 
     override func awakeFromNib() {
@@ -37,14 +38,25 @@ internal class DeviceStatusListTableViewCell: UICollectionViewCell {
         )
     }
 
-    func setup(option: DeviceStatusOptions) {
+    func setup(option: DeviceTypeOptions) {
         titleLabel.text = option.description
-        deviceStateImageView.image = UIImage(named: "imgCircle")!.withRenderingMode(.alwaysTemplate)
+        deviceTypeImage.isHidden = false
+        stackviewYConstraint.constant = 3
 
-        if (option == .online) {
-            deviceStateImageView.tintColor = ParticleStyle.ButtonColor
-        } else {
-            deviceStateImageView.tintColor = ParticleStyle.FilterFrameColor
+        switch option {
+            case .boron:
+                deviceTypeImage.setDeviceType(.boron)
+            case .electron:
+                deviceTypeImage.setDeviceType(.electron)
+            case .argon:
+                deviceTypeImage.setDeviceType(.argon)
+            case .photon:
+                deviceTypeImage.setDeviceType(.photon)
+            case .xenon:
+                deviceTypeImage.setDeviceType(.xenon)
+            case .other:
+                deviceTypeImage.isHidden = true
+                stackviewYConstraint.constant = 0
         }
     }
 

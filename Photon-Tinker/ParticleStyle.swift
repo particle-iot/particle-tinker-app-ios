@@ -65,6 +65,8 @@ class ParticleStyle {
     static var NetworkJoinActivityIndicatorColor = UIColor(rgb: 0x333333)
     static var ProgressActivityIndicatorColor = UIColor(rgb: 0x333333)
 
+    static var FilterFrameColor = UIColor(rgb: 0xD9D8D6)
+
 }
 
 class ParticleLabel: UILabel {

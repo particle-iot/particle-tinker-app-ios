@@ -5,39 +5,51 @@
 
 import Foundation
 
-enum DeviceStatusOptions: Int, CaseIterable, CustomStringConvertible {
-    case online = 0
-    case offline = 1
+enum DeviceTypeOptions: Int, CaseIterable, CustomStringConvertible {
+    case boron = 0
+    case electron
+    case argon
+    case photon
+    case xenon
+    case other
 
 
     var description: String {
         switch self {
-            case .online:
-                return "Online"
-            case .offline:
-                return "Offline"
+            case .boron:
+                return "Boron / B SoM"
+            case .electron:
+                return "Electron / E SoM"
+            case .argon:
+                return "Argon"
+            case .photon:
+                return "Photon"
+            case .xenon:
+                return "Xenon"
+            case .other:
+                return "Other"
         }
     }
 }
 
-protocol DeviceStatusViewDelegate: class {
-    func deviceStatusOptionDidChange(deviceStatusView: DeviceStatusView, options: [DeviceStatusOptions])
+protocol DeviceTypeViewDelegate: class {
+    func deviceTypeOptionDidChange(deviceTypeView: DeviceTypeView, options: [DeviceTypeOptions])
 }
 
-class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class DeviceTypeView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    weak var delegate: DeviceStatusViewDelegate?
+    weak var delegate: DeviceTypeViewDelegate?
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
-    var selectedOptions: [DeviceStatusOptions] {
+    var selectedOptions: [DeviceTypeOptions] {
         if let selectedItems = collectionView.indexPathsForSelectedItems {
-            var selectedOptions: [DeviceStatusOptions] = []
+            var selectedOptions: [DeviceTypeOptions] = []
 
             for item in selectedItems {
-                selectedOptions.append(DeviceStatusOptions(rawValue: item.row)!)
+                selectedOptions.append(DeviceTypeOptions(rawValue: item.row)!)
             }
 
             return selectedOptions
@@ -46,7 +58,7 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
         }
     }
 
-    func setup(selectedOptions: [DeviceStatusOptions]?) {
+    func setup(selectedOptions: [DeviceTypeOptions]?) {
         if let selectedOptions = selectedOptions {
             for option in selectedOptions {
                 collectionView.selectItem(at: IndexPath(row: option.rawValue, section: 0), animated: false, scrollPosition: .top)
@@ -67,12 +79,12 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DeviceStatusOptions.allCases.count
+        return DeviceTypeOptions.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "deviceStatusCell", for: indexPath) as! DeviceStatusListTableViewCell
-        cell.setup(option: DeviceStatusOptions(rawValue: indexPath.row)!)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "deviceTypeCell", for: indexPath) as! DeviceTypeListTableViewCell
+        cell.setup(option: DeviceTypeOptions(rawValue: indexPath.row)!)
         return cell
     }
 
@@ -85,15 +97,15 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (self.collectionView.frame.width - 10) / 2, height: 36)
+        return CGSize(width: (self.collectionView.frame.width - 10) / 2, height: 64)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.deviceStatusOptionDidChange(deviceStatusView: self, options: self.selectedOptions)
+        self.delegate?.deviceTypeOptionDidChange(deviceTypeView: self, options: self.selectedOptions)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        self.delegate?.deviceStatusOptionDidChange(deviceStatusView: self, options: self.selectedOptions)
+        self.delegate?.deviceTypeOptionDidChange(deviceTypeView: self, options: self.selectedOptions)
     }
 
 }
