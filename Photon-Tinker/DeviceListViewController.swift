@@ -13,7 +13,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet weak var setupNewDeviceButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
-
+    @IBOutlet weak var filtersButton: UIButton!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var noDevicesLabel: UILabel!
 
@@ -47,7 +48,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.viewsToFade = [self.tableView, self.moreButton, self.setupNewDeviceButton]
+        self.viewsToFade = [self.tableView, self.moreButton, self.setupNewDeviceButton, self.searchBar, self.filtersButton]
         self.setupSearch()
 
 
