@@ -32,4 +32,12 @@ class DeviceInfoSliderCell: UITableViewCell {
             self.valueLabel.isHidden = true
         }
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        let cellHighlight = UIView()
+        cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
+        self.selectedBackgroundView = cellHighlight
+    }
 }
