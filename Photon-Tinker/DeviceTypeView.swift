@@ -97,6 +97,7 @@ class DeviceTypeView: UIView, UICollectionViewDataSource, UICollectionViewDelega
 
     func reset() {
         collectionView.deselectAllItems(animated: true)
+        self.delegate?.deviceTypeOptionDidChange(deviceTypeView: self, options: self.selectedOptions)
     }
 
     override func awakeFromNib() {

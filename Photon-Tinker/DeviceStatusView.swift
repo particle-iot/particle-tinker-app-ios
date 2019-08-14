@@ -67,6 +67,7 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
     func reset() {
         collectionView.deselectAllItems(animated: true)
+        self.delegate?.deviceStatusOptionDidChange(deviceStatusView: self, options: self.selectedOptions)
     }
 
     override func awakeFromNib() {

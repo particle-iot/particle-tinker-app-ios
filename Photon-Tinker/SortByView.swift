@@ -47,6 +47,7 @@ class SortByView: UIView, UITableViewDataSource, UITableViewDelegate {
 
     func reset() {
         self.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
+        self.delegate?.sortOptionDidChange(sortByView: self, option: self.selectedSortOption)
     }
 
     override func awakeFromNib() {
