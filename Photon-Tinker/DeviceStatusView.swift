@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum DeviceStatusOptions: Int, CaseIterable, CustomStringConvertible {
+enum DeviceOnlineStatusOptions: Int, CaseIterable, CustomStringConvertible {
     case online = 0
     case offline = 1
 
@@ -18,10 +18,19 @@ enum DeviceStatusOptions: Int, CaseIterable, CustomStringConvertible {
                 return "Offline"
         }
     }
+
+    func match(device: ParticleDevice) -> Bool {
+        switch self {
+            case .online:
+                return device.connected == true
+            case .offline:
+                return device.connected == false
+        }
+    }
 }
 
 protocol DeviceStatusViewDelegate: class {
-    func deviceStatusOptionDidChange(deviceStatusView: DeviceStatusView, options: [DeviceStatusOptions])
+    func deviceStatusOptionDidChange(deviceStatusView: DeviceStatusView, options: [DeviceOnlineStatusOptions])
 }
 
 class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -32,12 +41,12 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
-    var selectedOptions: [DeviceStatusOptions] {
+    var selectedOptions: [DeviceOnlineStatusOptions] {
         if let selectedItems = collectionView.indexPathsForSelectedItems {
-            var selectedOptions: [DeviceStatusOptions] = []
+            var selectedOptions: [DeviceOnlineStatusOptions] = []
 
             for item in selectedItems {
-                selectedOptions.append(DeviceStatusOptions(rawValue: item.row)!)
+                selectedOptions.append(DeviceOnlineStatusOptions(rawValue: item.row)!)
             }
 
             return selectedOptions
@@ -46,7 +55,7 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
         }
     }
 
-    func setup(selectedOptions: [DeviceStatusOptions]?) {
+    func setup(selectedOptions: [DeviceOnlineStatusOptions]?) {
         if let selectedOptions = selectedOptions {
             for option in selectedOptions {
                 collectionView.selectItem(at: IndexPath(row: option.rawValue, section: 0), animated: false, scrollPosition: .top)
@@ -67,12 +76,12 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DeviceStatusOptions.allCases.count
+        return DeviceOnlineStatusOptions.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "deviceStatusCell", for: indexPath) as! FilterDeviceOnlineStatusCell
-        cell.setup(option: DeviceStatusOptions(rawValue: indexPath.row)!)
+        cell.setup(option: DeviceOnlineStatusOptions(rawValue: indexPath.row)!)
         return cell
     }
 
@@ -82,6 +91,7 @@ class DeviceStatusView: UIView, UICollectionViewDataSource, UICollectionViewDele
         super.layoutSubviews()
 
         self.heightConstraint.constant = collectionView.contentSize.height
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -30,6 +30,33 @@ enum DeviceTypeOptions: Int, CaseIterable, CustomStringConvertible {
                 return "Other"
         }
     }
+
+    func match(device: ParticleDevice) -> Bool {
+        switch self {
+            case .boron:
+                return [ParticleDeviceType.boron,
+                        ParticleDeviceType.bSeries].contains(device.type)
+            case .electron:
+                return [ParticleDeviceType.electron].contains(device.type)
+            case .argon:
+                return [ParticleDeviceType.argon,
+                        ParticleDeviceType.aSeries].contains(device.type)
+            case .photon:
+                return [ParticleDeviceType.photon,
+                        ParticleDeviceType.P1].contains(device.type)
+            case .xenon:
+                return [ParticleDeviceType.xenon,
+                        ParticleDeviceType.xSeries].contains(device.type)
+            case .other:
+                return [ParticleDeviceType.unknown,
+                        ParticleDeviceType.core,
+                        ParticleDeviceType.raspberryPi,
+                        ParticleDeviceType.redBearDuo,
+                        ParticleDeviceType.bluz,
+                        ParticleDeviceType.digistumpOak,
+                        ParticleDeviceType.ESP32].contains(device.type)
+        }
+    }
 }
 
 protocol DeviceTypeViewDelegate: class {
@@ -94,6 +121,7 @@ class DeviceTypeView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         super.layoutSubviews()
 
         self.heightConstraint.constant = collectionView.contentSize.height
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
