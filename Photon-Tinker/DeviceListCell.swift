@@ -15,6 +15,7 @@ internal class DeviceListCell: UITableViewCell {
     @IBOutlet weak var deviceStateImageView: UIImageView!
     
     private var device: ParticleDevice!
+    var cellHighlight: UIView!
     
     func setup(device: ParticleDevice) {
         self.device = device
@@ -37,5 +38,35 @@ internal class DeviceListCell: UITableViewCell {
         self.typeLabel.layer.cornerRadius = 12
         self.typeLabel.layer.masksToBounds = true
         self.typeLabel.layer.borderWidth = 1
+
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.backgroundColor = .clear
+
+        self.cellHighlight = UIView()
+        self.cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
+        self.cellHighlight.translatesAutoresizingMaskIntoConstraints = false
+        self.cellHighlight.alpha = 0
+        self.contentView.insertSubview(self.cellHighlight, at: 0)
+        NSLayoutConstraint.activate(
+                [
+                    self.cellHighlight.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+                    self.cellHighlight.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+                    self.cellHighlight.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+                    self.cellHighlight.topAnchor.constraint(equalTo: self.contentView.topAnchor)
+                ]
+        )
+    }
+
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        self.cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
+
+        if (animated) {
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.cellHighlight.alpha = highlighted ? 1 : 0
+            }
+        } else {
+            self.cellHighlight.alpha = highlighted ? 1 : 0
+        }
     }
 }

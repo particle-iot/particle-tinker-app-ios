@@ -19,26 +19,26 @@ internal class FilterSortTypeCell: UITableViewCell {
         accessoryType = .checkmark
         tintColor = ParticleStyle.ButtonColor.withAlphaComponent(0)
 
-        selectedBackgroundView = UIView()
-        selectedBackgroundView!.backgroundColor = .clear
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.backgroundColor = .clear
 
-        cellHighlight = UIView()
-        cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
-        cellHighlight.translatesAutoresizingMaskIntoConstraints = false
-        cellHighlight.alpha = 0
-        insertSubview(cellHighlight, belowSubview: titleLabel)
+        self.cellHighlight = UIView()
+        self.cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
+        self.cellHighlight.translatesAutoresizingMaskIntoConstraints = false
+        self.cellHighlight.alpha = 0
+        self.contentView.insertSubview(self.cellHighlight, at: 0)
         NSLayoutConstraint.activate(
                 [
-                    cellHighlight.leftAnchor.constraint(equalTo: self.leftAnchor),
-                    cellHighlight.rightAnchor.constraint(equalTo: self.rightAnchor),
-                    cellHighlight.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                    cellHighlight.topAnchor.constraint(equalTo: self.topAnchor)
+                    self.cellHighlight.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+                    self.cellHighlight.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+                    self.cellHighlight.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+                    self.cellHighlight.topAnchor.constraint(equalTo: self.contentView.topAnchor)
                 ]
         )
     }
 
     func setup(option: DeviceListSortingOptions) {
-        titleLabel.text = option.description
+        self.titleLabel.text = option.description
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -55,6 +55,7 @@ internal class FilterSortTypeCell: UITableViewCell {
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
+        self.cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
 
         if (animated) {
             UIView.animate(withDuration: 0.25) { () -> Void in

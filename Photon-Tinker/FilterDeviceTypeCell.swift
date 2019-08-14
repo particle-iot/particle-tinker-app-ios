@@ -23,40 +23,43 @@ internal class FilterDeviceTypeCell: UICollectionViewCell {
         self.layer.cornerRadius = 3
         self.layer.borderColor = ParticleStyle.SecondaryTextColor.cgColor
 
-        cellHighlight = UIView()
-        cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
-        cellHighlight.translatesAutoresizingMaskIntoConstraints = false
-        cellHighlight.alpha = 0
-        insertSubview(cellHighlight, at: 0)
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.backgroundColor = .clear
+
+        self.cellHighlight = UIView()
+        self.cellHighlight.backgroundColor = ParticleStyle.CellHighlightColor
+        self.cellHighlight.translatesAutoresizingMaskIntoConstraints = false
+        self.cellHighlight.alpha = 0
+        self.contentView.insertSubview(self.cellHighlight, at: 0)
         NSLayoutConstraint.activate(
                 [
-                    cellHighlight.leftAnchor.constraint(equalTo: self.leftAnchor),
-                    cellHighlight.rightAnchor.constraint(equalTo: self.rightAnchor),
-                    cellHighlight.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                    cellHighlight.topAnchor.constraint(equalTo: self.topAnchor)
+                    self.cellHighlight.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+                    self.cellHighlight.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+                    self.cellHighlight.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+                    self.cellHighlight.topAnchor.constraint(equalTo: self.contentView.topAnchor)
                 ]
         )
     }
 
     func setup(option: DeviceTypeOptions) {
-        titleLabel.text = option.description
-        deviceTypeImage.isHidden = false
-        stackviewYConstraint.constant = 3
+        self.titleLabel.text = option.description
+        self.deviceTypeImage.isHidden = false
+        self.stackviewYConstraint.constant = 3
 
         switch option {
             case .boron:
-                deviceTypeImage.setDeviceType(.boron)
+                self.deviceTypeImage.setDeviceType(.boron)
             case .electron:
-                deviceTypeImage.setDeviceType(.electron)
+                self.deviceTypeImage.setDeviceType(.electron)
             case .argon:
-                deviceTypeImage.setDeviceType(.argon)
+                self.deviceTypeImage.setDeviceType(.argon)
             case .photon:
-                deviceTypeImage.setDeviceType(.photon)
+                self.deviceTypeImage.setDeviceType(.photon)
             case .xenon:
-                deviceTypeImage.setDeviceType(.xenon)
+                self.deviceTypeImage.setDeviceType(.xenon)
             case .other:
-                deviceTypeImage.isHidden = true
-                stackviewYConstraint.constant = 0
+                self.deviceTypeImage.isHidden = true
+                self.stackviewYConstraint.constant = 0
         }
     }
 
