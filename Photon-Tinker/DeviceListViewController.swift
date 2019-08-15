@@ -113,7 +113,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    @objc func refreshData(sender: UIRefreshControl) {
+    @objc func refreshData(sender: UIRefreshControl? = nil) {
         if (!self.isBusy) {
             self.fadeContent(animated: true, showSpinner: false)
             self.loadDevices()
@@ -270,7 +270,24 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func invokeMeshDeviceSetup() {
-        self.present(MeshSetupFlowUIManager.loadedViewController(), animated: true)
+        SEGAnalytics.shared().track("Tinker_3rdGenSetupInvoked")
+        let setupFlow = MeshSetupFlowUIManager.loadedViewController()
+        setupFlow.setCallback { result in
+            if result == .success {
+                self.refreshData()
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    if (self.dataSource.devices.count == 1) {
+                        RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
+                    } else {
+                        RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
+                    }
+                }
+            }
+
+            SEGAnalytics.shared().track("Tinker_3rdGenSetupEnded", properties: ["result": result.description])
+        }
+        self.present(setupFlow, animated: true)
     }
 
     func invokePhotonDeviceSetup()
@@ -333,7 +350,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
         }
 
-        self.reloadData()
+        self.refreshData()
     }
 
 
