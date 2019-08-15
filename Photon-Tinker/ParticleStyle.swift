@@ -36,6 +36,7 @@ class ParticleStyle {
 
     static var InputTitleColor = UIColor(rgb: 0x777777)
     static var NoteBackgroundColor = UIColor(rgb: 0xF7F7F7)
+
     static var NoteBorderColor = UIColor(rgb: 0xC7C7C7)
 
     static var ProgressBarProgressColor = UIColor(rgb: 0x02ADEF)
@@ -66,6 +67,8 @@ class ParticleStyle {
     static var NetworkJoinActivityIndicatorColor = UIColor(rgb: 0x333333)
     static var ProgressActivityIndicatorColor = UIColor(rgb: 0x333333)
 
+
+    static var ClearButtonColor = UIColor(rgb: 0x999999)
     static var FilterBorderColor = UIColor(rgb: 0xD9D8D6)
 
 }
