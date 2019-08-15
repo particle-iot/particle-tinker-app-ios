@@ -38,11 +38,11 @@ class StepEnsureCorrectSelectedNetworkPassword : MeshSetupStep {
                 return
             }
 
-            self.log("trying password: \(password)")
+            self.log("trying password with character count: \(password.count)")
 
             self.log("commissionerDevice.sendAuth: \(result.description())")
             if (result == .NONE) {
-                self.log("password set: \(password)")
+                self.log("password set with character count: \(password.count)")
                 context.selectedNetworkPassword = password
 
                 onComplete(nil)

@@ -28,7 +28,7 @@ class StepGetNewNetworkPassword : MeshSetupStep {
             return .PasswordTooShort
         }
 
-        self.log("set network password: \(password)")
+        self.log("set network password with character count: \(password.count)")
         context.newNetworkPassword = password
 
         self.stepCompleted()
