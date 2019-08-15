@@ -240,7 +240,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     private func reloadData() {
-        NSLog("reloading data")
         DispatchQueue.main.async {
             self.noDevicesLabel.isHidden = self.dataSource.viewDevices.count == 0 ? false : true
             self.filtersButton.isSelected = self.dataSource.isFiltering()
@@ -271,6 +270,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func invokeMeshDeviceSetup() {
         SEGAnalytics.shared().track("Tinker_3rdGenSetupInvoked")
+
+
+
         let setupFlow = MeshSetupFlowUIManager.loadedViewController()
         setupFlow.setCallback { result in
             if result == .success {
@@ -285,6 +287,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
 
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "3rd setup ended: %@", withParameters: getVaList([result.description]))
             SEGAnalytics.shared().track("Tinker_3rdGenSetupEnded", properties: ["result": result.description])
         }
         self.present(setupFlow, animated: true)

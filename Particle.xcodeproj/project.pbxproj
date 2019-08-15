@@ -209,6 +209,7 @@
 		C810BD28081253D9AFE43BD0 /* DeviceListFilterAndSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF4E3F4A4D1AA2B359BD /* DeviceListFilterAndSortViewController.swift */; };
 		C810BD363B8DD799293FAB91 /* TinkerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD8F81831FA1158C0593 /* TinkerStrings.swift */; };
 		C810BDA3464764900E879125 /* StepEnsureCorrectSimState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF15DD9491959B0E186C /* StepEnsureCorrectSimState.swift */; };
+		C810BDB9271584C788CB621B /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B821CF079FB9EC919DDA /* UIDevice.swift */; };
 		C810BDE2AA87A347CBABDFC5 /* StepGetNewNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B85E5279D0283A14D356 /* StepGetNewNetworkPassword.swift */; };
 		C810BE02053E01038671ED64 /* HairlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BC3C254D3DA74FFBF06C /* HairlineView.swift */; };
 		C810BE05C14B913DE0A65F51 /* TinkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BC69F197C9BC53B06A85 /* TinkerView.swift */; };
@@ -433,6 +434,7 @@
 		C810B809E348B315EFE80390 /* StepEnsureHasInternetAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureHasInternetAccess.swift; sourceTree = "<group>"; };
 		C810B819F0F0DD9ED41880BD /* MeshSetupCreateNetworkNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreateNetworkNameViewController.swift; sourceTree = "<group>"; };
 		C810B81B858EFBF69C522D60 /* StepEnsureCanBeClaimed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureCanBeClaimed.swift; sourceTree = "<group>"; };
+		C810B821CF079FB9EC919DDA /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		C810B823B691B9A9B139E4BD /* MeshSetupInfoViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupInfoViewControllers.swift; sourceTree = "<group>"; };
 		C810B82CF0B5F9A47B814486 /* ParticleDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleDevice.swift; sourceTree = "<group>"; };
 		C810B84261ECB0D766CDA3D6 /* Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comparable.swift; sourceTree = "<group>"; };
@@ -886,6 +888,7 @@
 				C810BA816D7A30C2AC191658 /* UIImage.swift */,
 				C810B84261ECB0D766CDA3D6 /* Comparable.swift */,
 				C810BBDE8CBAB6EEC8BB7611 /* UICollectionView.swift */,
+				C810B821CF079FB9EC919DDA /* UIDevice.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1558,6 +1561,7 @@
 				C810B22B3E4C9E9670B9C941 /* FilterDeviceTypeCell.swift in Sources */,
 				C810B765AB68A3986BFAB131 /* DeviceListDataSource.swift in Sources */,
 				C810BBDF6320C244EC93C093 /* FiltersButton.swift in Sources */,
+				C810BDB9271584C788CB621B /* UIDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

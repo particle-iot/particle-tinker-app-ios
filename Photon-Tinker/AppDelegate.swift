@@ -31,6 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LogList.startLogging()
         LogList.clearStaleLogs()
 
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "App Version: v%@b%@", withParameters: getVaList([Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String]))
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device: %@", withParameters: getVaList([UIDevice.modelName]))
+
         #if !DEBUG
             Fabric.with([Crashlytics.self])
         #endif
