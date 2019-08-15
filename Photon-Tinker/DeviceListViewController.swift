@@ -91,6 +91,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         SEGAnalytics.shared().track("Tinker_DeviceListScreenActivity")
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(filtersChanged(_:)), name: NSNotification.Name.DeviceListFilteringChanged, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -569,4 +572,26 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.present(alert, animated: true)
     }
 
+
+    //MARK: Keyboard display
+    @objc func keyboardWillShow(_ notification:Notification) {
+
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if #available(iOS 11.0, *) {
+                additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height - self.view.safeAreaInsets.bottom, 0)
+            } else {
+                tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
+            }
+        }
+    }
+    @objc  func keyboardWillHide(_ notification:Notification) {
+
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if #available(iOS 11.0, *) {
+                additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+            } else {
+                tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            }
+        }
+    }
 }
