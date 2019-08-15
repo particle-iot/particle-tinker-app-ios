@@ -244,6 +244,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     private func reloadData() {
         DispatchQueue.main.async {
+            self.dataSource.reloadData()
+
             self.noDevicesLabel.isHidden = self.dataSource.viewDevices.count == 0 ? false : true
             self.filtersButton.isSelected = self.dataSource.isFiltering()
 
