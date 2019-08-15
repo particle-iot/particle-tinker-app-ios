@@ -47,7 +47,7 @@ internal class FilterDeviceOnlineStatusCell: UICollectionViewCell {
         if (option == .online) {
             self.deviceStateImageView.tintColor = ParticleStyle.ButtonColor
         } else {
-            self.deviceStateImageView.tintColor = ParticleStyle.FilterFrameColor
+            self.deviceStateImageView.tintColor = ParticleStyle.FilterBorderColor
         }
     }
 
@@ -58,7 +58,7 @@ internal class FilterDeviceOnlineStatusCell: UICollectionViewCell {
         set {
             super.isSelected = newValue
 
-            self.layer.borderColor = newValue ? ParticleStyle.ButtonColor.cgColor : ParticleStyle.FilterFrameColor.cgColor
+            self.layer.borderColor = newValue ? ParticleStyle.ButtonColor.cgColor : ParticleStyle.FilterBorderColor.cgColor
         }
     }
     override var isHighlighted: Bool {

@@ -678,19 +678,19 @@
                                 <size key="shadowOffset" width="0.0" height="2"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPe-UK-gb5" customClass="SearchBarView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="16" y="64" width="248" height="45"/>
+                                <rect key="frame" x="16" y="64" width="252" height="45"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pfa-Xu-Iam">
-                                        <rect key="frame" x="34" y="7.5" width="214" height="30"/>
+                                        <rect key="frame" x="34" y="7.5" width="218" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vss-qM-L3f" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="156" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbB-aB-Stn">
-                                                <rect key="frame" x="166" y="0.0" width="48" height="30"/>
+                                                <rect key="frame" x="170" y="0.0" width="48" height="30"/>
                                                 <state key="normal" title="Cancel">
                                                     <color key="titleColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -730,13 +730,14 @@
                                     <constraint firstAttribute="height" constant="10" id="Ry1-c5-CcT"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-Cy-fNp" userLabel="Setup new device">
-                                <rect key="frame" x="272" y="66.5" width="40" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-Cy-fNp" userLabel="Setup new device" customClass="FiltersButton" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="276" y="68.5" width="36" height="36"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="Z2B-gG-U5g"/>
-                                    <constraint firstAttribute="height" constant="40" id="b8o-hq-kHt"/>
+                                    <constraint firstAttribute="width" constant="36" id="Z2B-gG-U5g"/>
+                                    <constraint firstAttribute="height" constant="36" id="b8o-hq-kHt"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
                                 <state key="normal" image="FilterIcon"/>
                                 <connections>
                                     <segue destination="R1m-RF-Pek" kind="presentation" identifier="filters" modalPresentationStyle="overFullScreen" id="pMf-jZ-zuc"/>

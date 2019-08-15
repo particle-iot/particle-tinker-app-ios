@@ -49,6 +49,7 @@ class ParticleStyle {
     static var AlternativeButtonBorderColor = UIColor(rgb: 0x02ADEF)
     static var AlternativeButtonTitleColor = UIColor(rgb: 0x02ADEF)
 
+
     static var ButtonColor = UIColor(rgb: 0x02ADEF)
     static var ButtonRedColor = UIColor(rgb: 0xED1C24)
     static var ButtonTitleColor = UIColor(rgb: 0xFFFFFF)
@@ -65,7 +66,7 @@ class ParticleStyle {
     static var NetworkJoinActivityIndicatorColor = UIColor(rgb: 0x333333)
     static var ProgressActivityIndicatorColor = UIColor(rgb: 0x333333)
 
-    static var FilterFrameColor = UIColor(rgb: 0xD9D8D6)
+    static var FilterBorderColor = UIColor(rgb: 0xD9D8D6)
 
 }
 

@@ -70,7 +70,7 @@ internal class FilterDeviceTypeCell: UICollectionViewCell {
         set {
             super.isSelected = newValue
 
-            self.layer.borderColor = newValue ? ParticleStyle.ButtonColor.cgColor : ParticleStyle.FilterFrameColor.cgColor
+            self.layer.borderColor = newValue ? ParticleStyle.ButtonColor.cgColor : ParticleStyle.FilterBorderColor.cgColor
         }
     }
     override var isHighlighted: Bool {

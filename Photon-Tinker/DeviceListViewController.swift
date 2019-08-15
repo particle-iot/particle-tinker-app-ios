@@ -251,6 +251,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         NSLog("reloading data")
         DispatchQueue.main.async {
             self.noDevicesLabel.isHidden = self.dataSource.viewDevices.count == 0 ? false : true
+            self.filtersButton.isSelected = self.dataSource.isFiltering()
+
             if !self.noDevicesLabel.isHidden {
                 if  self.dataSource.devices.count == 0 {
                     self.noDevicesLabel.text = "No devices"
