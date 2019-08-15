@@ -27,7 +27,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     var viewsToFade: [UIView]? = nil
 
     var popRecognizer: InteractivePopGestureRecognizerDelegateHelper?
-    var tapGestureRecognizer: UITapGestureRecognizer?
 
     var dataSource: DeviceListDataSource!
 
@@ -75,13 +74,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     private func setupSearch() {
-        self.tapGestureRecognizer = UITapGestureRecognizer(
-                target: view,
-                action: #selector(UIView.endEditing))
-
-        self.tapGestureRecognizer!.isEnabled = false
-        self.view.addGestureRecognizer(self.tapGestureRecognizer!)
-
         searchBar.inputText.placeholder = "Search devices..."
         searchBar.delegate = self
     }
@@ -223,11 +215,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func searchBarDidBeginEditing(searchBar: SearchBarView) {
-        //self.tapGestureRecognizer?.isEnabled = true
+
     }
 
     func searchBarDidEndEditing(searchBar: SearchBarView) {
-        //self.tapGestureRecognizer?.isEnabled = false
+
     }
 
 
@@ -263,7 +255,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
 
             }
-
 
             self.tableView.reloadData()
         }
