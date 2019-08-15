@@ -26,12 +26,13 @@ class StepEnsureCorrectSelectedWifiNetworkPassword : MeshSetupStep {
             return
         }
 
+        //TODO: validate length based on security
         guard self.validateWifiNetworkPassword(password) || (context.selectedWifiNetworkInfo!.security == .noSecurity) else {
             onComplete(.WifiPasswordTooShort)
             return
         }
 
-        self.log("trying password: \(password)")
+        self.log("trying password with character count: \(password.count)")
         context.targetDevice!.transceiver?.sendJoinNewWifiNetwork(network: context.selectedWifiNetworkInfo!, password: password) {
             [weak self, weak context] result in
 
