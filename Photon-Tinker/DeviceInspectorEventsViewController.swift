@@ -27,6 +27,10 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).tintColor = ParticleStyle.ButtonColor
+        self.clearEventsButton.tintColor = ParticleStyle.ButtonColor
+        self.playPauseButton.tintColor = ParticleStyle.ButtonColor
+
         addRefreshControl()
     }
 
