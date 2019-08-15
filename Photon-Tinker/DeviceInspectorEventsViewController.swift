@@ -12,7 +12,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     @IBOutlet weak var eventFilterSearchBar: UISearchBar!
     @IBOutlet weak var clearEventsButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
-    @IBOutlet weak var backgroundView: UIView!
 
     @IBOutlet var noEventsView: UIView!
 
@@ -127,7 +126,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.eventFilterSearchBar.text = ""
         self.eventFilterSearchBar.showsCancelButton = false
-        self.backgroundView.backgroundColor = UIColor.white
         self.filtering = false
         self.tableView.reloadData()
     }
@@ -141,7 +139,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
             UIView.animate(withDuration: 0.25, animations: {
                 if self.filtering {
                     self.eventFilterSearchBar.showsCancelButton = true
-                    self.backgroundView.backgroundColor = UIColor(rgb: 0xD5D5D5)
                     self.filtering = true
                 } else {
                     self.searchBarCancelButtonClicked(searchBar)

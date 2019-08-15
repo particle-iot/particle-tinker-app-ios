@@ -2066,7 +2066,7 @@
                                 <rect key="frame" x="0.0" y="102.5" width="320" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No events)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6e-1K-ahG">
-                                        <rect key="frame" x="114.5" y="23" width="91" height="22"/>
+                                        <rect key="frame" x="107.5" y="24.5" width="105" height="19"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2098,7 +2098,6 @@
                         <viewLayoutGuide key="safeArea" id="O6m-3b-LB7"/>
                     </view>
                     <connections>
-                        <outlet property="backgroundView" destination="v2v-vy-LHY" id="QVi-pL-6QR"/>
                         <outlet property="clearEventsButton" destination="QCf-JS-MRu" id="BV7-eg-ShQ"/>
                         <outlet property="eventFilterSearchBar" destination="vRp-Sf-BPF" id="ijB-el-F6W"/>
                         <outlet property="noEventsView" destination="fSc-KD-cMv" id="tWi-vY-uQk"/>
