@@ -251,6 +251,18 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         NSLog("reloading data")
         DispatchQueue.main.async {
             self.noDevicesLabel.isHidden = self.dataSource.viewDevices.count == 0 ? false : true
+            if !self.noDevicesLabel.isHidden {
+                if  self.dataSource.devices.count == 0 {
+                    self.noDevicesLabel.text = "No devices"
+                } else if self.dataSource.isSearching() {
+                    self.noDevicesLabel.text = "No devices found matching '{{0}}'".replacingOccurrences(of: "{{0}}", with: self.dataSource.searchTerm!)
+                } else if self.dataSource.isFiltering() {
+                    self.noDevicesLabel.text = "No devices found matching the current filter"
+                }
+
+            }
+
+
             self.tableView.reloadData()
         }
     }

@@ -138,7 +138,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lm8-KJ-G4O" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="135" y="14" width="50.5" height="16"/>
+                                        <rect key="frame" x="138.5" y="12.5" width="43.5" height="19"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -205,13 +205,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort By" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPc-rY-muJ" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="20" width="288" height="16"/>
+                                                        <rect key="frame" x="16" y="20" width="288" height="19"/>
                                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RTH-gC-tbV">
-                                                        <rect key="frame" x="0.0" y="41" width="320" height="57"/>
+                                                        <rect key="frame" x="0.0" y="44" width="320" height="54"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sortCell" id="psg-Gk-N7y" customClass="FilterSortTypeCell" customModule="Particle" customModuleProvider="target">
@@ -575,7 +575,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Devices" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7w-cb-MbB">
-                                        <rect key="frame" x="107.5" y="31.5" width="105" height="21"/>
+                                        <rect key="frame" x="101.5" y="33" width="117" height="18"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -670,8 +670,8 @@
                                     <outlet property="delegate" destination="Kib-3X-Zyf" id="9rh-X7-yIQ"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No devices)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSb-Q2-MhK">
-                                <rect key="frame" x="110.5" y="259.5" width="99.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No devices" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSb-Q2-MhK">
+                                <rect key="frame" x="111" y="261" width="98.5" height="18"/>
                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
                                 <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -746,10 +746,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xB3-Ur-rz3" firstAttribute="top" secondItem="doS-be-EZj" secondAttribute="top" id="1vk-uV-3Sq"/>
+                            <constraint firstItem="2Ds-AZ-r34" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HSb-Q2-MhK" secondAttribute="trailing" constant="20" id="37K-mC-MRu"/>
                             <constraint firstItem="DmZ-hI-cQj" firstAttribute="top" secondItem="fPe-UK-gb5" secondAttribute="bottom" id="3rS-aR-dtn"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="trailing" secondItem="doS-be-EZj" secondAttribute="trailing" id="4tY-y9-6tC"/>
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerY" secondItem="doS-be-EZj" secondAttribute="centerY" constant="30" id="BhF-q9-8Pt"/>
                             <constraint firstItem="HSb-Q2-MhK" firstAttribute="centerX" secondItem="2Ds-AZ-r34" secondAttribute="centerX" id="DGb-m6-Do1"/>
+                            <constraint firstItem="HSb-Q2-MhK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Ds-AZ-r34" secondAttribute="leading" constant="20" id="OgI-0R-AbD"/>
                             <constraint firstItem="fPe-UK-gb5" firstAttribute="leading" secondItem="doS-be-EZj" secondAttribute="leading" constant="16" id="QJ2-Ky-abf"/>
                             <constraint firstItem="l8r-gu-33x" firstAttribute="top" secondItem="DmZ-hI-cQj" secondAttribute="bottom" constant="1" id="Qsq-bg-ftU"/>
                             <constraint firstItem="xo0-Cy-fNp" firstAttribute="centerY" secondItem="fPe-UK-gb5" secondAttribute="centerY" id="Qv4-Fp-ZNG"/>
@@ -2261,8 +2263,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3Q-t7-ymi">
                                 <rect key="frame" x="0.0" y="102.5" width="320" height="68"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No exposed functions)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkO-5R-c2A">
-                                        <rect key="frame" x="67" y="22.5" width="186.5" height="23"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No exposed functions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkO-5R-c2A">
+                                        <rect key="frame" x="62.5" y="24" width="195" height="20"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2420,8 +2422,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YhQ-zm-jTn">
                                 <rect key="frame" x="0.0" y="102.5" width="320" height="68"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(No exposed variables)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtL-sQ-8nU">
-                                        <rect key="frame" x="68" y="23.5" width="184" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No exposed variables" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtL-sQ-8nU">
+                                        <rect key="frame" x="64" y="25" width="192" height="18"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>

@@ -11,13 +11,13 @@ extension NSNotification.Name {
 
 
 class DeviceListDataSource  {
-    private(set) public var devices: [ParticleDevice] = []
-    private(set) public var viewDevices: [ParticleDevice] = []
+    public private(set) var devices: [ParticleDevice] = []
+    public private(set) var viewDevices: [ParticleDevice] = []
 
-    private(set) public var searchTerm: String?
-    private(set) public var sortOption: DeviceListSortingOptions = .onlineStatus
-    private(set) public var onlineStatusOptions: [DeviceOnlineStatusOptions] = []
-    private(set) public var typeOptions: [DeviceTypeOptions] = []
+    public private(set) var searchTerm: String?
+    public private(set) var sortOption: DeviceListSortingOptions = .onlineStatus
+    public private(set) var onlineStatusOptions: [DeviceOnlineStatusOptions] = []
+    public private(set) var typeOptions: [DeviceTypeOptions] = []
 
     func setDevices(_ devices: [ParticleDevice]) {
         self.devices = devices
@@ -52,7 +52,7 @@ class DeviceListDataSource  {
     func reloadData() {
         self.viewDevices = self.devices
 
-        if let searchTerm = searchTerm {
+        if let searchTerm = searchTerm, searchTerm.count > 0 {
             NSLog("searchTerm = '\(searchTerm)'")
             self.viewDevices = self.viewDevices.filter { (device: ParticleDevice) -> Bool in
                 return device.getName().lowercased().contains(searchTerm)
@@ -125,5 +125,23 @@ class DeviceListDataSource  {
     }
 
 
+    func isSearching() -> Bool {
+        if let searchTerm = searchTerm, searchTerm.count > 0 {
+            return true
+        }
 
+        return false
+    }
+
+    func isFiltering() -> Bool {
+        if onlineStatusOptions.count > 0, onlineStatusOptions.count < DeviceListSortingOptions.allCases.count {
+            return true
+        }
+
+        if typeOptions.count > 0, typeOptions.count < DeviceTypeOptions.allCases.count {
+            return true
+        }
+
+        return false
+    }
 }
