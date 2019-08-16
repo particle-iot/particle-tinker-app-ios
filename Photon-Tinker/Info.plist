@@ -48,7 +48,9 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>No usage</string>
+	<string>Particle app uses bluetooth to communicate with 3rg generation hardware</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Particle app uses bluetooth to communicate with 3rg generation hardware</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Particle app uses the camera to conveniently scan stickers to ease the setup process</string>
 	<key>UIAppFonts</key>
