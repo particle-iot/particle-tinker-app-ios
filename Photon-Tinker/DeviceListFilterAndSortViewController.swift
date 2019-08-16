@@ -17,6 +17,18 @@ class DeviceListFilterAndSortViewController: UIViewController, SortByViewDelegat
 
     private weak var dataSource: DeviceListDataSource!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        if #available(iOS 13.0, *) {
+            if self.responds(to: Selector("overrideUserInterfaceStyle")) {
+                self.setValue(UIUserInterfaceStyle.light.rawValue, forKey: "overrideUserInterfaceStyle")
+            }
+        }
+
+        self.modalPresentationStyle = .fullScreen
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sortByView.delegate = self

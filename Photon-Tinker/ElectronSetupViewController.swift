@@ -46,7 +46,21 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     var startTime : Double = 0;
-    
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        if #available(iOS 13.0, *) {
+            if self.responds(to: Selector("overrideUserInterfaceStyle")) {
+                self.setValue(UIUserInterfaceStyle.light.rawValue, forKey: "overrideUserInterfaceStyle")
+            }
+        }
+        
+        self.modalPresentationStyle = .fullScreen
+    }
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
