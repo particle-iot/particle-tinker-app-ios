@@ -27,12 +27,13 @@ internal class FilterSortTypeCell: UITableViewCell {
         self.cellHighlight.translatesAutoresizingMaskIntoConstraints = false
         self.cellHighlight.alpha = 0
         self.contentView.insertSubview(self.cellHighlight, at: 0)
+        self.contentView.layer.masksToBounds = false
         NSLayoutConstraint.activate(
                 [
-                    self.cellHighlight.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
-                    self.cellHighlight.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
-                    self.cellHighlight.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-                    self.cellHighlight.topAnchor.constraint(equalTo: self.contentView.topAnchor)
+                    self.cellHighlight.leftAnchor.constraint(equalTo: self.leftAnchor),
+                    self.cellHighlight.rightAnchor.constraint(equalTo: self.rightAnchor),
+                    self.cellHighlight.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                    self.cellHighlight.topAnchor.constraint(equalTo: self.topAnchor)
                 ]
         )
     }
