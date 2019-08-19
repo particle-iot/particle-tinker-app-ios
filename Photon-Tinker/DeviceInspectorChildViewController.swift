@@ -50,6 +50,7 @@ class DeviceInspectorChildViewController: UIViewController {
 
     func addRefreshControl() {
         let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = ParticleStyle.SecondaryTextColor
         refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
         self.refreshControl = refreshControl
 

@@ -106,6 +106,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: Refresh control
     func addRefreshControl() {
         let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = ParticleStyle.SecondaryTextColor
         refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
         self.refreshControl = refreshControl
 
