@@ -8,12 +8,27 @@ import UIKit
 import Crashlytics
 import MessageUI
 
-public enum MeshSetupFlowResult {
+public enum MeshSetupFlowResult: CustomStringConvertible {
     case success
     case error
     case canceled
     case switchToControlPanel
     case unclaimed
+
+    public var description: String {
+        switch self {
+            case .success:
+                return "success"
+            case .error:
+                return "error"
+            case .canceled:
+                return "canceled"
+            case .switchToControlPanel:
+                return "switchToControlPanel"
+            case .unclaimed:
+                return "unclaimed"
+        }
+    }
 }
 
 typealias MeshSetupFlowCallback = (MeshSetupFlowResult) -> ()

@@ -33,6 +33,7 @@ class DeviceTypeIcon: UIView {
         self.deviceType = type
 
         self.backgroundCircle?.pieBorderColor = type.getIconColor()
+        self.deviceTypeLabel?.textColor = type.getIconColor()
         self.deviceTypeLabel?.text = type.getIconText()
     }
 

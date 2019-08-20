@@ -31,7 +31,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
         inputText.tintColor = ParticleStyle.ButtonColor
         inputText.placeholder = ""
         inputText.placeholderColor = ParticleStyle.SecondaryTextColor
-        inputText.clearButtonTintColor = ParticleStyle.ButtonColor
+        inputText.clearButtonTintColor = ParticleStyle.ClearButtonColor
         inputText.text = ""
         inputText.delegate = self
 

@@ -104,6 +104,8 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
         self.expandedTableViewHeightConstraint.constant = CGFloat(self.detailsOrder.count * 30)
 
+        self.expandedTableView.reloadData()
+
         ParticleUtils.animateOnlineIndicatorImageView(self.collapsedDeviceStateImageView, online: self.device.connected, flashing: self.device.isFlashing)
         ParticleUtils.animateOnlineIndicatorImageView(self.expandedDeviceStateImageView, online: self.device.connected, flashing: self.device.isFlashing)
     }

@@ -48,9 +48,9 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
 
     private func setupTableViewHeader() {
         if (self.device.connected) {
-            self.noFunctionsMessage.text = "(No exposed variables)"
+            self.noFunctionsMessage.text = "No exposed variables"
         } else {
-            self.noFunctionsMessage.text = "(Device is offline)"
+            self.noFunctionsMessage.text = "Device is offline"
         }
 
         self.tableView.tableHeaderView = nil
