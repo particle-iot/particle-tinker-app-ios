@@ -10,7 +10,7 @@ import QuartzCore
 internal class DeviceListCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var typeLabel: DeviceTypeLabel!
     @IBOutlet weak var lastHeardLabel: UILabel!
     @IBOutlet weak var deviceStateImageView: UIImageView!
     
@@ -22,9 +22,7 @@ internal class DeviceListCell: UITableViewCell {
 
         self.nameLabel.text = device.getName()
 
-        self.typeLabel.textColor = device.type.getIconColor()
-        self.typeLabel.layer.borderColor = device.type.getIconColor().cgColor
-        self.typeLabel.text = device.type.description
+        self.typeLabel.setDeviceType(device.type)
 
         self.lastHeardLabel.text = device.lastHeard?.tinkerFormattedString() ?? "Unknown"
 
@@ -34,10 +32,6 @@ internal class DeviceListCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        self.typeLabel.layer.cornerRadius = 12
-        self.typeLabel.layer.masksToBounds = true
-        self.typeLabel.layer.borderWidth = 1
 
         self.selectedBackgroundView = UIView()
         self.selectedBackgroundView?.backgroundColor = .clear
