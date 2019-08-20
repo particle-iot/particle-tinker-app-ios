@@ -35,6 +35,15 @@ class DeviceInspectorChildViewController: UIViewController {
         IQKeyboardManager.shared().previousNextDisplayMode = .default
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        if #available(iOS 13.0, *) {
+            if self.responds(to: Selector("overrideUserInterfaceStyle")) {
+                self.setValue(UIUserInterfaceStyle.light.rawValue, forKey: "overrideUserInterfaceStyle")
+            }
+        }
+    }
 
     func showTutorial() {
         assert(false, "This method must be overriden by the DeviceInspectorChildViewController subclass")
