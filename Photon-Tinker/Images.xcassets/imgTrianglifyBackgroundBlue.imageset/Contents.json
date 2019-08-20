@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "bg.jpg",
+      "filename" : "imgTrianglifyBackgroundBlue@2x.jpg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bg-1.jpg",
+      "filename" : "imgTrianglifyBackgroundBlue@3x.jpg",
       "scale" : "3x"
     }
   ],
