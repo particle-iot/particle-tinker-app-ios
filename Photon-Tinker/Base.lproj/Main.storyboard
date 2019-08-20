@@ -587,8 +587,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oje-Nu-H4B">
-                                                    <rect key="frame" x="46" y="11" width="96.5" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Device name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oje-Nu-H4B">
+                                                    <rect key="frame" x="46" y="11" width="188" height="22"/>
                                                     <color key="tintColor" red="0.87843137250000003" green="0.41568627450000001" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
                                                     <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -623,6 +623,7 @@
                                                 <constraint firstItem="xM9-Rk-7mD" firstAttribute="top" secondItem="oje-Nu-H4B" secondAttribute="bottom" id="Iep-wK-DxL"/>
                                                 <constraint firstItem="PpU-DI-ZIg" firstAttribute="trailing" secondItem="cNZ-48-K7Z" secondAttribute="trailing" constant="12" id="ctr-Qi-Nrj"/>
                                                 <constraint firstItem="m2c-Ce-qYF" firstAttribute="leading" secondItem="PpU-DI-ZIg" secondAttribute="leading" constant="16" id="fSo-H9-jos"/>
+                                                <constraint firstItem="cNZ-48-K7Z" firstAttribute="leading" secondItem="oje-Nu-H4B" secondAttribute="trailing" constant="8" id="g32-qZ-x4K"/>
                                                 <constraint firstAttribute="centerY" secondItem="m2c-Ce-qYF" secondAttribute="centerY" id="loM-Ly-Wcf"/>
                                                 <constraint firstItem="cNZ-48-K7Z" firstAttribute="centerY" secondItem="m2c-Ce-qYF" secondAttribute="centerY" id="wTI-e0-TBC"/>
                                             </constraints>
