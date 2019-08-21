@@ -132,6 +132,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
             if let vc = ParticleSetupMainController(authenticationOnly: true)
             {
                 vc.delegate = self
+                vc.startWithLogin = true
                 self.present(vc, animated: true, completion: nil)
             }
         }

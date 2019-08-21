@@ -48,9 +48,13 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>No usage</string>
+	<string>Particle app uses Bluetooth to communicate with 3rd generation hardware.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Particle app uses Bluetooth to communicate with 3rd generation hardware.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Particle app uses the camera to conveniently scan stickers to ease the setup process</string>
+	<string>Particle app uses the camera to scan stickers to ease the setup process.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Particle app requires location services to read the SSID of the Wi-Fi network your device is currently connected to.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Gotham-Book.otf</string>

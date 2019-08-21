@@ -69,6 +69,20 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         ParticleLogger.logInfo("MeshSetupFlowUI", format: message, withParameters: getVaList([]))
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        if #available(iOS 13.0, *) {
+            if self.responds(to: Selector("overrideUserInterfaceStyle")) {
+                self.setValue(UIUserInterfaceStyle.light.rawValue, forKey: "overrideUserInterfaceStyle")
+            }
+        }
+        
+        self.modalPresentationStyle = .fullScreen
+    }
+
+
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 

@@ -30,6 +30,7 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
             tableView.addSubview(refreshControl)
         }
 
+        refreshControl.tintColor = ParticleStyle.SecondaryTextColor
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
 

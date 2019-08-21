@@ -71,6 +71,16 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
         internalInit()
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        if #available(iOS 13.0, *) {
+            if self.responds(to: Selector("overrideUserInterfaceStyle")) {
+                self.setValue(UIUserInterfaceStyle.light.rawValue, forKey: "overrideUserInterfaceStyle")
+            }
+        }
+    }
+
     private func internalInit() {
         self.view.layer.borderWidth = 1
         self.view.layer.borderColor = UIColor(rgb: 0xD9D8D6).cgColor
