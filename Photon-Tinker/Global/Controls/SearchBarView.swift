@@ -16,6 +16,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var inputText: CustomizableTextField!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var backgroundView: UIView!
 
     weak var delegate: SearchBarViewDelegate?
 
@@ -23,6 +24,9 @@ class SearchBarView: UIView, UITextFieldDelegate {
         super.awakeFromNib()
 
         backgroundColor = UIColor.clear
+
+        backgroundView.backgroundColor = ParticleStyle.EthernetToggleBackgroundColor
+        backgroundView.layer.masksToBounds = true
 
         inputText.font = UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))
         inputText.textColor = ParticleStyle.PrimaryTextColor
@@ -48,6 +52,12 @@ class SearchBarView: UIView, UITextFieldDelegate {
         if let superview = newSuperview {
             NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: Notification.Name.UITextFieldTextDidChange, object: self.inputText)
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        backgroundView.layer.cornerRadius = backgroundView.frame.height / 2
     }
 
     @IBAction func cancelClicked() {
