@@ -1890,13 +1890,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awF-Zs-E6z">
                                 <rect key="frame" x="8" y="8" width="304" height="44"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search events..." translatesAutoresizingMaskIntoConstraints="NO" id="vRp-Sf-BPF">
-                                        <rect key="frame" x="72" y="-6" width="236" height="56"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="search"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="syL-62-7a7" id="IOU-fz-gNf"/>
-                                        </connections>
-                                    </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpV-hU-TWA">
                                         <rect key="frame" x="0.0" y="6" width="32" height="32"/>
                                         <constraints>
@@ -1921,16 +1914,71 @@
                                             <action selector="clearButtonTapped:" destination="syL-62-7a7" eventType="touchUpInside" id="gpG-le-iNM"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noi-Mg-1MM" customClass="SearchBarView" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="72" y="-0.5" width="224" height="45"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOj-wp-0Pj">
+                                                <rect key="frame" x="0.0" y="1.5" width="164" height="42"/>
+                                                <color key="backgroundColor" red="1" green="0.03624573524" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gSD-p6-q9E">
+                                                <rect key="frame" x="44" y="7.5" width="180" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YSy-Gw-8pj" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="116" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwO-al-0qW">
+                                                        <rect key="frame" x="132" y="0.0" width="48" height="30"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="cancelClicked" destination="noi-Mg-1MM" eventType="touchUpInside" id="0Ew-JG-bSj"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="oYI-V5-D85">
+                                                <rect key="frame" x="10" y="10.5" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="Meg-QD-237"/>
+                                                    <constraint firstAttribute="height" constant="24" id="sKV-an-EpL"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="oYI-V5-D85" firstAttribute="leading" secondItem="noi-Mg-1MM" secondAttribute="leading" constant="10" id="6M8-Gg-19n"/>
+                                            <constraint firstItem="oYI-V5-D85" firstAttribute="centerY" secondItem="gSD-p6-q9E" secondAttribute="centerY" id="6sT-gw-oPk"/>
+                                            <constraint firstItem="JOj-wp-0Pj" firstAttribute="leading" secondItem="noi-Mg-1MM" secondAttribute="leading" id="Rkt-CR-fm9"/>
+                                            <constraint firstItem="gSD-p6-q9E" firstAttribute="centerY" secondItem="noi-Mg-1MM" secondAttribute="centerY" id="eWG-Ji-wxs"/>
+                                            <constraint firstAttribute="height" constant="45" id="f7a-dQ-Mgd"/>
+                                            <constraint firstItem="gSD-p6-q9E" firstAttribute="leading" secondItem="oYI-V5-D85" secondAttribute="trailing" constant="10" id="n5Z-cr-t4P"/>
+                                            <constraint firstItem="JOj-wp-0Pj" firstAttribute="trailing" secondItem="YSy-Gw-8pj" secondAttribute="trailing" constant="4" id="p1x-Z7-Shl"/>
+                                            <constraint firstAttribute="trailing" secondItem="gSD-p6-q9E" secondAttribute="trailing" id="weG-yy-dv1"/>
+                                            <constraint firstItem="JOj-wp-0Pj" firstAttribute="centerY" secondItem="noi-Mg-1MM" secondAttribute="centerY" id="zNd-95-Gce"/>
+                                            <constraint firstItem="JOj-wp-0Pj" firstAttribute="height" secondItem="YSy-Gw-8pj" secondAttribute="height" constant="12" id="zRK-1m-SsK"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="backgroundView" destination="JOj-wp-0Pj" id="Vat-Uf-t0O"/>
+                                            <outlet property="cancelButton" destination="kwO-al-0qW" id="O7Y-u8-Kqj"/>
+                                            <outlet property="imageView" destination="oYI-V5-D85" id="Rw7-3g-Vwh"/>
+                                            <outlet property="inputText" destination="YSy-Gw-8pj" id="Rr6-vM-yph"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="noi-Mg-1MM" firstAttribute="centerY" secondItem="awF-Zs-E6z" secondAttribute="centerY" id="1vk-if-psz"/>
+                                    <constraint firstItem="noi-Mg-1MM" firstAttribute="leading" secondItem="QCf-JS-MRu" secondAttribute="trailing" constant="4" id="5hl-Aa-jOP"/>
                                     <constraint firstItem="QCf-JS-MRu" firstAttribute="centerY" secondItem="cpV-hU-TWA" secondAttribute="centerY" id="HAw-nQ-4dC"/>
+                                    <constraint firstAttribute="trailing" secondItem="noi-Mg-1MM" secondAttribute="trailing" constant="8" id="HcX-W5-BnE"/>
                                     <constraint firstAttribute="height" constant="44" id="JSZ-u3-uCr"/>
-                                    <constraint firstItem="vRp-Sf-BPF" firstAttribute="leading" secondItem="QCf-JS-MRu" secondAttribute="trailing" constant="4" id="NLv-tq-Zsv"/>
                                     <constraint firstItem="QCf-JS-MRu" firstAttribute="leading" secondItem="cpV-hU-TWA" secondAttribute="trailing" constant="4" id="RB3-aj-hHN"/>
-                                    <constraint firstItem="vRp-Sf-BPF" firstAttribute="trailing" secondItem="awF-Zs-E6z" secondAttribute="trailing" constant="4" id="cDX-da-hhL"/>
                                     <constraint firstItem="cpV-hU-TWA" firstAttribute="centerY" secondItem="awF-Zs-E6z" secondAttribute="centerY" id="qnx-qy-DxL"/>
-                                    <constraint firstItem="vRp-Sf-BPF" firstAttribute="centerY" secondItem="awF-Zs-E6z" secondAttribute="centerY" id="wZA-X3-sxa"/>
                                     <constraint firstItem="cpV-hU-TWA" firstAttribute="leading" secondItem="awF-Zs-E6z" secondAttribute="leading" id="yfv-Fe-Os7"/>
                                 </constraints>
                             </view>
@@ -2095,15 +2143,15 @@
                     </view>
                     <connections>
                         <outlet property="clearEventsButton" destination="QCf-JS-MRu" id="BV7-eg-ShQ"/>
-                        <outlet property="eventFilterSearchBar" destination="vRp-Sf-BPF" id="ijB-el-F6W"/>
                         <outlet property="noEventsView" destination="fSc-KD-cMv" id="tWi-vY-uQk"/>
                         <outlet property="playPauseButton" destination="cpV-hU-TWA" id="cj9-eC-ypl"/>
+                        <outlet property="searchBar" destination="noi-Mg-1MM" id="6GR-gN-rI7"/>
                         <outlet property="tableView" destination="iee-Fl-d7y" id="aYY-co-0fd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVl-B5-uER" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2014" y="1746"/>
+            <point key="canvasLocation" x="2013.75" y="1745.625"/>
         </scene>
         <!--Device Inspector Functions View Controller-->
         <scene sceneID="LdX-GU-HAl">
