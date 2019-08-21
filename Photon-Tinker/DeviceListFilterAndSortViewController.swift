@@ -16,6 +16,7 @@ class DeviceListFilterAndSortViewController: UIViewController, SortByViewDelegat
     @IBOutlet weak var deviceTypeView: DeviceTypeView!
 
     private weak var dataSource: DeviceListDataSource!
+    private var viewDataSource: DeviceListDataSource!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,15 +43,15 @@ class DeviceListFilterAndSortViewController: UIViewController, SortByViewDelegat
 
 
     func sortOptionDidChange(sortByView: SortByView, option: DeviceListSortingOptions) {
-        self.dataSource.setSortOption(option)
+        self.viewDataSource.setSortOption(option)
     }
 
     func deviceTypeOptionDidChange(deviceTypeView: DeviceTypeView, options: [DeviceTypeOptions]) {
-        self.dataSource.setDeviceTypeOptions(options)
+        self.viewDataSource.setDeviceTypeOptions(options)
     }
 
     func deviceStatusOptionDidChange(deviceStatusView: DeviceStatusView, options: [DeviceOnlineStatusOptions]) {
-        self.dataSource.setOnlineStatusOptions(options)
+        self.viewDataSource.setOnlineStatusOptions(options)
     }
 
     @IBAction func closeClicked(_ sender: Any) {
@@ -64,38 +65,41 @@ class DeviceListFilterAndSortViewController: UIViewController, SortByViewDelegat
     }
     
     @IBAction func showClicked(_ sender: Any) {
+        self.dataSource.apply(with: self.viewDataSource)
         self.dismiss(animated: true) { }
     }
 
     private func updateShowButtonTitle() {
-        if (self.dataSource.viewDevices.count == 1) {
-            self.showButton.setTitle("Show {{0}} device".replacingOccurrences(of: "{{0}}", with: String(self.dataSource.viewDevices.count)), for: .normal)
+        if (self.viewDataSource.viewDevices.count == 1) {
+            self.showButton.setTitle("Show {{0}} device".replacingOccurrences(of: "{{0}}", with: String(self.viewDataSource.viewDevices.count)), for: .normal)
         } else {
-            self.showButton.setTitle("Show {{0}} devices".replacingOccurrences(of: "{{0}}", with: String(self.dataSource.viewDevices.count)), for: .normal)
+            self.showButton.setTitle("Show {{0}} devices".replacingOccurrences(of: "{{0}}", with: String(self.viewDataSource.viewDevices.count)), for: .normal)
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.sortByView.setup(selectedSortOption: self.dataSource.sortOption)
-        self.deviceStatusView.setup(selectedOptions: self.dataSource.onlineStatusOptions)
-        self.deviceTypeView.setup(selectedOptions: self.dataSource.typeOptions)
+        self.sortByView.setup(selectedSortOption: self.viewDataSource.sortOption)
+        self.deviceStatusView.setup(selectedOptions: self.viewDataSource.onlineStatusOptions)
+        self.deviceTypeView.setup(selectedOptions: self.viewDataSource.typeOptions)
     }
 
     func setup(dataSource: DeviceListDataSource) {
         self.dataSource = dataSource
+        self.viewDataSource = (self.dataSource.copy(with: nil) as! DeviceListDataSource)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(filtersChanged(_:)), name: NSNotification.Name.DeviceListFilteringChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(filtersChanged(_:)), name: NSNotification.Name.DeviceListFilteringChanged, object: self.viewDataSource)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
+        self.viewDataSource = nil
         NotificationCenter.default.removeObserver(self)
     }
 

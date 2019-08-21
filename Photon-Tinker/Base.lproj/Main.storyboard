@@ -119,15 +119,16 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshCloseIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-OK-YcC">
-                                        <rect key="frame" x="286" y="12" width="20" height="20"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgChevronLeft" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-OK-YcC">
+                                        <rect key="frame" x="14" y="12" width="24" height="20"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="3hJ-Ve-paV"/>
+                                            <constraint firstAttribute="width" constant="24" id="3hJ-Ve-paV"/>
                                             <constraint firstAttribute="height" constant="20" id="a4Y-OY-tSM"/>
                                         </constraints>
                                     </imageView>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XzB-yx-KcE">
-                                        <rect key="frame" x="276" y="0.0" width="40" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XzB-yx-KcE">
+                                        <rect key="frame" x="6" y="0.0" width="40" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="fCI-cC-x04"/>
@@ -137,10 +138,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9z-Qk-60v">
-                                        <rect key="frame" x="16" y="0.0" width="40" height="44"/>
+                                        <rect key="frame" x="242" y="0.0" width="62" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
-                                        <state key="normal" title="Reset">
+                                        <state key="normal" title="Clear All">
                                             <color key="titleColor" red="0.0078431372549019607" green="0.67843137254901964" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
                                         </state>
                                         <connections>
@@ -150,8 +151,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="N9z-Qk-60v" firstAttribute="leading" secondItem="D2i-hx-SRL" secondAttribute="leading" constant="16" id="2TI-fi-bVk"/>
-                                    <constraint firstItem="D2i-hx-SRL" firstAttribute="trailing" secondItem="1sW-OK-YcC" secondAttribute="trailing" constant="14" id="9se-P5-eA9"/>
+                                    <constraint firstItem="D2i-hx-SRL" firstAttribute="trailing" secondItem="N9z-Qk-60v" secondAttribute="trailing" constant="16" id="2TI-fi-bVk"/>
+                                    <constraint firstItem="1sW-OK-YcC" firstAttribute="leading" secondItem="D2i-hx-SRL" secondAttribute="leading" constant="14" id="9se-P5-eA9"/>
                                     <constraint firstAttribute="height" constant="44" id="BH5-yB-Lyy"/>
                                     <constraint firstItem="N9z-Qk-60v" firstAttribute="top" secondItem="D2i-hx-SRL" secondAttribute="top" id="Dqy-pw-wWH"/>
                                     <constraint firstItem="XzB-yx-KcE" firstAttribute="top" secondItem="qk9-df-rfG" secondAttribute="top" id="PCD-FH-1xF"/>
@@ -2449,7 +2450,7 @@
     </scenes>
     <resources>
         <image name="AddIcon" width="24" height="24"/>
-        <image name="FilterIcon" width="24" height="24"/>
+        <image name="FilterIcon" width="26" height="25"/>
         <image name="IconCollapseInfo" width="36" height="11"/>
         <image name="IconEditInfo" width="13" height="16"/>
         <image name="IconExpandInfo" width="20" height="13"/>
