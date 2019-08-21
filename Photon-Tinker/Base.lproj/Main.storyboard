@@ -119,12 +119,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgChevronLeft" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-OK-YcC">
-                                        <rect key="frame" x="14" y="12" width="24" height="20"/>
-                                        <color key="tintColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-OK-YcC">
+                                        <rect key="frame" x="14" y="10" width="24" height="24"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="3hJ-Ve-paV"/>
-                                            <constraint firstAttribute="height" constant="20" id="a4Y-OY-tSM"/>
+                                            <constraint firstAttribute="height" constant="24" id="a4Y-OY-tSM"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XzB-yx-KcE">
@@ -659,16 +659,16 @@
                                         <color key="backgroundColor" red="1" green="0.03624573524" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Pfa-Xu-Iam">
-                                        <rect key="frame" x="44" y="7.5" width="210" height="30"/>
+                                        <rect key="frame" x="38" y="7.5" width="216" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vss-qM-L3f" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="146" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="152" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbB-aB-Stn">
-                                                <rect key="frame" x="162" y="0.0" width="48" height="30"/>
+                                                <rect key="frame" x="168" y="0.0" width="48" height="30"/>
                                                 <state key="normal" title="Cancel">
                                                     <color key="titleColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -680,6 +680,7 @@
                                     </stackView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="YsP-ZC-vKb">
                                         <rect key="frame" x="10" y="10.5" width="24" height="24"/>
+                                        <color key="tintColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="Bgz-Kx-kpc"/>
                                             <constraint firstAttribute="height" constant="24" id="dLL-aj-dme"/>
@@ -694,7 +695,7 @@
                                     <constraint firstItem="ctt-2Q-54B" firstAttribute="leading" secondItem="fPe-UK-gb5" secondAttribute="leading" id="Le6-Ha-NkY"/>
                                     <constraint firstItem="ctt-2Q-54B" firstAttribute="centerY" secondItem="fPe-UK-gb5" secondAttribute="centerY" id="djX-d8-RrG"/>
                                     <constraint firstAttribute="height" constant="45" id="gBv-Cf-Hu3"/>
-                                    <constraint firstItem="Pfa-Xu-Iam" firstAttribute="leading" secondItem="YsP-ZC-vKb" secondAttribute="trailing" constant="10" id="jA1-Vb-DZD"/>
+                                    <constraint firstItem="Pfa-Xu-Iam" firstAttribute="leading" secondItem="YsP-ZC-vKb" secondAttribute="trailing" constant="4" id="jA1-Vb-DZD"/>
                                     <constraint firstItem="ctt-2Q-54B" firstAttribute="height" secondItem="Vss-qM-L3f" secondAttribute="height" constant="12" id="r2o-ya-9kl"/>
                                     <constraint firstItem="ctt-2Q-54B" firstAttribute="trailing" secondItem="Vss-qM-L3f" secondAttribute="trailing" constant="4" id="rd0-Pz-L2z"/>
                                     <constraint firstItem="Pfa-Xu-Iam" firstAttribute="centerY" secondItem="fPe-UK-gb5" secondAttribute="centerY" id="tCk-MY-4I3"/>
@@ -1103,8 +1104,7 @@
                                             <constraint firstAttribute="height" constant="32" id="c9T-lE-Loe"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
-                                        <state key="normal" image="imgChevronLeft"/>
+                                        <state key="normal" image="BackIcon"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="XC3-E0-ieD" eventType="touchUpInside" id="iQe-iq-mN4"/>
                                         </connections>
@@ -1667,7 +1667,8 @@
                                             <constraint firstAttribute="height" constant="40" id="Me4-JD-ZHY"/>
                                             <constraint firstAttribute="width" constant="40" id="azP-Xc-wuV"/>
                                         </constraints>
-                                        <state key="normal" image="MeshCloseIcon"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <state key="normal" image="CloseIcon"/>
                                         <connections>
                                             <action selector="closeTapped:" destination="mXl-nK-0H4" eventType="touchUpInside" id="OF2-hc-VEs"/>
                                         </connections>
@@ -1787,7 +1788,8 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="webView Title" id="haW-Fl-TtH">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="teh-6O-PmY">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="CloseIcon" id="teh-6O-PmY">
+                                            <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="closeButtonTapped:" destination="Aix-mE-R3J" id="cJT-MX-sBv"/>
                                             </connections>
@@ -1831,13 +1833,13 @@
                                 <dataDetectorType key="dataDetectorTypes"/>
                             </webView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSI-kv-UFt">
-                                <rect key="frame" x="16" y="28" width="24" height="24"/>
+                                <rect key="frame" x="8" y="20" width="40" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="I8g-EZ-ajy"/>
-                                    <constraint firstAttribute="height" constant="24" id="PFZ-Jt-sNy"/>
+                                    <constraint firstAttribute="width" constant="40" id="I8g-EZ-ajy"/>
+                                    <constraint firstAttribute="height" constant="40" id="PFZ-Jt-sNy"/>
                                 </constraints>
                                 <color key="tintColor" red="0.0" green="0.67843137249999996" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="imgCloseIcon"/>
+                                <state key="normal" image="CloseIcon"/>
                                 <connections>
                                     <action selector="closeButtonTapped:" destination="EnS-t6-yW9" eventType="touchUpInside" id="FKz-xi-g8p"/>
                                 </connections>
@@ -1847,9 +1849,9 @@
                         <constraints>
                             <constraint firstItem="CB0-xF-8rl" firstAttribute="bottom" secondItem="Hgh-ZP-KBL" secondAttribute="bottom" id="2PS-vo-xcQ"/>
                             <constraint firstAttribute="trailing" secondItem="Hgh-ZP-KBL" secondAttribute="trailing" id="6pn-zY-Dab"/>
-                            <constraint firstItem="vSI-kv-UFt" firstAttribute="leading" secondItem="Hgh-ZP-KBL" secondAttribute="leading" constant="16" id="Pcg-4e-hm1"/>
+                            <constraint firstItem="vSI-kv-UFt" firstAttribute="leading" secondItem="Hgh-ZP-KBL" secondAttribute="leading" constant="8" id="Pcg-4e-hm1"/>
                             <constraint firstItem="Hgh-ZP-KBL" firstAttribute="leading" secondItem="qrk-4R-k45" secondAttribute="leading" id="pC0-8j-3xU"/>
-                            <constraint firstItem="vSI-kv-UFt" firstAttribute="top" secondItem="CB0-xF-8rl" secondAttribute="top" constant="8" id="pvh-Ra-65I"/>
+                            <constraint firstItem="vSI-kv-UFt" firstAttribute="top" secondItem="CB0-xF-8rl" secondAttribute="top" id="pvh-Ra-65I"/>
                             <constraint firstItem="Hgh-ZP-KBL" firstAttribute="top" secondItem="CB0-xF-8rl" secondAttribute="top" id="rgJ-V1-svn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CB0-xF-8rl"/>
@@ -1922,16 +1924,16 @@
                                                 <color key="backgroundColor" red="1" green="0.03624573524" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gSD-p6-q9E">
-                                                <rect key="frame" x="44" y="7.5" width="180" height="30"/>
+                                                <rect key="frame" x="38" y="7.5" width="186" height="30"/>
                                                 <subviews>
                                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YSy-Gw-8pj" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="116" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="122" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwO-al-0qW">
-                                                        <rect key="frame" x="132" y="0.0" width="48" height="30"/>
+                                                        <rect key="frame" x="138" y="0.0" width="48" height="30"/>
                                                         <state key="normal" title="Cancel">
                                                             <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
@@ -1943,6 +1945,7 @@
                                             </stackView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="oYI-V5-D85">
                                                 <rect key="frame" x="10" y="10.5" width="24" height="24"/>
+                                                <color key="tintColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="Meg-QD-237"/>
                                                     <constraint firstAttribute="height" constant="24" id="sKV-an-EpL"/>
@@ -1956,7 +1959,7 @@
                                             <constraint firstItem="JOj-wp-0Pj" firstAttribute="leading" secondItem="noi-Mg-1MM" secondAttribute="leading" id="Rkt-CR-fm9"/>
                                             <constraint firstItem="gSD-p6-q9E" firstAttribute="centerY" secondItem="noi-Mg-1MM" secondAttribute="centerY" id="eWG-Ji-wxs"/>
                                             <constraint firstAttribute="height" constant="45" id="f7a-dQ-Mgd"/>
-                                            <constraint firstItem="gSD-p6-q9E" firstAttribute="leading" secondItem="oYI-V5-D85" secondAttribute="trailing" constant="10" id="n5Z-cr-t4P"/>
+                                            <constraint firstItem="gSD-p6-q9E" firstAttribute="leading" secondItem="oYI-V5-D85" secondAttribute="trailing" constant="4" id="n5Z-cr-t4P"/>
                                             <constraint firstItem="JOj-wp-0Pj" firstAttribute="trailing" secondItem="YSy-Gw-8pj" secondAttribute="trailing" constant="4" id="p1x-Z7-Shl"/>
                                             <constraint firstAttribute="trailing" secondItem="gSD-p6-q9E" secondAttribute="trailing" id="weG-yy-dv1"/>
                                             <constraint firstItem="JOj-wp-0Pj" firstAttribute="centerY" secondItem="noi-Mg-1MM" secondAttribute="centerY" id="zNd-95-Gce"/>
@@ -2507,13 +2510,14 @@
     </scenes>
     <resources>
         <image name="AddIcon" width="24" height="24"/>
+        <image name="BackIcon" width="24" height="24"/>
+        <image name="CloseIcon" width="24" height="24"/>
         <image name="FilterIcon" width="26" height="25"/>
         <image name="IconCollapseInfo" width="36" height="11"/>
         <image name="IconEditInfo" width="13" height="16"/>
         <image name="IconExpandInfo" width="20" height="13"/>
         <image name="L" width="32" height="32"/>
-        <image name="MeshCloseIcon" width="20" height="20"/>
-        <image name="MeshControlPanelIcon" width="20" height="20"/>
+        <image name="MeshControlPanelIcon" width="24" height="24"/>
         <image name="MeshSetupSignalIcon" width="14" height="14"/>
         <image name="MoreIcon" width="24" height="24"/>
         <image name="SearchIcon" width="24" height="24"/>
@@ -2522,7 +2526,6 @@
         <image name="emerald" width="2.5" height="18.5"/>
         <image name="f" width="24" height="24"/>
         <image name="imgArrowDown" width="64" height="64"/>
-        <image name="imgChevronLeft" width="64" height="64"/>
         <image name="imgCircle" width="128" height="128"/>
         <image name="imgCloseIcon" width="256" height="256"/>
         <image name="imgCopyToClipboard" width="600" height="600"/>
