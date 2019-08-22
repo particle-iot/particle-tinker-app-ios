@@ -17,6 +17,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var noDevicesLabel: UILabel!
+    @IBOutlet var noDevicesView: UIView!
 
     @IBOutlet weak var searchBar: SearchBarView!
     @IBOutlet weak var tableView: UITableView!
@@ -63,6 +64,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.setupSearch()
 
 
+        self.noDevicesView.removeFromSuperview()
         if ParticleCloud.sharedInstance().isAuthenticated {
             self.addRefreshControl()
 
@@ -72,10 +74,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
 
             self.initialLoadComplete = false
-            self.noDevicesLabel.isHidden = true
         } else {
             self.initialLoadComplete = true
-            self.noDevicesLabel.isHidden = false
+            self.reloadData()
         }
     }
 
@@ -253,26 +254,58 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     private func reloadData() {
         DispatchQueue.main.async {
             self.dataSource.reloadData()
-
-            self.noDevicesLabel.isHidden = self.dataSource.viewDevices.count == 0 ? false : true
-            if !self.initialLoadComplete {
-                self.noDevicesLabel.isHidden = true
-            }
             self.filtersButton.isSelected = self.dataSource.isFiltering()
-
-            if !self.noDevicesLabel.isHidden {
-                if  self.dataSource.devices.count == 0 {
-                    self.noDevicesLabel.text = "No devices"
-                } else if self.dataSource.isSearching() {
-                    self.noDevicesLabel.text = "No devices found matching '{{0}}'".replacingOccurrences(of: "{{0}}", with: self.dataSource.searchTerm!)
-                } else if self.dataSource.isFiltering() {
-                    self.noDevicesLabel.text = "No devices found matching the current filter"
-                }
-
-            }
-
+            self.setupTableViewHeader()
             self.tableView.reloadData()
         }
+    }
+
+    private func setupTableViewHeader() {
+        self.tableView.tableHeaderView = nil
+        self.noDevicesView.removeFromSuperview()
+
+        if !self.initialLoadComplete {
+            return
+        }
+
+        self.tableView.tableHeaderView =  (self.dataSource.viewDevices.count  > 0) ? nil : self.noDevicesView
+
+        if self.tableView.tableHeaderView != nil {
+            if  self.dataSource.devices.count == 0 {
+                self.noDevicesLabel.text = "No devices"
+            } else if self.dataSource.isSearching() {
+                self.noDevicesLabel.text = "No devices found matching '{{0}}'".replacingOccurrences(of: "{{0}}", with: self.dataSource.searchTerm!)
+            } else if self.dataSource.isFiltering() {
+                self.noDevicesLabel.text = "No devices found matching the current filter"
+            }
+        }
+
+        self.adjustTableViewHeaderViewConstraints()
+    }
+
+    func adjustTableViewHeaderViewConstraints() {
+        if (self.tableView.tableHeaderView == nil) {
+            return
+        }
+
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.heightAnchor, constant: -8),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.widthAnchor),
+                self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.centerXAnchor),
+                self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.centerYAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, constant: -8),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor),
+                self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+                self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor)
+            ])
+        }
+
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
 
 
