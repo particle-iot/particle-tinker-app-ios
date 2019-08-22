@@ -2201,7 +2201,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUJ-YE-kOp">
                                                     <rect key="frame" x="8" y="8" width="304" height="80"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="L" translatesAutoresizingMaskIntoConstraints="NO" id="C1I-kr-cpQ">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconL" translatesAutoresizingMaskIntoConstraints="NO" id="C1I-kr-cpQ">
                                                             <rect key="frame" x="16" y="48" width="12" height="16"/>
                                                             <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
@@ -2541,12 +2541,12 @@
         <image name="IconExpandInfo" width="20" height="13"/>
         <image name="IconFilters" width="24" height="24"/>
         <image name="IconFunctions" width="24" height="24"/>
+        <image name="IconL" width="32" height="32"/>
         <image name="IconMore" width="24" height="24"/>
         <image name="IconPause" width="40" height="40"/>
         <image name="IconSearch" width="24" height="24"/>
         <image name="IconTrash" width="40" height="40"/>
         <image name="IconVariables" width="24" height="24"/>
-        <image name="L" width="32" height="32"/>
         <image name="MeshSetupSignalIcon" width="14" height="14"/>
         <image name="alizarin" width="2.5" height="18.5"/>
         <image name="cyan" width="2.5" height="18.5"/>
