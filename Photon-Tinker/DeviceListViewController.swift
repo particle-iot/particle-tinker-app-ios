@@ -22,6 +22,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
 
     var refreshControl: UIRefreshControl!
+    var initialLoadComplete: Bool = false
 
     var isBusy: Bool = false
     var viewsToFade: [UIView]? = nil
@@ -38,6 +39,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @objc func appDidBecomeActive(_ sender : AnyObject) {
         if (!self.isBusy) {
+            self.initialLoadComplete = false
             self.fade(animated: true)
             self.loadDevices()
         }
@@ -135,6 +137,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
             DispatchQueue.main.async { [weak self] () -> () in
                 if let self = self {
+                    self.initialLoadComplete = true
                     self.handleGetDevicesResponse(devices, error: error)
                     self.resume(animated: true)
                     self.tableView.refreshControl!.endRefreshing()
@@ -248,6 +251,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.dataSource.reloadData()
 
             self.noDevicesLabel.isHidden = self.dataSource.viewDevices.count == 0 ? false : true
+            if !self.initialLoadComplete {
+                self.noDevicesLabel.isHidden = true
+            }
             self.filtersButton.isSelected = self.dataSource.isFiltering()
 
             if !self.noDevicesLabel.isHidden {
