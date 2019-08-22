@@ -98,11 +98,11 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
         session.startRunning()
 
 
-        view.bringSubview(toFront:label)
-        view.bringSubview(toFront:circleView)
-        view.bringSubview(toFront:overlayButton)
-        view.bringSubview(toFront:overlayImageView)
-        view.bringSubview(toFront:cancelButton)
+        view.bringSubviewToFront(label)
+        view.bringSubviewToFront(circleView)
+        view.bringSubviewToFront(overlayButton)
+        view.bringSubviewToFront(overlayImageView)
+        view.bringSubviewToFront(cancelButton)
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -123,7 +123,7 @@ class ParticleButton: UIButton {
         super.setTitle(title?.uppercased(), for: state)
     }
 
-    func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
+    func setTitle(_ title: String?, for state: UIControl.State, upperCase: Bool = true) {
         if (upperCase) {
             self.setTitle(title, for: state)
         } else {
@@ -172,7 +172,7 @@ class ParticleAlternativeButton: UIButton {
         super.setTitle(title?.uppercased(), for: state)
     }
 
-    func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
+    func setTitle(_ title: String?, for state: UIControl.State, upperCase: Bool = true) {
         if (upperCase) {
             self.setTitle(title, for: state)
         } else {

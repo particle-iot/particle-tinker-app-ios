@@ -8,7 +8,7 @@ import Foundation
 extension UIView {
     func shake() {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.duration = 0.3
         animation.values = [-15, 15, -7.5, 7.5, 0]
         self.layer.add(animation, forKey: "shake")

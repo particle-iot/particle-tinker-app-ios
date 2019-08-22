@@ -80,7 +80,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
         tableView.isUserInteractionEnabled = false
 
         if let cell = tableView.cellForRow(at: indexPath) {
-            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            let activityIndicator = UIActivityIndicatorView(style: .white)
             activityIndicator.color = ParticleStyle.NetworkJoinActivityIndicatorColor
             activityIndicator.startAnimating()
 

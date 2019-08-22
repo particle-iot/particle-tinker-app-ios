@@ -129,7 +129,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     @IBAction func continueButtonClicked(_ sender: Any) {

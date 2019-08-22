@@ -100,9 +100,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         
         
         // force inject the access token and current username into the JS context global 'window' object
-        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken" as (NSCopying & NSObjectProtocol)!)
-        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername" as (NSCopying & NSObjectProtocol)!)
-        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient" as (NSCopying & NSObjectProtocol)!)  
+        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken" as (NSCopying & NSObjectProtocol))
+        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername" as (NSCopying & NSObjectProtocol))
+        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient" as (NSCopying & NSObjectProtocol))
 
 //        print("after setting mobileClient:"+self.printTimestamp())
         // Do any additional setup after loading the view.
@@ -190,11 +190,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     }
     
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         let myAppScheme = "particle"
         
         if request.url?.scheme != myAppScheme { //&& request.URL?.host != self.setupWebAddress?.host {
-            if navigationType == UIWebViewNavigationType.linkClicked {
+            if navigationType == UIWebView.NavigationType.linkClicked {
                 UIApplication.shared.openURL(request.url!)
                 return false
             } else {

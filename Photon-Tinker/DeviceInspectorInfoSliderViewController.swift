@@ -341,7 +341,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
     private func animateStateChange(duration: Double, collapsed: Bool) {
         displayLink = CADisplayLink(target: self, selector: #selector(animationDidUpdate))
-        displayLink.add(to: .main, forMode: .defaultRunLoopMode)
+        displayLink.add(to: .main, forMode: RunLoop.Mode.default)
 
         UIView.animate(withDuration: duration, delay:0, options:.curveEaseOut, animations: { () -> Void in
             self.view.superview?.superview?.layoutIfNeeded()

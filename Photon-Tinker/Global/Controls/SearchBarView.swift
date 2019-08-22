@@ -50,7 +50,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self)
 
         if let superview = newSuperview {
-            NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: Notification.Name.UITextFieldTextDidChange, object: self.inputText)
+            NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: UITextField.textDidChangeNotification, object: self.inputText)
         }
     }
 
@@ -151,8 +151,8 @@ class CustomizableTextField: UITextField {
     func evalPlaceholderColor() {
         if let placeholder = placeholder, let placeHolderColor = placeholderColor {
             attributedPlaceholder = NSAttributedString.init(string: placeholder, attributes: [
-                NSAttributedStringKey.foregroundColor: placeHolderColor,
-                NSAttributedStringKey.font: UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))!
+                NSAttributedString.Key.foregroundColor: placeHolderColor,
+                NSAttributedString.Key.font: UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))!
             ])
         }
     }

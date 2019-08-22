@@ -28,7 +28,7 @@ open class ParticleSpinner : NSObject {
         let rotation = CABasicAnimation(keyPath:"transform.rotation")
         rotation.isRemovedOnCompletion = false
         rotation.fromValue = 0
-        rotation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        rotation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         rotation.toValue = 2*Double.pi;
         rotation.duration = 1;
         rotation.repeatCount = 10000; // Repeat

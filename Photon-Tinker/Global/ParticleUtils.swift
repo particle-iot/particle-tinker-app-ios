@@ -70,7 +70,7 @@ class ParticleUtils: NSObject {
 
     @objc class func animateOnlineIndicatorImageView(_ imageView: UIImageView, online: Bool, flashing: Bool) {
         DispatchQueue.main.async(execute: {
-            imageView.image = UIImage(named: "ImgCircle")!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+            imageView.image = UIImage(named: "ImgCircle")!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
 
             if flashing {
                 imageView.tintColor = UIColor(red: 239.0/255.0, green: 13.0/255.0, blue: 209.0/255.0, alpha: 1.0) // Flashing purple

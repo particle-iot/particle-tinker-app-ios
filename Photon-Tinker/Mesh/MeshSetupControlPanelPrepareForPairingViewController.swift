@@ -143,11 +143,11 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
     
     func setVideoLoopObserver() {
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.videoPlayer?.currentItem, queue: .main) { _ in
-            self.videoPlayer?.seek(to: kCMTimeZero)
+            self.videoPlayer?.seek(to: CMTime.zero)
             self.videoPlayer?.play()
         }
 
-        self.videoPlayer?.seek(to: kCMTimeZero)
+        self.videoPlayer?.seek(to: CMTime.zero)
         self.videoPlayer?.play()
     }
 

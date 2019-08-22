@@ -224,7 +224,7 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
         }
 
         DispatchQueue.main.async {
-            self.bringSubview(toFront: self.functionView)
+            self.bringSubviewToFront(self.functionView)
             self.functionView.isHidden = false
 
             UIView.animate(withDuration: 0.25, animations: { () -> Void in

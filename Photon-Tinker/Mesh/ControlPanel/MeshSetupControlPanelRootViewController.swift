@@ -103,7 +103,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         if (section == self.numberOfSections(in: tableView) - 1) {
             return 60
         } else {
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
         }
     }
 
