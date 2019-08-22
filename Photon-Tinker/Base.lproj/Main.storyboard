@@ -1928,7 +1928,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCf-JS-MRu">
-                                        <rect key="frame" x="36" y="6" width="32" height="32"/>
+                                        <rect key="frame" x="34" y="6" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="JHv-FY-CcR"/>
                                             <constraint firstAttribute="width" constant="32" id="sZO-bL-E1V"/>
@@ -1940,23 +1940,23 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noi-Mg-1MM" customClass="SearchBarView" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="72" y="-0.5" width="224" height="45"/>
+                                        <rect key="frame" x="74" y="-0.5" width="222" height="45"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOj-wp-0Pj">
-                                                <rect key="frame" x="0.0" y="1.5" width="164" height="42"/>
+                                                <rect key="frame" x="0.0" y="1.5" width="162" height="42"/>
                                                 <color key="backgroundColor" red="1" green="0.03624573524" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gSD-p6-q9E">
-                                                <rect key="frame" x="38" y="7.5" width="186" height="30"/>
+                                                <rect key="frame" x="38" y="7.5" width="184" height="30"/>
                                                 <subviews>
                                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YSy-Gw-8pj" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="122" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwO-al-0qW">
-                                                        <rect key="frame" x="138" y="0.0" width="48" height="30"/>
+                                                        <rect key="frame" x="136" y="0.0" width="48" height="30"/>
                                                         <state key="normal" title="Cancel">
                                                             <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         </state>
@@ -1999,11 +1999,11 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="noi-Mg-1MM" firstAttribute="centerY" secondItem="awF-Zs-E6z" secondAttribute="centerY" id="1vk-if-psz"/>
-                                    <constraint firstItem="noi-Mg-1MM" firstAttribute="leading" secondItem="QCf-JS-MRu" secondAttribute="trailing" constant="4" id="5hl-Aa-jOP"/>
+                                    <constraint firstItem="noi-Mg-1MM" firstAttribute="leading" secondItem="QCf-JS-MRu" secondAttribute="trailing" constant="8" id="5hl-Aa-jOP"/>
                                     <constraint firstItem="QCf-JS-MRu" firstAttribute="centerY" secondItem="cpV-hU-TWA" secondAttribute="centerY" id="HAw-nQ-4dC"/>
                                     <constraint firstAttribute="trailing" secondItem="noi-Mg-1MM" secondAttribute="trailing" constant="8" id="HcX-W5-BnE"/>
                                     <constraint firstAttribute="height" constant="44" id="JSZ-u3-uCr"/>
-                                    <constraint firstItem="QCf-JS-MRu" firstAttribute="leading" secondItem="cpV-hU-TWA" secondAttribute="trailing" constant="4" id="RB3-aj-hHN"/>
+                                    <constraint firstItem="QCf-JS-MRu" firstAttribute="leading" secondItem="cpV-hU-TWA" secondAttribute="trailing" constant="2" id="RB3-aj-hHN"/>
                                     <constraint firstItem="cpV-hU-TWA" firstAttribute="centerY" secondItem="awF-Zs-E6z" secondAttribute="centerY" id="qnx-qy-DxL"/>
                                     <constraint firstItem="cpV-hU-TWA" firstAttribute="leading" secondItem="awF-Zs-E6z" secondAttribute="leading" id="yfv-Fe-Os7"/>
                                 </constraints>
@@ -2024,38 +2024,38 @@
                                                     <rect key="frame" x="8" y="8" width="304" height="88.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSv-Ri-TgF">
-                                                            <rect key="frame" x="11" y="38.5" width="30" height="16.5"/>
+                                                            <rect key="frame" x="11" y="36.5" width="33" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5a-3O-bj2">
-                                                            <rect key="frame" x="10" y="71" width="31" height="16.5"/>
+                                                            <rect key="frame" x="10" y="67" width="34" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="&lt;Event name&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y1Q-sM-bnH">
-                                                            <rect key="frame" x="49" y="5.5" width="225" height="18"/>
+                                                            <rect key="frame" x="52" y="4.5" width="222" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Medium" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="&lt;Event payload&gt;" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bts-70-KsD">
-                                                            <rect key="frame" x="49" y="27.5" width="251" height="39"/>
+                                                            <rect key="frame" x="52" y="26.5" width="248" height="35"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbc-m5-gwv" userLabel="copyEventButton">
-                                                            <rect key="frame" x="11" y="27.5" width="289" height="39"/>
+                                                            <rect key="frame" x="11" y="26.5" width="289" height="35"/>
                                                             <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
                                                                 <action selector="payloadButtonTapped:" destination="UHz-MM-BR6" eventType="touchUpInside" id="pIt-dL-vU1"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="&lt;event time&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSR-Ot-gbp">
-                                                            <rect key="frame" x="49" y="70.5" width="251" height="18"/>
+                                                            <rect key="frame" x="52" y="65.5" width="248" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -2073,7 +2073,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTG-Li-XMh">
-                                                            <rect key="frame" x="4" y="6" width="37" height="16.5"/>
+                                                            <rect key="frame" x="4" y="6" width="40" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -2136,7 +2136,7 @@
                                 <rect key="frame" x="0.0" y="102.5" width="320" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6e-1K-ahG">
-                                        <rect key="frame" x="119.5" y="23" width="81.5" height="22"/>
+                                        <rect key="frame" x="115.5" y="24.5" width="89.5" height="19"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
