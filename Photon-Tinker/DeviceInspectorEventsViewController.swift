@@ -188,12 +188,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
         if paused {
             paused = false
             SEGAnalytics.shared().track("DeviceInspector_EventStreamPlay")
-            playPauseButton.setImage(UIImage(named: "imgPause"), for: UIControlState())
+            playPauseButton.setImage(UIImage(named: "IconPause"), for: UIControlState())
             subscribeToDeviceEvents()
         } else {
             paused = true
             SEGAnalytics.shared().track("DeviceInspector_EventStreamPause")
-            playPauseButton.setImage(UIImage(named: "imgPlay"), for: UIControlState())
+            playPauseButton.setImage(UIImage(named: "IconPlay"), for: UIControlState())
             unsubscribeFromDeviceEvents()
         }
     }

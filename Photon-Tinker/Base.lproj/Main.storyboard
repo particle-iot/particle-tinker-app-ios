@@ -1899,7 +1899,7 @@
                                             <constraint firstAttribute="width" constant="32" id="hyf-72-XVu"/>
                                         </constraints>
                                         <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Button" image="imgPause"/>
+                                        <state key="normal" title="Button" image="IconPause"/>
                                         <connections>
                                             <action selector="playPauseButtonTapped:" destination="syL-62-7a7" eventType="touchUpInside" id="Wd1-rT-7p2"/>
                                         </connections>
@@ -1911,7 +1911,7 @@
                                             <constraint firstAttribute="width" constant="32" id="sZO-bL-E1V"/>
                                         </constraints>
                                         <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="imgTrash"/>
+                                        <state key="normal" image="IconTrash"/>
                                         <connections>
                                             <action selector="clearButtonTapped:" destination="syL-62-7a7" eventType="touchUpInside" id="gpG-le-iNM"/>
                                         </connections>
@@ -1935,7 +1935,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwO-al-0qW">
                                                         <rect key="frame" x="138" y="0.0" width="48" height="30"/>
                                                         <state key="normal" title="Cancel">
-                                                            <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="cancelClicked" destination="noi-Mg-1MM" eventType="touchUpInside" id="0Ew-JG-bSj"/>
@@ -1998,7 +1998,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zo6-gM-TTE">
-                                                    <rect key="frame" x="8" y="8" width="304" height="88.5"/>
+                                                    <rect key="frame" x="8" y="11" width="304" height="83"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSv-Ri-TgF">
                                                             <rect key="frame" x="11" y="36.5" width="33" height="14.5"/>
@@ -2043,7 +2043,7 @@
                                                                 <constraint firstAttribute="height" constant="26" id="GTm-fJ-Yqp"/>
                                                                 <constraint firstAttribute="width" constant="26" id="coY-Kg-B0m"/>
                                                             </constraints>
-                                                            <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <state key="normal" image="imgCopyToClipboard"/>
                                                             <connections>
                                                                 <action selector="copyEventButtonTapped:" destination="UHz-MM-BR6" eventType="touchUpInside" id="1Ul-OK-Onw"/>
@@ -2516,6 +2516,8 @@
         <image name="IconCollapseInfo" width="36" height="11"/>
         <image name="IconEditInfo" width="13" height="16"/>
         <image name="IconExpandInfo" width="20" height="13"/>
+        <image name="IconPause" width="40" height="40"/>
+        <image name="IconTrash" width="40" height="40"/>
         <image name="L" width="32" height="32"/>
         <image name="MeshControlPanelIcon" width="24" height="24"/>
         <image name="MeshSetupSignalIcon" width="14" height="14"/>
@@ -2530,8 +2532,6 @@
         <image name="imgCloseIcon" width="256" height="256"/>
         <image name="imgCopyToClipboard" width="600" height="600"/>
         <image name="imgDeviceArgon" width="65.5" height="147"/>
-        <image name="imgPause" width="256" height="256"/>
-        <image name="imgTrash" width="600" height="600"/>
         <image name="imgTrianglifyHeader" width="375" height="88"/>
         <image name="particle-vertical-blue" width="300" height="277.5"/>
         <image name="sunflower" width="2.5" height="18.5"/>
