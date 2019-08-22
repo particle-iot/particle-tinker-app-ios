@@ -1317,13 +1317,13 @@
                                 <rect key="frame" x="0.0" y="10" width="322" height="450"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="ua2-zp-dih" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="42" width="16" height="180"/>
+                                        <rect key="frame" x="20" y="42" width="65.5" height="180"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="180" id="ygI-Wu-l3f"/>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="u1c-U7-8xJ">
-                                        <rect key="frame" x="56" y="75" width="16" height="16"/>
+                                        <rect key="frame" x="105.5" y="75" width="16" height="16"/>
                                         <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="MB7-Ob-zgu"/>
@@ -1331,13 +1331,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sh-TV-MRr" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="56" y="42" width="99.5" height="16"/>
+                                        <rect key="frame" x="105.5" y="42" width="99.5" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8d-kn-fF4">
-                                        <rect key="frame" x="150.5" y="30" width="40" height="40"/>
+                                        <rect key="frame" x="200" y="30" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="cVL-q5-X0b"/>
                                             <constraint firstAttribute="height" constant="40" id="sZG-12-tJS"/>
@@ -1350,7 +1350,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwP-vJ-Wey" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="77" y="75" width="171" height="16"/>
+                                        <rect key="frame" x="126.5" y="75" width="121.5" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1367,13 +1367,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOa-1g-woh" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="77" y="108" width="168" height="16"/>
+                                        <rect key="frame" x="126.5" y="108" width="118.5" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupSignalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="E2I-q9-Mvq">
-                                        <rect key="frame" x="56" y="108" width="16" height="16"/>
+                                        <rect key="frame" x="106.5" y="109" width="14" height="14"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5Y-6R-sTK">
                                         <rect key="frame" x="20" y="252" width="282" height="1"/>
@@ -1564,13 +1564,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="322" height="100"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="Bey-1A-hn8" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="17.5" width="16" height="65"/>
+                                        <rect key="frame" x="20" y="17.5" width="65.5" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="ZSB-hA-vAm"/>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Mym-cw-viN">
-                                        <rect key="frame" x="236" y="42" width="16" height="16"/>
+                                        <rect key="frame" x="236" y="44" width="16" height="16"/>
                                         <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="TMy-6r-RGo"/>
@@ -1578,19 +1578,19 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum delores lorem ipsum delores lorem ipsum delores" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBE-0I-JsD" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="52" y="28" width="168" height="16"/>
+                                        <rect key="frame" x="101.5" y="28" width="118.5" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="123" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPT-jw-TWk" customClass="DeviceTypeLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="52" y="46" width="27" height="16"/>
+                                        <rect key="frame" x="101.5" y="46" width="27" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconExpandInfo" translatesAutoresizingMaskIntoConstraints="NO" id="rZZ-4R-Tty">
-                                        <rect key="frame" x="272" y="29" width="40" height="42"/>
+                                        <rect key="frame" x="272" y="31" width="40" height="42"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="P2d-v5-a4m"/>
@@ -1606,7 +1606,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="rZZ-4R-Tty" firstAttribute="centerY" secondItem="Bey-1A-hn8" secondAttribute="centerY" id="07v-HG-c9Q"/>
+                                    <constraint firstItem="rZZ-4R-Tty" firstAttribute="centerY" secondItem="Bey-1A-hn8" secondAttribute="centerY" constant="2" id="07v-HG-c9Q"/>
                                     <constraint firstAttribute="trailing" secondItem="dZ4-sv-Hqu" secondAttribute="trailing" id="2Ly-ti-7ox"/>
                                     <constraint firstAttribute="height" constant="100" id="3kd-U4-bpJ"/>
                                     <constraint firstItem="Bey-1A-hn8" firstAttribute="leading" secondItem="K8d-2V-pMq" secondAttribute="leading" constant="20" id="GG1-A4-uia"/>
@@ -1640,6 +1640,7 @@
                     <connections>
                         <outlet property="collapsedContent" destination="K8d-2V-pMq" id="wH7-gH-Kom"/>
                         <outlet property="collapsedDeviceImageView" destination="Bey-1A-hn8" id="Z6z-RO-rep"/>
+                        <outlet property="collapsedDeviceImageYConstraint" destination="Jmg-CX-xxU" id="GQQ-j9-q0d"/>
                         <outlet property="collapsedDeviceNameLabel" destination="bBE-0I-JsD" id="cWf-Wq-9Rh"/>
                         <outlet property="collapsedDeviceStateImageView" destination="Mym-cw-viN" id="v9r-95-5E0"/>
                         <outlet property="collapsedDeviceTypeLabel" destination="zPT-jw-TWk" id="bTa-20-9aK"/>

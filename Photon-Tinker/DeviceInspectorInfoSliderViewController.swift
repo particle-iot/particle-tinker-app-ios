@@ -17,6 +17,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     
     @IBOutlet weak var collapsedContent: UIView!
     @IBOutlet weak var collapsedDeviceImageView: ScaledHeightImageView!
+    @IBOutlet weak var collapsedDeviceImageYConstraint: NSLayoutConstraint!
     @IBOutlet weak var collapsedDeviceStateImageView: UIImageView!
     @IBOutlet weak var collapsedDeviceNameLabel: ParticleLabel!
     @IBOutlet weak var collapsedDeviceTypeLabel: DeviceTypeLabel!
@@ -215,11 +216,16 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
             collapsedPosConstraint! -= (superview.safeAreaInsets.bottom + superview.safeAreaInsets.top)
             collapsedPosFrame = collapsedPosConstraint + superview.safeAreaInsets.top
+            
+            collapsedDeviceImageYConstraint.constant = superview.safeAreaInsets.bottom / 4
+            
         } else if let heightConstraint = self.heightConstraint {
             collapsedPosConstraint = UIScreen.main.bounds.height - 120 //top bar included
             collapsedPosFrame = collapsedPosConstraint
 
             heightConstraint.constant = -9
+            
+            collapsedDeviceImageYConstraint.constant = 0
         }
     }
 
