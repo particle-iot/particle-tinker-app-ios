@@ -126,7 +126,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-OK-YcC">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconBack" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-OK-YcC">
                                         <rect key="frame" x="14" y="10" width="24" height="24"/>
                                         <color key="tintColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
@@ -541,7 +541,7 @@
                                             <constraint firstAttribute="width" constant="40" id="mwY-A0-anU"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="MoreIcon"/>
+                                        <state key="normal" image="IconMore"/>
                                         <connections>
                                             <action selector="moreButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="jTi-Gj-nvH"/>
                                         </connections>
@@ -553,7 +553,7 @@
                                             <constraint firstAttribute="height" constant="40" id="PV4-cO-TWo"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="AddIcon"/>
+                                        <state key="normal" image="IconAdd"/>
                                         <connections>
                                             <action selector="setupNewDeviceButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="h4J-iw-u0f"/>
                                         </connections>
@@ -697,7 +697,7 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="YsP-ZC-vKb">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconSearch" translatesAutoresizingMaskIntoConstraints="NO" id="YsP-ZC-vKb">
                                         <rect key="frame" x="10" y="10.5" width="24" height="24"/>
                                         <color key="tintColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -741,7 +741,7 @@
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
-                                <state key="normal" image="FilterIcon"/>
+                                <state key="normal" image="IconFilters"/>
                                 <connections>
                                     <segue destination="R1m-RF-Pek" kind="presentation" identifier="filters" modalPresentationStyle="overFullScreen" id="pMf-jZ-zuc"/>
                                 </connections>
@@ -838,6 +838,47 @@
                                     <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerY" secondItem="ZeE-Xi-NW0" secondAttribute="centerY" id="iHV-Qb-ZgB"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2" customClass="FlashTinkerView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="4" width="320" height="265"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTP-DK-5xb" customClass="ParticleButton" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="35" y="112.5" width="250" height="40"/>
+                                        <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="D40-n2-IAG"/>
+                                            <constraint firstAttribute="width" constant="250" id="gYZ-IE-U8O"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Scan assisting device">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="flashTinkerButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="Zwx-is-jYz"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To enable Tinker, you need to flash the Tinker firmware to this device." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lo-D1-pcJ">
+                                        <rect key="frame" x="20" y="61" width="280" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="ldt-x3-Cmr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="JM6-rU-il4"/>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerY" secondItem="vxH-yP-sY2" secondAttribute="centerY" id="KDS-O2-c5Z"/>
+                                    <constraint firstItem="5Lo-D1-pcJ" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="Zqj-WT-0fe"/>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="top" secondItem="5Lo-D1-pcJ" secondAttribute="bottom" constant="19.666666666666686" id="ncy-Wv-xNL"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="flashTinkerButton" destination="GTP-DK-5xb" id="go8-dj-VP2"/>
+                                    <outlet property="flashTinkerLabel" destination="5Lo-D1-pcJ" id="7W1-l8-0MM"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" customClass="TinkerView" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="4" width="320" height="265"/>
                                 <subviews>
@@ -927,18 +968,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yx1-Ug-Dt4">
-                                                <rect key="frame" x="0.0" y="4" width="24" height="24"/>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="6" y="6" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="P9y-5N-aKu"/>
                                                     <constraint firstAttribute="height" constant="24" id="Z6y-Is-Y2y"/>
                                                 </constraints>
-                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
-                                                <state key="normal" image="imgCloseIcon">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
+                                                <state key="normal" image="IconClose"/>
                                                 <connections>
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="kpe-Fa-7A6"/>
                                                 </connections>
@@ -955,14 +992,14 @@
                                             <constraint firstAttribute="width" constant="200" id="8xW-Ni-Q5c"/>
                                             <constraint firstAttribute="bottom" secondItem="Kep-d7-v4h" secondAttribute="bottom" id="9DN-S1-rqn"/>
                                             <constraint firstItem="Kep-d7-v4h" firstAttribute="width" secondItem="0Uo-PR-xcJ" secondAttribute="width" id="AYp-kZ-ZkC"/>
-                                            <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="4" id="Cuw-HM-wjy"/>
+                                            <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="6" id="Cuw-HM-wjy"/>
                                             <constraint firstItem="hhT-Ph-kTP" firstAttribute="height" secondItem="GmO-7c-yA1" secondAttribute="height" id="Eim-JR-VDh"/>
                                             <constraint firstItem="NEU-nT-aGU" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="12" id="HEP-9L-tfh"/>
                                             <constraint firstItem="YGr-y1-Ivz" firstAttribute="height" secondItem="HZI-mP-P5L" secondAttribute="height" id="I6Z-Yp-vQa"/>
                                             <constraint firstItem="0Dp-bl-5EV" firstAttribute="height" secondItem="Kep-d7-v4h" secondAttribute="height" id="IOd-mi-JvA"/>
                                             <constraint firstItem="0Dp-bl-5EV" firstAttribute="centerY" secondItem="Kep-d7-v4h" secondAttribute="centerY" id="LCa-Th-DEJ"/>
                                             <constraint firstItem="0Dp-bl-5EV" firstAttribute="leading" secondItem="Kep-d7-v4h" secondAttribute="leading" id="OAF-Vg-U9c"/>
-                                            <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" id="OrL-bz-EGp"/>
+                                            <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" constant="6" id="OrL-bz-EGp"/>
                                             <constraint firstItem="hhT-Ph-kTP" firstAttribute="centerY" secondItem="GmO-7c-yA1" secondAttribute="centerY" id="OyW-MP-yj4"/>
                                             <constraint firstItem="mDh-xo-YvB" firstAttribute="height" secondItem="0Uo-PR-xcJ" secondAttribute="height" id="SNh-Ui-beM"/>
                                             <constraint firstItem="Kep-d7-v4h" firstAttribute="top" secondItem="mDh-xo-YvB" secondAttribute="bottom" constant="4" id="SWB-EU-KOe"/>
@@ -1002,47 +1039,6 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="functionView" destination="cp9-M3-Ao7" id="hqR-6s-XZw"/>
-                                </connections>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2" customClass="FlashTinkerView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="4" width="320" height="265"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTP-DK-5xb" customClass="ParticleButton" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="35" y="112.5" width="250" height="40"/>
-                                        <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="D40-n2-IAG"/>
-                                            <constraint firstAttribute="width" constant="250" id="gYZ-IE-U8O"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Scan assisting device">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="flashTinkerButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="Zwx-is-jYz"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To enable Tinker, you need to flash the Tinker firmware to this device." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lo-D1-pcJ">
-                                        <rect key="frame" x="20" y="61" width="280" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="ldt-x3-Cmr"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="JM6-rU-il4"/>
-                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerY" secondItem="vxH-yP-sY2" secondAttribute="centerY" id="KDS-O2-c5Z"/>
-                                    <constraint firstItem="5Lo-D1-pcJ" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="Zqj-WT-0fe"/>
-                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="top" secondItem="5Lo-D1-pcJ" secondAttribute="bottom" constant="19.666666666666686" id="ncy-Wv-xNL"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="flashTinkerButton" destination="GTP-DK-5xb" id="go8-dj-VP2"/>
-                                    <outlet property="flashTinkerLabel" destination="5Lo-D1-pcJ" id="7W1-l8-0MM"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -1099,7 +1095,7 @@
                                             <constraint firstAttribute="width" constant="32" id="V5P-la-5QP"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="MeshControlPanelIcon"/>
+                                        <state key="normal" image="IconControlPanel"/>
                                         <connections>
                                             <action selector="actionButtonTapped:" destination="XC3-E0-ieD" eventType="touchUpInside" id="Ex7-Mg-6wP"/>
                                         </connections>
@@ -1124,7 +1120,7 @@
                                             <constraint firstAttribute="height" constant="32" id="c9T-lE-Loe"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="BackIcon"/>
+                                        <state key="normal" image="IconBack"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="XC3-E0-ieD" eventType="touchUpInside" id="iQe-iq-mN4"/>
                                         </connections>
@@ -1345,6 +1341,7 @@
                                             <constraint firstAttribute="width" constant="40" id="cVL-q5-X0b"/>
                                             <constraint firstAttribute="height" constant="40" id="sZG-12-tJS"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.85098039215686272" green="0.84705882352941175" blue="0.83921568627450982" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="IconEditInfo"/>
                                         <connections>
                                             <action selector="renameButtonTapped:" destination="IJz-KH-ZCV" eventType="touchUpInside" id="3Yt-s1-Gq9"/>
@@ -1362,6 +1359,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="Ltk-1X-haQ"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.7803921568627451" green="0.77647058823529413" blue="0.80000000000000004" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="IconCollapseInfo"/>
                                         <connections>
                                             <action selector="collapseTapped:" destination="L9X-Qq-OvM" eventType="touchUpInside" id="0pp-1o-HFK"/>
@@ -1483,6 +1481,7 @@
                                             <constraint firstAttribute="height" constant="40" id="5v0-4d-glP"/>
                                             <constraint firstAttribute="width" constant="40" id="uPq-q4-xEg"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.85098039215686272" green="0.84705882352941175" blue="0.83921568627450982" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="IconEditInfo"/>
                                         <connections>
                                             <action selector="editNotesButtonTapped:" destination="L9X-Qq-OvM" eventType="touchUpInside" id="1se-sE-dfn"/>
@@ -1591,6 +1590,7 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconExpandInfo" translatesAutoresizingMaskIntoConstraints="NO" id="rZZ-4R-Tty">
                                         <rect key="frame" x="272" y="29" width="40" height="42"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="P2d-v5-a4m"/>
                                             <constraint firstAttribute="width" constant="40" id="Zk2-Xd-BRy"/>
@@ -1690,7 +1690,7 @@
                                             <constraint firstAttribute="width" constant="40" id="azP-Xc-wuV"/>
                                         </constraints>
                                         <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <state key="normal" image="CloseIcon"/>
+                                        <state key="normal" image="IconClose"/>
                                         <connections>
                                             <action selector="closeTapped:" destination="mXl-nK-0H4" eventType="touchUpInside" id="OF2-hc-VEs"/>
                                         </connections>
@@ -1810,7 +1810,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="webView Title" id="haW-Fl-TtH">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="CloseIcon" id="teh-6O-PmY">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="IconClose" id="teh-6O-PmY">
                                             <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="closeButtonTapped:" destination="Aix-mE-R3J" id="cJT-MX-sBv"/>
@@ -1861,7 +1861,7 @@
                                     <constraint firstAttribute="height" constant="40" id="PFZ-Jt-sNy"/>
                                 </constraints>
                                 <color key="tintColor" red="0.0" green="0.67843137249999996" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="CloseIcon"/>
+                                <state key="normal" image="IconClose"/>
                                 <connections>
                                     <action selector="closeButtonTapped:" destination="EnS-t6-yW9" eventType="touchUpInside" id="FKz-xi-g8p"/>
                                 </connections>
@@ -1920,7 +1920,7 @@
                                             <constraint firstAttribute="height" constant="32" id="FS8-j1-hOh"/>
                                             <constraint firstAttribute="width" constant="32" id="hyf-72-XVu"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button" image="IconPause"/>
                                         <connections>
                                             <action selector="playPauseButtonTapped:" destination="syL-62-7a7" eventType="touchUpInside" id="Wd1-rT-7p2"/>
@@ -1932,7 +1932,7 @@
                                             <constraint firstAttribute="height" constant="32" id="JHv-FY-CcR"/>
                                             <constraint firstAttribute="width" constant="32" id="sZO-bL-E1V"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" image="IconTrash"/>
                                         <connections>
                                             <action selector="clearButtonTapped:" destination="syL-62-7a7" eventType="touchUpInside" id="gpG-le-iNM"/>
@@ -1965,7 +1965,7 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="oYI-V5-D85">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconSearch" translatesAutoresizingMaskIntoConstraints="NO" id="oYI-V5-D85">
                                                 <rect key="frame" x="10" y="10.5" width="24" height="24"/>
                                                 <color key="tintColor" red="0.69411764705882351" green="0.69411764705882351" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -2020,7 +2020,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zo6-gM-TTE">
-                                                    <rect key="frame" x="8" y="8" width="304" height="88.5"/>
+                                                    <rect key="frame" x="8" y="11" width="304" height="83"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSv-Ri-TgF">
                                                             <rect key="frame" x="11" y="36.5" width="33" height="14.5"/>
@@ -2066,7 +2066,7 @@
                                                                 <constraint firstAttribute="width" constant="26" id="coY-Kg-B0m"/>
                                                             </constraints>
                                                             <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                            <state key="normal" image="imgCopyToClipboard"/>
+                                                            <state key="normal" image="IconCopy"/>
                                                             <connections>
                                                                 <action selector="copyEventButtonTapped:" destination="UHz-MM-BR6" eventType="touchUpInside" id="1Ul-OK-Onw"/>
                                                             </connections>
@@ -2232,7 +2232,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="g7b-mM-AuN" secondAttribute="trailing" constant="8" id="e6U-5r-tKm"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="f" translatesAutoresizingMaskIntoConstraints="NO" id="JuL-gn-y3Y">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconFunctions" translatesAutoresizingMaskIntoConstraints="NO" id="JuL-gn-y3Y">
                                                     <rect key="frame" x="16" y="12" width="24" height="24"/>
                                                     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -2395,7 +2395,7 @@
                                                     <rect key="frame" x="8" y="8" width="304" height="32"/>
                                                     <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="v" translatesAutoresizingMaskIntoConstraints="NO" id="fFn-1y-n2W">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconVariables" translatesAutoresizingMaskIntoConstraints="NO" id="fFn-1y-n2W">
                                                     <rect key="frame" x="16" y="12" width="24" height="24"/>
                                                     <color key="tintColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -2531,34 +2531,33 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AddIcon" width="24" height="24"/>
-        <image name="BackIcon" width="24" height="24"/>
-        <image name="CloseIcon" width="24" height="24"/>
-        <image name="FilterIcon" width="26" height="25"/>
+        <image name="IconAdd" width="24" height="24"/>
+        <image name="IconBack" width="24" height="24"/>
+        <image name="IconClose" width="24" height="24"/>
         <image name="IconCollapseInfo" width="36" height="11"/>
+        <image name="IconControlPanel" width="24" height="24"/>
+        <image name="IconCopy" width="24" height="24"/>
         <image name="IconEditInfo" width="13" height="16"/>
         <image name="IconExpandInfo" width="20" height="13"/>
+        <image name="IconFilters" width="24" height="24"/>
+        <image name="IconFunctions" width="24" height="24"/>
+        <image name="IconMore" width="24" height="24"/>
         <image name="IconPause" width="40" height="40"/>
+        <image name="IconSearch" width="24" height="24"/>
         <image name="IconTrash" width="40" height="40"/>
+        <image name="IconVariables" width="24" height="24"/>
         <image name="L" width="32" height="32"/>
-        <image name="MeshControlPanelIcon" width="24" height="24"/>
         <image name="MeshSetupSignalIcon" width="14" height="14"/>
-        <image name="MoreIcon" width="24" height="24"/>
-        <image name="SearchIcon" width="24" height="24"/>
         <image name="alizarin" width="2.5" height="18.5"/>
         <image name="cyan" width="2.5" height="18.5"/>
         <image name="emerald" width="2.5" height="18.5"/>
-        <image name="f" width="24" height="24"/>
         <image name="imgArrowDown" width="64" height="64"/>
         <image name="imgCircle" width="128" height="128"/>
-        <image name="imgCloseIcon" width="256" height="256"/>
-        <image name="imgCopyToClipboard" width="600" height="600"/>
         <image name="imgDeviceArgon" width="65.5" height="147"/>
         <image name="imgTrianglifyBackgroundBlue" width="375" height="741"/>
         <image name="imgTrianglifyHeader" width="375" height="88"/>
         <image name="particle-vertical-blue" width="300" height="277.5"/>
         <image name="sunflower" width="2.5" height="18.5"/>
-        <image name="v" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3ox-ek-eEM"/>

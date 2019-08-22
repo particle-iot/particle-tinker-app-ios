@@ -168,7 +168,7 @@ class CustomizableTextField: UITextField {
                 let button = view as! UIButton
 
                 if let clearButtonTintColor = clearButtonTintColor {
-                    let tintedImage = UIImage(named: "ClearIcon")!.image(withColor: clearButtonTintColor)
+                    let tintedImage = UIImage(named: "IconClear")!.image(withColor: clearButtonTintColor)
 
                     button.setImage(tintedImage, for: .normal)
                     button.setImage(tintedImage, for: .highlighted)
