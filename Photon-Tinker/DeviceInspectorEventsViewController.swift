@@ -227,32 +227,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
         self.adjustTableViewHeaderViewConstraints()
     }
 
-    override func adjustTableViewHeaderViewConstraints() {
-        if (self.tableView.tableHeaderView == nil) {
-            return
-        }
-
-        if #available(iOS 11, *) {
-            NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.contentLayoutGuide.heightAnchor, multiplier: 0.75, constant: 0),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor)
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, multiplier: 0.75, constant: 0),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor)
-            ])
-        }
-
-        NSLayoutConstraint.activate([
-            self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
-            self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor)
-        ])
-
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
-    }
-
     func tappedOnCopyButton(_ sender: DeviceEventTableViewCell, event: ParticleEvent) {
         UIPasteboard.general.string = event.description
         RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)

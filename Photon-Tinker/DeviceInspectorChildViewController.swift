@@ -29,10 +29,15 @@ class DeviceInspectorChildViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide;
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         IQKeyboardManager.shared().previousNextDisplayMode = .default
+
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func awakeFromNib() {
@@ -85,22 +90,53 @@ class DeviceInspectorChildViewController: UIViewController {
 
         if #available(iOS 11, *) {
             NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, constant: -8),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor)
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.heightAnchor, constant: -8),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.widthAnchor),
+                self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.centerXAnchor),
+                self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.centerYAnchor)
             ])
         } else {
             NSLayoutConstraint.activate([
                 self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, constant: -8),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor)
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor),
+                self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+                self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor)
             ])
         }
 
-        NSLayoutConstraint.activate([
-            self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
-            self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor)
-        ])
-
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
+    }
+
+    //MARK: Keyboard display
+    @objc func keyboardWillShow(_ notification:Notification) {
+
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if #available(iOS 11.0, *) {
+                self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height - self.view.safeAreaInsets.bottom - 100, 0)
+            } else {
+                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height - 100, 0)
+            }
+
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    @objc  func keyboardWillHide(_ notification:Notification) {
+
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if #available(iOS 11.0, *) {
+                self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+            } else {
+                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            }
+
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+        }
     }
 }

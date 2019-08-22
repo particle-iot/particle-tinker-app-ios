@@ -413,7 +413,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DeviceListCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListCell
-        cell.setup(device: self.dataSource.viewDevices[indexPath.row])
+        if (indexPath.row < self.dataSource.viewDevices.count - 1) {
+            cell.setup(device: self.dataSource.viewDevices[indexPath.row])
+        }
         return cell
     }
 
@@ -624,9 +626,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if #available(iOS 11.0, *) {
-                additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height - self.view.safeAreaInsets.bottom, 0)
+                self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height - self.view.safeAreaInsets.bottom, 0)
             } else {
-                tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
+                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
+            }
+
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
             }
         }
     }
@@ -634,9 +641,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if #available(iOS 11.0, *) {
-                additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0)
             } else {
-                tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            }
+
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
             }
         }
     }
