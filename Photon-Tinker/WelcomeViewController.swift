@@ -15,21 +15,15 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
 
     private var versionLabelTapCount = 0
 
-    override var prefersStatusBarHidden : Bool {
-        return true
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
-        
-        let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue"))
-        backgroundImage.frame = UIScreen.main.bounds
-        backgroundImage.contentMode = .scaleToFill;
-        self.view.addSubview(backgroundImage)
-        self.view.sendSubview(toBack: backgroundImage)
-        
+
         let verStr =  "v\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)b\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)"
         self.versionLabel.text = verStr
         
