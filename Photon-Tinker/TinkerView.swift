@@ -165,10 +165,6 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
                     pinView.heightAnchor.constraint(equalTo: rootPin!.heightAnchor)
                 ])
             }
-
-            if (pinViews.count == 3) {
-                return
-            }
         }
 
         //balans stacks to have equal amount of views
