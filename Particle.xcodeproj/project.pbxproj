@@ -40,6 +40,7 @@
 		932BAFAA22A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA722A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin */; };
 		932BAFAB22A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA822A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin */; };
 		932BAFAC22A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA922A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin */; };
+		934749D0230F136F0002549C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 934749CE230F136E0002549C /* LaunchScreen.storyboard */; };
 		9348298D225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */; };
 		93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93522313216CFD4600CF8A69 /* wifi_new.pb.swift */; };
 		93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */; };
@@ -310,6 +311,7 @@
 		932BAFA722A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-argon.bin"; sourceTree = "<group>"; };
 		932BAFA822A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-boron.bin"; sourceTree = "<group>"; };
 		932BAFA922A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-xenon.bin"; sourceTree = "<group>"; };
+		934749CF230F136F0002549C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Photon-Tinker/Base.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupHorizontalDetailCell.xib; sourceTree = "<group>"; };
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
 		93522316216CFD4600CF8A69 /* wifi_new.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_new.proto; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				931C3782215AA2240014811C /* MeshSetup.storyboard */,
+				934749CE230F136E0002549C /* LaunchScreen.storyboard */,
 				93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */,
 				931C3780215AA2240014811C /* MeshSetupStrings.strings */,
 				9317FC122167F4190054AE24 /* MeshViews */,
@@ -1259,6 +1262,7 @@
 				9324E683228B73D5006B253D /* TinkerStrings.strings in Resources */,
 				932BAFAA22A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin in Resources */,
 				93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */,
+				934749D0230F136F0002549C /* LaunchScreen.storyboard in Resources */,
 				9394CADA22E7814200FF3E61 /* MeshSetupNetworkListNoActivityIndicatorView.xib in Resources */,
 				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
 				93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */,
@@ -1603,6 +1607,14 @@
 				9324E680228B73D5006B253D /* Base */,
 			);
 			name = TinkerStrings.strings;
+			sourceTree = "<group>";
+		};
+		934749CE230F136E0002549C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				934749CF230F136F0002549C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
