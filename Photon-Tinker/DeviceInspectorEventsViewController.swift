@@ -234,7 +234,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
 
         if #available(iOS 11, *) {
             NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.75, constant: 0),
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.contentLayoutGuide.heightAnchor, multiplier: 0.75, constant: 0),
                 self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor)
             ])
         } else {
@@ -243,6 +243,11 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
                 self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor)
             ])
         }
+
+        NSLayoutConstraint.activate([
+            self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+            self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor)
+        ])
 
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()

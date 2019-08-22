@@ -39,7 +39,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @objc func appDidBecomeActive(_ sender : AnyObject) {
         if (!self.isBusy) {
-            self.initialLoadComplete = false
+            if ParticleCloud.sharedInstance().isAuthenticated {
+                self.initialLoadComplete = false
+            }
             self.fade(animated: true)
             self.loadDevices()
         }
@@ -69,8 +71,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.loadDevices()
             }
 
+            self.initialLoadComplete = false
             self.noDevicesLabel.isHidden = true
         } else {
+            self.initialLoadComplete = true
             self.noDevicesLabel.isHidden = false
         }
     }

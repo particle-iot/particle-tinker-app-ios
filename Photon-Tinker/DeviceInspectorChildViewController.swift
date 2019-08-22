@@ -95,6 +95,11 @@ class DeviceInspectorChildViewController: UIViewController {
             ])
         }
 
+        NSLayoutConstraint.activate([
+            self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+            self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor)
+        ])
+
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
     }
