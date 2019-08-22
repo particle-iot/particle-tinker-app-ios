@@ -6,11 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "overlaygraphic.png",
+      "filename" : "particle-horizontal-head.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "particle-horizontal-head-1.png",
       "scale" : "3x"
     }
   ],

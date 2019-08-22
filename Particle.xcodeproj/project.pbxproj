@@ -615,13 +615,13 @@
 				932BAFA622A55297009F62DB /* Videos */,
 				932BAFA522A55274009F62DB /* Binaries */,
 				50F62D941AE0721200109F33 /* Fonts */,
+				9317FC122167F4190054AE24 /* MeshViews */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
+				93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				931C3782215AA2240014811C /* MeshSetup.storyboard */,
 				934749CE230F136E0002549C /* LaunchScreen.storyboard */,
-				93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */,
 				931C3780215AA2240014811C /* MeshSetupStrings.strings */,
-				9317FC122167F4190054AE24 /* MeshViews */,
 				9324E67F228B73D5006B253D /* TinkerStrings.strings */,
 			);
 			name = Assets;

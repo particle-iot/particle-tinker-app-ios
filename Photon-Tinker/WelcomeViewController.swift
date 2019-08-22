@@ -79,7 +79,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         
         c?.allowSkipAuthentication = true
         c?.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to Photon based devices but not claim them to your account nor use Tinker or device inspector. Are you sure you want to continue?"
-        c?.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
+        c?.pageBackgroundImage = UIImage(named: "ImgAppBackground")
         c?.normalTextFontName = "Gotham-Book"
         c?.boldTextFontName = "Gotham-Medium"
         c?.headerTextFontName = "Gotham-Light" // new
@@ -87,9 +87,9 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         c?.linkTextColor = UIColor.white
 
         c?.linkTextColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
-        c?.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c?.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "ImgOrangeGradient")!)
         c?.elementBackgroundColor = UIColor.white
-        c?.brandImage = UIImage(named: "particle-horizontal-head")
+        c?.brandImage = UIImage(named: "ImgParticleLogoHorizontal")
         c?.brandImageBackgroundColor = .clear
         c?.brandImageBackgroundImage = nil
         c?.tintSetupImages = true

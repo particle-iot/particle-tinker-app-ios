@@ -6,17 +6,19 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "particle-vertical-blue.png"
+      "filename" : "noun_70148.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "particle-vertical-blue-1.png"
+      "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

@@ -90,7 +90,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.frame = .zero
-        button.setImage(UIImage(named: "imgCircle"), for: .normal)
+        button.setImage(UIImage(named: "ImgCircle"), for: .normal)
         button.setTitle("", for: .normal)
         button.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
         addSubview(button)

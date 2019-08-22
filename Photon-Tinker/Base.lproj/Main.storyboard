@@ -35,11 +35,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyBackgroundBlue" translatesAutoresizingMaskIntoConstraints="NO" id="MXA-0R-wbk">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgAppBackground" translatesAutoresizingMaskIntoConstraints="NO" id="MXA-0R-wbk">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="particle-vertical-blue" translatesAutoresizingMaskIntoConstraints="NO" id="iA9-Xk-N8F">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgParticleLogoVertical" translatesAutoresizingMaskIntoConstraints="NO" id="iA9-Xk-N8F">
                                 <rect key="frame" x="60" y="150" width="200" height="180"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Kgs-xY-gxF"/>
                                     <constraint firstAttribute="height" constant="180" id="Mom-Y1-nIe"/>
@@ -278,7 +279,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OvA-vu-1vT">
                                                                             <rect key="frame" x="41" y="7" width="118.5" height="22"/>
                                                                             <subviews>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="lmI-S4-sV4">
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="lmI-S4-sV4">
                                                                                     <rect key="frame" x="0.0" y="3" width="16" height="16"/>
                                                                                     <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
@@ -524,7 +525,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-Ur-rz3" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-Uz-IIB">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgAppHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-Uz-IIB">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5g-NQ-f2Y" userLabel="Border">
@@ -608,7 +609,7 @@
                                                     <color key="textColor" red="0.0" green="0.60392156860000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="m2c-Ce-qYF">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="m2c-Ce-qYF">
                                                     <rect key="frame" x="16" y="22" width="16" height="16"/>
                                                     <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -1085,7 +1086,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbY-Lg-bFc" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgTrianglifyHeader" translatesAutoresizingMaskIntoConstraints="NO" id="tYT-bH-jfk">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgAppHeader" translatesAutoresizingMaskIntoConstraints="NO" id="tYT-bH-jfk">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vy-mA-gxb" userLabel="actionsButton">
@@ -1315,14 +1316,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zUO-Yl-2xh">
                                 <rect key="frame" x="0.0" y="10" width="322" height="450"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="ua2-zp-dih" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="42" width="65.5" height="180"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="ua2-zp-dih" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="42" width="16" height="180"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="180" id="ygI-Wu-l3f"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="u1c-U7-8xJ">
-                                        <rect key="frame" x="105.5" y="75" width="16" height="16"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="u1c-U7-8xJ">
+                                        <rect key="frame" x="56" y="75" width="16" height="16"/>
                                         <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="MB7-Ob-zgu"/>
@@ -1330,13 +1331,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sh-TV-MRr" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="105.5" y="42" width="99.5" height="16"/>
+                                        <rect key="frame" x="56" y="42" width="99.5" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8d-kn-fF4">
-                                        <rect key="frame" x="200" y="30" width="40" height="40"/>
+                                        <rect key="frame" x="150.5" y="30" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="cVL-q5-X0b"/>
                                             <constraint firstAttribute="height" constant="40" id="sZG-12-tJS"/>
@@ -1349,7 +1350,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwP-vJ-Wey" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="126.5" y="75" width="121.5" height="16"/>
+                                        <rect key="frame" x="77" y="75" width="171" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1366,13 +1367,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOa-1g-woh" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="126.5" y="108" width="118.5" height="16"/>
+                                        <rect key="frame" x="77" y="108" width="168" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupSignalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="E2I-q9-Mvq">
-                                        <rect key="frame" x="106.5" y="109" width="14" height="14"/>
+                                        <rect key="frame" x="56" y="108" width="16" height="16"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5Y-6R-sTK">
                                         <rect key="frame" x="20" y="252" width="282" height="1"/>
@@ -1562,13 +1563,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8d-2V-pMq">
                                 <rect key="frame" x="0.0" y="0.0" width="322" height="100"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="Bey-1A-hn8" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="17.5" width="65.5" height="65"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgDeviceArgon" translatesAutoresizingMaskIntoConstraints="NO" id="Bey-1A-hn8" customClass="ScaledHeightImageView" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="17.5" width="16" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="ZSB-hA-vAm"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Mym-cw-viN">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Mym-cw-viN">
                                         <rect key="frame" x="236" y="42" width="16" height="16"/>
                                         <color key="tintColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -1577,13 +1578,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="lorem ipsum delores lorem ipsum delores lorem ipsum delores" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBE-0I-JsD" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="101.5" y="28" width="118.5" height="16"/>
+                                        <rect key="frame" x="52" y="28" width="168" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="123" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPT-jw-TWk" customClass="DeviceTypeLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="101.5" y="46" width="27" height="16"/>
+                                        <rect key="frame" x="52" y="46" width="27" height="16"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2020,41 +2021,41 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zo6-gM-TTE">
-                                                    <rect key="frame" x="8" y="11" width="304" height="83"/>
+                                                    <rect key="frame" x="8" y="8" width="304" height="88.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSv-Ri-TgF">
-                                                            <rect key="frame" x="11" y="36.5" width="33" height="14.5"/>
+                                                            <rect key="frame" x="11" y="38.5" width="30" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5a-3O-bj2">
-                                                            <rect key="frame" x="10" y="67" width="34" height="14.5"/>
+                                                            <rect key="frame" x="10" y="71" width="31" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="&lt;Event name&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y1Q-sM-bnH">
-                                                            <rect key="frame" x="52" y="4.5" width="222" height="18"/>
+                                                            <rect key="frame" x="49" y="5.5" width="225" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Medium" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="&lt;Event payload&gt;" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bts-70-KsD">
-                                                            <rect key="frame" x="52" y="26.5" width="248" height="35"/>
+                                                            <rect key="frame" x="49" y="27.5" width="251" height="39"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbc-m5-gwv" userLabel="copyEventButton">
-                                                            <rect key="frame" x="11" y="26.5" width="289" height="35"/>
+                                                            <rect key="frame" x="11" y="27.5" width="289" height="39"/>
                                                             <color key="tintColor" red="0.14901960780000001" green="0.59607843140000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
                                                                 <action selector="payloadButtonTapped:" destination="UHz-MM-BR6" eventType="touchUpInside" id="pIt-dL-vU1"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="&lt;event time&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSR-Ot-gbp">
-                                                            <rect key="frame" x="52" y="65.5" width="248" height="18"/>
+                                                            <rect key="frame" x="49" y="70.5" width="251" height="18"/>
                                                             <fontDescription key="fontDescription" name="FiraMono-Regular" family="Fira Mono" pointSize="15"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -2072,7 +2073,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTG-Li-XMh">
-                                                            <rect key="frame" x="4" y="6" width="40" height="14.5"/>
+                                                            <rect key="frame" x="4" y="6" width="37" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="14"/>
                                                             <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -2135,7 +2136,7 @@
                                 <rect key="frame" x="0.0" y="102.5" width="320" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6e-1K-ahG">
-                                        <rect key="frame" x="115.5" y="24.5" width="89.5" height="19"/>
+                                        <rect key="frame" x="119.5" y="23" width="81.5" height="22"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2255,8 +2256,9 @@
                                                         <action selector="callButtonTapped:" destination="yHo-f1-oRZ" eventType="touchUpInside" id="Nqh-Fc-drB"/>
                                                     </connections>
                                                 </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgArrowDown" translatesAutoresizingMaskIntoConstraints="NO" id="3Nc-Od-lkh">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImgArrowDown" translatesAutoresizingMaskIntoConstraints="NO" id="3Nc-Od-lkh">
                                                     <rect key="frame" x="73" y="14" width="28" height="20"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="28" id="FJU-2D-5GN"/>
                                                         <constraint firstAttribute="height" constant="20" id="hV3-Ez-o2e"/>
@@ -2547,16 +2549,16 @@
         <image name="IconSearch" width="24" height="24"/>
         <image name="IconTrash" width="40" height="40"/>
         <image name="IconVariables" width="24" height="24"/>
+        <image name="ImgAppBackground" width="375" height="741"/>
+        <image name="ImgAppHeader" width="375" height="88"/>
+        <image name="ImgArrowDown" width="64" height="64"/>
+        <image name="ImgCircle" width="128" height="128"/>
+        <image name="ImgDeviceArgon" width="65.5" height="147"/>
+        <image name="ImgParticleLogoVertical" width="300" height="277.5"/>
         <image name="MeshSetupSignalIcon" width="14" height="14"/>
         <image name="alizarin" width="2.5" height="18.5"/>
         <image name="cyan" width="2.5" height="18.5"/>
         <image name="emerald" width="2.5" height="18.5"/>
-        <image name="imgArrowDown" width="64" height="64"/>
-        <image name="imgCircle" width="128" height="128"/>
-        <image name="imgDeviceArgon" width="65.5" height="147"/>
-        <image name="imgTrianglifyBackgroundBlue" width="375" height="741"/>
-        <image name="imgTrianglifyHeader" width="375" height="88"/>
-        <image name="particle-vertical-blue" width="300" height="277.5"/>
         <image name="sunflower" width="2.5" height="18.5"/>
     </resources>
     <inferredMetricsTieBreakers>

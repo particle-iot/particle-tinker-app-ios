@@ -42,7 +42,7 @@ internal class FilterDeviceOnlineStatusCell: UICollectionViewCell {
 
     func setup(option: DeviceOnlineStatusOptions) {
         self.titleLabel.text = option.description
-        self.deviceStateImageView.image = UIImage(named: "imgCircle")!.withRenderingMode(.alwaysTemplate)
+        self.deviceStateImageView.image = UIImage(named: "ImgCircle")!.withRenderingMode(.alwaysTemplate)
 
         if (option == .online) {
             self.deviceStateImageView.tintColor = ParticleStyle.ButtonColor

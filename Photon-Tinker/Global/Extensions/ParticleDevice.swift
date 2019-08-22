@@ -61,35 +61,35 @@ extension ParticleDeviceType {
         switch (self)
         {
             case .core:
-                return UIImage(named: "imgDeviceCore")
+                return UIImage(named: "ImgDeviceCore")
             case .electron:
-                return UIImage(named: "imgDeviceElectron")
+                return UIImage(named: "ImgDeviceElectron")
             case .photon:
-                return UIImage(named: "imgDevicePhoton")
+                return UIImage(named: "ImgDevicePhoton")
             case .P1:
-                return UIImage(named: "imgDeviceP1")
+                return UIImage(named: "ImgDeviceP1")
             case .raspberryPi:
-                return UIImage(named: "imgDeviceRaspberryPi")
+                return UIImage(named: "ImgDeviceRaspberryPi")
             case .redBearDuo:
-                return UIImage(named: "imgDeviceRedBearDuo")
+                return UIImage(named: "ImgDeviceRedBearDuo")
             case .bluz:
-                return UIImage(named: "imgDeviceBluz")
+                return UIImage(named: "ImgDeviceBluz")
             case .digistumpOak:
-                return UIImage(named: "imgDeviceDigistumpOak")
+                return UIImage(named: "ImgDeviceDigistumpOak")
             case .xenon:
-                return UIImage(named: "imgDeviceXenon")
+                return UIImage(named: "ImgDeviceXenon")
             case .argon:
-                return UIImage(named: "imgDeviceArgon")
+                return UIImage(named: "ImgDeviceArgon")
             case .boron:
-                return UIImage(named: "imgDeviceBoron")
+                return UIImage(named: "ImgDeviceBoron")
             case .xSeries:
-                return UIImage(named: "imgDeviceXenon")
+                return UIImage(named: "ImgDeviceXenon")
             case .aSeries:
-                return UIImage(named: "imgDeviceArgon")
+                return UIImage(named: "ImgDeviceArgon")
             case .bSeries:
-                return UIImage(named: "imgDeviceBoron")
+                return UIImage(named: "ImgDeviceBoron")
             default:
-                return UIImage(named: "imgDeviceUnknown")
+                return UIImage(named: "ImgDeviceUnknown")
         }
     }
 

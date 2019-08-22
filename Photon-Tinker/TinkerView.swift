@@ -64,9 +64,9 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
         // add chip shadow
         let outlineImage: UIImage!
         if (device.is3rdGen()) {
-            outlineImage = UIImage(named: "ImgDevice3rdGen")!.withRenderingMode(.alwaysTemplate)
+            outlineImage = UIImage(named: "ImgDevice3rdGen")!
         } else {
-            outlineImage = UIImage(named: "ImgDevice2ndGen")!.withRenderingMode(.alwaysTemplate)
+            outlineImage = UIImage(named: "ImgDevice2ndGen")!
         }
 
         backgroundImageView = UIImageView(image: outlineImage)
