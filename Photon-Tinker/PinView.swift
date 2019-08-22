@@ -114,7 +114,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             label.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
             label.heightAnchor.constraint(equalTo: self.heightAnchor),
             label.centerXAnchor.constraint(equalTo: outerPieFrameView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 1)
         ])
 
         valueLabel = UILabel(frame: .zero)
