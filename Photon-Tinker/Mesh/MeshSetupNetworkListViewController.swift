@@ -50,7 +50,7 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
 
     func stopScanning() {
         DispatchQueue.main.async {
-            self.scanActivityIndicator?.stopAnimating()
+            //self.scanActivityIndicator?.stopAnimating()
             self.networksTableView.reloadData()
         }
     }
