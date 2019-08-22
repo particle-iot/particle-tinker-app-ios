@@ -20,7 +20,8 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addRefreshControl()
+        self.addRefreshControl()
+        self.noFunctionsMessageView.removeFromSuperview()
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -19,7 +19,8 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addRefreshControl()
+        self.addRefreshControl()
+        self.noVariablesMessageView.removeFromSuperview()
     }
 
     override func viewWillAppear(_ animated: Bool) {
