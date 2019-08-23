@@ -7,7 +7,6 @@ import Foundation
 
 class DeviceListFilterAndSortViewController: UIViewController, SortByViewDelegate, DeviceTypeViewDelegate, DeviceStatusViewDelegate {
     
-    @IBOutlet weak var whiteBackground: UIView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var showButton: ParticleButton!
@@ -17,6 +16,10 @@ class DeviceListFilterAndSortViewController: UIViewController, SortByViewDelegat
 
     private weak var dataSource: DeviceListDataSource!
     private var viewDataSource: DeviceListDataSource!
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
