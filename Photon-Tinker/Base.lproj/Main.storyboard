@@ -877,14 +877,13 @@
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="PinFunctionView" customModule="Particle" customModuleProvider="target">
                                         <rect key="frame" x="20" y="59" width="280" height="147"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Uo-PR-xcJ" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Uo-PR-xcJ" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="50" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="yml-dP-epx"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="analogRead">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -893,11 +892,10 @@
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="fI4-ka-YfZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kep-d7-v4h" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kep-d7-v4h" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="96" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="analogWrite">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -906,11 +904,10 @@
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="gU8-f2-fhn"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZI-mP-P5L" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZI-mP-P5L" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="145" y="50" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
                                                 <state key="normal" title="digitalRead">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -919,11 +916,10 @@
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="oNN-J0-jgK"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmO-7c-yA1" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmO-7c-yA1" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="145" y="96" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
                                                 <state key="normal" title="digitalWrite">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
