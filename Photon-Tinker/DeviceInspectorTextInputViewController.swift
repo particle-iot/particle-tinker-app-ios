@@ -78,7 +78,9 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     }
 
     private func setStyle() {
+        self.promptBackground.layer.masksToBounds = false
         self.promptBackground.layer.cornerRadius = 5
+        self.promptBackground.layer.applySketchShadow(color: UIColor(rgb: 0x000000), alpha: 0.3, x: 0, y: 2, blur: 4, spread: 0)
 
         self.inputTextField.borderStyle = .none
 
