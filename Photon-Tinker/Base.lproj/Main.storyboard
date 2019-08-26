@@ -875,35 +875,14 @@
                                 <rect key="frame" x="0.0" y="4" width="320" height="265"/>
                                 <subviews>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cp9-M3-Ao7" customClass="PinFunctionView" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="60" y="67.5" width="200" height="130"/>
+                                        <rect key="frame" x="20" y="59" width="280" height="147"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunflower" translatesAutoresizingMaskIntoConstraints="NO" id="0Dp-bl-5EV">
-                                                <rect key="frame" x="0.0" y="87" width="6" height="43"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="6" id="2hh-kP-OcF"/>
-                                                </constraints>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emerald" translatesAutoresizingMaskIntoConstraints="NO" id="mDh-xo-YvB">
-                                                <rect key="frame" x="0.0" y="40" width="6" height="43"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="6" id="VaG-zl-xez"/>
-                                                </constraints>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cyan" translatesAutoresizingMaskIntoConstraints="NO" id="YGr-y1-Ivz">
-                                                <rect key="frame" x="194" y="40" width="6" height="43"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="6" id="sZj-2E-xYl"/>
-                                                </constraints>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alizarin" translatesAutoresizingMaskIntoConstraints="NO" id="hhT-Ph-kTP">
-                                                <rect key="frame" x="194" y="87" width="6" height="43"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="6" id="6mv-U3-ndH"/>
-                                                </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Uo-PR-xcJ">
-                                                <rect key="frame" x="0.0" y="40" width="98" height="43"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Uo-PR-xcJ" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="15" y="50" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="yml-dP-epx"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                 <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="analogRead">
@@ -914,8 +893,8 @@
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="fI4-ka-YfZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kep-d7-v4h">
-                                                <rect key="frame" x="0.0" y="87" width="98" height="43"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kep-d7-v4h" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="15" y="96" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                 <inset key="contentEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -927,8 +906,8 @@
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="gU8-f2-fhn"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZI-mP-P5L">
-                                                <rect key="frame" x="102" y="40" width="98" height="43"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZI-mP-P5L" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="145" y="50" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
@@ -940,8 +919,8 @@
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="oNN-J0-jgK"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmO-7c-yA1">
-                                                <rect key="frame" x="102" y="87" width="98" height="43"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmO-7c-yA1" customClass="ParticleCustomButton" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="145" y="96" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
@@ -953,19 +932,19 @@
                                                     <action selector="functionSelected:" destination="cp9-M3-Ao7" eventType="touchUpInside" id="9eD-zL-22T"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEU-nT-aGU">
-                                                <rect key="frame" x="88.5" y="12" width="23" height="15"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEU-nT-aGU" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="17.5" width="23" height="15"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yx1-Ug-Dt4">
-                                                <rect key="frame" x="6" y="6" width="24" height="24"/>
+                                                <rect key="frame" x="235" y="5" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="24" id="P9y-5N-aKu"/>
-                                                    <constraint firstAttribute="height" constant="24" id="Z6y-Is-Y2y"/>
+                                                    <constraint firstAttribute="width" constant="40" id="P9y-5N-aKu"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Z6y-Is-Y2y"/>
                                                 </constraints>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" red="0.0078431372549019607" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                                 <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
                                                 <state key="normal" image="IconClose"/>
                                                 <connections>
@@ -973,53 +952,35 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="HZI-mP-P5L" firstAttribute="width" secondItem="0Uo-PR-xcJ" secondAttribute="width" id="0E2-kV-lTT"/>
-                                            <constraint firstItem="0Uo-PR-xcJ" firstAttribute="width" secondItem="cp9-M3-Ao7" secondAttribute="width" multiplier="0.5" constant="-2" id="1Sn-A6-z7j"/>
-                                            <constraint firstAttribute="centerX" secondItem="NEU-nT-aGU" secondAttribute="centerX" id="1cy-7b-CrH"/>
-                                            <constraint firstItem="hhT-Ph-kTP" firstAttribute="trailing" secondItem="GmO-7c-yA1" secondAttribute="trailing" id="29Z-1z-g5H"/>
-                                            <constraint firstAttribute="bottom" secondItem="GmO-7c-yA1" secondAttribute="bottom" id="60x-lj-WNS"/>
-                                            <constraint firstItem="YGr-y1-Ivz" firstAttribute="trailing" secondItem="HZI-mP-P5L" secondAttribute="trailing" id="6uE-C3-2nN"/>
-                                            <constraint firstAttribute="width" constant="200" id="8xW-Ni-Q5c"/>
-                                            <constraint firstAttribute="bottom" secondItem="Kep-d7-v4h" secondAttribute="bottom" id="9DN-S1-rqn"/>
+                                            <constraint firstItem="0Uo-PR-xcJ" firstAttribute="width" secondItem="cp9-M3-Ao7" secondAttribute="width" multiplier="0.5" constant="-20" id="1Sn-A6-z7j"/>
+                                            <constraint firstItem="NEU-nT-aGU" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" constant="20" id="7q2-cz-K73"/>
+                                            <constraint firstAttribute="width" constant="280" id="8xW-Ni-Q5c"/>
+                                            <constraint firstAttribute="bottom" secondItem="Kep-d7-v4h" secondAttribute="bottom" constant="15" id="9DN-S1-rqn"/>
                                             <constraint firstItem="Kep-d7-v4h" firstAttribute="width" secondItem="0Uo-PR-xcJ" secondAttribute="width" id="AYp-kZ-ZkC"/>
-                                            <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="6" id="Cuw-HM-wjy"/>
-                                            <constraint firstItem="hhT-Ph-kTP" firstAttribute="height" secondItem="GmO-7c-yA1" secondAttribute="height" id="Eim-JR-VDh"/>
-                                            <constraint firstItem="NEU-nT-aGU" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="12" id="HEP-9L-tfh"/>
-                                            <constraint firstItem="YGr-y1-Ivz" firstAttribute="height" secondItem="HZI-mP-P5L" secondAttribute="height" id="I6Z-Yp-vQa"/>
-                                            <constraint firstItem="0Dp-bl-5EV" firstAttribute="height" secondItem="Kep-d7-v4h" secondAttribute="height" id="IOd-mi-JvA"/>
-                                            <constraint firstItem="0Dp-bl-5EV" firstAttribute="centerY" secondItem="Kep-d7-v4h" secondAttribute="centerY" id="LCa-Th-DEJ"/>
-                                            <constraint firstItem="0Dp-bl-5EV" firstAttribute="leading" secondItem="Kep-d7-v4h" secondAttribute="leading" id="OAF-Vg-U9c"/>
-                                            <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" constant="6" id="OrL-bz-EGp"/>
-                                            <constraint firstItem="hhT-Ph-kTP" firstAttribute="centerY" secondItem="GmO-7c-yA1" secondAttribute="centerY" id="OyW-MP-yj4"/>
-                                            <constraint firstItem="mDh-xo-YvB" firstAttribute="height" secondItem="0Uo-PR-xcJ" secondAttribute="height" id="SNh-Ui-beM"/>
-                                            <constraint firstItem="Kep-d7-v4h" firstAttribute="top" secondItem="mDh-xo-YvB" secondAttribute="bottom" constant="4" id="SWB-EU-KOe"/>
-                                            <constraint firstItem="HZI-mP-P5L" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="40" id="TQH-5g-IXk"/>
+                                            <constraint firstItem="Yx1-Ug-Dt4" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="5" id="Cuw-HM-wjy"/>
+                                            <constraint firstItem="GmO-7c-yA1" firstAttribute="centerY" secondItem="Kep-d7-v4h" secondAttribute="centerY" id="GrS-wo-Mau"/>
+                                            <constraint firstItem="HZI-mP-P5L" firstAttribute="top" secondItem="Yx1-Ug-Dt4" secondAttribute="bottom" constant="5" id="KbJ-dR-M4d"/>
+                                            <constraint firstAttribute="trailing" secondItem="Yx1-Ug-Dt4" secondAttribute="trailing" constant="5" id="OrL-bz-EGp"/>
+                                            <constraint firstItem="NEU-nT-aGU" firstAttribute="centerY" secondItem="Yx1-Ug-Dt4" secondAttribute="centerY" id="OwO-3c-s52"/>
                                             <constraint firstItem="Kep-d7-v4h" firstAttribute="height" secondItem="0Uo-PR-xcJ" secondAttribute="height" id="Tqf-TT-zdG"/>
                                             <constraint firstItem="GmO-7c-yA1" firstAttribute="height" secondItem="0Uo-PR-xcJ" secondAttribute="height" id="WtA-zw-Ul9"/>
-                                            <constraint firstAttribute="trailing" secondItem="GmO-7c-yA1" secondAttribute="trailing" id="ebb-2r-aob"/>
-                                            <constraint firstItem="mDh-xo-YvB" firstAttribute="leading" secondItem="0Uo-PR-xcJ" secondAttribute="leading" id="ehs-HC-VBT"/>
+                                            <constraint firstItem="Kep-d7-v4h" firstAttribute="top" secondItem="0Uo-PR-xcJ" secondAttribute="bottom" constant="10" id="b9c-9g-mk6"/>
+                                            <constraint firstItem="GmO-7c-yA1" firstAttribute="trailing" secondItem="HZI-mP-P5L" secondAttribute="trailing" id="bO9-Hr-pLK"/>
+                                            <constraint firstItem="Kep-d7-v4h" firstAttribute="leading" secondItem="0Uo-PR-xcJ" secondAttribute="leading" id="bnI-qQ-rbk"/>
                                             <constraint firstItem="GmO-7c-yA1" firstAttribute="width" secondItem="0Uo-PR-xcJ" secondAttribute="width" id="kep-9i-03c"/>
-                                            <constraint firstItem="0Uo-PR-xcJ" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" id="mr6-oT-O2j"/>
+                                            <constraint firstItem="HZI-mP-P5L" firstAttribute="centerY" secondItem="0Uo-PR-xcJ" secondAttribute="centerY" id="mdz-Ci-dSF"/>
+                                            <constraint firstItem="0Uo-PR-xcJ" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" constant="15" id="mr6-oT-O2j"/>
                                             <constraint firstItem="HZI-mP-P5L" firstAttribute="height" secondItem="0Uo-PR-xcJ" secondAttribute="height" id="oLi-su-efb"/>
-                                            <constraint firstItem="mDh-xo-YvB" firstAttribute="centerY" secondItem="0Uo-PR-xcJ" secondAttribute="centerY" id="s0u-dg-KTG"/>
-                                            <constraint firstAttribute="trailing" secondItem="HZI-mP-P5L" secondAttribute="trailing" id="sGI-va-rd6"/>
-                                            <constraint firstItem="GmO-7c-yA1" firstAttribute="top" secondItem="YGr-y1-Ivz" secondAttribute="bottom" constant="4" id="v2z-FA-gWP"/>
-                                            <constraint firstItem="0Uo-PR-xcJ" firstAttribute="top" secondItem="cp9-M3-Ao7" secondAttribute="top" constant="40" id="vNg-qS-Gri"/>
-                                            <constraint firstItem="Kep-d7-v4h" firstAttribute="leading" secondItem="cp9-M3-Ao7" secondAttribute="leading" id="vXk-7g-0ZO"/>
-                                            <constraint firstItem="YGr-y1-Ivz" firstAttribute="centerY" secondItem="HZI-mP-P5L" secondAttribute="centerY" id="xh1-bn-Cxk"/>
-                                            <constraint firstAttribute="height" constant="130" id="zgg-gs-GEc"/>
+                                            <constraint firstAttribute="trailing" secondItem="HZI-mP-P5L" secondAttribute="trailing" constant="15" id="sGI-va-rd6"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="analogReadButton" destination="0Uo-PR-xcJ" id="yhl-Zn-37G"/>
-                                            <outlet property="analogReadImageView" destination="mDh-xo-YvB" id="f2J-LW-OHd"/>
                                             <outlet property="analogWriteButton" destination="Kep-d7-v4h" id="rn8-M2-oUK"/>
-                                            <outlet property="analogWriteImageView" destination="0Dp-bl-5EV" id="LRq-ii-tlz"/>
                                             <outlet property="digitalReadButton" destination="HZI-mP-P5L" id="7mP-Wo-6Lt"/>
-                                            <outlet property="digitalReadImageView" destination="YGr-y1-Ivz" id="PZE-Mq-Jiw"/>
                                             <outlet property="digitalWriteButton" destination="GmO-7c-yA1" id="k63-bp-b5e"/>
-                                            <outlet property="digitalWriteImageView" destination="hhT-Ph-kTP" id="ghm-uO-Dfw"/>
                                             <outlet property="pinLabel" destination="NEU-nT-aGU" id="eSG-yd-UYa"/>
                                         </connections>
                                     </view>
@@ -2548,10 +2509,6 @@
         <image name="ImgDeviceArgon" width="65.5" height="147"/>
         <image name="ImgParticleLogoVertical" width="300" height="277.5"/>
         <image name="MeshSetupSignalIcon" width="14" height="14"/>
-        <image name="alizarin" width="2.5" height="18.5"/>
-        <image name="cyan" width="2.5" height="18.5"/>
-        <image name="emerald" width="2.5" height="18.5"/>
-        <image name="sunflower" width="2.5" height="18.5"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3ox-ek-eEM"/>

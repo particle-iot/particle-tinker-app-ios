@@ -15,23 +15,47 @@ class PinFunctionView: UIView {
     private let unselectedColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
 
 
-    @IBOutlet var pinLabel:UILabel!
+    @IBOutlet var pinLabel:ParticleLabel!
     
-    @IBOutlet var analogReadImageView:UIImageView!
-    @IBOutlet var analogReadButton:UIButton!
-    
-    @IBOutlet var analogWriteImageView:UIImageView!
-    @IBOutlet var analogWriteButton:UIButton!
-    
-    @IBOutlet var digitalReadImageView:UIImageView!
-    @IBOutlet var digitalReadButton:UIButton!
-    
-    @IBOutlet var digitalWriteImageView:UIImageView!
-    @IBOutlet var digitalWriteButton:UIButton!
+    @IBOutlet var analogReadButton:ParticleCustomButton!
+    @IBOutlet var analogWriteButton:ParticleCustomButton!
+    @IBOutlet var digitalReadButton:ParticleCustomButton!
+    @IBOutlet var digitalWriteButton:ParticleCustomButton!
 
     var pin:DevicePin?
 
     weak var delegate:PinFunctionViewDelegate?
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        layer.masksToBounds = false
+        layer.cornerRadius = 5
+        layer.applySketchShadow(color: UIColor(rgb: 0x000000), alpha: 0.3, x: 0, y: 2, blur: 4, spread: 0)
+
+        pinLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
+
+        analogReadButton.layer.borderColor = DevicePinFunction.getColor(function: .analogRead).cgColor
+        digitalReadButton.layer.borderColor = DevicePinFunction.getColor(function: .digitalRead).cgColor
+        digitalWriteButton.layer.borderColor = DevicePinFunction.getColor(function: .digitalWrite).cgColor
+        analogWriteButton.layer.borderColor = DevicePinFunction.getColor(function: .analogWriteDAC).cgColor
+
+        setupButton(analogReadButton)
+        setupButton(digitalReadButton)
+        setupButton(digitalWriteButton)
+        setupButton(analogWriteButton)
+    }
+
+    private func setupButton(_ button: ParticleCustomButton!) {
+        button.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
+        button.layer.cornerRadius = 3
+        button.layer.borderWidth = 2
+        button.backgroundColor = UIColor(rgb: 0xFFFFFF)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
 
     func setPin(_ pin: DevicePin?) {
         self.pin = pin
@@ -43,50 +67,34 @@ class PinFunctionView: UIView {
         pinLabel.text = pin.label
 
         analogReadButton.isHidden = true
-        analogReadButton.backgroundColor = unselectedColor
-        analogReadImageView.isHidden = true
-
         digitalReadButton.isHidden = true
-        digitalReadButton.backgroundColor = unselectedColor
-        digitalReadImageView.isHidden = true
-
         digitalWriteButton.isHidden = true
-        digitalWriteButton.backgroundColor = unselectedColor
-        digitalWriteImageView.isHidden = true
-
         analogWriteButton.isHidden = true
-        analogWriteButton.backgroundColor = unselectedColor
-        analogWriteImageView.isHidden = true
 
         if pin.functions.contains(.analogRead) {
             analogReadButton.isHidden = false
-            analogReadImageView.isHidden = false
         }
 
         if pin.functions.contains(.digitalRead) {
             digitalReadButton.isHidden = false
-            digitalReadImageView.isHidden = false
         }
 
         if pin.functions.contains(.digitalWrite) {
             digitalWriteButton.isHidden = false
-            digitalWriteImageView.isHidden = false
         }
 
         if (pin.functions.contains(.analogWritePWM) || pin.functions.contains(.analogWriteDAC)) {
             analogWriteButton.isHidden = false
-            analogWriteImageView.isHidden = false
-
-            analogWriteImageView.image = analogWriteImageView.image?.withRenderingMode(.alwaysTemplate)
 
             if pin.functions.contains(.analogWriteDAC) {
-                analogWriteImageView.tintColor = DevicePinFunction.getColor(function: .analogWriteDAC)
+                analogWriteButton.layer.borderColor = DevicePinFunction.getColor(function: .analogWriteDAC).cgColor
             } else {
-                analogWriteImageView.tintColor = DevicePinFunction.getColor(function: .analogWritePWM)
+                analogWriteButton.layer.borderColor = DevicePinFunction.getColor(function: .analogWritePWM).cgColor
             }
         }
 
         pinLabel.sizeToFit()
+
     }
 
     @IBAction func functionSelected(_ sender: UIButton) {

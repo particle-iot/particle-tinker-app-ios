@@ -25,15 +25,15 @@ struct DevicePinFunction: OptionSet {
     static func getColor(function: DevicePinFunction) -> UIColor {
         switch function {
             case DevicePinFunction.digitalRead:
-                return UIColor(red: 0.0, green: 0.67, blue: 0.93, alpha: 1.0)
+                return UIColor(rgb: 0x0075C9)
             case DevicePinFunction.digitalWrite:
-                return UIColor(red: 0.91, green: 0.30, blue: 0.24, alpha: 1.0)
+                return UIColor(rgb: 0xED1C24)
             case DevicePinFunction.analogRead:
-                return UIColor(red: 0.18, green: 0.8, blue: 0.44, alpha: 1.0)
+                return UIColor(rgb: 0x00AE42)
             case DevicePinFunction.analogWritePWM:
-                return UIColor(red: 0.95, green: 0.77, blue: 0.06, alpha: 1.0)
+                return UIColor(rgb: 0xFFCD00)
             case DevicePinFunction.analogWriteDAC:
-                return UIColor(red: 0.95, green: 0.6, blue: 0.06, alpha: 1.0)
+                return UIColor(rgb: 0xF5A800)
             default:
                 return UIColor.clear
         }
