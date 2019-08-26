@@ -20,8 +20,8 @@ class PinView: UIView, UIGestureRecognizerDelegate {
 
     private var slider: ASValueTrackingSlider!
     private var button: UIButton!
-    private var label: UILabel!
-    private var valueLabel: UILabel!
+    private var label: ParticleLabel!
+    private var valueLabel: ParticleLabel!
 
     private var outerPieValueView: PieProgressView!
     private var outerPieFrameView: PieProgressView!
@@ -92,7 +92,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         button.frame = .zero
         button.setImage(UIImage(named: "ImgCircle"), for: .normal)
         button.setTitle("", for: .normal)
-        button.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
+        button.tintColor = UIColor(rgb: 0xF5F5F5)
         addSubview(button)
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
@@ -101,12 +101,11 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             button.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
 
-        label = UILabel(frame: .zero)
+        label = ParticleLabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = pin.label
-        label.font = UIFont(name: "Gotham-Medium", size: 16)
+        label.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
         label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor.white
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
         addSubview(label)
@@ -117,10 +116,9 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 1)
         ])
 
-        valueLabel = UILabel(frame: .zero)
+        valueLabel = ParticleLabel(frame: .zero)
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
-        valueLabel.font = UIFont(name: "Gotham-Medium", size: 15.0)
-        valueLabel.textColor = UIColor.white
+        valueLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
         valueLabel.text = ""
         valueLabel.isHidden = true
         addSubview(valueLabel)
