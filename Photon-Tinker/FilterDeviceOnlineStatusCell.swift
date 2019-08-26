@@ -58,6 +58,7 @@ internal class FilterDeviceOnlineStatusCell: UICollectionViewCell {
         set {
             super.isSelected = newValue
 
+            self.layer.borderWidth = newValue ? 2 : 1
             self.layer.borderColor = newValue ? ParticleStyle.ButtonColor.cgColor : ParticleStyle.FilterBorderColor.cgColor
         }
     }
