@@ -574,6 +574,11 @@
                                     <constraint firstItem="G5g-NQ-f2Y" firstAttribute="leading" secondItem="xB3-Ur-rz3" secondAttribute="leading" id="xyh-uD-zEH"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="ahE-YY-IaF"/>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="G5g-NQ-f2Y"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-gu-33x">
                                 <rect key="frame" x="0.0" y="120" width="320" height="360"/>
@@ -1094,6 +1099,11 @@
                                     <constraint firstItem="VOz-c8-Kfg" firstAttribute="centerY" secondItem="cbY-Lg-bFc" secondAttribute="bottom" constant="-22" id="ybn-VI-qoX"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="fKQ-GY-Ypz"/>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="CPW-PJ-rvn"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9s-Hy-T2h" userLabel="DeviceInspectorTabBarView" customClass="DeviceInspectorTabBarView" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="320" height="43"/>
