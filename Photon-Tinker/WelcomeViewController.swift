@@ -24,15 +24,15 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
 
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
 
-        let verStr =  "v\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)b\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)"
+        let verStr = TinkerStrings.Welcome.Version
+                .replacingOccurrences(of: "{{0}}", with: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+                .replacingOccurrences(of: "{{1}}", with:(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String))
         self.versionLabel.text = verStr
         
         if let _ = ParticleCloud.sharedInstance().loggedInUsername
         {
             self.performSegue(withIdentifier: "start_no_animation", sender: self)
         }
-
-        getStartedButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     override func viewDidAppear(_ animated: Bool) {

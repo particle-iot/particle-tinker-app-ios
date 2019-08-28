@@ -36,5 +36,9 @@ extension String {
 }
 
 class TinkerStrings {
-
+    enum Welcome {
+        static let GetStartedButton = "Tinker.Welcome.GetStartedButton".tinkerLocalized()
+        static let Version = "Tinker.Welcome.Version".tinkerLocalized()
+    }
 }
+

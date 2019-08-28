@@ -5,3 +5,6 @@
   Created by Raimundas Sakalauskas on 15/05/2019.
   Copyright © 2019 Particle. All rights reserved.
 */
+
+"Tinker.Welcome.GetStartedButton" = "Get Started123";
+"Tinker.Welcome.Version" = "v{{0}}b{{1}}123";
