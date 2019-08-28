@@ -40,5 +40,9 @@ class TinkerStrings {
         static let GetStartedButton = "Tinker.Welcome.GetStartedButton".tinkerLocalized()
         static let Version = "Tinker.Welcome.Version".tinkerLocalized()
     }
+
+    enum DeviceList {
+        static let Title = "Tinker.DeviceList.Title".tinkerLocalized()
+    }
 }
 
