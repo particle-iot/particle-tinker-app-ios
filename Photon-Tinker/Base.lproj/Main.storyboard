@@ -67,7 +67,7 @@
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Tinker.Welcome.GetStartedButton">
+                                <state key="normal" title="TinkerStrings.Welcome.GetStarted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -550,8 +550,8 @@
                                             <action selector="setupNewDeviceButtonTapped:" destination="Kib-3X-Zyf" eventType="touchUpInside" id="h4J-iw-u0f"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tinker.DeviceList.Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7w-cb-MbB">
-                                        <rect key="frame" x="62" y="33" width="196" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TinkerStrings.DeviceList.Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7w-cb-MbB">
+                                        <rect key="frame" x="29.5" y="33" width="261.5" height="18"/>
                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -671,21 +671,21 @@
                                 <rect key="frame" x="12" y="64" width="254" height="45"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctt-2Q-54B">
-                                        <rect key="frame" x="0.0" y="1.5" width="102" height="42"/>
+                                        <rect key="frame" x="0.0" y="1.5" width="52" height="42"/>
                                         <color key="backgroundColor" red="1" green="0.03624573524" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Pfa-Xu-Iam">
                                         <rect key="frame" x="38" y="7.5" width="216" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vss-qM-L3f" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="10" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbB-aB-Stn">
-                                                <rect key="frame" x="76" y="0.0" width="140" height="30"/>
-                                                <state key="normal" title="Tinker.Action.Cancel">
+                                                <rect key="frame" x="26" y="0.0" width="190" height="30"/>
+                                                <state key="normal" title="TinkerStrings.Action.Cancel">
                                                     <color key="titleColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
@@ -1902,21 +1902,21 @@
                                         <rect key="frame" x="74" y="-0.5" width="222" height="45"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOj-wp-0Pj">
-                                                <rect key="frame" x="0.0" y="1.5" width="70" height="42"/>
+                                                <rect key="frame" x="0.0" y="1.5" width="42" height="42"/>
                                                 <color key="backgroundColor" red="1" green="0.03624573524" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gSD-p6-q9E">
                                                 <rect key="frame" x="38" y="7.5" width="184" height="30"/>
                                                 <subviews>
                                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Labas" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YSy-Gw-8pj" customClass="CustomizableTextField" customModule="Particle" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="28" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwO-al-0qW">
-                                                        <rect key="frame" x="44" y="0.0" width="140" height="30"/>
-                                                        <state key="normal" title="Tinker.Action.Cancel">
+                                                        <rect key="frame" x="16" y="0.0" width="168" height="30"/>
+                                                        <state key="normal" title="TinkerStrings.Action.Cancel">
                                                             <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>

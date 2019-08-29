@@ -78,7 +78,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         let c = ParticleSetupCustomization.sharedInstance()
         
         c?.allowSkipAuthentication = true
-        c?.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to Photon based devices but not claim them to your account nor use Tinker or device inspector. Are you sure you want to continue?"
+        c?.skipAuthenticationMessage = TinkerStrings.Welcome.SkipAuthWarning
         c?.pageBackgroundImage = UIImage(named: "ImgAppBackground")
         c?.normalTextFontName = "Gotham-Book"
         c?.boldTextFontName = "Gotham-Medium"
@@ -138,20 +138,20 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         if (versionLabelTapCount >= 10) {
             versionLabelTapCount = 0
 
-            let ac = UIAlertController(title: "API Base URL", message: "Please enter Particle API Base URL", preferredStyle: .alert)
+            let ac = UIAlertController(title: TinkerStrings.Welcome.CloudAPIPrompt.Title, message: TinkerStrings.Welcome.CloudAPIPrompt.Message, preferredStyle: .alert)
             ac.addTextField { field in
-                field.placeholder = "API Base URL"
+                field.placeholder = TinkerStrings.Welcome.CloudAPIPrompt.Title
                 field.text = kParticleAPIBaseURL
             }
 
-            ac.addAction(UIAlertAction(title: "Use", style: .default) { action in
+            ac.addAction(UIAlertAction(title: TinkerStrings.Action.Use, style: .default) { action in
                 let baseURL = ac.textFields?[0].text
 
                 ParticleCloud.sharedInstance().customAPIBaseURL = baseURL
                 self.startButtonTapped(nil)
             })
 
-            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            ac.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel))
 
             self.present(ac, animated: true)
         }
