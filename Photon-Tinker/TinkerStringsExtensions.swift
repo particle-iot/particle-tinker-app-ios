@@ -15,16 +15,12 @@ extension UIView {
     open func replaceTinkerStrings() {
         let subviews = self.subviews
 
-        for subview in subviews {
-            if subview is UILabel {
-                let label = subview as! UILabel
-                label.text = label.text?.tinkerLocalized()
-            } else if (subview is UIButton) {
-                let button = subview as! UIButton
-                button.setTitle(button.currentTitle?.tinkerLocalized(), for: .normal)
-            } else if (subview is UIView) {
-                subview.replaceTinkerStrings()
-            }
+        if self is UILabel {
+            let label = self as! UILabel
+            label.text = label.text?.tinkerLocalized()
+        } else if self is UIButton {
+            let button = self as! UIButton
+            button.setTitle(button.currentTitle?.tinkerLocalized(), for: .normal)
         }
     }
 }
