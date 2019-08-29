@@ -20,12 +20,9 @@ extension UIView {
             label.text = label.text?.tinkerLocalized()
         } else if self is ParticleCustomButton {
             let button = self as! ParticleCustomButton
-            NSLog("ParticleCustomButton.currentTitle?.tinkerLocalized() = \(button.currentTitle?.tinkerLocalized())")
-            NSLog("button.upperCase = \(button.upperCase)")
             button.setTitle(button.currentTitle?.tinkerLocalized(), for: .normal, upperCase: button.upperCase)
         } else if self is UIButton {
             let button = self as! UIButton
-            NSLog("UIButton.currentTitle?.tinkerLocalized() = \(button.currentTitle?.tinkerLocalized())")
             button.setTitle(button.currentTitle?.tinkerLocalized(), for: .normal)
         }
     }
