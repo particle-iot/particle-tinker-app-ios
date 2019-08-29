@@ -73,14 +73,14 @@ class ParticleUtils: NSObject {
             imageView.image = UIImage(named: "ImgCircle")!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
 
             if flashing {
-                imageView.tintColor = UIColor(red: 239.0/255.0, green: 13.0/255.0, blue: 209.0/255.0, alpha: 1.0) // Flashing purple
+                imageView.tintColor = UIColor(rgb: 0xB31983) // Flashing purple
                 imageView.alpha = 1
                 UIView.animate(withDuration: 0.12, delay: 0, options: [.autoreverse, .repeat], animations: {
                     imageView.alpha = 0
                     }, completion: nil)
 
             } else if online {
-                imageView.tintColor = UIColor(red: 0, green: 173.0/255.0, blue: 239.0/255.0, alpha: 1.0) // ParticleCyan
+                imageView.tintColor = UIColor(rgb: 0x00AEEF) // ParticleCyan
                 
                 if imageView.alpha == 1 {
                     //                    print ("1-->0")
@@ -96,7 +96,7 @@ class ParticleUtils: NSObject {
                     
                 }
             } else {
-                imageView.tintColor = UIColor(white: 0.466, alpha: 1.0) // ParticleGray
+                imageView.tintColor = UIColor(rgb: 0xD9D8D6) // ParticleGray
                 imageView.alpha = 1
                 imageView.layer.removeAllAnimations()
             }
