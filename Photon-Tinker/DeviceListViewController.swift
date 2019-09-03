@@ -169,7 +169,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             } else {
                 ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
                 DispatchQueue.main.async {
-                    RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.Title, subtitle: TinkerStrings.DeviceList.Error.LoadingDevicesFailed, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             }
         }
@@ -455,7 +455,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.dataSource.viewDevices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
                     if let err = error
                     {
-                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.Title, subtitle: err.localizedDescription, type: .error, customTypeName: nil, duration: -1, callback: nil)
                         self.reloadData()
                     }
                 }
@@ -512,7 +512,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         selectedDevice.refresh { [weak self] error in
             if let self = self {
                 if let error = error {
-                    RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.Title, subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, duration: -1, callback: nil)
                 } else {
                     self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
                 }
@@ -629,11 +629,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
                 self.present(avc, animated: true)
             } else {
-                RMessage.showNotification(withTitle: "Error", subtitle: "There was an error exporting application logs.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.Title, subtitle: "There was an error exporting application logs.", type: .error, customTypeName: nil, duration: -1, callback: nil)
             }
         }))
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel, handler: { action in
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Cancel tapped", withParameters: getVaList([]))
         }))
 
