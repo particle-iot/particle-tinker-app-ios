@@ -109,21 +109,18 @@ class ParticleTextView: UITextView {
     }
 }
 
-class ParticleButton: UIButton {
+class ParticleCustomButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
 
         self.layer.cornerRadius = 3.0
-        self.backgroundColor = ParticleStyle.ButtonColor
-
-        self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
     }
 
     override func setTitle(_ title: String?, for state: State) {
         super.setTitle(title?.uppercased(), for: state)
     }
 
-    func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
+    func setTitle(_ title: String?, for state: UIControl.State, upperCase: Bool = true) {
         if (upperCase) {
             self.setTitle(title, for: state)
         } else {
@@ -131,18 +128,31 @@ class ParticleButton: UIButton {
         }
     }
 
-    func setStyle(font: String, size: Int) {
+    func setStyle(font: String, size: Int, color: UIColor) {
         self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
 
-        self.setTitleColor(ParticleStyle.ButtonTitleColor, for: .normal)
-        self.setTitleColor(ParticleStyle.ButtonTitleColor, for: .selected)
-        self.setTitleColor(ParticleStyle.ButtonTitleColor, for: .highlighted)
-        self.setTitleColor(ParticleStyle.ButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
+        self.setTitleColor(color, for: .normal)
+        self.setTitleColor(color, for: .selected)
+        self.setTitleColor(color, for: .highlighted)
+        self.setTitleColor(color.withAlphaComponent(0.5), for: .disabled)
 
         DispatchQueue.main.async{
-            self.tintColor = ParticleStyle.ButtonTitleColor
-            self.imageView?.tintColor = ParticleStyle.ButtonTitleColor
+            self.tintColor = color
+            self.imageView?.tintColor = color
         }
+    }
+}
+
+class ParticleButton: ParticleCustomButton {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.backgroundColor = ParticleStyle.ButtonColor
+        self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
+    }
+
+    func setStyle(font: String, size: Int) {
+        self.setStyle(font: font, size: size, color: ParticleStyle.ButtonTitleColor)
     }
 }
 
@@ -155,11 +165,10 @@ class ParticleDestructiveButton: ParticleButton {
 }
 
 
-class ParticleAlternativeButton: UIButton {
+class ParticleAlternativeButton: ParticleCustomButton {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.layer.cornerRadius = 3.0
         self.backgroundColor = ParticleStyle.AlternativeButtonColor
 
         self.layer.borderColor = ParticleStyle.AlternativeButtonBorderColor.cgColor
@@ -168,30 +177,8 @@ class ParticleAlternativeButton: UIButton {
         self.layer.applySketchShadow(color: .black, alpha: 0.3, x: 0, y: 1, blur: 2, spread: 0)
     }
 
-    override func setTitle(_ title: String?, for state: State) {
-        super.setTitle(title?.uppercased(), for: state)
-    }
-
-    func setTitle(_ title: String?, for state: UIControlState, upperCase: Bool = true) {
-        if (upperCase) {
-            self.setTitle(title, for: state)
-        } else {
-            super.setTitle(title, for: state)
-        }
-    }
-
     func setStyle(font: String, size: Int) {
-        self.titleLabel?.font = UIFont(name: font, size: CGFloat(size))
-
-        self.setTitleColor(ParticleStyle.AlternativeButtonTitleColor, for: .normal)
-        self.setTitleColor(ParticleStyle.AlternativeButtonTitleColor, for: .selected)
-        self.setTitleColor(ParticleStyle.AlternativeButtonTitleColor, for: .highlighted)
-        self.setTitleColor(ParticleStyle.AlternativeButtonTitleColor.withAlphaComponent(0.5), for: .disabled)
-
-        DispatchQueue.main.async{
-            self.tintColor = ParticleStyle.AlternativeButtonTitleColor
-            self.imageView?.tintColor = ParticleStyle.AlternativeButtonTitleColor
-        }
+        self.setStyle(font: font, size: size, color: ParticleStyle.AlternativeButtonTitleColor)
     }
 }
 

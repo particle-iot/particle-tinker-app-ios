@@ -209,8 +209,8 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
             self.fadeContent(animated: animated, showSpinner: true)
         }
 
-        self.view.bringSubview(toFront: self.topBarView)
-        self.view.bringSubview(toFront: self.infoSlider.view.superview!)
+        self.view.bringSubviewToFront(self.topBarView)
+        self.view.bringSubviewToFront(self.infoSlider.view.superview!)
         self.moreActionsButton.isEnabled = false
     }
 

@@ -40,6 +40,7 @@
 		932BAFAA22A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA722A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin */; };
 		932BAFAB22A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA822A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin */; };
 		932BAFAC22A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin in Resources */ = {isa = PBXBuildFile; fileRef = 932BAFA922A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin */; };
+		934749D0230F136F0002549C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 934749CE230F136E0002549C /* LaunchScreen.storyboard */; };
 		9348298D225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */; };
 		93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93522313216CFD4600CF8A69 /* wifi_new.pb.swift */; };
 		93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */; };
@@ -158,7 +159,7 @@
 		C810B7CE9FF217578D3B8102 /* MeshSetupGetReadyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B173069803AA58B69A40 /* MeshSetupGetReadyViewController.swift */; };
 		C810B7FB5DE6DA44357CBA03 /* MeshSetupControlPanelManageWifiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDE442944A0C198C41C5 /* MeshSetupControlPanelManageWifiViewController.swift */; };
 		C810B8050D4ABB15E437F2C0 /* StepExitListeningMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4B4DE630715ADDA55F0 /* StepExitListeningMode.swift */; };
-		C810B810ACEAEBCF17F7B7C9 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7B986AC0CEC972E0FF7 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift */; };
+		C810B810ACEAEBCF17F7B7C9 /* StepEnterListeningMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7B986AC0CEC972E0FF7 /* StepEnterListeningMode.swift */; };
 		C810B83ECC677C1D4DADCB31 /* MeshSetupFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7B441DD098BA83CDFC4 /* MeshSetupFlowManager.swift */; };
 		C810B8B6CF06FD67AB096500 /* FilterSortTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B3A938DB37C0C7632C18 /* FilterSortTypeCell.swift */; };
 		C810B8CAFDD632F1B0E587C4 /* MeshSetupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2A2C9E4F1B4BC7B9BC6 /* MeshSetupInfoViewController.swift */; };
@@ -225,6 +226,7 @@
 		C810BEB80FD23728F3C3CF29 /* FocusRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BCCA537FFE16C2EE2C25 /* FocusRectView.swift */; };
 		C810BED7C48683D406A673BB /* MeshSetupControlPanelSimDataLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B24468B666BBB055B4FF /* MeshSetupControlPanelSimDataLimitViewController.swift */; };
 		C810BEE780DE64326768D97F /* MeshSetupControlPanelEthernetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BA450B897C6AC4793625 /* MeshSetupControlPanelEthernetViewController.swift */; };
+		C810BEF18CF1520648EBBEDF /* DeviceTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7BF56F5D83014D3AB05 /* DeviceTypeLabel.swift */; };
 		C810BEFBDF0711FC95D70650 /* StepGetNewNetworkName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B020E939769A6DC0A174 /* StepGetNewNetworkName.swift */; };
 		C810BF378D103552B14AF327 /* MeshSetupInfoViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B823B691B9A9B139E4BD /* MeshSetupInfoViewControllers.swift */; };
 		C810BF44F954E2F9246AA078 /* ScaledHeightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBA624764829727882AB /* ScaledHeightImageView.swift */; };
@@ -309,6 +311,7 @@
 		932BAFA722A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-argon.bin"; sourceTree = "<group>"; };
 		932BAFA822A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-boron.bin"; sourceTree = "<group>"; };
 		932BAFA922A55CDE009F62DB /* tinker-0.8.0-rc.27-xenon.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "tinker-0.8.0-rc.27-xenon.bin"; sourceTree = "<group>"; };
+		934749CF230F136F0002549C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Photon-Tinker/Base.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupHorizontalDetailCell.xib; sourceTree = "<group>"; };
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
 		93522316216CFD4600CF8A69 /* wifi_new.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_new.proto; sourceTree = "<group>"; };
@@ -429,7 +432,8 @@
 		C810B7809DBC4488C9BEF72B /* MeshSetupScanCommissionerStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupScanCommissionerStickerViewController.swift; sourceTree = "<group>"; };
 		C810B79C6374F75D8AD759CA /* FlashTinkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashTinkerView.swift; sourceTree = "<group>"; };
 		C810B7B441DD098BA83CDFC4 /* MeshSetupFlowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFlowManager.swift; sourceTree = "<group>"; };
-		C810B7B986AC0CEC972E0FF7 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepDisconnectFromCurrentWifiNetworkIfNeeded.swift; sourceTree = "<group>"; };
+		C810B7B986AC0CEC972E0FF7 /* StepEnterListeningMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnterListeningMode.swift; sourceTree = "<group>"; };
+		C810B7BF56F5D83014D3AB05 /* DeviceTypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTypeLabel.swift; sourceTree = "<group>"; };
 		C810B7DBADAA9D6B112594EA /* MeshSetupPairingCommissionerProcessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupPairingCommissionerProcessViewController.swift; sourceTree = "<group>"; };
 		C810B809E348B315EFE80390 /* StepEnsureHasInternetAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureHasInternetAccess.swift; sourceTree = "<group>"; };
 		C810B819F0F0DD9ED41880BD /* MeshSetupCreateNetworkNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreateNetworkNameViewController.swift; sourceTree = "<group>"; };
@@ -611,12 +615,13 @@
 				932BAFA622A55297009F62DB /* Videos */,
 				932BAFA522A55274009F62DB /* Binaries */,
 				50F62D941AE0721200109F33 /* Fonts */,
+				9317FC122167F4190054AE24 /* MeshViews */,
 				50B1254F1AE06CF4003C29DC /* Images.xcassets */,
+				93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */,
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				931C3782215AA2240014811C /* MeshSetup.storyboard */,
-				93FFD597215E7A00005A469D /* MeshSetupImages.xcassets */,
+				934749CE230F136E0002549C /* LaunchScreen.storyboard */,
 				931C3780215AA2240014811C /* MeshSetupStrings.strings */,
-				9317FC122167F4190054AE24 /* MeshViews */,
 				9324E67F228B73D5006B253D /* TinkerStrings.strings */,
 			);
 			name = Assets;
@@ -849,6 +854,7 @@
 				C810BA68B54832E91E5EC273 /* InteractivePopGestureRecognizerDelegateHelper.swift */,
 				C810BB52C682B5868A31FA3F /* SearchBarView.swift */,
 				C810BC3C254D3DA74FFBF06C /* HairlineView.swift */,
+				C810B7BF56F5D83014D3AB05 /* DeviceTypeLabel.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1041,7 +1047,7 @@
 				C810B04D8C04532A6E3587AD /* StepGetKnownWifiNetworks.swift */,
 				C810BD87587D3F06DCCD96A7 /* StepRemoveSelectedWifiCredentials.swift */,
 				C810B9C68A9C337AB1385FA8 /* StepStopSignal.swift */,
-				C810B7B986AC0CEC972E0FF7 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift */,
+				C810B7B986AC0CEC972E0FF7 /* StepEnterListeningMode.swift */,
 			);
 			name = Steps;
 			path = "Photon-Tinker/Mesh";
@@ -1256,6 +1262,7 @@
 				9324E683228B73D5006B253D /* TinkerStrings.strings in Resources */,
 				932BAFAA22A55CDE009F62DB /* tinker-0.8.0-rc.27-argon.bin in Resources */,
 				93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */,
+				934749D0230F136F0002549C /* LaunchScreen.storyboard in Resources */,
 				9394CADA22E7814200FF3E61 /* MeshSetupNetworkListNoActivityIndicatorView.xib in Resources */,
 				931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */,
 				93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */,
@@ -1544,7 +1551,7 @@
 				C810B0D1CC382C90DC767E4E /* StepRemoveSelectedWifiCredentials.swift in Sources */,
 				C810B728C1CD7B4E188943BC /* StepStopSignal.swift in Sources */,
 				C810B045C656154CED6574D6 /* InteractivePopGestureRecognizerDelegateHelper.swift in Sources */,
-				C810B810ACEAEBCF17F7B7C9 /* StepDisconnectFromCurrentWifiNetworkIfNeeded.swift in Sources */,
+				C810B810ACEAEBCF17F7B7C9 /* StepEnterListeningMode.swift in Sources */,
 				C810B9CC8DC2D88012EA4158 /* Date.swift in Sources */,
 				C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */,
 				C810BFD2A7960D07F6144934 /* SearchBarView.swift in Sources */,
@@ -1562,6 +1569,7 @@
 				C810B765AB68A3986BFAB131 /* DeviceListDataSource.swift in Sources */,
 				C810BBDF6320C244EC93C093 /* FiltersButton.swift in Sources */,
 				C810BDB9271584C788CB621B /* UIDevice.swift in Sources */,
+				C810BEF18CF1520648EBBEDF /* DeviceTypeLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1599,6 +1607,14 @@
 				9324E680228B73D5006B253D /* Base */,
 			);
 			name = TinkerStrings.strings;
+			sourceTree = "<group>";
+		};
+		934749CE230F136E0002549C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				934749CF230F136F0002549C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1720,7 +1736,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1751,7 +1767,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				VERSIONING_SYSTEM = "apple-generic";

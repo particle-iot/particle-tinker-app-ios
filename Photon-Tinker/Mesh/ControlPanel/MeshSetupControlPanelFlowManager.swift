@@ -53,6 +53,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
+        StepEnterListeningMode(),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
         StepExitListeningMode(),
@@ -71,7 +72,6 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
-        StepExitListeningMode(),
         StepGetKnownWifiNetworks(),
         StepControlPanelFlowCompleted()
     ]
@@ -86,7 +86,8 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     fileprivate let actionRemoveWifiCredentialsFlow:[MeshSetupStep] = [
         StepRemoveSelectedWifiCredentials(),
         StepGetKnownWifiNetworks(),
-        StepDisconnectFromCurrentWifiNetworkIfNeeded(),
+        StepEnterListeningMode(),
+        StepExitListeningMode(),
         StepGetWifiNetwork(),
         StepControlPanelFlowCompleted()
     ]

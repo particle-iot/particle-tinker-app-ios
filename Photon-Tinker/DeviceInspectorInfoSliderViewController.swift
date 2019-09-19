@@ -17,10 +17,10 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     
     @IBOutlet weak var collapsedContent: UIView!
     @IBOutlet weak var collapsedDeviceImageView: ScaledHeightImageView!
+    @IBOutlet weak var collapsedDeviceImageYConstraint: NSLayoutConstraint!
     @IBOutlet weak var collapsedDeviceStateImageView: UIImageView!
     @IBOutlet weak var collapsedDeviceNameLabel: ParticleLabel!
-    @IBOutlet weak var collapsedDeviceTypeLabel: ParticleLabel!
-    @IBOutlet weak var collapsedDeviceIconImage: DeviceTypeIcon!
+    @IBOutlet weak var collapsedDeviceTypeLabel: DeviceTypeLabel!
     
     
     @IBOutlet weak var expandedContent: UIView!
@@ -100,8 +100,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     private func setContent() {
         self.collapsedDeviceImageView.image = self.device.type.getImage()
         self.collapsedDeviceNameLabel.text = self.device.getName()
-        self.collapsedDeviceIconImage.setDeviceType(self.device.type)
-        self.collapsedDeviceTypeLabel.text = self.device.type.description
+        self.collapsedDeviceTypeLabel.setDeviceType(self.device.type)
 
         self.expandedDeviceImageView.image = self.device.type.getImage()
         self.expandedDeviceNameLabel.text = self.device.getName()
@@ -125,10 +124,17 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceInfoSliderCell") as! DeviceInfoSliderCell
+        let cell: DeviceInfoSliderCell?
         let key = detailsOrder[indexPath.row]
-        cell.setup(title: key, value: details[key])
-        return cell
+
+        if let type = details[key] as? ParticleDeviceType {
+            cell = tableView.dequeueReusableCell(withIdentifier: "DeviceInfoSliderTypeCell") as! DeviceInfoSliderCell
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "DeviceInfoSliderCell") as! DeviceInfoSliderCell    
+        }
+
+        cell!.setup(title: key, value: details[key])
+        return cell!
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -158,7 +164,6 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
         self.expandedTableView.separatorColor = .clear
 
         self.collapsedDeviceNameLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
-        self.collapsedDeviceTypeLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
         self.expandedDeviceNameLabel.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
         self.expandedDeviceStateLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
@@ -211,11 +216,16 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
             collapsedPosConstraint! -= (superview.safeAreaInsets.bottom + superview.safeAreaInsets.top)
             collapsedPosFrame = collapsedPosConstraint + superview.safeAreaInsets.top
+            
+            collapsedDeviceImageYConstraint.constant = superview.safeAreaInsets.bottom / 4
+            
         } else if let heightConstraint = self.heightConstraint {
             collapsedPosConstraint = UIScreen.main.bounds.height - 120 //top bar included
             collapsedPosFrame = collapsedPosConstraint
 
             heightConstraint.constant = -9
+            
+            collapsedDeviceImageYConstraint.constant = 0
         }
     }
 
@@ -331,7 +341,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
     private func animateStateChange(duration: Double, collapsed: Bool) {
         displayLink = CADisplayLink(target: self, selector: #selector(animationDidUpdate))
-        displayLink.add(to: .main, forMode: .defaultRunLoopMode)
+        displayLink.add(to: .main, forMode: RunLoop.Mode.default)
 
         UIView.animate(withDuration: duration, delay:0, options:.curveEaseOut, animations: { () -> Void in
             self.view.superview?.superview?.layoutIfNeeded()

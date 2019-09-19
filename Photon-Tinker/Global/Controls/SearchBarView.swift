@@ -16,6 +16,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var inputText: CustomizableTextField!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var backgroundView: UIView!
 
     weak var delegate: SearchBarViewDelegate?
 
@@ -23,6 +24,9 @@ class SearchBarView: UIView, UITextFieldDelegate {
         super.awakeFromNib()
 
         backgroundColor = UIColor.clear
+
+        backgroundView.backgroundColor = ParticleStyle.EthernetToggleBackgroundColor
+        backgroundView.layer.masksToBounds = true
 
         inputText.font = UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))
         inputText.textColor = ParticleStyle.PrimaryTextColor
@@ -46,8 +50,14 @@ class SearchBarView: UIView, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self)
 
         if let superview = newSuperview {
-            NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: Notification.Name.UITextFieldTextDidChange, object: self.inputText)
+            NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: UITextField.textDidChangeNotification, object: self.inputText)
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        backgroundView.layer.cornerRadius = backgroundView.frame.height / 2
     }
 
     @IBAction func cancelClicked() {
@@ -141,8 +151,8 @@ class CustomizableTextField: UITextField {
     func evalPlaceholderColor() {
         if let placeholder = placeholder, let placeHolderColor = placeholderColor {
             attributedPlaceholder = NSAttributedString.init(string: placeholder, attributes: [
-                NSAttributedStringKey.foregroundColor: placeHolderColor,
-                NSAttributedStringKey.font: UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))!
+                NSAttributedString.Key.foregroundColor: placeHolderColor,
+                NSAttributedString.Key.font: UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))!
             ])
         }
     }
@@ -158,7 +168,7 @@ class CustomizableTextField: UITextField {
                 let button = view as! UIButton
 
                 if let clearButtonTintColor = clearButtonTintColor {
-                    let tintedImage = UIImage(named: "ClearIcon")!.image(withColor: clearButtonTintColor)
+                    let tintedImage = UIImage(named: "IconClear")!.image(withColor: clearButtonTintColor)
 
                     button.setImage(tintedImage, for: .normal)
                     button.setImage(tintedImage, for: .highlighted)

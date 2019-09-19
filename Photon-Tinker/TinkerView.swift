@@ -64,9 +64,9 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
         // add chip shadow
         let outlineImage: UIImage!
         if (device.is3rdGen()) {
-            outlineImage = UIImage(named: "Img3rdGenDevice")!.withRenderingMode(.alwaysTemplate)
+            outlineImage = UIImage(named: "ImgDevice3rdGen")!
         } else {
-            outlineImage = UIImage(named: "imgDeviceShadow")!.withRenderingMode(.alwaysTemplate)
+            outlineImage = UIImage(named: "ImgDevice2ndGen")!
         }
 
         backgroundImageView = UIImageView(image: outlineImage)
@@ -224,7 +224,7 @@ class TinkerView: UIView, PinViewDelegate, PinFunctionViewDelegate {
         }
 
         DispatchQueue.main.async {
-            self.bringSubview(toFront: self.functionView)
+            self.bringSubviewToFront(self.functionView)
             self.functionView.isHidden = false
 
             UIView.animate(withDuration: 0.25, animations: { () -> Void in

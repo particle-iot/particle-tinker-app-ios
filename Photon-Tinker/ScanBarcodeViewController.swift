@@ -44,7 +44,7 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
         label.text = "Point at SIM ICCID barcode"
         self.view.addSubview(label)
 
-        overlayImageView = UIImageView(image: UIImage(named: "overlaygraphic"))
+        overlayImageView = UIImageView(image: UIImage(named: "ImgOverlayGraphic"))
         overlayImageView.frame = CGRect(x: 30, y: 150, width: view.bounds.size.width - 60, height: view.bounds.size.height - 300)
         overlayImageView.image = overlayImageView.image?.withRenderingMode(.alwaysTemplate)
         overlayImageView.tintColor = UIColor.white
@@ -52,7 +52,7 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
 
 
         overlayButton = UIButton(type: .custom)
-        overlayButton.setImage(UIImage(named: "flashlight"), for: .normal)
+        overlayButton.setImage(UIImage(named: "ImgFlashlight"), for: .normal)
         overlayButton.frame = CGRect(x: 30, y: 30, width: 48, height: 48)
         overlayButton.tintColor = UIColor.white
         overlayButton.addTarget(self, action: #selector(toggleTorchButton), for: .touchUpInside)
@@ -98,11 +98,11 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
         session.startRunning()
 
 
-        view.bringSubview(toFront:label)
-        view.bringSubview(toFront:circleView)
-        view.bringSubview(toFront:overlayButton)
-        view.bringSubview(toFront:overlayImageView)
-        view.bringSubview(toFront:cancelButton)
+        view.bringSubviewToFront(label)
+        view.bringSubviewToFront(circleView)
+        view.bringSubviewToFront(overlayButton)
+        view.bringSubviewToFront(overlayImageView)
+        view.bringSubviewToFront(cancelButton)
     }
 
     override func viewWillAppear(_ animated: Bool) {

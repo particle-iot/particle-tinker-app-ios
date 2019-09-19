@@ -10,7 +10,7 @@ extension NSNotification.Name {
 }
 
 
-class DeviceListDataSource  {
+class DeviceListDataSource: NSCopying  {
     public private(set) var devices: [ParticleDevice] = []
     public private(set) var viewDevices: [ParticleDevice] = []
 
@@ -143,5 +143,24 @@ class DeviceListDataSource  {
         }
 
         return false
+    }
+
+    func copy(with zone: NSZone?) -> Any {
+        let copy = DeviceListDataSource()
+        copy.devices = self.devices
+        copy.setSearchTerm(self.searchTerm)
+        copy.setOnlineStatusOptions(self.onlineStatusOptions)
+        copy.setDeviceTypeOptions(self.typeOptions)
+        copy.setSortOption(self.sortOption)
+        return copy
+    }
+
+    func apply(with source: DeviceListDataSource) {
+        self.sortOption = source.sortOption
+        self.searchTerm = source.searchTerm
+        self.typeOptions = source.typeOptions
+        self.onlineStatusOptions = source.onlineStatusOptions
+        self.reloadData()
+        NotificationCenter.default.post(name: .DeviceListFilteringChanged, object: self)
     }
 }

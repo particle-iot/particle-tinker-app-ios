@@ -17,11 +17,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var noDevicesLabel: UILabel!
+    @IBOutlet var noDevicesView: UIView!
 
     @IBOutlet weak var searchBar: SearchBarView!
     @IBOutlet weak var tableView: UITableView!
 
     var refreshControl: UIRefreshControl!
+    var initialLoadComplete: Bool = false
 
     var isBusy: Bool = false
     var viewsToFade: [UIView]? = nil
@@ -38,6 +40,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @objc func appDidBecomeActive(_ sender : AnyObject) {
         if (!self.isBusy) {
+            if ParticleCloud.sharedInstance().isAuthenticated {
+                self.initialLoadComplete = false
+            }
             self.fade(animated: true)
             self.loadDevices()
         }
@@ -59,6 +64,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.setupSearch()
 
 
+        self.noDevicesView.removeFromSuperview()
         if ParticleCloud.sharedInstance().isAuthenticated {
             self.addRefreshControl()
 
@@ -67,9 +73,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.loadDevices()
             }
 
-            self.noDevicesLabel.isHidden = true
+            self.initialLoadComplete = false
         } else {
-            self.noDevicesLabel.isHidden = false
+            self.initialLoadComplete = true
+            self.reloadData()
         }
     }
 
@@ -89,11 +96,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.reloadData()
 
         SEGAnalytics.shared().track("Tinker_DeviceListScreenActivity")
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(filtersChanged(_:)), name: NSNotification.Name.DeviceListFilteringChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(filtersChanged(_:)), name: NSNotification.Name.DeviceListFilteringChanged, object: self.dataSource)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -127,6 +134,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func loadDevices()
     {
+        guard ParticleCloud.sharedInstance().isAuthenticated else {
+            return
+        }
+
         self.isBusy = true
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices started", withParameters: getVaList([]))
 
@@ -135,9 +146,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
             DispatchQueue.main.async { [weak self] () -> () in
                 if let self = self {
+                    self.initialLoadComplete = true
                     self.handleGetDevicesResponse(devices, error: error)
                     self.resume(animated: true)
-                    self.tableView.refreshControl!.endRefreshing()
+                    self.tableView.refreshControl?.endRefreshing()
                     self.showTutorial()
                     self.isBusy = false
                 }
@@ -246,23 +258,58 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     private func reloadData() {
         DispatchQueue.main.async {
             self.dataSource.reloadData()
-
-            self.noDevicesLabel.isHidden = self.dataSource.viewDevices.count == 0 ? false : true
             self.filtersButton.isSelected = self.dataSource.isFiltering()
-
-            if !self.noDevicesLabel.isHidden {
-                if  self.dataSource.devices.count == 0 {
-                    self.noDevicesLabel.text = "No devices"
-                } else if self.dataSource.isSearching() {
-                    self.noDevicesLabel.text = "No devices found matching '{{0}}'".replacingOccurrences(of: "{{0}}", with: self.dataSource.searchTerm!)
-                } else if self.dataSource.isFiltering() {
-                    self.noDevicesLabel.text = "No devices found matching the current filter"
-                }
-
-            }
-
+            self.setupTableViewHeader()
             self.tableView.reloadData()
         }
+    }
+
+    private func setupTableViewHeader() {
+        self.tableView.tableHeaderView = nil
+        self.noDevicesView.removeFromSuperview()
+
+        if !self.initialLoadComplete {
+            return
+        }
+
+        self.tableView.tableHeaderView =  (self.dataSource.viewDevices.count  > 0) ? nil : self.noDevicesView
+
+        if self.tableView.tableHeaderView != nil {
+            if  self.dataSource.devices.count == 0 {
+                self.noDevicesLabel.text = "No devices"
+            } else if self.dataSource.isSearching() {
+                self.noDevicesLabel.text = "No devices found matching '{{0}}'".replacingOccurrences(of: "{{0}}", with: self.dataSource.searchTerm!)
+            } else if self.dataSource.isFiltering() {
+                self.noDevicesLabel.text = "No devices found matching the current filter"
+            }
+        }
+
+        self.adjustTableViewHeaderViewConstraints()
+    }
+
+    func adjustTableViewHeaderViewConstraints() {
+        if (self.tableView.tableHeaderView == nil) {
+            return
+        }
+
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.heightAnchor, constant: -8),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.widthAnchor),
+                self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.centerXAnchor),
+                self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.safeAreaLayoutGuide.centerYAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, constant: -8),
+                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor),
+                self.tableView.tableHeaderView!.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+                self.tableView.tableHeaderView!.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor)
+            ])
+        }
+
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
 
 
@@ -311,11 +358,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         c?.modeButtonName = "SETUP button"
 
-        c?.elementTextColor = UIColor.white//(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c?.elementTextColor = UIColor.white
         c?.elementBackgroundColor = ParticleUtils.particleCyanColor
-        c?.brandImage = UIImage(named: "particle-horizontal-head")
+        c?.brandImage = UIImage(named: "ImgParticleLogoHorizontal")
         c?.brandImageBackgroundColor = .clear
-        c?.brandImageBackgroundImage = UIImage(named: "imgTrianglifyHeader")
+        c?.brandImageBackgroundImage = UIImage(named: "ImgAppHeader")
 
         c?.tintSetupImages = false
         c?.instructionalVideoFilename = "photon_wifi.mp4"
@@ -370,11 +417,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DeviceListCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListCell
-        cell.setup(device: self.dataSource.viewDevices[indexPath.row])
+        if (indexPath.row < self.dataSource.viewDevices.count) {
+            cell.setup(device: self.dataSource.viewDevices[indexPath.row])
+        }
         return cell
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // user swiped left
         if editingStyle == .delete
         {
@@ -579,21 +628,31 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: Keyboard display
     @objc func keyboardWillShow(_ notification:Notification) {
 
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if #available(iOS 11.0, *) {
-                additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height - self.view.safeAreaInsets.bottom, 0)
+                self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height - self.view.safeAreaInsets.bottom, right: 0)
             } else {
-                tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            }
+
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
             }
         }
     }
     @objc  func keyboardWillHide(_ notification:Notification) {
 
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if #available(iOS 11.0, *) {
-                additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                self.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             } else {
-                tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            }
+
+            UIView.animate(withDuration: 0.25) { () -> Void in
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
             }
         }
     }

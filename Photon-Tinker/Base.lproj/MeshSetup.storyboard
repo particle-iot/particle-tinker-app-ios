@@ -62,7 +62,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ImC-3i-gg4" customClass="UIControl">
-                                <rect key="frame" x="20" y="95" width="335" height="482"/>
+                                <rect key="frame" x="20" y="95.000000000000028" width="335" height="491.66666666666674"/>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVW-YV-nr5">
@@ -102,10 +102,10 @@
                                 <viewLayoutGuide key="safeArea" id="RV6-x1-QSE"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hf4-bB-dke">
-                                <rect key="frame" x="20" y="592" width="335" height="30"/>
+                                <rect key="frame" x="20" y="601.66666666666663" width="335" height="20.333333333333371"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObB-ns-lzw" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="0.0" width="305" height="30"/>
+                                        <rect key="frame" x="30" y="0.0" width="305" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1196,6 +1196,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshCloseIcon" translatesAutoresizingMaskIntoConstraints="NO" id="tEb-V8-QeX">
                                         <rect key="frame" x="335" y="12" width="20" height="20"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="3Ks-OF-zqz"/>
                                             <constraint firstAttribute="width" constant="20" id="vQg-KM-VLf"/>
@@ -1203,6 +1204,7 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshBackIcon" translatesAutoresizingMaskIntoConstraints="NO" id="KuA-9H-Zox">
                                         <rect key="frame" x="20" y="12" width="20" height="20"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="1Bm-6B-LW5"/>
                                             <constraint firstAttribute="width" constant="20" id="uOW-KV-4pz"/>
@@ -1214,6 +1216,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="jJU-Sj-coN"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="cancelTapped:" destination="qIB-Qf-TAR" eventType="touchUpInside" id="TfY-2a-oY8"/>
                                         </connections>
@@ -1224,6 +1227,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="7LW-gs-MWW"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="backTapped:" destination="qIB-Qf-TAR" eventType="touchUpInside" id="Doa-MY-oIy"/>
                                         </connections>
@@ -2506,6 +2510,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshCloseIcon" translatesAutoresizingMaskIntoConstraints="NO" id="acr-jn-mFO">
                                         <rect key="frame" x="335" y="12" width="20" height="20"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="NVc-6C-B8u"/>
                                             <constraint firstAttribute="height" constant="20" id="TiB-S8-hGQ"/>
@@ -2513,6 +2518,7 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshBackIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9oB-2Y-HWl">
                                         <rect key="frame" x="20" y="12" width="20" height="20"/>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="5LT-5h-dcJ"/>
                                             <constraint firstAttribute="height" constant="20" id="oM6-hc-Vxx"/>
@@ -2530,6 +2536,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="878-BU-KfZ"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="cancelTapped:" destination="WR3-PN-MIX" eventType="touchUpInside" id="jky-mb-Yce"/>
                                         </connections>
@@ -2540,6 +2547,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="h1l-n9-Ky9"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="backTapped:" destination="WR3-PN-MIX" eventType="touchUpInside" id="g7t-on-Z24"/>
                                         </connections>
@@ -2688,9 +2696,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MeshBackIcon" width="20" height="20"/>
+        <image name="MeshBackIcon" width="24" height="24"/>
         <image name="MeshCameraIcon" width="23" height="18"/>
-        <image name="MeshCloseIcon" width="20" height="20"/>
+        <image name="MeshCloseIcon" width="24" height="24"/>
         <image name="MeshIconActivateSim" width="78" height="99"/>
         <image name="MeshIconDeactivateSim" width="79" height="100"/>
         <image name="MeshIconUnclaimDevice" width="74" height="81"/>

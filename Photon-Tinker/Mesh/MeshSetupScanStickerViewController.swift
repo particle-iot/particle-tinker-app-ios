@@ -73,7 +73,7 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
         let ac = UIAlertController(title: MeshSetupStrings.Prompt.NoCameraPermissionsTitle, message: MeshSetupStrings.Prompt.NoCameraPermissionsText, preferredStyle: .alert)
 
         let settingsAction = UIAlertAction(title: MeshSetupStrings.Action.OpenSettings, style: .default) { (_) -> Void in
-            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
 
@@ -135,15 +135,15 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(startCaptureSession), name: .UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopCaptureSession), name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(startCaptureSession), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopCaptureSession), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
     override func viewDidLayoutSubviews() {

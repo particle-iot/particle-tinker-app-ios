@@ -53,26 +53,27 @@ enum MeshSetupFlowState {
 
 //delegate required to request / deliver information from / to the UI
 protocol MeshSetupFlowRunnerDelegate {
+
+    //control panel
+    func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice)
+    //func setSwitchToControlPanel(switch: Bool) -> MeshSetupFlowError?
+    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep)
+    //func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError?
+    func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep)
+    //func setSimDataLimit(dataLimit: Int) -> MeshSetupFlowError?
+    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep)
+
+    //setup flow
     func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep)
     //func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError?
     func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep)
     //func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError?
 
-    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep)
-    //func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError?
-    func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep)
-    //func setSimDataLimit(dataLimit: Int) -> MeshSetupFlowError?
-
-
     func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep)
     //func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError?
     func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo)
     //func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError?
-    func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice)
-    //func setSwitchToControlPanel(switch: Bool) -> MeshSetupFlowError?
 
-
-    //create flow
     func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep)
     //func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError?
     func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo])
@@ -110,23 +111,25 @@ protocol MeshSetupFlowRunnerDelegate {
     func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep)
     //func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
 
-    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep)
-
     func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo)
     func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState)
     func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
 }
 
 extension MeshSetupFlowRunnerDelegate {
+    //control panel
+    func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice) { fatalError("Not implemented") }
+    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+
+    //setup flow
     func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
 
     func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo) { fatalError("Not implemented") }
 
-
-    //create flow
     func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo]) { fatalError("Not implemented") }
 
@@ -147,8 +150,6 @@ extension MeshSetupFlowRunnerDelegate {
 
     func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
     func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-
-    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) { fatalError("Not implemented") }
 
     func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo) { fatalError("Not implemented") }
     func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) { fatalError("Not implemented") }

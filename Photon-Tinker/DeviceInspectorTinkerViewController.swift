@@ -47,6 +47,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
 
     private func setupTableViewHeader() {
         self.tableView.tableHeaderView = nil
+
         self.flashTinkerView.removeFromSuperview()
         self.tinkerView.removeFromSuperview()
         self.deviceOfflineView.removeFromSuperview()

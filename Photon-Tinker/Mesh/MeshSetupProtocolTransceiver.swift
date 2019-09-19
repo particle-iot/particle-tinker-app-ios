@@ -5,7 +5,6 @@
 
 import UIKit
 import SwiftProtobuf
-import Crashlytics
 
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias MeshSetupCloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
@@ -38,7 +37,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private var bluetoothConnection: MeshSetupBluetoothConnection
+    private unowned var bluetoothConnection: MeshSetupBluetoothConnection
     private var encryptionManager: MeshSetupEncryptionManager
 
     private var requestMessageId: UInt16 = 1

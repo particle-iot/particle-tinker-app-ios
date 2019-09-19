@@ -10,22 +10,20 @@ import UIKit
 
 class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelegate {
 
+    @IBOutlet weak var getStartedButton: ParticleButton!
+    @IBOutlet weak var versionLabel: UILabel!
+
     private var versionLabelTapCount = 0
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
-        
-        let backgroundImage = UIImageView(image: UIImage(named: "imgTrianglifyBackgroundBlue"))
-        backgroundImage.frame = UIScreen.main.bounds
-        backgroundImage.contentMode = .scaleToFill;
-        self.view.addSubview(backgroundImage)
-        self.view.sendSubview(toBack: backgroundImage)
-        let layer = self.getStartedButton.layer
-        layer.backgroundColor = UIColor.clear.cgColor
-        layer.borderColor = UIColor.white.cgColor
-        layer.cornerRadius = 3.0
-        layer.borderWidth = 2.0
+
         let verStr =  "v\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)b\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)"
         self.versionLabel.text = verStr
         
@@ -33,6 +31,8 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         {
             self.performSegue(withIdentifier: "start_no_animation", sender: self)
         }
+
+        getStartedButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -71,13 +71,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
             self.performSegue(withIdentifier: "start", sender: self)
         }
     }
-    
-    @IBOutlet weak var getStartedButton: UIButton!
-    
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-    
+
     func customizeSetupForLoginFlow()
     {
         // Do customization for Particle Setup wizard UI
@@ -85,7 +79,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         
         c?.allowSkipAuthentication = true
         c?.skipAuthenticationMessage = "Skipping authentication will run Particle app in limited functionality mode - you would only be able to setup Wi-Fi credentials to Photon based devices but not claim them to your account nor use Tinker or device inspector. Are you sure you want to continue?"
-        c?.pageBackgroundImage = UIImage(named: "imgTrianglifyBackgroundBlue")
+        c?.pageBackgroundImage = UIImage(named: "ImgAppBackground")
         c?.normalTextFontName = "Gotham-Book"
         c?.boldTextFontName = "Gotham-Medium"
         c?.headerTextFontName = "Gotham-Light" // new
@@ -93,9 +87,9 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         c?.linkTextColor = UIColor.white
 
         c?.linkTextColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
-        c?.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "imgOrangeGradient")!)
+        c?.elementTextColor = UIColor(red: 0, green: 186.0/255.0, blue: 236.0/255.0, alpha: 1.0) //(patternImage: UIImage(named: "ImgOrangeGradient")!)
         c?.elementBackgroundColor = UIColor.white
-        c?.brandImage = UIImage(named: "particle-horizontal-head")
+        c?.brandImage = UIImage(named: "ImgParticleLogoHorizontal")
         c?.brandImageBackgroundColor = .clear
         c?.brandImageBackgroundImage = nil
         c?.tintSetupImages = true
@@ -114,8 +108,7 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
             print("Tinker app in ORG_TEST_MODE")
         #endif
     }
-      
-    @IBOutlet weak var versionLabel: UILabel!
+
     @IBAction func startButtonTapped(_ sender: UIButton?)
     {
         if (sender != nil) {

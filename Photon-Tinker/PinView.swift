@@ -20,15 +20,18 @@ class PinView: UIView, UIGestureRecognizerDelegate {
 
     private var slider: ASValueTrackingSlider!
     private var button: UIButton!
-    private var label: UILabel!
-    private var valueLabel: UILabel!
+    private var label: ParticleLabel!
+    private var valueLabel: ParticleLabel!
 
     private var outerPieValueView: PieProgressView!
     private var outerPieFrameView: PieProgressView!
 
     private var longTapGestureRecognizer: UILongPressGestureRecognizer!
     private var tapGestureRecognizer: UILongPressGestureRecognizer!
-    private var touchStartTime: Date?
+
+    private var labelLongTapGestureRecognizer: UILongPressGestureRecognizer!
+    private var labelTapGestureRecognizer: UILongPressGestureRecognizer!
+
 
     private var prefaded: Bool = false
     private var updating: Bool = false
@@ -87,9 +90,9 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.frame = .zero
-        button.setImage(UIImage(named: "imgCircle"), for: .normal)
+        button.setImage(UIImage.circle(diameter: 42, color: UIColor(rgb: 0xF5F5F5)), for: .normal)
         button.setTitle("", for: .normal)
-        button.tintColor = UIColor(red: 0.2, green: 0.2, blue: 0.25, alpha: 1)
+        button.tintColor = UIColor(rgb: 0xF5F5F5)
         addSubview(button)
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
@@ -98,12 +101,11 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             button.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
 
-        label = UILabel(frame: .zero)
+        label = ParticleLabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = pin.label
-        label.font = UIFont(name: "Gotham-Medium", size: 16)
+        label.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
         label.adjustsFontSizeToFitWidth = true
-        label.textColor = UIColor.white
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
         addSubview(label)
@@ -111,13 +113,12 @@ class PinView: UIView, UIGestureRecognizerDelegate {
             label.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
             label.heightAnchor.constraint(equalTo: self.heightAnchor),
             label.centerXAnchor.constraint(equalTo: outerPieFrameView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 1)
         ])
 
-        valueLabel = UILabel(frame: .zero)
+        valueLabel = ParticleLabel(frame: .zero)
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
-        valueLabel.font = UIFont(name: "Gotham-Medium", size: 15.0)
-        valueLabel.textColor = UIColor.white
+        valueLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
         valueLabel.text = ""
         valueLabel.isHidden = true
         addSubview(valueLabel)
@@ -169,11 +170,26 @@ class PinView: UIView, UIGestureRecognizerDelegate {
         longTapGestureRecognizer.cancelsTouchesInView = false
         longTapGestureRecognizer.isEnabled = false
 
+        labelLongTapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(pinLongTapped))
+        labelLongTapGestureRecognizer.minimumPressDuration = 1.0
+        labelLongTapGestureRecognizer.cancelsTouchesInView = false
+        labelLongTapGestureRecognizer.isEnabled = false
+
         tapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(pinTapped))
         tapGestureRecognizer.minimumPressDuration = 0.0
         tapGestureRecognizer.cancelsTouchesInView = false
         tapGestureRecognizer.isEnabled = true
         tapGestureRecognizer.delegate = self
+
+        labelTapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(pinTapped))
+        labelTapGestureRecognizer.minimumPressDuration = 0.0
+        labelTapGestureRecognizer.cancelsTouchesInView = false
+        labelTapGestureRecognizer.isEnabled = true
+        labelTapGestureRecognizer.delegate = self
+
+        self.valueLabel.isUserInteractionEnabled = true
+        self.valueLabel.addGestureRecognizer(labelLongTapGestureRecognizer)
+        self.valueLabel.addGestureRecognizer(labelTapGestureRecognizer)
 
         self.button.addGestureRecognizer(longTapGestureRecognizer)
         self.button.addGestureRecognizer(tapGestureRecognizer)
@@ -187,6 +203,10 @@ class PinView: UIView, UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if (gestureRecognizer == self.tapGestureRecognizer) && (otherGestureRecognizer == self.longTapGestureRecognizer) {
+            return true
+        }
+
+        if (gestureRecognizer == self.labelTapGestureRecognizer) && (otherGestureRecognizer == self.labelLongTapGestureRecognizer) {
             return true
         }
 
@@ -258,6 +278,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                 self.isUserInteractionEnabled = false
             }
             self.longTapGestureRecognizer.isEnabled = true
+            self.labelLongTapGestureRecognizer.isEnabled = true
 
             self.outerPieValueView.isHidden = false
             self.outerPieFrameView.isHidden = false
@@ -302,6 +323,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
 
         } else {
             self.longTapGestureRecognizer.isEnabled = false
+            self.labelLongTapGestureRecognizer.isEnabled = false
 
             self.outerPieValueView.isHidden = true
             self.outerPieFrameView.isHidden = true

@@ -5,7 +5,6 @@
 
 import Foundation
 import UIKit
-import Crashlytics
 import MessageUI
 
 public enum MeshSetupFlowResult: CustomStringConvertible {
@@ -295,11 +294,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         fatalError("not implemented")
     }
 
-    func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
+    internal func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
         fatalError("not implemented")
     }
 
-    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) {
+    internal func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) {
         fatalError("not implemented")
     }
 

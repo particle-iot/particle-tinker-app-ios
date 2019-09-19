@@ -8,8 +8,8 @@
 
 
 
-class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, DeviceEventTableViewCellDelegate {
-    @IBOutlet weak var eventFilterSearchBar: UISearchBar!
+class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, SearchBarViewDelegate, UITableViewDelegate, UITableViewDataSource, DeviceEventTableViewCellDelegate {
+    @IBOutlet weak var searchBar: SearchBarView!
     @IBOutlet weak var clearEventsButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
 
@@ -29,8 +29,10 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).tintColor = ParticleStyle.ButtonColor
         self.clearEventsButton.tintColor = ParticleStyle.ButtonColor
         self.playPauseButton.tintColor = ParticleStyle.ButtonColor
+        self.noEventsView.removeFromSuperview()
 
         addRefreshControl()
+        setupSearch()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +42,37 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
     override func viewWillDisappear(_ animated: Bool) {
         unsubscribeFromDeviceEvents()
     }
+
+    private func setupSearch() {
+        searchBar.inputText.placeholder = "Search events..."
+        searchBar.delegate = self
+    }
+
+    //MARK: Search bar delegate
+    func searchBarTextDidChange(searchBar: SearchBarView, text: String?) {
+        if let text = text, text.count > 0 {
+            self.filtering = true
+            self.filterText = text
+            self.filterEvents()
+            SEGAnalytics.shared().track("DeviceInspector_EventFilterTyping")
+
+        } else {
+            self.filtering = false
+        }
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
+    func searchBarDidBeginEditing(searchBar: SearchBarView) {
+
+    }
+
+    func searchBarDidEndEditing(searchBar: SearchBarView) {
+
+    }
+
 
     override func update() {
         super.update()
@@ -105,55 +138,18 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
 
                 //2
                 var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
-                    tutorial3?.showAndFocus(self.eventFilterSearchBar.superview)
+                    tutorial3?.showAndFocus(self.searchBar.superview)
                 }
 
                 // 1
                 var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
-                    tutorial2?.showAndFocus(self.eventFilterSearchBar)
+                    tutorial2?.showAndFocus(self.searchBar)
                 }
                 tutorial?.showAndFocus(self.view)
 
                 ParticleUtils.setTutorialWasDisplayedForViewController(self)
             }
         }
-    }
-
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        return true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.eventFilterSearchBar.text = ""
-        self.eventFilterSearchBar.showsCancelButton = false
-        self.filtering = false
-        self.tableView.reloadData()
-    }
-    
-
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filtering = (searchText != "")
-        
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.25, animations: {
-                if self.filtering {
-                    self.eventFilterSearchBar.showsCancelButton = true
-                    self.filtering = true
-                } else {
-                    self.searchBarCancelButtonClicked(searchBar)
-                }
-            })
-        }
-        
-        self.filterText = searchText.lowercased()
-        self.filterEvents()
-
-        SEGAnalytics.shared().track("DeviceInspector_EventFilterTyping")
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-
     }
 
     func filterEvents() {
@@ -193,12 +189,12 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         if paused {
             paused = false
             SEGAnalytics.shared().track("DeviceInspector_EventStreamPlay")
-            playPauseButton.setImage(UIImage(named: "imgPause"), for: UIControlState())
+            playPauseButton.setImage(UIImage(named: "IconPause"), for: .normal)
             subscribeToDeviceEvents()
         } else {
             paused = true
             SEGAnalytics.shared().track("DeviceInspector_EventStreamPause")
-            playPauseButton.setImage(UIImage(named: "imgPlay"), for: UIControlState())
+            playPauseButton.setImage(UIImage(named: "IconPlay"), for: .normal)
             unsubscribeFromDeviceEvents()
         }
     }
@@ -229,27 +225,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, U
         self.tableView.tableHeaderView = (self.events.count > 0) ? nil : self.noEventsView
 
         self.adjustTableViewHeaderViewConstraints()
-    }
-
-    override func adjustTableViewHeaderViewConstraints() {
-        if (self.tableView.tableHeaderView == nil) {
-            return
-        }
-
-        if #available(iOS 11, *) {
-            NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.75, constant: 0),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor)
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                self.tableView.tableHeaderView!.heightAnchor.constraint(equalTo: self.tableView.heightAnchor, multiplier: 0.75, constant: 0),
-                self.tableView.tableHeaderView!.widthAnchor.constraint(equalTo: self.tableView.widthAnchor)
-            ])
-        }
-
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
     }
 
     func tappedOnCopyButton(_ sender: DeviceEventTableViewCell, event: ParticleEvent) {

@@ -78,7 +78,9 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     }
 
     private func setStyle() {
+        self.promptBackground.layer.masksToBounds = false
         self.promptBackground.layer.cornerRadius = 5
+        self.promptBackground.layer.applySketchShadow(color: UIColor(rgb: 0x000000), alpha: 0.3, x: 0, y: 2, blur: 4, spread: 0)
 
         self.inputTextField.borderStyle = .none
 
@@ -119,8 +121,8 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         if (multiline) {
             self.inputTextArea.becomeFirstResponder()
@@ -140,8 +142,8 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
 
@@ -161,7 +163,7 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight = keyboardSize.height
             viewCenterYConstraint.constant = keyboardHeight / 2
             UIView.animate(withDuration: 0.25) { () -> Void in

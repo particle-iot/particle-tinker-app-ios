@@ -34,7 +34,7 @@ class MeshSetupControlPanelEthernetViewController : MeshSetupControlPanelRootVie
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -48,7 +48,7 @@ class MeshSetupControlPanelEthernetViewController : MeshSetupControlPanelRootVie
             return 60.0
         }
 
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

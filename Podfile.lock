@@ -53,11 +53,11 @@ PODS:
   - Particle-SDK/SDK (0.9.7):
     - AFNetworking (~> 3.0)
     - Particle-SDK/Helpers
-  - ParticleSetup (0.9.1):
-    - ParticleSetup/Comm (= 0.9.1)
-    - ParticleSetup/Core (= 0.9.1)
-  - ParticleSetup/Comm (0.9.1)
-  - ParticleSetup/Core (0.9.1):
+  - ParticleSetup (0.9.3):
+    - ParticleSetup/Comm (= 0.9.3)
+    - ParticleSetup/Core (= 0.9.3)
+  - ParticleSetup/Comm (0.9.3)
+  - ParticleSetup/Core (0.9.3):
     - 1PasswordExtension
     - Particle-SDK
     - ParticleSetup/Comm
@@ -145,7 +145,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Particle-SDK: aebdb0fc9fb634f55cc3ede6ce03b6fe6510c807
-  ParticleSetup: 327de8ca1a44047a995f3c9fe4f18bafe579943c
+  ParticleSetup: aa3c951a3cec4753437bbc5200bf4f3158c69368
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RMessage: 761f8ff71247b8d72d0c4a0be5a8e6ce8dfdedd0
