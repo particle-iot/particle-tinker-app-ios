@@ -205,7 +205,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         }
         
         let actionType = request.url?.host;
-        if actionType == "scanIccid" {
+        if actionType == "scanSerialNum" {
+            SEGAnalytics.shared().track("Tinker_ESerisSetupScanSerialNumber")
+            self.performSegue(withIdentifier: "scan", sender: self)
+        } else if actionType == "scanIccid" {
             SEGAnalytics.shared().track("Tinker_ElectronSetupScanICCID")
             self.performSegue(withIdentifier: "scan", sender: self)
         } else if actionType == "scanCreditCard" {
@@ -252,7 +255,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         scanBarcodeViewController.dismiss(animated: true, completion: {
             DispatchQueue.main.async {
             
-                var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
+                var jsCode : String = "var inputElement = document.getElementById('iccid') || document.getElementById('serialNumber');\n"
                 jsCode+="inputElement.value = '\(barcodeValue)';\n"
                 jsCode+="var e = new Event('change');\n"
                 jsCode+="e.target = inputElement;\n"
