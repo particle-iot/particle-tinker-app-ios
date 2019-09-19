@@ -50,7 +50,9 @@ class LogList {
 
         var formattedMessage = "(\(component) \(typeString)) \(message)"
         #if !DEBUG
-        CLSLogv(formattedMessage, getVaList([]))
+        DispatchQueue.main.async {
+            CLSLogv(formattedMessage, getVaList([]))
+        }
         #endif
 
         if let file = file {
