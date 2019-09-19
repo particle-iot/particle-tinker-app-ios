@@ -37,7 +37,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private var bluetoothConnection: MeshSetupBluetoothConnection
+    private unowned var bluetoothConnection: MeshSetupBluetoothConnection
     private var encryptionManager: MeshSetupEncryptionManager
 
     private var requestMessageId: UInt16 = 1
