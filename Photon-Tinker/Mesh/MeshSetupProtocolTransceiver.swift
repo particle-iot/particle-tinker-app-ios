@@ -5,7 +5,6 @@
 
 import UIKit
 import SwiftProtobuf
-import Crashlytics
 
 typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
 typealias MeshSetupCloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus

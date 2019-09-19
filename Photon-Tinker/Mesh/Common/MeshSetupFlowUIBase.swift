@@ -5,7 +5,6 @@
 
 import Foundation
 import UIKit
-import Crashlytics
 import MessageUI
 
 public enum MeshSetupFlowResult: CustomStringConvertible {
