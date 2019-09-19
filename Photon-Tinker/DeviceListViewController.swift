@@ -134,6 +134,10 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func loadDevices()
     {
+        guard ParticleCloud.sharedInstance().isAuthenticated else {
+            return
+        }
+
         self.isBusy = true
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices started", withParameters: getVaList([]))
 
@@ -145,7 +149,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.initialLoadComplete = true
                     self.handleGetDevicesResponse(devices, error: error)
                     self.resume(animated: true)
-                    self.tableView.refreshControl!.endRefreshing()
+                    self.tableView.refreshControl?.endRefreshing()
                     self.showTutorial()
                     self.isBusy = false
                 }
