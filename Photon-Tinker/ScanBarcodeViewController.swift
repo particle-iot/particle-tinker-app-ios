@@ -28,21 +28,31 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
     var cancelButton: UIButton!
     var circleView: UIView!
 
+    var eSeriesSetup: Bool!
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.frame = CGRect(x: 0, y: self.view.bounds.size.height - 40, width: self.view.bounds.size.width, height: 40);
         label.backgroundColor = UIColor(white: 0.15, alpha: 0.65)
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.text = "Point at SIM ICCID barcode"
+        label.numberOfLines = 0
+
+        if (self.eSeriesSetup) {
+            label.text = "Point at S/N barcode or data matrix"
+        } else {
+            label.text = "Point at SIM ICCID barcode"
+        }
         self.view.addSubview(label)
+
+
 
         overlayImageView = UIImageView(image: UIImage(named: "ImgOverlayGraphic"))
         overlayImageView.frame = CGRect(x: 30, y: 150, width: view.bounds.size.width - 60, height: view.bounds.size.height - 300)
@@ -163,15 +173,19 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
 
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        var barCodeObject: AVMetadataMachineReadableCodeObject?
         var detectionString: String? = nil
-
-        let barCodeTypes = [AVMetadataObject.ObjectType.code128]
 
         for metadata in metadataObjects {
             if (metadata.type == .code128) {
-                barCodeObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject
-                detectionString = barCodeObject!.stringValue
+                guard let barCodeObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject else { return }
+                detectionString = barCodeObject.stringValue
+
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            } else if (metadata.type == .dataMatrix && self.eSeriesSetup) {
+                guard let readableObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject else { return }
+                detectionString = readableObject.stringValue
+
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             }
         }
 

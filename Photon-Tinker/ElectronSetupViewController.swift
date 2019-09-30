@@ -207,10 +207,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         let actionType = request.url?.host;
         if actionType == "scanSerialNum" {
             SEGAnalytics.shared().track("Tinker_ESerisSetupScanSerialNumber")
-            self.performSegue(withIdentifier: "scan", sender: self)
+            self.performSegue(withIdentifier: "scan", sender: "eseries")
         } else if actionType == "scanIccid" {
             SEGAnalytics.shared().track("Tinker_ElectronSetupScanICCID")
-            self.performSegue(withIdentifier: "scan", sender: self)
+            self.performSegue(withIdentifier: "scan", sender: "iccid")
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
         } else if actionType == "done" {
@@ -274,8 +274,13 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "scan" {
-            let sbcvc = segue.destination as? ScanBarcodeViewController
-            sbcvc!.delegate = self
+            let sbcvc = segue.destination as! ScanBarcodeViewController
+            if let code = sender as? String {
+                sbcvc.eSeriesSetup = (code == "eseries")
+            } else {
+                sbcvc.eSeriesSetup = false
+            }
+            sbcvc.delegate = self
         }
     }
 }
