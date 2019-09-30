@@ -205,9 +205,12 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         }
         
         let actionType = request.url?.host;
-        if actionType == "scanIccid" {
+        if actionType == "scanSerialNum" {
+            SEGAnalytics.shared().track("Tinker_ESerisSetupScanSerialNumber")
+            self.performSegue(withIdentifier: "scan", sender: "eseries")
+        } else if actionType == "scanIccid" {
             SEGAnalytics.shared().track("Tinker_ElectronSetupScanICCID")
-            self.performSegue(withIdentifier: "scan", sender: self)
+            self.performSegue(withIdentifier: "scan", sender: "iccid")
         } else if actionType == "scanCreditCard" {
             print("Scan credit card requested.. not implemented yet")
         } else if actionType == "done" {
@@ -252,7 +255,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         scanBarcodeViewController.dismiss(animated: true, completion: {
             DispatchQueue.main.async {
             
-                var jsCode : String = "var inputElement = document.getElementById('iccid');\n"
+                var jsCode : String = "var inputElement = document.getElementById('iccid') || document.getElementById('serialNumber');\n"
                 jsCode+="inputElement.value = '\(barcodeValue)';\n"
                 jsCode+="var e = new Event('change');\n"
                 jsCode+="e.target = inputElement;\n"
@@ -271,8 +274,13 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "scan" {
-            let sbcvc = segue.destination as? ScanBarcodeViewController
-            sbcvc!.delegate = self
+            let sbcvc = segue.destination as! ScanBarcodeViewController
+            if let code = sender as? String {
+                sbcvc.eSeriesSetup = (code == "eseries")
+            } else {
+                sbcvc.eSeriesSetup = false
+            }
+            sbcvc.delegate = self
         }
     }
 }

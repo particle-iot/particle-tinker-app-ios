@@ -23,53 +23,146 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
     var input: AVCaptureDeviceInput?
 
     var label: UILabel!
+    var labelBackground: UIView!
+
     var overlayImageView: UIImageView!
-    var overlayButton: UIButton!
+
+    var flashlightButton: UIButton!
+    var flashlightButtonBackground: UIView!
+
+    var cancelButtonBackground: UIView!
     var cancelButton: UIButton!
-    var circleView: UIView!
+
+    var eSeriesSetup: Bool!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         label = UILabel()
-        label.frame = CGRect(x: 0, y: self.view.bounds.size.height - 40, width: self.view.bounds.size.width, height: 40);
-        label.backgroundColor = UIColor(white: 0.15, alpha: 0.65)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
         label.textAlignment = .center
-        label.text = "Point at SIM ICCID barcode"
+        label.numberOfLines = 0
+        if (self.eSeriesSetup) {
+            label.text = "Point at S/N barcode or data matrix"
+        } else {
+            label.text = "Point at SIM ICCID barcode"
+        }
         self.view.addSubview(label)
 
+        labelBackground = UIView()
+        labelBackground.translatesAutoresizingMaskIntoConstraints = false
+        labelBackground.backgroundColor = UIColor(white: 0.15, alpha: 0.65)
+        self.view.insertSubview(labelBackground, at: 0)
+
+        NSLayoutConstraint.activate([
+            self.labelBackground.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.labelBackground.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            self.labelBackground.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.labelBackground.topAnchor.constraint(equalTo: self.label.topAnchor, constant: -5)
+        ])
+
         overlayImageView = UIImageView(image: UIImage(named: "ImgOverlayGraphic"))
-        overlayImageView.frame = CGRect(x: 30, y: 150, width: view.bounds.size.width - 60, height: view.bounds.size.height - 300)
+        overlayImageView.translatesAutoresizingMaskIntoConstraints = false
         overlayImageView.image = overlayImageView.image?.withRenderingMode(.alwaysTemplate)
         overlayImageView.tintColor = UIColor.white
         view.addSubview(overlayImageView)
 
-
-        overlayButton = UIButton(type: .custom)
-        overlayButton.setImage(UIImage(named: "ImgFlashlight"), for: .normal)
-        overlayButton.frame = CGRect(x: 30, y: 30, width: 48, height: 48)
-        overlayButton.tintColor = UIColor.white
-        overlayButton.addTarget(self, action: #selector(toggleTorchButton), for: .touchUpInside)
-        view.addSubview(overlayButton)
+        NSLayoutConstraint.activate([
+            self.overlayImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.overlayImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
 
 
-        cancelButton = UIButton(type: .system)
-        cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.frame = CGRect(x: view.bounds.size.width - 60, y: view.bounds.size.height - 44, width: 60, height: 48)
+        flashlightButtonBackground = UIView(frame: .zero)
+        flashlightButtonBackground.translatesAutoresizingMaskIntoConstraints = false
+        flashlightButtonBackground.alpha = 0.5
+        flashlightButtonBackground.layer.cornerRadius = 20
+        flashlightButtonBackground.backgroundColor = UIColor.gray
+        view.addSubview(flashlightButtonBackground)
+
+        NSLayoutConstraint.activate([
+            self.flashlightButtonBackground.widthAnchor.constraint(equalToConstant: 40),
+            self.flashlightButtonBackground.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
+        flashlightButton = UIButton(type: .custom)
+        flashlightButton.translatesAutoresizingMaskIntoConstraints = false
+        flashlightButton.setImage(UIImage(named: "ImgFlashlight"), for: .normal)
+        flashlightButton.tintColor = UIColor.white
+        flashlightButton.addTarget(self, action: #selector(toggleTorchButton), for: .touchUpInside)
+        view.addSubview(flashlightButton)
+
+        NSLayoutConstraint.activate([
+            self.flashlightButton.centerXAnchor.constraint(equalTo: self.flashlightButtonBackground.centerXAnchor),
+            self.flashlightButton.centerYAnchor.constraint(equalTo: self.flashlightButtonBackground.centerYAnchor),
+            self.flashlightButton.widthAnchor.constraint(equalTo: self.flashlightButtonBackground.widthAnchor, constant: -16),
+            self.flashlightButton.heightAnchor.constraint(equalTo: self.flashlightButtonBackground.heightAnchor, constant: -16)
+        ])
+
+        cancelButtonBackground = UIView(frame: .zero)
+        cancelButtonBackground.translatesAutoresizingMaskIntoConstraints = false
+        cancelButtonBackground.alpha = 0.5
+        cancelButtonBackground.layer.cornerRadius = 20
+        cancelButtonBackground.backgroundColor = UIColor.gray
+        view.addSubview(cancelButtonBackground)
+
+        NSLayoutConstraint.activate([
+            self.cancelButtonBackground.widthAnchor.constraint(equalToConstant: 40),
+            self.cancelButtonBackground.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
+        cancelButton = UIButton(type: .custom)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.setImage(UIImage(named: "IconClose"), for: .normal)
+        cancelButton.tintColor = UIColor.white
         cancelButton.addTarget(self, action: #selector(cancelScan), for: .touchUpInside)
         view.addSubview(cancelButton)
 
-        circleView = UIView(frame: CGRect(x: 22, y: 24, width: 64, height: 64))
-        circleView.alpha = 0.5
-        circleView.layer.cornerRadius = 32
-        circleView.backgroundColor = UIColor.gray
-        view.addSubview(circleView)
+        NSLayoutConstraint.activate([
+            self.cancelButton.centerXAnchor.constraint(equalTo: self.cancelButtonBackground.centerXAnchor),
+            self.cancelButton.centerYAnchor.constraint(equalTo: self.cancelButtonBackground.centerYAnchor),
+            self.cancelButton.widthAnchor.constraint(equalTo: self.cancelButtonBackground.widthAnchor, constant: -16),
+            self.cancelButton.heightAnchor.constraint(equalTo: self.cancelButtonBackground.heightAnchor, constant: -16)
+        ])
+
+        if #available(iOS 11, *) {
+            NSLayoutConstraint.activate([
+                self.label.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+                self.label.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16),
+                self.label.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+
+                self.overlayImageView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.75),
+                self.overlayImageView.heightAnchor.constraint(equalTo: self.overlayImageView.heightAnchor),
+
+                self.flashlightButtonBackground.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16),
+                self.flashlightButtonBackground.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
+
+                self.cancelButtonBackground.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 16),
+                self.cancelButtonBackground.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                self.label.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+                self.label.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
+                self.label.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -5),
+
+                self.overlayImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75),
+                self.overlayImageView.heightAnchor.constraint(equalTo: self.overlayImageView.heightAnchor),
+
+                self.flashlightButtonBackground.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
+                self.flashlightButtonBackground.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 36),
+
+                self.cancelButtonBackground.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+                self.cancelButtonBackground.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 36)
+            ])
+        }
+
+
 
         session = AVCaptureSession()
         device = AVCaptureDevice.default(for: .video)
@@ -93,16 +186,9 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
         prevLayer = AVCaptureVideoPreviewLayer(session: session)
         prevLayer.frame = view.bounds
         prevLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(prevLayer)
+        view.layer.insertSublayer(prevLayer, at: 0)
 
         session.startRunning()
-
-
-        view.bringSubviewToFront(label)
-        view.bringSubviewToFront(circleView)
-        view.bringSubviewToFront(overlayButton)
-        view.bringSubviewToFront(overlayImageView)
-        view.bringSubviewToFront(cancelButton)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -143,17 +229,7 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
-        if #available(iOS 11.0, *) {
-            let insets = view.safeAreaInsets
-
-            label.frame = CGRect(x: 0, y: view.bounds.size.height - 40 - insets.bottom, width: view.bounds.size.width, height: 40)
-            cancelButton.frame = CGRect(x: view.bounds.size.width - 60, y: view.bounds.size.height - 44 - insets.bottom, width: 60, height: 48)
-
-            overlayButton.frame = CGRect(x: 30, y: 30 + insets.top, width: 48, height: 48)
-            circleView.frame = CGRect(x: 22, y: 24 + insets.top, width: 64, height: 64)
-
-            overlayImageView.frame = CGRect(x: 30, y: 150 + insets.top, width: view.bounds.size.width - 60, height: view.bounds.size.height - 300 - insets.top - insets.bottom)
-        }
+        prevLayer.frame = view.bounds
     }
 
 
@@ -163,15 +239,19 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
 
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        var barCodeObject: AVMetadataMachineReadableCodeObject?
         var detectionString: String? = nil
-
-        let barCodeTypes = [AVMetadataObject.ObjectType.code128]
 
         for metadata in metadataObjects {
             if (metadata.type == .code128) {
-                barCodeObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject
-                detectionString = barCodeObject!.stringValue
+                guard let barCodeObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject else { return }
+                detectionString = barCodeObject.stringValue
+
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            } else if (metadata.type == .dataMatrix && self.eSeriesSetup) {
+                guard let readableObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject else { return }
+                detectionString = readableObject.stringValue
+
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             }
         }
 
