@@ -86,7 +86,15 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
     }
 
     @IBAction func flashTinkerButtonTapped(_ sender: Any) {
-        self.flashTinker()
+        let alert = UIAlertController(title: "Flash Tinker?", message: "Flashing will overwrite the application firmware on your Particle device with the Tinker app.", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Flash", style: .default, handler: { action in
+            self.flashTinker()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil ))
+
+        self.present(alert, animated: true)
     }
 
 
