@@ -168,7 +168,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.logout()
             } else {
                 ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
-                RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                DispatchQueue.main.async {
+                    RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                }
             }
         }
         else
@@ -180,7 +182,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.dataSource.setDevices(devices!)
 
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Load devices completed. Device count: %i", withParameters: getVaList([devices!.count]))
-            ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([devices!]))
+            DispatchQueue.main.async {
+                ParticleLogger.logDebug(NSStringFromClass(type(of: self)), format: "Devices: %@", withParameters: getVaList([devices!]))
+            }
 
             DispatchQueue.main.async {
                 // if no devices offer user to setup a new one
