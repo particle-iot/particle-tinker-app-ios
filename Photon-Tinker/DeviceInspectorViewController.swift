@@ -243,6 +243,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     func controlPanelCompleted(result: MeshSetupFlowResult, data: [AnyObject]?) {
         if result == .unclaimed {
+            (self.navigationController?.viewControllers[self.navigationController!.viewControllers.count-2] as! DeviceListViewController).refreshData()
             _ = self.navigationController?.popViewController(animated: false)
         }
     }
