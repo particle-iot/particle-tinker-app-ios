@@ -328,26 +328,32 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func invokeMeshDeviceSetup() {
         SEGAnalytics.shared().track("Tinker_3rdGenSetupInvoked")
 
-
-
         let setupFlow = MeshSetupFlowUIManager.loadedViewController()
-        setupFlow.setCallback { result in
-            if result == .success {
-                self.refreshData()
+        setupFlow.setCallback(flowCallback)
+        self.present(setupFlow, animated: true)
+    }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                    if (self.dataSource.devices.count == 1) {
-                        RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
-                    } else {
-                        RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
-                    }
+    func flowCallback(result: MeshSetupFlowResult, data: [AnyObject]? = nil) {
+        if result == .success {
+            self.refreshData()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                if (self.dataSource.devices.count == 1) {
+                    RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
+                } else {
+                    RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
                 }
             }
+        } else if (result == .switchToControlPanel) {
+            guard let vc = data?.first as? MeshSetupControlPanelUIManager else {
+                fatalError("vc was not available for switchToControlPanel result")
+            }
 
-            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "3rd setup ended: %@", withParameters: getVaList([result.description]))
-            SEGAnalytics.shared().track("Tinker_3rdGenSetupEnded", properties: ["result": result.description])
+            self.performSegue(withIdentifier: "deviceInspector", sender: vc)
         }
-        self.present(setupFlow, animated: true)
+
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "3rd setup ended: %@", withParameters: getVaList([result.description]))
+        SEGAnalytics.shared().track("Tinker_3rdGenSetupEnded", properties: ["result": result.description])
     }
 
     func invokePhotonDeviceSetup()
@@ -519,11 +525,17 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "deviceInspector" {
             if let vc = segue.destination as? DeviceInspectorViewController {
-                let device = sender as! ParticleDevice
-                vc.setup(device: device)
+                if let device = sender as? ParticleDevice {
+                    vc.setup(device: device)
+                    ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@", withParameters: getVaList(["\(device)"]))
+                    SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": device.type.description])
+                } else if let cp = sender as? MeshSetupControlPanelUIManager {
+                    vc.setup(device: cp.device, controlPanelViewController: cp)
+                    ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@, controlPanel: %@", withParameters: getVaList(["\(cp.device)", "\(cp)"]))
+                    SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": cp.device.type.description])
+                }
 
-                ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@", withParameters: getVaList(["\(device)"]))
-                SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": device.type.description])
+
             }
         } else if segue.identifier == "filters" {
             if let vc = segue.destination as? DeviceListFilterAndSortViewController {

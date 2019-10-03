@@ -35,6 +35,8 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     var eventsVC: DeviceInspectorEventsViewController!
     var infoSlider: DeviceInspectorInfoSliderViewController!
 
+    private var initialControlPanelViewController: MeshSetupControlPanelUIManager?
+
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
 
@@ -56,7 +58,14 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveParticleDeviceSystemNotification), name: Notification.Name.ParticleDeviceSystemEvent, object: nil)
 
-        self.showTutorial()
+        if let cp = self.initialControlPanelViewController {
+            self.initialControlPanelViewController = nil
+            cp.setDevice(self.device)
+            cp.setCallback(self.controlPanelCompleted)
+            self.present(cp, animated: true)
+        } else {
+            self.showTutorial()
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -126,8 +135,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
 
 
-    func setup(device: ParticleDevice) {
+    func setup(device: ParticleDevice, controlPanelViewController: MeshSetupControlPanelUIManager? = nil) {
         self.device = device
+        self.initialControlPanelViewController = controlPanelViewController
     }
 
     func reloadDeviceData() {

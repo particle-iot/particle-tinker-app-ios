@@ -14,7 +14,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         return self.flowRunner as! MeshSetupControlPanelFlowManager
     }
 
-    private var device: ParticleDevice!
+    public private(set) var device: ParticleDevice!
 
     func setDevice(_ device: ParticleDevice, context: MeshSetupContext? = nil) {
         self.device = device
