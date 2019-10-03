@@ -231,7 +231,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.present(vc, animated: true)
     }
 
-    func controlPanelCompleted(result: MeshSetupFlowResult) {
+    func controlPanelCompleted(result: MeshSetupFlowResult, data: [AnyObject]?) {
         if result == .unclaimed {
             _ = self.navigationController?.popViewController(animated: false)
         }

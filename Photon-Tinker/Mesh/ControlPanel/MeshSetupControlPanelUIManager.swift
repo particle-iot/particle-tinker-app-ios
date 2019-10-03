@@ -152,7 +152,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 self.showNetworkError(error: error)
             } else {
                 if let callback = self.callback {
-                    callback(MeshSetupFlowResult.unclaimed)
+                    callback(MeshSetupFlowResult.unclaimed, nil)
                 }
                 self.terminate()
             }
