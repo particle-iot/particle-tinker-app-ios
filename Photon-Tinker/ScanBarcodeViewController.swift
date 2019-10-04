@@ -22,8 +22,8 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
     var device: AVCaptureDevice?
     var input: AVCaptureDeviceInput?
 
-    var label: UILabel!
-    var labelBackground: UIView!
+//    var label: UILabel!
+//    var labelBackground: UIView!
 
     var overlayImageView: UIImageView!
 
@@ -42,30 +42,6 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.white
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        if (self.eSeriesSetup) {
-            label.text = "Point at S/N barcode or data matrix"
-        } else {
-            label.text = "Point at SIM ICCID barcode"
-        }
-        self.view.addSubview(label)
-
-        labelBackground = UIView()
-        labelBackground.translatesAutoresizingMaskIntoConstraints = false
-        labelBackground.backgroundColor = UIColor(white: 0.15, alpha: 0.65)
-        self.view.insertSubview(labelBackground, at: 0)
-
-        NSLayoutConstraint.activate([
-            self.labelBackground.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            self.labelBackground.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            self.labelBackground.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.labelBackground.topAnchor.constraint(equalTo: self.label.topAnchor, constant: -5)
-        ])
-
         overlayImageView = UIImageView(image: UIImage(named: "ImgOverlayGraphic"))
         overlayImageView.translatesAutoresizingMaskIntoConstraints = false
         overlayImageView.image = overlayImageView.image?.withRenderingMode(.alwaysTemplate)
@@ -77,6 +53,11 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
             self.overlayImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
 
+        if (self.eSeriesSetup) {
+            NSLayoutConstraint.activate([
+                self.overlayImageView.heightAnchor.constraint(equalTo: self.overlayImageView.widthAnchor)
+            ])
+        }
 
         flashlightButtonBackground = UIView(frame: .zero)
         flashlightButtonBackground.translatesAutoresizingMaskIntoConstraints = false
@@ -132,12 +113,7 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
 
         if #available(iOS 11, *) {
             NSLayoutConstraint.activate([
-                self.label.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 16),
-                self.label.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16),
-                self.label.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-
                 self.overlayImageView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.75),
-                self.overlayImageView.heightAnchor.constraint(equalTo: self.overlayImageView.heightAnchor),
 
                 self.flashlightButtonBackground.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -16),
                 self.flashlightButtonBackground.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -147,12 +123,7 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
             ])
         } else {
             NSLayoutConstraint.activate([
-                self.label.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
-                self.label.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
-                self.label.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -5),
-
                 self.overlayImageView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.75),
-                self.overlayImageView.heightAnchor.constraint(equalTo: self.overlayImageView.heightAnchor),
 
                 self.flashlightButtonBackground.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
                 self.flashlightButtonBackground.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 36),
