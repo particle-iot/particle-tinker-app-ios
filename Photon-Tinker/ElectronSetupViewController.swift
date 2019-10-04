@@ -69,9 +69,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         print("start:"+self.printTimestamp())
 
         if ParticleCloud.sharedInstance().currentBaseURL.contains("staging") {
-            self.setupWebAddress = URL(string: "https://setup.staging.particle.io?mobile=true")
+            self.setupWebAddress = URL(string: "https://setup.staging.particle.io?mobile=true&enableElectronStickerScan=true&enableESeriesStickerScan=true")
         } else {
-            self.setupWebAddress = URL(string: "https://setup.particle.io?mobile=true")
+            self.setupWebAddress = URL(string: "https://setup.particle.io?mobile=true&enableElectronStickerScan=true&enableESeriesStickerScan=true")
         }
 //        let url =
         
