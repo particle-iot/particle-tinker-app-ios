@@ -247,11 +247,23 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
                 detectionString = barCodeObject.stringValue
 
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            } else if (metadata.type == .dataMatrix && self.eSeriesSetup) {
-                guard let readableObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject else { return }
-                detectionString = readableObject.stringValue
-
+            } else if (metadata.type == .dataMatrix) {
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                if (self.eSeriesSetup) {
+                    guard let readableObject = prevLayer.transformedMetadataObject(for: metadata) as? AVMetadataMachineReadableCodeObject else {
+                        return
+                    }
+                    detectionString = readableObject.stringValue
+                } else {
+                    session.stopRunning()
+                    let ac = UIAlertController(title: "Whoops!", message: "Looks like you are scanning the wrong sticker. Please scan the ICCID barcode that came with your SIM card.", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { [weak self] action in
+                        if let self = self {
+                            self.session.startRunning()
+                        }
+                    })
+                    present(ac, animated: true)
+                }
             }
         }
 
