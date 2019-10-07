@@ -120,13 +120,15 @@ enum MeshSetupControlPanelCellType {
                     return MeshSetupStrings.ControlPanel.Cellular.Active
                 } else if (context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
                     return MeshSetupStrings.ControlPanel.Cellular.Paused
+                } else if (context.targetDevice.sim!.status! == .inactiveNeverActivated) {
+                    return MeshSetupStrings.ControlPanel.Cellular.NeverActivated
                 } else {
                     return MeshSetupStrings.ControlPanel.Cellular.Inactive
                 }
             case .actionChangePinsStatus:
                 return context.targetDevice.ethernetDetectionFeature! ? MeshSetupStrings.ControlPanel.Ethernet.Active : MeshSetupStrings.ControlPanel.Ethernet.Inactive
             case .actionChangeDataLimit:
-                return MeshSetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(context.targetDevice.sim!.dataLimit!))
+                return context.targetDevice.sim!.dataLimit! > -1 ? MeshSetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(context.targetDevice.sim!.dataLimit!)) : MeshSetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValueNone
             case .name:
                 return context.targetDevice.name
             case .notes:
@@ -184,6 +186,8 @@ enum MeshSetupControlPanelCellType {
                 return false
             case .wifiInfoChannel, .wifiInfoRSSI, .wifiInfoSSID:
                 return false
+            case .actionChangeDataLimit:
+                return context.targetDevice.sim!.dataLimit! > -1
             default:
                 return true
         }

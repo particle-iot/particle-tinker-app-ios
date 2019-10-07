@@ -114,8 +114,8 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
                 context.targetDevice.sim!.dataLimit = Int(simInfo!.mbLimit)
                 self.start()
             } else if let nserror = error as? NSError, nserror.code == 404 {
-                context.targetDevice.sim!.status = nil
-                context.targetDevice.sim!.dataLimit = nil
+                context.targetDevice.sim!.status = .inactiveNeverActivated
+                context.targetDevice.sim!.dataLimit = -1
                 self.simStatusReceived = true
                 self.start()
             } else {
