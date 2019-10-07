@@ -60,7 +60,6 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
         if let cp = self.initialControlPanelViewController {
             self.initialControlPanelViewController = nil
-            cp.setDevice(self.device)
             cp.setCallback(self.controlPanelCompleted)
             self.present(cp, animated: true)
         } else {
