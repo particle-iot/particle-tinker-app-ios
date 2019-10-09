@@ -21,7 +21,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         self.log("Setting device: \(device)")
         if let serial = device.serialNumber, let mobileSecret = device.mobileSecret {
             self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
-        } else {
+        } else if (device.is3rdGen()) {
             fatalError("Device Serial Number (\(device.serialNumber)) or Mobile Secret (\(device.mobileSecret)) is missing.")
         }
 
