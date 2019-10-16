@@ -30,7 +30,7 @@ public enum MeshSetupFlowResult: CustomStringConvertible {
     }
 }
 
-typealias MeshSetupFlowCallback = (MeshSetupFlowResult) -> ()
+typealias MeshSetupFlowCallback = (MeshSetupFlowResult, [AnyObject]?) -> ()
 
 class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
@@ -1114,7 +1114,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 if (severity == .Fatal) {
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
                         if let callback = self.callback {
-                            callback(MeshSetupFlowResult.error)
+                            callback(MeshSetupFlowResult.error, nil)
                         }
                         self.terminate()
                     })
@@ -1169,7 +1169,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     @IBAction func cancelTapped(_ sender: Any) {
         if (sender is MeshSetupUIBase) || (self.flowRunner.currentFlow == nil) {
             if let callback = self.callback {
-                callback(MeshSetupFlowResult.canceled)
+                callback(MeshSetupFlowResult.canceled, nil)
             }
             self.terminate()
         } else {
@@ -1179,7 +1179,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
                     self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.CancelSetup, style: .default) { action in
                         if let callback = self.callback {
-                            callback(MeshSetupFlowResult.canceled)
+                            callback(MeshSetupFlowResult.canceled, nil)
                         }
                         self.terminate()
                     })

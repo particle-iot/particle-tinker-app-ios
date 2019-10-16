@@ -33,6 +33,7 @@ extension ParticleDevice {
         info["ID"] = self.id ?? "Unknown"
         info["Serial"] = self.serialNumber ?? "Unknown"
         info["Device OS"] = self.systemFirmwareVersion ?? "Unknown"
+        info["Last IP Address"] = self.lastIPAdress ?? "Unknown"
         if let lastHeard = self.lastHeard {
             info["Last Heard"] = DateFormatter.localizedString(from: lastHeard, dateStyle: .medium, timeStyle: .short)
         } else {
@@ -49,9 +50,9 @@ extension ParticleDevice {
 
     func getInfoDetailsOrder() -> [String] {
         if (self.cellular) {
-            return ["Type", "ID", "Serial", "IMEI", "Last ICCID", "Device OS", "Last Heard"]
+            return ["Type", "ID", "Serial", "IMEI", "Last ICCID", "Device OS", "Last IP Address", "Last Heard"]
         } else {
-            return ["Type", "ID", "Serial", "Device OS", "Last Heard"]    
+            return ["Type", "ID", "Serial", "Device OS", "Last IP Address", "Last Heard"]    
         }
     }
 }

@@ -233,10 +233,12 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                         let title: String? = JSONDictionary!["title"] as? String
                         let message: String? = JSONDictionary!["message"] as? String
 
-                        if JSONDictionary!["level"] as! String == "info" {
-                            RMessage.showNotification(in: self, title: title ?? "", subtitle: message ?? "", type: .success, customTypeName: nil, callback: nil)
-                        } else {
-                            RMessage.showNotification(in: self, title: title ?? "", subtitle: message ?? "", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        DispatchQueue.main.async {
+                            if JSONDictionary!["level"] as! String == "info" {
+                                RMessage.showNotification(in: self, title: title ?? "", subtitle: message ?? "", type: .success, customTypeName: nil, callback: nil)
+                            } else {
+                                RMessage.showNotification(in: self, title: title ?? "", subtitle: message ?? "", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                            }
                         }
                     }
                 }

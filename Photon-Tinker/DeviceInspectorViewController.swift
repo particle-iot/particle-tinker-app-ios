@@ -35,6 +35,8 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     var eventsVC: DeviceInspectorEventsViewController!
     var infoSlider: DeviceInspectorInfoSliderViewController!
 
+    private var initialControlPanelViewController: MeshSetupControlPanelUIManager?
+
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
 
@@ -56,7 +58,13 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveParticleDeviceSystemNotification), name: Notification.Name.ParticleDeviceSystemEvent, object: nil)
 
-        self.showTutorial()
+        if let cp = self.initialControlPanelViewController {
+            self.initialControlPanelViewController = nil
+            cp.setCallback(self.controlPanelCompleted)
+            self.present(cp, animated: true)
+        } else {
+            self.showTutorial()
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -84,7 +92,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
                 self.reloadDeviceData()
 
                 if (event == ParticleDeviceSystemEvent.flashFailed) {
-                    RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    DispatchQueue.main.async {
+                        RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    }
                 }
             }
         }
@@ -124,8 +134,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
 
 
-    func setup(device: ParticleDevice) {
+    func setup(device: ParticleDevice, controlPanelViewController: MeshSetupControlPanelUIManager? = nil) {
         self.device = device
+        self.initialControlPanelViewController = controlPanelViewController
     }
 
     func reloadDeviceData() {
@@ -229,8 +240,9 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.present(vc, animated: true)
     }
 
-    func controlPanelCompleted(result: MeshSetupFlowResult) {
+    func controlPanelCompleted(result: MeshSetupFlowResult, data: [AnyObject]?) {
         if result == .unclaimed {
+            (self.navigationController?.viewControllers[self.navigationController!.viewControllers.count-2] as! DeviceListViewController).refreshData()
             _ = self.navigationController?.popViewController(animated: false)
         }
     }

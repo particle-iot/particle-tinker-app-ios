@@ -86,7 +86,15 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
     }
 
     @IBAction func flashTinkerButtonTapped(_ sender: Any) {
-        self.flashTinker()
+        let alert = UIAlertController(title: "Flash Tinker?", message: "Flashing will overwrite the application firmware on your Particle device with the Tinker app.", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Flash", style: .default, handler: { action in
+            self.flashTinker()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil ))
+
+        self.present(alert, animated: true)
     }
 
 
@@ -105,7 +113,9 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
                         self.flashStarted = false
                         self.flashTinkerView.resume()
 
-                        RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        DispatchQueue.main.async {
+                            RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        }
                     }
                 }
             }
@@ -128,7 +138,9 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
             case .xenon:
                 flashTinkerBinary("tinker-0.8.0-rc.27-xenon")
             default:
-                RMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "App does not support flashing tinker to this device.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                DispatchQueue.main.async {
+                    RMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "App does not support flashing tinker to this device.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                }
                 return
         }
 

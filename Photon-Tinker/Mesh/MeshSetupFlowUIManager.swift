@@ -148,13 +148,10 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
                 self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.SwitchToControlPanel, style: .default) { action in
                     let vc = MeshSetupControlPanelUIManager.loadedViewController()
                     vc.setDevice(device, context: self.flowRunner.context)
-                    let presentingVC = self.presentingViewController
-                    NSLog("presentingVC = \(presentingVC)")
                     self.dismiss(animated: true) {
-                        presentingVC?.present(vc, animated: true)
-                    }
-                    if let callback = self.callback {
-                        callback(MeshSetupFlowResult.switchToControlPanel)
+                        if let callback = self.callback {
+                            callback(MeshSetupFlowResult.switchToControlPanel, [vc])
+                        }
                     }
                 })
 
@@ -318,7 +315,7 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
             //setup done
             self.terminate()
             if let callback = self.callback {
-                callback(MeshSetupFlowResult.success)
+                callback(MeshSetupFlowResult.success, nil)
             }
         } else {
             self.setupInitialViewController()

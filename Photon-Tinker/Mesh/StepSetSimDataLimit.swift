@@ -51,6 +51,10 @@ class StepSetSimDataLimit: MeshSetupStep {
                 context.targetDevice.sim!.status = simInfo!.status
                 context.targetDevice.sim!.dataLimit = Int(simInfo!.mbLimit)
                 self.start()
+            } else if let nserror = error as? NSError, nserror.code == 404 {
+                context.targetDevice.sim!.status = .inactiveNeverActivated
+                context.targetDevice.sim!.dataLimit = -1
+                self.start()
             } else {
                 self.fail(withReason: .UnableToGetSimStatus)
             }

@@ -20,13 +20,15 @@ internal class DeviceListCell: UITableViewCell {
     func setup(device: ParticleDevice) {
         self.device = device
 
-        self.nameLabel.text = device.getName()
+        DispatchQueue.main.async { [weak self] in
+            if let self = self {
+                self.nameLabel.text = device.getName()
+                self.typeLabel.setDeviceType(device.type)
+                self.lastHeardLabel.text = device.lastHeard?.tinkerFormattedString() ?? "Unknown"
 
-        self.typeLabel.setDeviceType(device.type)
-
-        self.lastHeardLabel.text = device.lastHeard?.tinkerFormattedString() ?? "Unknown"
-
-        ParticleUtils.animateOnlineIndicatorImageView(deviceStateImageView, online: device.connected, flashing:device.isFlashing)
+                ParticleUtils.animateOnlineIndicatorImageView(self.deviceStateImageView, online: device.connected, flashing: device.isFlashing)
+            }
+        }
     }
 
 

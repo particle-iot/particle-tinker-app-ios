@@ -15,9 +15,9 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureLatestFirmware(),
         StepGetAPINetworks(),
         StepEnsureCanBeClaimed(),
+        StepSetClaimCode(),
         StepOfferToSwitchToControlPanel(),
         StepEnsureNotOnMeshNetwork(),
-        StepSetClaimCode(),
         StepCheckHasNetworkInterfaces(),
     ]
 

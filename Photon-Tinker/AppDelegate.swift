@@ -31,8 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LogList.startLogging()
         LogList.clearStaleLogs()
 
+        NSLog("ParticleCloud.sharedInstance().accessToken = \(ParticleCloud.sharedInstance().accessToken as Optional)")
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device: %@", withParameters: getVaList([UIDevice.current.model]))
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "App Version: v%@b%@", withParameters: getVaList([Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String]))
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device: %@", withParameters: getVaList([UIDevice.modelName]))
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "iOS Version: %@", withParameters: getVaList([UIDevice.current.systemVersion]))
 
         #if !DEBUG
             Fabric.with([Crashlytics.self])

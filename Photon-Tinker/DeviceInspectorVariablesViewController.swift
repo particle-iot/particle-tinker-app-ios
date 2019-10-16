@@ -153,7 +153,9 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
 
     func loadVariable(_ name: String) {
         if (!self.device.connected) {
-            RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To update variable values device must be online.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+            DispatchQueue.main.async {
+                RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To update variable values device must be online.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+            }
             return
         }
 

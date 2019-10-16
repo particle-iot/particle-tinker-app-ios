@@ -151,16 +151,19 @@
 "MeshSetup.ControlPanel.Cellular.CellularDataTitle" = "Cellular Data";
 "MeshSetup.ControlPanel.Cellular.SimActiveDescription" = "This Particle SIM card is active. The device using this SIM should be able to connect to the Internet via cellular.";
 "MeshSetup.ControlPanel.Cellular.SimPausedDescription" = "This Particle SIM card is paused. The device using this SIM cannot connect to the Internet via cellular until it is unpaused.";
+"MeshSetup.ControlPanel.Cellular.SimNeverActivatedDescription" = "This Particle SIM has not been activated yet. To connect this device to the Internet via cellular, please run standard setup (via the \"+\" button on the device list screen), which will activate the SIM card.";
 "MeshSetup.ControlPanel.Cellular.SimDeactivatedDescription" = "This Particle SIM card is deactivated. The device using this SIM cannot connect to the Internet via cellular until it is reactivated.";
 
 "MeshSetup.ControlPanel.Cellular.Active" = "Active";
 "MeshSetup.ControlPanel.Cellular.Inactive" = "Deactivated";
+"MeshSetup.ControlPanel.Cellular.NeverActivated" = "Inactive";
 "MeshSetup.ControlPanel.Cellular.Paused" = "Paused";
 
 "MeshSetup.ControlPanel.Cellular.DataLimit.Title" = "Monthly Data Limit";
 "MeshSetup.ControlPanel.Cellular.DataLimit.Text" = "Service will be paused once your SIM has reached the data limit below:";
 "MeshSetup.ControlPanel.Cellular.DataLimit.Note" = "Cellular data usage can take up to 24 hours to be reported. Overage costs in that timeframe may apply.";
 "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue" = "{{0}}MB";
+"MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValueNone" = "None";
 "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton" = "Set Data Limit";
 
 "MeshSetup.ControlPanel.Cellular.DeactivateSim.Title" = "SIM Status";

@@ -127,6 +127,7 @@ class MeshSetupStrings {
             static let CellularDataTitle = "MeshSetup.ControlPanel.Cellular.CellularDataTitle".meshLocalized()
             static let SimActiveDescription = "MeshSetup.ControlPanel.Cellular.SimActiveDescription".meshLocalized()
             static let SimPausedDescription = "MeshSetup.ControlPanel.Cellular.SimPausedDescription".meshLocalized()
+            static let SimNeverActivatedDescription = "MeshSetup.ControlPanel.Cellular.SimNeverActivatedDescription".meshLocalized()
             static let SimDeactivatedDescription = "MeshSetup.ControlPanel.Cellular.SimDeactivatedDescription".meshLocalized()
 
             static let ChangeSimStatus = "MeshSetup.ControlPanel.Cellular.ChangeSimStatus".meshLocalized()
@@ -135,6 +136,7 @@ class MeshSetupStrings {
             static let Active = "MeshSetup.ControlPanel.Cellular.Active".meshLocalized()
             static let Inactive = "MeshSetup.ControlPanel.Cellular.Inactive".meshLocalized()
             static let Paused = "MeshSetup.ControlPanel.Cellular.Paused".meshLocalized()
+            static let NeverActivated = "MeshSetup.ControlPanel.Cellular.NeverActivated".meshLocalized()
 
             struct DataLimit {
                 static let Title = "MeshSetup.ControlPanel.Cellular.DataLimit.Title".meshLocalized()
@@ -142,6 +144,7 @@ class MeshSetupStrings {
                 static let Note = "MeshSetup.ControlPanel.Cellular.DataLimit.Note".meshLocalized()
 
                 static let DataLimitValue = "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValue".meshLocalized()
+                static let DataLimitValueNone = "MeshSetup.ControlPanel.Cellular.DataLimit.DataLimitValueNone".meshLocalized()
                 static let ContinueButton = "MeshSetup.ControlPanel.Cellular.DataLimit.ContinueButton".meshLocalized()
             }
 

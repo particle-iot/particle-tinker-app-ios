@@ -50,6 +50,8 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
                        return MeshSetupStrings.ControlPanel.Cellular.SimActiveDescription
                     case .inactiveDataLimitReached:
                         return MeshSetupStrings.ControlPanel.Cellular.SimPausedDescription
+                    case .inactiveNeverActivated:
+                        return MeshSetupStrings.ControlPanel.Cellular.SimNeverActivatedDescription
                     default:
                         return MeshSetupStrings.ControlPanel.Cellular.SimDeactivatedDescription
                 }
@@ -78,11 +80,13 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
 
             let uiSwitch = UISwitch()
             uiView.addSubview(uiSwitch)
+            uiSwitch.isEnabled = context.targetDevice.sim!.dataLimit! > -1
             uiSwitch.setOn(context.targetDevice.sim!.status! == .activate, animated: false)
 
             let uiButton = UIButton()
             uiButton.tag = indexPath.row
             uiView.addSubview(uiButton)
+            uiButton.isEnabled = context.targetDevice.sim!.dataLimit! > -1
             uiButton.addTarget(self, action: #selector(simStatusChanged), for: UIControl.Event.touchUpInside)
 
             uiButton.frame = uiSwitch.frame

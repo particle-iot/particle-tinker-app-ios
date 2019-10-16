@@ -14,12 +14,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         return self.flowRunner as! MeshSetupControlPanelFlowManager
     }
 
-    private var device: ParticleDevice!
+    public private(set) var device: ParticleDevice!
 
     func setDevice(_ device: ParticleDevice, context: MeshSetupContext? = nil) {
         self.device = device
+        self.log("Setting device: \(device)")
         if let serial = device.serialNumber, let mobileSecret = device.mobileSecret {
             self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
+        } else if (device.is3rdGen()) {
+            fatalError("Device Serial Number (\(device.serialNumber)) or Mobile Secret (\(device.mobileSecret)) is missing.")
         }
 
         self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self, context: context)
@@ -152,7 +155,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 self.showNetworkError(error: error)
             } else {
                 if let callback = self.callback {
-                    callback(MeshSetupFlowResult.unclaimed)
+                    callback(MeshSetupFlowResult.unclaimed, nil)
                 }
                 self.terminate()
             }
