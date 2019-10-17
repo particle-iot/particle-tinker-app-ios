@@ -49,7 +49,7 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
 
     private func setupTableViewHeader() {
         if (self.device.connected) {
-            self.noFunctionsMessage.text = TinkerStrings.Functions.NoExposedVariables
+            self.noFunctionsMessage.text = TinkerStrings.Functions.NoExposedFunctions
         } else {
             self.noFunctionsMessage.text = TinkerStrings.Functions.DeviceIsOffline
         }
