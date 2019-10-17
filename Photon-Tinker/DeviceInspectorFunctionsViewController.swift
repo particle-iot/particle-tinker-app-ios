@@ -49,9 +49,9 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
 
     private func setupTableViewHeader() {
         if (self.device.connected) {
-            self.noFunctionsMessage.text = "No exposed variables"
+            self.noFunctionsMessage.text = TinkerStrings.Functions.NoExposedVariables
         } else {
-            self.noFunctionsMessage.text = "Device is offline"
+            self.noFunctionsMessage.text = TinkerStrings.Functions.DeviceIsOffline
         }
 
         self.tableView.tableHeaderView = nil
@@ -61,17 +61,13 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
         self.adjustTableViewHeaderViewConstraints()
     }
 
-    let tutorials = [
-        ("Device Functions", "Tap the function cell to access the arguments box. Type in function arguments (comma separated if more than one) and tap send or the function name to call it.")
-    ]
-
     override func showTutorial() {
         if (functionNames.count > 0) {
             if ParticleUtils.shouldDisplayTutorialForViewController(self) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                     let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
 
-                    var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1)
+                    var tutorial = YCTutorialBox(headline: TinkerStrings.Functions.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Functions.Tutorial.Tutorial1.Message)
                     tutorial?.showAndFocus(firstCell)
 
                     ParticleUtils.setTutorialWasDisplayedForViewController(self)
@@ -142,7 +138,7 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
     func callFunction(_ name: String, argument: String) {
         if (!self.device.connected) {
             DispatchQueue.main.async {
-                RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To execute functions device must be online.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.Functions.Error.DeviceOffline.Title, subtitle: TinkerStrings.Functions.Error.DeviceOffline.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
             }
             return
         }
