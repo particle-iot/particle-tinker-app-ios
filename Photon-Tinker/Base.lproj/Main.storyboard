@@ -817,65 +817,6 @@
                                 <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Xi-NW0">
-                                <rect key="frame" x="0.0" y="70.5" width="320" height="132.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device is offline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q07-zZ-fKd">
-                                        <rect key="frame" x="89.5" y="56" width="141" height="20"/>
-                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
-                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <size key="shadowOffset" width="0.0" height="2"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerX" secondItem="ZeE-Xi-NW0" secondAttribute="centerX" id="9W1-yX-sHq"/>
-                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerY" secondItem="ZeE-Xi-NW0" secondAttribute="centerY" id="iHV-Qb-ZgB"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2" customClass="FlashTinkerView" customModule="Particle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="4" width="320" height="265"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTP-DK-5xb" customClass="ParticleButton" customModule="Particle" customModuleProvider="target">
-                                        <rect key="frame" x="35" y="112.5" width="250" height="40"/>
-                                        <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="D40-n2-IAG"/>
-                                            <constraint firstAttribute="width" constant="250" id="gYZ-IE-U8O"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Scan assisting device">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="flashTinkerButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="Zwx-is-jYz"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To enable Tinker, you need to flash the Tinker firmware to this device." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lo-D1-pcJ">
-                                        <rect key="frame" x="20" y="61" width="280" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="ldt-x3-Cmr"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
-                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="JM6-rU-il4"/>
-                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerY" secondItem="vxH-yP-sY2" secondAttribute="centerY" id="KDS-O2-c5Z"/>
-                                    <constraint firstItem="5Lo-D1-pcJ" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="Zqj-WT-0fe"/>
-                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="top" secondItem="5Lo-D1-pcJ" secondAttribute="bottom" constant="19.666666666666686" id="ncy-Wv-xNL"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="flashTinkerButton" destination="GTP-DK-5xb" id="go8-dj-VP2"/>
-                                    <outlet property="flashTinkerLabel" destination="5Lo-D1-pcJ" id="7W1-l8-0MM"/>
-                                </connections>
-                            </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-oK-mru" customClass="TinkerView" customModule="Particle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="4" width="320" height="265"/>
                                 <subviews>
@@ -889,7 +830,7 @@
                                                     <constraint firstAttribute="height" constant="36" id="yml-dP-epx"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <state key="normal" title="analogRead">
+                                                <state key="normal" title="button">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -904,7 +845,7 @@
                                                 <rect key="frame" x="15" y="96" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <state key="normal" title="analogWrite">
+                                                <state key="normal" title="button">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -919,7 +860,7 @@
                                                 <rect key="frame" x="145" y="50" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <state key="normal" title="digitalRead">
+                                                <state key="normal" title="button">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -934,7 +875,7 @@
                                                 <rect key="frame" x="145" y="96" width="120" height="36"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="13"/>
-                                                <state key="normal" title="digitalWrite">
+                                                <state key="normal" title="button">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -1005,6 +946,65 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="functionView" destination="cp9-M3-Ao7" id="hqR-6s-XZw"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeE-Xi-NW0">
+                                <rect key="frame" x="0.0" y="70.5" width="320" height="132.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TinkerStrings.Tinker.DeviceOffline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q07-zZ-fKd">
+                                        <rect key="frame" x="11.5" y="56" width="297.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="shadowOffset" width="0.0" height="2"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerX" secondItem="ZeE-Xi-NW0" secondAttribute="centerX" id="9W1-yX-sHq"/>
+                                    <constraint firstItem="Q07-zZ-fKd" firstAttribute="centerY" secondItem="ZeE-Xi-NW0" secondAttribute="centerY" id="iHV-Qb-ZgB"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxH-yP-sY2" customClass="FlashTinkerView" customModule="Particle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="4" width="320" height="265"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTP-DK-5xb" customClass="ParticleButton" customModule="Particle" customModuleProvider="target">
+                                        <rect key="frame" x="35" y="112.5" width="250" height="40"/>
+                                        <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="D40-n2-IAG"/>
+                                            <constraint firstAttribute="width" constant="250" id="gYZ-IE-U8O"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Scan assisting device">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="flashTinkerButtonTapped:" destination="Nmh-ef-vpa" eventType="touchUpInside" id="Zwx-is-jYz"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TinkerStrings.Tinker.FlashTinker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lo-D1-pcJ">
+                                        <rect key="frame" x="20" y="77" width="280" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="ldt-x3-Cmr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="JM6-rU-il4"/>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="centerY" secondItem="vxH-yP-sY2" secondAttribute="centerY" id="KDS-O2-c5Z"/>
+                                    <constraint firstItem="5Lo-D1-pcJ" firstAttribute="centerX" secondItem="vxH-yP-sY2" secondAttribute="centerX" id="Zqj-WT-0fe"/>
+                                    <constraint firstItem="GTP-DK-5xb" firstAttribute="top" secondItem="5Lo-D1-pcJ" secondAttribute="bottom" constant="19.666666666666686" id="ncy-Wv-xNL"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="flashTinkerButton" destination="GTP-DK-5xb" id="go8-dj-VP2"/>
+                                    <outlet property="flashTinkerLabel" destination="5Lo-D1-pcJ" id="7W1-l8-0MM"/>
                                 </connections>
                             </view>
                         </subviews>

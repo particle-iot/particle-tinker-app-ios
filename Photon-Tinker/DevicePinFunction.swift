@@ -78,13 +78,13 @@ struct DevicePinFunction: OptionSet {
     func getName() -> String? {
         switch self {
             case DevicePinFunction.digitalRead:
-                return "digitalRead"
+                return TinkerStrings.Tinker.Function.DigitalRead
             case DevicePinFunction.digitalWrite:
-                return "digitalWrite"
+                return TinkerStrings.Tinker.Function.DigitalWrite
             case DevicePinFunction.analogRead:
-                return "analogRead"
+                return TinkerStrings.Tinker.Function.AnalogRead
             case DevicePinFunction.analogWritePWM, DevicePinFunction.analogWriteDAC:
-                return "analogWrite"
+                return TinkerStrings.Tinker.Function.AnalogWrite
             default:
                 return nil
         }

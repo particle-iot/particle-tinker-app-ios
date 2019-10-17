@@ -21,7 +21,7 @@ class FlashTinkerView: TinkerView, Fadeable {
 
         self.setupDeviceImage()
         
-        self.flashTinkerButton.setTitle("FLASH TINKER", for: .normal)
+        self.flashTinkerButton.setTitle(TinkerStrings.Tinker.Button.FlashTinker, for: .normal)
         self.flashTinkerButton.setStyle(font: ParticleStyle.BoldFont, size: ParticleStyle.RegularSize)
 
         viewsToFade = [self.flashTinkerButton, self.flashTinkerLabel]
@@ -31,6 +31,7 @@ class FlashTinkerView: TinkerView, Fadeable {
         super.setupDeviceImage()
 
         backgroundImageView.tintColor = UIColor(rgb: 0xD9D8D6, alpha: 0.15)
+        self.view.sendSubviewToBack(backgroundImageView)
     }
 
 }

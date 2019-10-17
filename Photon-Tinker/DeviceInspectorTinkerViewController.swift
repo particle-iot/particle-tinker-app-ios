@@ -70,10 +70,10 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
             if ParticleUtils.shouldDisplayTutorialForViewController(self) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                     // 2
-                    var tutorial2 = YCTutorialBox(headline: "Blink the onboard LED", withHelpText: "Tap any pin to get started. Start with pin D7 - select 'digitalWrite' and tap the pin, see what happens on your device. You've just flashed an LED over the internet! Reset any pin function by long-pressing it.")
+                    var tutorial2 = YCTutorialBox(headline: TinkerStrings.Tinker.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.Tinker.Tutorial.Tutorial2.Message)
 
                     // 1
-                    var tutorial = YCTutorialBox(headline: "Welcome to Tinker!", withHelpText: "Tinker is the fastest and easiest way to prototype and play with your Particle device. Access the basic input/output functions of the device pins without writing a line of code.") {
+                    var tutorial = YCTutorialBox(headline: TinkerStrings.Tinker.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Tinker.Tutorial.Tutorial1.Message) {
                         tutorial2?.showAndFocus(self.tinkerView.pinViews["D7"])
                     }
                     tutorial?.showAndFocus(self.view)
@@ -86,13 +86,13 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
     }
 
     @IBAction func flashTinkerButtonTapped(_ sender: Any) {
-        let alert = UIAlertController(title: "Flash Tinker?", message: "Flashing will overwrite the application firmware on your Particle device with the Tinker app.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: TinkerStrings.Tinker.Prompt.FlashTinker.Title, message: TinkerStrings.Tinker.Prompt.FlashTinker.Message, preferredStyle: .actionSheet)
 
-        alert.addAction(UIAlertAction(title: "Flash", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Flash, style: .default, handler: { action in
             self.flashTinker()
         }))
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil ))
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel, handler: nil ))
 
         self.present(alert, animated: true)
     }
@@ -114,7 +114,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
                         self.flashTinkerView.resume()
 
                         DispatchQueue.main.async {
-                            RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device: \(e.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                            RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.FlashingDeviceError.Title, subtitle: TinkerStrings.Tinker.Error.FlashingDeviceError.Message.replacingOccurrences(of: "{{0}}", with: e.localizedDescription), type: .error, customTypeName: nil, duration: -1, callback: nil)
                         }
                     }
                 }
@@ -139,7 +139,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
                 flashTinkerBinary("tinker-0.8.0-rc.27-xenon")
             default:
                 DispatchQueue.main.async {
-                    RMessage.showNotification(withTitle: "Reflash Tinker", subtitle: "App does not support flashing tinker to this device.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.DeviceNotSupported.Title, subtitle: TinkerStrings.Tinker.Error.DeviceNotSupported.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
                 return
         }

@@ -40,6 +40,11 @@ class PinFunctionView: UIView {
         digitalWriteButton.layer.borderColor = DevicePinFunction.getColor(function: .digitalWrite).cgColor
         analogWriteButton.layer.borderColor = DevicePinFunction.getColor(function: .analogWriteDAC).cgColor
 
+        analogReadButton.setTitle(DevicePinFunction.analogRead.getName(), for: .normal)
+        digitalReadButton.setTitle(DevicePinFunction.digitalRead.getName(), for: .normal)
+        digitalWriteButton.setTitle(DevicePinFunction.digitalWrite.getName(), for: .normal)
+        analogWriteButton.setTitle(DevicePinFunction.analogWriteDAC.getName(), for: .normal)
+
         setupButton(analogReadButton)
         setupButton(digitalReadButton)
         setupButton(digitalWriteButton)
