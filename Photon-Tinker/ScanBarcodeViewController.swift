@@ -227,7 +227,7 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
                     detectionString = readableObject.stringValue
                 } else {
                     session.stopRunning()
-                    let ac = UIAlertController(title: TinkerStrings.ScanBarcode.WrongStickerError.Title, message: TinkerStrings.ScanBarcode.WrongStickerError.Message, preferredStyle: .alert)
+                    let ac = UIAlertController(title: TinkerStrings.ScanBarcode.Error.WrongStickerError.Title, message: TinkerStrings.ScanBarcode.Error.WrongStickerError.Message, preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { [weak self] action in
                         if let self = self {
                             self.session.startRunning()

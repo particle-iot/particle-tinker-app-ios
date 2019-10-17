@@ -169,7 +169,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             } else {
                 ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
                 DispatchQueue.main.async {
-                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.Title, subtitle: TinkerStrings.DeviceList.Error.LoadingDevicesFailed, type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.LoadingDevicesFailed.Title, subtitle: TinkerStrings.DeviceList.Error.LoadingDevicesFailed.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             }
         }

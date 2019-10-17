@@ -40,7 +40,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
 
-        self.tabBarView.setup(tabNames: [TinkerStrings.DeviceInspector.Tabs.Events, TinkerStrings.DeviceInspector.Tabs.Functions, TinkerStrings.DeviceInspector.Tabs.Variables, TinkerStrings.DeviceInspector.Tabs.Tinker])
+        self.tabBarView.setup(tabNames: [TinkerStrings.DeviceInspector.Tab.Events, TinkerStrings.DeviceInspector.Tab.Functions, TinkerStrings.DeviceInspector.Tab.Variables, TinkerStrings.DeviceInspector.Tab.Tinker])
 
 
         super.viewDidLoad()
@@ -93,7 +93,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
                 if (event == ParticleDeviceSystemEvent.flashFailed) {
                     DispatchQueue.main.async {
-                        RMessage.showNotification(withTitle: TinkerStrings.DeviceInspector.Error.Title, subtitle: TinkerStrings.DeviceInspector.Error.ErrorFlashingDevice, type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.DeviceInspector.Error.FlashingDeviceError.Title, subtitle: TinkerStrings.DeviceInspector.Error.FlashingDeviceError.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                     }
                 }
             }

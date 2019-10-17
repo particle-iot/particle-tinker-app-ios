@@ -138,9 +138,9 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         if (versionLabelTapCount >= 10) {
             versionLabelTapCount = 0
 
-            let ac = UIAlertController(title: TinkerStrings.Welcome.CloudAPIPrompt.Title, message: TinkerStrings.Welcome.CloudAPIPrompt.Message, preferredStyle: .alert)
+            let ac = UIAlertController(title: TinkerStrings.Welcome.Prompt.CloudAPI.Title, message: TinkerStrings.Welcome.Prompt.CloudAPI.Message, preferredStyle: .alert)
             ac.addTextField { field in
-                field.placeholder = TinkerStrings.Welcome.CloudAPIPrompt.Title
+                field.placeholder = TinkerStrings.Welcome.Prompt.CloudAPI.Title
                 field.text = kParticleAPIBaseURL
             }
 
