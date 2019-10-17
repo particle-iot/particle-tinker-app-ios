@@ -114,7 +114,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
                         self.flashTinkerView.resume()
 
                         DispatchQueue.main.async {
-                            RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.FlashingDeviceError.Title, subtitle: TinkerStrings.Tinker.Error.FlashingDeviceError.Message.replacingOccurrences(of: "{{0}}", with: e.localizedDescription), type: .error, customTypeName: nil, duration: -1, callback: nil)
+                            RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.FlashingDeviceError.Title, subtitle: TinkerStrings.Tinker.Error.FlashingDeviceError.Message.replacingOccurrences(of: "{{error}}", with: e.localizedDescription), type: .error, customTypeName: nil, duration: -1, callback: nil)
                         }
                     }
                 }

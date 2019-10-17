@@ -25,8 +25,8 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
 
         let verStr = TinkerStrings.Welcome.Version
-                .replacingOccurrences(of: "{{0}}", with: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
-                .replacingOccurrences(of: "{{1}}", with:(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String))
+                .replacingOccurrences(of: "{{version}}", with: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+                .replacingOccurrences(of: "{{build}}", with:(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String))
         self.versionLabel.text = verStr
         
         if let _ = ParticleCloud.sharedInstance().loggedInUsername

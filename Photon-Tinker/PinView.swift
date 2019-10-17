@@ -442,7 +442,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                     self.endUpdating()
                 } else {
                     DispatchQueue.main.async {
-                        RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.ReadingValueError.Title, subtitle: TinkerStrings.Tinker.Error.ReadingValueError.Message.replacingOccurrences(of: "{{0}}", with: self.pin.label), type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.ReadingValueError.Title, subtitle: TinkerStrings.Tinker.Error.ReadingValueError.Message.replacingOccurrences(of: "{{pin}}", with: self.pin.label), type: .error, customTypeName: nil, duration: -1, callback: nil)
                     }
 
                     self.pinValue = nil
@@ -467,7 +467,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                     self.endUpdating()
                 } else {
                     DispatchQueue.main.async {
-                        RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.UpdatingValueError.Title, subtitle: TinkerStrings.Tinker.Error.UpdatingValueError.Message.replacingOccurrences(of: "{{0}}", with: self.pin.label), type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.UpdatingValueError.Title, subtitle: TinkerStrings.Tinker.Error.UpdatingValueError.Message.replacingOccurrences(of: "{{pin}}", with: self.pin.label), type: .error, customTypeName: nil, duration: -1, callback: nil)
                     }
                     self.endUpdating()
                 }
