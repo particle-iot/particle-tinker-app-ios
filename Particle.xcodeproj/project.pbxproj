@@ -22,7 +22,7 @@
 		9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */; };
 		9317FC142167F42C0054AE24 /* MeshSetupScanStickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */; };
 		9317FC16216807200054AE24 /* MeshSetupTextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */; };
-		931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931C3780215AA2240014811C /* MeshSetupStrings.strings */; };
+		9318F52C235A23FB0014D7C6 /* MeshStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9318F52A235A23FA0014D7C6 /* MeshStrings.strings */; };
 		931C3785215AA2240014811C /* MeshSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931C3782215AA2240014811C /* MeshSetup.storyboard */; };
 		931C37CF215AA4310014811C /* MeshSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B3215AA42F0014811C /* MeshSetup.swift */; };
 		931C37D0215AA4310014811C /* MeshSetupFraming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B4215AA42F0014811C /* MeshSetupFraming.swift */; };
@@ -296,8 +296,8 @@
 		9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = boron_power_on.mov; sourceTree = "<group>"; };
 		9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupScanStickerView.xib; sourceTree = "<group>"; };
 		9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupTextInputView.xib; sourceTree = "<group>"; };
+		9318F52B235A23FA0014D7C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Photon-Tinker/Base.lproj/MeshStrings.strings"; sourceTree = "<group>"; };
 		931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
-		931C3781215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetupStrings.strings"; sourceTree = "<group>"; };
 		931C3783215AA2240014811C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Photon-Tinker/Base.lproj/MeshSetup.storyboard"; sourceTree = "<group>"; };
 		931C37B3215AA42F0014811C /* MeshSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetup.swift; sourceTree = "<group>"; };
 		931C37B4215AA42F0014811C /* MeshSetupFraming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFraming.swift; sourceTree = "<group>"; };
@@ -426,6 +426,7 @@
 		C810B65986773963C46ABD5A /* ParticleSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSpinner.swift; sourceTree = "<group>"; };
 		C810B6AD5B815E627D2FA35F /* MeshSetupControlPanelInfoResumeSimViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelInfoResumeSimViewController.swift; path = ControlPanel/MeshSetupControlPanelInfoResumeSimViewController.swift; sourceTree = "<group>"; };
 		C810B6B2A541431111E466D4 /* MeshSetupCreatingNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreatingNetworkViewController.swift; sourceTree = "<group>"; };
+		C810B7014672FA01DA6E6568 /* MeshStrings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MeshStrings.json; path = "shared-assets-mobile/mesh_strings/venv/MeshStrings.json"; sourceTree = "<group>"; };
 		C810B70D0ED1C8CEE9EE1261 /* StepCreateNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCreateNetwork.swift; sourceTree = "<group>"; };
 		C810B71F2B8216B6E666858C /* StepGetWifiNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetWifiNetwork.swift; sourceTree = "<group>"; };
 		C810B72F1796C24058AB6FB9 /* StepEnsureNotOnMeshNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureNotOnMeshNetwork.swift; sourceTree = "<group>"; };
@@ -627,7 +628,7 @@
 				50B1254C1AE06CF4003C29DC /* Main.storyboard */,
 				931C3782215AA2240014811C /* MeshSetup.storyboard */,
 				934749CE230F136E0002549C /* LaunchScreen.storyboard */,
-				931C3780215AA2240014811C /* MeshSetupStrings.strings */,
+				9318F52A235A23FA0014D7C6 /* MeshStrings.strings */,
 				9324E67F228B73D5006B253D /* TinkerStrings.strings */,
 			);
 			name = Assets;
@@ -802,6 +803,7 @@
 			children = (
 				93785F07231846F800893C1A /* TinkerStrings.json */,
 				93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */,
+				C810B7014672FA01DA6E6568 /* MeshStrings.json */,
 			);
 			name = SharedAssets;
 			sourceTree = "<group>";
@@ -1140,6 +1142,7 @@
 			buildPhases = (
 				6C888492D5EE51B2AD3827F8 /* [CP] Check Pods Manifest.lock */,
 				939DB13623184393001B4667 /* ShellScript */,
+				9318F527235A22170014D7C6 /* ShellScript */,
 				50B1253F1AE06CF4003C29DC /* Sources */,
 				50B125401AE06CF4003C29DC /* Frameworks */,
 				50B125411AE06CF4003C29DC /* Resources */,
@@ -1240,6 +1243,7 @@
 				93C7C9E52208A1BA00ABEE85 /* som_ethernet_power_on.mov in Resources */,
 				93B0F85D2182236F00D8F8C0 /* commissioner_to_listening_mode.mov in Resources */,
 				93D36EBB216CD3DF0088000C /* MeshSetupBasicCell.xib in Resources */,
+				9318F52C235A23FB0014D7C6 /* MeshStrings.strings in Resources */,
 				50F62D9C1AE0721200109F33 /* Gotham-XLightIta.otf in Resources */,
 				9317FC16216807200054AE24 /* MeshSetupTextInputView.xib in Resources */,
 				50B1254E1AE06CF4003C29DC /* Main.storyboard in Resources */,
@@ -1254,7 +1258,6 @@
 				9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */,
 				93D36EAE216CC71E0088000C /* MeshSetupSuccessView.xib in Resources */,
 				932BAFAB22A55CDE009F62DB /* tinker-0.8.0-rc.27-boron.bin in Resources */,
-				931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */,
 				93D36EB6216CCAE10088000C /* MeshSetupPairingView.xib in Resources */,
 				5055653E1AF2D3150099F493 /* Gotham-XLight.otf in Resources */,
 				93FFD5C3215E7EFF005A469D /* photon_wifi.mp4 in Resources */,
@@ -1377,6 +1380,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9318F527235A22170014D7C6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/MeshStrings.json\" \"Photon-Tinker/Base.lproj/MeshStrings.strings\" \"Photon-Tinker/Mesh/MeshStrings.swift\" \"meshLocalized()\"\n";
+		};
 		939DB13623184393001B4667 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1392,7 +1412,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/TinkerStrings.json\" \"Photon-Tinker/Base.lproj/TinkerStrings.strings\" \"Photon-Tinker/TinkerStrings.swift\"\n";
+			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/TinkerStrings.json\" \"Photon-Tinker/Base.lproj/TinkerStrings.strings\" \"Photon-Tinker/TinkerStrings.swift\" \"tinkerLocalized()\"\n";
 		};
 		F2F0CCCB7BA13C430642B444 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1615,12 +1635,12 @@
 			path = "Photon-Tinker";
 			sourceTree = "<group>";
 		};
-		931C3780215AA2240014811C /* MeshSetupStrings.strings */ = {
+		9318F52A235A23FA0014D7C6 /* MeshStrings.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				931C3781215AA2240014811C /* Base */,
+				9318F52B235A23FA0014D7C6 /* Base */,
 			);
-			name = MeshSetupStrings.strings;
+			name = MeshStrings.strings;
 			sourceTree = "<group>";
 		};
 		931C3782215AA2240014811C /* MeshSetup.storyboard */ = {
