@@ -51,6 +51,7 @@
 		93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */; };
 		93B0F85F2182236F00D8F8C0 /* ethernet_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8592182236F00D8F8C0 /* ethernet_power_on.mov */; };
 		93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */; };
+		93B8E51D235A340E00EA08BE /* MeshStrings.json in Resources */ = {isa = PBXBuildFile; fileRef = 93B8E51A235A340E00EA08BE /* MeshStrings.json */; };
 		93C7C9E22208A15100ABEE85 /* b_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9DE2208A15100ABEE85 /* b_power_on.mov */; };
 		93C7C9E52208A1BA00ABEE85 /* som_ethernet_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93C7C9E42208A1BA00ABEE85 /* som_ethernet_power_on.mov */; };
 		93D0DD54228EF52C00FC2CCA /* tinker_pin_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */; };
@@ -326,6 +327,7 @@
 		93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = boron_power_on_battery.mov; sourceTree = "<group>"; };
 		93B0F8592182236F00D8F8C0 /* ethernet_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = ethernet_power_on.mov; sourceTree = "<group>"; };
 		93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = xenon_power_on.mov; sourceTree = "<group>"; };
+		93B8E51A235A340E00EA08BE /* MeshStrings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MeshStrings.json; path = "shared-assets-mobile/tinker_strings/venv/MeshStrings.json"; sourceTree = "<group>"; };
 		93C7C9DE2208A15100ABEE85 /* b_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = b_power_on.mov; sourceTree = "<group>"; };
 		93C7C9E42208A1BA00ABEE85 /* som_ethernet_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = som_ethernet_power_on.mov; sourceTree = "<group>"; };
 		93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = tinker_pin_data.json; path = "shared-assets-mobile/device_pin_info/tinker_pin_data.json"; sourceTree = SOURCE_ROOT; };
@@ -426,7 +428,6 @@
 		C810B65986773963C46ABD5A /* ParticleSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSpinner.swift; sourceTree = "<group>"; };
 		C810B6AD5B815E627D2FA35F /* MeshSetupControlPanelInfoResumeSimViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelInfoResumeSimViewController.swift; path = ControlPanel/MeshSetupControlPanelInfoResumeSimViewController.swift; sourceTree = "<group>"; };
 		C810B6B2A541431111E466D4 /* MeshSetupCreatingNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupCreatingNetworkViewController.swift; sourceTree = "<group>"; };
-		C810B7014672FA01DA6E6568 /* MeshStrings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MeshStrings.json; path = "shared-assets-mobile/mesh_strings/venv/MeshStrings.json"; sourceTree = "<group>"; };
 		C810B70D0ED1C8CEE9EE1261 /* StepCreateNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCreateNetwork.swift; sourceTree = "<group>"; };
 		C810B71F2B8216B6E666858C /* StepGetWifiNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetWifiNetwork.swift; sourceTree = "<group>"; };
 		C810B72F1796C24058AB6FB9 /* StepEnsureNotOnMeshNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepEnsureNotOnMeshNetwork.swift; sourceTree = "<group>"; };
@@ -803,7 +804,7 @@
 			children = (
 				93785F07231846F800893C1A /* TinkerStrings.json */,
 				93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */,
-				C810B7014672FA01DA6E6568 /* MeshStrings.json */,
+				93B8E51A235A340E00EA08BE /* MeshStrings.json */,
 			);
 			name = SharedAssets;
 			sourceTree = "<group>";
@@ -1288,6 +1289,7 @@
 				C810B4F84F91FF574E316EDC /* MeshSetupWifiNetworkCell.xib in Resources */,
 				C810B7195DB886D211B31B66 /* prepare_for_pairing.mov in Resources */,
 				C810B5DA1F99E6BBD0BE6561 /* Avenir Next.ttc in Resources */,
+				93B8E51D235A340E00EA08BE /* MeshStrings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
