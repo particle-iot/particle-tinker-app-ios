@@ -28,14 +28,14 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.CreateNetworkPassword.Title
-        inputTitleLabel.text = MeshSetupStrings.CreateNetworkPassword.InputTitle
-        repeatTitleLabel.text = MeshSetupStrings.CreateNetworkPassword.RepeatTitle
-        noteTextLabel.text = MeshSetupStrings.CreateNetworkPassword.NoteText
-        noteTitleLabel.text = MeshSetupStrings.CreateNetworkPassword.NoteTitle
+        titleLabel.text = MeshStrings.CreateNetworkPassword.Title
+        inputTitleLabel.text = MeshStrings.CreateNetworkPassword.InputTitle
+        repeatTitleLabel.text = MeshStrings.CreateNetworkPassword.RepeatTitle
+        noteTextLabel.text = MeshStrings.CreateNetworkPassword.NoteText
+        noteTitleLabel.text = MeshStrings.CreateNetworkPassword.NoteTitle
 
 
-        continueButton.setTitle(MeshSetupStrings.CreateNetworkPassword.Button, for: .normal)
+        continueButton.setTitle(MeshStrings.CreateNetworkPassword.Button, for: .normal)
     }
 
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -71,7 +71,7 @@ class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewContro
             super.submit()
             callback!(self.inputTextField.text!)
         } else {
-            self.setWrongInput(message: MeshSetupStrings.CreateNetworkPassword.PasswordsDoNotMatch)
+            self.setWrongInput(message: MeshStrings.CreateNetworkPassword.PasswordsDoNotMatch)
         }
     }
 

@@ -70,9 +70,9 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
     
     func showNoPermissionsMessage() {
-        let ac = UIAlertController(title: MeshSetupStrings.Prompt.NoCameraPermissionsTitle, message: MeshSetupStrings.Prompt.NoCameraPermissionsText, preferredStyle: .alert)
+        let ac = UIAlertController(title: MeshStrings.Prompt.NoCameraPermissionsTitle, message: MeshStrings.Prompt.NoCameraPermissionsText, preferredStyle: .alert)
 
-        let settingsAction = UIAlertAction(title: MeshSetupStrings.Action.OpenSettings, style: .default) { (_) -> Void in
+        let settingsAction = UIAlertAction(title: MeshStrings.Action.OpenSettings, style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
@@ -153,8 +153,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     func showFailed() {
-        let ac = UIAlertController(title: MeshSetupStrings.Prompt.NoCameraTitle, message: MeshSetupStrings.Prompt.NoCameraText, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default))
+        let ac = UIAlertController(title: MeshStrings.Prompt.NoCameraTitle, message: MeshStrings.Prompt.NoCameraText, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default))
         present(ac, animated: true)
         captureSession = nil
     }
@@ -176,8 +176,8 @@ class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMeta
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ScanSticker.Title
-        textLabel.text = MeshSetupStrings.ScanSticker.Text
+        titleLabel.text = MeshStrings.ScanSticker.Title
+        textLabel.text = MeshStrings.ScanSticker.Text
     }
 
     override func viewWillDisappear(_ animated: Bool) {

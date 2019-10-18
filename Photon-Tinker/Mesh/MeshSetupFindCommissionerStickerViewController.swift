@@ -29,11 +29,11 @@ class MeshSetupFindCommissionerStickerViewController: MeshSetupFindStickerViewCo
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.FindCommissionerSticker.Title
-        textLabel.text = MeshSetupStrings.FindCommissionerSticker.Text
-        noteTextLabel.text = MeshSetupStrings.FindCommissionerSticker.NoteText
-        noteTitleLabel.text = MeshSetupStrings.FindCommissionerSticker.NoteTitle
+        titleLabel.text = MeshStrings.FindCommissionerSticker.Title
+        textLabel.text = MeshStrings.FindCommissionerSticker.Text
+        noteTextLabel.text = MeshStrings.FindCommissionerSticker.NoteText
+        noteTitleLabel.text = MeshStrings.FindCommissionerSticker.NoteTitle
 
-        continueButton.setTitle(MeshSetupStrings.FindCommissionerSticker.Button, for: .normal)
+        continueButton.setTitle(MeshStrings.FindCommissionerSticker.Button, for: .normal)
     }
 }

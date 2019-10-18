@@ -14,7 +14,7 @@ class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Stor
     private var unclaimCallback: ((Bool) -> ())!
 
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.Unclaim.Title
+        return MeshStrings.ControlPanel.Unclaim.Title
     }
 
     override var allowBack: Bool {
@@ -38,9 +38,9 @@ class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Stor
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ControlPanel.Unclaim.TextTitle
-        textLabel.text = MeshSetupStrings.ControlPanel.Unclaim.Text
-        continueButton.setTitle(MeshSetupStrings.ControlPanel.Unclaim.UnclaimButton, for: .normal)
+        titleLabel.text = MeshStrings.ControlPanel.Unclaim.TextTitle
+        textLabel.text = MeshStrings.ControlPanel.Unclaim.Text
+        continueButton.setTitle(MeshStrings.ControlPanel.Unclaim.UnclaimButton, for: .normal)
     }
 
     

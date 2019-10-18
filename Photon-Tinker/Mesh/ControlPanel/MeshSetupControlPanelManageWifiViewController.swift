@@ -29,11 +29,11 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
     }
 
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.ManageWifi.Title
+        return MeshStrings.ControlPanel.ManageWifi.Title
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ControlPanel.ManageWifi.Text
+        titleLabel.text = MeshStrings.ControlPanel.ManageWifi.Text
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -98,9 +98,9 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Prompt.DeleteWifiTitle, message: MeshSetupStrings.ControlPanel.Prompt.DeleteWifiText.replacingOccurrences(of: "{{0}}", with: self.networks![indexPath.row].ssid), preferredStyle: .alert)
+        let alert = UIAlertController(title: MeshStrings.ControlPanel.Prompt.DeleteWifiTitle, message: MeshStrings.ControlPanel.Prompt.DeleteWifiText.replacingOccurrences(of: "{{0}}", with: self.networks![indexPath.row].ssid), preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.DeleteWifi, style: .default) { action in
+        alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Action.DeleteWifi, style: .default) { action in
             tableView.isUserInteractionEnabled = false
             self.isBusy = true
 
@@ -108,7 +108,7 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
             self.callback(self.networks![indexPath.row])
         })
 
-        alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.DontDeleteWifi, style: .cancel) { action in
+        alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Action.DontDeleteWifi, style: .cancel) { action in
 
         })
 

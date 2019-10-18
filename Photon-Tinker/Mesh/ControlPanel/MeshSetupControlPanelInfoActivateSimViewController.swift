@@ -11,14 +11,14 @@ class MeshSetupControlPanelInfoActivateSimViewController : MeshSetupControlPanel
     @IBOutlet weak var priceInfo2Label: ParticleLabel!
     
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.Cellular.ActivateSim.Title
+        return MeshStrings.ControlPanel.Cellular.ActivateSim.Title
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ControlPanel.Cellular.ActivateSim.TextTitle
-        textLabel.text = MeshSetupStrings.ControlPanel.Cellular.ActivateSim.Text.replacingOccurrences(of: "{{iccid}}", with: context.targetDevice.sim!.iccidEnding()!)
+        titleLabel.text = MeshStrings.ControlPanel.Cellular.ActivateSim.TextTitle
+        textLabel.text = MeshStrings.ControlPanel.Cellular.ActivateSim.Text.replacingOccurrences(of: "{{iccid}}", with: context.targetDevice.sim!.iccidEnding()!)
 
-        continueButton.setTitle(MeshSetupStrings.ControlPanel.Cellular.ActivateSim.ContinueButton, for: .normal)
-        noteLabel.text = MeshSetupStrings.ControlPanel.Cellular.ActivateSim.Note
+        continueButton.setTitle(MeshStrings.ControlPanel.Cellular.ActivateSim.ContinueButton, for: .normal)
+        noteLabel.text = MeshStrings.ControlPanel.Cellular.ActivateSim.Note
     }
 }

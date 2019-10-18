@@ -11,7 +11,7 @@ class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelIn
     internal var requestShowDataLimit: (() -> ())!
 
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.Cellular.ResumeSim.Title
+        return MeshStrings.ControlPanel.Cellular.ResumeSim.Title
     }
 
     override func viewDidLoad() {
@@ -41,11 +41,11 @@ class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelIn
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ControlPanel.Cellular.ResumeSim.TextTitle
-        textLabel.text = MeshSetupStrings.ControlPanel.Cellular.ResumeSim.Text.replacingOccurrences(of: "{{iccid}}", with: context.targetDevice.sim!.iccidEnding()!)
+        titleLabel.text = MeshStrings.ControlPanel.Cellular.ResumeSim.TextTitle
+        textLabel.text = MeshStrings.ControlPanel.Cellular.ResumeSim.Text.replacingOccurrences(of: "{{iccid}}", with: context.targetDevice.sim!.iccidEnding()!)
 
-        continueButton.setTitle(MeshSetupStrings.ControlPanel.Cellular.ResumeSim.ContinueButton, for: .normal)
-        noteLabel.text = MeshSetupStrings.ControlPanel.Cellular.ResumeSim.Note
+        continueButton.setTitle(MeshStrings.ControlPanel.Cellular.ResumeSim.ContinueButton, for: .normal)
+        noteLabel.text = MeshStrings.ControlPanel.Cellular.ResumeSim.Note
 
         continueButton.isEnabled = false
     }
@@ -71,7 +71,7 @@ class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelIn
         let cell = cellType.getConfiguredCell(tableView, context: self.context)
 
         if let dataLimit = self.context.targetDevice.setSimDataLimit {
-            cell.cellDetailLabel.text = MeshSetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(dataLimit))
+            cell.cellDetailLabel.text = MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(dataLimit))
         }
 
         return cell

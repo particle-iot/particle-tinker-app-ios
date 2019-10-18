@@ -28,11 +28,11 @@ class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, St
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.StandAloneOrMeshSetup.Title
-        textLabel.text = MeshSetupStrings.StandAloneOrMeshSetup.Text
+        titleLabel.text = MeshStrings.StandAloneOrMeshSetup.Title
+        textLabel.text = MeshStrings.StandAloneOrMeshSetup.Text
 
-        meshButton.setTitle(MeshSetupStrings.StandAloneOrMeshSetup.MeshButton, for: .normal)
-        standaloneButton.setTitle(MeshSetupStrings.StandAloneOrMeshSetup.StandAloneButton, for: .normal)
+        meshButton.setTitle(MeshStrings.StandAloneOrMeshSetup.MeshButton, for: .normal)
+        standaloneButton.setTitle(MeshStrings.StandAloneOrMeshSetup.StandAloneButton, for: .normal)
     }
 
     @IBAction func meshButtonTapped(_ sender: Any) {

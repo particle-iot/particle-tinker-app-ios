@@ -94,8 +94,8 @@ class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDele
             self.resume(animated: true)
 
             if let message = message {
-                let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                let alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
                     self.focusInputText()
                 })
                 self.present(alert, animated: true)

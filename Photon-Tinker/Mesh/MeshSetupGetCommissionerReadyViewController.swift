@@ -31,10 +31,10 @@ class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewControll
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.GetCommissionerReady.Title
+        titleLabel.text = MeshStrings.GetCommissionerReady.Title
 
 
-        continueButton.setTitle(MeshSetupStrings.GetCommissionerReady.Button, for: .normal)
+        continueButton.setTitle(MeshStrings.GetCommissionerReady.Button, for: .normal)
 
         view.setNeedsLayout()
         view.layoutIfNeeded()

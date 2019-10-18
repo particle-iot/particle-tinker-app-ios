@@ -19,11 +19,11 @@ class MeshSetupCreateNetworkNameViewController: MeshSetupTextInputViewController
 
     override func setContent() {
 
-        titleLabel.text = MeshSetupStrings.CreateNetworkName.Title
-        inputTitleLabel.text = MeshSetupStrings.CreateNetworkName.InputTitle
-        noteTitleLabel.text = MeshSetupStrings.CreateNetworkName.NoteTitle
-        noteTextLabel.text = MeshSetupStrings.CreateNetworkName.NoteText
-        continueButton.setTitle(MeshSetupStrings.CreateNetworkName.Button, for: .normal)
+        titleLabel.text = MeshStrings.CreateNetworkName.Title
+        inputTitleLabel.text = MeshStrings.CreateNetworkName.InputTitle
+        noteTitleLabel.text = MeshStrings.CreateNetworkName.NoteTitle
+        noteTextLabel.text = MeshStrings.CreateNetworkName.NoteText
+        continueButton.setTitle(MeshStrings.CreateNetworkName.Button, for: .normal)
     }
 
     override func setStyle() {

@@ -56,18 +56,18 @@ class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, St
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.UpdateFirmwareProgress.Title
-        noteTextLabel.text = MeshSetupStrings.UpdateFirmwareProgress.NoteText
-        noteTitleLabel.text = MeshSetupStrings.UpdateFirmwareProgress.NoteTitle
+        titleLabel.text = MeshStrings.UpdateFirmwareProgress.Title
+        noteTextLabel.text = MeshStrings.UpdateFirmwareProgress.NoteText
+        noteTitleLabel.text = MeshStrings.UpdateFirmwareProgress.NoteTitle
 
-        successTitleLabel.text = MeshSetupStrings.UpdateFirmwareProgress.SuccessTitle
-        successTextLabel.text = MeshSetupStrings.UpdateFirmwareProgress.SuccessText
+        successTitleLabel.text = MeshStrings.UpdateFirmwareProgress.SuccessTitle
+        successTextLabel.text = MeshStrings.UpdateFirmwareProgress.SuccessText
 
         setProgress(progress: progress)
     }
 
     func setFileComplete() {
-        var textValue = MeshSetupStrings.UpdateFirmwareProgress.TextInstalling
+        var textValue = MeshStrings.UpdateFirmwareProgress.TextInstalling
         textValue = textValue.replacingOccurrences(of: "{0}", with: String(file))
 
 
@@ -85,7 +85,7 @@ class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, St
     func setProgress(progress: Int) {
         self.progress = progress
 
-        var textValue = MeshSetupStrings.UpdateFirmwareProgress.Text
+        var textValue = MeshStrings.UpdateFirmwareProgress.Text
         textValue = textValue.replacingOccurrences(of: "{0}", with: String(file))
         textValue = textValue.replacingOccurrences(of: "{1}", with: String(progress))
 

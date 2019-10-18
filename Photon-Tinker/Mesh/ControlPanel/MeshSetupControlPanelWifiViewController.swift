@@ -18,7 +18,7 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
         }
     }
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.Wifi.Title
+        return MeshStrings.ControlPanel.Wifi.Title
     }
 
     override func viewDidLoad() {
@@ -65,7 +65,7 @@ class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewCon
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             case 0:
-                return MeshSetupStrings.ControlPanel.Wifi.NetworkInfo
+                return MeshStrings.ControlPanel.Wifi.NetworkInfo
             default:
                 return ""
         }

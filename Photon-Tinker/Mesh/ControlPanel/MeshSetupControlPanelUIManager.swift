@@ -164,15 +164,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     internal func showNetworkError(error: NSError) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
+            let alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
                     message: error.localizedDescription,
                     preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Cancel, style: .cancel) { action in
+            alert.addAction(UIAlertAction(title: MeshStrings.Action.Cancel, style: .cancel) { action in
                 (self.embededNavigationController.topViewController! as! Fadeable).resume(animated: true)
             })
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.Action.Retry, style: .default) { action in
+            alert.addAction(UIAlertAction(title: MeshStrings.Action.Retry, style: .default) { action in
                 self.unclaim()
             })
 
@@ -523,11 +523,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     internal func showExternalSim() {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshSetupStrings.Prompt.ErrorTitle,
-                        message: MeshSetupStrings.Prompt.ControlPanelExternalSimNotSupportedText,
+                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
+                        message: MeshStrings.Prompt.ControlPanelExternalSimNotSupportedText,
                         preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
                     (self.embededNavigationController.topViewController as? MeshSetupViewController)?.resume(animated: true)
                 })
 
