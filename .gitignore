@@ -4,6 +4,8 @@
 
 **/TinkerStrings.strings
 **/TinkerStrings.swift
+**/MeshStrings.strings
+**/MeshStrings.swift
 
 ## Build generated
 build/
