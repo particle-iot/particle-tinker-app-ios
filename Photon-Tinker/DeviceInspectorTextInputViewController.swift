@@ -115,7 +115,7 @@ class DeviceInspectorTextInputViewController: UIViewController, Fadeable, Storyb
             self.inputTextField.placeholder = ""
             self.inputTextField.text = inputValue
         }
-        self.saveButton.setTitle("Save", for: .normal)
+        self.saveButton.setTitle(TinkerStrings.Action.Save, for: .normal)
     }
 
     override func viewDidAppear(_ animated: Bool) {

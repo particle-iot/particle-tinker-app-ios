@@ -22,27 +22,27 @@ extension ParticleDevice {
         if let name = self.name, name.count > 0 {
             return name
         } else {
-            return "<no name>"
+            return TinkerStrings.Device.NoName
         }
     }
 
     func getInfoDetails() -> [String: Any] {
         var info: [String: Any] = [:]
 
-        info["Type"] = self.type
-        info["ID"] = self.id ?? "Unknown"
-        info["Serial"] = self.serialNumber ?? "Unknown"
-        info["Device OS"] = self.systemFirmwareVersion ?? "Unknown"
-        info["Last IP Address"] = self.lastIPAdress ?? "Unknown"
+        info[TinkerStrings.InfoSlider.DeviceCell.DeviceType] = self.type
+        info[TinkerStrings.InfoSlider.DeviceCell.DeviceId] = self.id ?? TinkerStrings.InfoSlider.DeviceCell.Unknown
+        info[TinkerStrings.InfoSlider.DeviceCell.Serial] = self.serialNumber ?? TinkerStrings.InfoSlider.DeviceCell.Unknown
+        info[TinkerStrings.InfoSlider.DeviceCell.DeviceOS] = self.systemFirmwareVersion ?? TinkerStrings.InfoSlider.DeviceCell.Unknown
+        info[TinkerStrings.InfoSlider.DeviceCell.LastIPAddress] = self.lastIPAdress ?? TinkerStrings.InfoSlider.DeviceCell.Unknown
         if let lastHeard = self.lastHeard {
-            info["Last Heard"] = DateFormatter.localizedString(from: lastHeard, dateStyle: .medium, timeStyle: .short)
+            info[TinkerStrings.InfoSlider.DeviceCell.LastHeard] = DateFormatter.localizedString(from: lastHeard, dateStyle: .medium, timeStyle: .short)
         } else {
-            info["Last Heard"] = "Never"
+            info[TinkerStrings.InfoSlider.DeviceCell.LastHeard] = TinkerStrings.InfoSlider.DeviceCell.Never
         }
 
         if (self.cellular) {
-            info["IMEI"] = self.imei ?? "Unknown"
-            info["Last ICCID"] = self.lastIccid ?? "Unknown"
+            info[TinkerStrings.InfoSlider.DeviceCell.IMEI] = self.imei ?? TinkerStrings.InfoSlider.DeviceCell.Unknown
+            info[TinkerStrings.InfoSlider.DeviceCell.LastICCID] = self.lastIccid ?? TinkerStrings.InfoSlider.DeviceCell.Unknown
         }
 
         return info
@@ -50,9 +50,21 @@ extension ParticleDevice {
 
     func getInfoDetailsOrder() -> [String] {
         if (self.cellular) {
-            return ["Type", "ID", "Serial", "IMEI", "Last ICCID", "Device OS", "Last IP Address", "Last Heard"]
+            return [TinkerStrings.InfoSlider.DeviceCell.DeviceType,
+                    TinkerStrings.InfoSlider.DeviceCell.DeviceId,
+                    TinkerStrings.InfoSlider.DeviceCell.Serial,
+                    TinkerStrings.InfoSlider.DeviceCell.IMEI,
+                    TinkerStrings.InfoSlider.DeviceCell.LastICCID,
+                    TinkerStrings.InfoSlider.DeviceCell.DeviceOS,
+                    TinkerStrings.InfoSlider.DeviceCell.LastIPAddress,
+                    TinkerStrings.InfoSlider.DeviceCell.LastHeard]
         } else {
-            return ["Type", "ID", "Serial", "Device OS", "Last IP Address", "Last Heard"]    
+            return [TinkerStrings.InfoSlider.DeviceCell.DeviceType,
+                    TinkerStrings.InfoSlider.DeviceCell.DeviceId,
+                    TinkerStrings.InfoSlider.DeviceCell.Serial,
+                    TinkerStrings.InfoSlider.DeviceCell.DeviceOS,
+                    TinkerStrings.InfoSlider.DeviceCell.LastIPAddress,
+                    TinkerStrings.InfoSlider.DeviceCell.LastHeard]
         }
     }
 }

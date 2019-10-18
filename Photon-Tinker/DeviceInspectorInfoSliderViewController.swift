@@ -104,12 +104,12 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
         self.expandedDeviceImageView.image = self.device.type.getImage()
         self.expandedDeviceNameLabel.text = self.device.getName()
-        self.expandedDeviceStateLabel.text = self.device.isFlashing ? "Flashing" : (self.device.connected ? "Online" : "Offline")
-        self.expandedDeviceSignalLabel.text = "Signal Device"
-        self.expandedDeviceNotesTitleLabel.text = "Notes"
-        self.expandedDeviceNotesLabel.text = self.device.notes ?? "Use this space to keep notes on this device. Add or edit them."
+        self.expandedDeviceStateLabel.text = self.device.isFlashing ? TinkerStrings.InfoSlider.DeviceStatus.Flashing : (self.device.connected ? TinkerStrings.InfoSlider.DeviceStatus.Online : TinkerStrings.InfoSlider.DeviceStatus.Offline)
+        self.expandedDeviceSignalLabel.text = TinkerStrings.InfoSlider.SignalDevice
+        self.expandedDeviceNotesTitleLabel.text = TinkerStrings.InfoSlider.Notes
+        self.expandedDeviceNotesLabel.text = self.device.notes ?? TinkerStrings.InfoSlider.NotesPlaceholder
 
-        self.expandedPingButton.setTitle("Ping", for: .normal, upperCase: false)
+        self.expandedPingButton.setTitle(TinkerStrings.InfoSlider.Button.Ping, for: .normal, upperCase: false)
 
         self.expandedTableViewHeightConstraint.constant = CGFloat(self.detailsOrder.count * 30)
 
@@ -148,7 +148,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
         UIPasteboard.general.string = cell.valueLabel.text!
 
         RMessage.dismissActiveNotification()
-        RMessage.showNotification(withTitle: "Copied", subtitle: "\(cell.titleLabel.text!) value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+        RMessage.showNotification(withTitle: TinkerStrings.InfoSlider.Prompt.ValueCopied.Title, subtitle: TinkerStrings.InfoSlider.Prompt.ValueCopied.Message.replacingOccurrences(of: "{{label}}", with: cell.titleLabel.text!), type: .success, customTypeName: nil, callback: nil)
     }
 
     private func setStyle() {
@@ -378,7 +378,7 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
         self.expandedPingButton.isHidden = true
 
         RMessage.dismissActiveNotification()
-        RMessage.showNotification(withTitle: "Pinging device", subtitle: "The Particle Cloud has sent a ping to this device. It will wait up to 15 seconds to hear back.", type: .warning, customTypeName: nil, callback: nil)
+        RMessage.showNotification(withTitle: TinkerStrings.InfoSlider.Prompt.PingingDevice.Title, subtitle: TinkerStrings.InfoSlider.Prompt.PingingDevice.Message, type: .warning, customTypeName: nil, callback: nil)
 
         self.device.ping { [weak self] connected, error in
             if let self = self {
@@ -390,22 +390,22 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
 
             if error != nil || !connected {
                 RMessage.dismissActiveNotification()
-                RMessage.showNotification(withTitle: "Error", subtitle: "This device was unreachable by the Particle cloud within 15 seconds. The device may be powered off, or may be having trouble connecting to the Particle Cloud.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.InfoSlider.Error.PingingFailed.Title, subtitle: TinkerStrings.InfoSlider.Error.PingingFailed.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
             } else {
                 RMessage.dismissActiveNotification()
-                RMessage.showNotification(withTitle: "Success", subtitle: "This device is online and connected!", type: .success, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.InfoSlider.Prompt.PingingSuccessful.Title, subtitle: TinkerStrings.InfoSlider.Prompt.PingingSuccessful.Message, type: .success, customTypeName: nil, callback: nil)
             }
         }
     }
 
     @IBAction func renameButtonTapped(_ sender: Any) {
         var vc = DeviceInspectorTextInputViewController.storyboardViewController()
-        vc.setup(caption: "Name", multiline: false, value: self.device.name, onCompletion: {
+        vc.setup(caption: TinkerStrings.InfoSlider.Name, multiline: false, value: self.device.name, onCompletion: {
             [weak self] value in
             if let self = self {
                 self.device.rename(value) { error in
                     if let error = error {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "Error renaming device: \(error.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.InfoSlider.Error.RenamingDeviceFailed.Title, subtitle: TinkerStrings.InfoSlider.Error.RenamingDeviceFailed.Message.replacingOccurrences(of: "{{error}}", with: error.localizedDescription), type: .error, customTypeName: nil, duration: -1, callback: nil)
                         vc.resume(animated: true)
                     } else {
                         self.delegate?.infoSliderDidUpdateDevice()
@@ -421,12 +421,12 @@ class DeviceInspectorInfoSliderViewController: UIViewController, UIGestureRecogn
     
     @IBAction func editNotesButtonTapped(_ sender: Any) {
         var vc = DeviceInspectorTextInputViewController.storyboardViewController()
-        vc.setup(caption: "Notes", multiline: true, value: self.device.notes, onCompletion: {
+        vc.setup(caption: TinkerStrings.InfoSlider.Notes, multiline: true, value: self.device.notes, onCompletion: {
             [weak self] value in
             if let self = self {
                 self.device.setNotes(value) { error in
                     if let error = error {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "Error editing notes device: \(error.localizedDescription)", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.InfoSlider.Error.EditingNotesFailed.Title, subtitle: TinkerStrings.InfoSlider.Error.EditingNotesFailed.Message.replacingOccurrences(of: "{{error}}", with: error.localizedDescription), type: .error, customTypeName: nil, duration: -1, callback: nil)
                         vc.resume(animated: true)
                     } else {
                         self.delegate?.infoSliderDidUpdateDevice()

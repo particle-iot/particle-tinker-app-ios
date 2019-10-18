@@ -229,7 +229,6 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                 DispatchQueue.main.async {
                     if JSONDictionary != nil {
                         //crash is happening here, because unable to unwrap title/message. This is to prevent the crash
-                        //TODO: investigate why this is nil
                         let title: String? = JSONDictionary!["title"] as? String
                         let message: String? = JSONDictionary!["message"] as? String
 
