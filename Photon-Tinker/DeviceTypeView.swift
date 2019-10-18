@@ -17,17 +17,17 @@ enum DeviceTypeOptions: Int, CaseIterable, CustomStringConvertible {
     var description: String {
         switch self {
             case .boron:
-                return "Boron / B SoM"
+                return TinkerStrings.Filters.DeviceType.Boron
             case .electron:
-                return "Electron / E SoM"
+                return TinkerStrings.Filters.DeviceType.Electron
             case .argon:
-                return "Argon"
+                return TinkerStrings.Filters.DeviceType.Argon
             case .photon:
-                return "Photon"
+                return TinkerStrings.Filters.DeviceType.Photon
             case .xenon:
-                return "Xenon"
+                return TinkerStrings.Filters.DeviceType.Xenon
             case .other:
-                return "Other"
+                return TinkerStrings.Filters.DeviceType.Other
         }
     }
 
