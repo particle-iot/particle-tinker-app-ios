@@ -29,7 +29,7 @@ extension UIView {
 
 extension String {
     func meshLocalized() -> String {
-        return NSLocalizedString(self, tableName: "MeshSetupStrings", comment: "")
+        return NSLocalizedString(self, tableName: "MeshStrings", comment: "")
     }
 
     func replaceMeshSetupStrings(deviceType : String? = nil, networkName : String? = nil, deviceName : String? = nil) -> String {
@@ -53,7 +53,7 @@ extension String {
     }
 }
 
-enum MeshStrings {
+extension MeshStrings {
     static private let randomNames = ["aardvark", "bacon", "badger", "banjo", "bobcat", "boomer", "captain", "chicken", "cowboy", "maker", "splendid", "sparkling", "dentist", "doctor", "green", "easter", "ferret", "gerbil", "hacker", "hamster", "wizard", "hobbit", "hoosier", "hunter", "jester", "jetpack", "kitty", "laser", "lawyer", "mighty", "monkey", "morphing", "mutant", "narwhal", "ninja", "normal", "penguin", "pirate", "pizza", "plumber", "power", "puppy", "ranger", "raptor", "robot", "scraper", "burrito", "station", "tasty", "trochee", "turkey", "turtle", "vampire", "wombat", "zombie"]
 
     static func getRandomDeviceName() -> String {
