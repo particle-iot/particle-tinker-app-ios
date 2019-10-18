@@ -180,7 +180,7 @@
                                 <rect key="frame" x="0.0" y="76" width="320" height="312"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Yg8-fU-8jZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="525"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="538"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2L1-lH-SGz" customClass="SortByView" customModule="Particle" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
@@ -339,16 +339,16 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sB-GV-2LO" customClass="DeviceTypeView" customModule="Particle" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="256" width="320" height="269"/>
+                                                <rect key="frame" x="0.0" y="256" width="320" height="282"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TinkerStrings.Filters.DeviceType.Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vE6-Gw-k2T" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="0.0" width="288" height="19"/>
+                                                        <rect key="frame" x="16" y="0.0" width="288" height="32"/>
                                                         <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PkY-Dc-pIh">
-                                                        <rect key="frame" x="16" y="35" width="288" height="214"/>
+                                                        <rect key="frame" x="16" y="48" width="288" height="214"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="214" id="x5Z-lK-fqJ"/>
@@ -651,8 +651,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAN-Xy-clq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No devices" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSb-Q2-MhK">
-                                        <rect key="frame" x="111" y="231" width="98.5" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no devices message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSb-Q2-MhK">
+                                        <rect key="frame" x="70.5" y="231" width="179.5" height="18"/>
                                         <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="18"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>

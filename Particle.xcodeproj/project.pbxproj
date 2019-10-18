@@ -20,7 +20,6 @@
 		9308EDEC224BBE6500EB17BD /* MeshSetupBasicIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */; };
 		9308EDED224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */; };
 		9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */; };
-		9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */; };
 		9317FC142167F42C0054AE24 /* MeshSetupScanStickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */; };
 		9317FC16216807200054AE24 /* MeshSetupTextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */; };
 		931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931C3780215AA2240014811C /* MeshSetupStrings.strings */; };
@@ -141,6 +140,7 @@
 		C810B57816351F35B64F7910 /* StepEnsureCorrectSelectedWifiNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B03FFBAA692D204C572D /* StepEnsureCorrectSelectedWifiNetworkPassword.swift */; };
 		C810B59D8BC2F8CE41442949 /* DeviceStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4E8CCDE015BC5F0836B /* DeviceStatusView.swift */; };
 		C810B5A532205676E431CA7D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B1AB336F645258CC0841 /* WelcomeViewController.swift */; };
+		C810B5DA1F99E6BBD0BE6561 /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = C810B19B832136328540BDBE /* Avenir Next.ttc */; };
 		C810B610039F0E5F376016F3 /* DeviceFunctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B730004492A7C74FCC39 /* DeviceFunctionTableViewCell.swift */; };
 		C810B64C8D2E797711273A2A /* StepSetClaimCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF0C4D1265CF40DD7F16 /* StepSetClaimCode.swift */; };
 		C810B66AD9D1DBDAF82367A4 /* StepConnectToTargetDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4C07A6F2E5AB8E86DC0 /* StepConnectToTargetDevice.swift */; };
@@ -293,7 +293,6 @@
 		9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupBasicIconCell.xib; sourceTree = "<group>"; };
 		9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupSubtitleIconCell.xib; sourceTree = "<group>"; };
 		9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = boron_power_on.mov; sourceTree = "<group>"; };
-		9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir Next.ttc"; sourceTree = "<group>"; };
 		9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupScanStickerView.xib; sourceTree = "<group>"; };
 		9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupTextInputView.xib; sourceTree = "<group>"; };
 		931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
@@ -380,6 +379,7 @@
 		C810B16A225C1ED1D4F03ACC /* DeviceTypeIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTypeIcon.swift; sourceTree = "<group>"; };
 		C810B173069803AA58B69A40 /* MeshSetupGetReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetReadyViewController.swift; sourceTree = "<group>"; };
 		C810B17C87748CB6AB16A8A1 /* MeshSetupJoiningNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupJoiningNetworkViewController.swift; sourceTree = "<group>"; };
+		C810B19B832136328540BDBE /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file.ttc; name = "Avenir Next.ttc"; path = "Videos/Avenir Next.ttc"; sourceTree = SOURCE_ROOT; };
 		C810B1AB336F645258CC0841 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C810B1AF9A1E35BE51C0A90E /* MeshSetupWifiNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupWifiNetworkPasswordViewController.swift; sourceTree = "<group>"; };
 		C810B2305DE7F70D19B30480 /* StepOfferToAddOneMoreDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferToAddOneMoreDevice.swift; sourceTree = "<group>"; };
@@ -641,6 +641,7 @@
 				50F62D971AE0721200109F33 /* Gotham-XLight.otf */,
 				5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */,
 				50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */,
+				C810B19B832136328540BDBE /* Avenir Next.ttc */,
 			);
 			name = Fonts;
 			path = "Photon-Tinker/Fonts";
@@ -783,7 +784,6 @@
 				93C7C9E42208A1BA00ABEE85 /* som_ethernet_power_on.mov */,
 				93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */,
 				93B0F8562182236E00D8F8C0 /* argon_power_on.mov */,
-				9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */,
 				93C7C9DE2208A15100ABEE85 /* b_power_on.mov */,
 				93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */,
 				9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */,
@@ -1233,7 +1233,6 @@
 			files = (
 				50B555DD216EB3F100146A1E /* Particle.entitlements in Resources */,
 				93D36EB2216CC8B60088000C /* MeshSetupNetworkListView.xib in Resources */,
-				9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */,
 				93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */,
 				93C7C9E52208A1BA00ABEE85 /* som_ethernet_power_on.mov in Resources */,
 				93B0F85D2182236F00D8F8C0 /* commissioner_to_listening_mode.mov in Resources */,
@@ -1282,6 +1281,7 @@
 				93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */,
 				C810B4F84F91FF574E316EDC /* MeshSetupWifiNetworkCell.xib in Resources */,
 				C810B7195DB886D211B31B66 /* prepare_for_pairing.mov in Resources */,
+				C810B5DA1F99E6BBD0BE6561 /* Avenir Next.ttc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
