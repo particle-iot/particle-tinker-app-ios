@@ -171,6 +171,7 @@
 		C810B902D6FB536E65F75760 /* StepSetSimDataLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD814F971D049F08F800 /* StepSetSimDataLimit.swift */; };
 		C810B948477E6D3DB607A005 /* MeshSetupControlPanelInfoActivateSimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BDE729BDB4DF5D76F027 /* MeshSetupControlPanelInfoActivateSimViewController.swift */; };
 		C810B94F2E36E32452FD0E48 /* MeshSetupGetCommissionerReadyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B42273609A1681692BD1 /* MeshSetupGetCommissionerReadyViewController.swift */; };
+		C810B968C800DEC6E40B0FCB /* MeshStringsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B209F5DF0F37084398AC /* MeshStringsExtensions.swift */; };
 		C810B96EDEC32BDCA4F3C45A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B017C35C456634DA90F5 /* WebViewController.swift */; };
 		C810B99039A1C45E0999ED90 /* DevicePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5A2732EF43C3B85446F /* DevicePin.swift */; };
 		C810B9B0A4E36F013312323A /* MeshSetupJoiningNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B17C87748CB6AB16A8A1 /* MeshSetupJoiningNetworkViewController.swift */; };
@@ -382,6 +383,7 @@
 		C810B19B832136328540BDBE /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file.ttc; name = "Avenir Next.ttc"; path = "Videos/Avenir Next.ttc"; sourceTree = SOURCE_ROOT; };
 		C810B1AB336F645258CC0841 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C810B1AF9A1E35BE51C0A90E /* MeshSetupWifiNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupWifiNetworkPasswordViewController.swift; sourceTree = "<group>"; };
+		C810B209F5DF0F37084398AC /* MeshStringsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshStringsExtensions.swift; sourceTree = "<group>"; };
 		C810B2305DE7F70D19B30480 /* StepOfferToAddOneMoreDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferToAddOneMoreDevice.swift; sourceTree = "<group>"; };
 		C810B24468B666BBB055B4FF /* MeshSetupControlPanelSimDataLimitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshSetupControlPanelSimDataLimitViewController.swift; path = ControlPanel/MeshSetupControlPanelSimDataLimitViewController.swift; sourceTree = "<group>"; };
 		C810B262CE82C2AFC9F4EB07 /* StepGetTargetInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetTargetInfo.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 				C810BC04924C8DF17E86DB65 /* MeshSetupContext.swift */,
 				C810B36D5E3D92C9FE831ACE /* MeshSetupDevice.swift */,
 				C810BDE99766ED2242865DEF /* MeshSetupError.swift */,
+				C810B209F5DF0F37084398AC /* MeshStringsExtensions.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1596,6 +1599,7 @@
 				C810BDB9271584C788CB621B /* UIDevice.swift in Sources */,
 				C810BEF18CF1520648EBBEDF /* DeviceTypeLabel.swift in Sources */,
 				C810BD6DFE615FC24AF572D5 /* TinkerStringsExtensions.swift in Sources */,
+				C810B968C800DEC6E40B0FCB /* MeshStringsExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
