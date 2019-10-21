@@ -227,8 +227,8 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
                     detectionString = readableObject.stringValue
                 } else {
                     session.stopRunning()
-                    let ac = UIAlertController(title: "Whoops!", message: "Looks like you are scanning the wrong sticker. Please scan the ICCID barcode that came with your SIM card.", preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: MeshSetupStrings.Action.Ok, style: .default) { [weak self] action in
+                    let ac = UIAlertController(title: TinkerStrings.ScanBarcode.Error.WrongStickerError.Title, message: TinkerStrings.ScanBarcode.Error.WrongStickerError.Message, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: TinkerStrings.Action.Ok, style: .default) { [weak self] action in
                         if let self = self {
                             self.session.startRunning()
                         }

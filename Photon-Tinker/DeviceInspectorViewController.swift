@@ -40,7 +40,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
 
-        self.tabBarView.setup(tabNames: ["Events", "Functions", "Variables", "Tinker"])
+        self.tabBarView.setup(tabNames: [TinkerStrings.DeviceInspector.Tab.Events, TinkerStrings.DeviceInspector.Tab.Functions, TinkerStrings.DeviceInspector.Tab.Variables, TinkerStrings.DeviceInspector.Tab.Tinker])
 
 
         super.viewDidLoad()
@@ -93,7 +93,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
                 if (event == ParticleDeviceSystemEvent.flashFailed) {
                     DispatchQueue.main.async {
-                        RMessage.showNotification(withTitle: "Flashing error", subtitle: "Error flashing device", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.DeviceInspector.Error.FlashingDeviceError.Title, subtitle: TinkerStrings.DeviceInspector.Error.FlashingDeviceError.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                     }
                 }
             }
@@ -256,27 +256,21 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.selectTab(selectedTabIdx: sender.selectedIdx)
     }
 
-    let tutorials = [
-        ("Welcome to Device Inspector", "See advanced information on your device."),
-        ("Modes", "Device inspector has 4 views:\n\nEvents - view a real-time searchable list of published events.\n\nFunctions - interact with your device's functions.\n\nVariables - interact with your device's variables.\n\nTinker - control pin behavior for your device"),
-        ("Additional actions", "Tap the Control Panel button to access advanced actions.")
-    ]
-
     func showTutorial() {
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 //3
-                var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1) {
+                var tutorial3 = YCTutorialBox(headline: TinkerStrings.DeviceInspector.Tutorial.Tutorial3.Title, withHelpText: TinkerStrings.DeviceInspector.Tutorial.Tutorial3.Message) {
                     self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
                 }
 
                 //2
-                var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
+                var tutorial2 = YCTutorialBox(headline: TinkerStrings.DeviceInspector.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.DeviceInspector.Tutorial.Tutorial2.Message) {
                     tutorial3?.showAndFocus(self.moreActionsButton)
                 }
 
                 // 1
-                var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].0) {
+                var tutorial = YCTutorialBox(headline: TinkerStrings.DeviceInspector.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.DeviceInspector.Tutorial.Tutorial1.Message) {
                     tutorial2?.showAndFocus(self.tabBarView)
                 }
                 tutorial?.showAndFocus(self.view)

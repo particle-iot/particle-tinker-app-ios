@@ -14,13 +14,13 @@ enum DeviceListSortingOptions: Int, CaseIterable, CustomStringConvertible {
     var description: String {
         switch self {
             case .onlineStatus:
-                return "Online Status"
+                return TinkerStrings.Filters.SortBy.OnlineStatus
             case .deviceType:
-                return "Device Type"
+                return TinkerStrings.Filters.SortBy.DeviceType
             case .name:
-                return "Name"
+                return TinkerStrings.Filters.SortBy.Name
             case .lastHeard:
-                return "Last Heard"
+                return TinkerStrings.Filters.SortBy.LastHeard
         }
     }
 }

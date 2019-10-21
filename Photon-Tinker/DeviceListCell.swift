@@ -24,7 +24,7 @@ internal class DeviceListCell: UITableViewCell {
             if let self = self {
                 self.nameLabel.text = device.getName()
                 self.typeLabel.setDeviceType(device.type)
-                self.lastHeardLabel.text = device.lastHeard?.tinkerFormattedString() ?? "Unknown"
+                self.lastHeardLabel.text = device.lastHeard?.tinkerFormattedString() ?? TinkerStrings.DeviceList.Unknown
 
                 ParticleUtils.animateOnlineIndicatorImageView(self.deviceStateImageView, online: device.connected, flashing: device.isFlashing)
             }

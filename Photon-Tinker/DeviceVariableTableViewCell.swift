@@ -53,7 +53,7 @@ internal class DeviceVariableTableViewCell: UITableViewCell {
             self.valueButton.isUserInteractionEnabled = true
         } else {
             self.variableValue = nil
-            self.valueLabel.text = "..."
+            self.valueLabel.text = TinkerStrings.Variables.CellNotLoadedLabel
             self.valueButton.isUserInteractionEnabled = false
         }
     }
@@ -62,7 +62,7 @@ internal class DeviceVariableTableViewCell: UITableViewCell {
         self.stopUpdating()
 
         self.variableValue = nil
-        self.valueLabel.text = "Error"
+        self.valueLabel.text = TinkerStrings.Variables.CellErrorLabel
         self.valueButton.isUserInteractionEnabled = false
     }
 

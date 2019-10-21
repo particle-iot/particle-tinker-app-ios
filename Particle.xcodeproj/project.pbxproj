@@ -20,7 +20,6 @@
 		9308EDEC224BBE6500EB17BD /* MeshSetupBasicIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */; };
 		9308EDED224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */; };
 		9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */; };
-		9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */; };
 		9317FC142167F42C0054AE24 /* MeshSetupScanStickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */; };
 		9317FC16216807200054AE24 /* MeshSetupTextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */; };
 		931C3784215AA2240014811C /* MeshSetupStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931C3780215AA2240014811C /* MeshSetupStrings.strings */; };
@@ -44,6 +43,7 @@
 		9348298D225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9348298A225B927C0015C630 /* MeshSetupHorizontalDetailCell.xib */; };
 		93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93522313216CFD4600CF8A69 /* wifi_new.pb.swift */; };
 		93558EAD224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */; };
+		93785F08231846F800893C1A /* TinkerStrings.json in Resources */ = {isa = PBXBuildFile; fileRef = 93785F07231846F800893C1A /* TinkerStrings.json */; };
 		937EE24E224BF686004E58E8 /* MeshSetupButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937EE24B224BF686004E58E8 /* MeshSetupButtonCell.xib */; };
 		9394CADA22E7814200FF3E61 /* MeshSetupNetworkListNoActivityIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9394CAD722E7814200FF3E61 /* MeshSetupNetworkListNoActivityIndicatorView.xib */; };
 		93B0F85C2182236F00D8F8C0 /* argon_power_on.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93B0F8562182236E00D8F8C0 /* argon_power_on.mov */; };
@@ -140,6 +140,7 @@
 		C810B57816351F35B64F7910 /* StepEnsureCorrectSelectedWifiNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B03FFBAA692D204C572D /* StepEnsureCorrectSelectedWifiNetworkPassword.swift */; };
 		C810B59D8BC2F8CE41442949 /* DeviceStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4E8CCDE015BC5F0836B /* DeviceStatusView.swift */; };
 		C810B5A532205676E431CA7D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B1AB336F645258CC0841 /* WelcomeViewController.swift */; };
+		C810B5DA1F99E6BBD0BE6561 /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = C810B19B832136328540BDBE /* Avenir Next.ttc */; };
 		C810B610039F0E5F376016F3 /* DeviceFunctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B730004492A7C74FCC39 /* DeviceFunctionTableViewCell.swift */; };
 		C810B64C8D2E797711273A2A /* StepSetClaimCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF0C4D1265CF40DD7F16 /* StepSetClaimCode.swift */; };
 		C810B66AD9D1DBDAF82367A4 /* StepConnectToTargetDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B4C07A6F2E5AB8E86DC0 /* StepConnectToTargetDevice.swift */; };
@@ -209,6 +210,7 @@
 		C810BD1B8E863528A6D0E092 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BEE8D1DE3F0C650E1D61 /* CALayer.swift */; };
 		C810BD28081253D9AFE43BD0 /* DeviceListFilterAndSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF4E3F4A4D1AA2B359BD /* DeviceListFilterAndSortViewController.swift */; };
 		C810BD363B8DD799293FAB91 /* TinkerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BD8F81831FA1158C0593 /* TinkerStrings.swift */; };
+		C810BD6DFE615FC24AF572D5 /* TinkerStringsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B2A8784F584DD31176C0 /* TinkerStringsExtensions.swift */; };
 		C810BDA3464764900E879125 /* StepEnsureCorrectSimState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BF15DD9491959B0E186C /* StepEnsureCorrectSimState.swift */; };
 		C810BDB9271584C788CB621B /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B821CF079FB9EC919DDA /* UIDevice.swift */; };
 		C810BDE2AA87A347CBABDFC5 /* StepGetNewNetworkPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B85E5279D0283A14D356 /* StepGetNewNetworkPassword.swift */; };
@@ -291,7 +293,6 @@
 		9308EDEA224BBE6500EB17BD /* MeshSetupBasicIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupBasicIconCell.xib; sourceTree = "<group>"; };
 		9308EDEB224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupSubtitleIconCell.xib; sourceTree = "<group>"; };
 		9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = boron_power_on.mov; sourceTree = "<group>"; };
-		9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir Next.ttc"; sourceTree = "<group>"; };
 		9317FC132167F42C0054AE24 /* MeshSetupScanStickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupScanStickerView.xib; sourceTree = "<group>"; };
 		9317FC15216807200054AE24 /* MeshSetupTextInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupTextInputView.xib; sourceTree = "<group>"; };
 		931C3773215AA1020014811C /* mbedTLSWrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mbedTLSWrapper.xcodeproj; path = mbedTLSWrapper/mbedTLSWrapper.xcodeproj; sourceTree = "<group>"; };
@@ -316,6 +317,7 @@
 		93522313216CFD4600CF8A69 /* wifi_new.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wifi_new.pb.swift; sourceTree = "<group>"; };
 		93522316216CFD4600CF8A69 /* wifi_new.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = wifi_new.proto; sourceTree = "<group>"; };
 		93558EAC224D08A7000BDC36 /* MeshSetupControlPanelActionList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeshSetupControlPanelActionList.xib; sourceTree = "<group>"; };
+		93785F07231846F800893C1A /* TinkerStrings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TinkerStrings.json; path = "shared-assets-mobile/tinker_strings/venv/TinkerStrings.json"; sourceTree = "<group>"; };
 		937EE24B224BF686004E58E8 /* MeshSetupButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupButtonCell.xib; sourceTree = "<group>"; };
 		9394CAD722E7814200FF3E61 /* MeshSetupNetworkListNoActivityIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshSetupNetworkListNoActivityIndicatorView.xib; sourceTree = "<group>"; };
 		93B0F8562182236E00D8F8C0 /* argon_power_on.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = argon_power_on.mov; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 		C810B16A225C1ED1D4F03ACC /* DeviceTypeIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTypeIcon.swift; sourceTree = "<group>"; };
 		C810B173069803AA58B69A40 /* MeshSetupGetReadyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupGetReadyViewController.swift; sourceTree = "<group>"; };
 		C810B17C87748CB6AB16A8A1 /* MeshSetupJoiningNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupJoiningNetworkViewController.swift; sourceTree = "<group>"; };
+		C810B19B832136328540BDBE /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file.ttc; name = "Avenir Next.ttc"; path = "Videos/Avenir Next.ttc"; sourceTree = SOURCE_ROOT; };
 		C810B1AB336F645258CC0841 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C810B1AF9A1E35BE51C0A90E /* MeshSetupWifiNetworkPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupWifiNetworkPasswordViewController.swift; sourceTree = "<group>"; };
 		C810B2305DE7F70D19B30480 /* StepOfferToAddOneMoreDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepOfferToAddOneMoreDevice.swift; sourceTree = "<group>"; };
@@ -385,6 +388,7 @@
 		C810B271587C713B5F8604A6 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		C810B2A2C9E4F1B4BC7B9BC6 /* MeshSetupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupInfoViewController.swift; sourceTree = "<group>"; };
 		C810B2A47DC32CB492A6373C /* MeshSetupFindStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupFindStickerViewController.swift; sourceTree = "<group>"; };
+		C810B2A8784F584DD31176C0 /* TinkerStringsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinkerStringsExtensions.swift; sourceTree = "<group>"; };
 		C810B2B10A73EA8F616E79FA /* StepMakeTargetACommissioner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepMakeTargetACommissioner.swift; sourceTree = "<group>"; };
 		C810B2DF1B1869489DD02643 /* MeshSetupNameDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshSetupNameDeviceViewController.swift; sourceTree = "<group>"; };
 		C810B2F167CCE7B313A3BE42 /* StepGetMeshNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetMeshNetwork.swift; sourceTree = "<group>"; };
@@ -637,6 +641,7 @@
 				50F62D971AE0721200109F33 /* Gotham-XLight.otf */,
 				5014D1EF1AE88D0B00725BA8 /* Gotham-Light.otf */,
 				50F62D981AE0721200109F33 /* Gotham-XLightIta.otf */,
+				C810B19B832136328540BDBE /* Avenir Next.ttc */,
 			);
 			name = Fonts;
 			path = "Photon-Tinker/Fonts";
@@ -779,7 +784,6 @@
 				93C7C9E42208A1BA00ABEE85 /* som_ethernet_power_on.mov */,
 				93B0F85A2182236F00D8F8C0 /* xenon_power_on.mov */,
 				93B0F8562182236E00D8F8C0 /* argon_power_on.mov */,
-				9317FBFD21656C8E0054AE24 /* Avenir Next.ttc */,
 				93C7C9DE2208A15100ABEE85 /* b_power_on.mov */,
 				93B0F8582182236E00D8F8C0 /* boron_power_on_battery.mov */,
 				9309D4E121B9AC1C0010E4B4 /* boron_power_on.mov */,
@@ -793,6 +797,7 @@
 		93D0DD50228EF51400FC2CCA /* SharedAssets */ = {
 			isa = PBXGroup;
 			children = (
+				93785F07231846F800893C1A /* TinkerStrings.json */,
 				93D0DD53228EF52C00FC2CCA /* tinker_pin_data.json */,
 			);
 			name = SharedAssets;
@@ -997,6 +1002,7 @@
 				C810BFF23EF2269E12E6F37A /* ScreenUtils.swift */,
 				C810BCE8AF3C66B55136CAB4 /* Storyboardable.swift */,
 				C810B7325DEF0029CCB800DC /* LogList.swift */,
+				C810B2A8784F584DD31176C0 /* TinkerStringsExtensions.swift */,
 			);
 			name = Model;
 			path = "Photon-Tinker";
@@ -1130,6 +1136,7 @@
 			buildConfigurationList = 50B125621AE06CF4003C29DC /* Build configuration list for PBXNativeTarget "Particle" */;
 			buildPhases = (
 				6C888492D5EE51B2AD3827F8 /* [CP] Check Pods Manifest.lock */,
+				939DB13623184393001B4667 /* ShellScript */,
 				50B1253F1AE06CF4003C29DC /* Sources */,
 				50B125401AE06CF4003C29DC /* Frameworks */,
 				50B125411AE06CF4003C29DC /* Resources */,
@@ -1226,7 +1233,6 @@
 			files = (
 				50B555DD216EB3F100146A1E /* Particle.entitlements in Resources */,
 				93D36EB2216CC8B60088000C /* MeshSetupNetworkListView.xib in Resources */,
-				9317FC0021656C9D0054AE24 /* Avenir Next.ttc in Resources */,
 				93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */,
 				93C7C9E52208A1BA00ABEE85 /* som_ethernet_power_on.mov in Resources */,
 				93B0F85D2182236F00D8F8C0 /* commissioner_to_listening_mode.mov in Resources */,
@@ -1239,6 +1245,7 @@
 				93F607F6221CB8CB00963BB0 /* MeshSetupNetworkListWithCreateView.xib in Resources */,
 				937EE24E224BF686004E58E8 /* MeshSetupButtonCell.xib in Resources */,
 				9308EDED224BBE6500EB17BD /* MeshSetupSubtitleIconCell.xib in Resources */,
+				93785F08231846F800893C1A /* TinkerStrings.json in Resources */,
 				50F62D991AE0721200109F33 /* Gotham-Book.otf in Resources */,
 				5014D1F01AE88D0B00725BA8 /* Gotham-Light.otf in Resources */,
 				9309D4E221B9AC1D0010E4B4 /* boron_power_on.mov in Resources */,
@@ -1274,6 +1281,7 @@
 				93B0F8602182236F00D8F8C0 /* xenon_power_on.mov in Resources */,
 				C810B4F84F91FF574E316EDC /* MeshSetupWifiNetworkCell.xib in Resources */,
 				C810B7195DB886D211B31B66 /* prepare_for_pairing.mov in Resources */,
+				C810B5DA1F99E6BBD0BE6561 /* Avenir Next.ttc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1365,6 +1373,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		939DB13623184393001B4667 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/TinkerStrings.json\" \"Photon-Tinker/Base.lproj/TinkerStrings.strings\" \"Photon-Tinker/TinkerStrings.swift\"\n";
 		};
 		F2F0CCCB7BA13C430642B444 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1570,6 +1595,7 @@
 				C810BBDF6320C244EC93C093 /* FiltersButton.swift in Sources */,
 				C810BDB9271584C788CB621B /* UIDevice.swift in Sources */,
 				C810BEF18CF1520648EBBEDF /* DeviceTypeLabel.swift in Sources */,
+				C810BD6DFE615FC24AF572D5 /* TinkerStringsExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -313,10 +313,10 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                     self.valueLabel.text = "\(value)"
                 case DevicePinFunction.digitalRead:
                     self.outerPieValueView.progress = 1
-                    self.valueLabel.text = self.pinValue ?? 0 > 0 ? "HIGH" : "LOW"
+                    self.valueLabel.text = self.pinValue ?? 0 > 0 ? TinkerStrings.Tinker.PinValue.High : TinkerStrings.Tinker.PinValue.Low
                 case DevicePinFunction.digitalWrite:
                     self.outerPieValueView.progress = 1
-                    self.valueLabel.text = self.pinValue ?? 0 > 0 ? "HIGH" : "LOW"
+                    self.valueLabel.text = self.pinValue ?? 0 > 0 ? TinkerStrings.Tinker.PinValue.High : TinkerStrings.Tinker.PinValue.Low
                 default:
                     break
             }
@@ -442,7 +442,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                     self.endUpdating()
                 } else {
                     DispatchQueue.main.async {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "There was an error while reading value of \(self.pin.label) pin.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.ReadingValueError.Title, subtitle: TinkerStrings.Tinker.Error.ReadingValueError.Message.replacingOccurrences(of: "{{pin}}", with: self.pin.label), type: .error, customTypeName: nil, duration: -1, callback: nil)
                     }
 
                     self.pinValue = nil
@@ -456,7 +456,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
     func postValue() {
         var args: [Any] = [self.pin.logicalName]
         if (self.selectedFunction == DevicePinFunction.digitalWrite) {
-            args.append(self.pinValue! > 0 ? "HIGH" : "LOW")
+            args.append(self.pinValue! > 0 ? TinkerStrings.Tinker.PinValue.High : TinkerStrings.Tinker.PinValue.Low)
         } else {
             args.append(NSNumber(value: self.pinValue!))
         }
@@ -467,7 +467,7 @@ class PinView: UIView, UIGestureRecognizerDelegate {
                     self.endUpdating()
                 } else {
                     DispatchQueue.main.async {
-                        RMessage.showNotification(withTitle: "Error", subtitle: "There was an error while updating value of \(self.pin.label) pin.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.Tinker.Error.UpdatingValueError.Title, subtitle: TinkerStrings.Tinker.Error.UpdatingValueError.Message.replacingOccurrences(of: "{{pin}}", with: self.pin.label), type: .error, customTypeName: nil, duration: -1, callback: nil)
                     }
                     self.endUpdating()
                 }

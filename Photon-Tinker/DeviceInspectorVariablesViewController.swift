@@ -48,9 +48,9 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
 
     private func setupTableViewHeader() {
         if (self.device.connected) {
-            self.noVariablesMessage.text = "No exposed variables"
+            self.noVariablesMessage.text = TinkerStrings.Variables.NoExposedVariables
         } else {
-            self.noVariablesMessage.text = "Device is offline"
+            self.noVariablesMessage.text = TinkerStrings.Variables.DeviceIsOffline
         }
 
         self.tableView.tableHeaderView = nil
@@ -59,10 +59,6 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
         self.adjustTableViewHeaderViewConstraints()
     }
 
-    let tutorials = [
-        ("Device Variables", "Simply tap a variable name to read its current value. Tap any long variable value to show a popup with the full string value in case it has been truncated.")
-    ]
-
     override func showTutorial() {
         if (variableNames.count > 0) {
             if ParticleUtils.shouldDisplayTutorialForViewController(self) {
@@ -70,7 +66,7 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
                     // 1
                     let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
 
-                    var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1)
+                    var tutorial = YCTutorialBox(headline: TinkerStrings.Variables.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Variables.Tutorial.Tutorial1.Message)
                     tutorial?.showAndFocus(firstCell)
 
                     ParticleUtils.setTutorialWasDisplayedForViewController(self)
@@ -154,7 +150,7 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
     func loadVariable(_ name: String) {
         if (!self.device.connected) {
             DispatchQueue.main.async {
-                RMessage.showNotification(withTitle: "Device offline", subtitle: "Device is offline. To update variable values device must be online.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.Variables.Error.DeviceOffline.Title, subtitle: TinkerStrings.Variables.Error.DeviceOffline.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
             }
             return
         }
@@ -213,13 +209,13 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
     func tappedOnVariableValue(_ sender: DeviceVariableTableViewCell, name: String, value: String) {
         let alert = UIAlertController(title: name, message: value, preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Copy to clipboard", style: .default) { [weak self] action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.CopyToClipboard, style: .default) { [weak self] action in
             UIPasteboard.general.string = value
-            RMessage.showNotification(withTitle: "Copied", subtitle: "Variable value was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+            RMessage.showNotification(withTitle: TinkerStrings.Variables.Prompt.VariableCopied.Title, subtitle: TinkerStrings.Variables.Prompt.VariableCopied.Message, type: .success, customTypeName: nil, callback: nil)
             SEGAnalytics.shared().track("DeviceInspector_VariableCopied")
         })
 
-        alert.addAction(UIAlertAction(title: "Close", style: .cancel) { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Close, style: .cancel) { action in
 
         })
 

@@ -109,7 +109,9 @@ class ParticleTextView: UITextView {
     }
 }
 
-class ParticleCustomButton: UIButton {
+@IBDesignable class ParticleCustomButton: UIButton {
+    @IBInspectable public var upperCase: Bool = true
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -117,15 +119,16 @@ class ParticleCustomButton: UIButton {
     }
 
     override func setTitle(_ title: String?, for state: State) {
-        super.setTitle(title?.uppercased(), for: state)
-    }
-
-    func setTitle(_ title: String?, for state: UIControl.State, upperCase: Bool = true) {
-        if (upperCase) {
-            self.setTitle(title, for: state)
+        if (self.upperCase) {
+            super.setTitle(title?.uppercased(), for: state)
         } else {
             super.setTitle(title, for: state)
         }
+    }
+
+    func setTitle(_ title: String?, for state: UIControl.State, upperCase: Bool = true) {
+        self.upperCase = upperCase
+        self.setTitle(title, for: state)
     }
 
     func setStyle(font: String, size: Int, color: UIColor) {

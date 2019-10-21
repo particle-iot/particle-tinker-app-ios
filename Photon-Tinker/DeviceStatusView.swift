@@ -13,9 +13,9 @@ enum DeviceOnlineStatusOptions: Int, CaseIterable, CustomStringConvertible {
     var description: String {
         switch self {
             case .online:
-                return "Online"
+                return TinkerStrings.Filters.DeviceStatus.Online
             case .offline:
-                return "Offline"
+                return TinkerStrings.Filters.DeviceStatus.Offline
         }
     }
 

@@ -74,9 +74,9 @@ class DeviceListFilterAndSortViewController: UIViewController, SortByViewDelegat
 
     private func updateShowButtonTitle() {
         if (self.viewDataSource.viewDevices.count == 1) {
-            self.showButton.setTitle("Show {{0}} device".replacingOccurrences(of: "{{0}}", with: String(self.viewDataSource.viewDevices.count)), for: .normal)
+            self.showButton.setTitle(TinkerStrings.Filters.Button.ShowDevicesSingular.replacingOccurrences(of: "{{count}}", with: String(self.viewDataSource.viewDevices.count)), for: .normal)
         } else {
-            self.showButton.setTitle("Show {{0}} devices".replacingOccurrences(of: "{{0}}", with: String(self.viewDataSource.viewDevices.count)), for: .normal)
+            self.showButton.setTitle(TinkerStrings.Filters.Button.ShowDevicesPlural.replacingOccurrences(of: "{{count}}", with: String(self.viewDataSource.viewDevices.count)), for: .normal)
         }
     }
 

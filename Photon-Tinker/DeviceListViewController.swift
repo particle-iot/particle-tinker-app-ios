@@ -81,7 +81,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     private func setupSearch() {
-        searchBar.inputText.placeholder = "Search devices..."
+        searchBar.inputText.placeholder = TinkerStrings.DeviceList.SearchPlaceholder
         searchBar.delegate = self
     }
 
@@ -169,7 +169,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             } else {
                 ParticleLogger.logError(NSStringFromClass(type(of: self)), format: "Load devices error", withParameters: getVaList([]))
                 DispatchQueue.main.async {
-                    RMessage.showNotification(withTitle: "Error", subtitle: "Error loading devices, please check your internet connection.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.LoadingDevicesFailed.Title, subtitle: TinkerStrings.DeviceList.Error.LoadingDevicesFailed.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             }
         }
@@ -199,26 +199,21 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
     //MARK: Tutorials
-    let tutorials = [
-        ("Your devices", "See and manage your devices.\n\nOnline devices have their indicator 'breathing' cyan, offline ones are gray.\n\nTap a device to enter Device Inspector mode, device must run Tinker firmware to enter Tinker mode.\n\nSwipe left to remove a device from your account.\n\nPull down to refresh your list."),
-        ("Setup a new device", "Tap the plus button to set up a new Photon or Electron device you wish to add to your account"),
-    ]
-
     func showTutorial() {
        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 if (ParticleCloud.sharedInstance().isAuthenticated && self.dataSource.viewDevices.count > 0) {
                     // 1
-                    let tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1)
+                    let tutorial2 = YCTutorialBox(headline: TinkerStrings.DeviceList.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.DeviceList.Tutorial.Tutorial2.Message)
 
                     // 0
-                    let tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
+                    let tutorial = YCTutorialBox(headline: TinkerStrings.DeviceList.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.DeviceList.Tutorial.Tutorial1.Message) {
                         tutorial2?.showAndFocus(self.setupNewDeviceButton)
                     }
                     let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
                     tutorial?.showAndFocus(firstCell)
                 } else {
-                    var tutorial = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1)
+                    var tutorial = YCTutorialBox(headline: TinkerStrings.DeviceList.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.DeviceList.Tutorial.Tutorial2.Message)
                     tutorial?.showAndFocus(self.setupNewDeviceButton)
                 }
 
@@ -280,11 +275,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
         if self.tableView.tableHeaderView != nil {
             if  self.dataSource.devices.count == 0 {
-                self.noDevicesLabel.text = "No devices"
+                self.noDevicesLabel.text = TinkerStrings.DeviceList.NoDevices
             } else if self.dataSource.isSearching() {
-                self.noDevicesLabel.text = "No devices found matching '{{0}}'".replacingOccurrences(of: "{{0}}", with: self.dataSource.searchTerm!)
+                self.noDevicesLabel.text = TinkerStrings.DeviceList.NoDevicesMatchingSearch.replacingOccurrences(of: "{{searchTerm}}", with: self.dataSource.searchTerm!)
             } else if self.dataSource.isFiltering() {
-                self.noDevicesLabel.text = "No devices found matching the current filter"
+                self.noDevicesLabel.text = TinkerStrings.DeviceList.NoDevicesForCurrentFilter
             }
         }
 
@@ -339,9 +334,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 if (self.dataSource.devices.count == 1) {
-                    RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, type: .success, customTypeName: nil, callback: nil)
                 } else {
-                    RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, type: .success, customTypeName: nil, callback: nil)
                 }
             }
         } else if (result == .switchToControlPanel) {
@@ -366,7 +361,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         c?.normalTextColor = ParticleUtils.particleDarkGrayColor
         c?.linkTextColor = ParticleUtils.particleDarkGrayColor
 
-        c?.modeButtonName = "SETUP button"
+        c?.modeButtonName = TinkerStrings.DeviceList.PhotonLib.ModeButtonName
 
         c?.elementTextColor = UIColor.white
         c?.elementBackgroundColor = ParticleUtils.particleCyanColor
@@ -375,7 +370,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         c?.brandImageBackgroundImage = UIImage(named: "ImgAppHeader")
 
         c?.tintSetupImages = false
-        c?.instructionalVideoFilename = "photon_wifi.mp4"
+        c?.instructionalVideoFilename = TinkerStrings.DeviceList.PhotonLib.InstructionsVideo.iOS
         c?.allowPasswordManager = true
         c?.lightStatusAndNavBar = true
         c?.disableLogOutOption = true
@@ -394,11 +389,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup ended successfully", withParameters: getVaList([]))
             SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"success"])
-            
+
             if (self.dataSource.devices.count == 1) {
-                RMessage.showNotification(withTitle: "Success", subtitle: "Nice, you've successfully set up your first Particle! You'll be receiving a welcome email with helpful tips and links to resources. Start developing by going to https://build.particle.io/ on your computer, or stay here and enjoy the magic of Tinker.", type: .success, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, type: .success, customTypeName: nil, callback: nil)
             } else {
-                RMessage.showNotification(withTitle: "Success", subtitle: "You successfully added a new device to your account.", type: .success, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, type: .success, customTypeName: nil, callback: nil)
             }
         }
         else if result == .successNotClaimed
@@ -406,14 +401,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup ended successfully, not claimed (Wi-Fi credentials flow).", withParameters: getVaList([]))
             SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"successNotClaimed"])
 
-            RMessage.showNotification(withTitle: "Success", subtitle: "You successfully setup the device Wi-Fi credentials. Verify its LED is breathing cyan.", type: .success, customTypeName: nil, callback: nil)
+            RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulWifiOnly.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulWifiOnly.Message, type: .success, customTypeName: nil, callback: nil)
         }
         else
         {
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup cancelled or failed.", withParameters: getVaList([]))
             SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"failed or canceled"])
 
-            RMessage.showNotification(withTitle: "Warning", subtitle: "Device setup did not complete.", type: .warning, customTypeName: nil, callback: nil)
+            RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.SetupNotCompleted.Title, subtitle: TinkerStrings.DeviceList.Error.SetupNotCompleted.Message, type: .warning, customTypeName: nil, callback: nil)
         }
 
         self.refreshData()
@@ -455,7 +450,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.dataSource.viewDevices[(indexPath as NSIndexPath).row].unclaim() { (error: Error?) -> Void in
                     if let err = error
                     {
-                        RMessage.showNotification(withTitle: "Error", subtitle: err.localizedDescription, type: .error, customTypeName: nil, duration: -1, callback: nil)
+                        RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.UnclaimingFailed.Title, subtitle: TinkerStrings.DeviceList.Error.UnclaimingFailed.Message.replacingOccurrences(of: "{{error}}", with: err.localizedDescription), type: .error, customTypeName: nil, duration: -1, callback: nil)
                         self.reloadData()
                     }
                 }
@@ -490,7 +485,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Unclaim"
+        return TinkerStrings.DeviceList.Button.Unclaim
     }
 
 
@@ -512,7 +507,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         selectedDevice.refresh { [weak self] error in
             if let self = self {
                 if let error = error {
-                    RMessage.showNotification(withTitle: "Error", subtitle: "Error getting information from Particle Cloud", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.GettingInformationFromCloudFailed.Title, subtitle: TinkerStrings.DeviceList.Error.GettingInformationFromCloudFailed.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 } else {
                     self.performSegue(withIdentifier: "deviceInspector", sender: selectedDevice)
                 }
@@ -561,38 +556,38 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @IBAction func setupNewDeviceButtonTapped(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Setup up a new device", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: TinkerStrings.DeviceList.Prompt.SetupNewDevice.Title, message: nil, preferredStyle: .actionSheet)
 
         if (ParticleCloud.sharedInstance().isAuthenticated) {
-            alert.addAction(UIAlertAction(title: "Argon / Boron / Xenon", style: .default) { action in
+            alert.addAction(UIAlertAction(title: TinkerStrings.Action.Setup3rdGen, style: .default) { action in
                 if (ParticleCloud.sharedInstance().isAuthenticated) {
                     ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh setup started", withParameters: getVaList([]))
                     self.invokeMeshDeviceSetup()
                 } else {
-                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Argon / Boron / Xenon ", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.AuthRequiredToSetup3rdGen.Title, subtitle: TinkerStrings.DeviceList.Error.AuthRequiredToSetup3rdGen.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             })
         }
 
 
-        alert.addAction(UIAlertAction(title: "Photon", style: .default) { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.SetupPhoton, style: .default) { action in
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Photon setup started", withParameters: getVaList([]))
             self.invokePhotonDeviceSetup()
         })
 
         if (ParticleCloud.sharedInstance().isAuthenticated) {
-            alert.addAction(UIAlertAction(title: "Electron / SIM", style: .default) { action in
+            alert.addAction(UIAlertAction(title: TinkerStrings.Action.SetupElectron, style: .default) { action in
                 if (ParticleCloud.sharedInstance().isAuthenticated) {
                     ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Electron setup started", withParameters: getVaList([]))
                     self.invokeElectronSetup()
                 } else {
-                    RMessage.showNotification(withTitle: "Authentication", subtitle: "You must be logged to your Particle account in to setup an Electron ", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.AuthRequiredToSetupElectron.Title, subtitle: TinkerStrings.DeviceList.Error.AuthRequiredToSetupElectron.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }
             })
         }
 
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel) { action in
 
         })
 
@@ -607,33 +602,33 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         if (ParticleCloud.sharedInstance().isAuthenticated) {
-            alert.addAction(UIAlertAction(title: "Log out", style: .default, handler: { action in
-                let alert = UIAlertController(title: "Log out", message: "Are you sure you want to log out?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                alert.addAction(UIAlertAction(title: "Log out", style: .default) { action in
+            alert.addAction(UIAlertAction(title: TinkerStrings.Action.LogOut, style: .default, handler: { action in
+                let alert = UIAlertController(title: TinkerStrings.DeviceList.Prompt.LogOutConfirmation.Title, message: TinkerStrings.DeviceList.Prompt.LogOutConfirmation.Message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel))
+                alert.addAction(UIAlertAction(title: TinkerStrings.Action.LogOut, style: .default) { action in
                     ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Logout confirmed", withParameters: getVaList([]))
                     self.logout()
                 })
                 self.present(alert, animated: true)
             }))
         } else {
-            alert.addAction(UIAlertAction(title: "Log in", style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: TinkerStrings.Action.LogIn, style: .default, handler: { action in
                 self.navigationController?.popViewController(animated: true)
             }))
         }
 
-        alert.addAction(UIAlertAction(title: "Share application logs", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.ShareApplicationLogs, style: .default, handler: { action in
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device logs selected", withParameters: getVaList([]))
 
             if let zipURL = LogList.getZip() {
                 let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
                 self.present(avc, animated: true)
             } else {
-                RMessage.showNotification(withTitle: "Error", subtitle: "There was an error exporting application logs.", type: .error, customTypeName: nil, duration: -1, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.ExportingLogsFailed.Title, subtitle: TinkerStrings.DeviceList.Error.ExportingLogsFailed.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
             }
         }))
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel, handler: { action in
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Cancel tapped", withParameters: getVaList([]))
         }))
 

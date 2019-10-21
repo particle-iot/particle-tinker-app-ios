@@ -96,7 +96,7 @@ internal class DeviceFunctionTableViewCell: UITableViewCell, UITextFieldDelegate
     func setFunctionError() {
         self.stopUpdating()
 
-        self.resultLabel.text = "Error"
+        self.resultLabel.text = TinkerStrings.Functions.CellErrorLabel
     }
 
     func startUpdating() {

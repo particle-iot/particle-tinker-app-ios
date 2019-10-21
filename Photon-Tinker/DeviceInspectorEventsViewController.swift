@@ -44,7 +44,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
     }
 
     private func setupSearch() {
-        searchBar.inputText.placeholder = "Search events..."
+        searchBar.inputText.placeholder = TinkerStrings.Events.SearchPlaceholder
         searchBar.delegate = self
     }
 
@@ -123,26 +123,19 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
         }
     }
 
-
-    let tutorials = [
-        ("Device Events", "This is a searchable log of the events your device published to the cloud. Tap the blue clipboard button to copy event payload to your clipboard."),
-        ("Search events", "Tap filter text field and type text to filter the events list and show only events containing the search text. Filtering is performed on event name and data."),
-        ("Play and pause", "Tap play/pause button to pause the events stream momentarily. Events published while stream is paused will not be added to the list.")
-    ]
-
     override func showTutorial() {
         if ParticleUtils.shouldDisplayTutorialForViewController(self) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 //3
-                var tutorial3 = YCTutorialBox(headline: self.tutorials[2].0, withHelpText: self.tutorials[2].1)
+                var tutorial3 = YCTutorialBox(headline: TinkerStrings.Events.Tutorial.Tutorial3.Title, withHelpText: TinkerStrings.Events.Tutorial.Tutorial3.Message)
 
                 //2
-                var tutorial2 = YCTutorialBox(headline: self.tutorials[1].0, withHelpText: self.tutorials[1].1) {
+                var tutorial2 = YCTutorialBox(headline: TinkerStrings.Events.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.Events.Tutorial.Tutorial2.Message) {
                     tutorial3?.showAndFocus(self.searchBar.superview)
                 }
 
                 // 1
-                var tutorial = YCTutorialBox(headline: self.tutorials[0].0, withHelpText: self.tutorials[0].1) {
+                var tutorial = YCTutorialBox(headline: TinkerStrings.Events.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Events.Tutorial.Tutorial1.Message) {
                     tutorial2?.showAndFocus(self.searchBar)
                 }
                 tutorial?.showAndFocus(self.view)
@@ -200,9 +193,9 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
     }
 
     @IBAction func clearButtonTapped(_ sender: AnyObject) {
-        let alert = UIAlertController(title: "Clear all events", message: "All events data will be deleted. Are you sure?", preferredStyle: .alert)
+        let alert = UIAlertController(title: TinkerStrings.Events.Prompt.ClearAllEvents.Title, message: TinkerStrings.Events.Prompt.ClearAllEvents.Message, preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Yes", style: .default) { [weak self] action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Yes, style: .default) { [weak self] action in
             if let self = self {
                 self.events = []
                 self.filteredEvents = []
@@ -212,7 +205,7 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
             SEGAnalytics.shared().track("DeviceInspector_EventsCleared")
         })
 
-        alert.addAction(UIAlertAction(title: "No", style: .cancel) { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.No, style: .cancel) { action in
 
         })
 
@@ -229,26 +222,26 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
 
     func tappedOnCopyButton(_ sender: DeviceEventTableViewCell, event: ParticleEvent) {
         UIPasteboard.general.string = event.description
-        RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+        RMessage.showNotification(withTitle: TinkerStrings.Events.Prompt.EventCopied.Title, subtitle: TinkerStrings.Events.Prompt.EventCopied.Message, type: .success, customTypeName: nil, callback: nil)
         SEGAnalytics.shared().track("DeviceInspector_EventCopied")
     }
 
     func tappedOnPayloadButton(_ sender: DeviceEventTableViewCell, event: ParticleEvent) {
         let alert = UIAlertController(title: event.event, message: "\(event.data ?? "")\r\n\r\n\(event.time.eventTimeFormattedString())", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Copy data to clipboard", style: .default) { [weak self] action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.CopyDataToClipboard, style: .default) { [weak self] action in
             UIPasteboard.general.string = event.data ?? ""
-            RMessage.showNotification(withTitle: "Copied", subtitle: "Event data was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+            RMessage.showNotification(withTitle: TinkerStrings.Events.Prompt.DataCopied.Title, subtitle: TinkerStrings.Events.Prompt.DataCopied.Message, type: .success, customTypeName: nil, callback: nil)
             SEGAnalytics.shared().track("DeviceInspector_EventDataCopied")
         })
 
-        alert.addAction(UIAlertAction(title: "Copy event to clipboard", style: .default) { [weak self] action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.CopyEventToClipboard, style: .default) { [weak self] action in
             UIPasteboard.general.string = event.description
-            RMessage.showNotification(withTitle: "Copied", subtitle: "Event payload was copied to the clipboard", type: .success, customTypeName: nil, callback: nil)
+            RMessage.showNotification(withTitle: TinkerStrings.Events.Prompt.EventCopied.Title, subtitle: TinkerStrings.Events.Prompt.EventCopied.Message, type: .success, customTypeName: nil, callback: nil)
             SEGAnalytics.shared().track("DeviceInspector_EventPayloadCopied")
         })
 
-        alert.addAction(UIAlertAction(title: "Close", style: .cancel) { action in
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Close, style: .cancel) { action in
 
         })
 
