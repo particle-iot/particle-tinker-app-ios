@@ -87,7 +87,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
         }
 
         let limit = cellValues[indexPath.row]
-        cell.cellTitleLabel.text =  MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(limit))
+        cell.cellTitleLabel.text =  MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{dataLimit}}", with: String(limit))
 
         return cell
     }

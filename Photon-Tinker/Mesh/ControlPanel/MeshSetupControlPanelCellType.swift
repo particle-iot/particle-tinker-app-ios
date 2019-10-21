@@ -128,7 +128,7 @@ enum MeshSetupControlPanelCellType {
             case .actionChangePinsStatus:
                 return context.targetDevice.ethernetDetectionFeature! ? MeshStrings.ControlPanel.Ethernet.Active : MeshStrings.ControlPanel.Ethernet.Inactive
             case .actionChangeDataLimit:
-                return context.targetDevice.sim!.dataLimit! > -1 ? MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(context.targetDevice.sim!.dataLimit!)) : MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValueNone
+                return context.targetDevice.sim!.dataLimit! > -1 ? MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{dataLimit}}", with: String(context.targetDevice.sim!.dataLimit!)) : MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValueNone
             case .name:
                 return context.targetDevice.name
             case .notes:

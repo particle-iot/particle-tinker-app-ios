@@ -68,7 +68,7 @@ class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, St
 
     func setFileComplete() {
         var textValue = MeshStrings.UpdateFirmwareProgress.TextInstalling
-        textValue = textValue.replacingOccurrences(of: "{0}", with: String(file))
+        textValue = textValue.replacingOccurrences(of: "{{partIdx}}", with: String(file))
 
 
         DispatchQueue.main.async {
@@ -86,8 +86,8 @@ class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, St
         self.progress = progress
 
         var textValue = MeshStrings.UpdateFirmwareProgress.Text
-        textValue = textValue.replacingOccurrences(of: "{0}", with: String(file))
-        textValue = textValue.replacingOccurrences(of: "{1}", with: String(progress))
+        textValue = textValue.replacingOccurrences(of: "{{partIdx}}", with: String(file))
+        textValue = textValue.replacingOccurrences(of: "{{progress}}", with: String(progress))
 
         DispatchQueue.main.async {
             self.activityView.alpha = 0

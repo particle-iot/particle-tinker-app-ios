@@ -71,7 +71,7 @@ class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelIn
         let cell = cellType.getConfiguredCell(tableView, context: self.context)
 
         if let dataLimit = self.context.targetDevice.setSimDataLimit {
-            cell.cellDetailLabel.text = MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{0}}", with: String(dataLimit))
+            cell.cellDetailLabel.text = MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{dataLimit}}", with: String(dataLimit))
         }
 
         return cell
