@@ -336,7 +336,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 if (self.dataSource.devices.count == 1) {
                     RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, type: .success, customTypeName: nil, callback: nil)
                 } else {
-                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, type: .success, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Message, type: .success, customTypeName: nil, callback: nil)
                 }
             }
         } else if (result == .switchToControlPanel) {
@@ -391,9 +391,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"success"])
 
             if (self.dataSource.devices.count == 1) {
-                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, type: .success, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Message, type: .success, customTypeName: nil, callback: nil)
             } else {
-                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, type: .success, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Message, type: .success, customTypeName: nil, callback: nil)
             }
         }
         else if result == .successNotClaimed
