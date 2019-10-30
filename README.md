@@ -4,9 +4,9 @@
 
 # Particle Tinker app for iOS
 
-[Install the Tinker app on your iOS device from the App Store](https://apps.apple.com/us/app/particle-iot/id991459054)
+Install the Tinker app on your iOS device from the [App Store](https://apps.apple.com/us/app/particle-iot/id991459054)
 
-Please visit [http://docs.particle.io/photon/tinker/](http://docs.particle.io/photon/tinker/) for more info about this app.
+Please visit [https://docs.particle.io/tutorials/developer-tools/tinker/xenon/](https://docs.particle.io/tutorials/developer-tools/tinker/xenon/) for more info about this app.
 
 ## Building app from the source code
 
