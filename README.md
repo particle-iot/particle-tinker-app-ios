@@ -22,3 +22,11 @@ Use `Keys.template.swift` (located in root folder) as a template for `Keys.swift
 You can use `GoogleService-Info.template.plist` (located in root folder) as a template for `GoogleService-Info.plist`. Or you can obtain a genuine Google file by following [Firebase integration tutorial](https://firebase.google.com/docs/ios/setup).
 
 This repo utilizes submodules. To load them, you have to run `git submodule init` and then `git submodule update --remote --merge`. Finally run `pod install` to load all Cocoapod dependencies. After all these steps app should compile and run.
+
+## Maintainers
+
+- Raimundas Sakalauskas [Github](https://www.github.com/raimundassakalauskas)
+
+## License
+
+All code in this repository is available under the Apache License 2.0.  See the `LICENSE` file for the complete text of the license.
