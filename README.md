@@ -25,6 +25,10 @@ You can use `GoogleService-Info.template.plist` (located in root folder) as a te
 
 This repo utilizes submodules. To load them, you have to run `git submodule init` and then `git submodule update --remote --merge`. Finally run `pod install` to load all Cocoapod dependencies. After all these steps app should compile and run.
 
+### For maintainers
+
+All of the above secrets can be found in private mobile assets repo that you will have access to if you are part of Particle organization.
+
 ## Maintainers
 
 - Raimundas Sakalauskas [Github](https://www.github.com/raimundassakalauskas)
