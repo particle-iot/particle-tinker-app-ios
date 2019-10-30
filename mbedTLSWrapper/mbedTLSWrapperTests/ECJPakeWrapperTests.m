@@ -3,7 +3,7 @@
 //  ECJPakeWrapperTests
 //
 //  Created by Raimundas Sakalauskas on 14/08/2018.
-//  Copyright © 2018 Particle Inc. All rights reserved.
+//  Copyright (c) 2018 Particle Inc. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>

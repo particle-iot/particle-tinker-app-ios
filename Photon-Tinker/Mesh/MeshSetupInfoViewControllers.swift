@@ -1,6 +1,6 @@
 //
 // Created by Raimundas Sakalauskas on 17/10/2018.
-// Copyright (c) 2018 spark. All rights reserved.
+// Copyright (c) 2018 Particle. All rights reserved.
 //
 
 import Foundation

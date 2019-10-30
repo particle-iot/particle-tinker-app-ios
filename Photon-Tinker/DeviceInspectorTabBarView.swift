@@ -1,6 +1,6 @@
 //
 // Created by Raimundas Sakalauskas on 2019-04-24.
-// Copyright (c) 2019 spark. All rights reserved.
+// (c).*(Particle). All rights reserved.
 //
 
 import Foundation
