@@ -2,8 +2,7 @@
 //  WebViewController.swift
 //  Particle
 //
-//  Created by Ido on 6/2/15.
-//  Copyright (c) 2015 Particle. All rights reserved.
+//  Copyright (c) 2019 Particle. All rights reserved.
 //
 
 import UIKit

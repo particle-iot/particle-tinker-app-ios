@@ -2,7 +2,6 @@
 //  DeviceEventTableViewCell.swift
 //  Particle
 //
-//  Created by Ido Kleinman on 6/30/16.
 //  Copyright (c) 2019 Particle. All rights reserved.
 //
 
