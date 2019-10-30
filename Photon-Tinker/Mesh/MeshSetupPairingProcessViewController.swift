@@ -44,9 +44,9 @@ class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboard
     }
 
     override func setContent() {
-        pairingTextLabel.text = MeshSetupStrings.Pairing.PairingText
-        successTitleLabel.text = MeshSetupStrings.Pairing.SuccessTitle
-        successTextLabel.text = MeshSetupStrings.Pairing.SuccessText
+        pairingTextLabel.text = MeshStrings.Pairing.PairingText
+        successTitleLabel.text = MeshStrings.Pairing.SuccessTitle
+        successTextLabel.text = MeshStrings.Pairing.SuccessText
     }
 
     func setSuccess() {

@@ -15,7 +15,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.SelectNetwork.Title
+        titleLabel.text = MeshStrings.SelectNetwork.Title
     }
 
     func setNetworks(networks: [MeshSetupNetworkCellInfo]) {
@@ -49,7 +49,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
         if (network.userOwned) {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
 
-            var devicesString = (network.deviceCount! == 1) ? MeshSetupStrings.SelectNetwork.DevicesSingular : MeshSetupStrings.SelectNetwork.DevicesPlural
+            var devicesString = (network.deviceCount! == 1) ? MeshStrings.SelectNetwork.DevicesSingular : MeshStrings.SelectNetwork.DevicesPlural
             devicesString = devicesString.replacingOccurrences(of: "{{0}}", with: String(network.deviceCount!))
 
             cell.cellSubtitleLabel.text = devicesString

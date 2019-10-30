@@ -336,7 +336,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 if (self.dataSource.devices.count == 1) {
                     RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, type: .success, customTypeName: nil, callback: nil)
                 } else {
-                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, type: .success, customTypeName: nil, callback: nil)
+                    RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Message, type: .success, customTypeName: nil, callback: nil)
                 }
             }
         } else if (result == .switchToControlPanel) {
@@ -391,9 +391,9 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             SEGAnalytics.shared().track("Tinker_PhotonSetupEnded", properties: ["result":"success"])
 
             if (self.dataSource.devices.count == 1) {
-                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, type: .success, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessfulFirstDevice.Message, type: .success, customTypeName: nil, callback: nil)
             } else {
-                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, type: .success, customTypeName: nil, callback: nil)
+                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Title, subtitle: TinkerStrings.DeviceList.Prompt.SetupSuccessful.Message, type: .success, customTypeName: nil, callback: nil)
             }
         }
         else if result == .successNotClaimed
@@ -434,13 +434,13 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         {
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Showing unclaim confirmation", withParameters: getVaList([]))
 
-            let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Unclaim.TextTitle.meshLocalized(),
-                    message: MeshSetupStrings.ControlPanel.Unclaim.Text.meshLocalized().replaceMeshSetupStrings(deviceName: self.dataSource.viewDevices[(indexPath as NSIndexPath).row].getName()),
+            let alert = UIAlertController(title: MeshStrings.ControlPanel.Unclaim.TextTitle.meshLocalized(),
+                    message: MeshStrings.ControlPanel.Unclaim.Text.meshLocalized().replaceMeshSetupStrings(deviceName: self.dataSource.viewDevices[(indexPath as NSIndexPath).row].getName()),
                     preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.Cancel.meshLocalized(), style: .cancel))
+            alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Action.Cancel.meshLocalized(), style: .cancel))
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Unclaim.UnclaimButton.meshLocalized(), style: .default) { [weak self] action in
+            alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Unclaim.UnclaimButton.meshLocalized(), style: .default) { [weak self] action in
                 guard let self = self else {
                     return
                 }

@@ -35,13 +35,13 @@ class MeshSetupFirmwareUpdateViewController: MeshSetupViewController, Storyboard
     }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.UpdateFirmware.Title
-        textLabel.text = MeshSetupStrings.UpdateFirmware.Text
+        titleLabel.text = MeshStrings.UpdateFirmware.Title
+        textLabel.text = MeshStrings.UpdateFirmware.Text
 
-        noteTextLabel.text = MeshSetupStrings.UpdateFirmware.NoteText
-        noteTitleLabel.text = MeshSetupStrings.UpdateFirmware.NoteTitle
+        noteTextLabel.text = MeshStrings.UpdateFirmware.NoteText
+        noteTitleLabel.text = MeshStrings.UpdateFirmware.NoteTitle
 
-        continueButton.setTitle(MeshSetupStrings.UpdateFirmware.Button, for: .normal)
+        continueButton.setTitle(MeshStrings.UpdateFirmware.Button, for: .normal)
     }
 
     @IBAction func scanButtonTapped(_ sender: Any) {

@@ -17,7 +17,7 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
         }
     }
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.Mesh.Title
+        return MeshStrings.ControlPanel.Mesh.Title
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,10 +64,10 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             case 0:
-                return MeshSetupStrings.ControlPanel.Mesh.NetworkInfo
+                return MeshStrings.ControlPanel.Mesh.NetworkInfo
             case 1:
                 if (self.context.targetDevice.meshNetworkInfo != nil) {
-                    return MeshSetupStrings.ControlPanel.Mesh.DeviceInfo
+                    return MeshStrings.ControlPanel.Mesh.DeviceInfo
                 } else {
                     return ""
                 }
@@ -87,13 +87,13 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
         let command = cells[indexPath.section][indexPath.row]
 
         if (command == .actionLeaveMeshNetwork) {
-            let alert = UIAlertController(title: MeshSetupStrings.ControlPanel.Prompt.LeaveNetworkTitle, message: MeshSetupStrings.ControlPanel.Prompt.LeaveNetworkText, preferredStyle: .alert)
+            let alert = UIAlertController(title: MeshStrings.ControlPanel.Prompt.LeaveNetworkTitle, message: MeshStrings.ControlPanel.Prompt.LeaveNetworkText, preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.LeaveNetwork, style: .default) { action in
+            alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Action.LeaveNetwork, style: .default) { action in
                 super.tableView(tableView, didSelectRowAt: indexPath)
             })
 
-            alert.addAction(UIAlertAction(title: MeshSetupStrings.ControlPanel.Action.DontLeaveNetwork, style: .cancel) { action in
+            alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Action.DontLeaveNetwork, style: .cancel) { action in
 
             })
 

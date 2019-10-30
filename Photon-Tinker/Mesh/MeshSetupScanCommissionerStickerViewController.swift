@@ -12,7 +12,7 @@ class MeshSetupScanCommissionerStickerViewController: MeshSetupScanStickerViewCo
 //    }
 
     override func setContent() {
-        titleLabel.text = MeshSetupStrings.ScanCommissionerSticker.Title
-        textLabel.text = MeshSetupStrings.ScanCommissionerSticker.Text
+        titleLabel.text = MeshStrings.ScanCommissionerSticker.Title
+        textLabel.text = MeshStrings.ScanCommissionerSticker.Text
     }
 }

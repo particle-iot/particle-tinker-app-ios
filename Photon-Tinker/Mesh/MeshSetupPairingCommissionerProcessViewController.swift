@@ -13,8 +13,8 @@ class MeshSetupPairingCommissionerProcessViewController: MeshSetupPairingProcess
 //    }
 
     override func setContent() {
-        pairingTextLabel.text = MeshSetupStrings.PairingCommissioner.PairingText
-        successTitleLabel.text = MeshSetupStrings.PairingCommissioner.SuccessTitle
-        successTextLabel.text = MeshSetupStrings.PairingCommissioner.SuccessText
+        pairingTextLabel.text = MeshStrings.PairingCommissioner.PairingText
+        successTitleLabel.text = MeshStrings.PairingCommissioner.SuccessTitle
+        successTextLabel.text = MeshStrings.PairingCommissioner.SuccessText
     }
 }

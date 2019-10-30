@@ -26,7 +26,7 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
     private var device: ParticleDevice!
 
     override var customTitle: String {
-        return MeshSetupStrings.ControlPanel.PrepareForPairing.Title
+        return MeshStrings.ControlPanel.PrepareForPairing.Title
     }
 
     override func viewDidLoad() {
@@ -57,9 +57,9 @@ class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewControl
 
 
     override func setContent() {
-        textLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.Text
-        signalLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.Signal
-        signalWarningLabel.text = MeshSetupStrings.ControlPanel.PrepareForPairing.SignalWarning
+        textLabel.text = MeshStrings.ControlPanel.PrepareForPairing.Text
+        signalLabel.text = MeshStrings.ControlPanel.PrepareForPairing.Signal
+        signalWarningLabel.text = MeshStrings.ControlPanel.PrepareForPairing.SignalWarning
 
 
         initializeVideoPlayerWithVideo(videoFileName: "prepare_for_pairing")

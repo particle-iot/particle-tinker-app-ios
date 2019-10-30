@@ -98,66 +98,66 @@ class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardabl
 
         switch self.pricingInfo.planSlug ?? "" {
             case "DeviceCloudCellularSelfServe": //add-device-to_user + cellular
-                titleLabel.text = MeshSetupStrings.PricingInfo.PaidGatewayDeviceTitle
-                planTitleLabel.text = MeshSetupStrings.PricingInfo.DeviceCloudPlanTitle
-                planTextLabel.text = MeshSetupStrings.PricingInfo.CellularDeviceText
+                titleLabel.text = MeshStrings.PricingInfo.PaidGatewayDeviceTitle
+                planTitleLabel.text = MeshStrings.PricingInfo.DeviceCloudPlanTitle
+                planTextLabel.text = MeshStrings.PricingInfo.CellularDeviceText
 
-                priceFreeLabel.text = MeshSetupStrings.PricingInfo.FreeMonthsText.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.freeMonths)")
-                planFeaturesTitleLabel.text = MeshSetupStrings.PricingInfo.DeviceCloudFeatures
+                priceFreeLabel.text = MeshStrings.PricingInfo.FreeMonthsText.replacingOccurrences(of: "{{freeMonths}}", with: "\(pricingInfo.plan.freeMonths)")
+                planFeaturesTitleLabel.text = MeshStrings.PricingInfo.DeviceCloudFeatures
 
-                planFeatureLables[0].text = MeshSetupStrings.PricingInfo.FeaturesDeviceCloud
-                planFeatureLables[1].text = MeshSetupStrings.PricingInfo.FeaturesDataAllowence.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.includedDataMb)").replacingOccurrences(of: "{{1}}", with: formatCurrency(pricingInfo.plan.overageMinCostMb!))
-                planFeatureLables[2].text = MeshSetupStrings.PricingInfo.FeaturesStandardSupport
+                planFeatureLables[0].text = MeshStrings.PricingInfo.FeaturesDeviceCloud
+                planFeatureLables[1].text = MeshStrings.PricingInfo.FeaturesDataAllowence.replacingOccurrences(of: "{{dataAllowance}}", with: "\(pricingInfo.plan.includedDataMb)").replacingOccurrences(of: "{{pricePerMB}}", with: formatCurrency(pricingInfo.plan.overageMinCostMb!))
+                planFeatureLables[2].text = MeshStrings.PricingInfo.FeaturesStandardSupport
             case "MeshMicroCellular": //create-network + cellular
-                titleLabel.text = MeshSetupStrings.PricingInfo.PaidNetworkTitle
-                planTitleLabel.text = MeshSetupStrings.PricingInfo.MicroNetworkPlanTitle
-                planTextLabel.text = MeshSetupStrings.PricingInfo.CellularGatewayText
+                titleLabel.text = MeshStrings.PricingInfo.PaidNetworkTitle
+                planTitleLabel.text = MeshStrings.PricingInfo.MicroNetworkPlanTitle
+                planTextLabel.text = MeshStrings.PricingInfo.CellularGatewayText
 
-                priceFreeLabel.text = MeshSetupStrings.PricingInfo.FreeMonthsText.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.freeMonths)")
-                planFeaturesTitleLabel.text = MeshSetupStrings.PricingInfo.MeshNetworkFeatures
+                priceFreeLabel.text = MeshStrings.PricingInfo.FreeMonthsText.replacingOccurrences(of: "{{freeMonths}}", with: "\(pricingInfo.plan.freeMonths)")
+                planFeaturesTitleLabel.text = MeshStrings.PricingInfo.MeshNetworkFeatures
 
-                planFeatureLables[0].text = MeshSetupStrings.PricingInfo.FeaturesDeviceCloud
-                planFeatureLables[1].text = MeshSetupStrings.PricingInfo.FeaturesMaxDevices.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.includedNodeCount)")
-                planFeatureLables[2].text = MeshSetupStrings.PricingInfo.FeaturesMaxGateways.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.includedGatewayCount)")
-                planFeatureLables[3].text = MeshSetupStrings.PricingInfo.FeaturesDataAllowence.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.includedDataMb)").replacingOccurrences(of: "{{1}}", with: formatCurrency(pricingInfo.plan.overageMinCostMb!))
-                planFeatureLables[4].text = MeshSetupStrings.PricingInfo.FeaturesStandardSupport
+                planFeatureLables[0].text = MeshStrings.PricingInfo.FeaturesDeviceCloud
+                planFeatureLables[1].text = MeshStrings.PricingInfo.FeaturesMaxDevices.replacingOccurrences(of: "{{maxDevices}}", with: "\(pricingInfo.plan.includedNodeCount)")
+                planFeatureLables[2].text = MeshStrings.PricingInfo.FeaturesMaxGateways.replacingOccurrences(of: "{{maxGateways}}", with: "\(pricingInfo.plan.includedGatewayCount)")
+                planFeatureLables[3].text = MeshStrings.PricingInfo.FeaturesDataAllowence.replacingOccurrences(of: "{{dataAllowance}}", with: "\(pricingInfo.plan.includedDataMb)").replacingOccurrences(of: "{{pricePerMB}}", with: formatCurrency(pricingInfo.plan.overageMinCostMb!))
+                planFeatureLables[4].text = MeshStrings.PricingInfo.FeaturesStandardSupport
 
             case "MeshMicroWifi": //create-network + wifi
-                titleLabel.text = MeshSetupStrings.PricingInfo.FreeNetworkTitle
-                planTitleLabel.text = MeshSetupStrings.PricingInfo.MicroNetworkPlanTitle
-                planTextLabel.text = MeshSetupStrings.PricingInfo.WifiGatewayText
+                titleLabel.text = MeshStrings.PricingInfo.FreeNetworkTitle
+                planTitleLabel.text = MeshStrings.PricingInfo.MicroNetworkPlanTitle
+                planTextLabel.text = MeshStrings.PricingInfo.WifiGatewayText
 
-                priceFreeLabel.text = MeshSetupStrings.PricingInfo.FreeNetworksText.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.freeWifiNetworkMaxCount)")
-                planFeaturesTitleLabel.text = MeshSetupStrings.PricingInfo.MeshNetworkFeatures
+                priceFreeLabel.text = MeshStrings.PricingInfo.FreeNetworksText.replacingOccurrences(of: "{{freeNetworksCount}}", with: "\(pricingInfo.plan.freeWifiNetworkMaxCount)")
+                planFeaturesTitleLabel.text = MeshStrings.PricingInfo.MeshNetworkFeatures
 
-                planFeatureLables[0].text = MeshSetupStrings.PricingInfo.FeaturesDeviceCloud
-                planFeatureLables[1].text = MeshSetupStrings.PricingInfo.FeaturesMaxDevices.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.includedNodeCount)")
-                planFeatureLables[2].text = MeshSetupStrings.PricingInfo.FeaturesMaxGateways.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.includedGatewayCount)")
-                planFeatureLables[3].text = MeshSetupStrings.PricingInfo.FeaturesStandardSupport
+                planFeatureLables[0].text = MeshStrings.PricingInfo.FeaturesDeviceCloud
+                planFeatureLables[1].text = MeshStrings.PricingInfo.FeaturesMaxDevices.replacingOccurrences(of: "{{maxDevices}}", with: "\(pricingInfo.plan.includedNodeCount)")
+                planFeatureLables[2].text = MeshStrings.PricingInfo.FeaturesMaxGateways.replacingOccurrences(of: "{{maxGateways}}", with: "\(pricingInfo.plan.includedGatewayCount)")
+                planFeatureLables[3].text = MeshStrings.PricingInfo.FeaturesStandardSupport
 
             default: //add-device-to-user + wifi
-                titleLabel.text = MeshSetupStrings.PricingInfo.FreeGatewayDeviceTitle
-                planTitleLabel.text = MeshSetupStrings.PricingInfo.DeviceCloudPlanTitle
-                planTextLabel.text = MeshSetupStrings.PricingInfo.WifiDeviceText
+                titleLabel.text = MeshStrings.PricingInfo.FreeGatewayDeviceTitle
+                planTitleLabel.text = MeshStrings.PricingInfo.DeviceCloudPlanTitle
+                planTextLabel.text = MeshStrings.PricingInfo.WifiDeviceText
 
-                priceFreeLabel.text = MeshSetupStrings.PricingInfo.FreeDevicesText.replacingOccurrences(of: "{{0}}", with: "\(pricingInfo.plan.freeDeviceMaxCount)")
-                planFeaturesTitleLabel.text = MeshSetupStrings.PricingInfo.DeviceCloudFeatures
+                priceFreeLabel.text = MeshStrings.PricingInfo.FreeDevicesText.replacingOccurrences(of: "{{freeDeviceCount}}", with: "\(pricingInfo.plan.freeDeviceMaxCount)")
+                planFeaturesTitleLabel.text = MeshStrings.PricingInfo.DeviceCloudFeatures
 
-                planFeatureLables[0].text = MeshSetupStrings.PricingInfo.FeaturesDeviceCloud
-                planFeatureLables[1].text = MeshSetupStrings.PricingInfo.FeaturesStandardSupport
+                planFeatureLables[0].text = MeshStrings.PricingInfo.FeaturesDeviceCloud
+                planFeatureLables[1].text = MeshStrings.PricingInfo.FeaturesStandardSupport
         }
 
-        priceLabel.text = MeshSetupStrings.PricingInfo.PriceText.replacingOccurrences(of: "{{0}}", with: formatCurrency(pricingInfo.plan.monthlyBaseAmount!))
-        priceNoteLabel.text = MeshSetupStrings.PricingInfo.PriceNoteText
+        priceLabel.text = MeshStrings.PricingInfo.PriceText.replacingOccurrences(of: "{{price}}", with: formatCurrency(pricingInfo.plan.monthlyBaseAmount!))
+        priceNoteLabel.text = MeshStrings.PricingInfo.PriceNoteText
 
         for label in planFeatureLables {
             label.isHidden = (label.text!.count == 0)
         }
 
         if self.pricingInfo.chargeable {
-            self.continueButton.setTitle(MeshSetupStrings.PricingInfo.ButtonEnroll, for: .normal)
+            self.continueButton.setTitle(MeshStrings.PricingInfo.ButtonEnroll, for: .normal)
         } else {
-            self.continueButton.setTitle(MeshSetupStrings.PricingInfo.ButtonNext, for: .normal)
+            self.continueButton.setTitle(MeshStrings.PricingInfo.ButtonNext, for: .normal)
         }
     }
 
