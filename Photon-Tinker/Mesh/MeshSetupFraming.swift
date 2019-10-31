@@ -4,7 +4,7 @@
 //
 //  Created by Ido Kleinman on 5/1/18.
 //  Maintained by Raimundas Sakalauskas
-//  Copyright © 2018 Particle. All rights reserved.
+//  Copyright (c) 2018 Particle. All rights reserved.
 //
 
 import Foundation

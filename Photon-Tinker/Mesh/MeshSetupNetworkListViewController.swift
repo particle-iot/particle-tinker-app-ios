@@ -1,6 +1,6 @@
 //
 // Created by Raimundas Sakalauskas on 09/10/2018.
-// Copyright © 2018 Particle. All rights reserved.
+// Copyright (c) 2018 Particle. All rights reserved.
 //
 
 import UIKit

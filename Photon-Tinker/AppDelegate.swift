@@ -2,7 +2,6 @@
 //  AppDelegate.swift
 //  Photon-Tinker
 //
-//  Created by Ido on 4/16/15.
 //  Copyright (c) 2015 particle. All rights reserved.
 //
 

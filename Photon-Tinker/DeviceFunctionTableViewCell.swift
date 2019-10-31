@@ -3,7 +3,7 @@
 //  Particle
 //
 //  Created by Raimundas Sakalauskas on 05/16/19.
-//  Copyright © 2019 Particle. All rights reserved.
+//  Copyright (c) 2019 Particle. All rights reserved.
 //
 
 import Foundation

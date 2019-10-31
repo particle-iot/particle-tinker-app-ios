@@ -1,7 +1,7 @@
 //
 // Created by Ido Kleinman on 7/12/18.
 // Maintained by Raimundas Sakalauskas
-// Copyright © 2018 Particle. All rights reserved.
+// Copyright (c) 2018 Particle. All rights reserved.
 //
 
 import UIKit

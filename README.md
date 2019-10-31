@@ -1,6 +1,12 @@
+<p align="center">
+<img src="particle-mark.png" alt="Particle" title="Particle">
+</p>
+
 # Particle Tinker app for iOS
 
-Please visit [http://docs.particle.io/photon/tinker/](http://docs.particle.io/photon/tinker/) for more info about this app.
+Install the Tinker app on your iOS device from the [App Store](https://apps.apple.com/us/app/particle-iot/id991459054)
+
+Please visit [https://docs.particle.io/tutorials/developer-tools/tinker/xenon/](https://docs.particle.io/tutorials/developer-tools/tinker/xenon/) for more info about this app.
 
 ## Building app from the source code
 
@@ -18,3 +24,15 @@ Use `Keys.template.swift` (located in root folder) as a template for `Keys.swift
 You can use `GoogleService-Info.template.plist` (located in root folder) as a template for `GoogleService-Info.plist`. Or you can obtain a genuine Google file by following [Firebase integration tutorial](https://firebase.google.com/docs/ios/setup).
 
 This repo utilizes submodules. To load them, you have to run `git submodule init` and then `git submodule update --remote --merge`. Finally run `pod install` to load all Cocoapod dependencies. After all these steps app should compile and run.
+
+### For maintainers
+
+All of the above secrets can be found in private mobile assets repo that you will have access to if you are part of Particle organization.
+
+## Maintainers
+
+- Raimundas Sakalauskas [Github](https://www.github.com/raimundassakalauskas)
+
+## License
+
+All code in this repository is available under the Apache License 2.0.  See the `LICENSE` file for the complete text of the license.
