@@ -256,11 +256,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         scanBarcodeViewController.dismiss(animated: true, completion: {
             DispatchQueue.main.async {
             
-                var jsCode : String = "var inputElement = document.getElementById('iccid') || document.getElementById('serialNumber');\n"
-                jsCode+="inputElement.value = '\(barcodeValue)';\n"
-                jsCode+="var e = new Event('change');\n"
-                jsCode+="e.target = inputElement;\n"
-                jsCode+="inputElement.dispatchEvent(e);\n"
+                var jsCode : String = """
+                    if (window.__PARTICLE_SET_SCANCODE){
+                        window.__PARTICLE_SET_SCANCODE(\(barcodeValue));
+                    }
+                """
             
                 self.webView.stringByEvaluatingJavaScript(from: jsCode)
             }
