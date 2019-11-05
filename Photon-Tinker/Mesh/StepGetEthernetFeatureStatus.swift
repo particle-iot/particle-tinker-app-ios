@@ -24,7 +24,7 @@ class StepGetEthernetFeatureStatus: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
+        context.targetDevice.transceiver?.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

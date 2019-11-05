@@ -84,7 +84,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func getTargetDeviceFirmwareVersion() {
-        context?.targetDevice.transceiver!.sendGetSystemVersion { [weak self, weak context] result, version in
+        context?.targetDevice.transceiver?.sendGetSystemVersion { [weak self, weak context] result, version in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -101,7 +101,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func checkTargetDeviceSupportsCompressedOTA() {
-        context?.targetDevice.transceiver!.sendGetSystemCapabilities { [weak self, weak context] result, capability in
+        context?.targetDevice.transceiver?.sendGetSystemCapabilities { [weak self, weak context] result, capability in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -118,7 +118,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func checkNcpFirmwareVersion() {
-        context?.targetDevice.transceiver!.sendGetNcpFirmwareVersion { [weak self, weak context] result, version, moduleVersion in
+        context?.targetDevice.transceiver?.sendGetNcpFirmwareVersion { [weak self, weak context] result, version, moduleVersion in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -144,7 +144,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func checkTargetDeviceIsSetupDone() {
-        context?.targetDevice.transceiver!.sendIsDeviceSetupDone { [weak self, weak context] result, isSetupDone in
+        context?.targetDevice.transceiver?.sendIsDeviceSetupDone { [weak self, weak context] result, isSetupDone in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -205,7 +205,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     func prepareForTargetDeviceReboot() {
-        context?.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
+        context?.targetDevice.transceiver?.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -264,7 +264,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
 
         self.firmwareData = firmwareData
 
-        context.targetDevice.transceiver!.sendStartFirmwareUpdate(binarySize: firmwareData.count) { [weak self, weak context] result, chunkSize in
+        context.targetDevice.transceiver?.sendStartFirmwareUpdate(binarySize: firmwareData.count) { [weak self, weak context] result, chunkSize in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -305,7 +305,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         self.log("bytesLeft: \(bytesLeft)")
 
         let subdata = firmwareData.subdata(in: start ..< min(start+chunkSize, start+bytesLeft))
-        context.targetDevice.transceiver!.sendFirmwareUpdateData(data: subdata) { [weak self, weak context] result in
+        context.targetDevice.transceiver?.sendFirmwareUpdateData(data: subdata) { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -328,7 +328,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
     }
 
     private func finishFirmwareUpdate() {
-        context?.targetDevice.transceiver!.sendFinishFirmwareUpdate(validateOnly: false) { [weak self, weak context] result in
+        context?.targetDevice.transceiver?.sendFinishFirmwareUpdate(validateOnly: false) { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

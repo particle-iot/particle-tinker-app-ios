@@ -29,7 +29,7 @@ class StepGetMeshNetwork: MeshSetupStep {
     }
 
     private func getTargetDeviceMeshNetworkInfo() {
-        context?.targetDevice.transceiver!.sendGetNetworkInfo { [weak self, weak context] result, networkInfo in
+        context?.targetDevice.transceiver?.sendGetNetworkInfo { [weak self, weak context] result, networkInfo in
 
             guard let self = self, let context = context, !context.canceled else {
                 return

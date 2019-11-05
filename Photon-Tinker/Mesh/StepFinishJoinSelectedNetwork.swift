@@ -68,7 +68,7 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
         context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStep2Done)
 
         /// NOT_ALLOWED: The client is not authenticated
-        context.commissionerDevice!.transceiver!.sendStopCommissioner {
+        context.commissionerDevice!.transceiver?.sendStopCommissioner {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -91,7 +91,7 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendDeviceSetupDone (done: true) {
+        context.targetDevice.transceiver?.sendDeviceSetupDone (done: true) {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {

@@ -56,12 +56,12 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendDeviceSetupDone (done: true) { [weak self, weak context] result in
+        context.targetDevice.transceiver?.sendDeviceSetupDone (done: true) { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
-            self.log("targetDevice.transceiver!.sendDeviceSetupDone: \(result.description())")
+            self.log("targetDevice.transceiver?.sendDeviceSetupDone: \(result.description())")
 
             if (result == .NONE) {
                 context.targetDevice.isSetupDone = true
@@ -117,7 +117,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendStopListening { [weak self, weak context] result in
+        context.targetDevice.transceiver?.sendStopListening { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -159,7 +159,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetInterface(interfaceIndex: context.targetDevice.getActiveNetworkInterfaceIdx()!) {
+        context.targetDevice.transceiver?.sendGetInterface(interfaceIndex: context.targetDevice.getActiveNetworkInterfaceIdx()!) {
             [weak self, weak context] result, interface in
             guard let self = self, let context = context, !context.canceled else {
                 return

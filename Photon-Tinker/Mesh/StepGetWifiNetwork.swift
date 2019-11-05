@@ -26,7 +26,7 @@ class StepGetWifiNetwork: MeshSetupStep {
     }
 
     private func getTargetDeviceWifiNetworkInfo() {
-        context?.targetDevice.transceiver!.sendGetCurrentWifiNetwork { [weak self, weak context] result, networkInfo in
+        context?.targetDevice.transceiver?.sendGetCurrentWifiNetwork { [weak self, weak context] result, networkInfo in
 
             guard let self = self, let context = context, !context.canceled else {
                 return

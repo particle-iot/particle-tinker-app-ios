@@ -11,7 +11,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
             return
         }
 
-        context.commissionerDevice!.transceiver!.sendGetNetworkInfo { [weak self, weak context] result, networkInfo in
+        context.commissionerDevice!.transceiver?.sendGetNetworkInfo { [weak self, weak context] result, networkInfo in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

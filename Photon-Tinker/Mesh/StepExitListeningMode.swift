@@ -31,7 +31,7 @@ class StepExitListeningMode : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetDeviceIsInListeningMode {
+        context.targetDevice.transceiver?.sendGetDeviceIsInListeningMode {
             [weak self, weak context] result, listeningMode in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -54,7 +54,7 @@ class StepExitListeningMode : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendStopListening {
+        context.targetDevice.transceiver?.sendStopListening {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {

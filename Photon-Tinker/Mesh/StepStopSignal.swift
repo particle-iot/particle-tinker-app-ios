@@ -29,7 +29,7 @@ class StepStopSignal : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendStopNyanSignal {
+        context.targetDevice.transceiver?.sendStopNyanSignal {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {

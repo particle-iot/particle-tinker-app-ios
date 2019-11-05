@@ -55,7 +55,7 @@ class StepEnsureGotClaimed: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetConnectionStatus { [weak self, weak context] result, status in
+        context.targetDevice.transceiver?.sendGetConnectionStatus { [weak self, weak context] result, status in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
