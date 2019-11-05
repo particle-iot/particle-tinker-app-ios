@@ -258,7 +258,7 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             
                 var jsCode : String = """
                     if (window.__PARTICLE_SET_SCANCODE){
-                        window.__PARTICLE_SET_SCANCODE(\(barcodeValue));
+                        window.__PARTICLE_SET_SCANCODE("\(barcodeValue)");
                     }
                 """
             
