@@ -20,7 +20,7 @@ class StepSetClaimCode: MeshSetupStep {
                 fatalError("failed to generate claim code")
             }
 
-            context.targetDevice.transceiver!.sendSetClaimCode(claimCode: code) { [weak self, weak context] result in
+            context.targetDevice.transceiver?.sendSetClaimCode(claimCode: code) { [weak self, weak context] result in
                 guard let self = self, let context = context, !context.canceled else {
                     return
                 }

@@ -32,7 +32,7 @@ class StepEnterListeningMode: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendStartListening {
+        context.targetDevice.transceiver?.sendStartListening {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {

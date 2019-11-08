@@ -65,7 +65,7 @@ class StepCreateNetwork : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendStartListening { [weak self, weak context] result in
+        context.targetDevice.transceiver?.sendStartListening { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -86,7 +86,7 @@ class StepCreateNetwork : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendCreateNetwork(name: context.newNetworkName!, password: context.newNetworkPassword!, networkId: context.newNetworkId!) {
+        context.targetDevice.transceiver?.sendCreateNetwork(name: context.newNetworkName!, password: context.newNetworkPassword!, networkId: context.newNetworkId!) {
             [weak self, weak context] result, networkInfo in
 
             guard let self = self, let context = context, !context.canceled else {

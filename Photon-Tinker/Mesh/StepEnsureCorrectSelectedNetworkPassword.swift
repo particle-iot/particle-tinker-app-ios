@@ -33,7 +33,7 @@ class StepEnsureCorrectSelectedNetworkPassword : MeshSetupStep {
 
         /// NOT_FOUND: The device is not a member of a network
         /// NOT_ALLOWED: Invalid commissioning credential
-        context.commissionerDevice!.transceiver!.sendAuth(password: password) { [weak self, weak context] result in
+        context.commissionerDevice!.transceiver?.sendAuth(password: password) { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

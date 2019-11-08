@@ -38,7 +38,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
+        context.targetDevice.transceiver?.sendGetFeature(feature: .ethernetDetection) { [weak self, weak context] result, enabled in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -63,7 +63,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendSetFeature(feature: .ethernetDetection, enabled: context.targetDevice.enableEthernetDetectionFeature!) { [weak self, weak context] result  in
+        context.targetDevice.transceiver?.sendSetFeature(feature: .ethernetDetection, enabled: context.targetDevice.enableEthernetDetectionFeature!) { [weak self, weak context] result  in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -96,7 +96,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
     }
 
     func prepareForTargetDeviceReboot() {
-        context?.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
+        context?.targetDevice.transceiver?.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -114,7 +114,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
     }
 
     func sendDeviceReset() {
-        context?.targetDevice.transceiver!.sendSystemReset() { [weak self, weak context] result  in
+        context?.targetDevice.transceiver?.sendSystemReset() { [weak self, weak context] result  in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

@@ -44,7 +44,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
     }
 
     private func getTargetDeviceMeshNetworkInfo() {
-        context?.targetDevice.transceiver!.sendGetNetworkInfo { [weak self, weak context] result, networkInfo in
+        context?.targetDevice.transceiver?.sendGetNetworkInfo { [weak self, weak context] result, networkInfo in
 
             guard let self = self, let context = context, !context.canceled else {
                 return
@@ -133,7 +133,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
     }
 
     private func targetDeviceLeaveMeshNetwork() {
-        context?.targetDevice.transceiver!.sendLeaveNetwork { [weak self, weak context] result in
+        context?.targetDevice.transceiver?.sendLeaveNetwork { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -179,7 +179,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
 
 
     private func stopTargetDeviceListening() {
-        context?.targetDevice.transceiver!.sendStopListening { [weak self, weak context] result in
+        context?.targetDevice.transceiver?.sendStopListening { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

@@ -36,7 +36,7 @@ class StepEnsureCanBeClaimed: MeshSetupStep {
     }
 
     private func getDeviceId() {
-        context?.targetDevice.transceiver!.sendGetDeviceId { [weak self, weak context] result, deviceId in
+        context?.targetDevice.transceiver?.sendGetDeviceId { [weak self, weak context] result, deviceId in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

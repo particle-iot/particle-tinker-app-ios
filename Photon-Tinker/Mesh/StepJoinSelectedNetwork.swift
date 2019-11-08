@@ -49,7 +49,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
         context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStarted)
 
         /// NOT_ALLOWED: The client is not authenticated
-        context.commissionerDevice!.transceiver!.sendStartCommissioner { [weak self, weak context] result in
+        context.commissionerDevice!.transceiver?.sendStartCommissioner { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
@@ -73,7 +73,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
 
         /// ALREADY_EXIST: The device is already a member of a network
         /// NOT_ALLOWED: The client is not authenticated
-        context.targetDevice.transceiver!.sendPrepareJoiner(networkInfo: context.selectedNetworkMeshInfo!) {
+        context.targetDevice.transceiver?.sendPrepareJoiner(networkInfo: context.selectedNetworkMeshInfo!) {
             [weak self, weak context] result, eui64, password in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -103,7 +103,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
         /// NO_MEMORY: No memory available to add the joiner
         /// INVALID_STATE: The commissioner role is not started
         /// NOT_ALLOWED: The client is not authenticated
-        context.commissionerDevice!.transceiver!.sendAddJoiner(eui64: context.targetDevice.joinerCredentials!.eui64, password: context.targetDevice.joinerCredentials!.password) {
+        context.commissionerDevice!.transceiver?.sendAddJoiner(eui64: context.targetDevice.joinerCredentials!.eui64, password: context.targetDevice.joinerCredentials!.password) {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -139,7 +139,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
         /// NOT_FOUND: No joinable network was found
         /// TIMEOUT: The join process timed out
         /// NOT_ALLOWED: Invalid security credentials
-        context.targetDevice.transceiver!.sendJoinNetwork {
+        context.targetDevice.transceiver?.sendJoinNetwork {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -179,7 +179,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             return
         }
 
-        context.commissionerDevice!.transceiver!.sendStopCommissioner {
+        context.commissionerDevice!.transceiver?.sendStopCommissioner {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {
@@ -206,7 +206,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendLeaveNetwork() {
+        context.targetDevice.transceiver?.sendLeaveNetwork() {
             [weak self, weak context] result in
 
             guard let self = self, let context = context, !context.canceled else {

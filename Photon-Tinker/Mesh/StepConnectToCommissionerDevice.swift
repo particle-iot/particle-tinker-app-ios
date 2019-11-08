@@ -56,7 +56,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
     }
 
     private func stopCommissionerDeviceListening() {
-        context?.commissionerDevice?.transceiver!.sendStopListening { [weak self, weak context] result in
+        context?.commissionerDevice?.transceiver?.sendStopListening { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

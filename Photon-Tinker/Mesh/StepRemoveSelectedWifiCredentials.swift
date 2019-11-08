@@ -24,7 +24,7 @@ class StepRemoveSelectedWifiCredentials: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendRemoveKnownWifiNetwork(network: context.selectedForRemovalWifiNetworkInfo!) { [weak self, weak context] result in
+        context.targetDevice.transceiver?.sendRemoveKnownWifiNetwork(network: context.selectedForRemovalWifiNetworkInfo!) { [weak self, weak context] result in
             guard let self = self, let context = context, !context.canceled else {
                 return
             }

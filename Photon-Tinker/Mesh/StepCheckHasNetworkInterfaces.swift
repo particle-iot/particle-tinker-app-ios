@@ -48,7 +48,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetInterfaceList {
+        context.targetDevice.transceiver?.sendGetInterfaceList {
             [weak self, weak context] result, interfaces in
             guard let self = self, let context = context, !context.canceled else {
                 return
@@ -165,13 +165,13 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetActiveSim () { [weak self, weak context] result, externalSim in
+        context.targetDevice.transceiver?.sendGetActiveSim () { [weak self, weak context] result, externalSim in
 
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
-            self.log("targetDevice.transceiver!.sendGetActiveSim: \(result.description()), externalSim: \(externalSim as Optional)")
+            self.log("targetDevice.transceiver?.sendGetActiveSim: \(result.description()), externalSim: \(externalSim as Optional)")
 
             if (result == .NONE) {
                 context.targetDevice.sim!.isExternal = externalSim!
@@ -189,13 +189,13 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
             return
         }
 
-        context.targetDevice.transceiver!.sendGetIccid () { [weak self, weak context] result, iccid in
+        context.targetDevice.transceiver?.sendGetIccid () { [weak self, weak context] result, iccid in
 
             guard let self = self, let context = context, !context.canceled else {
                 return
             }
 
-            self.log("targetDevice.transceiver!.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
+            self.log("targetDevice.transceiver?.sendGetIccid: \(result.description()), iccid: \(iccid as Optional)")
 
             if (result == .NONE) {
                 context.targetDevice.sim!.iccid = iccid!
@@ -226,12 +226,12 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
 //            return
 //        }
 //
-//        context.targetDevice.transceiver!.sendSetActiveSim(useExternalSim: false) { [weak self, weak context] result in
+//        context.targetDevice.transceiver?.sendSetActiveSim(useExternalSim: false) { [weak self, weak context] result in
 //            guard let self = self, let context = context, !context.canceled else {
 //                return
 //            }
 //
-//            self.log("targetDevice.transceiver!.sendSetActiveSim: \(result.description())")
+//            self.log("targetDevice.transceiver?.sendSetActiveSim: \(result.description())")
 //
 //            if (result == .NONE) {
 //                context.targetDevice.externalSim = nil
@@ -245,7 +245,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
 //    }
 //
 //    func prepareForTargetDeviceReboot() {
-//        context?.targetDevice.transceiver!.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
+//        context?.targetDevice.transceiver?.sendSetStartupMode(startInListeningMode: true) { [weak self, weak context] result in
 //            guard let self = self, let context = context, !context.canceled else {
 //                return
 //            }
@@ -263,7 +263,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
 //    }
 //
 //    func sendDeviceReset() {
-//        context?.targetDevice.transceiver!.sendSystemReset() { [weak self, weak context] result  in
+//        context?.targetDevice.transceiver?.sendSystemReset() { [weak self, weak context] result  in
 //            guard let self = self, let context = context, !context.canceled else {
 //                return
 //            }
