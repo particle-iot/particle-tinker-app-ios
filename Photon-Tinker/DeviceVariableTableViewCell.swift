@@ -25,10 +25,12 @@ internal class DeviceVariableTableViewCell: UITableViewCell {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var backgroundShadeView: UIView!
 
-    weak var delegate : DeviceVariableTableViewCellDelegate?
+    weak var delegate: DeviceVariableTableViewCellDelegate?
 
-    var variableName : String!
-    var variableValue : String?
+    var variableName: String!
+    var variableValue: String?
+
+    private var isBool: Bool!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,6 +40,8 @@ internal class DeviceVariableTableViewCell: UITableViewCell {
 
     func setup(variableName: String, variableType: String, variableValue: String?) {
         self.variableName = variableName
+
+        self.isBool = variableType.lowercased().contains("bool")
 
         self.nameLabel.text = variableName
         self.typeLabel.text = "(\(variableType))"
@@ -49,7 +53,11 @@ internal class DeviceVariableTableViewCell: UITableViewCell {
 
         if let value = value {
             self.variableValue = value
-            self.valueLabel.text = value
+            if (self.isBool) {
+                self.valueLabel.text = (value == "1" || value == "true") ? "true" : "false" // the value == true should never happen, but just to futureproof if something changes on the api side lets keep it here... 
+            } else {
+                self.valueLabel.text = value
+            }
             self.valueButton.isUserInteractionEnabled = true
         } else {
             self.variableValue = nil
