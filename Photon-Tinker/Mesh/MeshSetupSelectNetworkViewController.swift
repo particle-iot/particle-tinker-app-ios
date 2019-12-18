@@ -50,7 +50,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
 
             var devicesString = (network.deviceCount! == 1) ? MeshStrings.SelectNetwork.DevicesSingular : MeshStrings.SelectNetwork.DevicesPlural
-            devicesString = devicesString.replacingOccurrences(of: "{{0}}", with: String(network.deviceCount!))
+            devicesString = devicesString.replacingOccurrences(of: "{{count}}", with: String(network.deviceCount!))
 
             cell.cellSubtitleLabel.text = devicesString
             cell.cellSubtitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
