@@ -123,6 +123,8 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
                 type = "Integer"
             case "double":
                 type = "Float"
+            case "bool":
+                type = "Bool"
             default:
                 type = "String"
         }
