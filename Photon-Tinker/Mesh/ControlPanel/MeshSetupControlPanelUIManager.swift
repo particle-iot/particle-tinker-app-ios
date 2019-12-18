@@ -22,7 +22,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         if let serial = device.serialNumber, let mobileSecret = device.mobileSecret {
             self.targetDeviceDataMatrix = MeshSetupDataMatrix(serialNumber: device.serialNumber!, mobileSecret: device.mobileSecret!, deviceType: device.type)
         } else if (device.is3rdGen()) {
-            fatalError("Device Serial Number (\(device.serialNumber)) or Mobile Secret (\(device.mobileSecret)) is missing.")
+            fatalError("Device Serial Number (\(device.serialNumber)) or Mobile Secret (\(device.mobileSecret)) is missing for device (\(device).")
         }
 
         self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self, context: context)

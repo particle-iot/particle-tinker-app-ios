@@ -139,11 +139,13 @@ class ScanBarcodeViewController: UIViewController, AVCaptureMetadataOutputObject
         device = AVCaptureDevice.default(for: .video)
 
         guard let device = device else {
+            //TODO: fix this?...
             fatalError("no AVCaptureDevice")
         }
 
         input = try? AVCaptureDeviceInput(device: device)
         guard let input = input else {
+            //TODO: fix this?...
             fatalError("no AVCaptureDeviceInput")
         }
         session.addInput(input)

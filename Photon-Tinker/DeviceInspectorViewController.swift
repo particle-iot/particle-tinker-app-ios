@@ -24,7 +24,11 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     @IBOutlet var viewsToFade:[UIView]?
 
-    var device: ParticleDevice!
+    var device: ParticleDevice! {
+        didSet {
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device set: %@", withParameters: getVaList(["\(device)"]))
+        }
+    }
     var isBusy: Bool = false //required by fadeble protocol
 
     var tabs:[DeviceInspectorChildViewController] = []
@@ -235,6 +239,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
     @IBAction func actionButtonTapped(_ sender: UIButton) {
         let vc = MeshSetupControlPanelUIManager.loadedViewController()
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "action tapped: %@", withParameters: getVaList(["\(device)"]))
         vc.setDevice(self.device)
         vc.setCallback(self.controlPanelCompleted)
         self.present(vc, animated: true)
