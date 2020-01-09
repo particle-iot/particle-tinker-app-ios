@@ -193,26 +193,4 @@ extension ParticleDeviceType : CustomStringConvertible {
 
         return isSNPrefix(prefix: "b31") || isSNPrefix(prefix: "p002")
     }
-
-    init?(serialNumber: String) {
-        func isSNPrefix(prefix : String) -> Bool {
-            return (serialNumber.lowercased().range(of: prefix)?.lowerBound == serialNumber.startIndex)
-        }
-
-        if isSNPrefix(prefix: "xenh") || isSNPrefix(prefix: "xenk") {
-            self = .xenon
-        } else if isSNPrefix(prefix: "arnh") || isSNPrefix(prefix: "arnk") || isSNPrefix(prefix: "argh") {
-            self = .argon
-        } else if isSNPrefix(prefix: "b40h") || isSNPrefix(prefix: "b31h") || isSNPrefix(prefix: "b40k") || isSNPrefix(prefix: "b31k") {
-            self = .boron
-        } else if isSNPrefix(prefix: "p001") || isSNPrefix(prefix: "p002") {
-            self = .bSeries
-        } else if isSNPrefix(prefix: "p003") {
-            self = .aSeries
-        } else if isSNPrefix(prefix: "p004") {
-            self = .xSeries
-        } else {
-            return nil
-        }
-    }
 }
