@@ -182,8 +182,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
         }
 
         videoView.addTarget(self, action: #selector(videoViewTapped), for: .touchUpInside)
-
-        NSLog("setting content")
+        
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }
@@ -223,8 +222,6 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
             default: //.xenon
                 checkboxView?.isHidden = true
         }
-
-        NSLog("setting default content")
     }
 
     private func setEthernetContent() {
