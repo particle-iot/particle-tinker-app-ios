@@ -109,48 +109,6 @@ internal struct MeshSetupPeripheralCredentials {
     var mobileSecret: String
 }
 
-//this has to be class because mutating keyword cannot be used together with @escaping closures.
-internal struct MeshSetupDataMatrix {
-    var serialNumber: String
-    var mobileSecret: String
-
-    private(set) public var type: ParticleDeviceType?
-
-    var matrixString: String {
-        return "\(serialNumber) \(mobileSecret)"
-    }
-
-    init?(dataMatrixString: String, deviceType: ParticleDeviceType? = nil) {
-        let regex = try! NSRegularExpression(pattern: "([a-zA-Z0-9]{15})[ ]{1}([a-zA-Z0-9]{12,15})")
-        let nsString = dataMatrixString as NSString
-        let results = regex.matches(in: dataMatrixString, range: NSRange(location: 0, length: nsString.length))
-
-        if (results.count > 0) {
-            let arr = dataMatrixString.split(separator: " ")
-            serialNumber = String(arr[0])//"12345678abcdefg"
-            mobileSecret = String(arr[1])//"ABCDEFGHIJKLMN"
-            type = (deviceType != nil) ? deviceType : ParticleDeviceType(serialNumber: serialNumber)
-        } else {
-            return nil
-        }
-    }
-
-    init(serialNumber: String, mobileSecret: String, deviceType: ParticleDeviceType? = nil) {
-        self.serialNumber = serialNumber
-        self.mobileSecret = mobileSecret
-        self.type = (deviceType != nil) ? deviceType : ParticleDeviceType(serialNumber: serialNumber)
-    }
-
-    func isMobileSecretValid() -> Bool {
-        return mobileSecret.count == 15
-    }
-
-    func isDeviceTypeKnown() -> Bool {
-        return type != nil
-    }
-}
-
-
 // TODO: should be globally reference not just for mesh
 extension ParticleDeviceType : CustomStringConvertible {
     public var description: String {
