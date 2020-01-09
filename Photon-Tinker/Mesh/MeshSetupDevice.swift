@@ -155,33 +155,34 @@ internal struct MeshSetupDataMatrix {
 extension ParticleDeviceType : CustomStringConvertible {
     public var description: String {
         switch self {
-            case .unknown : return "Unknown"
-            case .core : return "Core"
-            case .photon : return "Photon"
-            case .P1 : return "P1"
-            case .electron : return "Electron"
-            case .raspberryPi : return "RaspberryPi"
-            case .redBearDuo : return "RedBearDuo"
-            case .bluz : return "Bluz"
-            case .digistumpOak : return "DigistumpOak"
-            case .ESP32 : return "ESP32"
-            case .argon : return "Argon"
-            case .boron : return "Boron"
-            case .xenon : return "Xenon"
-            case .aSeries : return "A SoM"
-            case .bSeries : return "B SoM"
-            case .xSeries : return "X SoM"
+            case .unknown: return "Unknown"
+            case .core: return "Core"
+            case .photon: return "Photon"
+            case .P1: return "P1"
+            case .electron: return "Electron"
+            case .raspberryPi: return "RaspberryPi"
+            case .redBearDuo: return "RedBearDuo"
+            case .bluz: return "Bluz"
+            case .digistumpOak: return "DigistumpOak"
+            case .ESP32: return "ESP32"
+            case .argon: return "Argon"
+            case .boron: return "Boron"
+            case .xenon: return "Xenon"
+            case .aSeries: return "A SoM"
+            case .bSeries: return "B SoM"
+            case .xSeries: return "X SoM"
+            default: return "Unknown"
         }
     }
 
     public var bluetoothNamePrefix: String {
         switch self {
-            case .argon : return "Argon"
-            case .boron : return "Boron"
-            case .xenon : return "Xenon"
-            case .aSeries : return "Argon"
-            case .bSeries : return "Boron"
-            case .xSeries : return "Xenon"
+            case .argon: return "Argon"
+            case .boron: return "Boron"
+            case .xenon: return "Xenon"
+            case .aSeries: return "Argon"
+            case .bSeries: return "Boron"
+            case .xSeries: return "Xenon"
             default: return ""
         }
     }
