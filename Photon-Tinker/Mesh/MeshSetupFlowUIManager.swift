@@ -69,12 +69,28 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
 
     func targetDeviceScanStickerViewCompleted(dataMatrixString:String) {
         log("dataMatrix scanned: \(dataMatrixString)")
-        self.validateMatrix(dataMatrixString, targetDevice: true)
+        MeshSetupDataMatrix.getMatrix(fromString: dataMatrixString, onComplete: setTargetDeviceValidatedMatrix)
+        
     }
 
-    override func setTargetDeviceValidatedMatrix(dataMatrix: MeshSetupDataMatrix) {
-        self.targetDeviceDataMatrix = dataMatrix
-        self.showTargetGetReadyView()
+    func setTargetDeviceValidatedMatrix(dataMatrix: MeshSetupDataMatrix?, error: DataMatrixError?) {
+        if let error: DataMatrixError = error {
+            switch error {
+                case .InvalidMatrix:
+                    self.showWrongMatrixError(targetDevice: true)
+                case .UnableToRecoverMobileSecret:
+                    self.showFailedMatrixRecoveryError(dataMatrix: dataMatrix!)
+                case .NetworkError:
+                    self.showMatrixNetworkError { [weak self] in
+                        if let self = self {
+                            MeshSetupDataMatrix.getMatrix(fromString: dataMatrix!.matrixString, onComplete: self.setTargetDeviceValidatedMatrix)
+                        }
+                    }
+                }
+        } else if let dataMatrix = dataMatrix {
+            self.targetDeviceDataMatrix = dataMatrix
+            self.showTargetGetReadyView()
+        }
     }
 
     func showTargetGetReadyView() {

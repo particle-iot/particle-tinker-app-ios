@@ -139,75 +139,20 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         }
     }
 
-    //MARK: Validate & recover data Matrix
-    internal func validateMatrix(_ dataMatrixString: String, targetDevice: Bool, deviceType: ParticleDeviceType? = nil) {
-        if let matrix = MeshSetupDataMatrix(dataMatrixString: dataMatrixString, deviceType: deviceType) {
-            if (matrix.type != nil && matrix.isMobileSecretValid()) {
-                if (targetDevice) {
-                    self.setTargetDeviceValidatedMatrix(dataMatrix: matrix)
-                } else {
-                    self.setCommissionerDeviceValidatedMatrix(dataMatrix: matrix)
-                }
-            } else if (matrix.type == nil) {
-                self.log("Attempting to recover unknown device type")
-                recoverUnknownDeviceType(matrix: matrix, targetDevice: targetDevice)
-            } else {
-                self.log("Attempting to recover incomplete mobile secret")
-                recoverIncompleteMobileSecret(matrix: matrix, targetDevice: targetDevice)
-            }
-        } else {
-            showWrongMatrixError(targetDevice: targetDevice)
-        }
-    }
+    internal func showMatrixNetworkError(onRetry: @escaping () -> ()) {
+        DispatchQueue.main.async {
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
 
-    internal func recoverUnknownDeviceType(matrix: MeshSetupDataMatrix, targetDevice: Bool) {
-        ParticleCloud.sharedInstance().getPlatformId(matrix.serialNumber) { platformId, error in
-            if let platformId = platformId, let type = ParticleDeviceType(rawValue: Int(platformId)) {
-                self.validateMatrix(matrix.matrixString, targetDevice: targetDevice, deviceType: type)
-            } else if let nserror = error as? NSError, nserror.code == 404 {
-                self.showWrongMatrixError(targetDevice: targetDevice)
-            } else {
-                DispatchQueue.main.async {
-                    if (self.hideAlertIfVisible()) {
-                        self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
+                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.CancelSetup, style: .cancel) { action in
+                    self.cancelTapped(self)
+                })
 
-                        self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.CancelSetup, style: .cancel) { action in
-                            self.cancelTapped(self)
-                        })
+                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Retry, style: .default) { action in
+                    onRetry()
+                })
 
-                        self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Retry, style: .default) { action in
-                            self.validateMatrix(matrix.matrixString, targetDevice: targetDevice, deviceType: matrix.type)
-                        })
-
-                        self.present(self.alert!, animated: true)
-                    }
-                }
-            }
-        }
-    }
-
-    internal func recoverIncompleteMobileSecret(matrix: MeshSetupDataMatrix, targetDevice: Bool) {
-        ParticleCloud.sharedInstance().getRecoveryMobileSecret(matrix.serialNumber, mobileSecret: matrix.mobileSecret) { mobileSecret, error in
-            if let mobileSecret = mobileSecret {
-                self.validateMatrix("\(matrix.serialNumber) \(mobileSecret)", targetDevice: targetDevice)
-            } else if let nserror = error as? NSError, nserror.code == 200 {
-                self.showFailedMatrixRecoveryError(dataMatrix: matrix)
-            } else {
-                DispatchQueue.main.async {
-                    if (self.hideAlertIfVisible()) {
-                        self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
-
-                        self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.CancelSetup, style: .cancel) { action in
-                            self.cancelTapped(self)
-                        })
-
-                        self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Retry, style: .default) { action in
-                            self.validateMatrix(matrix.matrixString, targetDevice: targetDevice, deviceType: matrix.type)
-                        })
-
-                        self.present(self.alert!, animated: true)
-                    }
-                }
+                self.present(self.alert!, animated: true)
             }
         }
     }
@@ -234,7 +179,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             if (self.hideAlertIfVisible()) {
                 self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.StickerError.description, preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.CancelSetup, style: .cancel) { action in
+                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .cancel) { action in
                     self.restartCaptureSession()
                 })
 
@@ -284,11 +229,6 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController / MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
         }
     }
-
-    internal func setTargetDeviceValidatedMatrix(dataMatrix: MeshSetupDataMatrix) {
-        fatalError("not implemented")
-    }
-
 
     internal func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {
         fatalError("not implemented")
@@ -755,17 +695,28 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func scanCommissionerStickerViewCompleted(dataMatrixString:String) {
         log("dataMatrix scanned: \(dataMatrixString)")
-        self.validateMatrix(dataMatrixString, targetDevice: false)
+        MeshSetupDataMatrix.getMatrix(fromString: dataMatrixString, onComplete: setCommissionerDeviceValidatedMatrix)
     }
-    
-    internal func setCommissionerDeviceValidatedMatrix(dataMatrix: MeshSetupDataMatrix) {
-        //make sure the scanned device is of the same type as user requested in the first screen
-        if let deviceType = dataMatrix.type {
 
-            if let error = flowRunner.setCommissionerDeviceInfo(dataMatrix: dataMatrix) {
+    internal func setCommissionerDeviceValidatedMatrix(dataMatrix: MeshSetupDataMatrix?, error: DataMatrixError?) {
+        if let error: DataMatrixError = error {
+            switch error {
+            case .InvalidMatrix:
+                self.showWrongMatrixError(targetDevice: true)
+            case .UnableToRecoverMobileSecret:
+                self.showFailedMatrixRecoveryError(dataMatrix: dataMatrix!)
+            case .NetworkError:
+                self.showMatrixNetworkError { [weak self] in
+                    if let self = self {
+                        MeshSetupDataMatrix.getMatrix(fromString: dataMatrix!.matrixString, onComplete: self.setCommissionerDeviceValidatedMatrix)
+                    }
+                }
+            }
+        } else if let dataMatrix = dataMatrix {
+            if let flowError = flowRunner.setCommissionerDeviceInfo(dataMatrix: dataMatrix) {
                 DispatchQueue.main.async {
                     if (self.hideAlertIfVisible()) {
-                        self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
+                        self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: flowError.description, preferredStyle: .alert)
 
                         self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
                             self.restartCaptureSession()
@@ -776,11 +727,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 }
             } else {
                 self.flowRunner.pauseSetup()
-
-                showPairingCommissionerProcessView(deviceType: deviceType)
+                showPairingCommissionerProcessView(deviceType: dataMatrix.type!)
             }
-        } else {
-            restartCaptureSession()
         }
     }
 
