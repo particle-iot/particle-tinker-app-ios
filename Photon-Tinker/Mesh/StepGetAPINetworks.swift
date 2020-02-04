@@ -12,6 +12,11 @@ class StepGetAPINetworks: MeshSetupStep {
             return
         }
 
+        guard context.targetDevice.supportsMesh == false else {
+            self.stepCompleted()
+            return
+        }
+
         ParticleCloud.sharedInstance().getNetworks { [weak self, weak context] networks, error in
             guard let self = self, let context = context, !context.canceled else {
                 return
