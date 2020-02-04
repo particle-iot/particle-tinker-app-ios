@@ -13,12 +13,12 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepConnectToTargetDevice(),
         StepEnsureCorrectEthernetFeatureStatus(),
         StepEnsureLatestFirmware(),
+        StepCheckHasNetworkInterfaces(),
         StepGetAPINetworks(),
         StepEnsureCanBeClaimed(),
         StepSetClaimCode(),
         StepOfferToSwitchToControlPanel(),
         StepEnsureNotOnMeshNetwork(),
-        StepCheckHasNetworkInterfaces(),
     ]
 
     fileprivate let joinerFlow: [MeshSetupStep] = [

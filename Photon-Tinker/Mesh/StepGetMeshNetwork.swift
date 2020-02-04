@@ -19,6 +19,11 @@ class StepGetMeshNetwork: MeshSetupStep {
             return
         }
 
+        guard context.targetDevice.supportsMesh == false else {
+            self.fail(withReason: .MeshNotSupported)
+            return
+        }
+
         if (context.targetDevice.meshNetworkInfo == nil && !meshNetworkInfoLoaded) {
             self.getTargetDeviceMeshNetworkInfo()
         } else if (context.apiNetworks == nil && !apiNetworksLoaded) {
@@ -37,6 +42,12 @@ class StepGetMeshNetwork: MeshSetupStep {
 
             self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
             self.log("\(networkInfo as Optional)");
+
+            guard result != .NOT_SUPPORTED else {
+                self.context?.targetDevice.supportsMesh = false
+                self.fail(withReason: .MeshNotSupported)
+                return
+            }
 
             if (result == .NOT_FOUND) {
                 self.meshNetworkInfoLoaded = true
