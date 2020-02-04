@@ -202,7 +202,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             return
         }
 
-        if peripheral.name == self.peripheralToConnectCredentials!.name {
+        if peripheral.name?.lowercased() == self.peripheralToConnectCredentials!.name.lowercased() {
             central.stopScan()
             log("stop scan")
 
@@ -235,7 +235,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
             log("Paired to device")
         }
 
-        guard self.peripheralToConnectCredentials != nil, let name = peripheral.name, name == peripheralToConnectCredentials?.name else {
+        guard self.peripheralToConnectCredentials != nil, let name = peripheral.name?.lowercased(), name == peripheralToConnectCredentials?.name.lowercased() else {
             //all mesh devices have names, if peripheral has no name, it's not our device
             dropPeripheralConnection(with: peripheral)
             log("Dropping connection on purpose :(")
