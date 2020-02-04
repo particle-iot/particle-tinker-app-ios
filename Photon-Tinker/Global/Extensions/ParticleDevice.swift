@@ -15,7 +15,7 @@ extension ParticleDevice {
     }
 
     func is3rdGen() -> Bool {
-        return self.type == .argon || self.type == .boron || self.type == .xenon || self.type == .aSeries || self.type == .bSeries || self.type == .xSeries
+        return self.type == .argon || self.type == .boron || self.type == .xenon || self.type == .aSeries || self.type == .bSeries || self.type == .xSeries || self.type == .bSoMCat1
     }
 
     func getName() -> String {
@@ -101,6 +101,8 @@ extension ParticleDeviceType {
                 return UIImage(named: "ImgDeviceArgon")
             case .bSeries:
                 return UIImage(named: "ImgDeviceBoron")
+            case .bSoMCat1:
+                return UIImage(named: "ImgDeviceBoron")
             default:
                 return UIImage(named: "ImgDeviceUnknown")
         }
@@ -119,7 +121,7 @@ extension ParticleDeviceType {
                 return UIColor(rgb: 0x76777A)
             case .argon, .aSeries:
                 return UIColor(rgb: 0x00AEEF)
-            case .boron, .bSeries:
+            case .boron, .bSeries, .bSoMCat1:
                 return UIColor(rgb: 0xED1C24)
             case .xenon, .xSeries:
                 return UIColor(rgb: 0xF5A800)
@@ -151,7 +153,7 @@ extension ParticleDeviceType {
                 return "X"
             case .argon, .aSeries:
                 return "A"
-            case .boron, .bSeries:
+            case .boron, .bSeries, .bSoMCat1:
                 return "B"
             default:
                 return "?"

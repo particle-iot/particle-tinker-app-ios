@@ -32,7 +32,7 @@ class MeshSetupControlPanelDocumentationViewController: MeshSetupViewController,
         switch device.type {
             case .argon, .aSeries:
                 self.url = URL(string: "https://docs.particle.io/argon/")
-            case .boron, .bSeries:
+            case .boron, .bSeries, .bSoMCat1:
                 self.url = URL(string: "https://docs.particle.io/boron/")
             case .xenon, .xSeries:
                 self.url = URL(string: "https://docs.particle.io/xenon/")
