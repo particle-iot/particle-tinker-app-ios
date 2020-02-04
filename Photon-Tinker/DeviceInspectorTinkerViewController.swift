@@ -135,7 +135,7 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
                 flashTinkerBinary("tinker-0.8.0-rc.27-argon")
             case .boron:
                 flashTinkerBinary("tinker-0.8.0-rc.27-boron")
-            case .bSoMCat1:
+            case .b5SoM:
                 flashTinkerBinary("b5som-tinker@1.4.5-b5som.2.bin")
             case .xenon:
                 flashTinkerBinary("tinker-0.8.0-rc.27-xenon")

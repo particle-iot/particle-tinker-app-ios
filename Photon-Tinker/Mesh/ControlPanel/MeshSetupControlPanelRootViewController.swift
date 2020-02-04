@@ -58,7 +58,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         switch device.type {
             case .xenon, .xSeries:
                 cells.append([.ethernet, .mesh])
-            case .boron, .bSeries, .bSoMCat1:
+            case .boron, .bSeries, .b5SoM:
                 cells.append([.cellular, .ethernet, .mesh])
             case .argon, .aSeries:
                 cells.append([.wifi, .ethernet, .mesh])

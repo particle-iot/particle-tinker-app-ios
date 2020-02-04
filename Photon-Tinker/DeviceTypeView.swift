@@ -36,7 +36,7 @@ enum DeviceTypeOptions: Int, CaseIterable, CustomStringConvertible {
             case .boron:
                 return [ParticleDeviceType.boron,
                         ParticleDeviceType.bSeries,
-                        ParticleDeviceType.bSoMCat1].contains(device.type)
+                        ParticleDeviceType.b5SoM].contains(device.type)
             case .electron:
                 return [ParticleDeviceType.electron].contains(device.type)
             case .argon:

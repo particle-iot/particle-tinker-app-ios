@@ -126,7 +126,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .ESP32: return "ESP32"
             case .argon: return "Argon"
             case .boron: return "Boron"
-            case .bSoMCat1: return "B SoM CAT 1"
+            case .b5SoM: return "B5 SoM"
             case .xenon: return "Xenon"
             case .aSeries: return "A SoM"
             case .bSeries: return "B SoM"
@@ -143,7 +143,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .aSeries: return "Argon"
             case .bSeries: return "Boron"
             case .xSeries: return "Xenon"
-            case .bSoMCat1: return "B5som"
+            case .b5SoM: return "B5SoM"
             default: return ""
         }
     }

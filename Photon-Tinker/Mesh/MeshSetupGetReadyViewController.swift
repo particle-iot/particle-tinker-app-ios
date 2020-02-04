@@ -153,7 +153,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
 
                 checkboxLabel?.text = MeshStrings.GetReady.CellularCheckboxText
                 checkboxView?.isHidden = false
-            case .bSeries, .bSoMCat1:
+            case .bSeries, .b5SoM:
                 if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
                     initializeVideoPlayerWithVideo(videoFileName: "b_power_on") //b_power_on_battery
                 } else {
