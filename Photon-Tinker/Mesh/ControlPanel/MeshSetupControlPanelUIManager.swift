@@ -536,6 +536,23 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
+    internal func showMeshNotSupported() {
+        //TODO: fix copy
+        DispatchQueue.main.async {
+            if (self.hideAlertIfVisible()) {
+                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
+                        message: MeshStrings.Prompt.ControlPanelExternalSimNotSupportedText,
+                        preferredStyle: .alert)
+
+                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
+                    (self.embededNavigationController.topViewController as? MeshSetupViewController)?.resume(animated: true)
+                })
+
+                self.present(self.alert!, animated: true)
+            }
+        }
+    }
+
     override func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) {
         super.meshSetupDidEnterState(sender, state: state)
 
@@ -557,6 +574,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         } else if (error == .ExternalSimNotSupported) {
             self.controlPanelManager.stopCurrentFlow()
             self.showExternalSim()
+        } else if (error == .MeshNotSupported) {
+            self.controlPanelManager.stopCurrentFlow()
+            self.showMeshNotSupported()
         } else {
             super.meshSetupError(sender, error: error, severity: severity, nsError: nsError)
         }
