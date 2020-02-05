@@ -110,8 +110,8 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
             case .FailedToFlashBecauseOfTimeout : return MeshStrings.Error.FailedToFlashBecauseOfTimeout.meshLocalized()
             case .FailedToHandshakeBecauseOfTimeout : return MeshStrings.Error.FailedToHandshakeBecauseOfTimeout.meshLocalized()
 
-            case .MeshNotSupported : return MeshStrings.Error.FailedToHandshakeBecauseOfTimeout.meshLocalized()
-            case .CommissionerMeshNotSupported : return MeshStrings.Error.FailedToHandshakeBecauseOfTimeout.meshLocalized()
+            case .MeshNotSupported : return MeshStrings.Error.MeshNotSupported.meshLocalized()
+            case .CommissionerMeshNotSupported : return MeshStrings.Error.CommissionerMeshNotSupported.meshLocalized()
 
                 //these errors are handled instantly
             case .FailedToUpdateDeviceOS : return MeshStrings.Error.FailedToUpdateDeviceOS.meshLocalized()
