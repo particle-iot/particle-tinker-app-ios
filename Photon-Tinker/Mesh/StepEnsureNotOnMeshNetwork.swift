@@ -60,6 +60,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
 
             guard result != .NOT_SUPPORTED else {
                 context.targetDevice.supportsMesh = false
+                context.targetDevice.meshNetworkInfo = nil
                 self.stepCompleted()
                 return
             }
