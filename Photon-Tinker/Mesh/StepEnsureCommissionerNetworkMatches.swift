@@ -6,6 +6,8 @@
 import Foundation
 
 class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
+    private var expectingConnectionDrop: Bool = false
+
     override func start() {
         guard let context = self.context else {
             return
@@ -19,7 +21,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
             self.log("commissionerDevice.sendGetNetworkInfo: \(result.description()), networkInfo: \(networkInfo as Optional)")
 
 
-            if (result == .NOT_FOUND) {
+            if (result == .NOT_FOUND || result == .NOT_SUPPORTED) {
                 context.commissionerDevice!.meshNetworkInfo = nil
             } else if (result == .NONE) {
                 context.commissionerDevice!.meshNetworkInfo = networkInfo
@@ -57,6 +59,17 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
         }
     }
 
+    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        //this is expected
+        return expectingConnectionDrop
+    }
+
+    override func reset() {
+        super.reset()
+
+        self.expectingConnectionDrop = false
+    }
+
     override func rewindTo(context: MeshSetupContext) {
         super.rewindTo(context: context)
 
@@ -64,6 +77,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
             return
         }
 
+        expectingConnectionDrop = false
         context.commissionerDevice?.meshNetworkInfo = nil
     }
 }
