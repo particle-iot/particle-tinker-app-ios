@@ -141,12 +141,11 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
                 "Switching flow!!!")
 
         if (currentFlow == preflow) {
-            if (context.targetDevice.hasActiveInternetInterface() && context.selectedNetworkMeshInfo == nil) {
+            if ((context.targetDevice.hasActiveInternetInterface() && context.selectedNetworkMeshInfo == nil) || !context.targetDevice.supportsMesh) {
                 self.currentFlow = internetConnectedPreflow
                 log("setting gateway flow")
             } else {
                 //if context.targetDevice.hasActiveInternetInterface() == argon/boron/ethernet joiner flow
-
                 log("setting xenon joiner flow")
                 self.currentFlow = joinerFlow
             }
