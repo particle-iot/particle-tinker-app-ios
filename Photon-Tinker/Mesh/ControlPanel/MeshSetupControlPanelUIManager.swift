@@ -537,11 +537,10 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
     internal func showMeshNotSupported() {
-        //TODO: fix copy
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
                 self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
-                        message: MeshStrings.Prompt.ControlPanelExternalSimNotSupportedText,
+                        message: MeshStrings.Prompt.ControlPanelMeshNotSupportedText,
                         preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
