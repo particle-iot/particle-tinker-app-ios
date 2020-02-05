@@ -23,7 +23,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
             return
         }
 
-        guard context.targetDevice.supportsMesh == false else {
+        guard context.targetDevice.supportsMesh else {
             self.stepCompleted()
             return
         }
