@@ -11,7 +11,13 @@ class StepOfferSetupStandAloneOrWithNetwork : MeshSetupStep {
             return
         }
 
-       context.delegate.meshSetupDidRequestToSelectStandAloneOrMeshSetup(self)
+        guard context.targetDevice.supportsMesh else {
+            context.userSelectedToSetupMesh = false
+            self.stepCompleted()
+            return
+        }
+
+        context.delegate.meshSetupDidRequestToSelectStandAloneOrMeshSetup(self)
     }
 
     func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {

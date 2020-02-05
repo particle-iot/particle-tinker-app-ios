@@ -19,7 +19,7 @@ class StepGetMeshNetwork: MeshSetupStep {
             return
         }
 
-        guard context.targetDevice.supportsMesh == false else {
+        guard context.targetDevice.supportsMesh else {
             self.fail(withReason: .MeshNotSupported)
             return
         }
