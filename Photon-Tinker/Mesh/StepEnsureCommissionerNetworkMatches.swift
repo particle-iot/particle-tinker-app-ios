@@ -18,6 +18,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
 
             self.log("commissionerDevice.sendGetNetworkInfo: \(result.description()), networkInfo: \(networkInfo as Optional)")
 
+
             if (result == .NOT_FOUND) {
                 context.commissionerDevice!.meshNetworkInfo = nil
             } else if (result == .NONE) {
@@ -38,7 +39,11 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
                     return
                 }
             } else {
-                self.fail(withReason: .CommissionerNetworkDoesNotMatch)
+                if result == .NOT_SUPPORTED  {
+                    self.fail(withReason: .CommissionerMeshNotSupported)
+                } else {
+                    self.fail(withReason: .CommissionerNetworkDoesNotMatch)
+                }
 
                 //drop connection with current peripheral
                 let connection = context.commissionerDevice!.transceiver!.connection

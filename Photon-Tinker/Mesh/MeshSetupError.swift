@@ -34,6 +34,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
     case BluetoothConnectionDropped
 
     case MeshNotSupported
+    case CommissionerMeshNotSupported
 
     //Can happen in any step, when result != NONE and special case is not handled by onReply handler
     case BluetoothError
@@ -111,6 +112,7 @@ enum MeshSetupFlowError: Error, CustomStringConvertible {
 
                 //TODO: add copy
             case .MeshNotSupported : return MeshStrings.Error.FailedToHandshakeBecauseOfTimeout.meshLocalized()
+            case .CommissionerMeshNotSupported : return MeshStrings.Error.FailedToHandshakeBecauseOfTimeout.meshLocalized()
 
 
                 //these errors are handled instantly
