@@ -43,7 +43,7 @@ class DeviceTypeLabel: ParticleLabel {
 
         NSLayoutConstraint.activate(
             [
-                self.widthAnchor.constraint(equalToConstant: 95),
+                self.widthAnchor.constraint(equalToConstant: 80),
                 self.heightAnchor.constraint(equalToConstant: 24)
             ]
         )
