@@ -23,6 +23,11 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
             return
         }
 
+        guard context.targetDevice.supportsMesh else {
+            self.stepCompleted()
+            return
+        }
+
         if (!meshNetworkInfoLoaded) {
             self.getTargetDeviceMeshNetworkInfo()
         } else if (context.userSelectedToLeaveNetwork == nil) {
@@ -52,6 +57,13 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
 
             self.log("targetDevice.sendGetNetworkInfo: \(result.description())")
             self.log("\(networkInfo as Optional)");
+
+            guard result != .NOT_SUPPORTED else {
+                context.targetDevice.supportsMesh = false
+                context.targetDevice.meshNetworkInfo = nil
+                self.stepCompleted()
+                return
+            }
 
             if (result == .NOT_FOUND) {
                 self.meshNetworkInfoLoaded = true

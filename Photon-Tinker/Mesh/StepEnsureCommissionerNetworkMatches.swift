@@ -6,6 +6,8 @@
 import Foundation
 
 class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
+    private var expectingConnectionDrop: Bool = false
+
     override func start() {
         guard let context = self.context else {
             return
@@ -18,7 +20,8 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
 
             self.log("commissionerDevice.sendGetNetworkInfo: \(result.description()), networkInfo: \(networkInfo as Optional)")
 
-            if (result == .NOT_FOUND) {
+
+            if (result == .NOT_FOUND || result == .NOT_SUPPORTED) {
                 context.commissionerDevice!.meshNetworkInfo = nil
             } else if (result == .NONE) {
                 context.commissionerDevice!.meshNetworkInfo = networkInfo
@@ -38,18 +41,35 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
                     return
                 }
             } else {
-                self.fail(withReason: .CommissionerNetworkDoesNotMatch)
+                if result == .NOT_SUPPORTED  {
+                    self.fail(withReason: .CommissionerMeshNotSupported)
+                } else {
+                    self.fail(withReason: .CommissionerNetworkDoesNotMatch)
+                }
 
                 //drop connection with current peripheral
-                let connection = context.commissionerDevice!.transceiver!.connection
-                context.commissionerDevice!.transceiver = nil
-                context.commissionerDevice = nil
-                context.bluetoothManager.dropConnection(with: connection)
+
+                if let connection = context.commissionerDevice!.transceiver!.connection {
+                    context.commissionerDevice!.transceiver = nil
+                    context.commissionerDevice = nil
+                    context.bluetoothManager.dropConnection(with: connection)
+                }
 
                 let _ = context.stepDelegate.rewindTo(self, step: StepGetCommissionerDeviceInfo.self, runStep: true)
                 context.paused = false
             }
         }
+    }
+
+    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+        //this is expected
+        return expectingConnectionDrop
+    }
+
+    override func reset() {
+        super.reset()
+
+        self.expectingConnectionDrop = false
     }
 
     override func rewindTo(context: MeshSetupContext) {
@@ -59,6 +79,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
             return
         }
 
+        expectingConnectionDrop = false
         context.commissionerDevice?.meshNetworkInfo = nil
     }
 }

@@ -29,6 +29,7 @@ internal struct MeshSetupDevice {
     var ncpModuleVersion: Int?
     var ncpVersionReceived: Bool?
     var supportsCompressedOTAUpdate: Bool?
+    var supportsMesh: Bool = false
 
     var firmwareFilesFlashed: Int?
     var firmwareUpdateProgress: Double?

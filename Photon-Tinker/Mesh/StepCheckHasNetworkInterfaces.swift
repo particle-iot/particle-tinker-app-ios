@@ -63,6 +63,10 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
                 context.targetDevice.networkInterfaces = interfaces!
 
                 for interface in interfaces! {
+                    if (interface.type == .thread) {
+                        context.targetDevice.supportsMesh = true
+                    }
+
                     if (interface.type == .ethernet) {
                         //top priority
                         context.targetDevice.activeInternetInterface = .ethernet

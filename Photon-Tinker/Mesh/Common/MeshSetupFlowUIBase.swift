@@ -378,6 +378,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
                 let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
                 pricingInfoVC.ownerStepType = self.currentStepType
+                pricingInfoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh
                 pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
                 self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
             }

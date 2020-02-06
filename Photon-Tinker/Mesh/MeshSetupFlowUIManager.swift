@@ -157,6 +157,7 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
     override func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice) {
         currentStepType = type(of: sender)
 
+        //TODO: drop commissioner connection
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
                 self.alert = UIAlertController(title: MeshStrings.Prompt.SwitchToControlPanelTitle, message: MeshStrings.Prompt.SwitchToControlPanelText, preferredStyle: .alert)
