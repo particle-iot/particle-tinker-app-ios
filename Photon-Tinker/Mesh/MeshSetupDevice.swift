@@ -126,6 +126,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .ESP32: return "ESP32"
             case .argon: return "Argon"
             case .boron: return "Boron"
+            case .b5SoM: return "B5 SoM"
             case .xenon: return "Xenon"
             case .aSeries: return "A SoM"
             case .bSeries: return "B SoM"
@@ -142,6 +143,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .aSeries: return "Argon"
             case .bSeries: return "Boron"
             case .xSeries: return "Xenon"
+            case .b5SoM: return "B5SoM"
             default: return ""
         }
     }
@@ -151,6 +153,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             return (serialNumber.lowercased().range(of: prefix)?.lowerBound == serialNumber.startIndex)
         }
 
-        return isSNPrefix(prefix: "b31") || isSNPrefix(prefix: "p002")
+        //boron 3g / bsom / b5som (b som cat1)
+        return isSNPrefix(prefix: "b31") || isSNPrefix(prefix: "p002") || isSNPrefix(prefix: "p015")
     }
 }
