@@ -48,10 +48,12 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
                 }
 
                 //drop connection with current peripheral
-                let connection = context.commissionerDevice!.transceiver!.connection
-                context.commissionerDevice!.transceiver = nil
-                context.commissionerDevice = nil
-                context.bluetoothManager.dropConnection(with: connection)
+
+                if let connection = context.commissionerDevice!.transceiver!.connection {
+                    context.commissionerDevice!.transceiver = nil
+                    context.commissionerDevice = nil
+                    context.bluetoothManager.dropConnection(with: connection)
+                }
 
                 let _ = context.stepDelegate.rewindTo(self, step: StepGetCommissionerDeviceInfo.self, runStep: true)
                 context.paused = false

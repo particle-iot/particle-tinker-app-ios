@@ -16,9 +16,10 @@ class StepOfferToAddOneMoreDevice : MeshSetupStep {
         if (context.targetDevice.transceiver != nil) {
             self.log("Dropping connection to target device")
 
-            let connection = context.targetDevice.transceiver!.connection
-            context.targetDevice.transceiver = nil
-            context.bluetoothManager.dropConnection(with: connection)
+            if let connection = context.targetDevice.transceiver!.connection {
+                context.targetDevice.transceiver = nil
+                context.bluetoothManager.dropConnection(with: connection)
+            }
         }
 
         context.delegate.meshSetupDidRequestToAddOneMoreDevice(self)

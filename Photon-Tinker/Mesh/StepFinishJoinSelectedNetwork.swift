@@ -114,10 +114,11 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             return
         }
 
-        let connection = context.commissionerDevice!.transceiver!.connection
-        context.commissionerDevice!.transceiver = nil
-        context.commissionerDevice = nil
-        context.bluetoothManager.dropConnection(with: connection)
+        if let connection = context.commissionerDevice!.transceiver!.connection {
+            context.commissionerDevice!.transceiver = nil
+            context.commissionerDevice = nil
+            context.bluetoothManager.dropConnection(with: connection)
+        }
 
         self.start()
     }

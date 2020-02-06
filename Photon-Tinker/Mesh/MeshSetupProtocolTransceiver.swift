@@ -37,7 +37,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private unowned var bluetoothConnection: MeshSetupBluetoothConnection
+    private weak var bluetoothConnection: MeshSetupBluetoothConnection?
     private var encryptionManager: MeshSetupEncryptionManager
 
     private var requestMessageId: UInt16 = 1
@@ -48,7 +48,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private var rxBuffer: Data = Data()
 
 
-    var connection: MeshSetupBluetoothConnection {
+    var connection: MeshSetupBluetoothConnection? {
         get {
             return bluetoothConnection
         }
@@ -69,11 +69,11 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
 
     required init(connection: MeshSetupBluetoothConnection) {
         self.bluetoothConnection = connection
-        self.encryptionManager = MeshSetupEncryptionManager(derivedSecret: bluetoothConnection.derivedSecret!)
+        self.encryptionManager = MeshSetupEncryptionManager(derivedSecret: bluetoothConnection!.derivedSecret!)
 
         super.init()
 
-        self.bluetoothConnection.dataDelegate = self // take over didReceiveData delegate
+        self.bluetoothConnection!.dataDelegate = self // take over didReceiveData delegate
     }
 
     private func log(_ message: String) {
@@ -98,7 +98,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     private func sendRequestMessage(data: (UInt16, Data), onReply: @escaping (ReplyMessage?) -> ()) {
-        if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
+        if (self.bluetoothConnection == nil || self.bluetoothConnection!.cbPeripheral.state == .disconnected || self.bluetoothConnection!.cbPeripheral.state == .disconnecting) {
             self.requestMessageId -= 1 //to avoid message idx getting out of sync with device
             onReply(nil)
             return
@@ -109,7 +109,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     private func sendOTARequestMessage(data: (UInt16, Data), onReply: @escaping (ReplyMessage?) -> ()) {
-        if (self.bluetoothConnection.cbPeripheral.state == .disconnected || self.bluetoothConnection.cbPeripheral.state == .disconnecting) {
+        if (self.bluetoothConnection == nil || self.bluetoothConnection!.cbPeripheral.state == .disconnected || self.bluetoothConnection!.cbPeripheral.state == .disconnecting) {
             self.requestMessageId -= 1 //to avoid message idx getting out of sync with device
             onReply(nil)
             return
@@ -124,7 +124,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             self.waitingForReply = true
             let message = self.pendingMessages.first!
             log("Sending message: \(message.messageId)")
-            self.bluetoothConnection.send(data: message.data, writeType: message.writeWithResponse ? .withResponse : .withoutResponse)
+            self.bluetoothConnection?.send(data: message.data, writeType: message.writeWithResponse ? .withResponse : .withoutResponse)
         }
     }
 
