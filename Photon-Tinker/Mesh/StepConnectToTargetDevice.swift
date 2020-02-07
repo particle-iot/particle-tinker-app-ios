@@ -111,7 +111,7 @@ class StepConnectToTargetDevice: MeshSetupStep {
 
         context.targetDevice.state = .discovered
 
-        if (peripheral.name == context.targetDevice.credentials!.name) {
+        if (peripheral.name?.lowercased() == context.targetDevice.credentials!.name.lowercased()) {
             if (!self.reconnectAfterForcedReboot) {
                 context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceDiscovered)
             }

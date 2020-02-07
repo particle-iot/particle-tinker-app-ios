@@ -513,8 +513,9 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     override func targetPairingProcessViewCompleted() {
         //remove last two views, because they will prevent back from functioning properly
-        self.embededNavigationController.popViewController(animated: false)
-        self.embededNavigationController.popViewController(animated: false)
+        while self.embededNavigationController.viewControllers.count > 1 {
+            self.embededNavigationController.popViewController(animated: false)
+        }
 
         super.targetPairingProcessViewCompleted()
     }
