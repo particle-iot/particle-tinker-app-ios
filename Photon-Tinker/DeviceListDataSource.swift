@@ -60,7 +60,7 @@ class DeviceListDataSource: NSCopying  {
                         device.imei?.lowercased().contains(searchTerm) ?? false ||
                         device.serialNumber?.lowercased().contains(searchTerm) ?? false ||
                         device.lastIccid?.lowercased().contains(searchTerm) ?? false ||
-                        device.lastIPAdress?.lowercased().contains(searchTerm) ?? false
+                        device.lastIPAdress?.lowercased().contains(searchTerm) ?? false ||
                         device.notes?.lowercased().contains(searchTerm) ?? false
             }
         }

@@ -65,6 +65,11 @@ internal class DeviceListCell: UITableViewCell {
                     value = device.id
                 }
 
+                if device.notes?.lowercased().contains(searchTerm) ?? false {
+                    title = TinkerStrings.InfoSlider.Notes
+                    value = "...\(searchTerm)..."
+                }
+
                 DispatchQueue.main.async { [weak self] in
                     if let self = self {
                         self.nameLabel.text = device.getName()
