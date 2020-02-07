@@ -94,8 +94,8 @@ class DeviceListDataSource: NSCopying  {
 
     private func sortDevices() {
         self.viewDevices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
-            let nameA = firstDevice.name ?? " "
-            let nameB = secondDevice.name ?? " "
+            let nameA = firstDevice.name?.lowercased() ?? " "
+            let nameB = secondDevice.name?.lowercased() ?? " "
 
             switch self.sortOption {
                 case .onlineStatus:
