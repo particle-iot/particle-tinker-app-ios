@@ -17,7 +17,7 @@ internal class DeviceListCell: UITableViewCell {
     private var device: ParticleDevice!
     var cellHighlight: UIView!
     
-    func setup(device: ParticleDevice) {
+    func setup(device: ParticleDevice, searchTerm: String? = nil) {
         self.device = device
 
         DispatchQueue.main.async { [weak self] in

@@ -26,7 +26,7 @@ class DeviceListDataSource: NSCopying  {
     }
 
     func setSearchTerm(_ searchTerm: String?) {
-        self.searchTerm = searchTerm
+        self.searchTerm = searchTerm?.lowercased()
         self.reloadData()
         NotificationCenter.default.post(name: .DeviceListFilteringChanged, object: self)
     }
@@ -55,7 +55,13 @@ class DeviceListDataSource: NSCopying  {
         if let searchTerm = searchTerm, searchTerm.count > 0 {
             NSLog("searchTerm = '\(searchTerm)'")
             self.viewDevices = self.viewDevices.filter { (device: ParticleDevice) -> Bool in
-                return device.getName().lowercased().contains(searchTerm)
+                return device.getName().lowercased().contains(searchTerm) ||
+                        device.id.lowercased().contains(searchTerm) ||
+                        device.imei?.lowercased().contains(searchTerm) ?? false ||
+                        device.serialNumber?.lowercased().contains(searchTerm) ?? false ||
+                        device.lastIccid?.lowercased().contains(searchTerm) ?? false ||
+                        device.lastIPAdress?.lowercased().contains(searchTerm) ?? false
+                        device.notes?.lowercased().contains(searchTerm) ?? false
             }
         }
 
@@ -162,5 +168,5 @@ class DeviceListDataSource: NSCopying  {
         self.onlineStatusOptions = source.onlineStatusOptions
         self.reloadData()
         NotificationCenter.default.post(name: .DeviceListFilteringChanged, object: self)
-    }
+}
 }

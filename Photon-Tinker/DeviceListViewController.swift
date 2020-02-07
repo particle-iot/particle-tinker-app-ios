@@ -423,7 +423,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DeviceListCell = self.tableView.dequeueReusableCell(withIdentifier: "deviceCell") as! DeviceListCell
         if (indexPath.row < self.dataSource.viewDevices.count) {
-            cell.setup(device: self.dataSource.viewDevices[indexPath.row])
+            cell.setup(device: self.dataSource.viewDevices[indexPath.row], searchTerm: self.dataSource.searchTerm)
         }
         return cell
     }
