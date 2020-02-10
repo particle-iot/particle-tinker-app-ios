@@ -26,7 +26,7 @@ class DeviceListDataSource: NSCopying  {
     }
 
     func setSearchTerm(_ searchTerm: String?) {
-        self.searchTerm = searchTerm
+        self.searchTerm = searchTerm?.lowercased()
         self.reloadData()
         NotificationCenter.default.post(name: .DeviceListFilteringChanged, object: self)
     }
@@ -55,7 +55,13 @@ class DeviceListDataSource: NSCopying  {
         if let searchTerm = searchTerm, searchTerm.count > 0 {
             NSLog("searchTerm = '\(searchTerm)'")
             self.viewDevices = self.viewDevices.filter { (device: ParticleDevice) -> Bool in
-                return device.getName().lowercased().contains(searchTerm)
+                return device.getName().lowercased().contains(searchTerm) ||
+                        device.id.lowercased().contains(searchTerm) ||
+                        device.imei?.lowercased().contains(searchTerm) ?? false ||
+                        device.serialNumber?.lowercased().contains(searchTerm) ?? false ||
+                        device.lastIccid?.lowercased().contains(searchTerm) ?? false ||
+                        device.lastIPAdress?.lowercased().contains(searchTerm) ?? false ||
+                        device.notes?.lowercased().contains(searchTerm) ?? false
             }
         }
 
@@ -88,36 +94,41 @@ class DeviceListDataSource: NSCopying  {
 
     private func sortDevices() {
         self.viewDevices.sort(by: { (firstDevice:ParticleDevice, secondDevice:ParticleDevice) -> Bool in
+            let nameA = firstDevice.name?.lowercased() ?? " "
+            let nameB = secondDevice.name?.lowercased() ?? " "
+
             switch self.sortOption {
                 case .onlineStatus:
                     if (firstDevice.connected != secondDevice.connected) {
                         return firstDevice.connected == true
+                    } else if isSearching() && (nameA.contains(searchTerm!) != nameB.contains(searchTerm!)) {
+                        return nameA.contains(searchTerm!)
                     } else {
-                        let nameA = firstDevice.name ?? " "
-                        let nameB = secondDevice.name ?? " "
                         return nameA.lowercased() < nameB.lowercased()
                     }
                 case .deviceType:
                     if (firstDevice.type != secondDevice.type) {
                         return firstDevice.type.description.lowercased() < secondDevice.type.description.lowercased()
+                    } else if isSearching() && (nameA.contains(searchTerm!) != nameB.contains(searchTerm!)) {
+                        return nameA.contains(searchTerm!)
                     } else {
-                        let nameA = firstDevice.name ?? " "
-                        let nameB = secondDevice.name ?? " "
                         return nameA.lowercased() < nameB.lowercased()
                     }
                 case .name:
-                    let nameA = firstDevice.name ?? " "
-                    let nameB = secondDevice.name ?? " "
-                    return nameA.lowercased() < nameB.lowercased()
+                    if isSearching() && (nameA.contains(searchTerm!) != nameB.contains(searchTerm!)) {
+                        return nameA.contains(searchTerm!)
+                    } else {
+                        return nameA.lowercased() < nameB.lowercased()
+                    }
                 case .lastHeard:
                     var dateA = firstDevice.lastHeard ?? Date.distantPast
                     var dateB = secondDevice.lastHeard ?? Date.distantPast
 
                     if (dateA != dateB) {
                         return dateA > dateB
+                    } else if isSearching() && (nameA.contains(searchTerm!) != nameB.contains(searchTerm!)) {
+                        return nameA.contains(searchTerm!)
                     } else {
-                        let nameA = firstDevice.name ?? " "
-                        let nameB = secondDevice.name ?? " "
                         return nameA.lowercased() < nameB.lowercased()
                     }
             }
@@ -162,5 +173,5 @@ class DeviceListDataSource: NSCopying  {
         self.onlineStatusOptions = source.onlineStatusOptions
         self.reloadData()
         NotificationCenter.default.post(name: .DeviceListFilteringChanged, object: self)
-    }
+}
 }

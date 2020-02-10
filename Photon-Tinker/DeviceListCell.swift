@@ -17,16 +17,83 @@ internal class DeviceListCell: UITableViewCell {
     private var device: ParticleDevice!
     var cellHighlight: UIView!
     
-    func setup(device: ParticleDevice) {
+    func setup(device: ParticleDevice, searchTerm: String? = nil) {
         self.device = device
 
-        DispatchQueue.main.async { [weak self] in
-            if let self = self {
-                self.nameLabel.text = device.getName()
-                self.typeLabel.setDeviceType(device.type)
-                self.lastHeardLabel.text = device.lastHeard?.tinkerFormattedString() ?? TinkerStrings.DeviceList.Unknown
+        if let searchTerm = searchTerm {
+            //if device is filtered by its name
+            if (device.getName().lowercased().contains(searchTerm)) {
+                DispatchQueue.main.async { [weak self] in
+                    if let self = self {
+                        let deviceName = device.getName()
+                        var attributedName = NSMutableAttributedString(string: deviceName)
+                        attributedName.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: (deviceName.lowercased() as NSString).range(of: searchTerm))
+                        self.nameLabel.attributedText = attributedName
 
-                ParticleUtils.animateOnlineIndicatorImageView(self.deviceStateImageView, online: device.connected, flashing: device.isFlashing)
+                        self.typeLabel.setDeviceType(device.type)
+                        self.lastHeardLabel.text = device.lastHeard?.tinkerFormattedString() ?? TinkerStrings.DeviceList.Unknown
+
+                        ParticleUtils.animateOnlineIndicatorImageView(self.deviceStateImageView, online: device.connected, flashing: device.isFlashing)
+                    }
+                }
+            } else { //if device is filtered by some other property
+                var title: String!
+                var value: String!
+
+                if device.lastIPAdress?.lowercased().contains(searchTerm) ?? false {
+                    title = TinkerStrings.InfoSlider.DeviceCell.LastIPAddress
+                    value = device.lastIPAdress!
+                }
+
+                if device.lastIccid?.lowercased().contains(searchTerm) ?? false {
+                    title = TinkerStrings.InfoSlider.DeviceCell.LastICCID
+                    value = device.lastIccid!
+                }
+
+                if device.serialNumber?.lowercased().contains(searchTerm) ?? false {
+                    title = TinkerStrings.InfoSlider.DeviceCell.Serial
+                    value = device.serialNumber!
+                }
+
+                if device.imei?.lowercased().contains(searchTerm) ?? false {
+                    title = TinkerStrings.InfoSlider.DeviceCell.IMEI
+                    value = device.imei!
+                }
+
+                if device.id.lowercased().contains(searchTerm) {
+                    title = TinkerStrings.InfoSlider.DeviceCell.DeviceId
+                    value = device.id
+                }
+
+                if device.notes?.lowercased().contains(searchTerm) ?? false {
+                    title = TinkerStrings.InfoSlider.Notes
+                    value = "...\(searchTerm)..."
+                }
+
+                DispatchQueue.main.async { [weak self] in
+                    if let self = self {
+                        self.nameLabel.text = device.getName()
+                        self.typeLabel.setDeviceType(device.type)
+
+                        let property = "\(title!): \(value!)"
+                        var attributedProperty = NSMutableAttributedString(string: property)
+                        attributedProperty.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: (property.lowercased() as NSString).range(of: searchTerm))
+                        self.lastHeardLabel.attributedText = attributedProperty
+
+                        ParticleUtils.animateOnlineIndicatorImageView(self.deviceStateImageView, online: device.connected, flashing: device.isFlashing)
+                    }
+                }
+            }
+        } else { //if device is shown without filter
+            DispatchQueue.main.async { [weak self] in
+                if let self = self {
+                    //using attributed string to clear possible search highlight
+                    self.nameLabel.attributedText = NSAttributedString(string: device.getName())
+                    self.typeLabel.setDeviceType(device.type)
+                    self.lastHeardLabel.attributedText = NSAttributedString(string: device.lastHeard?.tinkerFormattedString() ?? TinkerStrings.DeviceList.Unknown)
+
+                    ParticleUtils.animateOnlineIndicatorImageView(self.deviceStateImageView, online: device.connected, flashing: device.isFlashing)
+                }
             }
         }
     }
