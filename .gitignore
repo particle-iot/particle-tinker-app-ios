@@ -6,6 +6,8 @@
 **/TinkerStrings.swift
 **/MeshStrings.strings
 **/MeshStrings.swift
+**/Gen3SetupStrings.strings
+**/Gen3SetupStrings.swift
 
 ## Build generated
 build/
