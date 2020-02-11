@@ -48,67 +48,67 @@ enum MeshSetupControlPanelCellType {
     func getCellTitle(context: MeshSetupContext) -> String {
         switch self {
             case .name:
-                return MeshStrings.ControlPanel.Root.Name
+                return Gen3SetupStrings.ControlPanel.Root.Name
             case .notes:
-                return MeshStrings.ControlPanel.Root.Notes
+                return Gen3SetupStrings.ControlPanel.Root.Notes
             case .wifi:
-                return MeshStrings.ControlPanel.Root.Wifi
+                return Gen3SetupStrings.ControlPanel.Root.Wifi
             case .cellular:
-                return MeshStrings.ControlPanel.Root.Cellular
+                return Gen3SetupStrings.ControlPanel.Root.Cellular
             case .ethernet:
-                return MeshStrings.ControlPanel.Root.Ethernet
+                return Gen3SetupStrings.ControlPanel.Root.Ethernet
             case .mesh:
-                return MeshStrings.ControlPanel.Root.Mesh
+                return Gen3SetupStrings.ControlPanel.Root.Mesh
             case .documentation:
-                return MeshStrings.ControlPanel.Root.Documentation
+                return Gen3SetupStrings.ControlPanel.Root.Documentation
             case .unclaim:
-                return MeshStrings.ControlPanel.Root.UnclaimDevice
+                return Gen3SetupStrings.ControlPanel.Root.UnclaimDevice
 
             case .actionNewWifi:
-                return MeshStrings.ControlPanel.Wifi.AddNewWifi
+                return Gen3SetupStrings.ControlPanel.Wifi.AddNewWifi
             case .actionManageWifi:
-                return MeshStrings.ControlPanel.Wifi.ManageWifi
+                return Gen3SetupStrings.ControlPanel.Wifi.ManageWifi
 
             case .wifiInfoSSID:
-                return MeshStrings.ControlPanel.Wifi.SSID
+                return Gen3SetupStrings.ControlPanel.Wifi.SSID
             case .wifiInfoChannel:
-                return MeshStrings.ControlPanel.Wifi.Channel
+                return Gen3SetupStrings.ControlPanel.Wifi.Channel
             case .wifiInfoRSSI:
-                return MeshStrings.ControlPanel.Wifi.RSSI
+                return Gen3SetupStrings.ControlPanel.Wifi.RSSI
 
 
             case .actionChangeSimStatus:
-                return MeshStrings.ControlPanel.Cellular.ChangeSimStatus
+                return Gen3SetupStrings.ControlPanel.Cellular.ChangeSimStatus
             case .actionChangeDataLimit:
-                return MeshStrings.ControlPanel.Cellular.ChangeDataLimit
+                return Gen3SetupStrings.ControlPanel.Cellular.ChangeDataLimit
 
             case .actionChangePinsStatus:
-                return MeshStrings.ControlPanel.Ethernet.ChangePinsStatus
+                return Gen3SetupStrings.ControlPanel.Ethernet.ChangePinsStatus
 
 
             case .meshInfoNetworkName:
-                return MeshStrings.ControlPanel.Mesh.NetworkName
+                return Gen3SetupStrings.ControlPanel.Mesh.NetworkName
             case .meshInfoNetworkID:
-                return MeshStrings.ControlPanel.Mesh.NetworkID
+                return Gen3SetupStrings.ControlPanel.Mesh.NetworkID
             case .meshInfoNetworkExtPanID:
-                return MeshStrings.ControlPanel.Mesh.NetworkExtPanID
+                return Gen3SetupStrings.ControlPanel.Mesh.NetworkExtPanID
             case .meshInfoNetworkPanID:
-                return MeshStrings.ControlPanel.Mesh.NetworkPanID
+                return Gen3SetupStrings.ControlPanel.Mesh.NetworkPanID
             case .meshInfoNetworkChannel:
-                return MeshStrings.ControlPanel.Mesh.NetworkChannel
+                return Gen3SetupStrings.ControlPanel.Mesh.NetworkChannel
             case .meshInfoNetworkDeviceCount:
-                return MeshStrings.ControlPanel.Mesh.DeviceCount
+                return Gen3SetupStrings.ControlPanel.Mesh.DeviceCount
             case .meshInfoDeviceRole:
-                return MeshStrings.ControlPanel.Mesh.DeviceRole
+                return Gen3SetupStrings.ControlPanel.Mesh.DeviceRole
 
             case .actionLeaveMeshNetwork:
-                return MeshStrings.ControlPanel.Mesh.LeaveNetwork
+                return Gen3SetupStrings.ControlPanel.Mesh.LeaveNetwork
             case .actionAddToMeshNetwork:
-                return MeshStrings.ControlPanel.Mesh.AddToNetwork
+                return Gen3SetupStrings.ControlPanel.Mesh.AddToNetwork
             case .actionPromoteToGateway:
-                return MeshStrings.ControlPanel.Mesh.PromoteToGateway
+                return Gen3SetupStrings.ControlPanel.Mesh.PromoteToGateway
             case .actionDemoteFromGateway:
-                return MeshStrings.ControlPanel.Mesh.DemoteFromGateway
+                return Gen3SetupStrings.ControlPanel.Mesh.DemoteFromGateway
 
 }
     }
@@ -117,18 +117,18 @@ enum MeshSetupControlPanelCellType {
         switch self {
             case .actionChangeSimStatus:
                 if context.targetDevice.sim!.status! == .activate {
-                    return MeshStrings.ControlPanel.Cellular.Active
+                    return Gen3SetupStrings.ControlPanel.Cellular.Active
                 } else if (context.targetDevice.sim!.status! == .inactiveDataLimitReached) {
-                    return MeshStrings.ControlPanel.Cellular.Paused
+                    return Gen3SetupStrings.ControlPanel.Cellular.Paused
                 } else if (context.targetDevice.sim!.status! == .inactiveNeverActivated) {
-                    return MeshStrings.ControlPanel.Cellular.NeverActivated
+                    return Gen3SetupStrings.ControlPanel.Cellular.NeverActivated
                 } else {
-                    return MeshStrings.ControlPanel.Cellular.Inactive
+                    return Gen3SetupStrings.ControlPanel.Cellular.Inactive
                 }
             case .actionChangePinsStatus:
-                return context.targetDevice.ethernetDetectionFeature! ? MeshStrings.ControlPanel.Ethernet.Active : MeshStrings.ControlPanel.Ethernet.Inactive
+                return context.targetDevice.ethernetDetectionFeature! ? Gen3SetupStrings.ControlPanel.Ethernet.Active : Gen3SetupStrings.ControlPanel.Ethernet.Inactive
             case .actionChangeDataLimit:
-                return context.targetDevice.sim!.dataLimit! > -1 ? MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{dataLimit}}", with: String(context.targetDevice.sim!.dataLimit!)) : MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValueNone
+                return context.targetDevice.sim!.dataLimit! > -1 ? Gen3SetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{dataLimit}}", with: String(context.targetDevice.sim!.dataLimit!)) : Gen3SetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValueNone
             case .name:
                 return context.targetDevice.name
             case .notes:
@@ -138,7 +138,7 @@ enum MeshSetupControlPanelCellType {
                 if let _ = context.targetDevice.meshNetworkInfo {
                     return context.targetDevice.meshNetworkInfo!.name
                 } else {
-                    return MeshStrings.ControlPanel.Mesh.NoNetworkInfo
+                    return Gen3SetupStrings.ControlPanel.Mesh.NoNetworkInfo
                 }
             case .meshInfoNetworkID:
                 return context.targetDevice.meshNetworkInfo!.networkID
@@ -159,14 +159,14 @@ enum MeshSetupControlPanelCellType {
                 return nil
             case .meshInfoDeviceRole:
                 //BUG: fix a bug where this is called for device that has no network role
-                return (context.targetDevice.networkRole ?? .node) == .gateway ? MeshStrings.ControlPanel.Mesh.DeviceRoleGateway : MeshStrings.ControlPanel.Mesh.DeviceRoleNode
+                return (context.targetDevice.networkRole ?? .node) == .gateway ? Gen3SetupStrings.ControlPanel.Mesh.DeviceRoleGateway : Gen3SetupStrings.ControlPanel.Mesh.DeviceRoleNode
 
 
             case .wifiInfoSSID:
                 if let _ = context.targetDevice.wifiNetworkInfo {
                     return context.targetDevice.wifiNetworkInfo!.ssid
                 } else {
-                    return MeshStrings.ControlPanel.Wifi.NoNetworkInfo
+                    return Gen3SetupStrings.ControlPanel.Wifi.NoNetworkInfo
                 }
             case .wifiInfoChannel:
                 return String(context.targetDevice.wifiNetworkInfo!.channel)

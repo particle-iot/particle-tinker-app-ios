@@ -15,7 +15,7 @@ class MeshSetupControlPanelEthernetViewController : MeshSetupControlPanelRootVie
         }
     }
     override var customTitle: String {
-        return MeshStrings.ControlPanel.Ethernet.Title
+        return Gen3SetupStrings.ControlPanel.Ethernet.Title
     }
 
     override func prepareContent() {
@@ -38,7 +38,7 @@ class MeshSetupControlPanelEthernetViewController : MeshSetupControlPanelRootVie
     }
 
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return MeshStrings.ControlPanel.Ethernet.Footer
+        return Gen3SetupStrings.ControlPanel.Ethernet.Footer
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

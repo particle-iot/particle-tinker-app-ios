@@ -44,18 +44,18 @@ class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
     }
 
     override func setContent() {
-        successTitleLabel.text = MeshStrings.Success.SuccessTitle
-        successTextLabel.text = MeshStrings.Success.SuccessText
+        successTitleLabel.text = Gen3SetupStrings.Success.SuccessTitle
+        successTextLabel.text = Gen3SetupStrings.Success.SuccessText
 
         if (self.networkName != nil) {
-            continueLabel.text = MeshStrings.Success.SetupAnotherLabel
+            continueLabel.text = Gen3SetupStrings.Success.SetupAnotherLabel
         } else {
             continueLabel.text = ""
         }
-        continueButton.setTitle(MeshStrings.Success.SetupAnotherButton, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.Success.SetupAnotherButton, for: .normal)
 
-        doneLabel.text = MeshStrings.Success.DoneLabel
-        doneButton.setTitle(MeshStrings.Success.DoneButton, for: .normal)
+        doneLabel.text = Gen3SetupStrings.Success.DoneLabel
+        doneButton.setTitle(Gen3SetupStrings.Success.DoneButton, for: .normal)
     }
 
     @IBAction func setupAnotherButtonTapped(_ sender: Any) {

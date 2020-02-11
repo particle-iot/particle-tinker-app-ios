@@ -14,15 +14,15 @@ class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboard
     }
 
     override func setContent() {
-        titleLabel.text = MeshStrings.JoinerInfo.Title
+        titleLabel.text = Gen3SetupStrings.JoinerInfo.Title
 
         self.textLabelValues = [
-            MeshStrings.JoinerInfo.Text1,
-            MeshStrings.JoinerInfo.Text2,
-            MeshStrings.JoinerInfo.Text3
+            Gen3SetupStrings.JoinerInfo.Text1,
+            Gen3SetupStrings.JoinerInfo.Text2,
+            Gen3SetupStrings.JoinerInfo.Text3
         ]
 
-        continueButton.setTitle(MeshStrings.JoinerInfo.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.JoinerInfo.Button, for: .normal)
 
         setLabelValues()
     }
@@ -59,26 +59,26 @@ class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboa
     }
 
     private func showGatewayStandAloneContent() {
-        titleLabel.text = MeshStrings.GatewayInfoCellularStandalone.Title
+        titleLabel.text = Gen3SetupStrings.GatewayInfoCellularStandalone.Title
 
         self.textLabelValues = [
-            MeshStrings.GatewayInfoCellularStandalone.Text1,
-            simActive ? MeshStrings.GatewayInfoCellularStandalone.Text2 : MeshStrings.GatewayInfoCellularStandalone.Text2Activate
+            Gen3SetupStrings.GatewayInfoCellularStandalone.Text1,
+            simActive ? Gen3SetupStrings.GatewayInfoCellularStandalone.Text2 : Gen3SetupStrings.GatewayInfoCellularStandalone.Text2Activate
         ]
 
-        continueButton.setTitle(simActive ? MeshStrings.GatewayInfoCellularStandalone.Button : MeshStrings.GatewayInfoCellularStandalone.ButtonActivate, for: .normal)
+        continueButton.setTitle(simActive ? Gen3SetupStrings.GatewayInfoCellularStandalone.Button : Gen3SetupStrings.GatewayInfoCellularStandalone.ButtonActivate, for: .normal)
     }
 
     private func showGatewayMeshContent() {
-        titleLabel.text = MeshStrings.GatewayInfoCellularMesh.Title
+        titleLabel.text = Gen3SetupStrings.GatewayInfoCellularMesh.Title
 
         self.textLabelValues = [
-            MeshStrings.GatewayInfoCellularMesh.Text1,
-            simActive ? MeshStrings.GatewayInfoCellularMesh.Text2 : MeshStrings.GatewayInfoCellularMesh.Text2Activate,
-            MeshStrings.GatewayInfoCellularMesh.Text3
+            Gen3SetupStrings.GatewayInfoCellularMesh.Text1,
+            simActive ? Gen3SetupStrings.GatewayInfoCellularMesh.Text2 : Gen3SetupStrings.GatewayInfoCellularMesh.Text2Activate,
+            Gen3SetupStrings.GatewayInfoCellularMesh.Text3
         ]
 
-        continueButton.setTitle(simActive ? MeshStrings.GatewayInfoCellularMesh.Button : MeshStrings.GatewayInfoCellularMesh.ButtonActivate, for: .normal)
+        continueButton.setTitle(simActive ? Gen3SetupStrings.GatewayInfoCellularMesh.Button : Gen3SetupStrings.GatewayInfoCellularMesh.ButtonActivate, for: .normal)
     }
 }
 
@@ -101,26 +101,26 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
     }
 
     private func showGatewayStandAloneContent() {
-        titleLabel.text = MeshStrings.GatewayInfoEthernetStandalone.Title
+        titleLabel.text = Gen3SetupStrings.GatewayInfoEthernetStandalone.Title
 
         self.textLabelValues = [
-            MeshStrings.GatewayInfoEthernetStandalone.Text1,
-            MeshStrings.GatewayInfoEthernetStandalone.Text2
+            Gen3SetupStrings.GatewayInfoEthernetStandalone.Text1,
+            Gen3SetupStrings.GatewayInfoEthernetStandalone.Text2
         ]
 
-        continueButton.setTitle(MeshStrings.GatewayInfoEthernetStandalone.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.GatewayInfoEthernetStandalone.Button, for: .normal)
     }
 
     private func showGatewayMeshContent() {
-        titleLabel.text = MeshStrings.GatewayInfoEthernetMesh.Title
+        titleLabel.text = Gen3SetupStrings.GatewayInfoEthernetMesh.Title
 
         self.textLabelValues = [
-            MeshStrings.GatewayInfoEthernetMesh.Text1,
-            MeshStrings.GatewayInfoEthernetMesh.Text2,
-            MeshStrings.GatewayInfoEthernetMesh.Text3
+            Gen3SetupStrings.GatewayInfoEthernetMesh.Text1,
+            Gen3SetupStrings.GatewayInfoEthernetMesh.Text2,
+            Gen3SetupStrings.GatewayInfoEthernetMesh.Text3
         ]
 
-        continueButton.setTitle(MeshStrings.GatewayInfoEthernetMesh.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.GatewayInfoEthernetMesh.Button, for: .normal)
     }
 }
 
@@ -145,25 +145,25 @@ class MeshSetupInfoWifiViewController: MeshSetupInfoViewController, Storyboardab
     }
 
     private func showGatewayStandAloneContent() {
-        titleLabel.text = MeshStrings.GatewayInfoWifiStandalone.Title
+        titleLabel.text = Gen3SetupStrings.GatewayInfoWifiStandalone.Title
 
         self.textLabelValues = [
-            MeshStrings.GatewayInfoWifiStandalone.Text1,
-            MeshStrings.GatewayInfoWifiStandalone.Text2
+            Gen3SetupStrings.GatewayInfoWifiStandalone.Text1,
+            Gen3SetupStrings.GatewayInfoWifiStandalone.Text2
         ]
 
-        continueButton.setTitle(MeshStrings.GatewayInfoWifiStandalone.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.GatewayInfoWifiStandalone.Button, for: .normal)
     }
 
     private func showGatewayMeshContent() {
-        titleLabel.text = MeshStrings.GatewayInfoWifiMesh.Title
+        titleLabel.text = Gen3SetupStrings.GatewayInfoWifiMesh.Title
 
         self.textLabelValues = [
-            MeshStrings.GatewayInfoWifiMesh.Text1,
-            MeshStrings.GatewayInfoWifiMesh.Text2,
-            MeshStrings.GatewayInfoWifiMesh.Text3
+            Gen3SetupStrings.GatewayInfoWifiMesh.Text1,
+            Gen3SetupStrings.GatewayInfoWifiMesh.Text2,
+            Gen3SetupStrings.GatewayInfoWifiMesh.Text3
         ]
 
-        continueButton.setTitle(MeshStrings.GatewayInfoWifiMesh.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.GatewayInfoWifiMesh.Button, for: .normal)
     }
 }

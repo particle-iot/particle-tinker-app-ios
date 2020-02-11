@@ -15,7 +15,7 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
         }
     }
     override var customTitle: String {
-        return MeshStrings.ControlPanel.Cellular.Title
+        return Gen3SetupStrings.ControlPanel.Cellular.Title
     }
 
     override func prepareContent() {
@@ -36,7 +36,7 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             case 0:
-                return MeshStrings.ControlPanel.Cellular.CellularDataTitle
+                return Gen3SetupStrings.ControlPanel.Cellular.CellularDataTitle
             default:
                 return ""
         }
@@ -47,13 +47,13 @@ class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootVie
             case 1:
                 switch (context.targetDevice.sim!.status!) {
                     case .activate:
-                       return MeshStrings.ControlPanel.Cellular.SimActiveDescription
+                       return Gen3SetupStrings.ControlPanel.Cellular.SimActiveDescription
                     case .inactiveDataLimitReached:
-                        return MeshStrings.ControlPanel.Cellular.SimPausedDescription
+                        return Gen3SetupStrings.ControlPanel.Cellular.SimPausedDescription
                     case .inactiveNeverActivated:
-                        return MeshStrings.ControlPanel.Cellular.SimNeverActivatedDescription
+                        return Gen3SetupStrings.ControlPanel.Cellular.SimNeverActivatedDescription
                     default:
-                        return MeshStrings.ControlPanel.Cellular.SimDeactivatedDescription
+                        return Gen3SetupStrings.ControlPanel.Cellular.SimDeactivatedDescription
                 }
             default:
                 return ""

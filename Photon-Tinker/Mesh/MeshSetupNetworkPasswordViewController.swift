@@ -20,11 +20,11 @@ class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, 
     }
 
     override func setContent() {
-        titleLabel.text = MeshStrings.ExistingNetworkPassword.Title
-        inputTitleLabel.text = MeshStrings.ExistingNetworkPassword.InputTitle
-        noteTitleLabel.text = MeshStrings.ExistingNetworkPassword.NoteTitle
-        noteTextLabel.text = MeshStrings.ExistingNetworkPassword.NoteText
-        continueButton.setTitle(MeshStrings.ExistingNetworkPassword.Button, for: .normal)
+        titleLabel.text = Gen3SetupStrings.ExistingNetworkPassword.Title
+        inputTitleLabel.text = Gen3SetupStrings.ExistingNetworkPassword.InputTitle
+        noteTitleLabel.text = Gen3SetupStrings.ExistingNetworkPassword.NoteTitle
+        noteTextLabel.text = Gen3SetupStrings.ExistingNetworkPassword.NoteText
+        continueButton.setTitle(Gen3SetupStrings.ExistingNetworkPassword.Button, for: .normal)
     }
 
     override func setStyle() {

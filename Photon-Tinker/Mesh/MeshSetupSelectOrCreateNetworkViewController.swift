@@ -22,8 +22,8 @@ class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewCo
     }
 
     override func setContent() {
-        titleLabel.text = MeshStrings.CreateOrSelectNetwork.Title
-        createNetworkButton.setTitle(MeshStrings.CreateOrSelectNetwork.CreateNetwork, for: .normal)
+        titleLabel.text = Gen3SetupStrings.CreateOrSelectNetwork.Title
+        createNetworkButton.setTitle(Gen3SetupStrings.CreateOrSelectNetwork.CreateNetwork, for: .normal)
     }
 
     @IBAction func createNetworkButtonTapped(_ sender: Any) {

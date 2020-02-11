@@ -25,7 +25,7 @@ class MeshSetupControlPanelDocumentationViewController: MeshSetupViewController,
     }
 
     override var customTitle: String {
-        return MeshStrings.ControlPanel.Documentation.Title
+        return Gen3SetupStrings.ControlPanel.Documentation.Title
     }
 
     func setup(_ device: ParticleDevice!) {

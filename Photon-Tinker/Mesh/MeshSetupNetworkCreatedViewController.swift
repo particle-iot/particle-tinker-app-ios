@@ -12,13 +12,13 @@ class MeshSetupNetworkCreatedViewController: MeshSetupSuccessViewController {
 //    }
 
     override func setContent() {
-        successTitleLabel.text = MeshStrings.NetworkCreated.SuccessTitle
-        successTextLabel.text = MeshStrings.NetworkCreated.SuccessText
+        successTitleLabel.text = Gen3SetupStrings.NetworkCreated.SuccessTitle
+        successTextLabel.text = Gen3SetupStrings.NetworkCreated.SuccessText
 
-        continueLabel.text = MeshStrings.NetworkCreated.ContinueSetupLabel
-        continueButton.setTitle(MeshStrings.NetworkCreated.ContinueSetupButton, for: .normal)
+        continueLabel.text = Gen3SetupStrings.NetworkCreated.ContinueSetupLabel
+        continueButton.setTitle(Gen3SetupStrings.NetworkCreated.ContinueSetupButton, for: .normal)
 
-        doneLabel.text = MeshStrings.NetworkCreated.DoneLabel
-        doneButton.setTitle(MeshStrings.NetworkCreated.DoneButton, for: .normal)
+        doneLabel.text = Gen3SetupStrings.NetworkCreated.DoneLabel
+        doneButton.setTitle(Gen3SetupStrings.NetworkCreated.DoneButton, for: .normal)
     }
 }

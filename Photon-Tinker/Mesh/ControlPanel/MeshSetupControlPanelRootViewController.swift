@@ -31,7 +31,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
 
     override var customTitle: String {
-        return MeshStrings.ControlPanel.Root.Title
+        return Gen3SetupStrings.ControlPanel.Root.Title
     }
 
     override func setStyle() {

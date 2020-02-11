@@ -27,10 +27,10 @@ class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardabl
     }
 
     override func setContent() {
-        titleLabel.text = MeshStrings.FindSticker.Title
-        textLabel.text = MeshStrings.FindSticker.Text
+        titleLabel.text = Gen3SetupStrings.FindSticker.Title
+        textLabel.text = Gen3SetupStrings.FindSticker.Text
 
-        continueButton.setTitle(MeshStrings.FindSticker.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.FindSticker.Button, for: .normal)
     }
 
     @IBAction func scanButtonTapped(_ sender: Any) {

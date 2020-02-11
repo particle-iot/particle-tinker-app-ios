@@ -142,13 +142,13 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func showMatrixNetworkError(onRetry: @escaping () -> ()) {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.CancelSetup, style: .cancel) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.CancelSetup, style: .cancel) { action in
                     self.cancelTapped(self)
                 })
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Retry, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Retry, style: .default) { action in
                     onRetry()
                 })
 
@@ -161,11 +161,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         //show error where selected device type mismatch
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle,
                         message: targetDevice ? MeshSetupFlowError.WrongTargetDeviceType.description : MeshSetupFlowError.WrongCommissionerDeviceType.description,
                         preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
                     self.restartCaptureSession()
                 })
 
@@ -177,13 +177,13 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func showFailedMatrixRecoveryError(dataMatrix: MeshSetupDataMatrix) {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.StickerError.description, preferredStyle: .alert)
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.StickerError.description, preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .cancel) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .cancel) { action in
                     self.restartCaptureSession()
                 })
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.ContactSupport, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.ContactSupport, style: .default) { action in
                     self.openEmailClient(dataMatrix: dataMatrix)
                     self.restartCaptureSession()
                 })
@@ -717,9 +717,9 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             if let flowError = flowRunner.setCommissionerDeviceInfo(dataMatrix: dataMatrix) {
                 DispatchQueue.main.async {
                     if (self.hideAlertIfVisible()) {
-                        self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: flowError.description, preferredStyle: .alert)
+                        self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: flowError.description, preferredStyle: .alert)
 
-                        self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
+                        self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
                             self.restartCaptureSession()
                         })
 
@@ -1058,21 +1058,21 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             }
 
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: message, preferredStyle: .alert)
 
                 if (severity == .Fatal) {
-                    self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
+                    self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
                         if let callback = self.callback {
                             callback(MeshSetupFlowResult.error, nil)
                         }
                         self.terminate()
                     })
                 } else {
-                    self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Retry, style: .default) { action in
+                    self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Retry, style: .default) { action in
                         self.flowRunner.retryLastAction()
                     })
 
-                    self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Cancel, style: .cancel) { action in
+                    self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Cancel, style: .cancel) { action in
                         self.cancelTapped(self)
                     })
                 }
@@ -1124,16 +1124,16 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         } else {
             DispatchQueue.main.async {
                 if (self.hideAlertIfVisible()) {
-                    self.alert = UIAlertController(title: MeshStrings.Prompt.CancelSetupTitle, message: MeshStrings.Prompt.CancelSetupText, preferredStyle: .alert)
+                    self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.CancelSetupTitle, message: Gen3SetupStrings.Prompt.CancelSetupText, preferredStyle: .alert)
 
-                    self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.CancelSetup, style: .default) { action in
+                    self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.CancelSetup, style: .default) { action in
                         if let callback = self.callback {
                             callback(MeshSetupFlowResult.canceled, nil)
                         }
                         self.terminate()
                     })
 
-                    self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.ContinueSetup, style: .cancel) { action in
+                    self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.ContinueSetup, style: .cancel) { action in
                         //do nothing
                     })
 

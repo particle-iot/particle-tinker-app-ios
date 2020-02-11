@@ -14,7 +14,7 @@ class MeshSetupControlPanelInfoDeactivateSimViewController : MeshSetupViewContro
     @IBOutlet weak var noteLabel: ParticleLabel!
 
     override var customTitle: String {
-        return MeshStrings.ControlPanel.Cellular.DeactivateSim.Title
+        return Gen3SetupStrings.ControlPanel.Cellular.DeactivateSim.Title
     }
 
     override var allowBack: Bool {
@@ -53,10 +53,10 @@ class MeshSetupControlPanelInfoDeactivateSimViewController : MeshSetupViewContro
     }
 
     override func setContent() {
-        titleLabel.text = MeshStrings.ControlPanel.Cellular.DeactivateSim.TextTitle
-        textLabel.text = MeshStrings.ControlPanel.Cellular.DeactivateSim.Text.replacingOccurrences(of: "{{iccid}}", with: context.targetDevice.sim!.iccidEnding()!)
-        noteLabel.text = MeshStrings.ControlPanel.Cellular.DeactivateSim.Note
-        continueButton.setTitle(MeshStrings.ControlPanel.Cellular.DeactivateSim.ContinueButton, for: .normal)
+        titleLabel.text = Gen3SetupStrings.ControlPanel.Cellular.DeactivateSim.TextTitle
+        textLabel.text = Gen3SetupStrings.ControlPanel.Cellular.DeactivateSim.Text.replacingOccurrences(of: "{{iccid}}", with: context.targetDevice.sim!.iccidEnding()!)
+        noteLabel.text = Gen3SetupStrings.ControlPanel.Cellular.DeactivateSim.Note
+        continueButton.setTitle(Gen3SetupStrings.ControlPanel.Cellular.DeactivateSim.ContinueButton, for: .normal)
     }
 
     @IBAction func continueButtonClicked(_ sender: Any) {

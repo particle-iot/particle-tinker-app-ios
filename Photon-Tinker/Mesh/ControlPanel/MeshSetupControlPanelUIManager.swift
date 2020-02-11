@@ -164,15 +164,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     internal func showNetworkError(error: NSError) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
+            let alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle,
                     message: error.localizedDescription,
                     preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshStrings.Action.Cancel, style: .cancel) { action in
+            alert.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Cancel, style: .cancel) { action in
                 (self.embededNavigationController.topViewController! as! Fadeable).resume(animated: true)
             })
 
-            alert.addAction(UIAlertAction(title: MeshStrings.Action.Retry, style: .default) { action in
+            alert.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Retry, style: .default) { action in
                 self.unclaim()
             })
 
@@ -524,11 +524,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     internal func showExternalSim() {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
-                        message: MeshStrings.Prompt.ControlPanelExternalSimNotSupportedText,
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle,
+                        message: Gen3SetupStrings.Prompt.ControlPanelExternalSimNotSupportedText,
                         preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
                     (self.embededNavigationController.topViewController as? MeshSetupViewController)?.resume(animated: true)
                 })
 
@@ -540,11 +540,11 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     internal func showMeshNotSupported() {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle,
-                        message: MeshStrings.Prompt.ControlPanelMeshNotSupportedText,
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle,
+                        message: Gen3SetupStrings.Prompt.ControlPanelMeshNotSupportedText,
                         preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
                     (self.embededNavigationController.topViewController as? MeshSetupViewController)?.resume(animated: true)
                 })
 

@@ -1402,7 +1402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/Gen3SetupStrings.json\" \"Photon-Tinker/Base.lproj/Gen3SetupStrings.strings\" \"Photon-Tinker/Mesh/Gen3SetupStrings.swift\" \"meshLocalized()\"\n";
+			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/Gen3SetupStrings.json\" \"Photon-Tinker/Base.lproj/Gen3SetupStrings.strings\" \"Photon-Tinker/Mesh/Gen3SetupStrings.swift\" \"gen3SetupLocalized()\"\n";
 		};
 		939DB13623184393001B4667 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

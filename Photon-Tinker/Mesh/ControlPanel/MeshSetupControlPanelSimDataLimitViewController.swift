@@ -22,7 +22,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     }
 
     override var customTitle: String {
-        return MeshStrings.ControlPanel.Cellular.DataLimit.Title
+        return Gen3SetupStrings.ControlPanel.Cellular.DataLimit.Title
     }
 
     internal var cellValues = [
@@ -57,9 +57,9 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     }
 
     override func setContent() {
-        textLabel.text = MeshStrings.ControlPanel.Cellular.DataLimit.Text
-        noteLabel.text = MeshStrings.ControlPanel.Cellular.DataLimit.Note
-        continueButton.setTitle(MeshStrings.ControlPanel.Cellular.DataLimit.ContinueButton, for: .normal)
+        textLabel.text = Gen3SetupStrings.ControlPanel.Cellular.DataLimit.Text
+        noteLabel.text = Gen3SetupStrings.ControlPanel.Cellular.DataLimit.Note
+        continueButton.setTitle(Gen3SetupStrings.ControlPanel.Cellular.DataLimit.ContinueButton, for: .normal)
 
         continueButton.isEnabled = false
     }
@@ -87,7 +87,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
         }
 
         let limit = cellValues[indexPath.row]
-        cell.cellTitleLabel.text =  MeshStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{dataLimit}}", with: String(limit))
+        cell.cellTitleLabel.text =  Gen3SetupStrings.ControlPanel.Cellular.DataLimit.DataLimitValue.replacingOccurrences(of: "{{dataLimit}}", with: String(limit))
 
         return cell
     }

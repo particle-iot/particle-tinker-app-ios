@@ -15,7 +15,7 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
     }
 
     override func setContent() {
-        titleLabel.text = MeshStrings.SelectWifiNetwork.Title
+        titleLabel.text = Gen3SetupStrings.SelectWifiNetwork.Title
     }
 
     func setNetworks(networks: [MeshSetupNewWifiNetworkInfo]) {

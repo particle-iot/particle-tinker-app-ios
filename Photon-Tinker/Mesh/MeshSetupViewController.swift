@@ -94,7 +94,7 @@ class MeshSetupViewController: UIViewController, Fadeable {
     }
 
     func replacePlaceHolderStrings() {
-        view.replaceMeshSetupStrings(deviceType: self.deviceType?.description, networkName: networkName, deviceName: deviceName)
+        view.replaceGen3SetupStrings(deviceType: self.deviceType?.description, networkName: networkName, deviceName: deviceName)
     }
 
     func resume(animated: Bool) {

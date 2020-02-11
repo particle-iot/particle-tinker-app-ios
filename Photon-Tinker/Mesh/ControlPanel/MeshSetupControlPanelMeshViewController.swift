@@ -17,7 +17,7 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
         }
     }
     override var customTitle: String {
-        return MeshStrings.ControlPanel.Mesh.Title
+        return Gen3SetupStrings.ControlPanel.Mesh.Title
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,10 +64,10 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             case 0:
-                return MeshStrings.ControlPanel.Mesh.NetworkInfo
+                return Gen3SetupStrings.ControlPanel.Mesh.NetworkInfo
             case 1:
                 if (self.context.targetDevice.meshNetworkInfo != nil) {
-                    return MeshStrings.ControlPanel.Mesh.DeviceInfo
+                    return Gen3SetupStrings.ControlPanel.Mesh.DeviceInfo
                 } else {
                     return ""
                 }
@@ -87,13 +87,13 @@ class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewCon
         let command = cells[indexPath.section][indexPath.row]
 
         if (command == .actionLeaveMeshNetwork) {
-            let alert = UIAlertController(title: MeshStrings.ControlPanel.Prompt.LeaveNetworkTitle, message: MeshStrings.ControlPanel.Prompt.LeaveNetworkText, preferredStyle: .alert)
+            let alert = UIAlertController(title: Gen3SetupStrings.ControlPanel.Prompt.LeaveNetworkTitle, message: Gen3SetupStrings.ControlPanel.Prompt.LeaveNetworkText, preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Action.LeaveNetwork, style: .default) { action in
+            alert.addAction(UIAlertAction(title: Gen3SetupStrings.ControlPanel.Action.LeaveNetwork, style: .default) { action in
                 super.tableView(tableView, didSelectRowAt: indexPath)
             })
 
-            alert.addAction(UIAlertAction(title: MeshStrings.ControlPanel.Action.DontLeaveNetwork, style: .cancel) { action in
+            alert.addAction(UIAlertAction(title: Gen3SetupStrings.ControlPanel.Action.DontLeaveNetwork, style: .cancel) { action in
 
             })
 

@@ -47,28 +47,28 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
     override func setContent() {
         switch action! {
             case .actionChangeDataLimit:
-                self.successTitleLabel.text = MeshStrings.ControlPanel.FlowComplete.ChangeDataLimit.Title
-                self.successTextLabel.text = MeshStrings.ControlPanel.FlowComplete.ChangeDataLimit.Text
+                self.successTitleLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ChangeDataLimit.Title
+                self.successTextLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ChangeDataLimit.Text
             case .actionNewWifi:
-                self.successTitleLabel.text = MeshStrings.ControlPanel.FlowComplete.AddNewWifi.Title
-                self.successTextLabel.text = MeshStrings.ControlPanel.FlowComplete.AddNewWifi.Text
+                self.successTitleLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.AddNewWifi.Title
+                self.successTextLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.AddNewWifi.Text
             case .actionChangePinsStatus:
-                self.successTitleLabel.text = MeshStrings.ControlPanel.FlowComplete.ToggleEthernet.Title
+                self.successTitleLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ToggleEthernet.Title
                 if (context.targetDevice.enableEthernetDetectionFeature!) {
-                    self.successTextLabel.text = MeshStrings.ControlPanel.FlowComplete.ToggleEthernet.ActivateText
+                    self.successTextLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ToggleEthernet.ActivateText
                 } else {
-                    self.successTextLabel.text = MeshStrings.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText
+                    self.successTextLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ToggleEthernet.DeactivateText
                 }
             case .actionChangeSimStatus:
-                self.successTitleLabel.text = MeshStrings.ControlPanel.FlowComplete.ToggleSim.Title
+                self.successTitleLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ToggleSim.Title
                 if (context.targetDevice.setSimActive!) {
-                    self.successTextLabel.text = MeshStrings.ControlPanel.FlowComplete.ToggleSim.ActivateText
+                    self.successTextLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ToggleSim.ActivateText
                 } else {
-                    self.successTextLabel.text = MeshStrings.ControlPanel.FlowComplete.ToggleSim.DeactivateText
+                    self.successTextLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.ToggleSim.DeactivateText
                 }
             case .actionLeaveMeshNetwork:
-                self.successTitleLabel.text = MeshStrings.ControlPanel.FlowComplete.LeaveMeshNetwork.Title
-                self.successTextLabel.text = MeshStrings.ControlPanel.FlowComplete.LeaveMeshNetwork.Text
+                self.successTitleLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.LeaveMeshNetwork.Title
+                self.successTextLabel.text = Gen3SetupStrings.ControlPanel.FlowComplete.LeaveMeshNetwork.Text
             default:
                 break
         }

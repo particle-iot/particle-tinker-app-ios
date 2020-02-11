@@ -21,9 +21,9 @@ class MeshSetupWifiNetworkPasswordViewController: MeshSetupTextInputViewControll
     override func setContent() {
         self.noteView.isHidden = true
 
-        titleLabel.text = MeshStrings.WifiNetworkPassword.Title
-        inputTitleLabel.text = MeshStrings.WifiNetworkPassword.InputTitle
-        continueButton.setTitle(MeshStrings.WifiNetworkPassword.Button, for: .normal)
+        titleLabel.text = Gen3SetupStrings.WifiNetworkPassword.Title
+        inputTitleLabel.text = Gen3SetupStrings.WifiNetworkPassword.InputTitle
+        continueButton.setTitle(Gen3SetupStrings.WifiNetworkPassword.Button, for: .normal)
     }
 
     override func setStyle() {

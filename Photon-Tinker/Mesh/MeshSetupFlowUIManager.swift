@@ -108,9 +108,9 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
         if let error = flowRunner.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!) {
             DispatchQueue.main.async {
                 if (self.hideAlertIfVisible()) {
-                    self.alert = UIAlertController(title: MeshStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
+                    self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: error.description, preferredStyle: .alert)
 
-                    self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.Ok, style: .default) { action in
+                    self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
                         self.showTargetScanStickerView()
                     })
 
@@ -136,13 +136,13 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
 
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.LeaveNetworkTitle, message: MeshStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.LeaveNetworkTitle, message: Gen3SetupStrings.Prompt.LeaveNetworkText, preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.LeaveNetwork, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.LeaveNetwork, style: .default) { action in
                     self.flowRunner.setTargetDeviceLeaveNetwork(leave: true)
                 })
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.DontLeaveNetwork, style: .cancel) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.DontLeaveNetwork, style: .cancel) { action in
                     self.flowRunner.setTargetDeviceLeaveNetwork(leave: false)
                 })
 
@@ -160,9 +160,9 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
         //TODO: drop commissioner connection
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: MeshStrings.Prompt.SwitchToControlPanelTitle, message: MeshStrings.Prompt.SwitchToControlPanelText, preferredStyle: .alert)
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.SwitchToControlPanelTitle, message: Gen3SetupStrings.Prompt.SwitchToControlPanelText, preferredStyle: .alert)
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.SwitchToControlPanel, style: .default) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.SwitchToControlPanel, style: .default) { action in
                     let vc = MeshSetupControlPanelUIManager.loadedViewController()
                     vc.setDevice(device, context: self.flowRunner.context)
                     self.dismiss(animated: true) {
@@ -172,7 +172,7 @@ class MeshSetupFlowUIManager : MeshSetupUIBase {
                     }
                 })
 
-                self.alert!.addAction(UIAlertAction(title: MeshStrings.Action.DontSwitchToControlPanel, style: .cancel) { action in
+                self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.DontSwitchToControlPanel, style: .cancel) { action in
                     self.flowRunner.setSwitchToControlPanel(switchToCP: false)
                 })
 

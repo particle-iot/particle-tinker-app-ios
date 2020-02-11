@@ -128,21 +128,21 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     override func setContent() {
         setDefaultContent()
 
-        continueButton.setTitle(MeshStrings.GetReady.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.GetReady.Button, for: .normal)
 
-        ethernetToggleTitle?.text = self.isSOM ? MeshStrings.GetReady.SOMEthernetToggleTitle : MeshStrings.GetReady.EthernetToggleTitle
-        ethernetToggleText?.text = self.isSOM ? MeshStrings.GetReady.SOMEthernetToggleText : MeshStrings.GetReady.EthernetToggleText
+        ethernetToggleTitle?.text = self.isSOM ? Gen3SetupStrings.GetReady.SOMEthernetToggleTitle : Gen3SetupStrings.GetReady.EthernetToggleTitle
+        ethernetToggleText?.text = self.isSOM ? Gen3SetupStrings.GetReady.SOMEthernetToggleText : Gen3SetupStrings.GetReady.EthernetToggleText
 
         switch (self.deviceType ?? .xenon) {
             case .argon:
                 initializeVideoPlayerWithVideo(videoFileName: "argon_power_on")
 
-                checkboxLabel?.text = MeshStrings.GetReady.WifiCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
             case .aSeries:
                 initializeVideoPlayerWithVideo(videoFileName: "b_power_on") //a_power_on
 
-                checkboxLabel?.text = MeshStrings.GetReady.SOMWifiCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.SOMWifiCheckboxText
                 checkboxView?.isHidden = false
             case .boron:
                 if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
@@ -151,7 +151,7 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                     initializeVideoPlayerWithVideo(videoFileName: "boron_power_on")
                 }
 
-                checkboxLabel?.text = MeshStrings.GetReady.CellularCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.CellularCheckboxText
                 checkboxView?.isHidden = false
             case .bSeries, .b5SoM:
                 if (ParticleDeviceType.requiresBattery(serialNumber: dataMatrix!.serialNumber)) {
@@ -160,12 +160,12 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
                     initializeVideoPlayerWithVideo(videoFileName: "b_power_on")
                 }
 
-                checkboxLabel?.text = MeshStrings.GetReady.SOMCellularCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.SOMCellularCheckboxText
                 checkboxView?.isHidden = false
             case .xSeries:
                 initializeVideoPlayerWithVideo(videoFileName: "b_power_on") //x_power_on
 
-                checkboxLabel?.text = MeshStrings.GetReady.SOMBluetoothCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.SOMBluetoothCheckboxText
                 checkboxView?.isHidden = false
             default: //.xenon
                 initializeVideoPlayerWithVideo(videoFileName: "xenon_power_on")
@@ -199,25 +199,25 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private func setDefaultContent() {
-        titleLabel.text = self.isSOM ? MeshStrings.GetReady.SOMTitle : MeshStrings.GetReady.Title
+        titleLabel.text = self.isSOM ? Gen3SetupStrings.GetReady.SOMTitle : Gen3SetupStrings.GetReady.Title
 
         replacePlaceHolderStrings()
 
         switch (self.deviceType ?? .xenon) {
             case .argon:
-                checkboxLabel?.text = MeshStrings.GetReady.WifiCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.WifiCheckboxText
                 checkboxView?.isHidden = false
             case .aSeries:
-                checkboxLabel?.text = MeshStrings.GetReady.SOMWifiCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.SOMWifiCheckboxText
                 checkboxView?.isHidden = false
             case .boron:
-                checkboxLabel?.text = MeshStrings.GetReady.CellularCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.CellularCheckboxText
                 checkboxView?.isHidden = false
             case .bSeries:
-                checkboxLabel?.text = MeshStrings.GetReady.SOMCellularCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.SOMCellularCheckboxText
                 checkboxView?.isHidden = false
             case .xSeries:
-                checkboxLabel?.text = MeshStrings.GetReady.SOMBluetoothCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.SOMBluetoothCheckboxText
                 checkboxView?.isHidden = false
             default: //.xenon
                 checkboxView?.isHidden = true
@@ -225,13 +225,13 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private func setEthernetContent() {
-        titleLabel.text = self.isSOM ? MeshStrings.GetReady.SOMEthernetTitle : MeshStrings.GetReady.EthernetTitle
+        titleLabel.text = self.isSOM ? Gen3SetupStrings.GetReady.SOMEthernetTitle : Gen3SetupStrings.GetReady.EthernetTitle
 
         replacePlaceHolderStrings()
 
         switch (self.deviceType ?? .xenon) {
             case .aSeries, .bSeries, .xSeries:
-                checkboxLabel?.text = MeshStrings.GetReady.SOMBluetoothCheckboxText
+                checkboxLabel?.text = Gen3SetupStrings.GetReady.SOMBluetoothCheckboxText
                 checkboxView?.isHidden = false
             default:
                 checkboxView?.isHidden = true

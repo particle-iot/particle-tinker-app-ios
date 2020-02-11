@@ -21,15 +21,15 @@ class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Story
     }
 
     override func setContent() {
-        titleLabel.text = MeshStrings.DeviceName.Title
-        inputTitleLabel.text = MeshStrings.DeviceName.InputTitle
-        noteTitleLabel.text = MeshStrings.DeviceName.NoteTitle
-        noteTextLabel.text = MeshStrings.DeviceName.NoteText
+        titleLabel.text = Gen3SetupStrings.DeviceName.Title
+        inputTitleLabel.text = Gen3SetupStrings.DeviceName.InputTitle
+        noteTitleLabel.text = Gen3SetupStrings.DeviceName.NoteTitle
+        noteTextLabel.text = Gen3SetupStrings.DeviceName.NoteText
 
-        inputTextField.text = currentName ?? MeshStrings.getRandomDeviceName()
+        inputTextField.text = currentName ?? Gen3SetupStrings.getRandomDeviceName()
         continueButton.isEnabled = validateInput()
 
-        continueButton.setTitle(MeshStrings.DeviceName.Button, for: .normal)
+        continueButton.setTitle(Gen3SetupStrings.DeviceName.Button, for: .normal)
     }
 
     override func setStyle() {

@@ -13,14 +13,14 @@ class MeshSetupConnectingToInternetEthernetViewController: MeshSetupProgressView
     }
 
     override func setContent() {
-        successTitleLabel.text = MeshStrings.ConnectingToInternetEthernet.SuccessTitle
-        successTextLabel.text = MeshStrings.ConnectingToInternetEthernet.SuccessText
+        successTitleLabel.text = Gen3SetupStrings.ConnectingToInternetEthernet.SuccessTitle
+        successTextLabel.text = Gen3SetupStrings.ConnectingToInternetEthernet.SuccessText
 
-        progressTitleLabel.text = MeshStrings.ConnectingToInternetEthernet.Title
+        progressTitleLabel.text = Gen3SetupStrings.ConnectingToInternetEthernet.Title
 
         self.progressTextLabelValues = [
-            MeshStrings.ConnectingToInternetEthernet.Text1,
-            MeshStrings.ConnectingToInternetEthernet.Text2
+            Gen3SetupStrings.ConnectingToInternetEthernet.Text1,
+            Gen3SetupStrings.ConnectingToInternetEthernet.Text2
         ]
 
         setProgressLabelValues()
@@ -51,14 +51,14 @@ class MeshSetupConnectingToInternetWifiViewController: MeshSetupProgressViewCont
     }
 
     override func setContent() {
-        successTitleLabel.text = MeshStrings.ConnectingToInternetWifi.SuccessTitle
-        successTextLabel.text = MeshStrings.ConnectingToInternetWifi.SuccessText
+        successTitleLabel.text = Gen3SetupStrings.ConnectingToInternetWifi.SuccessTitle
+        successTextLabel.text = Gen3SetupStrings.ConnectingToInternetWifi.SuccessText
 
-        progressTitleLabel.text = MeshStrings.ConnectingToInternetWifi.Title
+        progressTitleLabel.text = Gen3SetupStrings.ConnectingToInternetWifi.Title
 
         self.progressTextLabelValues = [
-            MeshStrings.ConnectingToInternetWifi.Text1,
-            MeshStrings.ConnectingToInternetWifi.Text2
+            Gen3SetupStrings.ConnectingToInternetWifi.Text1,
+            Gen3SetupStrings.ConnectingToInternetWifi.Text2
         ]
 
         setProgressLabelValues()
@@ -87,15 +87,15 @@ class MeshSetupConnectingToInternetCellularViewController: MeshSetupProgressView
     }
 
     override func setContent() {
-        successTitleLabel.text = MeshStrings.ConnectingToInternetCellular.SuccessTitle
-        successTextLabel.text = MeshStrings.ConnectingToInternetCellular.SuccessText
+        successTitleLabel.text = Gen3SetupStrings.ConnectingToInternetCellular.SuccessTitle
+        successTextLabel.text = Gen3SetupStrings.ConnectingToInternetCellular.SuccessText
 
-        progressTitleLabel.text = MeshStrings.ConnectingToInternetCellular.Title
+        progressTitleLabel.text = Gen3SetupStrings.ConnectingToInternetCellular.Title
 
         self.progressTextLabelValues = [
-            MeshStrings.ConnectingToInternetCellular.Text1,
-            MeshStrings.ConnectingToInternetCellular.Text2,
-            MeshStrings.ConnectingToInternetCellular.Text3
+            Gen3SetupStrings.ConnectingToInternetCellular.Text1,
+            Gen3SetupStrings.ConnectingToInternetCellular.Text2,
+            Gen3SetupStrings.ConnectingToInternetCellular.Text3
         ]
 
         setProgressLabelValues()

@@ -12,15 +12,15 @@ class MeshSetupJoiningNetworkViewController: MeshSetupProgressViewController, St
     }
 
     override func setContent() {
-        successTitleLabel.text = MeshStrings.JoiningNetwork.SuccessTitle
-        successTextLabel.text = MeshStrings.JoiningNetwork.SuccessText
+        successTitleLabel.text = Gen3SetupStrings.JoiningNetwork.SuccessTitle
+        successTextLabel.text = Gen3SetupStrings.JoiningNetwork.SuccessText
 
-        progressTitleLabel.text = MeshStrings.JoiningNetwork.Title
+        progressTitleLabel.text = Gen3SetupStrings.JoiningNetwork.Title
 
         self.progressTextLabelValues = [
-            MeshStrings.JoiningNetwork.Text1,
-            MeshStrings.JoiningNetwork.Text2,
-            MeshStrings.JoiningNetwork.Text3
+            Gen3SetupStrings.JoiningNetwork.Text1,
+            Gen3SetupStrings.JoiningNetwork.Text2,
+            Gen3SetupStrings.JoiningNetwork.Text3
         ]
 
         setProgressLabelValues()
