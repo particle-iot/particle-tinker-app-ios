@@ -143,7 +143,7 @@ extension ParticleDeviceType : CustomStringConvertible {
             case .aSeries: return "Argon"
             case .bSeries: return "Boron"
             case .xSeries: return "Xenon"
-            case .b5SoM: return "B5SoM"
+            case .b5SoM: return "Boron"
             default: return ""
         }
     }
