@@ -35,7 +35,7 @@ typealias MeshSetupFlowCallback = (MeshSetupFlowResult, [AnyObject]?) -> ()
 class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
     static var storyboardName: String {
-        return "MeshSetup"
+        return "Gen3Setup"
     }
 
     @IBOutlet weak var backButton: UIButton!
