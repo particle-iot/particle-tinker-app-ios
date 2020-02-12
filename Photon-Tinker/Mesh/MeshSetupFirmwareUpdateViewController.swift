@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupFirmwareUpdateViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupFirmwareUpdateViewController: Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var videoView: UIView!

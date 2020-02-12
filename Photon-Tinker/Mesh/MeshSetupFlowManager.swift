@@ -6,9 +6,9 @@
 import Foundation
 
 
-class MeshSetupFlowManager : MeshSetupFlowRunner {
+class Gen3SetupFlowManager : Gen3SetupFlowRunner {
 
-    fileprivate let preflow:[MeshSetupStep] = [
+    fileprivate let preflow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepEnsureCorrectEthernetFeatureStatus(),
@@ -21,7 +21,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepEnsureNotOnMeshNetwork(),
     ]
 
-    fileprivate let joinerFlow: [MeshSetupStep] = [
+    fileprivate let joinerFlow: [Gen3SetupStep] = [
         StepShowInfo(.joinerFlow),
         StepGetUserNetworkSelection(),
         StepGetCommissionerDeviceInfo(),
@@ -38,13 +38,13 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
     ]
 
     //runs before ethernet/wifi/cellular flows
-    fileprivate let internetConnectedPreflow: [MeshSetupStep] = [
+    fileprivate let internetConnectedPreflow: [Gen3SetupStep] = [
         StepOfferSetupStandAloneOrWithNetwork(),
         StepOfferSelectOrCreateNetwork()
     ]
 
 
-    fileprivate let ethernetFlow: [MeshSetupStep] = [
+    fileprivate let ethernetFlow: [Gen3SetupStep] = [
         StepShowPricingImpact(),
         StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
@@ -52,7 +52,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepPublishDeviceSetupDoneEvent()
     ]
 
-    fileprivate let wifiFlow: [MeshSetupStep] = [
+    fileprivate let wifiFlow: [Gen3SetupStep] = [
         StepShowPricingImpact(),
         StepShowInfo(.creatorFlow),
         StepGetUserWifiNetworkSelection(),
@@ -62,7 +62,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         StepPublishDeviceSetupDoneEvent()
     ]
 
-    fileprivate let cellularFlow: [MeshSetupStep] = [
+    fileprivate let cellularFlow: [Gen3SetupStep] = [
         StepShowPricingImpact(),
         StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
@@ -71,7 +71,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
     ]
 
     //runs post ethernet/wifi/cellular flows
-    fileprivate let networkCreatorPostflow: [MeshSetupStep] = [
+    fileprivate let networkCreatorPostflow: [Gen3SetupStep] = [
         StepGetNewDeviceName(),
         StepGetNewNetworkName(),
         StepGetNewNetworkPassword(),
@@ -82,14 +82,14 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
     ]
 
     //runs post ethernet/wifi/cellular flows
-    fileprivate let standalonePostflow: [MeshSetupStep] = [
+    fileprivate let standalonePostflow: [Gen3SetupStep] = [
         StepGetNewDeviceName(),
         StepOfferToAddOneMoreDevice()
     ]
 
     //entry to the flow
     func startSetup() {
-        context.targetDevice = MeshSetupDevice()
+        context.targetDevice = Gen3SetupDevice()
         currentFlow = preflow
         currentStepIdx = 0
 
@@ -97,7 +97,7 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
     }
 
     //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
-    override internal func rewindTo(step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupFlowError? {
+    override internal func rewindTo(step: Gen3SetupStep.Type, runStep: Bool = true) -> Gen3SetupFlowError? {
         currentStep!.rewindFrom()
 
         if (currentStepIdx == 0) {
@@ -182,13 +182,13 @@ class MeshSetupFlowManager : MeshSetupFlowRunner {
         self.currentStepIdx = 0
     }
 
-    override func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError? {
+    override func setAddOneMoreDevice(addOneMoreDevice: Bool) -> Gen3SetupFlowError? {
         guard type(of: currentStep!) == StepOfferToAddOneMoreDevice.self else {
             return .IllegalOperation
         }
 
         if (addOneMoreDevice) {
-            self.context.targetDevice = MeshSetupDevice()
+            self.context.targetDevice = Gen3SetupDevice()
             self.currentStepIdx = 0
             self.currentFlow = preflow
             self.runCurrentStep()

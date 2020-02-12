@@ -18,7 +18,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupCreateNetworkNameViewController" customModule="Particle" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupCreateNetworkNameViewController" customModule="Particle" customModuleProvider="target">
             <connections>
                 <outlet property="buttonBottomConstraint" destination="wi6-4J-LAB" id="3f1-3d-kVf"/>
                 <outlet property="continueButton" destination="h56-E2-XgC" id="Cyp-We-ErH"/>

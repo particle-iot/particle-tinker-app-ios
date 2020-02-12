@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepExitListeningMode : MeshSetupStep {
+class StepExitListeningMode : Gen3SetupStep {
     private var attemptedToExitListeningMode: Bool = false
 
     override func reset() {

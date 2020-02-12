@@ -18,7 +18,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupSuccessViewController" customModule="Particle" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupSetupSuccessViewController" customModule="Particle" customModuleProvider="target">
             <connections>
                 <outlet property="continueButton" destination="13a-XW-hyP" id="cgZ-Uz-B9w"/>
                 <outlet property="continueLabel" destination="BWy-dL-Get" id="9a6-ck-Ds9"/>
@@ -61,7 +61,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PA6-Aj-DKL" userLabel="SuccessView">
                     <rect key="frame" x="30" y="216" width="315" height="118"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="XjN-cB-amI">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gen3SetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="XjN-cB-amI">
                             <rect key="frame" x="125.5" y="0.0" width="64" height="64"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="64" id="KVn-NB-Sg3"/>
@@ -151,6 +151,6 @@
         </view>
     </objects>
     <resources>
-        <image name="MeshSetupCompleteIcon" width="70" height="70"/>
+        <image name="Gen3SetupCompleteIcon" width="70" height="70"/>
     </resources>
 </document>

@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupScanCommissionerStickerViewController: MeshSetupScanStickerViewController {
+class Gen3SetupScanCommissionerStickerViewController: Gen3SetupScanStickerViewController {
 
 //    static var nibName: String {
-//        return "MeshSetupScanStickerView"
+//        return "Gen3SetupScanStickerView"
 //    }
 
     override func setContent() {

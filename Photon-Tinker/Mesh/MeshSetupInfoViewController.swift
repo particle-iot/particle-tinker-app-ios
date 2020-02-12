@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupInfoViewController: MeshSetupViewController {
+class Gen3SetupInfoViewController: Gen3SetupViewController {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
 

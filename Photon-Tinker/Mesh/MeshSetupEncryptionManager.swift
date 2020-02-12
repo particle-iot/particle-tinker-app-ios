@@ -6,7 +6,7 @@
 import Foundation
 import mbedTLSWrapper
 
-class MeshSetupEncryptionManager: NSObject {
+class Gen3SetupEncryptionManager: NSObject {
 
     private var cipher:AesCcmWrapper
 

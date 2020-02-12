@@ -5,14 +5,14 @@
 
 import Foundation
 
-class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
+class StepEnsureCorrectEthernetFeatureStatus: Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return
         }
 
         if context.targetDevice.enableEthernetDetectionFeature == nil {
-            context.delegate.meshSetupDidRequestToSelectEthernetStatus(self)
+            context.delegate.gen3SetupDidRequestToSelectEthernetStatus(self)
         } else if context.targetDevice.ethernetDetectionFeature == nil {
             self.getFeatureFlag()
         } else if (context.targetDevice.enableEthernetDetectionFeature != context.targetDevice.ethernetDetectionFeature) {
@@ -22,7 +22,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
         }
     }
 
-    func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError? {
+    func setTargetUseEthernet(useEthernet: Bool) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -84,7 +84,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {
@@ -129,7 +129,7 @@ class StepEnsureCorrectEthernetFeatureStatus: MeshSetupStep {
         }
     }
 
-    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         guard let context = self.context else {
             return false
         }

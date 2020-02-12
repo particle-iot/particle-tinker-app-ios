@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureGotClaimed: MeshSetupStep {
+class StepEnsureGotClaimed: Gen3SetupStep {
     private var checkTargetDeviceGotConnectedStartTime: Date?
     private var checkTargetDeviceGotClaimedStartTime: Date?
     private var isConnected: Bool = false
@@ -23,9 +23,9 @@ class StepEnsureGotClaimed: MeshSetupStep {
         } else {
             self.log("device was successfully claimed")
             if (context.targetDevice.hasActiveInternetInterface()) {
-                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetCompleted)
+                context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceConnectingToInternetCompleted)
             } else {
-                context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkCompleted)
+                context.delegate.gen3SetupDidEnterState(self, state: .JoiningNetworkCompleted)
             }
             self.stepCompleted()
         }
@@ -49,7 +49,7 @@ class StepEnsureGotClaimed: MeshSetupStep {
         }
 
         let diff = Date().timeIntervalSince(self.checkTargetDeviceGotConnectedStartTime!)
-        if (diff > MeshSetup.deviceConnectToCloudTimeout) {
+        if (diff > Gen3Setup.deviceConnectToCloudTimeout) {
             self.checkTargetDeviceGotConnectedStartTime = nil
             self.fail(withReason: .DeviceConnectToCloudTimeout)
             return
@@ -66,7 +66,7 @@ class StepEnsureGotClaimed: MeshSetupStep {
                 self.log("status: \(status as Optional)")
                 if (status! == .connected) {
                     self.log("device connected to the cloud")
-                    context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep1Done)
+                    context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep1Done)
                     self.isConnected = true
                 } else {
                     self.log("device did NOT connect yet")
@@ -97,7 +97,7 @@ class StepEnsureGotClaimed: MeshSetupStep {
         }
 
         let diff = Date().timeIntervalSince(self.checkTargetDeviceGotClaimedStartTime!)
-        if (diff > MeshSetup.deviceGettingClaimedTimeout) {
+        if (diff > Gen3Setup.deviceGettingClaimedTimeout) {
             self.checkTargetDeviceGotClaimedStartTime = nil
             self.fail(withReason: .DeviceGettingClaimedTimeout)
             return

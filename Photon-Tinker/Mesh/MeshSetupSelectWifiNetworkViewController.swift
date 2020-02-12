@@ -5,12 +5,12 @@
 
 import UIKit
 
-class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewController {
+class Gen3SetupSelectWifiNetworkViewController: Gen3SetupNetworkListViewController {
 
-    private var networks:[MeshSetupNewWifiNetworkInfo]?
-    private var callback: ((MeshSetupNewWifiNetworkInfo) -> ())!
+    private var networks:[Gen3SetupNewWifiNetworkInfo]?
+    private var callback: ((Gen3SetupNewWifiNetworkInfo) -> ())!
 
-    func setup(didSelectNetwork: @escaping (MeshSetupNewWifiNetworkInfo) -> ()) {
+    func setup(didSelectNetwork: @escaping (Gen3SetupNewWifiNetworkInfo) -> ()) {
         self.callback = didSelectNetwork
     }
 
@@ -18,7 +18,7 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
         titleLabel.text = Gen3SetupStrings.SelectWifiNetwork.Title
     }
 
-    func setNetworks(networks: [MeshSetupNewWifiNetworkInfo]) {
+    func setNetworks(networks: [Gen3SetupNewWifiNetworkInfo]) {
         var networks = networks
 
         for i in (0 ..< networks.count).reversed() {
@@ -51,24 +51,24 @@ class MeshSetupSelectWifiNetworkViewController: MeshSetupNetworkListViewControll
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupWifiNetworkCell") as! MeshCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupWifiNetworkCell") as! Gen3Cell
 
         cell.cellTitleLabel.text = networks![indexPath.row].ssid
         cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
 
 
         if (networks![indexPath.row].rssi > -56) {
-            cell.cellAccessoryImageView.image = UIImage.init(named: "MeshSetupWifiStrongIcon")
+            cell.cellAccessoryImageView.image = UIImage.init(named: "Gen3SetupWifiStrongIcon")
         } else if (networks![indexPath.row].rssi > -71) {
-            cell.cellAccessoryImageView.image = UIImage.init(named: "MeshSetupWifiMediumIcon")
+            cell.cellAccessoryImageView.image = UIImage.init(named: "Gen3SetupWifiMediumIcon")
         } else {
-            cell.cellAccessoryImageView.image = UIImage.init(named: "MeshSetupWifiWeakIcon")
+            cell.cellAccessoryImageView.image = UIImage.init(named: "Gen3SetupWifiWeakIcon")
         }
 
         if networks![indexPath.row].security == .noSecurity {
             cell.cellSecondaryAccessoryImageView.image = nil
         } else {
-            cell.cellSecondaryAccessoryImageView.image = UIImage.init(named: "MeshSetupWifiProtectedIcon")
+            cell.cellSecondaryAccessoryImageView.image = UIImage.init(named: "Gen3SetupWifiProtectedIcon")
         }
         cell.cellSecondaryAccessoryImageView.isHidden = (cell.cellSecondaryAccessoryImageView.image == nil)
 

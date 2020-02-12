@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupSelectOrCreateNetworkViewController: MeshSetupSelectNetworkViewController {
+class Gen3SetupSelectOrCreateNetworkViewController: Gen3SetupSelectNetworkViewController {
 
     override class var nibName: String {
-        return "MeshSetupNetworkListWithCreateView"
+        return "Gen3SetupNetworkListWithCreateView"
     }
 
     @IBOutlet weak var createNetworkButton: ParticleAlternativeButton!

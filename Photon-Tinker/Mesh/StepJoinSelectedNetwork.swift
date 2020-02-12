@@ -5,12 +5,12 @@
 
 import Foundation
 
-class StepJoinSelectedNetwork : MeshSetupStep {
+class StepJoinSelectedNetwork : Gen3SetupStep {
 
     private var joinerPrepared: Bool = false
     private var joinerAdded: Bool = false
     private var networkJoined: Bool = false
-    private var failureReason: MeshSetupFlowError? = nil
+    private var failureReason: Gen3SetupFlowError? = nil
 
 
     override func start() {
@@ -46,7 +46,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStarted)
+        context.delegate.gen3SetupDidEnterState(self, state: .JoiningNetworkStarted)
 
         /// NOT_ALLOWED: The client is not authenticated
         context.commissionerDevice!.transceiver?.sendStartCommissioner { [weak self, weak context] result in
@@ -98,7 +98,7 @@ class StepJoinSelectedNetwork : MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStep1Done)
+        context.delegate.gen3SetupDidEnterState(self, state: .JoiningNetworkStep1Done)
 
         /// NO_MEMORY: No memory available to add the joiner
         /// INVALID_STATE: The commissioner role is not started

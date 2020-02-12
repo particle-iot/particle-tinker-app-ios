@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepCheckHasNetworkInterfaces: MeshSetupStep {
+class StepCheckHasNetworkInterfaces: Gen3SetupStep {
 
     private var simStatusReceived: Bool = false
     private var forceSimStatus: Bool = false
@@ -85,7 +85,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
 
                 if let interface = context.targetDevice.activeInternetInterface {
                     if (interface == .ppp || self.forceSimStatus) {
-                        context.targetDevice.sim = MeshSetupSim()
+                        context.targetDevice.sim = Gen3SetupSim()
                     } else {
                         context.targetDevice.sim = nil
                     }
@@ -212,7 +212,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {
@@ -282,7 +282,7 @@ class StepCheckHasNetworkInterfaces: MeshSetupStep {
 //        }
 //    }
 //
-//    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+//    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: Gen3SetupBluetoothConnection) -> Bool {
 //        guard let context = self.context else {
 //            return false
 //        }

@@ -20,7 +20,7 @@ class InteractivePopGestureRecognizerDelegateHelper: NSObject, UIGestureRecogniz
         guard self.isEnabled else { return false }
 
         if (navigationController.viewControllers.count > self.minViewControllers) {
-            if let vc = navigationController.viewControllers.last as? MeshSetupViewController {
+            if let vc = navigationController.viewControllers.last as? Gen3SetupViewController {
                 return vc.allowBack && !vc.isBusy
             } else {
                 return true

@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupControlPanelManageWifiViewController" customModule="Particle" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupControlPanelManageWifiViewController" customModule="Particle" customModuleProvider="target">
             <connections>
                 <outlet property="networksTableView" destination="I1I-rv-4FC" id="MGe-vu-5Hv"/>
                 <outlet property="titleLabel" destination="8L3-wl-7yJ" id="FI7-1g-8hZ"/>

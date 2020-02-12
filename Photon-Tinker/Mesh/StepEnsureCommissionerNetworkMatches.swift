@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
+class StepEnsureCommissionerNetworkMatches : Gen3SetupStep {
     private var expectingConnectionDrop: Bool = false
 
     override func start() {
@@ -61,7 +61,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
         }
     }
 
-    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         //this is expected
         return expectingConnectionDrop
     }
@@ -72,7 +72,7 @@ class StepEnsureCommissionerNetworkMatches : MeshSetupStep {
         self.expectingConnectionDrop = false
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

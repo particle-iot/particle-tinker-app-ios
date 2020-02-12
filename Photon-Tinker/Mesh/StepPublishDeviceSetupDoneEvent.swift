@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepPublishDeviceSetupDoneEvent : MeshSetupStep {
+class StepPublishDeviceSetupDoneEvent : Gen3SetupStep {
     //MARK: PublishDeviceSetupDoneEvent
     override func start() {
         guard let context = self.context else {

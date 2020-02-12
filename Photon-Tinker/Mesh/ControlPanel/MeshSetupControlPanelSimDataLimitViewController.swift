@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRootViewController {
+class Gen3SetupControlPanelSimDataLimitViewController : Gen3SetupControlPanelRootViewController {
 
     @IBOutlet weak var textLabel: ParticleLabel!
     @IBOutlet weak var continueButton: ParticleButton!
@@ -65,7 +65,7 @@ class MeshSetupControlPanelSimDataLimitViewController : MeshSetupControlPanelRoo
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:MeshCell! = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
+        var cell:Gen3Cell! = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3Cell
 
         if (!self.disableValuesSmallerThanCurrent) {
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)

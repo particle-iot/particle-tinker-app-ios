@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupStandAloneOrMeshSetupViewController : MeshSetupViewController, Storyboardable {
+class Gen3SetupStandAloneOrMeshSetupViewController : Gen3SetupViewController, Storyboardable {
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var textLabel: ParticleLabel!
 

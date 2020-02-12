@@ -5,12 +5,12 @@
 
 import UIKit
 
-class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
+class Gen3SetupSelectNetworkViewController: Gen3SetupNetworkListViewController {
 
-    internal var networks:[MeshSetupNetworkCellInfo]?
-    internal var callback: ((MeshSetupNetworkCellInfo?) -> ())!
+    internal var networks:[Gen3SetupNetworkCellInfo]?
+    internal var callback: ((Gen3SetupNetworkCellInfo?) -> ())!
 
-    func setup(didSelectNetwork: @escaping (MeshSetupNetworkCellInfo?) -> ()) {
+    func setup(didSelectNetwork: @escaping (Gen3SetupNetworkCellInfo?) -> ()) {
         self.callback = didSelectNetwork
     }
 
@@ -18,7 +18,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
         titleLabel.text = Gen3SetupStrings.SelectNetwork.Title
     }
 
-    func setNetworks(networks: [MeshSetupNetworkCellInfo]) {
+    func setNetworks(networks: [Gen3SetupNetworkCellInfo]) {
         var networks = networks
         networks.sort { info, info2 in
             return info.name.localizedCaseInsensitiveCompare(info2.name) == .orderedAscending
@@ -44,10 +44,10 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:MeshCell! = nil
+        var cell:Gen3Cell! = nil
         let network = networks![indexPath.row]
         if (network.userOwned) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupSubtitleCell") as! Gen3Cell
 
             var devicesString = (network.deviceCount! == 1) ? Gen3SetupStrings.SelectNetwork.DevicesSingular : Gen3SetupStrings.SelectNetwork.DevicesPlural
             devicesString = devicesString.replacingOccurrences(of: "{{count}}", with: String(network.deviceCount!))
@@ -55,7 +55,7 @@ class MeshSetupSelectNetworkViewController: MeshSetupNetworkListViewController {
             cell.cellSubtitleLabel.text = devicesString
             cell.cellSubtitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3Cell
         }
 
         cell.cellTitleLabel.text = network.name

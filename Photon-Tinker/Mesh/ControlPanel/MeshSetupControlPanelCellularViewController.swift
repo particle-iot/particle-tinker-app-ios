@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelCellularViewController : MeshSetupControlPanelRootViewController {
+class Gen3SetupControlPanelCellularViewController : Gen3SetupControlPanelRootViewController {
     override var allowBack: Bool {
         get {
             return true

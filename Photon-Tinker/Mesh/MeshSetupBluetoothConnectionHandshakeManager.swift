@@ -6,9 +6,9 @@
 import Foundation
 import mbedTLSWrapper
 
-protocol MeshSetupBluetoothConnectionHandshakeManagerDelegate {
-    func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HandshakeManagerError, severity: MeshSetupErrorSeverity)
-    func handshakeDidSucceed(sender: MeshSetupBluetoothConnectionHandshakeManager, derivedSecret: Data)
+protocol Gen3SetupBluetoothConnectionHandshakeManagerDelegate {
+    func handshakeDidFail(sender: Gen3SetupBluetoothConnectionHandshakeManager, error: HandshakeManagerError, severity: Gen3SetupErrorSeverity)
+    func handshakeDidSucceed(sender: Gen3SetupBluetoothConnectionHandshakeManager, derivedSecret: Data)
 }
 
 enum HandshakeManagerError: Error, CustomStringConvertible {
@@ -48,11 +48,11 @@ enum HandshakeState: Int {
     case failed
 }
 
-class MeshSetupBluetoothConnectionHandshakeManager {
-    var delegate: MeshSetupBluetoothConnectionHandshakeManagerDelegate?
+class Gen3SetupBluetoothConnectionHandshakeManager {
+    var delegate: Gen3SetupBluetoothConnectionHandshakeManagerDelegate?
     var handshakeState: HandshakeState = .notStarted
 
-    private var connection:MeshSetupBluetoothConnection
+    private var connection:Gen3SetupBluetoothConnection
     private var mobileSecret:String?
 
     private var rxBuffer: Data
@@ -61,7 +61,7 @@ class MeshSetupBluetoothConnectionHandshakeManager {
     private var ecJPakeWrapper: ECJPakeWrapper!
     private var derivedSecret: Data?
 
-    required init(connection: MeshSetupBluetoothConnection, mobileSecret: String) {
+    required init(connection: Gen3SetupBluetoothConnection, mobileSecret: String) {
         self.mobileSecret = mobileSecret
         self.connection = connection
 

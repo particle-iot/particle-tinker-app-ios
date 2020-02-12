@@ -5,12 +5,12 @@
 
 import Foundation
 
-enum MeshSetupErrorSeverity {
+enum Gen3SetupErrorSeverity {
     case Error //can't continue at this point, but retrying might help
     case Fatal //can't continue and flow has to be restarted
 }
 
-enum MeshSetupFlowError: Error, CustomStringConvertible {
+enum Gen3SetupFlowError: Error, CustomStringConvertible {
     //trying to perform action at the wrong time
     case IllegalOperation
 

@@ -6,15 +6,15 @@
 import UIKit
 import CoreBluetooth
 
-class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupControlPanelFlowCompleteViewController: Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var successView: UIView!
     @IBOutlet weak var successTitleLabel: ParticleLabel!
     @IBOutlet weak var successTextLabel: ParticleLabel!
 
 
-    internal private(set) weak var context: MeshSetupContext!
-    internal private(set) var action: MeshSetupControlPanelCellType!
+    internal private(set) weak var context: Gen3SetupContext!
+    internal private(set) var action: Gen3SetupControlPanelCellType!
     internal private(set) var callback: (() -> ())!
 
     override var allowBack: Bool {
@@ -26,7 +26,7 @@ class MeshSetupControlPanelFlowCompleteViewController: MeshSetupViewController, 
         }
     }
 
-    func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType?, deviceName: String, action: MeshSetupControlPanelCellType, context: MeshSetupContext) {
+    func setup(didFinishScreen: @escaping () -> (), deviceType: ParticleDeviceType?, deviceName: String, action: Gen3SetupControlPanelCellType, context: Gen3SetupContext) {
         self.callback = didFinishScreen
         self.deviceType = deviceType
         self.deviceName = deviceName

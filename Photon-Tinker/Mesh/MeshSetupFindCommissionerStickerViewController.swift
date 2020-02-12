@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupFindCommissionerStickerViewController: MeshSetupFindStickerViewController {
+class Gen3SetupFindCommissionerStickerViewController: Gen3SetupFindStickerViewController {
 
     @IBOutlet weak var noteTitleLabel: ParticleLabel!
     @IBOutlet weak var noteTextLabel: ParticleLabel!

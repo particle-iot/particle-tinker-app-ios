@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupNameDeviceViewController: MeshSetupTextInputViewController, Storyboardable {
+class Gen3SetupNameDeviceViewController: Gen3SetupTextInputViewController, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupTextInputView"
+        return "Gen3SetupTextInputView"
     }
 
     internal var callback: ((String) -> ())!

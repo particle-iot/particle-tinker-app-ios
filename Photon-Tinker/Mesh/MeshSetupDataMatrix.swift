@@ -19,7 +19,7 @@ enum DataMatrixError: Error, CustomStringConvertible {
     }
 }
 
-internal class MeshSetupDataMatrix {
+internal class Gen3SetupDataMatrix {
     fileprivate(set) public var serialNumber: String
     fileprivate(set) public var mobileSecret: String
     fileprivate(set) public var type: ParticleDeviceType?
@@ -56,15 +56,15 @@ internal class MeshSetupDataMatrix {
         return mobileSecret.count == 15
     }
 
-    static func getMatrix(fromString matrixString: String, onComplete:@escaping (MeshSetupDataMatrix?, DataMatrixError?) -> ()) {
-        if let matrix = MeshSetupDataMatrix(dataMatrixString: matrixString) {
+    static func getMatrix(fromString matrixString: String, onComplete:@escaping (Gen3SetupDataMatrix?, DataMatrixError?) -> ()) {
+        if let matrix = Gen3SetupDataMatrix(dataMatrixString: matrixString) {
             getPlatformId(matrix: matrix, onComplete: onComplete)
         } else {
             onComplete(nil, .InvalidMatrix)
         }
     }
 
-    fileprivate static func getPlatformId(matrix: MeshSetupDataMatrix, onComplete: @escaping (MeshSetupDataMatrix?, DataMatrixError?) -> ()) {
+    fileprivate static func getPlatformId(matrix: Gen3SetupDataMatrix, onComplete: @escaping (Gen3SetupDataMatrix?, DataMatrixError?) -> ()) {
         ParticleCloud.sharedInstance().getPlatformId(matrix.serialNumber) { platformId, error in
             if let platformId = platformId, let type = ParticleDeviceType(rawValue: Int(platformId)) {
                 matrix.type = type
@@ -81,7 +81,7 @@ internal class MeshSetupDataMatrix {
         }
     }
 
-    fileprivate static func recoverMobileSecret(matrix: MeshSetupDataMatrix, onComplete: @escaping (MeshSetupDataMatrix?, DataMatrixError?) -> ()) {
+    fileprivate static func recoverMobileSecret(matrix: Gen3SetupDataMatrix, onComplete: @escaping (Gen3SetupDataMatrix?, DataMatrixError?) -> ()) {
         ParticleCloud.sharedInstance().getRecoveryMobileSecret(matrix.serialNumber, mobileSecret: matrix.mobileSecret) { mobileSecret, error in
             if let mobileSecret = mobileSecret {
                 matrix.mobileSecret = mobileSecret

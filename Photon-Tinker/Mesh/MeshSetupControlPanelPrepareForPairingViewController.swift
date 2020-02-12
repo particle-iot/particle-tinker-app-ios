@@ -8,7 +8,7 @@ import AVFoundation
 import AVKit
 
 
-class MeshSetupControlPanelPrepareForPairingViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupControlPanelPrepareForPairingViewController: Gen3SetupViewController, Storyboardable {
 
     internal var videoPlayer: AVPlayer?
     internal var layer: AVPlayerLayer?

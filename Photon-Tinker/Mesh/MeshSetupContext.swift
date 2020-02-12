@@ -5,20 +5,20 @@
 
 import Foundation
 
-class MeshSetupContext: NSObject {
-    var delegate: MeshSetupFlowRunnerDelegate!
-    var stepDelegate: MeshSetupStepDelegate!
+class Gen3SetupContext: NSObject {
+    var delegate: Gen3SetupFlowRunnerDelegate!
+    var stepDelegate: Gen3SetupStepDelegate!
 
-    var bluetoothManager: MeshSetupBluetoothConnectionManager!
+    var bluetoothManager: Gen3SetupBluetoothConnectionManager!
     var bluetoothReady: Bool = false
 
-    var targetDevice: MeshSetupDevice! = MeshSetupDevice()
-    var commissionerDevice: MeshSetupDevice?
+    var targetDevice: Gen3SetupDevice! = Gen3SetupDevice()
+    var commissionerDevice: Gen3SetupDevice?
 
-    var selectedWifiNetworkInfo: MeshSetupNewWifiNetworkInfo?
-    var selectedForRemovalWifiNetworkInfo: MeshSetupKnownWifiNetworkInfo?
+    var selectedWifiNetworkInfo: Gen3SetupNewWifiNetworkInfo?
+    var selectedForRemovalWifiNetworkInfo: Gen3SetupKnownWifiNetworkInfo?
 
-    var selectedNetworkMeshInfo: MeshSetupNetworkInfo?
+    var selectedNetworkMeshInfo: Gen3SetupNetworkInfo?
     var selectedNetworkPassword: String?
 
     var newNetworkName: String?

@@ -6,10 +6,10 @@
 import UIKit
 import AVFoundation
 
-class MeshSetupScanStickerViewController: MeshSetupViewController, AVCaptureMetadataOutputObjectsDelegate, Storyboardable {
+class Gen3SetupScanStickerViewController: Gen3SetupViewController, AVCaptureMetadataOutputObjectsDelegate, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupScanStickerView"
+        return "Gen3SetupScanStickerView"
     }
 
     @IBOutlet weak var cameraView: UIView!

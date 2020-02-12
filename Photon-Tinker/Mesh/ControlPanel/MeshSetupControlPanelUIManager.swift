@@ -6,26 +6,26 @@
 import Foundation
 import UIKit
 
-class MeshSetupControlPanelUIManager: MeshSetupUIBase {
+class Gen3SetupControlPanelUIManager: Gen3SetupUIBase {
 
-    private var currentAction: MeshSetupControlPanelCellType?
+    private var currentAction: Gen3SetupControlPanelCellType?
 
-    var controlPanelManager: MeshSetupControlPanelFlowManager! {
-        return self.flowRunner as! MeshSetupControlPanelFlowManager
+    var controlPanelManager: Gen3SetupControlPanelFlowManager! {
+        return self.flowRunner as! Gen3SetupControlPanelFlowManager
     }
 
     public private(set) var device: ParticleDevice!
 
-    func setDevice(_ device: ParticleDevice, context: MeshSetupContext? = nil) {
+    func setDevice(_ device: ParticleDevice, context: Gen3SetupContext? = nil) {
         self.device = device
         self.log("Setting device: \(device)")
         if let serial = device.serialNumber, let mobileSecret = device.mobileSecret {
-            self.targetDeviceDataMatrix = MeshSetupDataMatrix(device: device)!
+            self.targetDeviceDataMatrix = Gen3SetupDataMatrix(device: device)!
         } else if (device.is3rdGen()) {
             fatalError("Device Serial Number (\(device.serialNumber)) or Mobile Secret (\(device.mobileSecret)) is missing for device (\(device).")
         }
 
-        self.flowRunner = MeshSetupControlPanelFlowManager(delegate: self, context: context)
+        self.flowRunner = Gen3SetupControlPanelFlowManager(delegate: self, context: context)
 
         self.flowRunner.context.targetDevice.deviceId = self.device.id
         self.flowRunner.context.targetDevice.name = self.device.getName()
@@ -36,7 +36,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     override internal func setupInitialViewController() {
         self.currentStepType = nil
 
-        let rootVC = MeshSetupControlPanelRootViewController.loadedViewController()
+        let rootVC = Gen3SetupControlPanelRootViewController.loadedViewController()
         rootVC.setup(device: self.device, context: controlPanelManager.context, didSelectAction: self.controlPanelRootViewCompleted)
         rootVC.ownerStepType = nil
         self.embededNavigationController.setViewControllers([rootVC], animated: false)
@@ -45,8 +45,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showControlPanelRootView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelRootViewController.self)) {
-                let rootVC = MeshSetupControlPanelRootViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelRootViewController.self)) {
+                let rootVC = Gen3SetupControlPanelRootViewController.loadedViewController()
                 rootVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelRootViewCompleted)
                 rootVC.ownerStepType = nil
                 self.embededNavigationController.setViewControllers([rootVC], animated: true)
@@ -54,7 +54,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    func controlPanelRootViewCompleted(action: MeshSetupControlPanelCellType) {
+    func controlPanelRootViewCompleted(action: Gen3SetupControlPanelCellType) {
         currentAction = action
 
         switch action {
@@ -90,7 +90,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                         vc.resume(animated: true)
                     } else {
                         self.controlPanelManager.context.targetDevice.name = self.device.getName()
-                        let root = self.embededNavigationController!.topViewController as! MeshSetupViewController
+                        let root = self.embededNavigationController!.topViewController as! Gen3SetupViewController
                         root.resume(animated: false)
                         vc.dismiss(animated: true)
                     }
@@ -113,7 +113,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                         vc.resume(animated: true)
                     } else {
                         self.controlPanelManager.context.targetDevice.notes = self.device.notes
-                        let root = self.embededNavigationController!.topViewController as! MeshSetupViewController
+                        let root = self.embededNavigationController!.topViewController as! Gen3SetupViewController
                         root.resume(animated: false)
                         vc.dismiss(animated: true)
                     }
@@ -126,7 +126,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showDocumentation() {
         DispatchQueue.main.async {
-            let wifiVC = MeshSetupControlPanelDocumentationViewController.loadedViewController()
+            let wifiVC = Gen3SetupControlPanelDocumentationViewController.loadedViewController()
             wifiVC.setup(self.device)
             wifiVC.ownerStepType = nil
             self.embededNavigationController.pushViewController(wifiVC, animated: true)
@@ -136,7 +136,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     private func showUnclaim() {
         self.currentAction = .unclaim
         DispatchQueue.main.async {
-            let unclaimVC = MeshSetupControlPanelUnclaimViewController.loadedViewController()
+            let unclaimVC = Gen3SetupControlPanelUnclaimViewController.loadedViewController()
             unclaimVC.setup(deviceName: self.device.name!, callback: self.unclaimCompleted)
             unclaimVC.ownerStepType = nil
             self.embededNavigationController.pushViewController(unclaimVC, animated: true)
@@ -155,7 +155,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                 self.showNetworkError(error: error)
             } else {
                 if let callback = self.callback {
-                    callback(MeshSetupFlowResult.unclaimed, nil)
+                    callback(Gen3SetupFlowResult.unclaimed, nil)
                 }
                 self.terminate()
             }
@@ -186,8 +186,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     private func showControlPanelWifiView() {
         self.currentAction = .wifi
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelWifiViewController.self)) {
-                let wifiVC = MeshSetupControlPanelWifiViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelWifiViewController.self)) {
+                let wifiVC = Gen3SetupControlPanelWifiViewController.loadedViewController()
                 wifiVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelWifiViewCompleted)
                 wifiVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(wifiVC, animated: true)
@@ -195,7 +195,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    func controlPanelWifiViewCompleted(action: MeshSetupControlPanelCellType) {
+    func controlPanelWifiViewCompleted(action: Gen3SetupControlPanelCellType) {
         currentAction = action
         switch action {
             case .actionNewWifi:
@@ -212,8 +212,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     private func showControlPanelCellularView() {
         self.currentAction = .cellular
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelCellularViewController.self)) {
-                let cellularVC = MeshSetupControlPanelCellularViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelCellularViewController.self)) {
+                let cellularVC = Gen3SetupControlPanelCellularViewController.loadedViewController()
                 cellularVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelCellularViewCompleted)
                 cellularVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(cellularVC, animated: true)
@@ -221,7 +221,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    func controlPanelCellularViewCompleted(action: MeshSetupControlPanelCellType) {
+    func controlPanelCellularViewCompleted(action: Gen3SetupControlPanelCellType) {
         currentAction = action
         switch action {
             case .actionChangeSimStatus:
@@ -245,8 +245,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     private func showControlPanelMeshView() {
         self.currentAction = .mesh
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelMeshViewController.self)) {
-                let meshVC = MeshSetupControlPanelMeshViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelMeshViewController.self)) {
+                let meshVC = Gen3SetupControlPanelMeshViewController.loadedViewController()
                 meshVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelMeshViewCompleted)
                 meshVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(meshVC, animated: true)
@@ -254,7 +254,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    func controlPanelMeshViewCompleted(action: MeshSetupControlPanelCellType) {
+    func controlPanelMeshViewCompleted(action: Gen3SetupControlPanelCellType) {
         currentAction = action
         switch action {
             case .actionAddToMeshNetwork:
@@ -279,8 +279,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     private func showControlPanelEthernetView() {
         self.currentAction = .ethernet
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelEthernetViewController.self)) {
-                let ethernetVC = MeshSetupControlPanelEthernetViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelEthernetViewController.self)) {
+                let ethernetVC = Gen3SetupControlPanelEthernetViewController.loadedViewController()
                 ethernetVC.setup(device: self.device, context: self.controlPanelManager.context, didSelectAction: self.controlPanelEthernetViewCompleted)
                 ethernetVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(ethernetVC, animated: true)
@@ -288,7 +288,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    func controlPanelEthernetViewCompleted(action: MeshSetupControlPanelCellType) {
+    func controlPanelEthernetViewCompleted(action: Gen3SetupControlPanelCellType) {
         currentAction = action
         switch action {
             case .actionChangePinsStatus:
@@ -306,8 +306,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showPrepareForPairingView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelPrepareForPairingViewController.self)) {
-                let prepareVC = MeshSetupControlPanelPrepareForPairingViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelPrepareForPairingViewController.self)) {
+                let prepareVC = Gen3SetupControlPanelPrepareForPairingViewController.loadedViewController()
                 prepareVC.setup(device: self.device)
                 prepareVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(prepareVC, animated: true)
@@ -315,7 +315,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    override func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
+    override func gen3SetupDidCompleteControlPanelFlow(_ sender: Gen3SetupStep) {
         switch currentAction! {
             case .actionNewWifi,
                  .actionChangePinsStatus,
@@ -351,8 +351,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showFlowCompleteView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelFlowCompleteViewController.self)) {
-                let flowCompleteVC = MeshSetupControlPanelFlowCompleteViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelFlowCompleteViewController.self)) {
+                let flowCompleteVC = Gen3SetupControlPanelFlowCompleteViewController.loadedViewController()
                 flowCompleteVC.setup(didFinishScreen: self.flowCompleteViewCompleted, deviceType: self.device.type, deviceName: self.device.name!, action: self.currentAction!, context: self.controlPanelManager.context)
                 flowCompleteVC.ownerStepType = nil
                 self.embededNavigationController.pushViewController(flowCompleteVC, animated: true)
@@ -388,13 +388,13 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    override func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
+    override func gen3SetupDidRequestToShowInfo(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
         let infoType = (sender as! StepShowInfo).infoType
 
         if infoType == .joinerFlow {
-            if (!self.rewindTo(MeshSetupInfoJoinerViewController.self)) {
-                let infoVC = MeshSetupInfoJoinerViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupInfoJoinerViewController.self)) {
+                let infoVC = Gen3SetupInfoJoinerViewController.loadedViewController()
                 infoVC.allowBack = true
                 infoVC.ownerStepType = self.currentStepType
                 infoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: self.flowRunner.context.userSelectedToSetupMesh, deviceType: self.flowRunner.context.targetDevice.type!)
@@ -417,12 +417,12 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showManageWifiView() {
         DispatchQueue.main.async {
-            if let manageWifiView = self.embededNavigationController.topViewController as? MeshSetupControlPanelManageWifiViewController {
+            if let manageWifiView = self.embededNavigationController.topViewController as? Gen3SetupControlPanelManageWifiViewController {
                 manageWifiView.setNetworks(networks: self.controlPanelManager.context.targetDevice.knownWifiNetworks!)
             }
 
-            if (!self.rewindTo(MeshSetupControlPanelManageWifiViewController.self)) {
-                let manageWifiView = MeshSetupControlPanelManageWifiViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelManageWifiViewController.self)) {
+                let manageWifiView = Gen3SetupControlPanelManageWifiViewController.loadedViewController()
                 manageWifiView.setup(didSelectNetwork: self.selectKnownWifiNetworkViewCompleted)
                 manageWifiView.setNetworks(networks: self.controlPanelManager.context.targetDevice.knownWifiNetworks!)
                 manageWifiView.ownerStepType = nil
@@ -431,15 +431,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    internal func selectKnownWifiNetworkViewCompleted(network: MeshSetupKnownWifiNetworkInfo) {
+    internal func selectKnownWifiNetworkViewCompleted(network: Gen3SetupKnownWifiNetworkInfo) {
         self.controlPanelManager.context.selectedForRemovalWifiNetworkInfo = network
         self.controlPanelManager.actionRemoveWifiCredentials()
     }
 
     private func showDeactivateSimInfoView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelInfoDeactivateSimViewController.self)) {
-                let infoView = MeshSetupControlPanelInfoDeactivateSimViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelInfoDeactivateSimViewController.self)) {
+                let infoView = Gen3SetupControlPanelInfoDeactivateSimViewController.loadedViewController()
                 infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted)
                 infoView.ownerStepType = nil
                 self.embededNavigationController.pushViewController(infoView, animated: true)
@@ -449,8 +449,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showActivateSimInfoView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelInfoActivateSimViewController.self)) {
-                let infoView = MeshSetupControlPanelInfoActivateSimViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelInfoActivateSimViewController.self)) {
+                let infoView = Gen3SetupControlPanelInfoActivateSimViewController.loadedViewController()
                 infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted)
                 infoView.ownerStepType = nil
                 self.embededNavigationController.pushViewController(infoView, animated: true)
@@ -460,8 +460,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
     private func showResumeSimInfoView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelInfoResumeSimViewController.self)) {
-                let infoView = MeshSetupControlPanelInfoResumeSimViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelInfoResumeSimViewController.self)) {
+                let infoView = Gen3SetupControlPanelInfoResumeSimViewController.loadedViewController()
                 infoView.setup(context: self.controlPanelManager.context, didFinish: self.simInfoViewCompleted, requestShowDataLimit: self.requestShowDataLimit)
                 infoView.ownerStepType = nil
                 self.embededNavigationController.pushViewController(infoView, animated: true)
@@ -479,15 +479,15 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
 
 
 
-    override func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
+    override func gen3SetupDidRequestToSelectSimDataLimit(_ sender: Gen3SetupStep) {
         self.currentStepType = type(of: sender)
         showSimDataLimitView()
     }
 
     private func showSimDataLimitView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupControlPanelSimDataLimitViewController.self)) {
-                let dataLimitVC = MeshSetupControlPanelSimDataLimitViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupControlPanelSimDataLimitViewController.self)) {
+                let dataLimitVC = Gen3SetupControlPanelSimDataLimitViewController.loadedViewController()
                 dataLimitVC.setup(currentLimit: self.controlPanelManager.context.targetDevice.sim!.dataLimit!,
                         disableValuesSmallerThanCurrent: self.currentAction == .actionChangeDataLimit ? false : true,
                         callback: self.simDataLimitViewCompleted)
@@ -507,7 +507,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    override func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {
+    override func gen3SetupDidRequestTargetDeviceInfo(_ sender: Gen3SetupStep) {
         self.controlPanelManager.setTargetDeviceInfo(dataMatrix: self.targetDeviceDataMatrix!)
     }
 
@@ -529,7 +529,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                         preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
-                    (self.embededNavigationController.topViewController as? MeshSetupViewController)?.resume(animated: true)
+                    (self.embededNavigationController.topViewController as? Gen3SetupViewController)?.resume(animated: true)
                 })
 
                 self.present(self.alert!, animated: true)
@@ -545,7 +545,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
                         preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
-                    (self.embededNavigationController.topViewController as? MeshSetupViewController)?.resume(animated: true)
+                    (self.embededNavigationController.topViewController as? Gen3SetupViewController)?.resume(animated: true)
                 })
 
                 self.present(self.alert!, animated: true)
@@ -553,8 +553,8 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         }
     }
 
-    override func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) {
-        super.meshSetupDidEnterState(sender, state: state)
+    override func gen3SetupDidEnterState(_ sender: Gen3SetupStep, state: Gen3SetupFlowState) {
+        super.gen3SetupDidEnterState(sender, state: state)
 
         switch state {
             case .TargetDeviceConnecting:
@@ -567,7 +567,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
     }
 
 
-    override func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
+    override func gen3SetupError(_ sender: Gen3SetupStep, error: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity, nsError: Error?) {
         //don't show timeout error when pairing to target device
         if error == .FailedToScanBecauseOfTimeout,  let currentStep = flowRunner.currentStep, type(of: currentStep) == StepConnectToTargetDevice.self {
             self.flowRunner.retryLastAction()
@@ -578,7 +578,7 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
             self.controlPanelManager.stopCurrentFlow()
             self.showMeshNotSupported()
         } else {
-            super.meshSetupError(sender, error: error, severity: severity, nsError: nsError)
+            super.gen3SetupError(sender, error: error, severity: severity, nsError: nsError)
         }
     }
 
@@ -587,13 +587,13 @@ class MeshSetupControlPanelUIManager: MeshSetupUIBase {
         let vcs = self.embededNavigationController.viewControllers
         log("Back tapped: \(vcs)")
 
-        if (vcs.last! as! MeshSetupViewController).viewControllerIsBusy {
+        if (vcs.last! as! Gen3SetupViewController).viewControllerIsBusy {
             log("viewController is busy, not backing")
             //view controller cannot be backed from at this moment
             return
         }
 
-        guard vcs.count > 1, let vcCurr = (vcs[vcs.count-1] as? MeshSetupViewController), let vcPrev = (vcs[vcs.count-2] as? MeshSetupViewController) else {
+        guard vcs.count > 1, let vcCurr = (vcs[vcs.count-1] as? Gen3SetupViewController), let vcPrev = (vcs[vcs.count-2] as? Gen3SetupViewController) else {
             log("Back button was pressed when it was not supposed to be pressed. Ignoring.")
             return
         }

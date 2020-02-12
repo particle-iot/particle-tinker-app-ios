@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupPricingInfoViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupPricingInfoViewController: Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
 

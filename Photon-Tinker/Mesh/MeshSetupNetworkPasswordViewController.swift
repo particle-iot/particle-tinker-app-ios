@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
+class Gen3SetupNetworkPasswordViewController: Gen3SetupTextInputViewController, Storyboardable{
 
     static var nibName: String {
-        return "MeshSetupTextInputView"
+        return "Gen3SetupTextInputView"
     }
 
     internal var callback: ((String) -> ())!

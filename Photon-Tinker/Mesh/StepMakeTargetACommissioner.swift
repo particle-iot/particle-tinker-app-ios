@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepMakeTargetACommissioner : MeshSetupStep {
+class StepMakeTargetACommissioner : Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return
@@ -14,7 +14,7 @@ class StepMakeTargetACommissioner : MeshSetupStep {
         if context.commissionerDevice == nil {
             self.log("Setting current target device as commissioner device part 2")
             context.commissionerDevice = context.targetDevice
-            context.targetDevice = MeshSetupDevice()
+            context.targetDevice = Gen3SetupDevice()
         }
 
         self.stepCompleted()

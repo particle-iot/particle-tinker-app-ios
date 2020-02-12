@@ -8,17 +8,17 @@ import CoreBluetooth
 
 
 
-protocol MeshSetupBluetoothConnectionManagerDelegate {
-    func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState)
-    func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity)
+protocol Gen3SetupBluetoothConnectionManagerDelegate {
+    func bluetoothConnectionManagerStateChanged(sender: Gen3SetupBluetoothConnectionManager, state: Gen3SetupBluetoothConnectionManagerState)
+    func bluetoothConnectionManagerError(sender: Gen3SetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: Gen3SetupErrorSeverity)
 
-    func bluetoothConnectionManagerPeripheralDiscovered(sender: MeshSetupBluetoothConnectionManager, peripheral: CBPeripheral)
-    func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
-    func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
-    func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection)
+    func bluetoothConnectionManagerPeripheralDiscovered(sender: Gen3SetupBluetoothConnectionManager, peripheral: CBPeripheral)
+    func bluetoothConnectionManagerConnectionCreated(sender: Gen3SetupBluetoothConnectionManager, connection: Gen3SetupBluetoothConnection)
+    func bluetoothConnectionManagerConnectionBecameReady(sender: Gen3SetupBluetoothConnectionManager, connection: Gen3SetupBluetoothConnection)
+    func bluetoothConnectionManagerConnectionDropped(sender: Gen3SetupBluetoothConnectionManager, connection: Gen3SetupBluetoothConnection)
 }
 
-enum MeshSetupBluetoothConnectionManagerState {
+enum Gen3SetupBluetoothConnectionManagerState {
     case Disabled
     case Ready
     case Scanning
@@ -45,19 +45,19 @@ enum BluetoothConnectionManagerError: Error, CustomStringConvertible {
 }
 
 
-class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, MeshSetupBluetoothConnectionDelegate {
+class Gen3SetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, Gen3SetupBluetoothConnectionDelegate {
 
-    var delegate: MeshSetupBluetoothConnectionManagerDelegate
-    var state: MeshSetupBluetoothConnectionManagerState = .Disabled {
+    var delegate: Gen3SetupBluetoothConnectionManagerDelegate
+    var state: Gen3SetupBluetoothConnectionManagerState = .Disabled {
         didSet {
             self.delegate.bluetoothConnectionManagerStateChanged(sender: self, state: self.state)
         }
     }
 
     private var centralManager: CBCentralManager
-    private var connections: [MeshSetupBluetoothConnection]
+    private var connections: [Gen3SetupBluetoothConnection]
 
-    private var peripheralToConnectCredentials: MeshSetupPeripheralCredentials?
+    private var peripheralToConnectCredentials: Gen3SetupPeripheralCredentials?
     private var peripheralToConnect: CBPeripheral?
 
 
@@ -81,8 +81,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
 
 
-    required init(delegate: MeshSetupBluetoothConnectionManagerDelegate) {
-        let centralQueue = DispatchQueue(label: "io.particle.mesh", attributes: [])
+    required init(delegate: Gen3SetupBluetoothConnectionManagerDelegate) {
+        let centralQueue = DispatchQueue(label: "io.particle.gen3", attributes: [])
 
         self.connections = []
         self.centralManager = CBCentralManager(delegate: nil, queue: centralQueue)
@@ -98,17 +98,17 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         self.dropAllConnections()
     }
 
-    private func fail(withReason reason: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
+    private func fail(withReason reason: BluetoothConnectionManagerError, severity: Gen3SetupErrorSeverity) {
         log("Bluetooth connection manager error: \(reason)")
         self.delegate.bluetoothConnectionManagerError(sender: self, error: reason, severity: severity)
     }
 
     private func log(_ message: String) {
-        ParticleLogger.logInfo("MeshSetupBluetoothConnectionManager", format: message, withParameters: getVaList([]))
+        ParticleLogger.logInfo("Gen3SetupBluetoothConnectionManager", format: message, withParameters: getVaList([]))
     }
 
 
-    func createConnection(with peripheralCredentials: MeshSetupPeripheralCredentials) {
+    func createConnection(with peripheralCredentials: Gen3SetupPeripheralCredentials) {
         if (self.state != .Ready){
             fail(withReason: .FailedToStartScan, severity: .Error)
             return
@@ -121,9 +121,9 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     private func scanForPeripherals() {
         self.state = .Scanning
 
-        log("BluetoothConnectionManager -- scanForPeripherals with services \(MeshSetup.particleMeshServiceUUID)")
+        log("BluetoothConnectionManager -- scanForPeripherals with services \(Gen3Setup.particleGen3ServiceUUID)")
         let options: NSDictionary = NSDictionary(objects: [NSNumber(value: true as Bool)], forKeys: [CBCentralManagerScanOptionAllowDuplicatesKey as NSCopying])
-        self.centralManager.scanForPeripherals(withServices: [MeshSetup.particleMeshServiceUUID], options: options as? [String: AnyObject]) // []
+        self.centralManager.scanForPeripherals(withServices: [Gen3Setup.particleGen3ServiceUUID], options: options as? [String: AnyObject]) // []
 
         self.restartTimeout()
     }
@@ -139,11 +139,11 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         self.cancelTimeout()
 
         scanTimeoutWorker = scanTimeoutWorkerFactory
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + MeshSetup.bluetoothScanTimeoutValue,
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Gen3Setup.bluetoothScanTimeoutValue,
                 execute: scanTimeoutWorker!)
     }
 
-    func dropConnection(with connection: MeshSetupBluetoothConnection) {
+    func dropConnection(with connection: Gen3SetupBluetoothConnection) {
         //this will trigger delegate callback for dropped connection
         centralManager.cancelPeripheralConnection(connection.cbPeripheral)
     }
@@ -177,7 +177,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
 
     //MARK: - CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        var newState: MeshSetupBluetoothConnectionManagerState = .Disabled
+        var newState: Gen3SetupBluetoothConnectionManagerState = .Disabled
 
         switch(central.state){
             case .poweredOn:
@@ -236,7 +236,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         }
 
         guard self.peripheralToConnectCredentials != nil, let name = peripheral.name?.lowercased(), name == peripheralToConnectCredentials?.name.lowercased() else {
-            //all mesh devices have names, if peripheral has no name, it's not our device
+            //all gen3 devices have names, if peripheral has no name, it's not our device
             dropPeripheralConnection(with: peripheral)
             log("Dropping connection on purpose :(")
             return
@@ -247,7 +247,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         //this was only needed, beacuse CBManager would drop connection if we lose all strong references to the device
         self.peripheralToConnect = nil
 
-        let newConnection = MeshSetupBluetoothConnection(connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials!)
+        let newConnection = Gen3SetupBluetoothConnection(connectedPeripheral: peripheral, credentials: peripheralToConnectCredentials!)
         newConnection.delegate = self
 
         self.connections.append(newConnection)
@@ -287,8 +287,8 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
     }
 
 
-    //MARK: MeshSetupBluetoothConnectionDelegate
-    func bluetoothConnectionBecameReady(sender: MeshSetupBluetoothConnection) {
+    //MARK: Gen3SetupBluetoothConnectionDelegate
+    func bluetoothConnectionBecameReady(sender: Gen3SetupBluetoothConnection) {
         log("Bluetooth connection \(sender.peripheralName) became ready")
 
         self.cancelTimeout()
@@ -297,7 +297,7 @@ class MeshSetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, M
         //at this point connection will be passed to transceiver and transceiver will become data delegate
     }
 
-    func bluetoothConnectionError(sender: MeshSetupBluetoothConnection, error: BluetoothConnectionError, severity: MeshSetupErrorSeverity) {
+    func bluetoothConnectionError(sender: Gen3SetupBluetoothConnection, error: BluetoothConnectionError, severity: Gen3SetupErrorSeverity) {
         log("Bluetooth connection \(sender.peripheralName) error, dropping connection:\n\(error)")
         self.dropConnection(with: sender)
     }

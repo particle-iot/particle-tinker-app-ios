@@ -1,6 +1,6 @@
 //
-//  MeshSetupFraming.swift
-//  Particle Mesh
+//  Gen3SetupFraming.swift
+//  Particle Gen3Setup
 //
 //  Created by Ido Kleinman on 5/1/18.
 //  Maintained by Raimundas Sakalauskas

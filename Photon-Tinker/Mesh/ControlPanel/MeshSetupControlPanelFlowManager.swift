@@ -5,9 +5,9 @@
 
 import Foundation
 
-class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
+class Gen3SetupControlPanelFlowManager : Gen3SetupFlowRunner {
 
-    fileprivate let actionAddToMeshFlow:[MeshSetupStep] = [
+    fileprivate let actionAddToMeshFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -17,7 +17,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     ]
 
     //runs post ethernet/wifi/cellular flows
-    fileprivate let networkCreatorFlow: [MeshSetupStep] = [
+    fileprivate let networkCreatorFlow: [Gen3SetupStep] = [
         StepShowPricingImpact(),
         StepGetNewNetworkName(),
         StepGetNewNetworkPassword(),
@@ -26,7 +26,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         StepControlPanelFlowCompleted()
     ]
 
-    fileprivate let joinerFlow: [MeshSetupStep] = [
+    fileprivate let joinerFlow: [Gen3SetupStep] = [
         StepShowInfo(.joinerFlow),
         StepGetCommissionerDeviceInfo(),
         StepConnectToCommissionerDevice(),
@@ -49,7 +49,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
 
-    fileprivate let actionNewWifiFlow:[MeshSetupStep] = [
+    fileprivate let actionNewWifiFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -68,7 +68,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
 
-    fileprivate let actionManageWifiFlow:[MeshSetupStep] = [
+    fileprivate let actionManageWifiFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -83,7 +83,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
 
-    fileprivate let actionRemoveWifiCredentialsFlow:[MeshSetupStep] = [
+    fileprivate let actionRemoveWifiCredentialsFlow:[Gen3SetupStep] = [
         StepRemoveSelectedWifiCredentials(),
         StepGetKnownWifiNetworks(),
         StepEnterListeningMode(),
@@ -98,7 +98,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
-    fileprivate let actionPairMeshFlow:[MeshSetupStep] = [
+    fileprivate let actionPairMeshFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -113,7 +113,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
-    fileprivate let actionPairEthernetFlow:[MeshSetupStep] = [
+    fileprivate let actionPairEthernetFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -128,7 +128,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
-    fileprivate let actionPairWifiFlow:[MeshSetupStep] = [
+    fileprivate let actionPairWifiFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -143,7 +143,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
         self.runCurrentStep()
     }
 
-    fileprivate let actionPairCellularFlow:[MeshSetupStep] = [
+    fileprivate let actionPairCellularFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -160,7 +160,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
 
 
-    fileprivate let actionToggleEthernetFeatureFlow:[MeshSetupStep] = [
+    fileprivate let actionToggleEthernetFeatureFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -178,7 +178,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
 
 
-    fileprivate let actionToggleSimStatusFlow:[MeshSetupStep] = [
+    fileprivate let actionToggleSimStatusFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -196,7 +196,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
 
 
-    fileprivate let actionChangeDataLimitFlow:[MeshSetupStep] = [
+    fileprivate let actionChangeDataLimitFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -212,7 +212,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
     }
 
 
-    fileprivate let actionLeaveMeshNetworkFlow:[MeshSetupStep] = [
+    fileprivate let actionLeaveMeshNetworkFlow:[Gen3SetupStep] = [
         StepGetTargetDeviceInfo(),
         StepConnectToTargetDevice(),
         StepStopSignal(),
@@ -239,7 +239,7 @@ class MeshSetupControlPanelFlowManager : MeshSetupFlowRunner {
 
 
     //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
-    override internal func rewindTo(step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupFlowError? {
+    override internal func rewindTo(step: Gen3SetupStep.Type, runStep: Bool = true) -> Gen3SetupFlowError? {
         currentStep!.rewindFrom()
 
         if (currentStepIdx == 0) {

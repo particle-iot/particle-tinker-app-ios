@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,8 +15,9 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupSelectOrCreateNetworkViewController" customModule="Particle" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupSelectOrCreateNetworkViewController" customModule="Particle" customModuleProvider="target">
             <connections>
+                <outlet property="createNetworkButton" destination="Ibh-gS-dX1" id="dJ8-Fa-O81"/>
                 <outlet property="networksTableView" destination="I1I-rv-4FC" id="MGe-vu-5Hv"/>
                 <outlet property="scanActivityIndicator" destination="48e-eG-xKV" id="bbZ-h7-c0d"/>
                 <outlet property="titleLabel" destination="8L3-wl-7yJ" id="FI7-1g-8hZ"/>
@@ -29,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I1I-rv-4FC">
-                    <rect key="frame" x="0.0" y="111" width="375" height="556"/>
+                    <rect key="frame" x="0.0" y="111" width="375" height="476"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select mesh network to join" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8L3-wl-7yJ" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
@@ -41,16 +42,34 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="48e-eG-xKV">
                     <rect key="frame" x="177.5" y="61" width="20" height="20"/>
                 </activityIndicatorView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibh-gS-dX1" customClass="ParticleAlternativeButton" customModule="Particle" customModuleProvider="target">
+                    <rect key="frame" x="20" y="607" width="335" height="40"/>
+                    <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="qWz-fK-fHW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Done">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="createNetworkButtonTapped:" destination="-1" eventType="touchUpInside" id="ocX-Li-nMy"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="I1I-rv-4FC" firstAttribute="top" secondItem="48e-eG-xKV" secondAttribute="bottom" constant="30" id="4eL-2c-Bhw"/>
+                <constraint firstItem="54t-Mt-gtY" firstAttribute="trailing" secondItem="Ibh-gS-dX1" secondAttribute="trailing" constant="20" id="Cwz-gj-Bvg"/>
                 <constraint firstItem="8L3-wl-7yJ" firstAttribute="leading" secondItem="54t-Mt-gtY" secondAttribute="leading" constant="20" id="ISJ-mg-wCj"/>
                 <constraint firstItem="8L3-wl-7yJ" firstAttribute="top" secondItem="54t-Mt-gtY" secondAttribute="top" constant="15" id="KVP-1e-iBj"/>
                 <constraint firstItem="54t-Mt-gtY" firstAttribute="trailing" secondItem="I1I-rv-4FC" secondAttribute="trailing" id="LEs-OI-k6O"/>
+                <constraint firstItem="Ibh-gS-dX1" firstAttribute="top" secondItem="I1I-rv-4FC" secondAttribute="bottom" constant="20" id="Psn-Py-UAm"/>
                 <constraint firstItem="54t-Mt-gtY" firstAttribute="trailing" secondItem="8L3-wl-7yJ" secondAttribute="trailing" constant="20" id="QAl-A5-FLG"/>
-                <constraint firstItem="I1I-rv-4FC" firstAttribute="bottom" secondItem="xWU-kO-xbX" secondAttribute="bottom" id="QAm-4w-9Hv"/>
+                <constraint firstItem="54t-Mt-gtY" firstAttribute="bottom" secondItem="Ibh-gS-dX1" secondAttribute="bottom" constant="20" id="V0t-mM-fID"/>
                 <constraint firstItem="48e-eG-xKV" firstAttribute="top" secondItem="8L3-wl-7yJ" secondAttribute="bottom" constant="10" id="lun-Hb-yx9"/>
+                <constraint firstItem="Ibh-gS-dX1" firstAttribute="leading" secondItem="54t-Mt-gtY" secondAttribute="leading" constant="20" id="mQT-rr-LeT"/>
                 <constraint firstItem="I1I-rv-4FC" firstAttribute="leading" secondItem="54t-Mt-gtY" secondAttribute="leading" id="n1H-dR-4QT"/>
                 <constraint firstItem="48e-eG-xKV" firstAttribute="centerX" secondItem="xWU-kO-xbX" secondAttribute="centerX" id="yhR-QD-cO8"/>
             </constraints>

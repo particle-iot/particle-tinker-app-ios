@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ParticleLogger.setLoggerLevel(.debug, forControl: "ParticleDevice") //ignore spam from complete
         #if DEBUG
             ParticleLogger.setLoggerLevel(.info, forControl: "Particle.DeviceListViewController") //ignore some noise after device list is loaded
-            ParticleLogger.setIgnoreControls(["HandshakeManager", "MeshSetupBluetoothConnectionManager", "BluetoothConnection"])
+            ParticleLogger.setIgnoreControls(["HandshakeManager", "Gen3SetupBluetoothConnectionManager", "BluetoothConnection"])
         #endif
 
         LogList.startLogging()

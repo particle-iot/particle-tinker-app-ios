@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelEthernetViewController : MeshSetupControlPanelRootViewController {
+class Gen3SetupControlPanelEthernetViewController : Gen3SetupControlPanelRootViewController {
     override var allowBack: Bool {
         get {
             return true

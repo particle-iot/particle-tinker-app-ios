@@ -5,17 +5,17 @@
 
 import Foundation
 
-enum MeshInfoType {
+enum Gen3SetupInfoType {
     case joinerFlow
     case creatorFlow
     case simStatusToggle
 }
 
-class StepShowInfo : MeshSetupStep {
+class StepShowInfo : Gen3SetupStep {
 
-    public let infoType: MeshInfoType
+    public let infoType: Gen3SetupInfoType
 
-    init(_ infoType: MeshInfoType) {
+    init(_ infoType: Gen3SetupInfoType) {
         self.infoType = infoType
     }
 
@@ -30,12 +30,12 @@ class StepShowInfo : MeshSetupStep {
         if (context.selectedNetworkMeshInfo != nil && context.userSelectedToSetupMesh == nil) {
             self.stepCompleted()
         } else {
-            self.context!.delegate.meshSetupDidRequestToShowInfo(self)
+            self.context!.delegate.gen3SetupDidRequestToShowInfo(self)
         }
     }
 
 
-    func setInfoDone() -> MeshSetupFlowError? {
+    func setInfoDone() -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }

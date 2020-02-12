@@ -12,13 +12,13 @@ import Foundation
 import CoreBluetooth
 
 
-class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSetupStepDelegate {
+class Gen3SetupFlowRunner : Gen3SetupBluetoothConnectionManagerDelegate, Gen3SetupStepDelegate {
 
-    internal var context: MeshSetupContext
+    internal var context: Gen3SetupContext
 
-    internal var currentFlow: [MeshSetupStep]?
+    internal var currentFlow: [Gen3SetupStep]?
     internal var currentStepIdx: Int = 0
-    internal var currentStep: MeshSetupStep? {
+    internal var currentStep: Gen3SetupStep? {
         if let currentFlow = currentFlow {
             return currentFlow[currentStepIdx]
         }
@@ -26,10 +26,10 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
 
-    init(delegate: MeshSetupFlowRunnerDelegate, context: MeshSetupContext? = nil) {
+    init(delegate: Gen3SetupFlowRunnerDelegate, context: Gen3SetupContext? = nil) {
         if (context == nil) {
-            self.context = MeshSetupContext()
-            self.context.bluetoothManager = MeshSetupBluetoothConnectionManager(delegate: self)
+            self.context = Gen3SetupContext()
+            self.context.bluetoothManager = Gen3SetupBluetoothConnectionManager(delegate: self)
         } else {
             self.context = context!
         }
@@ -66,7 +66,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
     //this is for internal use only, because it requires a lot of internal knowledge to use and is nearly impossible to expose to external developers
-    internal func rewindTo(step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupFlowError? {
+    internal func rewindTo(step: Gen3SetupStep.Type, runStep: Bool = true) -> Gen3SetupFlowError? {
 
         currentStep!.rewindFrom()
 
@@ -102,17 +102,17 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
     internal func log(_ message: String) {
-        ParticleLogger.logInfo("MeshSetupFlowRunner", format: message, withParameters: getVaList([]))
+        ParticleLogger.logInfo("Gen3SetupFlowRunner", format: message, withParameters: getVaList([]))
     }
 
-    internal func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
+    internal func fail(withReason reason: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity = .Error, nsError: Error? = nil) {
         if context.canceled == false {
             if (severity == .Fatal) {
                 self.cancelSetup()
             }
 
             self.log("error: \(reason.description), nsError: \(nsError?.localizedDescription as Optional)")
-            context.delegate.meshSetupError(self.currentStep!, error: reason, severity: severity, nsError: nsError)
+            context.delegate.gen3SetupError(self.currentStep!, error: reason, severity: severity, nsError: nsError)
         }
     }
 
@@ -146,7 +146,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
     //MARK: Delegate responses
-    func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
+    func setTargetDeviceInfo(dataMatrix: Gen3SetupDataMatrix) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetTargetDeviceInfo.self else {
             return .IllegalOperation
         }
@@ -154,7 +154,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepGetTargetDeviceInfo)?.setTargetDeviceInfo(dataMatrix: dataMatrix)
     }
 
-    func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError? {
+    func setTargetUseEthernet(useEthernet: Bool) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepEnsureCorrectEthernetFeatureStatus.self else {
             return .IllegalOperation
         }
@@ -162,7 +162,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepEnsureCorrectEthernetFeatureStatus)?.setTargetUseEthernet(useEthernet: useEthernet)
     }
 
-    func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError? {
+    func setTargetSimStatus(simActive: Bool) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepEnsureCorrectSimState.self else {
             return .IllegalOperation
         }
@@ -170,7 +170,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepEnsureCorrectSimState)?.setTargetSimStatus(simActive: simActive)
     }
 
-    func setSimDataLimit(dataLimit: Int) -> MeshSetupFlowError? {
+    func setSimDataLimit(dataLimit: Int) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepSetSimDataLimit.self else {
             return .IllegalOperation
         }
@@ -180,7 +180,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
 
 
-    func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
+    func setTargetPerformFirmwareUpdate(update: Bool) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepEnsureLatestFirmware.self else {
             return .IllegalOperation
         }
@@ -188,7 +188,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepEnsureLatestFirmware)?.setTargetPerformFirmwareUpdate(update: update)
     }
 
-    func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError? {
+    func setTargetDeviceLeaveNetwork(leave: Bool) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepEnsureNotOnMeshNetwork.self else {
             return .IllegalOperation
         }
@@ -196,7 +196,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepEnsureNotOnMeshNetwork)?.setTargetDeviceLeaveNetwork(leave: leave)
     }
 
-    func setSwitchToControlPanel(switchToCP: Bool) -> MeshSetupFlowError? {
+    func setSwitchToControlPanel(switchToCP: Bool) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepOfferToSwitchToControlPanel.self else {
             return .IllegalOperation
         }
@@ -205,7 +205,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
 
-    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {
+    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepOfferSetupStandAloneOrWithNetwork.self else {
             return .IllegalOperation
         }
@@ -213,7 +213,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepOfferSetupStandAloneOrWithNetwork)?.setSelectStandAloneOrMeshSetup(meshSetup: meshSetup)
     }
 
-    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {
+    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepOfferSelectOrCreateNetwork.self else {
             return .IllegalOperation
         }
@@ -221,7 +221,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepOfferSelectOrCreateNetwork)?.setOptionalSelectedNetwork(selectedNetworkExtPanID: selectedNetworkExtPanID)
     }
 
-    func setPricingImpactDone() -> MeshSetupFlowError? {
+    func setPricingImpactDone() -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepShowPricingImpact.self else {
             return .IllegalOperation
         }
@@ -229,7 +229,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepShowPricingImpact)?.setPricingImpactDone()
     }
 
-    func setInfoDone() -> MeshSetupFlowError? {
+    func setInfoDone() -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepShowInfo.self else {
             return .IllegalOperation
         }
@@ -237,7 +237,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepShowInfo)?.setInfoDone()
     }
 
-    func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+    func setDeviceName(name: String, onComplete:@escaping (Gen3SetupFlowError?) -> ()) {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetNewDeviceName.self else {
             onComplete(.IllegalOperation)
             return
@@ -246,7 +246,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         (currentStep as? StepGetNewDeviceName)?.setDeviceName(name: name, onComplete: onComplete)
     }
 
-    func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError? {
+    func setAddOneMoreDevice(addOneMoreDevice: Bool) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepOfferToAddOneMoreDevice.self else {
             return .IllegalOperation
         }
@@ -255,7 +255,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
 
-    func setNewNetworkName(name: String) -> MeshSetupFlowError? {
+    func setNewNetworkName(name: String) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetNewNetworkName.self else {
             return .IllegalOperation
         }
@@ -264,7 +264,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
 
-    func setNewNetworkPassword(password: String) -> MeshSetupFlowError? {
+    func setNewNetworkPassword(password: String) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetNewNetworkPassword.self else {
             return .IllegalOperation
         }
@@ -272,7 +272,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepGetNewNetworkPassword)?.setNewNetworkPassword(password: password)
     }
 
-    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (Gen3SetupFlowError?) -> ()) {
         guard let currentStep = currentStep, type(of: currentStep) == StepEnsureCorrectSelectedWifiNetworkPassword.self else {
             onComplete(.IllegalOperation)
             return
@@ -281,7 +281,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         (currentStep as? StepEnsureCorrectSelectedWifiNetworkPassword)?.setSelectedWifiNetworkPassword(password, onComplete: onComplete)
     }
 
-    func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError? {
+    func setSelectedWifiNetwork(selectedNetwork: Gen3SetupNewWifiNetworkInfo) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetUserWifiNetworkSelection.self else {
             return .IllegalOperation
         }
@@ -289,7 +289,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepGetUserWifiNetworkSelection)?.setSelectedWifiNetwork(selectedNetwork: selectedNetwork)
     }
 
-    func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError? {
+    func setSelectedNetwork(selectedNetworkExtPanID: String) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetUserNetworkSelection.self else {
             return .IllegalOperation
         }
@@ -297,7 +297,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         return (currentStep as? StepGetUserNetworkSelection)?.setSelectedNetwork(selectedNetworkExtPanID: selectedNetworkExtPanID)
     }
 
-    func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError? {
+    func setCommissionerDeviceInfo(dataMatrix: Gen3SetupDataMatrix) -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepGetCommissionerDeviceInfo.self else {
             return .IllegalOperation
         }
@@ -306,7 +306,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
 
     }
 
-    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (Gen3SetupFlowError?) -> ()) {
         guard let currentStep = currentStep, type(of: currentStep) == StepEnsureCorrectSelectedNetworkPassword.self else {
             onComplete(.IllegalOperation)
             return
@@ -315,7 +315,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         (currentStep as? StepEnsureCorrectSelectedNetworkPassword)?.setSelectedNetworkPassword(password, onComplete: onComplete)
     }
 
-    func rescanNetworks() -> MeshSetupFlowError? {
+    func rescanNetworks() -> Gen3SetupFlowError? {
         guard let currentStep = currentStep else {
             return .IllegalOperation
         }
@@ -334,7 +334,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
     //MARK: BluetoothConnectionManagerDelegate
-    internal func bluetoothConnectionManagerStateChanged(sender: MeshSetupBluetoothConnectionManager, state: MeshSetupBluetoothConnectionManagerState) {
+    internal func bluetoothConnectionManagerStateChanged(sender: Gen3SetupBluetoothConnectionManager, state: Gen3SetupBluetoothConnectionManagerState) {
         if (context.canceled) {
             return
         }
@@ -357,7 +357,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         }
     }
 
-    internal func bluetoothConnectionManagerError(sender: MeshSetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: MeshSetupErrorSeverity) {
+    internal func bluetoothConnectionManagerError(sender: Gen3SetupBluetoothConnectionManager, error: BluetoothConnectionManagerError, severity: Gen3SetupErrorSeverity) {
         if (context.canceled) {
             return
         }
@@ -368,7 +368,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         }
     }
 
-    internal func bluetoothConnectionManagerConnectionCreated(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+    internal func bluetoothConnectionManagerConnectionCreated(sender: Gen3SetupBluetoothConnectionManager, connection: Gen3SetupBluetoothConnection) {
         if (context.canceled) {
             return
         }
@@ -380,7 +380,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         }
     }
 
-    internal func bluetoothConnectionManagerPeripheralDiscovered(sender: MeshSetupBluetoothConnectionManager, peripheral: CBPeripheral) {
+    internal func bluetoothConnectionManagerPeripheralDiscovered(sender: Gen3SetupBluetoothConnectionManager, peripheral: CBPeripheral) {
         if (context.canceled) {
             return
         }
@@ -392,7 +392,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         }
     }
 
-    internal func bluetoothConnectionManagerConnectionBecameReady(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+    internal func bluetoothConnectionManagerConnectionBecameReady(sender: Gen3SetupBluetoothConnectionManager, connection: Gen3SetupBluetoothConnection) {
         if (context.canceled) {
             return
         }
@@ -404,7 +404,7 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         }
     }
 
-    internal func bluetoothConnectionManagerConnectionDropped(sender: MeshSetupBluetoothConnectionManager, connection: MeshSetupBluetoothConnection) {
+    internal func bluetoothConnectionManagerConnectionDropped(sender: Gen3SetupBluetoothConnectionManager, connection: Gen3SetupBluetoothConnection) {
         if (context.canceled) {
             return
         }
@@ -428,8 +428,8 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
     }
 
 
-    //MARK: MeshSetupStepDelegate
-    internal func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type, runStep: Bool = true) -> MeshSetupStep {
+    //MARK: Gen3SetupStepDelegate
+    internal func rewindTo(_ sender: Gen3SetupStep, step: Gen3SetupStep.Type, runStep: Bool = true) -> Gen3SetupStep {
         if let error = self.rewindTo(step: step, runStep: runStep) {
             fatalError("flow tried to perform illegal back")
         } else {
@@ -437,11 +437,11 @@ class MeshSetupFlowRunner : MeshSetupBluetoothConnectionManagerDelegate, MeshSet
         }
     }
 
-    internal func fail(_ sender: MeshSetupStep, withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
+    internal func fail(_ sender: Gen3SetupStep, withReason reason: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity, nsError: Error?) {
         self.fail(withReason: reason, severity: severity, nsError: nsError)
     }
 
-    internal func stepCompleted(_ sender: MeshSetupStep) {
+    internal func stepCompleted(_ sender: Gen3SetupStep) {
         if (context.canceled) {
             return
         }

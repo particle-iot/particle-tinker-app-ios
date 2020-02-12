@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupFirmwareUpdateProgressViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupFirmwareUpdateProgressViewController: Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
 

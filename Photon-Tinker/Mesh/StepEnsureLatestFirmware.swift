@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureLatestFirmware: MeshSetupStep {
+class StepEnsureLatestFirmware: Gen3SetupStep {
 
     private var chunkSize: Int?
     private var chunkIdx: Int?
@@ -59,7 +59,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         } else if (nextFirmwareBinaryURL == nil) {
             self.checkNeedsOTAUpdate()
         } else if (context.userSelectedToUpdateFirmware == nil) {
-            context.delegate.meshSetupDidRequestToUpdateFirmware(self)
+            context.delegate.gen3SetupDidRequestToUpdateFirmware(self)
         } else if (!self.preparedForReboot) {
             self.prepareForTargetDeviceReboot()
         } else if(nextFirmwareBinaryFilePath == nil) {
@@ -73,7 +73,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {
@@ -109,7 +109,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
             self.log("targetDevice.sendGetSystemCapabilities: \(result.description()), capability: \(capability?.rawValue as Optional)")
 
             if (result == .NONE) {
-                context.targetDevice.supportsCompressedOTAUpdate = (capability! == MeshSetupSystemCapability.compressedOta)
+                context.targetDevice.supportsCompressedOTAUpdate = (capability! == Gen3SetupSystemCapability.compressedOta)
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)
@@ -181,7 +181,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
                 self.start()
             } else if (error == nil) {
                 if let filesFlashed = context.targetDevice.firmwareFilesFlashed, filesFlashed > 0 {
-                    context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateComplete)
+                    context.delegate.gen3SetupDidEnterState(self, state: .FirmwareUpdateComplete)
                 }
                 self.stepCompleted()
                 return
@@ -191,7 +191,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         }
     }
 
-    func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError? {
+    func setTargetPerformFirmwareUpdate(update: Bool) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -260,7 +260,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         let firmwareData = try! Data(contentsOf: URL(string: nextFirmwareBinaryFilePath!)!)
 
         context.targetDevice.firmwareUpdateProgress = 0
-        context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateProgress)
+        context.delegate.gen3SetupDidEnterState(self, state: .FirmwareUpdateProgress)
 
         self.firmwareData = firmwareData
 
@@ -300,7 +300,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         let bytesLeft = firmwareData.count - start
 
         context.targetDevice.firmwareUpdateProgress = 100.0 * (Double(start) / Double(firmwareData.count))
-        context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateProgress)
+        context.delegate.gen3SetupDidEnterState(self, state: .FirmwareUpdateProgress)
 
         self.log("bytesLeft: \(bytesLeft)")
 
@@ -317,7 +317,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
 
                 if (self.isFileFullyFlashed()) {
                     context.targetDevice.firmwareFilesFlashed! += 1
-                    context.delegate.meshSetupDidEnterState(self, state: .FirmwareUpdateFileComplete)
+                    context.delegate.gen3SetupDidEnterState(self, state: .FirmwareUpdateFileComplete)
                 }
 
                 self.start()
@@ -345,7 +345,7 @@ class StepEnsureLatestFirmware: MeshSetupStep {
         }
     }
 
-    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         guard let context = self.context else {
             return false
         }

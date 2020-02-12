@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupSuccessViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupSuccessViewController: Gen3SetupViewController, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupSuccessView"
+        return "Gen3SetupSuccessView"
     }
 
     @IBOutlet weak var successView: UIView!

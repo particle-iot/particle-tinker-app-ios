@@ -5,16 +5,16 @@
 
 import UIKit
 
-class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewController {
+class Gen3SetupControlPanelManageWifiViewController: Gen3SetupNetworkListViewController {
 
     override class var nibName: String {
-        return "MeshSetupNetworkListNoActivityIndicatorView"
+        return "Gen3SetupNetworkListNoActivityIndicatorView"
     }
 
-    internal var networks:[MeshSetupKnownWifiNetworkInfo]?
-    internal var callback: ((MeshSetupKnownWifiNetworkInfo) -> ())!
+    internal var networks:[Gen3SetupKnownWifiNetworkInfo]?
+    internal var callback: ((Gen3SetupKnownWifiNetworkInfo) -> ())!
 
-    func setup(didSelectNetwork: @escaping (MeshSetupKnownWifiNetworkInfo) -> ()) {
+    func setup(didSelectNetwork: @escaping (Gen3SetupKnownWifiNetworkInfo) -> ()) {
         self.callback = didSelectNetwork
     }
 
@@ -42,7 +42,7 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
         self.stopScanning()
     }
 
-    func setNetworks(networks: [MeshSetupKnownWifiNetworkInfo]) {
+    func setNetworks(networks: [Gen3SetupKnownWifiNetworkInfo]) {
         var networks = networks
         networks.sort { info, info2 in
             return info.ssid.localizedCaseInsensitiveCompare(info2.ssid) == .orderedAscending
@@ -64,10 +64,10 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:MeshCell! = nil
+        var cell:Gen3Cell! = nil
         let network = networks![indexPath.row]
 
-        cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupWifiNetworkCell") as! MeshCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupWifiNetworkCell") as! Gen3Cell
 
         cell.cellTitleLabel.text = network.ssid
         cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)
@@ -83,7 +83,7 @@ class MeshSetupControlPanelManageWifiViewController: MeshSetupNetworkListViewCon
         if networks![indexPath.row].credentialsType == .noCredentials {
             cell.cellSecondaryAccessoryImageView.image = nil
         } else {
-            cell.cellSecondaryAccessoryImageView.image = UIImage.init(named: "MeshSetupWifiProtectedIcon")
+            cell.cellSecondaryAccessoryImageView.image = UIImage.init(named: "Gen3SetupWifiProtectedIcon")
         }
 
         cell.cellAccessoryImageView.isHidden = true

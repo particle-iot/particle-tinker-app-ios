@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupPairingProcessViewController" customModule="Particle" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupPairingProcessViewController" customModule="Particle" customModuleProvider="target">
             <connections>
                 <outlet property="pairingIndicator" destination="kAY-as-HeU" id="2Wv-aJ-tYC"/>
                 <outlet property="pairingTextLabel" destination="zLY-8n-5JS" id="Zar-4w-yGT"/>
@@ -34,7 +34,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jlB-J7-gRg" userLabel="SuccessView">
                     <rect key="frame" x="30" y="241" width="315" height="118"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Onc-Io-fre">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gen3SetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Onc-Io-fre">
                             <rect key="frame" x="125.5" y="0.0" width="64" height="64"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="64" id="Ord-th-dnr"/>
@@ -106,6 +106,6 @@
         </view>
     </objects>
     <resources>
-        <image name="MeshSetupCompleteIcon" width="70" height="70"/>
+        <image name="Gen3SetupCompleteIcon" width="70" height="70"/>
     </resources>
 </document>

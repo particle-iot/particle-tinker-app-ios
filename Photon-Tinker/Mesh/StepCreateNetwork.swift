@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepCreateNetwork : MeshSetupStep {
+class StepCreateNetwork : Gen3SetupStep {
 
 
     override func start() {
@@ -14,7 +14,7 @@ class StepCreateNetwork : MeshSetupStep {
         }
 
         if (context.newNetworkId == nil) {
-            context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkStarted)
+            context.delegate.gen3SetupDidEnterState(self, state: .CreateNetworkStarted)
             self.createNetworkInAPI()
         } else if (context.selectedNetworkMeshInfo == nil ) {
             if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == false) {
@@ -54,7 +54,7 @@ class StepCreateNetwork : MeshSetupStep {
 
             if let network = network {
                 context.newNetworkId = network.id
-                context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkStep1Done)
+                context.delegate.gen3SetupDidEnterState(self, state: .CreateNetworkStep1Done)
                 self.start()
             }
         }
@@ -103,8 +103,8 @@ class StepCreateNetwork : MeshSetupStep {
                 //this is used in control panel
                 context.targetDevice.networkRole = .gateway
 
-                context.delegate.meshSetupDidCreateNetwork(self, network: MeshSetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
-                context.delegate.meshSetupDidEnterState(self, state: .CreateNetworkCompleted)
+                context.delegate.gen3SetupDidCreateNetwork(self, network: Gen3SetupNetworkCellInfo(name: networkInfo!.name, extPanID: networkInfo!.extPanID, userOwned: true, deviceCount: 1))
+                context.delegate.gen3SetupDidEnterState(self, state: .CreateNetworkCompleted)
                 self.start()
             } else {
                 self.handleBluetoothErrorResult(result)

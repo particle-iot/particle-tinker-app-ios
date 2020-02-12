@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelInfoActivateSimViewController : MeshSetupControlPanelInfoDeactivateSimViewController {
+class Gen3SetupControlPanelInfoActivateSimViewController : Gen3SetupControlPanelInfoDeactivateSimViewController {
 
     @IBOutlet weak var priceInfo1Label: ParticleLabel!
     @IBOutlet weak var priceInfo2Label: ParticleLabel!

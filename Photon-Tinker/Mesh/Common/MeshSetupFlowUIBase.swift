@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import MessageUI
 
-public enum MeshSetupFlowResult: CustomStringConvertible {
+public enum Gen3SetupFlowResult: CustomStringConvertible {
     case success
     case error
     case canceled
@@ -30,9 +30,9 @@ public enum MeshSetupFlowResult: CustomStringConvertible {
     }
 }
 
-typealias MeshSetupFlowCallback = (MeshSetupFlowResult, [AnyObject]?) -> ()
+typealias Gen3SetupFlowCallback = (Gen3SetupFlowResult, [AnyObject]?) -> ()
 
-class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
+class Gen3SetupUIBase : UIViewController, Storyboardable, Gen3SetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
 
     static var storyboardName: String {
         return "Gen3Setup"
@@ -43,29 +43,29 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     @IBOutlet weak var navigationBarTitle: ParticleLabel!
 
-    internal var flowRunner: MeshSetupFlowRunner!
+    internal var flowRunner: Gen3SetupFlowRunner!
     internal var embededNavigationController: UINavigationController!
 
-    internal var targetDeviceDataMatrix: MeshSetupDataMatrix?
+    internal var targetDeviceDataMatrix: Gen3SetupDataMatrix?
 
     internal var alert: UIAlertController?
     internal var lockAlert: Bool = false //when critical alert is shown, this is set to true
 
-    internal var currentStepType: MeshSetupStep.Type?
+    internal var currentStepType: Gen3SetupStep.Type?
     {
         didSet {
             self.log("Switching currentStepType: \(currentStepType)")
         }
     }
 
-    internal var callback: MeshSetupFlowCallback?
+    internal var callback: Gen3SetupFlowCallback?
 
-    func setCallback(_ callback: @escaping MeshSetupFlowCallback) {
+    func setCallback(_ callback: @escaping Gen3SetupFlowCallback) {
         self.callback = callback
     }
 
     internal func log(_ message: String) {
-        ParticleLogger.logInfo("MeshSetupFlowUI", format: message, withParameters: getVaList([]))
+        ParticleLogger.logInfo("Gen3SetupFlowUI", format: message, withParameters: getVaList([]))
     }
 
     override func awakeFromNib() {
@@ -86,7 +86,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         super.viewDidAppear(animated)
 
         UIApplication.shared.isIdleTimerDisabled = true
-        NotificationCenter.default.addObserver(self, selector: #selector(isBusyChanged), name: Notification.Name.MeshSetupViewControllerBusyChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(isBusyChanged), name: Notification.Name.Gen3SetupViewControllerBusyChanged, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -115,7 +115,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         //rewinding
         for vc in self.embededNavigationController.viewControllers {
             if type(of: vc) == vcType.self {
-                (vc as! MeshSetupViewController).resume(animated: false)
+                (vc as! Gen3SetupViewController).resume(animated: false)
                 log("Rewinding to: \(vc)")
                 if (vc != self.embededNavigationController.topViewController!) {
                     self.embededNavigationController.popToViewController(vc, animated: true)
@@ -142,7 +142,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     internal func showMatrixNetworkError(onRetry: @escaping () -> ()) {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.NetworkError.description, preferredStyle: .alert)
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: Gen3SetupFlowError.NetworkError.description, preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.CancelSetup, style: .cancel) { action in
                     self.cancelTapped(self)
@@ -162,7 +162,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
                 self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle,
-                        message: targetDevice ? MeshSetupFlowError.WrongTargetDeviceType.description : MeshSetupFlowError.WrongCommissionerDeviceType.description,
+                        message: targetDevice ? Gen3SetupFlowError.WrongTargetDeviceType.description : Gen3SetupFlowError.WrongCommissionerDeviceType.description,
                         preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
@@ -174,10 +174,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         }
     }
 
-    internal func showFailedMatrixRecoveryError(dataMatrix: MeshSetupDataMatrix) {
+    internal func showFailedMatrixRecoveryError(dataMatrix: Gen3SetupDataMatrix) {
         DispatchQueue.main.async {
             if (self.hideAlertIfVisible()) {
-                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: MeshSetupFlowError.StickerError.description, preferredStyle: .alert)
+                self.alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: Gen3SetupFlowError.StickerError.description, preferredStyle: .alert)
 
                 self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .cancel) { action in
                     self.restartCaptureSession()
@@ -193,7 +193,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         }
     }
 
-    internal func openEmailClient(dataMatrix: MeshSetupDataMatrix) {
+    internal func openEmailClient(dataMatrix: Gen3SetupDataMatrix) {
         if !MFMailComposeViewController.canSendMail() {
             self.log("Mail services are not available")
             return
@@ -221,52 +221,52 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     }
 
     internal func restartCaptureSession() {
-        if let vc = self.embededNavigationController.topViewController as? MeshSetupScanCommissionerStickerViewController {
+        if let vc = self.embededNavigationController.topViewController as? Gen3SetupScanCommissionerStickerViewController {
             vc.resume(animated: true)
-        } else if let vc = self.embededNavigationController.topViewController as? MeshSetupScanStickerViewController {
+        } else if let vc = self.embededNavigationController.topViewController as? Gen3SetupScanStickerViewController {
             vc.resume(animated: true)
         } else {
-            self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupScanCommissionerStickerViewController / MeshSetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
+            self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupScanCommissionerStickerViewController / Gen3SetupScanStickerViewController.restartCaptureSession was attempted when it shouldn't be")
         }
     }
 
-    internal func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestTargetDeviceInfo(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToSelectSimDataLimit(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToSelectSimStatus(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToSelectEthernetStatus(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo) {
+    internal func gen3SetupDidRequestToLeaveNetwork(_ sender: Gen3SetupStep, network: Gen3SetupNetworkInfo) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice) {
+    internal func gen3SetupDidRequestToSwitchToControlPanel(_ sender: Gen3SetupStep, device: ParticleDevice) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToShowInfo(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidRequestToAddOneMoreDevice(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToAddOneMoreDevice(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
-    internal func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidCompleteControlPanelFlow(_ sender: Gen3SetupStep) {
         fatalError("not implemented")
     }
 
@@ -275,8 +275,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     func showTargetPairingProcessView() {
         self.flowRunner.pauseSetup()
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupPairingProcessViewController.self)) {
-                let pairingVC = MeshSetupPairingProcessViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupPairingProcessViewController.self)) {
+                let pairingVC = Gen3SetupPairingProcessViewController.loadedViewController()
                 pairingVC.allowBack = false
                 pairingVC.ownerStepType = self.currentStepType
                 pairingVC.setup(didFinishScreen: self.targetPairingProcessViewCompleted, deviceType: self.flowRunner.context.targetDevice.type, deviceName: self.flowRunner.context.targetDevice.bluetoothName ?? self.flowRunner.context.targetDevice.type!.description)
@@ -292,7 +292,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
     //MARK: Firmware update
-    internal func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToUpdateFirmware(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
 
         self.showFirmwareUpdateView()
@@ -300,8 +300,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showFirmwareUpdateView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupFirmwareUpdateViewController.self)) {
-                let prepareUpdateFirmwareVC = MeshSetupFirmwareUpdateViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupFirmwareUpdateViewController.self)) {
+                let prepareUpdateFirmwareVC = Gen3SetupFirmwareUpdateViewController.loadedViewController()
                 prepareUpdateFirmwareVC.setup(didPressContinue: self.firmwareUpdateViewCompleted)
                 prepareUpdateFirmwareVC.ownerStepType = self.currentStepType
                 prepareUpdateFirmwareVC.allowBack = false
@@ -318,8 +318,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showFirmwareUpdateProgressView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupFirmwareUpdateProgressViewController.self)) {
-                let updateFirmwareVC = MeshSetupFirmwareUpdateProgressViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupFirmwareUpdateProgressViewController.self)) {
+                let updateFirmwareVC = Gen3SetupFirmwareUpdateProgressViewController.loadedViewController()
                 updateFirmwareVC.setup(didFinishScreen: self.firmwareUpdateProgressViewCompleted)
                 updateFirmwareVC.allowBack = false
                 updateFirmwareVC.ownerStepType = self.currentStepType
@@ -335,7 +335,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
     //MARK: Device info
-    internal func meshSetupDidRequestToEnterDeviceName(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToEnterDeviceName(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
 
         showNameDeviceView()
@@ -343,8 +343,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showNameDeviceView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupNameDeviceViewController.self)) {
-                let nameVC = MeshSetupNameDeviceViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupNameDeviceViewController.self)) {
+                let nameVC = Gen3SetupNameDeviceViewController.loadedViewController()
                 nameVC.allowBack = false
                 nameVC.ownerStepType = self.currentStepType
                 nameVC.setup(didEnterName: self.nameDeviceViewCompleted, deviceType: self.flowRunner.context.targetDevice.type, currentName: self.flowRunner.context.targetDevice.name)
@@ -355,7 +355,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func nameDeviceViewCompleted(name: String) {
         flowRunner.setDeviceName(name: name) { error in
-            if error != nil, let vc = self.embededNavigationController.topViewController as? MeshSetupNameDeviceViewController {
+            if error != nil, let vc = self.embededNavigationController.topViewController as? Gen3SetupNameDeviceViewController {
                 vc.setWrongInput(message: error!.description)
             }
         }
@@ -367,7 +367,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
     //MARK: Pricing info
-    internal func meshSetupDidRequestToShowPricingInfo(_ sender: MeshSetupStep, info: ParticlePricingInfo) {
+    internal func gen3SetupDidRequestToShowPricingInfo(_ sender: Gen3SetupStep, info: ParticlePricingInfo) {
         currentStepType = type(of: sender)
 
         showPricingInfoView(info: info)
@@ -375,8 +375,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showPricingInfoView(info: ParticlePricingInfo) {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupPricingInfoViewController.self)) {
-                let pricingInfoVC = MeshSetupPricingInfoViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupPricingInfoViewController.self)) {
+                let pricingInfoVC = Gen3SetupPricingInfoViewController.loadedViewController()
                 pricingInfoVC.ownerStepType = self.currentStepType
                 pricingInfoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh
                 pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
@@ -412,7 +412,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     //MARK: Collect CC Delegate
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        self.rewindTo(MeshSetupPricingInfoViewController.self)
+        self.rewindTo(Gen3SetupPricingInfoViewController.self)
         addCardViewController.navigationController!.dismiss(animated:true)
     }
 
@@ -434,11 +434,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     //MARK: Scan WIFI networks
     internal func showSelectWifiNetworkView() {
         DispatchQueue.main.async {
-            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+            if let _ = self.embededNavigationController.topViewController as? Gen3SetupSelectWifiNetworkViewController {
                 //do nothing
             } else {
-                if (!self.rewindTo(MeshSetupSelectWifiNetworkViewController.self)) {
-                    let networksVC = MeshSetupSelectWifiNetworkViewController.loadedViewController()
+                if (!self.rewindTo(Gen3SetupSelectWifiNetworkViewController.self)) {
+                    let networksVC = Gen3SetupSelectWifiNetworkViewController.loadedViewController()
                     networksVC.ownerStepType = self.currentStepType
                     networksVC.setup(didSelectNetwork: self.selectWifiNetworkViewCompleted)
                     self.embededNavigationController.pushViewController(networksVC, animated: true)
@@ -447,15 +447,15 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         }
     }
 
-    internal func selectWifiNetworkViewCompleted(network: MeshSetupNewWifiNetworkInfo) {
+    internal func selectWifiNetworkViewCompleted(network: Gen3SetupNewWifiNetworkInfo) {
         flowRunner.setSelectedWifiNetwork(selectedNetwork: network)
     }
 
-    internal func meshSetupDidRequestToSelectWifiNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNewWifiNetworkInfo]) {
+    internal func gen3SetupDidRequestToSelectWifiNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNewWifiNetworkInfo]) {
         self.log("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
-        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+        if let vc = self.embededNavigationController.topViewController as? Gen3SetupSelectWifiNetworkViewController {
             currentStepType = type(of: sender)
             vc.setNetworks(networks: availableNetworks)
 
@@ -475,7 +475,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func rescanWifiNetworks() {
         if self.flowRunner.context.selectedWifiNetworkInfo == nil {
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectWifiNetworkViewController {
+            if let vc = self.embededNavigationController.topViewController as? Gen3SetupSelectWifiNetworkViewController {
                 if (flowRunner.rescanNetworks() == nil) {
                     vc.startScanning()
                 } else {
@@ -489,7 +489,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
     //MARK: Wifi network password
-    internal func meshSetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
 
         showWifiNetworkPasswordView()
@@ -497,8 +497,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showWifiNetworkPasswordView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupWifiNetworkPasswordViewController.self)) {
-                let passwordVC = MeshSetupWifiNetworkPasswordViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupWifiNetworkPasswordViewController.self)) {
+                let passwordVC = Gen3SetupWifiNetworkPasswordViewController.loadedViewController()
                 passwordVC.ownerStepType = self.currentStepType
                 passwordVC.setup(didEnterPassword: self.wifiNetworkPasswordViewCompleted, networkName: self.flowRunner.context.selectedWifiNetworkInfo!.ssid)
                 self.embededNavigationController.pushViewController(passwordVC, animated: true)
@@ -508,7 +508,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func wifiNetworkPasswordViewCompleted(password: String) {
         flowRunner.setSelectedWifiNetworkPassword(password) { error in
-            if error != nil, let vc = self.embededNavigationController.topViewController as? MeshSetupWifiNetworkPasswordViewController {
+            if error != nil, let vc = self.embededNavigationController.topViewController as? Gen3SetupWifiNetworkPasswordViewController {
                 vc.setWrongInput(message: error!.description)
             }
         }
@@ -523,11 +523,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     //MARK: Scan networks
     internal func showSelectNetworkView() {
         DispatchQueue.main.async {
-            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
+            if let _ = self.embededNavigationController.topViewController as? Gen3SetupSelectNetworkViewController {
                 //do nothing
             } else {
-                if (!self.rewindTo(MeshSetupSelectNetworkViewController.self)) {
-                    let networksVC = MeshSetupSelectNetworkViewController.loadedViewController()
+                if (!self.rewindTo(Gen3SetupSelectNetworkViewController.self)) {
+                    let networksVC = Gen3SetupSelectNetworkViewController.loadedViewController()
                     networksVC.ownerStepType = self.currentStepType
                     networksVC.setup(didSelectNetwork: self.selectNetworkViewCompleted)
                     self.embededNavigationController.pushViewController(networksVC, animated: true)
@@ -538,11 +538,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showSelectOrCreateNetworkView() {
         DispatchQueue.main.async {
-            if let _ = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController {
+            if let _ = self.embededNavigationController.topViewController as? Gen3SetupSelectOrCreateNetworkViewController {
                 //do nothing
             } else {
-                if (!self.rewindTo(MeshSetupSelectOrCreateNetworkViewController.self)) {
-                    let networksVC = MeshSetupSelectOrCreateNetworkViewController.loadedViewController()
+                if (!self.rewindTo(Gen3SetupSelectOrCreateNetworkViewController.self)) {
+                    let networksVC = Gen3SetupSelectOrCreateNetworkViewController.loadedViewController()
                     networksVC.ownerStepType = self.currentStepType
                     networksVC.setup(didSelectNetwork: self.selectOrCreateNetworkViewCompleted)
                     self.embededNavigationController.pushViewController(networksVC, animated: true)
@@ -551,7 +551,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         }
     }
 
-    internal func selectNetworkViewCompleted(network: MeshSetupNetworkCellInfo?) {
+    internal func selectNetworkViewCompleted(network: Gen3SetupNetworkCellInfo?) {
         guard network != nil else {
             log("Selected empty network for joiner flow")
             return
@@ -566,16 +566,16 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     }
 
 
-    internal func selectOrCreateNetworkViewCompleted(network: MeshSetupNetworkCellInfo?) {
+    internal func selectOrCreateNetworkViewCompleted(network: Gen3SetupNetworkCellInfo?) {
         flowRunner.setOptionalSelectedNetwork(selectedNetworkExtPanID: network?.extPanID)
     }
 
 
-    internal func meshSetupDidRequestToSelectNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo]) {
+    internal func gen3SetupDidRequestToSelectNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNetworkCellInfo]) {
         self.log("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
-        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
+        if let vc = self.embededNavigationController.topViewController as? Gen3SetupSelectNetworkViewController {
             currentStepType = type(of: sender)
             vc.setNetworks(networks: availableNetworks)
 
@@ -594,11 +594,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     }
 
 
-    internal func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo]) {
+    internal func gen3SetupDidRequestToSelectOrCreateNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNetworkCellInfo]) {
         self.log("scan complete")
 
         //if by the time this returned, user has already selected the network, ignore the results of last scan
-        if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
+        if let vc = self.embededNavigationController.topViewController as? Gen3SetupSelectNetworkViewController {
             currentStepType = type(of: sender)
             vc.setNetworks(networks: availableNetworks)
 
@@ -619,13 +619,13 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func rescanNetworks() {
         if self.flowRunner.context.selectedNetworkMeshInfo == nil {
-            if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectNetworkViewController {
+            if let vc = self.embededNavigationController.topViewController as? Gen3SetupSelectNetworkViewController {
                 if (flowRunner.rescanNetworks() == nil) {
                     vc.startScanning()
                 } else {
                     self.log("rescanNetworks was attempted when it shouldn't be")
                 }
-            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupSelectOrCreateNetworkViewController, self.flowRunner.context.userSelectedToCreateNetwork == nil {
+            } else if let vc = self.embededNavigationController.topViewController as? Gen3SetupSelectOrCreateNetworkViewController, self.flowRunner.context.userSelectedToCreateNetwork == nil {
                 if (flowRunner.rescanNetworks() == nil) {
                     vc.startScanning()
                 } else {
@@ -640,7 +640,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
     //MARK: Connect to selected network
-    internal func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestCommissionerDeviceInfo(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
         log("requesting commisioner info!!")
 
@@ -649,8 +649,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     private func showGetCommissionerReadyView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupScanCommissionerStickerViewController.self)) {
-                let getReadyVC = MeshSetupGetCommissionerReadyViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupScanCommissionerStickerViewController.self)) {
+                let getReadyVC = Gen3SetupGetCommissionerReadyViewController.loadedViewController()
                 getReadyVC.ownerStepType = self.currentStepType
                 getReadyVC.setup(didPressReady: self.getCommissionerReadyViewCompleted, deviceType: self.flowRunner.context.targetDevice.type, networkName: self.flowRunner.context.selectedNetworkMeshInfo!.name)
                 self.embededNavigationController.pushViewController(getReadyVC, animated: true)
@@ -667,8 +667,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     private func showFindCommissionerStickerView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupFindCommissionerStickerViewController.self)) {
-                let findStickerVC = MeshSetupFindCommissionerStickerViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupFindCommissionerStickerViewController.self)) {
+                let findStickerVC = Gen3SetupFindCommissionerStickerViewController.loadedViewController()
                 findStickerVC.setup(didPressScan: self.findCommissionerStickerViewCompleted, networkName: self.flowRunner.context.selectedNetworkMeshInfo!.name)
                 findStickerVC.ownerStepType = self.currentStepType
                 self.embededNavigationController.pushViewController(findStickerVC, animated: true)
@@ -684,8 +684,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     private func showScanCommissionerStickerView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupScanCommissionerStickerViewController.self)) {
-                let scanVC = MeshSetupScanCommissionerStickerViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupScanCommissionerStickerViewController.self)) {
+                let scanVC = Gen3SetupScanCommissionerStickerViewController.loadedViewController()
                 scanVC.setup(didFindStickerCode: self.scanCommissionerStickerViewCompleted)
                 scanVC.ownerStepType = self.currentStepType
                 self.embededNavigationController.pushViewController(scanVC, animated: true)
@@ -696,10 +696,10 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func scanCommissionerStickerViewCompleted(dataMatrixString:String) {
         log("dataMatrix scanned: \(dataMatrixString)")
-        MeshSetupDataMatrix.getMatrix(fromString: dataMatrixString, onComplete: setCommissionerDeviceValidatedMatrix)
+        Gen3SetupDataMatrix.getMatrix(fromString: dataMatrixString, onComplete: setCommissionerDeviceValidatedMatrix)
     }
 
-    internal func setCommissionerDeviceValidatedMatrix(dataMatrix: MeshSetupDataMatrix?, error: DataMatrixError?) {
+    internal func setCommissionerDeviceValidatedMatrix(dataMatrix: Gen3SetupDataMatrix?, error: DataMatrixError?) {
         if let error: DataMatrixError = error {
             switch error {
             case .InvalidMatrix:
@@ -709,7 +709,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             case .NetworkError:
                 self.showMatrixNetworkError { [weak self] in
                     if let self = self {
-                        MeshSetupDataMatrix.getMatrix(fromString: dataMatrix!.matrixString, onComplete: self.setCommissionerDeviceValidatedMatrix)
+                        Gen3SetupDataMatrix.getMatrix(fromString: dataMatrix!.matrixString, onComplete: self.setCommissionerDeviceValidatedMatrix)
                     }
                 }
             }
@@ -735,8 +735,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     private func showPairingCommissionerProcessView(deviceType: ParticleDeviceType) {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupPairingCommissionerProcessViewController.self)) {
-                let pairingVC = MeshSetupPairingCommissionerProcessViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupPairingCommissionerProcessViewController.self)) {
+                let pairingVC = Gen3SetupPairingCommissionerProcessViewController.loadedViewController()
                 pairingVC.setup(didFinishScreen: self.pairingCommissionerProcessViewCompleted, deviceType: self.flowRunner.context.commissionerDevice?.type, deviceName: self.flowRunner.context.commissionerDevice?.bluetoothName ?? deviceType.description)
                 pairingVC.ownerStepType = self.currentStepType
                 pairingVC.allowBack = false
@@ -755,7 +755,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
     //MARK: Join network
-    internal func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToEnterSelectedNetworkPassword(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
 
         showNetworkPasswordView()
@@ -763,8 +763,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     private func showNetworkPasswordView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupNetworkPasswordViewController.self)) {
-                let passwordVC = MeshSetupNetworkPasswordViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupNetworkPasswordViewController.self)) {
+                let passwordVC = Gen3SetupNetworkPasswordViewController.loadedViewController()
                 passwordVC.allowBack = false
                 passwordVC.ownerStepType = self.currentStepType
                 passwordVC.setup(didEnterPassword: self.networkPasswordViewCompleted, networkName: self.flowRunner.context.selectedNetworkMeshInfo!.name)
@@ -778,7 +778,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             if error == nil {
                 //self.showJoiningNetworkView()
                 //this will trigger based on JoiningNetworkStarted event
-            } else if let vc = self.embededNavigationController.topViewController as? MeshSetupNetworkPasswordViewController {
+            } else if let vc = self.embededNavigationController.topViewController as? Gen3SetupNetworkPasswordViewController {
                 vc.setWrongInput(message: error!.description)
             }
         }
@@ -786,8 +786,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showJoiningNetworkView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupJoiningNetworkViewController.self)) {
-                let joiningVC = MeshSetupJoiningNetworkViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupJoiningNetworkViewController.self)) {
+                let joiningVC = Gen3SetupJoiningNetworkViewController.loadedViewController()
                 joiningVC.allowBack = false
                 joiningVC.ownerStepType = self.currentStepType
                 joiningVC.setup(didFinishScreen: self.joiningNetworkViewCompleted, networkName: self.flowRunner.context.selectedNetworkMeshInfo!.name, deviceType: self.flowRunner.context.targetDevice.type)
@@ -813,11 +813,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         switch self.flowRunner.context.targetDevice.activeInternetInterface! {
             case .ethernet:
                 DispatchQueue.main.async {
-                    if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetEthernetViewController {
+                    if let vc = self.embededNavigationController.topViewController as? Gen3SetupConnectingToInternetEthernetViewController {
                         vc.setState(.TargetDeviceConnectingToInternetStarted)
                     } else {
-                        if (!self.rewindTo(MeshSetupConnectingToInternetEthernetViewController.self)) {
-                            let connectingVC = MeshSetupConnectingToInternetEthernetViewController.loadedViewController()
+                        if (!self.rewindTo(Gen3SetupConnectingToInternetEthernetViewController.self)) {
+                            let connectingVC = Gen3SetupConnectingToInternetEthernetViewController.loadedViewController()
                             connectingVC.allowBack = false
                             connectingVC.ownerStepType = self.currentStepType
                             connectingVC.setup(didFinishScreen: self.connectingToInternetViewCompleted, deviceType: self.flowRunner.context.targetDevice.type)
@@ -827,11 +827,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 }
             case .wifi:
                 DispatchQueue.main.async {
-                    if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetWifiViewController {
+                    if let vc = self.embededNavigationController.topViewController as? Gen3SetupConnectingToInternetWifiViewController {
                         vc.setState(.TargetDeviceConnectingToInternetStarted)
                     } else {
-                        if (!self.rewindTo(MeshSetupConnectingToInternetWifiViewController.self)) {
-                            let connectingVC = MeshSetupConnectingToInternetWifiViewController.loadedViewController()
+                        if (!self.rewindTo(Gen3SetupConnectingToInternetWifiViewController.self)) {
+                            let connectingVC = Gen3SetupConnectingToInternetWifiViewController.loadedViewController()
                             connectingVC.allowBack = false
                             connectingVC.ownerStepType = self.currentStepType
                             connectingVC.setup(didFinishScreen: self.connectingToInternetViewCompleted, deviceType: self.flowRunner.context.targetDevice.type)
@@ -841,11 +841,11 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 }
             case .ppp:
                 DispatchQueue.main.async {
-                    if let vc = self.embededNavigationController.topViewController as? MeshSetupConnectingToInternetCellularViewController {
+                    if let vc = self.embededNavigationController.topViewController as? Gen3SetupConnectingToInternetCellularViewController {
                         vc.setState(.TargetDeviceConnectingToInternetStarted)
                     } else {
-                        if (!self.rewindTo(MeshSetupConnectingToInternetCellularViewController.self)) {
-                            let connectingVC = MeshSetupConnectingToInternetCellularViewController.loadedViewController()
+                        if (!self.rewindTo(Gen3SetupConnectingToInternetCellularViewController.self)) {
+                            let connectingVC = Gen3SetupConnectingToInternetCellularViewController.loadedViewController()
                             connectingVC.allowBack = false
                             connectingVC.ownerStepType = self.currentStepType
                             connectingVC.setup(didFinishScreen: self.connectingToInternetViewCompleted, deviceType: self.flowRunner.context.targetDevice.type)
@@ -868,7 +868,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
     //MARK: Create network
-    internal func meshSetupDidRequestToEnterNewNetworkName(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToEnterNewNetworkName(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
 
         showCreateNetworkNameView()
@@ -876,8 +876,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showCreateNetworkNameView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupCreateNetworkNameViewController.self)) {
-                let networkNameVC = MeshSetupCreateNetworkNameViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupCreateNetworkNameViewController.self)) {
+                let networkNameVC = Gen3SetupCreateNetworkNameViewController.loadedViewController()
                 networkNameVC.setup(didEnterNetworkName: self.createNetworkNameCompleted)
                 networkNameVC.ownerStepType = self.currentStepType
                 self.embededNavigationController.pushViewController(networkNameVC, animated: true)
@@ -887,14 +887,14 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func createNetworkNameCompleted(networkName: String) {
         if let error = self.flowRunner.setNewNetworkName(name: networkName),
-           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkNameViewController {
+           let vc = self.embededNavigationController.topViewController as? Gen3SetupCreateNetworkNameViewController {
             vc.setWrongInput(message: error.description)
         } else {
             showCreateNetworkPasswordView()
         }
     }
 
-    internal func meshSetupDidRequestToEnterNewNetworkPassword(_ sender: MeshSetupStep) {
+    internal func gen3SetupDidRequestToEnterNewNetworkPassword(_ sender: Gen3SetupStep) {
         currentStepType = type(of: sender)
 
         showCreateNetworkPasswordView()
@@ -902,8 +902,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showCreateNetworkPasswordView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupCreateNetworkPasswordViewController.self)) {
-                let networkPasswordVC = MeshSetupCreateNetworkPasswordViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupCreateNetworkPasswordViewController.self)) {
+                let networkPasswordVC = Gen3SetupCreateNetworkPasswordViewController.loadedViewController()
                 networkPasswordVC.setup(didEnterNetworkPassword: self.createNetworkPasswordViewCompleted)
                 networkPasswordVC.ownerStepType = self.currentStepType
                 self.embededNavigationController.pushViewController(networkPasswordVC, animated: true)
@@ -913,7 +913,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func createNetworkPasswordViewCompleted(networkPassword: String) {
         if let error = self.flowRunner.setNewNetworkPassword(password: networkPassword),
-           let vc = self.embededNavigationController.topViewController as? MeshSetupCreateNetworkPasswordViewController{
+           let vc = self.embededNavigationController.topViewController as? Gen3SetupCreateNetworkPasswordViewController{
             vc.setWrongInput(message: error.description)
         } else {
             showCreatingNetworkView()
@@ -923,8 +923,8 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
     internal func showCreatingNetworkView() {
         DispatchQueue.main.async {
-            if (!self.rewindTo(MeshSetupCreatingNetworkViewController.self)) {
-                let createNetworkVC = MeshSetupCreatingNetworkViewController.loadedViewController()
+            if (!self.rewindTo(Gen3SetupCreatingNetworkViewController.self)) {
+                let createNetworkVC = Gen3SetupCreatingNetworkViewController.loadedViewController()
                 createNetworkVC.allowBack = false
                 createNetworkVC.ownerStepType = self.currentStepType
                 createNetworkVC.setup(didFinishScreen: self.creatingNetworkViewCompleted, deviceType: self.flowRunner.context.targetDevice.type, deviceName: self.flowRunner.context.targetDevice.name)
@@ -933,7 +933,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         }
     }
 
-    internal func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo) {
+    internal func gen3SetupDidCreateNetwork(_ sender: Gen3SetupStep, network: Gen3SetupNetworkCellInfo) {
         currentStepType = type(of: sender)
 
         //nothing needs to be done on ui side
@@ -947,43 +947,43 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
 
 
-    internal func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) {
+    internal func gen3SetupDidEnterState(_ sender: Gen3SetupStep, state: Gen3SetupFlowState) {
         log("flow setup entered state: \(state)")
         switch state {
             case .TargetDeviceReady:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupPairingProcessViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupPairingProcessViewController {
                     vc.setSuccess()
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupPairingProcessViewController.setSuccess was attempted when it shouldn't be. If this is happening not during BLE OTA Update, this shouldn't be.")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupPairingProcessViewController.setSuccess was attempted when it shouldn't be. If this is happening not during BLE OTA Update, this shouldn't be.")
                 }
             case .CommissionerDeviceReady:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupPairingCommissionerProcessViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupPairingCommissionerProcessViewController {
                     vc.setSuccess()
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupPairingCommissionerProcessViewController.setSuccess was attempted when it shouldn't be")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupPairingCommissionerProcessViewController.setSuccess was attempted when it shouldn't be")
                 }
 
 
             case .FirmwareUpdateProgress:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupFirmwareUpdateProgressViewController {
                     vc.setProgress(progress: Int(round(self.flowRunner.context.targetDevice.firmwareUpdateProgress ?? 0)))
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setProgress was attempted when it shouldn't be")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupFirmwareUpdateProgressViewController.setProgress was attempted when it shouldn't be")
                 }
                 break;
             case .FirmwareUpdateFileComplete:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupFirmwareUpdateProgressViewController {
                     vc.setFileComplete()
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFileComplete was attempted when it shouldn't be")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupFirmwareUpdateProgressViewController.setFileComplete was attempted when it shouldn't be")
                 }
                 break;
             case .FirmwareUpdateComplete:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupFirmwareUpdateProgressViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupFirmwareUpdateProgressViewController {
                     self.flowRunner.pauseSetup()
                     vc.setFirmwareUpdateComplete()
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupFirmwareUpdateProgressViewController.setFirmwareUpdateComplete was attempted when it shouldn't be")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupFirmwareUpdateProgressViewController.setFirmwareUpdateComplete was attempted when it shouldn't be")
                 }
                 break;
 
@@ -1002,24 +1002,24 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
             case .TargetDeviceConnectingToInternetStarted:
                 showConnectingToInternetView()
             case .TargetDeviceConnectingToInternetStep0Done, .TargetDeviceConnectingToInternetStep1Done, .TargetDeviceConnectingToInternetCompleted:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupProgressViewController,
-                   self.embededNavigationController.topViewController is MeshSetupConnectingToInternetEthernetViewController ||
-                   self.embededNavigationController.topViewController is MeshSetupConnectingToInternetWifiViewController ||
-                   self.embededNavigationController.topViewController is MeshSetupConnectingToInternetCellularViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupProgressViewController,
+                   self.embededNavigationController.topViewController is Gen3SetupConnectingToInternetEthernetViewController ||
+                   self.embededNavigationController.topViewController is Gen3SetupConnectingToInternetWifiViewController ||
+                   self.embededNavigationController.topViewController is Gen3SetupConnectingToInternetCellularViewController {
                     if state == .TargetDeviceConnectingToInternetCompleted {
                         self.flowRunner.pauseSetup()
                     }
 
                     vc.setState(state)
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupConnectToInternetViewController.setState was attempted when it shouldn't be: \(state)")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupConnectToInternetViewController.setState was attempted when it shouldn't be: \(state)")
                 }
 
 
 
             case .JoiningNetworkStarted, .JoiningNetworkStep1Done, .JoiningNetworkStep2Done, .JoiningNetworkCompleted:
 
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupJoiningNetworkViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupJoiningNetworkViewController {
                     if state == .JoiningNetworkCompleted {
                         self.flowRunner.pauseSetup()
                     }
@@ -1027,18 +1027,18 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 } else if state == .JoiningNetworkStarted {
                     self.showJoiningNetworkView()
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupJoiningNetworkViewController.setState was attempted when it shouldn't be: \(state)")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupJoiningNetworkViewController.setState was attempted when it shouldn't be: \(state)")
                 }
 
             case .CreateNetworkStarted, .CreateNetworkStep1Done, .CreateNetworkCompleted:
-                if let vc = self.embededNavigationController.topViewController as? MeshSetupCreatingNetworkViewController {
+                if let vc = self.embededNavigationController.topViewController as? Gen3SetupCreatingNetworkViewController {
                     if state == .CreateNetworkCompleted {
                         self.flowRunner.pauseSetup()
                     }
 
                     vc.setState(state)
                 } else {
-                    self.log("!!!!!!!!!!!!!!!!!!!!!!! MeshSetupCreatingNetworkViewController.setState was attempted when it shouldn't be: \(state)")
+                    self.log("!!!!!!!!!!!!!!!!!!!!!!! Gen3SetupCreatingNetworkViewController.setState was attempted when it shouldn't be: \(state)")
                 }
 
             case .SetupCanceled:
@@ -1048,7 +1048,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         }
     }
 
-    internal func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) {
+    internal func gen3SetupError(_ sender: Gen3SetupStep, error: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity, nsError: Error?) {
         DispatchQueue.main.async {
 
             var message = error.description
@@ -1063,7 +1063,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
                 if (severity == .Fatal) {
                     self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.Ok, style: .default) { action in
                         if let callback = self.callback {
-                            callback(MeshSetupFlowResult.error, nil)
+                            callback(Gen3SetupFlowResult.error, nil)
                         }
                         self.terminate()
                     })
@@ -1089,13 +1089,13 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
         let vcs = self.embededNavigationController.viewControllers
         log("Back tapped: \(vcs)")
 
-        if (vcs.last! as! MeshSetupViewController).viewControllerIsBusy {
+        if (vcs.last! as! Gen3SetupViewController).viewControllerIsBusy {
             log("viewController is busy, not backing")
             //view controller cannot be backed from at this moment
             return
         }
 
-        guard vcs.count > 1, let vcCurr = (vcs[vcs.count-1] as? MeshSetupViewController), let vcPrev = (vcs[vcs.count-2] as? MeshSetupViewController) else {
+        guard vcs.count > 1, let vcCurr = (vcs[vcs.count-1] as? Gen3SetupViewController), let vcPrev = (vcs[vcs.count-2] as? Gen3SetupViewController) else {
             log("Back button was pressed when it was not supposed to be pressed. Ignoring.")
             return
         }
@@ -1116,9 +1116,9 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     }
     
     @IBAction func cancelTapped(_ sender: Any) {
-        if (sender is MeshSetupUIBase) || (self.flowRunner.currentFlow == nil) {
+        if (sender is Gen3SetupUIBase) || (self.flowRunner.currentFlow == nil) {
             if let callback = self.callback {
-                callback(MeshSetupFlowResult.canceled, nil)
+                callback(Gen3SetupFlowResult.canceled, nil)
             }
             self.terminate()
         } else {
@@ -1128,7 +1128,7 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
 
                     self.alert!.addAction(UIAlertAction(title: Gen3SetupStrings.Action.CancelSetup, style: .default) { action in
                         if let callback = self.callback {
-                            callback(MeshSetupFlowResult.canceled, nil)
+                            callback(Gen3SetupFlowResult.canceled, nil)
                         }
                         self.terminate()
                     })
@@ -1149,18 +1149,18 @@ class MeshSetupUIBase : UIViewController, Storyboardable, MeshSetupFlowRunnerDel
     }
 
     @objc func isBusyChanged(notification: Notification) {
-        self.backButtonImage.alpha = (embededNavigationController.topViewController as! MeshSetupViewController).isBusy ? 0.5 : 1
+        self.backButtonImage.alpha = (embededNavigationController.topViewController as! Gen3SetupViewController).isBusy ? 0.5 : 1
     }
 
 
     //MARK: NavigationController Delegate
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        self.backButton.isHidden = !(viewController as! MeshSetupViewController).allowBack
+        self.backButton.isHidden = !(viewController as! Gen3SetupViewController).allowBack
         self.backButtonImage.isHidden = self.backButton.isHidden
         self.backButtonImage.alpha = 1
         self.backButton.isUserInteractionEnabled = false //prevent back button during animation
 
-        self.navigationBarTitle?.text = (viewController as! MeshSetupViewController).customTitle
+        self.navigationBarTitle?.text = (viewController as! Gen3SetupViewController).customTitle
         log("ViewControllers: \(navigationController.viewControllers)")
     }
 

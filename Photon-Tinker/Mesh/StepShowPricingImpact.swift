@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepShowPricingImpact : MeshSetupStep {
+class StepShowPricingImpact : Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -15,7 +15,7 @@ class StepShowPricingImpact : MeshSetupStep {
         if (context.pricingInfo == nil) {
             self.getPricingImpact()
         } else {
-            context.delegate.meshSetupDidRequestToShowPricingInfo(self, info: context.pricingInfo!)
+            context.delegate.gen3SetupDidRequestToShowPricingInfo(self, info: context.pricingInfo!)
         }
     }
 
@@ -70,7 +70,7 @@ class StepShowPricingImpact : MeshSetupStep {
         }
     }
 
-    func setPricingImpactDone() -> MeshSetupFlowError? {
+    func setPricingImpactDone() -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }

@@ -8,9 +8,9 @@ import Foundation
 
 
 
-class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboardable {
+class Gen3SetupInfoJoinerViewController: Gen3SetupInfoViewController, Storyboardable {
     static var nibName: String {
-        return "MeshSetupInfoView"
+        return "Gen3SetupInfoView"
     }
 
     override func setContent() {
@@ -30,9 +30,9 @@ class MeshSetupInfoJoinerViewController: MeshSetupInfoViewController, Storyboard
 
 
 
-class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboardable {
+class Gen3SetupCellularInfoViewController: Gen3SetupInfoViewController, Storyboardable {
     static var nibName: String {
-        return "MeshSetupInfoView"
+        return "Gen3SetupInfoView"
     }
 
     internal var simActive:Bool!
@@ -85,9 +85,9 @@ class MeshSetupCellularInfoViewController: MeshSetupInfoViewController, Storyboa
 
 
 
-class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboardable {
+class Gen3SetupInfoEthernetViewController: Gen3SetupInfoViewController, Storyboardable {
     static var nibName: String {
-        return "MeshSetupInfoView"
+        return "Gen3SetupInfoView"
     }
 
     override func setContent() {
@@ -129,9 +129,9 @@ class MeshSetupInfoEthernetViewController: MeshSetupInfoViewController, Storyboa
 
 
 
-class MeshSetupInfoWifiViewController: MeshSetupInfoViewController, Storyboardable {
+class Gen3SetupInfoWifiViewController: Gen3SetupInfoViewController, Storyboardable {
     static var nibName: String {
-        return "MeshSetupInfoView"
+        return "Gen3SetupInfoView"
     }
 
     override func setContent() {

@@ -5,10 +5,10 @@
 
 import Foundation
 
-class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storyboardable, UITableViewDataSource, UITableViewDelegate {
+class Gen3SetupControlPanelRootViewController : Gen3SetupViewController, Storyboardable, UITableViewDataSource, UITableViewDelegate {
 
     class var nibName: String {
-        return "MeshSetupControlPanelActionList"
+        return "Gen3SetupControlPanelActionList"
     }
 
     override var allowBack: Bool {
@@ -22,12 +22,12 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
 
     @IBOutlet weak var tableView: UITableView!
 
-    internal var callback: ((MeshSetupControlPanelCellType) -> ())!
+    internal var callback: ((Gen3SetupControlPanelCellType) -> ())!
 
     internal var device: ParticleDevice!
-    internal var cells: [[MeshSetupControlPanelCellType]]!
+    internal var cells: [[Gen3SetupControlPanelCellType]]!
 
-    internal weak var context: MeshSetupContext!
+    internal weak var context: Gen3SetupContext!
 
 
     override var customTitle: String {
@@ -42,7 +42,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
         //do nothing
     }
 
-    func setup(device: ParticleDevice, context: MeshSetupContext!, didSelectAction: @escaping (MeshSetupControlPanelCellType) -> ()) {
+    func setup(device: ParticleDevice, context: Gen3SetupContext!, didSelectAction: @escaping (Gen3SetupControlPanelCellType) -> ()) {
         self.callback = didSelectAction
 
         self.context = context
@@ -82,7 +82,7 @@ class MeshSetupControlPanelRootViewController : MeshSetupViewController, Storybo
             viewsToFade?.append(self.tableView)
         }
 
-        MeshSetupControlPanelCellType.prepareTableView(tableView)
+        Gen3SetupControlPanelCellType.prepareTableView(tableView)
     }
 
     override func resume(animated: Bool) {

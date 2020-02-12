@@ -6,10 +6,10 @@
 import UIKit
 import CoreBluetooth
 
-class MeshSetupPairingProcessViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupPairingProcessViewController: Gen3SetupViewController, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupPairingView"
+        return "Gen3SetupPairingView"
     }
 
     @IBOutlet weak var pairingView: UIView!

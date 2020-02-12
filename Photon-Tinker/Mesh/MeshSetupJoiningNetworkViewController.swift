@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupJoiningNetworkViewController: MeshSetupProgressViewController, Storyboardable {
+class Gen3SetupJoiningNetworkViewController: Gen3SetupProgressViewController, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupProgressView"
+        return "Gen3SetupProgressView"
     }
 
     override func setContent() {
@@ -26,7 +26,7 @@ class MeshSetupJoiningNetworkViewController: MeshSetupProgressViewController, St
         setProgressLabelValues()
     }
 
-    override func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: Gen3SetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .JoiningNetworkStarted:

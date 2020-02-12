@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelInfoDeactivateSimViewController : MeshSetupViewController, Storyboardable {
+class Gen3SetupControlPanelInfoDeactivateSimViewController : Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var textLabel: ParticleLabel!
@@ -26,10 +26,10 @@ class MeshSetupControlPanelInfoDeactivateSimViewController : MeshSetupViewContro
         }
     }
 
-    internal weak var context: MeshSetupContext!
+    internal weak var context: Gen3SetupContext!
     internal var infoCallback: (() -> ())!
 
-    func setup(context: MeshSetupContext, didFinish: @escaping () -> ()) {
+    func setup(context: Gen3SetupContext, didFinish: @escaping () -> ()) {
         self.context = context
         self.deviceType = context.targetDevice.type
         self.infoCallback = didFinish

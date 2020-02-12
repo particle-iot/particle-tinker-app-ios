@@ -8,7 +8,7 @@ import AVFoundation
 import AVKit
 
 
-class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupGetReadyViewController: Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var videoToButtonConstraint: NSLayoutConstraint?
     @IBOutlet weak var videoToCheckboxConstraint: NSLayoutConstraint?
@@ -47,9 +47,9 @@ class MeshSetupGetReadyViewController: MeshSetupViewController, Storyboardable {
     }
 
     private var callback: ((Bool) -> ())!
-    private var dataMatrix: MeshSetupDataMatrix!
+    private var dataMatrix: Gen3SetupDataMatrix!
 
-    func setup(didPressReady: @escaping (Bool) -> (), dataMatrix: MeshSetupDataMatrix) {
+    func setup(didPressReady: @escaping (Bool) -> (), dataMatrix: Gen3SetupDataMatrix) {
         self.callback = didPressReady
         self.dataMatrix = dataMatrix
         self.deviceType = dataMatrix.type

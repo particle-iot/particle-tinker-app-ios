@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardable, UITableViewDelegate, UITableViewDataSource {
+class Gen3SetupNetworkListViewController: Gen3SetupViewController, Storyboardable, UITableViewDelegate, UITableViewDataSource {
 
     class var nibName: String {
-        return "MeshSetupNetworkListView"
+        return "Gen3SetupNetworkListView"
     }
 
     @IBOutlet weak var networksTableView: UITableView!
@@ -22,9 +22,9 @@ class MeshSetupNetworkListViewController: MeshSetupViewController, Storyboardabl
         networksTableView.delegate = self
         networksTableView.dataSource = self
 
-        networksTableView.register(UINib.init(nibName: "MeshSetupSubtitleCell", bundle: nil), forCellReuseIdentifier: "MeshSetupSubtitleCell")
-        networksTableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
-        networksTableView.register(UINib.init(nibName: "MeshSetupWifiNetworkCell", bundle: nil), forCellReuseIdentifier: "MeshSetupWifiNetworkCell")
+        networksTableView.register(UINib.init(nibName: "Gen3SetupSubtitleCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupSubtitleCell")
+        networksTableView.register(UINib.init(nibName: "Gen3SetupBasicCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupBasicCell")
+        networksTableView.register(UINib.init(nibName: "Gen3SetupWifiNetworkCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupWifiNetworkCell")
     }
 
     override func viewWillAppear(_ animated: Bool) {

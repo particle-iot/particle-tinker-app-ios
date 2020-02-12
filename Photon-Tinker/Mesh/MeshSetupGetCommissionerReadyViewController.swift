@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupGetCommissionerReadyViewController: MeshSetupGetReadyViewController {
+class Gen3SetupGetCommissionerReadyViewController: Gen3SetupGetReadyViewController {
 
     private var callback: (() -> ())!
 

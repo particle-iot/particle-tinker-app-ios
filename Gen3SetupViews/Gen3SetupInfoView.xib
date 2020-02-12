@@ -18,7 +18,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupInfoViewController" customModule="Particle" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupInfoViewController" customModule="Particle" customModuleProvider="target">
             <connections>
                 <outlet property="continueButton" destination="Uir-IG-RYX" id="f7u-fX-xb6"/>
                 <outlet property="titleLabel" destination="xTU-yW-pp6" id="PUQ-Ip-VW8"/>

@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetAPINetworks: MeshSetupStep {
+class StepGetAPINetworks: Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -38,7 +38,7 @@ class StepGetAPINetworks: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnterListeningMode: MeshSetupStep {
+class StepEnterListeningMode: Gen3SetupStep {
 
     private var startedListeningMode = false
 

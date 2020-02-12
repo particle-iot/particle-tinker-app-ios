@@ -320,15 +320,15 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.present(esVC, animated: true, completion: nil)
     }
 
-    func invokeMeshDeviceSetup() {
+    func invokeGen3DeviceSetup() {
         SEGAnalytics.shared().track("Tinker_3rdGenSetupInvoked")
 
-        let setupFlow = MeshSetupFlowUIManager.loadedViewController()
+        let setupFlow = Gen3SetupFlowUIManager.loadedViewController()
         setupFlow.setCallback(flowCallback)
         self.present(setupFlow, animated: true)
     }
 
-    func flowCallback(result: MeshSetupFlowResult, data: [AnyObject]? = nil) {
+    func flowCallback(result: Gen3SetupFlowResult, data: [AnyObject]? = nil) {
         if result == .success {
             self.refreshData()
 
@@ -340,7 +340,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
         } else if (result == .switchToControlPanel) {
-            guard let vc = data?.first as? MeshSetupControlPanelUIManager else {
+            guard let vc = data?.first as? Gen3SetupControlPanelUIManager else {
                 fatalError("vc was not available for switchToControlPanel result")
             }
 
@@ -524,7 +524,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     vc.setup(device: device)
                     ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@", withParameters: getVaList(["\(device)"]))
                     SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": device.type.description])
-                } else if let cp = sender as? MeshSetupControlPanelUIManager {
+                } else if let cp = sender as? Gen3SetupControlPanelUIManager {
                     vc.setup(device: cp.device, controlPanelViewController: cp)
                     ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Segue into device inspector - device: %@, controlPanel: %@", withParameters: getVaList(["\(cp.device)", "\(cp)"]))
                     SEGAnalytics.shared().track("Tinker_SegueToDeviceInspector", properties: ["device": cp.device.type.description])
@@ -561,8 +561,8 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
         if (ParticleCloud.sharedInstance().isAuthenticated) {
             alert.addAction(UIAlertAction(title: TinkerStrings.Action.Setup3rdGen, style: .default) { action in
                 if (ParticleCloud.sharedInstance().isAuthenticated) {
-                    ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Mesh setup started", withParameters: getVaList([]))
-                    self.invokeMeshDeviceSetup()
+                    ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Gen3Setup setup started", withParameters: getVaList([]))
+                    self.invokeGen3DeviceSetup()
                 } else {
                     RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.AuthRequiredToSetup3rdGen.Title, subtitle: TinkerStrings.DeviceList.Error.AuthRequiredToSetup3rdGen.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
                 }

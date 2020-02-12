@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelWifiViewController : MeshSetupControlPanelRootViewController {
+class Gen3SetupControlPanelWifiViewController : Gen3SetupControlPanelRootViewController {
 
     private let refreshControl = UIRefreshControl()
 

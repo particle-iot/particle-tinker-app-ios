@@ -18,7 +18,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeshSetupCreatingNetworkViewController" customModule="Particle" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupCreatingNetworkViewController" customModule="Particle" customModuleProvider="target">
             <connections>
                 <outlet property="progressIndicator" destination="E6G-zJ-mI7" id="2j8-dQ-1NM"/>
                 <outlet property="progressTitleLabel" destination="xTU-yW-pp6" id="2GO-kZ-xo0"/>
@@ -41,7 +41,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lp9-tt-YaS" userLabel="SuccessView">
                     <rect key="frame" x="30" y="241" width="315" height="118"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeshSetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Xuq-V1-Qoq">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gen3SetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Xuq-V1-Qoq">
                             <rect key="frame" x="125.5" y="0.0" width="64" height="64"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="64" id="Zoc-8N-VHm"/>
@@ -149,6 +149,6 @@
         </view>
     </objects>
     <resources>
-        <image name="MeshSetupCompleteIcon" width="70" height="70"/>
+        <image name="Gen3SetupCompleteIcon" width="70" height="70"/>
     </resources>
 </document>

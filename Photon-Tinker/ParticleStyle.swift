@@ -190,9 +190,9 @@ class ParticleCheckBoxButton: UIButton {
         super.awakeFromNib()
 
         self.imageEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: 15)
-        self.setBackgroundImage(UIImage(named: "MeshCheckBox"), for: .normal)
-        self.setBackgroundImage(UIImage(named: "MeshCheckBoxSelected"), for: .selected)
-        self.setBackgroundImage(UIImage(named: "MeshCheckBoxSelected"), for: .highlighted)
+        self.setBackgroundImage(UIImage(named: "Gen3SetupCheckBox"), for: .normal)
+        self.setBackgroundImage(UIImage(named: "Gen3SetupCheckBoxSelected"), for: .selected)
+        self.setBackgroundImage(UIImage(named: "Gen3SetupCheckBoxSelected"), for: .highlighted)
 
         self.tintColor = .clear
     }

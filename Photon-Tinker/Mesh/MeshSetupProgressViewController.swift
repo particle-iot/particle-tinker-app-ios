@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupProgressViewController: MeshSetupViewController {
+class Gen3SetupProgressViewController: Gen3SetupViewController {
 
     @IBOutlet weak var progressView: UIView!
     @IBOutlet weak var progressTitleLabel: ParticleLabel!
@@ -59,7 +59,7 @@ class MeshSetupProgressViewController: MeshSetupViewController {
         }
     }
 
-    func setState(_ state: MeshSetupFlowState) {
+    func setState(_ state: Gen3SetupFlowState) {
         fatalError("not implemented")
     }
 

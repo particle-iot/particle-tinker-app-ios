@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepOfferToSwitchToControlPanel: MeshSetupStep {
+class StepOfferToSwitchToControlPanel: Gen3SetupStep {
 
     internal var device: ParticleDevice?
 
@@ -16,7 +16,7 @@ class StepOfferToSwitchToControlPanel: MeshSetupStep {
 
         if context.targetDevice.isSetupDone! && context.targetDevice.isClaimed! {
             if let device = device {
-                context.delegate.meshSetupDidRequestToSwitchToControlPanel(self, device: device)
+                context.delegate.gen3SetupDidRequestToSwitchToControlPanel(self, device: device)
             } else {
                 self.getDevice()
             }
@@ -48,7 +48,7 @@ class StepOfferToSwitchToControlPanel: MeshSetupStep {
         }
     }
 
-    func setSwitchToControlPanel(switchToCP: Bool) -> MeshSetupFlowError? {
+    func setSwitchToControlPanel(switchToCP: Bool) -> Gen3SetupFlowError? {
         self.stepCompleted()
 
         return nil

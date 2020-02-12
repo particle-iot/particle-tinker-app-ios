@@ -6,20 +6,20 @@
 import Foundation
 import CoreBluetooth
 
-protocol MeshSetupStepDelegate {
-    func stepCompleted(_ sender: MeshSetupStep)
-    func rewindTo(_ sender: MeshSetupStep, step: MeshSetupStep.Type, runStep: Bool) -> MeshSetupStep
-    func fail(_ sender: MeshSetupStep, withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
+protocol Gen3SetupStepDelegate {
+    func stepCompleted(_ sender: Gen3SetupStep)
+    func rewindTo(_ sender: Gen3SetupStep, step: Gen3SetupStep.Type, runStep: Bool) -> Gen3SetupStep
+    func fail(_ sender: Gen3SetupStep, withReason reason: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity, nsError: Error?)
 }
 
-class MeshSetupStep: NSObject {
-    var context: MeshSetupContext?
+class Gen3SetupStep: NSObject {
+    var context: Gen3SetupContext?
 
     func log(_ message: String) {
-        ParticleLogger.logInfo("MeshSetupFlow", format: message, withParameters: getVaList([]))
+        ParticleLogger.logInfo("Gen3SetupFlow", format: message, withParameters: getVaList([]))
     }
 
-    func run(context: MeshSetupContext) {
+    func run(context: Gen3SetupContext) {
         self.context = context
 
         self.start()
@@ -50,7 +50,7 @@ class MeshSetupStep: NSObject {
         self.context = nil
     }
 
-    func rewindTo(context: MeshSetupContext) {
+    func rewindTo(context: Gen3SetupContext) {
         self.context = context
 
         self.reset()
@@ -72,7 +72,7 @@ class MeshSetupStep: NSObject {
         }
     }
 
-    func fail(withReason reason: MeshSetupFlowError, severity: MeshSetupErrorSeverity = .Error, nsError: Error? = nil) {
+    func fail(withReason reason: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity = .Error, nsError: Error? = nil) {
         guard let context = self.context else {
             return
         }
@@ -89,25 +89,25 @@ class MeshSetupStep: NSObject {
         return false
     }
 
-    func handleBluetoothConnectionManagerConnectionCreated(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    func handleBluetoothConnectionManagerConnectionCreated(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         return false
     }
 
-    func handleBluetoothConnectionManagerConnectionBecameReady(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    func handleBluetoothConnectionManagerConnectionBecameReady(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         return false
     }
 
-    func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    func handleBluetoothConnectionManagerConnectionDropped(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         return false
     }
 
 
 }
 
-extension MeshSetupStep {
-    static func removeRepeatedMeshNetworks(_ networks: [MeshSetupNetworkInfo]) -> [MeshSetupNetworkInfo] {
+extension Gen3SetupStep {
+    static func removeRepeatedMeshNetworks(_ networks: [Gen3SetupNetworkInfo]) -> [Gen3SetupNetworkInfo] {
         var meshNetworkIds:Set<String> = []
-        var filtered:[MeshSetupNetworkInfo] = []
+        var filtered:[Gen3SetupNetworkInfo] = []
 
         for network in networks {
             if (!meshNetworkIds.contains(network.extPanID)) {
@@ -121,9 +121,9 @@ extension MeshSetupStep {
         }
     }
 
-    static func removeRepeatedWifiNetworks(_ networks: [MeshSetupNewWifiNetworkInfo]) -> [MeshSetupNewWifiNetworkInfo] {
+    static func removeRepeatedWifiNetworks(_ networks: [Gen3SetupNewWifiNetworkInfo]) -> [Gen3SetupNewWifiNetworkInfo] {
         var wifiNetworkIds:Set<String> = []
-        var filtered:[MeshSetupNewWifiNetworkInfo] = []
+        var filtered:[Gen3SetupNewWifiNetworkInfo] = []
 
         for network in networks {
             if (!wifiNetworkIds.contains(network.ssid)) {
@@ -137,11 +137,11 @@ extension MeshSetupStep {
         }
     }
 
-    static func GetMeshNetworkCells(meshNetworks: [MeshSetupNetworkInfo], apiMeshNetworks: [ParticleNetwork]) -> [MeshSetupNetworkCellInfo] {
-        var networks = [String: MeshSetupNetworkCellInfo]()
+    static func GetMeshNetworkCells(meshNetworks: [Gen3SetupNetworkInfo], apiMeshNetworks: [ParticleNetwork]) -> [Gen3SetupNetworkCellInfo] {
+        var networks = [String: Gen3SetupNetworkCellInfo]()
 
         for network in meshNetworks {
-            networks[network.extPanID] = MeshSetupNetworkCellInfo(name: network.name, extPanID: network.extPanID, userOwned: false, deviceCount: nil)
+            networks[network.extPanID] = Gen3SetupNetworkCellInfo(name: network.name, extPanID: network.extPanID, userOwned: false, deviceCount: nil)
         }
 
         for apiNetwork in apiMeshNetworks {

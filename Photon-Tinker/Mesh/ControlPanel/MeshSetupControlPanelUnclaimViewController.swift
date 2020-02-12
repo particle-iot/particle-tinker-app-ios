@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelUnclaimViewController : MeshSetupViewController, Storyboardable {
+class Gen3SetupControlPanelUnclaimViewController : Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var textLabel: ParticleLabel!

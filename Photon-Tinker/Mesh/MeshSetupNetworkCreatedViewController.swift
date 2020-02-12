@@ -5,10 +5,10 @@
 
 import UIKit
 
-class MeshSetupNetworkCreatedViewController: MeshSetupSuccessViewController {
+class Gen3SetupNetworkCreatedViewController: Gen3SetupSuccessViewController {
 
 //    static var nibName: String {
-//        return "MeshSetupSuccessView"
+//        return "Gen3SetupSuccessView"
 //    }
 
     override func setContent() {

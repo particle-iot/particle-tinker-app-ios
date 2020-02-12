@@ -6,10 +6,10 @@
 import UIKit
 import CoreBluetooth
 
-class MeshSetupPairingCommissionerProcessViewController: MeshSetupPairingProcessViewController {
+class Gen3SetupPairingCommissionerProcessViewController: Gen3SetupPairingProcessViewController {
 
 //    static var nibName: String {
-//        return "MeshSetupPairingView"
+//        return "Gen3SetupPairingView"
 //    }
 
     override func setContent() {

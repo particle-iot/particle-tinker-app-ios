@@ -5,23 +5,23 @@
 
 import Foundation
 
-internal struct MeshSetupDevice {
+internal struct Gen3SetupDevice {
     var type: ParticleDeviceType?
     var deviceId: String?
 
-    var sim: MeshSetupSim?
+    var sim: Gen3SetupSim?
     var setSimActive: Bool? //set by user
     var setSimDataLimit: Int? //set by user
 
-    var credentials: MeshSetupPeripheralCredentials?
-    var state: MeshSetupDeviceState = .none
+    var credentials: Gen3SetupPeripheralCredentials?
+    var state: Gen3SetupDeviceState = .none
 
     //used by control panel
     var name: String? //name stored in cloud (credentials has name of bluetooth network)
     var notes: String? //notes stored in cloud
     var networkRole: ParticleDeviceNetworkRole?
 
-    var transceiver: MeshSetupProtocolTransceiver?
+    var transceiver: Gen3SetupProtocolTransceiver?
 
     //flags related to OTA Update
     var firmwareVersion: String?
@@ -44,18 +44,18 @@ internal struct MeshSetupDevice {
     var isCommissionerMode: Bool?
 
 
-    var activeInternetInterface: MeshSetupNetworkInterfaceType?
+    var activeInternetInterface: Gen3SetupNetworkInterfaceType?
     var hasInternetAddress: Bool?
 
-    var networkInterfaces: [MeshSetupNetworkInterfaceEntry]?
+    var networkInterfaces: [Gen3SetupNetworkInterfaceEntry]?
     var joinerCredentials: (eui64: String, password: String)?
 
-    var meshNetworkInfo: MeshSetupNetworkInfo?
-    var meshNetworks: [MeshSetupNetworkInfo]?
+    var meshNetworkInfo: Gen3SetupNetworkInfo?
+    var meshNetworks: [Gen3SetupNetworkInfo]?
 
-    var wifiNetworkInfo: MeshSetupNewWifiNetworkInfo? //used in control panel
-    var wifiNetworks: [MeshSetupNewWifiNetworkInfo]?
-    var knownWifiNetworks: [MeshSetupKnownWifiNetworkInfo]? //used in control panel
+    var wifiNetworkInfo: Gen3SetupNewWifiNetworkInfo? //used in control panel
+    var wifiNetworks: [Gen3SetupNewWifiNetworkInfo]?
+    var knownWifiNetworks: [Gen3SetupKnownWifiNetworkInfo]? //used in control panel
 
     var bluetoothName: String? {
         get {
@@ -79,7 +79,7 @@ internal struct MeshSetupDevice {
     }
 }
 
-internal enum MeshSetupDeviceState: Int {
+internal enum Gen3SetupDeviceState: Int {
     case none = 0
     case credentialsSet
     case discovered
@@ -88,7 +88,7 @@ internal enum MeshSetupDeviceState: Int {
 }
 
 
-internal struct MeshSetupSim {
+internal struct Gen3SetupSim {
     var isExternal: Bool?
     var iccid: String?
     var active: Bool?
@@ -105,12 +105,12 @@ internal struct MeshSetupSim {
     }
 }
 
-internal struct MeshSetupPeripheralCredentials {
+internal struct Gen3SetupPeripheralCredentials {
     var name: String
     var mobileSecret: String
 }
 
-// TODO: should be globally reference not just for mesh
+// TODO: should be globally reference not just for gen3
 extension ParticleDeviceType : CustomStringConvertible {
     public var description: String {
         switch self {

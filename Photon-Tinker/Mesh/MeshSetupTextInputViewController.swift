@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MeshSetupTextInputViewController: MeshSetupViewController, UITextFieldDelegate {
+class Gen3SetupTextInputViewController: Gen3SetupViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
 

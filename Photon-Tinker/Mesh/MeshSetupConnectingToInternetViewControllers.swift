@@ -6,10 +6,10 @@
 import UIKit
 
 
-class MeshSetupConnectingToInternetEthernetViewController: MeshSetupProgressViewController, Storyboardable {
+class Gen3SetupConnectingToInternetEthernetViewController: Gen3SetupProgressViewController, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupProgressView"
+        return "Gen3SetupProgressView"
     }
 
     override func setContent() {
@@ -26,7 +26,7 @@ class MeshSetupConnectingToInternetEthernetViewController: MeshSetupProgressView
         setProgressLabelValues()
     }
 
-    override func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: Gen3SetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .TargetDeviceConnectingToInternetStarted:
@@ -44,10 +44,10 @@ class MeshSetupConnectingToInternetEthernetViewController: MeshSetupProgressView
 
 
 
-class MeshSetupConnectingToInternetWifiViewController: MeshSetupProgressViewController, Storyboardable {
+class Gen3SetupConnectingToInternetWifiViewController: Gen3SetupProgressViewController, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupProgressView"
+        return "Gen3SetupProgressView"
     }
 
     override func setContent() {
@@ -64,7 +64,7 @@ class MeshSetupConnectingToInternetWifiViewController: MeshSetupProgressViewCont
         setProgressLabelValues()
     }
 
-    override func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: Gen3SetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .TargetDeviceConnectingToInternetStarted:
@@ -80,10 +80,10 @@ class MeshSetupConnectingToInternetWifiViewController: MeshSetupProgressViewCont
     }
 }
 
-class MeshSetupConnectingToInternetCellularViewController: MeshSetupProgressViewController, Storyboardable {
+class Gen3SetupConnectingToInternetCellularViewController: Gen3SetupProgressViewController, Storyboardable {
 
     static var nibName: String {
-        return "MeshSetupProgressView"
+        return "Gen3SetupProgressView"
     }
 
     override func setContent() {
@@ -101,7 +101,7 @@ class MeshSetupConnectingToInternetCellularViewController: MeshSetupProgressView
         setProgressLabelValues()
     }
 
-    override func setState(_ state: MeshSetupFlowState) {
+    override func setState(_ state: Gen3SetupFlowState) {
         DispatchQueue.main.async {
             switch state {
                 case .TargetDeviceConnectingToInternetStarted:

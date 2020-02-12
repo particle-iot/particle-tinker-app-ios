@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepStopSignal : MeshSetupStep {
+class StepStopSignal : Gen3SetupStep {
     private var controlRequestSent: Bool = false
 
     override func reset() {

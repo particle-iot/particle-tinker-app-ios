@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelMeshViewController : MeshSetupControlPanelRootViewController {
+class Gen3SetupControlPanelMeshViewController : Gen3SetupControlPanelRootViewController {
     private let refreshControl = UIRefreshControl()
 
     override var allowBack: Bool {

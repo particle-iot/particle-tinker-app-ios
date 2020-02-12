@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureHasInternetAccess : MeshSetupStep {
+class StepEnsureHasInternetAccess : Gen3SetupStep {
     private var checkDeviceHasIPStartTime: Date?
     private var checkSimActiveRetryCount: Int = 0
     private var activeStateBroadcasted: Bool = false
@@ -18,7 +18,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
 
         if (!startStateBroadcasted) {
             self.startStateBroadcasted = true
-            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStarted)
+            context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStarted)
             self.start()
         } else if (context.targetDevice.isSetupDone == nil || context.targetDevice.isSetupDone! == false) {
             self.setDeviceSetupDone()
@@ -31,7 +31,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                 //if sim was active, the progress screen would get stuck in activating sim card view
                 self.activeStateBroadcasted = true
-                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
+                context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
                 self.start()
             }
         } else if (context.targetDevice.isListeningMode == nil || context.targetDevice.isListeningMode! == true) {
@@ -79,7 +79,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             return
         }
 
-        if (self.checkSimActiveRetryCount > MeshSetup.activateSimRetryCount) {
+        if (self.checkSimActiveRetryCount > Gen3Setup.activateSimRetryCount) {
             self.checkSimActiveRetryCount = 0
             self.fail(withReason: .FailedToActivateSim)
             return
@@ -106,7 +106,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
             } else {
                 self.activeStateBroadcasted = true
                 context.targetDevice.sim!.active = true
-                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
+                context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceConnectingToInternetStep0Done)
                 self.start()
             }
         }
@@ -146,7 +146,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
         let diff = Date().timeIntervalSince(self.checkDeviceHasIPStartTime!)
 
         //simActive is going to be not nil only if cellular flow
-        let limit = (context.targetDevice.sim?.active != nil) ? MeshSetup.deviceObtainedIPCellularTimeout : MeshSetup.deviceObtainedIPTimeout
+        let limit = (context.targetDevice.sim?.active != nil) ? Gen3Setup.deviceObtainedIPCellularTimeout : Gen3Setup.deviceObtainedIPTimeout
 
         if (diff > limit) {
             self.checkDeviceHasIPStartTime = nil
@@ -187,7 +187,7 @@ class StepEnsureHasInternetAccess : MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

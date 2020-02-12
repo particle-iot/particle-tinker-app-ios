@@ -6,10 +6,10 @@
 import UIKit
 
 extension Notification.Name {
-    static let MeshSetupViewControllerBusyChanged = Notification.Name("io.particle.MeshSetupViewControllerBusyChanged")
+    static let Gen3SetupViewControllerBusyChanged = Notification.Name("io.particle.Gen3SetupViewControllerBusyChanged")
 }
 
-class MeshSetupViewController: UIViewController, Fadeable {
+class Gen3SetupViewController: UIViewController, Fadeable {
 
     static var storyboardName: String {
         return "Gen3Setup"
@@ -37,11 +37,11 @@ class MeshSetupViewController: UIViewController, Fadeable {
     }
 
     var allowBack: Bool = true
-    var ownerStepType: MeshSetupStep.Type?
+    var ownerStepType: Gen3SetupStep.Type?
 
     internal var isBusy: Bool = false {
         didSet {
-            NotificationCenter.default.post(name: Notification.Name.MeshSetupViewControllerBusyChanged, object: self)
+            NotificationCenter.default.post(name: Notification.Name.Gen3SetupViewControllerBusyChanged, object: self)
         }
     }
 

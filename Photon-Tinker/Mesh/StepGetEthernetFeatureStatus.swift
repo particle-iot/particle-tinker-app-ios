@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetEthernetFeatureStatus: MeshSetupStep {
+class StepGetEthernetFeatureStatus: Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -44,7 +44,7 @@ class StepGetEthernetFeatureStatus: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

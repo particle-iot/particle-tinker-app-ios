@@ -5,7 +5,7 @@
 
 import Foundation
 
-class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelInfoDeactivateSimViewController, UITableViewDataSource, UITableViewDelegate {
+class Gen3SetupControlPanelInfoResumeSimViewController : Gen3SetupControlPanelInfoDeactivateSimViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     internal var requestShowDataLimit: (() -> ())!
@@ -32,10 +32,10 @@ class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelIn
         tableView.tableFooterView = footer
 
 
-        MeshSetupControlPanelCellType.prepareTableView(tableView)
+        Gen3SetupControlPanelCellType.prepareTableView(tableView)
     }
 
-    func setup(context: MeshSetupContext, didFinish: @escaping () -> (), requestShowDataLimit: @escaping () -> ()) {
+    func setup(context: Gen3SetupContext, didFinish: @escaping () -> (), requestShowDataLimit: @escaping () -> ()) {
         super.setup(context: context, didFinish: didFinish)
         self.requestShowDataLimit = requestShowDataLimit
     }
@@ -67,7 +67,7 @@ class MeshSetupControlPanelInfoResumeSimViewController : MeshSetupControlPanelIn
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = MeshSetupControlPanelCellType.actionChangeDataLimit
+        let cellType = Gen3SetupControlPanelCellType.actionChangeDataLimit
         let cell = cellType.getConfiguredCell(tableView, context: self.context)
 
         if let dataLimit = self.context.targetDevice.setSimDataLimit {

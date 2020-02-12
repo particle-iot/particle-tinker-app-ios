@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupFindStickerViewController: MeshSetupViewController, Storyboardable {
+class Gen3SetupFindStickerViewController: Gen3SetupViewController, Storyboardable {
 
     @IBOutlet weak var titleLabel: ParticleLabel!
     @IBOutlet weak var videoView: UIView!

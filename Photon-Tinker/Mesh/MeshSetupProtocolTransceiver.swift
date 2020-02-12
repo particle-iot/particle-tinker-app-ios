@@ -6,23 +6,23 @@
 import UIKit
 import SwiftProtobuf
 
-typealias MeshSetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
-typealias MeshSetupCloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
-typealias MeshSetupNetworkInterfaceEntry = Particle_Ctrl_InterfaceEntry
-typealias MeshSetupNetworkInterface = Particle_Ctrl_Interface
-typealias MeshSetupSystemCapability = Particle_Ctrl_SystemCapabilityFlag
+typealias Gen3SetupNetworkInfo = Particle_Ctrl_Mesh_NetworkInfo
+typealias Gen3SetupCloudConnectionStatus = Particle_Ctrl_Cloud_ConnectionStatus
+typealias Gen3SetupNetworkInterfaceEntry = Particle_Ctrl_InterfaceEntry
+typealias Gen3SetupNetworkInterface = Particle_Ctrl_Interface
+typealias Gen3SetupSystemCapability = Particle_Ctrl_SystemCapabilityFlag
 
-typealias MeshSetupNewWifiNetworkInfo = Particle_Ctrl_Wifi_ScanNetworksReply.Network
-typealias MeshSetupKnownWifiNetworkInfo = Particle_Ctrl_Wifi_GetKnownNetworksReply.Network
+typealias Gen3SetupNewWifiNetworkInfo = Particle_Ctrl_Wifi_ScanNetworksReply.Network
+typealias Gen3SetupKnownWifiNetworkInfo = Particle_Ctrl_Wifi_GetKnownNetworksReply.Network
 
-typealias MeshSetupWifiNetworkSecurity = Particle_Ctrl_Wifi_Security
-typealias MeshSetupWifiNetworkCredentialsType = Particle_Ctrl_Wifi_CredentialsType
-typealias MeshSetupWifiNetworkCredentials = Particle_Ctrl_Wifi_Credentials
+typealias Gen3SetupWifiNetworkSecurity = Particle_Ctrl_Wifi_Security
+typealias Gen3SetupWifiNetworkCredentialsType = Particle_Ctrl_Wifi_CredentialsType
+typealias Gen3SetupWifiNetworkCredentials = Particle_Ctrl_Wifi_Credentials
 
-typealias MeshSetupNetworkInterfaceType = Particle_Ctrl_InterfaceType
-typealias MeshSetupSystemFeature = Particle_Ctrl_Feature
+typealias Gen3SetupNetworkInterfaceType = Particle_Ctrl_InterfaceType
+typealias Gen3SetupSystemFeature = Particle_Ctrl_Feature
 
-class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDelegate {
+class Gen3SetupProtocolTransceiver: NSObject, Gen3SetupBluetoothConnectionDataDelegate {
 
     private struct PendingMessage {
         var messageId: UInt16
@@ -37,8 +37,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         }
     }
 
-    private weak var bluetoothConnection: MeshSetupBluetoothConnection?
-    private var encryptionManager: MeshSetupEncryptionManager
+    private weak var bluetoothConnection: Gen3SetupBluetoothConnection?
+    private var encryptionManager: Gen3SetupEncryptionManager
 
     private var requestMessageId: UInt16 = 1
     private var waitingForReply: Bool = false
@@ -48,7 +48,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     private var rxBuffer: Data = Data()
 
 
-    var connection: MeshSetupBluetoothConnection? {
+    var connection: Gen3SetupBluetoothConnection? {
         get {
             return bluetoothConnection
         }
@@ -67,9 +67,9 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    required init(connection: MeshSetupBluetoothConnection) {
+    required init(connection: Gen3SetupBluetoothConnection) {
         self.bluetoothConnection = connection
-        self.encryptionManager = MeshSetupEncryptionManager(derivedSecret: bluetoothConnection!.derivedSecret!)
+        self.encryptionManager = Gen3SetupEncryptionManager(derivedSecret: bluetoothConnection!.derivedSecret!)
 
         super.init()
 
@@ -77,7 +77,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     private func log(_ message: String) {
-        ParticleLogger.logInfo("MeshSetupTransceiverDelegate", format: message, withParameters: getVaList([]))
+        ParticleLogger.logInfo("Gen3SetupTransceiverDelegate", format: message, withParameters: getVaList([]))
     }
 
     private func prepareRequestMessage(type: ControlRequestMessageType, payload: Data) -> (UInt16, Data) {
@@ -137,8 +137,8 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         return messageData
     }
 
-    //MARK: MeshSetupBluetoothConnectionDataDelegate
-    func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection, data: Data) {
+    //MARK: Gen3SetupBluetoothConnectionDataDelegate
+    func bluetoothConnectionDidReceiveData(sender: Gen3SetupBluetoothConnection, data: Data) {
         rxBuffer.append(contentsOf: data)
 
         //if received data is less than handshake data header length
@@ -258,7 +258,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendGetConnectionStatus(callback: @escaping (ControlReplyErrorType, MeshSetupCloudConnectionStatus?) -> ()) {
+    func sendGetConnectionStatus(callback: @escaping (ControlReplyErrorType, Gen3SetupCloudConnectionStatus?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Cloud_GetConnectionStatusRequest()
 
         let data = self.prepareRequestMessage(type: .GetConnectionStatus, payload: self.serialize(message: requestMsgPayload))
@@ -290,7 +290,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendCreateNetwork(name: String, password: String, networkId:String? = nil, callback: @escaping (ControlReplyErrorType, MeshSetupNetworkInfo?) -> ()) {
+    func sendCreateNetwork(name: String, password: String, networkId:String? = nil, callback: @escaping (ControlReplyErrorType, Gen3SetupNetworkInfo?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Mesh_CreateNetworkRequest()
         requestMsgPayload.name = name
         requestMsgPayload.password = password
@@ -419,7 +419,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     //result eui64, password
-    func sendPrepareJoiner(networkInfo: MeshSetupNetworkInfo, callback: @escaping (ControlReplyErrorType, String?, String?) -> ()) {
+    func sendPrepareJoiner(networkInfo: Gen3SetupNetworkInfo, callback: @escaping (ControlReplyErrorType, String?, String?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Mesh_PrepareJoinerRequest()
         requestMsgPayload.network = networkInfo
 
@@ -499,7 +499,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendGetNetworkInfo(callback: @escaping (ControlReplyErrorType, MeshSetupNetworkInfo?) -> ()) {
+    func sendGetNetworkInfo(callback: @escaping (ControlReplyErrorType, Gen3SetupNetworkInfo?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_GetNetworkInfoRequest()
 
         let data = self.prepareRequestMessage(type: .GetNetworkInfo, payload: self.serialize(message: requestMsgPayload))
@@ -515,7 +515,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendScanNetworks(callback: @escaping (ControlReplyErrorType, [MeshSetupNetworkInfo]?) -> ()) {
+    func sendScanNetworks(callback: @escaping (ControlReplyErrorType, [Gen3SetupNetworkInfo]?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_Mesh_ScanNetworksRequest()
 
         let data = self.prepareRequestMessage(type: .ScanNetworks, payload: self.serialize(message: requestMsgPayload))
@@ -530,7 +530,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetInterfaceList(callback: @escaping (ControlReplyErrorType, [MeshSetupNetworkInterfaceEntry]?) -> ()) {
+    func sendGetInterfaceList(callback: @escaping (ControlReplyErrorType, [Gen3SetupNetworkInterfaceEntry]?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetInterfaceListRequest()
 
         let data = self.prepareRequestMessage(type: .GetInterfaceList, payload: self.serialize(message: requestMsgPayload))
@@ -545,7 +545,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetInterface(interfaceIndex: UInt32, callback: @escaping (ControlReplyErrorType, MeshSetupNetworkInterface?) -> ()) {
+    func sendGetInterface(interfaceIndex: UInt32, callback: @escaping (ControlReplyErrorType, Gen3SetupNetworkInterface?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_GetInterfaceRequest()
         requestMsgPayload.index = interfaceIndex
 
@@ -623,7 +623,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendSetFeature(feature:MeshSetupSystemFeature, enabled: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendSetFeature(feature:Gen3SetupSystemFeature, enabled: Bool, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_SetFeatureRequest()
         requestMsgPayload.feature = feature
         requestMsgPayload.enabled = enabled
@@ -640,7 +640,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendGetFeature(feature: MeshSetupSystemFeature, callback: @escaping (ControlReplyErrorType, Bool?) -> ()) {
+    func sendGetFeature(feature: Gen3SetupSystemFeature, callback: @escaping (ControlReplyErrorType, Bool?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_GetFeatureRequest()
         requestMsgPayload.feature = feature
 
@@ -657,7 +657,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, MeshSetupSystemCapability?) -> ()) {
+    func sendGetSystemCapabilities(callback: @escaping (ControlReplyErrorType, Gen3SetupSystemCapability?) -> ()) {
         let requestMsgPayload = Particle_Ctrl_GetSystemCapabilitiesRequest()
 
         let data = self.prepareRequestMessage(type: .GetSystemCapabilities, payload: self.serialize(message: requestMsgPayload))
@@ -666,7 +666,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_GetSystemCapabilitiesReply(serializedData: rm.data) as! Particle_Ctrl_GetSystemCapabilitiesReply
                 //`flags` is an OR'ed combination of individual flags defined by `SystemCapabilityFlag`
-                callback(rm.result,  MeshSetupSystemCapability(rawValue: decodedReply.flags == 0 ? 0 : 1))
+                callback(rm.result,  Gen3SetupSystemCapability(rawValue: decodedReply.flags == 0 ? 0 : 1))
             } else {
                 callback(.TIMEOUT, nil)
             }
@@ -768,13 +768,13 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
     //MARK: Wifi
-    func sendJoinNewWifiNetwork(network: MeshSetupNewWifiNetworkInfo, password: String?, callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendJoinNewWifiNetwork(network: Gen3SetupNewWifiNetworkInfo, password: String?, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_JoinNewNetworkRequest()
         requestMsgPayload.ssid = network.ssid
 //        requestMsgPayload.bssid = network.bssid
 //        requestMsgPayload.security = network.security
 
-        var credentials = MeshSetupWifiNetworkCredentials()
+        var credentials = Gen3SetupWifiNetworkCredentials()
         if let password = password {
             credentials.type = .password
             credentials.password = password
@@ -796,7 +796,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendJoinKnownWifiNetwork(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendJoinKnownWifiNetwork(network: Gen3SetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_JoinKnownNetworkRequest()
         requestMsgPayload.ssid = network.ssid
 
@@ -812,7 +812,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetKnownWifiNetworks(callback: @escaping (ControlReplyErrorType, [MeshSetupKnownWifiNetworkInfo]?) -> ()) {
+    func sendGetKnownWifiNetworks(callback: @escaping (ControlReplyErrorType, [Gen3SetupKnownWifiNetworkInfo]?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_GetKnownNetworksRequest()
 
         let data = self.prepareRequestMessage(type: .GetKnownWifiNetworks, payload: self.serialize(message: requestMsgPayload))
@@ -827,7 +827,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendRemoveKnownWifiNetwork(network: MeshSetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
+    func sendRemoveKnownWifiNetwork(network: Gen3SetupKnownWifiNetworkInfo, callback: @escaping (ControlReplyErrorType) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_RemoveKnownNetworkRequest()
         requestMsgPayload.ssid = network.ssid
 
@@ -858,7 +858,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
         })
     }
 
-    func sendGetCurrentWifiNetwork(callback: @escaping (ControlReplyErrorType, MeshSetupNewWifiNetworkInfo?) -> ()) {
+    func sendGetCurrentWifiNetwork(callback: @escaping (ControlReplyErrorType, Gen3SetupNewWifiNetworkInfo?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_GetCurrentNetworkRequest()
 
         let data = self.prepareRequestMessage(type: .GetCurrentWifiNetwork, payload: self.serialize(message: requestMsgPayload))
@@ -867,7 +867,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
             if let rm = replyMessage {
                 let decodedReply = try! Particle_Ctrl_Wifi_GetCurrentNetworkReply(serializedData: rm.data) as! Particle_Ctrl_Wifi_GetCurrentNetworkReply
 
-                var network = MeshSetupNewWifiNetworkInfo()
+                var network = Gen3SetupNewWifiNetworkInfo()
                 network.ssid = decodedReply.ssid
                 network.bssid = decodedReply.bssid
                 network.channel = decodedReply.channel
@@ -881,7 +881,7 @@ class MeshSetupProtocolTransceiver: NSObject, MeshSetupBluetoothConnectionDataDe
     }
 
 
-    func sendScanWifiNetworks(callback: @escaping (ControlReplyErrorType, [MeshSetupNewWifiNetworkInfo]?) -> ()) {
+    func sendScanWifiNetworks(callback: @escaping (ControlReplyErrorType, [Gen3SetupNewWifiNetworkInfo]?) -> ()) {
         var requestMsgPayload = Particle_Ctrl_Wifi_ScanNetworksRequest()
 
         let data = self.prepareRequestMessage(type: .ScanWifiNetworks, payload: self.serialize(message: requestMsgPayload))

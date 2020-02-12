@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureNotOnMeshNetwork: MeshSetupStep {
+class StepEnsureNotOnMeshNetwork: Gen3SetupStep {
     private var meshNetworkInfoLoaded = false
     private var leftNetworkOnAPI = false
     private var leftNetworkOnDevice = false
@@ -88,14 +88,14 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
             if (network.networkID.count == 0) {
                 let _ = self.setTargetDeviceLeaveNetwork(leave: true)
             } else {
-                context.delegate.meshSetupDidRequestToLeaveNetwork(self, network: network)
+                context.delegate.gen3SetupDidRequestToLeaveNetwork(self, network: network)
             }
         } else {
             let _ = self.setTargetDeviceLeaveNetwork(leave: true)
         }
     }
 
-    func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError? {
+    func setTargetDeviceLeaveNetwork(leave: Bool) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -107,7 +107,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
         return nil
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {
@@ -203,7 +203,7 @@ class StepEnsureNotOnMeshNetwork: MeshSetupStep {
             }
 
             if (result == .NONE) {
-                context.delegate.meshSetupDidEnterState(self, state: .SetupCanceled)
+                context.delegate.gen3SetupDidEnterState(self, state: .SetupCanceled)
             } else {
                 self.handleBluetoothErrorResult(result)
             }

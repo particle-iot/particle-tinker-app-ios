@@ -8,21 +8,21 @@ import UIKit
 import CoreBluetooth
 
 
-protocol MeshSetupBluetoothConnectionDelegate {
-    func bluetoothConnectionBecameReady(sender: MeshSetupBluetoothConnection)
-    func bluetoothConnectionError(sender: MeshSetupBluetoothConnection, error: BluetoothConnectionError, severity: MeshSetupErrorSeverity)
+protocol Gen3SetupBluetoothConnectionDelegate {
+    func bluetoothConnectionBecameReady(sender: Gen3SetupBluetoothConnection)
+    func bluetoothConnectionError(sender: Gen3SetupBluetoothConnection, error: BluetoothConnectionError, severity: Gen3SetupErrorSeverity)
 }
 
-protocol MeshSetupBluetoothConnectionDataDelegate {
-    func bluetoothConnectionDidReceiveData(sender: MeshSetupBluetoothConnection, data: Data)
+protocol Gen3SetupBluetoothConnectionDataDelegate {
+    func bluetoothConnectionDidReceiveData(sender: Gen3SetupBluetoothConnection, data: Data)
 }
 
 enum BluetoothConnectionError: Error, CustomStringConvertible {
     case FailedToHandshake
     case FailedToDiscoverServices
-    case FailedToDiscoverParticleMeshService
+    case FailedToDiscoverParticleGen3Service
     case FailedToDiscoverCharacteristics
-    case FailedToDiscoverParticleMeshCharacteristics
+    case FailedToDiscoverParticleGen3Characteristics
     case FailedToEnableBluetoothConnectionNotifications
     case FailedToWriteValueForCharacteristic
     case FailedToReadValueForCharacteristic
@@ -32,9 +32,9 @@ enum BluetoothConnectionError: Error, CustomStringConvertible {
         switch self {
             case .FailedToHandshake : return "Failed to perform handshake"
             case .FailedToDiscoverServices : return "Failed to discover bluetooth services"
-            case .FailedToDiscoverParticleMeshService : return "Particle Mesh commissioning Service not found. Try to turn bluetooth Off and On again to clear the cache."
+            case .FailedToDiscoverParticleGen3Service : return "Particle Gen 3 commissioning Service not found. Try to turn bluetooth Off and On again to clear the cache."
             case .FailedToDiscoverCharacteristics : return "Failed to discover bluetooth characteristics"
-            case .FailedToDiscoverParticleMeshCharacteristics : return "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache."
+            case .FailedToDiscoverParticleGen3Characteristics : return "UART service does not have required characteristics. Try to turn Bluetooth Off and On again to clear cache."
             case .FailedToEnableBluetoothConnectionNotifications : return "Failed to enable bluetooth characteristic notifications"
             case .FailedToWriteValueForCharacteristic : return "Writing value for bluetooth characteristic has failed (sending data to device failed)"
             case .FailedToReadValueForCharacteristic : return "Reading value for bluetooth characteristic has failed (receiving data to device failed)"
@@ -42,13 +42,13 @@ enum BluetoothConnectionError: Error, CustomStringConvertible {
     }
 }
 
-class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBluetoothConnectionHandshakeManagerDelegate {
+class Gen3SetupBluetoothConnection: NSObject, CBPeripheralDelegate, Gen3SetupBluetoothConnectionHandshakeManagerDelegate {
 
 
 
 
-    var delegate: MeshSetupBluetoothConnectionDelegate?
-    var dataDelegate: MeshSetupBluetoothConnectionDataDelegate?
+    var delegate: Gen3SetupBluetoothConnectionDelegate?
+    var dataDelegate: Gen3SetupBluetoothConnectionDataDelegate?
 
     var isReady: Bool = false
 
@@ -65,11 +65,11 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
     private var peripheral: CBPeripheral
     private var handshakeRetry: Int = 0
 
-    private var handshakeManager: MeshSetupBluetoothConnectionHandshakeManager?
-    private var particleMeshRXCharacteristic: CBCharacteristic!
-    private var particleMeshTXCharacteristic: CBCharacteristic!
+    private var handshakeManager: Gen3SetupBluetoothConnectionHandshakeManager?
+    private var particleGen3RXCharacteristic: CBCharacteristic!
+    private var particleGen3TXCharacteristic: CBCharacteristic!
 
-    required init(connectedPeripheral: CBPeripheral, credentials: MeshSetupPeripheralCredentials) {
+    required init(connectedPeripheral: CBPeripheral, credentials: Gen3SetupPeripheralCredentials) {
 
         self.peripheral = connectedPeripheral
         self.peripheralName = peripheral.name!
@@ -85,18 +85,18 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         ParticleLogger.logInfo("BluetoothConnection", format: message, withParameters: getVaList([]))
     }
 
-    private func fail(withReason reason: BluetoothConnectionError, severity: MeshSetupErrorSeverity) {
+    private func fail(withReason reason: BluetoothConnectionError, severity: Gen3SetupErrorSeverity) {
         log("Bluetooth connection error: \(reason), severity: \(severity)")
         self.delegate?.bluetoothConnectionError(sender: self, error: reason, severity: severity)
 
     }
 
     func discoverServices() {
-        self.peripheral.discoverServices([MeshSetup.particleMeshServiceUUID])
+        self.peripheral.discoverServices([Gen3Setup.particleGen3ServiceUUID])
     }
 
     func send(data aData: Data, writeType: CBCharacteristicWriteType = .withResponse) {
-        guard self.particleMeshRXCharacteristic != nil else {
+        guard self.particleGen3RXCharacteristic != nil else {
             log("UART RX Characteristic not found")
             return
         }
@@ -125,7 +125,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
                     part = Data(bytes: buffer, count: len)
                     len = 0
                 }
-                self.peripheral.writeValue(part, for: self.particleMeshRXCharacteristic!, type: writeType)
+                self.peripheral.writeValue(part, for: self.particleGen3RXCharacteristic!, type: writeType)
             }
         }
         log("Sent data: \(aData.count) Bytes")
@@ -141,14 +141,14 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
 
         log("Services discovered")
         for aService in peripheral.services! {
-            if aService.uuid.isEqual(MeshSetup.particleMeshServiceUUID) {
-                log("Particle Mesh commissioning Service found")
+            if aService.uuid.isEqual(Gen3Setup.particleGen3ServiceUUID) {
+                log("Particle Gen 3 commissioning Service found")
                 self.peripheral.discoverCharacteristics(nil, for: aService)
                 return
             }
         }
         
-        fail(withReason: .FailedToDiscoverParticleMeshService, severity: .Error)
+        fail(withReason: .FailedToDiscoverParticleGen3Service, severity: .Error)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -159,23 +159,23 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         }
         log("Characteristics discovered")
         
-        if service.uuid.isEqual(MeshSetup.particleMeshServiceUUID) {
+        if service.uuid.isEqual(Gen3Setup.particleGen3ServiceUUID) {
             for aCharacteristic in service.characteristics! {
-                if aCharacteristic.uuid.isEqual(MeshSetup.particleMeshTXCharacterisiticUUID) {
-                    log("Particle mesh TX Characteristic found")
-                    particleMeshTXCharacteristic = aCharacteristic
-                } else if aCharacteristic.uuid.isEqual(MeshSetup.particleMeshRXCharacterisiticUUID) {
-                    log("Particle mesh RX Characteristic found")
-                    particleMeshRXCharacteristic = aCharacteristic
+                if aCharacteristic.uuid.isEqual(Gen3Setup.particleGen3TXCharacterisiticUUID) {
+                    log("Particle gen 3 setup TX Characteristic found")
+                    particleGen3TXCharacteristic = aCharacteristic
+                } else if aCharacteristic.uuid.isEqual(Gen3Setup.particleGen3RXCharacterisiticUUID) {
+                    log("Particle gen 3 setup RX Characteristic found")
+                    particleGen3RXCharacteristic = aCharacteristic
                 }
             }
 
             //Enable notifications on TX Characteristic
-            if (particleMeshTXCharacteristic != nil && particleMeshRXCharacteristic != nil) {
-                log("Enabling notifications for \(particleMeshTXCharacteristic!.uuid.uuidString)")
-                self.peripheral.setNotifyValue(true, for: particleMeshTXCharacteristic!)
+            if (particleGen3TXCharacteristic != nil && particleGen3RXCharacteristic != nil) {
+                log("Enabling notifications for \(particleGen3TXCharacteristic!.uuid.uuidString)")
+                self.peripheral.setNotifyValue(true, for: particleGen3TXCharacteristic!)
             } else {
-                fail(withReason: .FailedToDiscoverParticleMeshCharacteristics, severity: .Error)
+                fail(withReason: .FailedToDiscoverParticleGen3Characteristics, severity: .Error)
             }
         }
     }
@@ -188,7 +188,7 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
             return
         }
 
-        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret)
+        self.handshakeManager = Gen3SetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret)
         self.handshakeManager!.delegate = self
         self.handshakeManager!.startHandshake()
     }
@@ -228,8 +228,8 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         }
     }
 
-    //MARK: MeshSetupBluetoothConnectionHandshakeManagerDelegate
-    func handshakeDidFail(sender: MeshSetupBluetoothConnectionHandshakeManager, error: HandshakeManagerError, severity: MeshSetupErrorSeverity) {
+    //MARK: Gen3SetupBluetoothConnectionHandshakeManagerDelegate
+    func handshakeDidFail(sender: Gen3SetupBluetoothConnectionHandshakeManager, error: HandshakeManagerError, severity: Gen3SetupErrorSeverity) {
         log("Handshake Error: \(error)")
 
         if (handshakeRetry < 3) {
@@ -242,13 +242,13 @@ class MeshSetupBluetoothConnection: NSObject, CBPeripheralDelegate, MeshSetupBlu
         self.handshakeManager!.delegate = nil
         self.handshakeManager = nil
 
-        self.handshakeManager = MeshSetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret)
+        self.handshakeManager = Gen3SetupBluetoothConnectionHandshakeManager(connection: self, mobileSecret: mobileSecret)
         self.handshakeManager!.delegate = self
         self.handshakeManager!.startHandshake()
     }
 
 
-    func handshakeDidSucceed(sender: MeshSetupBluetoothConnectionHandshakeManager, derivedSecret: Data) {
+    func handshakeDidSucceed(sender: Gen3SetupBluetoothConnectionHandshakeManager, derivedSecret: Data) {
         self.derivedSecret = derivedSecret
 
         self.handshakeManager!.delegate = nil

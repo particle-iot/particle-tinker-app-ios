@@ -5,7 +5,7 @@
 
 import UIKit
 
-class MeshSetupCreateNetworkPasswordViewController: MeshSetupTextInputViewController, Storyboardable{
+class Gen3SetupCreateNetworkPasswordViewController: Gen3SetupTextInputViewController, Storyboardable{
 
     @IBOutlet weak var repeatTitleLabel: ParticleLabel!
     @IBOutlet weak var repeatPasswordTextField: ParticleTextField!

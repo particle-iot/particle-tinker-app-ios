@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum MeshSetupControlPanelCellType {
+enum Gen3SetupControlPanelCellType {
     case name
     case notes
 
@@ -45,7 +45,7 @@ enum MeshSetupControlPanelCellType {
     case actionLeaveMeshNetwork
     case actionAddToMeshNetwork
 
-    func getCellTitle(context: MeshSetupContext) -> String {
+    func getCellTitle(context: Gen3SetupContext) -> String {
         switch self {
             case .name:
                 return Gen3SetupStrings.ControlPanel.Root.Name
@@ -113,7 +113,7 @@ enum MeshSetupControlPanelCellType {
 }
     }
 
-    func getCellDetails(context: MeshSetupContext) -> String? {
+    func getCellDetails(context: Gen3SetupContext) -> String? {
         switch self {
             case .actionChangeSimStatus:
                 if context.targetDevice.sim!.status! == .activate {
@@ -178,7 +178,7 @@ enum MeshSetupControlPanelCellType {
         }
     }
 
-    func getCellEnabled(context: MeshSetupContext) -> Bool {
+    func getCellEnabled(context: Gen3SetupContext) -> Bool {
         switch self {
             case .actionChangeSimStatus:
                 return false
@@ -193,22 +193,22 @@ enum MeshSetupControlPanelCellType {
         }
     }
 
-    func getIcon(context: MeshSetupContext) -> UIImage? {
+    func getIcon(context: Gen3SetupContext) -> UIImage? {
         switch self {
             case .wifi:
-                return UIImage(named: "MeshSetupWifiIcon")
+                return UIImage(named: "Gen3SetupWifiIcon")
             case .cellular:
-                return UIImage(named: "MeshSetupCellularIcon")
+                return UIImage(named: "Gen3SetupCellularIcon")
             case .ethernet:
-                return UIImage(named: "MeshSetupEthernetIcon")
+                return UIImage(named: "Gen3SetupEthernetIcon")
             case .mesh:
-                return UIImage(named: "MeshSetupMeshIcon")
+                return UIImage(named: "Gen3SetupMeshIcon")
             default:
                 return nil
         }
     }
 
-    func getDisclosureIndicator(context: MeshSetupContext) -> UITableViewCell.AccessoryType {
+    func getDisclosureIndicator(context: Gen3SetupContext) -> UITableViewCell.AccessoryType {
         switch self {
             case .unclaim, .actionLeaveMeshNetwork:
                 return .none
@@ -225,41 +225,41 @@ enum MeshSetupControlPanelCellType {
 
 
     static func prepareTableView(_ tableView: UITableView) {
-        tableView.register(UINib.init(nibName: "MeshSetupBasicCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicCell")
-        tableView.register(UINib.init(nibName: "MeshSetupBasicIconCell", bundle: nil), forCellReuseIdentifier: "MeshSetupBasicIconCell")
-        tableView.register(UINib.init(nibName: "MeshSetupButtonCell", bundle: nil), forCellReuseIdentifier: "MeshSetupButtonCell")
-        tableView.register(UINib.init(nibName: "MeshSetupSubtitleCell", bundle: nil), forCellReuseIdentifier: "MeshSetupSubtitleCell")
-        tableView.register(UINib.init(nibName: "MeshSetupHorizontalDetailCell", bundle: nil), forCellReuseIdentifier: "MeshSetupHorizontalDetailCell")
+        tableView.register(UINib.init(nibName: "Gen3SetupBasicCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupBasicCell")
+        tableView.register(UINib.init(nibName: "Gen3SetupBasicIconCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupBasicIconCell")
+        tableView.register(UINib.init(nibName: "Gen3SetupButtonCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupButtonCell")
+        tableView.register(UINib.init(nibName: "Gen3SetupSubtitleCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupSubtitleCell")
+        tableView.register(UINib.init(nibName: "Gen3SetupHorizontalDetailCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupHorizontalDetailCell")
     }
 
-    func getConfiguredCell(_ tableView: UITableView, context: MeshSetupContext) -> MeshCell {
+    func getConfiguredCell(_ tableView: UITableView, context: Gen3SetupContext) -> Gen3Cell {
         let image = self.getIcon(context: context)
         let detail = self.getCellDetails(context: context)
         let enabled = self.getCellEnabled(context: context)
         let accessoryType = self.getDisclosureIndicator(context: context)
 
-        var cell:MeshCell! = nil
+        var cell:Gen3Cell! = nil
 
         if (self == .unclaim || self == .actionLeaveMeshNetwork) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupButtonCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupButtonCell") as! Gen3Cell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.RedTextColor : ParticleStyle.DetailsTextColor)
         } else if (self == .actionChangeSimStatus || self == .actionChangePinsStatus) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupSubtitleCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupSubtitleCell") as! Gen3Cell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
             cell.cellSubtitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
             cell.cellSubtitleLabel.text = detail
         } else if image != nil {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicIconCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicIconCell") as! Gen3Cell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.PrimaryTextColor : ParticleStyle.DetailsTextColor)
         } else if detail != nil {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupHorizontalDetailCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupHorizontalDetailCell") as! Gen3Cell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.PrimaryTextColor : ParticleStyle.DetailsTextColor)
 
             cell.cellDetailLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.DetailsTextColor)
             cell.cellDetailLabel.text = detail
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "MeshSetupBasicCell") as! MeshCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3Cell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.PrimaryTextColor : ParticleStyle.DetailsTextColor)
         }
 

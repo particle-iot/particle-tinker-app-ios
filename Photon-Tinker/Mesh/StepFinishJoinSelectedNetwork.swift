@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepFinishJoinSelectedNetwork: MeshSetupStep {
+class StepFinishJoinSelectedNetwork: Gen3SetupStep {
 
     private var networkJoinedInAPI: Bool = false
     private var dropCommissionerConnection: Bool = false
@@ -65,7 +65,7 @@ class StepFinishJoinSelectedNetwork: MeshSetupStep {
             return
         }
 
-        context.delegate.meshSetupDidEnterState(self, state: .JoiningNetworkStep2Done)
+        context.delegate.gen3SetupDidEnterState(self, state: .JoiningNetworkStep2Done)
 
         /// NOT_ALLOWED: The client is not authenticated
         context.commissionerDevice!.transceiver?.sendStopCommissioner {

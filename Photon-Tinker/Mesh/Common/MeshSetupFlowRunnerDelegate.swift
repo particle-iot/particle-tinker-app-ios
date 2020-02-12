@@ -1,5 +1,5 @@
 //
-//  MeshSetupFlowDefinitions.swift
+//  Gen3SetupFlowDefinitions.swift
 //  Particle
 //
 //  Created by Raimundas Sakalauskas on 10/10/2018.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-internal struct MeshSetupNetworkCellInfo {
+internal struct Gen3SetupNetworkCellInfo {
     var name: String
     var extPanID: String
     var userOwned: Bool = false
     var deviceCount: UInt? = nil
 }
 
-enum MeshSetupFlowState {
+enum Gen3SetupFlowState {
     case TargetDeviceConnecting
     case TargetDeviceDiscovered
     case TargetDeviceConnected
@@ -52,108 +52,108 @@ enum MeshSetupFlowState {
 }
 
 //delegate required to request / deliver information from / to the UI
-protocol MeshSetupFlowRunnerDelegate {
+protocol Gen3SetupFlowRunnerDelegate {
 
     //control panel
-    func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice)
-    //func setSwitchToControlPanel(switch: Bool) -> MeshSetupFlowError?
-    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep)
-    //func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError?
-    func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep)
-    //func setSimDataLimit(dataLimit: Int) -> MeshSetupFlowError?
-    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep)
+    func gen3SetupDidRequestToSwitchToControlPanel(_ sender: Gen3SetupStep, device: ParticleDevice)
+    //func setSwitchToControlPanel(switch: Bool) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToSelectSimStatus(_ sender: Gen3SetupStep)
+    //func setTargetSimStatus(simActive: Bool) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToSelectSimDataLimit(_ sender: Gen3SetupStep)
+    //func setSimDataLimit(dataLimit: Int) -> Gen3SetupFlowError?
+    func gen3SetupDidCompleteControlPanelFlow(_ sender: Gen3SetupStep)
 
     //setup flow
-    func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep)
-    //func setTargetDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError?
-    func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep)
-    //func setTargetUseEthernet(useEthernet: Bool) -> MeshSetupFlowError?
+    func gen3SetupDidRequestTargetDeviceInfo(_ sender: Gen3SetupStep)
+    //func setTargetDeviceInfo(dataMatrix: Gen3SetupDataMatrix) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToSelectEthernetStatus(_ sender: Gen3SetupStep)
+    //func setTargetUseEthernet(useEthernet: Bool) -> Gen3SetupFlowError?
 
-    func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep)
-    //func setTargetPerformFirmwareUpdate(update: Bool) -> MeshSetupFlowError?
-    func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo)
-    //func setTargetDeviceLeaveNetwork(leave: Bool) -> MeshSetupFlowError?
+    func gen3SetupDidRequestToUpdateFirmware(_ sender: Gen3SetupStep)
+    //func setTargetPerformFirmwareUpdate(update: Bool) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToLeaveNetwork(_ sender: Gen3SetupStep, network: Gen3SetupNetworkInfo)
+    //func setTargetDeviceLeaveNetwork(leave: Bool) -> Gen3SetupFlowError?
 
-    func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep)
-    //func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError?
-    func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo])
-    //func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError?
-    //func rescanNetworks() -> MeshSetupFlowError?
+    func gen3SetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: Gen3SetupStep)
+    //func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToSelectOrCreateNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNetworkCellInfo])
+    //func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> Gen3SetupFlowError?
+    //func rescanNetworks() -> Gen3SetupFlowError?
 
-    func meshSetupDidRequestToShowPricingInfo(_ sender: MeshSetupStep, info: ParticlePricingInfo)
-    //func setPricingImpactDone() -> MeshSetupFlowError?
-    func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep)
-    //func setInfoDone() -> MeshSetupFlowError?
+    func gen3SetupDidRequestToShowPricingInfo(_ sender: Gen3SetupStep, info: ParticlePricingInfo)
+    //func setPricingImpactDone() -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToShowInfo(_ sender: Gen3SetupStep)
+    //func setInfoDone() -> Gen3SetupFlowError?
 
-    func meshSetupDidRequestToEnterDeviceName(_ sender: MeshSetupStep)
-    //func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
-    func meshSetupDidRequestToAddOneMoreDevice(_ sender: MeshSetupStep)
-    //func setAddOneMoreDevice(addOneMoreDevice: Bool) -> MeshSetupFlowError?
+    func gen3SetupDidRequestToEnterDeviceName(_ sender: Gen3SetupStep)
+    //func setDeviceName(name: String, onComplete:@escaping (Gen3SetupFlowError?) -> ())
+    func gen3SetupDidRequestToAddOneMoreDevice(_ sender: Gen3SetupStep)
+    //func setAddOneMoreDevice(addOneMoreDevice: Bool) -> Gen3SetupFlowError?
 
-    func meshSetupDidRequestToEnterNewNetworkPassword(_ sender: MeshSetupStep)
-    //func setNewNetworkPassword(password: String) -> MeshSetupFlowError?
-    func meshSetupDidRequestToEnterNewNetworkName(_ sender: MeshSetupStep)
-    //func setNewNetworkName(name: String) -> MeshSetupFlowError?
+    func gen3SetupDidRequestToEnterNewNetworkPassword(_ sender: Gen3SetupStep)
+    //func setNewNetworkPassword(password: String) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToEnterNewNetworkName(_ sender: Gen3SetupStep)
+    //func setNewNetworkName(name: String) -> Gen3SetupFlowError?
 
 
-    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: MeshSetupStep)
-    //func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError?
-    func meshSetupDidRequestToSelectWifiNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNewWifiNetworkInfo])
-    //func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
-    //func rescanNetworks() -> MeshSetupFlowError?
+    func gen3SetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: Gen3SetupStep)
+    //func setSelectedWifiNetwork(selectedNetwork: Gen3SetupNewWifiNetworkInfo) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToSelectWifiNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNewWifiNetworkInfo])
+    //func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (Gen3SetupFlowError?) -> ())
+    //func rescanNetworks() -> Gen3SetupFlowError?
 
-    func meshSetupDidRequestToSelectNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo])
-    //func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError?
-    //func rescanNetworks() -> MeshSetupFlowError?
+    func gen3SetupDidRequestToSelectNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNetworkCellInfo])
+    //func setSelectedNetwork(selectedNetworkExtPanID: String) -> Gen3SetupFlowError?
+    //func rescanNetworks() -> Gen3SetupFlowError?
 
-    func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep)
-    //func setCommissionerDeviceInfo(dataMatrix: MeshSetupDataMatrix) -> MeshSetupFlowError?
-    func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep)
-    //func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ())
+    func gen3SetupDidRequestCommissionerDeviceInfo(_ sender: Gen3SetupStep)
+    //func setCommissionerDeviceInfo(dataMatrix: Gen3SetupDataMatrix) -> Gen3SetupFlowError?
+    func gen3SetupDidRequestToEnterSelectedNetworkPassword(_ sender: Gen3SetupStep)
+    //func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (Gen3SetupFlowError?) -> ())
 
-    func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo)
-    func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState)
-    func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?)
+    func gen3SetupDidCreateNetwork(_ sender: Gen3SetupStep, network: Gen3SetupNetworkCellInfo)
+    func gen3SetupDidEnterState(_ sender: Gen3SetupStep, state: Gen3SetupFlowState)
+    func gen3SetupError(_ sender: Gen3SetupStep, error: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity, nsError: Error?)
 }
 
-extension MeshSetupFlowRunnerDelegate {
+extension Gen3SetupFlowRunnerDelegate {
     //control panel
-    func meshSetupDidRequestToSwitchToControlPanel(_ sender: MeshSetupStep, device: ParticleDevice) { fatalError("Not implemented") }
-    func meshSetupDidRequestToSelectSimStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidCompleteControlPanelFlow(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToSelectSimDataLimit(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSwitchToControlPanel(_ sender: Gen3SetupStep, device: ParticleDevice) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSelectSimStatus(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidCompleteControlPanelFlow(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSelectSimDataLimit(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
 
     //setup flow
-    func meshSetupDidRequestTargetDeviceInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToSelectEthernetStatus(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestTargetDeviceInfo(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSelectEthernetStatus(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
 
-    func meshSetupDidRequestToUpdateFirmware(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToLeaveNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkInfo) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToUpdateFirmware(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToLeaveNetwork(_ sender: Gen3SetupStep, network: Gen3SetupNetworkInfo) { fatalError("Not implemented") }
 
-    func meshSetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToSelectOrCreateNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo]) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSelectOrCreateNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNetworkCellInfo]) { fatalError("Not implemented") }
 
-    func meshSetupDidRequestToShowPricingInfo(_ sender: MeshSetupStep, info: ParticlePricingInfo) { fatalError("Not implemented") }
-    func meshSetupDidRequestToShowInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToShowPricingInfo(_ sender: Gen3SetupStep, info: ParticlePricingInfo) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToShowInfo(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
 
-    func meshSetupDidRequestToEnterDeviceName(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToAddOneMoreDevice(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToEnterDeviceName(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToAddOneMoreDevice(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
 
-    func meshSetupDidRequestToEnterNewNetworkPassword(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToEnterNewNetworkName(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToEnterNewNetworkPassword(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToEnterNewNetworkName(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
 
 
-    func meshSetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToSelectWifiNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNewWifiNetworkInfo]) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToEnterSelectedWifiNetworkPassword(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSelectWifiNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNewWifiNetworkInfo]) { fatalError("Not implemented") }
 
-    func meshSetupDidRequestToSelectNetwork(_ sender: MeshSetupStep, availableNetworks: [MeshSetupNetworkCellInfo]) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToSelectNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNetworkCellInfo]) { fatalError("Not implemented") }
 
-    func meshSetupDidRequestCommissionerDeviceInfo(_ sender: MeshSetupStep) { fatalError("Not implemented") }
-    func meshSetupDidRequestToEnterSelectedNetworkPassword(_ sender: MeshSetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestCommissionerDeviceInfo(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
+    func gen3SetupDidRequestToEnterSelectedNetworkPassword(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
 
-    func meshSetupDidCreateNetwork(_ sender: MeshSetupStep, network: MeshSetupNetworkCellInfo) { fatalError("Not implemented") }
-    func meshSetupDidEnterState(_ sender: MeshSetupStep, state: MeshSetupFlowState) { fatalError("Not implemented") }
-    func meshSetupError(_ sender: MeshSetupStep, error: MeshSetupFlowError, severity: MeshSetupErrorSeverity, nsError: Error?) { fatalError("Not implemented") }
+    func gen3SetupDidCreateNetwork(_ sender: Gen3SetupStep, network: Gen3SetupNetworkCellInfo) { fatalError("Not implemented") }
+    func gen3SetupDidEnterState(_ sender: Gen3SetupStep, state: Gen3SetupFlowState) { fatalError("Not implemented") }
+    func gen3SetupError(_ sender: Gen3SetupStep, error: Gen3SetupFlowError, severity: Gen3SetupErrorSeverity, nsError: Error?) { fatalError("Not implemented") }
 }
 
 
