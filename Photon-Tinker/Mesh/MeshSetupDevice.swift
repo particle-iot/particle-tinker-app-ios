@@ -105,9 +105,20 @@ internal struct Gen3SetupSim {
     }
 }
 
-internal struct Gen3SetupPeripheralCredentials {
+internal class Gen3SetupPeripheralCredentials: CustomStringConvertible {
     var name: String
     var mobileSecret: String
+    var identifier: UUID?
+
+    init(name: String, mobileSecret: String, identifier: UUID? = nil) {
+        self.name = name
+        self.mobileSecret = mobileSecret
+        self.identifier = identifier
+    }
+
+    var description: String {
+        return "Gen3SetupPeripheralCredentials <\(Unmanaged.passUnretained(self).toOpaque())> name: \(name), mobileSecret: \(mobileSecret), identifier: \(identifier)"
+    }
 }
 
 // TODO: should be globally reference not just for gen3
