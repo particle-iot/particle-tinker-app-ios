@@ -232,34 +232,34 @@ enum Gen3SetupControlPanelCellType {
         tableView.register(UINib.init(nibName: "Gen3SetupHorizontalDetailCell", bundle: nil), forCellReuseIdentifier: "Gen3SetupHorizontalDetailCell")
     }
 
-    func getConfiguredCell(_ tableView: UITableView, context: Gen3SetupContext) -> Gen3Cell {
+    func getConfiguredCell(_ tableView: UITableView, context: Gen3SetupContext) -> Gen3SetupCell {
         let image = self.getIcon(context: context)
         let detail = self.getCellDetails(context: context)
         let enabled = self.getCellEnabled(context: context)
         let accessoryType = self.getDisclosureIndicator(context: context)
 
-        var cell:Gen3Cell! = nil
+        var cell:Gen3SetupCell! = nil
 
         if (self == .unclaim || self == .actionLeaveMeshNetwork) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupButtonCell") as! Gen3Cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupButtonCell") as! Gen3SetupCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.RedTextColor : ParticleStyle.DetailsTextColor)
         } else if (self == .actionChangeSimStatus || self == .actionChangePinsStatus) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupSubtitleCell") as! Gen3Cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupSubtitleCell") as! Gen3SetupCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
 
             cell.cellSubtitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
             cell.cellSubtitleLabel.text = detail
         } else if image != nil {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicIconCell") as! Gen3Cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicIconCell") as! Gen3SetupCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.PrimaryTextColor : ParticleStyle.DetailsTextColor)
         } else if detail != nil {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupHorizontalDetailCell") as! Gen3Cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupHorizontalDetailCell") as! Gen3SetupCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.PrimaryTextColor : ParticleStyle.DetailsTextColor)
 
             cell.cellDetailLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.DetailsTextColor)
             cell.cellDetailLabel.text = detail
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3Cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3SetupCell
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: enabled ? ParticleStyle.PrimaryTextColor : ParticleStyle.DetailsTextColor)
         }
 

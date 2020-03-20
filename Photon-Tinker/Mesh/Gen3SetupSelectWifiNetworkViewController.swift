@@ -51,7 +51,7 @@ class Gen3SetupSelectWifiNetworkViewController: Gen3SetupNetworkListViewControll
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupWifiNetworkCell") as! Gen3Cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupWifiNetworkCell") as! Gen3SetupCell
 
         cell.cellTitleLabel.text = networks![indexPath.row].ssid
         cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.LargeSize, color: ParticleStyle.PrimaryTextColor)

@@ -27,7 +27,7 @@
 		931C37D0215AA4310014811C /* Gen3SetupFraming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B4215AA42F0014811C /* Gen3SetupFraming.swift */; };
 		931C37D1215AA4310014811C /* Gen3SetupBluetoothConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B5215AA42F0014811C /* Gen3SetupBluetoothConnection.swift */; };
 		931C37D4215AA4310014811C /* Gen3SetupProtocolTransceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B8215AA42F0014811C /* Gen3SetupProtocolTransceiver.swift */; };
-		931C37D5215AA4310014811C /* Gen3Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B9215AA42F0014811C /* Gen3Cell.swift */; };
+		931C37D5215AA4310014811C /* Gen3SetupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37B9215AA42F0014811C /* Gen3SetupCell.swift */; };
 		931C37D8215AA4310014811C /* Gen3SetupEncryptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BC215AA42F0014811C /* Gen3SetupEncryptionManager.swift */; };
 		931C37D9215AA4310014811C /* Gen3SetupFlowUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37BD215AA4300014811C /* Gen3SetupFlowUIManager.swift */; };
 		931C37E2215AA4310014811C /* Gen3SetupBluetoothConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C37C6215AA4300014811C /* Gen3SetupBluetoothConnectionManager.swift */; };
@@ -304,7 +304,7 @@
 		931C37B4215AA42F0014811C /* Gen3SetupFraming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupFraming.swift; sourceTree = "<group>"; };
 		931C37B5215AA42F0014811C /* Gen3SetupBluetoothConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupBluetoothConnection.swift; sourceTree = "<group>"; };
 		931C37B8215AA42F0014811C /* Gen3SetupProtocolTransceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupProtocolTransceiver.swift; sourceTree = "<group>"; };
-		931C37B9215AA42F0014811C /* Gen3Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3Cell.swift; sourceTree = "<group>"; };
+		931C37B9215AA42F0014811C /* Gen3SetupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupCell.swift; sourceTree = "<group>"; };
 		931C37BC215AA42F0014811C /* Gen3SetupEncryptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupEncryptionManager.swift; sourceTree = "<group>"; };
 		931C37BD215AA4300014811C /* Gen3SetupFlowUIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupFlowUIManager.swift; sourceTree = "<group>"; };
 		931C37C6215AA4300014811C /* Gen3SetupBluetoothConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupBluetoothConnectionManager.swift; sourceTree = "<group>"; };
@@ -757,7 +757,7 @@
 		931C37EA215AA54E0014811C /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				931C37B9215AA42F0014811C /* Gen3Cell.swift */,
+				931C37B9215AA42F0014811C /* Gen3SetupCell.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -1460,7 +1460,7 @@
 				93FFD5AC215E7A6F005A469D /* config.pb.swift in Sources */,
 				93522317216CFD4600CF8A69 /* wifi_new.pb.swift in Sources */,
 				931C37D0215AA4310014811C /* Gen3SetupFraming.swift in Sources */,
-				931C37D5215AA4310014811C /* Gen3Cell.swift in Sources */,
+				931C37D5215AA4310014811C /* Gen3SetupCell.swift in Sources */,
 				93EE6966217917EE005529B4 /* cellular.pb.swift in Sources */,
 				931C37CF215AA4310014811C /* Gen3Setup.swift in Sources */,
 				93FFD5A7215E7A6F005A469D /* storage.pb.swift in Sources */,

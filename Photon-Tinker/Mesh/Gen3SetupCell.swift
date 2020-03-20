@@ -5,7 +5,7 @@
 
 import Foundation
 
-class Gen3Cell : UITableViewCell {
+class Gen3SetupCell : UITableViewCell {
     @IBOutlet weak var cellTitleLabel: ParticleLabel!
     @IBOutlet weak var cellSubtitleLabel: ParticleLabel!
     @IBOutlet weak var cellIconImageView: UIImageView?

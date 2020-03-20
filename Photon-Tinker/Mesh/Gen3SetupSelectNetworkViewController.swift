@@ -44,10 +44,10 @@ class Gen3SetupSelectNetworkViewController: Gen3SetupNetworkListViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:Gen3Cell! = nil
+        var cell:Gen3SetupCell! = nil
         let network = networks![indexPath.row]
         if (network.userOwned) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupSubtitleCell") as! Gen3Cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupSubtitleCell") as! Gen3SetupCell
 
             var devicesString = (network.deviceCount! == 1) ? Gen3SetupStrings.SelectNetwork.DevicesSingular : Gen3SetupStrings.SelectNetwork.DevicesPlural
             devicesString = devicesString.replacingOccurrences(of: "{{count}}", with: String(network.deviceCount!))
@@ -55,7 +55,7 @@ class Gen3SetupSelectNetworkViewController: Gen3SetupNetworkListViewController {
             cell.cellSubtitleLabel.text = devicesString
             cell.cellSubtitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.SmallSize, color: ParticleStyle.PrimaryTextColor)
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3Cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3SetupCell
         }
 
         cell.cellTitleLabel.text = network.name

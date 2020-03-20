@@ -65,7 +65,7 @@ class Gen3SetupControlPanelSimDataLimitViewController : Gen3SetupControlPanelRoo
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:Gen3Cell! = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3Cell
+        var cell:Gen3SetupCell! = tableView.dequeueReusableCell(withIdentifier: "Gen3SetupBasicCell") as! Gen3SetupCell
 
         if (!self.disableValuesSmallerThanCurrent) {
             cell.cellTitleLabel.setStyle(font: ParticleStyle.RegularFont, size: ParticleStyle.RegularSize, color: ParticleStyle.PrimaryTextColor)
