@@ -111,7 +111,7 @@ class StepConnectToTargetDevice: Gen3SetupStep {
 
         context.targetDevice.state = .discovered
 
-        if (peripheral.name?.lowercased() == context.targetDevice.credentials!.name.lowercased()) {
+        if (peripheral.name?.lowercased() == context.targetDevice.credentials!.name.lowercased() || peripheral.identifier == context.targetDevice.credentials!.identifier) {
             if (!self.reconnectAfterForcedReboot) {
                 context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceDiscovered)
             }

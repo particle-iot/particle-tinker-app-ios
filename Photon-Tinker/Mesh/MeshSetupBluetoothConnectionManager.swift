@@ -193,7 +193,7 @@ class Gen3SetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, G
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
 
         if let n = peripheral.name {
-            log("centralManager didDiscover peripheral \(n)")
+            log("centralManager didDiscover peripheral \(n) (\(advertisementData["kCBAdvDataLocalName"] as? String))")
         } else {
             log("centralManager didDiscover peripheral")
         }
@@ -202,7 +202,8 @@ class Gen3SetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, G
             return
         }
 
-        if peripheral.name?.lowercased() == self.peripheralToConnectCredentials!.name.lowercased() {
+        if peripheral.name?.lowercased() == self.peripheralToConnectCredentials!.name.lowercased() ||
+                   (advertisementData["kCBAdvDataLocalName"] as? String)?.lowercased() == self.peripheralToConnectCredentials!.name.lowercased() {
             central.stopScan()
             log("stop scan")
 
@@ -220,6 +221,8 @@ class Gen3SetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, G
                 self.state = .PeripheralDiscovered
                 self.delegate.bluetoothConnectionManagerPeripheralDiscovered(sender: self, peripheral: peripheral)
                 self.centralManager.connect(peripheral, options: nil)
+                peripheralToConnectCredentials!.identifier = peripheral.identifier
+                NSLog("peripheralToConnectCredentials = \(peripheralToConnectCredentials)")
                 peripheralToConnect = peripheral
                 self.log("Pairing to \(peripheral.name!)...")
             }
@@ -235,7 +238,9 @@ class Gen3SetupBluetoothConnectionManager: NSObject, CBCentralManagerDelegate, G
             log("Paired to device")
         }
 
-        guard self.peripheralToConnectCredentials != nil, let name = peripheral.name?.lowercased(), name == peripheralToConnectCredentials?.name.lowercased() else {
+        guard self.peripheralToConnectCredentials != nil,
+              let name = peripheral.name?.lowercased(), name == peripheralToConnectCredentials?.name.lowercased() ||
+              peripheral.identifier == peripheralToConnectCredentials?.identifier else {
             //all gen3 devices have names, if peripheral has no name, it's not our device
             dropPeripheralConnection(with: peripheral)
             log("Dropping connection on purpose :(")
