@@ -141,7 +141,7 @@ class Gen3SetupFlowManager : Gen3SetupFlowRunner {
                 "Switching flow!!!")
 
         if (currentFlow == preflow) {
-            if ((context.targetDevice.hasActiveInternetInterface() && context.selectedNetworkMeshInfo == nil) || !context.targetDevice.supportsMesh) {
+            if ((context.targetDevice.hasActiveInternetInterface() && context.selectedNetworkMeshInfo == nil) || !context.targetDevice.supportsMesh!) {
                 self.currentFlow = internetConnectedPreflow
                 log("setting gateway flow")
             } else {

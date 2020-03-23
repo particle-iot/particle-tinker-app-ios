@@ -59,6 +59,7 @@ class StepCheckHasNetworkInterfaces: Gen3SetupStep {
 
             if (result == .NONE) {
                 context.targetDevice.activeInternetInterface = nil
+                context.targetDevice.supportsMesh = false
 
                 context.targetDevice.networkInterfaces = interfaces!
 
@@ -221,6 +222,7 @@ class StepCheckHasNetworkInterfaces: Gen3SetupStep {
 
         context.targetDevice.activeInternetInterface = nil
         context.targetDevice.sim = nil
+        context.targetDevice.supportsMesh = nil
     }
 
 

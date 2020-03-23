@@ -29,7 +29,7 @@ internal struct Gen3SetupDevice {
     var ncpModuleVersion: Int?
     var ncpVersionReceived: Bool?
     var supportsCompressedOTAUpdate: Bool?
-    var supportsMesh: Bool = false
+    var supportsMesh: Bool?
 
     var firmwareFilesFlashed: Int?
     var firmwareUpdateProgress: Double?

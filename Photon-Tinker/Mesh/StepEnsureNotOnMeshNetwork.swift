@@ -23,7 +23,7 @@ class StepEnsureNotOnMeshNetwork: Gen3SetupStep {
             return
         }
 
-        guard context.targetDevice.supportsMesh else {
+        guard context.targetDevice.supportsMesh == nil || context.targetDevice.supportsMesh! == true else {
             self.stepCompleted()
             return
         }

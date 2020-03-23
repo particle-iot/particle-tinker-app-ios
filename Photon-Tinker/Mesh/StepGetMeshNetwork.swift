@@ -19,7 +19,7 @@ class StepGetMeshNetwork: Gen3SetupStep {
             return
         }
 
-        guard context.targetDevice.supportsMesh else {
+        guard context.targetDevice.supportsMesh == nil || context.targetDevice.supportsMesh! == true else {
             self.fail(withReason: .MeshNotSupported)
             return
         }

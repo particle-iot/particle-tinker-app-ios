@@ -378,7 +378,7 @@ class Gen3SetupUIBase : UIViewController, Storyboardable, Gen3SetupFlowRunnerDel
             if (!self.rewindTo(Gen3SetupPricingInfoViewController.self)) {
                 let pricingInfoVC = Gen3SetupPricingInfoViewController.loadedViewController()
                 pricingInfoVC.ownerStepType = self.currentStepType
-                pricingInfoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh
+                pricingInfoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh!
                 pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
                 self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
             }

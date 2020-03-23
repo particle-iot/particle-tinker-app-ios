@@ -11,7 +11,7 @@ class StepOfferSetupStandAloneOrWithNetwork : Gen3SetupStep {
             return
         }
 
-        guard context.targetDevice.supportsMesh else {
+        guard let supportsMesh = context.targetDevice.supportsMesh, supportsMesh == true else {
             context.userSelectedToSetupMesh = false
             self.stepCompleted()
             return
