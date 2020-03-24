@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepOfferToAddOneMoreDevice : MeshSetupStep {
+class StepOfferToAddOneMoreDevice : Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -22,6 +22,6 @@ class StepOfferToAddOneMoreDevice : MeshSetupStep {
             }
         }
 
-        context.delegate.meshSetupDidRequestToAddOneMoreDevice(self)
+        context.delegate.gen3SetupDidRequestToAddOneMoreDevice(self)
     }
 }

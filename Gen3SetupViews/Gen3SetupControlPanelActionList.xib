@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupControlPanelRootViewController" customModule="Particle" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="fzy-E3-t8d" id="p6Q-78-KWd"/>
+                <outlet property="view" destination="C5h-Z7-bld" id="i8Y-c5-iNO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="C5h-Z7-bld">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="fzy-E3-t8d">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="fzy-E3-t8d" firstAttribute="top" secondItem="C5h-Z7-bld" secondAttribute="top" id="2lN-zV-zFr"/>
+                <constraint firstAttribute="bottom" secondItem="fzy-E3-t8d" secondAttribute="bottom" id="cyh-Nv-zmV"/>
+                <constraint firstAttribute="trailing" secondItem="fzy-E3-t8d" secondAttribute="trailing" id="dmX-jP-9o6"/>
+                <constraint firstItem="fzy-E3-t8d" firstAttribute="leading" secondItem="C5h-Z7-bld" secondAttribute="leading" id="tOL-q5-xvA"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="VVr-Os-oPk"/>
+        </view>
+    </objects>
+</document>

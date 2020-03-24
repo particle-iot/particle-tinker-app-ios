@@ -6,7 +6,7 @@
 import Foundation
 import CoreBluetooth
 
-class StepConnectToCommissionerDevice: MeshSetupStep {
+class StepConnectToCommissionerDevice: Gen3SetupStep {
 
     private var reconnect: Bool = false
 
@@ -29,7 +29,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
 
             self.log("connecting to device: \(context.commissionerDevice!.credentials!)")
             context.bluetoothManager.createConnection(with: context.commissionerDevice!.credentials!)
-            context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceConnected)
+            context.delegate.gen3SetupDidEnterState(self, state: .CommissionerDeviceConnected)
         } else if (context.commissionerDevice?.isListeningMode == nil || context.commissionerDevice?.isListeningMode! == true) {
             self.stopCommissionerDeviceListening()
         } else {
@@ -44,13 +44,13 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
         self.reconnectAfterForcedRebootRetry = 0
     }
 
-    private func commissionerDeviceConnected(connection: MeshSetupBluetoothConnection) {
+    private func commissionerDeviceConnected(connection: Gen3SetupBluetoothConnection) {
         guard let context = self.context else {
             return
         }
 
         context.commissionerDevice!.isListeningMode = true
-        context.commissionerDevice!.transceiver = MeshSetupProtocolTransceiver(connection: connection)
+        context.commissionerDevice!.transceiver = Gen3SetupProtocolTransceiver(connection: connection)
 
         self.start()
     }
@@ -112,13 +112,13 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
 
 
 
-    override func handleBluetoothConnectionManagerConnectionCreated(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    override func handleBluetoothConnectionManagerConnectionCreated(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         guard let context = self.context else {
             return false
         }
 
         context.commissionerDevice?.state = .connected
-        context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceConnected)
+        context.delegate.gen3SetupDidEnterState(self, state: .CommissionerDeviceConnected)
 
         return true
     }
@@ -129,25 +129,25 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
         }
 
         context.commissionerDevice?.state = .discovered
-        context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceDiscovered)
+        context.delegate.gen3SetupDidEnterState(self, state: .CommissionerDeviceDiscovered)
 
         return true
     }
 
-    override func handleBluetoothConnectionManagerConnectionBecameReady(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    override func handleBluetoothConnectionManagerConnectionBecameReady(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         guard let context = self.context else {
             return false
         }
 
         context.commissionerDevice?.state = .ready
-        context.delegate.meshSetupDidEnterState(self, state: .CommissionerDeviceReady)
+        context.delegate.gen3SetupDidEnterState(self, state: .CommissionerDeviceReady)
 
         commissionerDeviceConnected(connection: connection)
 
         return true
     }
 
-    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: MeshSetupBluetoothConnection) -> Bool {
+    override func handleBluetoothConnectionManagerConnectionDropped(_ connection: Gen3SetupBluetoothConnection) -> Bool {
         guard let context = self.context else {
             return false
         }
@@ -162,7 +162,7 @@ class StepConnectToCommissionerDevice: MeshSetupStep {
         return true
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

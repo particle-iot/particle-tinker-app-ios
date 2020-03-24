@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetUserNetworkSelection : MeshSetupStep {
+class StepGetUserNetworkSelection : Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -15,7 +15,7 @@ class StepGetUserNetworkSelection : MeshSetupStep {
         if (context.selectedNetworkMeshInfo != nil) {
             self.stepCompleted()
         } else {
-            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceScanningForNetworks)
+            context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceScanningForNetworks)
             self.scanNetworks()
         }
     }
@@ -29,7 +29,7 @@ class StepGetUserNetworkSelection : MeshSetupStep {
             self.log("sendScanNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
 
             if (result == .NONE) {
-                context.targetDevice.meshNetworks = MeshSetupStep.removeRepeatedMeshNetworks(networks!)
+                context.targetDevice.meshNetworks = Gen3SetupStep.removeRepeatedMeshNetworks(networks!)
             } else {
                 //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
                 context.targetDevice.meshNetworks = []
@@ -43,11 +43,11 @@ class StepGetUserNetworkSelection : MeshSetupStep {
             return
         }
 
-        let networks = MeshSetupStep.GetMeshNetworkCells(meshNetworks: context.targetDevice.meshNetworks!, apiMeshNetworks: context.apiNetworks!)
-        context.delegate.meshSetupDidRequestToSelectNetwork(self, availableNetworks: networks)
+        let networks = Gen3SetupStep.GetMeshNetworkCells(meshNetworks: context.targetDevice.meshNetworks!, apiMeshNetworks: context.apiNetworks!)
+        context.delegate.gen3SetupDidRequestToSelectNetwork(self, availableNetworks: networks)
     }
 
-    func setSelectedNetwork(selectedNetworkExtPanID: String) -> MeshSetupFlowError? {
+    func setSelectedNetwork(selectedNetworkExtPanID: String) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -66,7 +66,7 @@ class StepGetUserNetworkSelection : MeshSetupStep {
         return nil
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

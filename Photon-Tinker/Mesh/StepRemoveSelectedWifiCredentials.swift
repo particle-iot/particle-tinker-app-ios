@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepRemoveSelectedWifiCredentials: MeshSetupStep {
+class StepRemoveSelectedWifiCredentials: Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {

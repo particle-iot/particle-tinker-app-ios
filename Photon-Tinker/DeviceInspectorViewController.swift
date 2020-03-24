@@ -39,7 +39,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
     var eventsVC: DeviceInspectorEventsViewController!
     var infoSlider: DeviceInspectorInfoSliderViewController!
 
-    private var initialControlPanelViewController: MeshSetupControlPanelUIManager?
+    private var initialControlPanelViewController: Gen3SetupControlPanelUIManager?
 
     override func viewDidLoad() {
         SEGAnalytics.shared().track("DeviceInspector_Started")
@@ -138,7 +138,7 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
 
 
-    func setup(device: ParticleDevice, controlPanelViewController: MeshSetupControlPanelUIManager? = nil) {
+    func setup(device: ParticleDevice, controlPanelViewController: Gen3SetupControlPanelUIManager? = nil) {
         self.device = device
         self.initialControlPanelViewController = controlPanelViewController
     }
@@ -238,14 +238,14 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
 
 
     @IBAction func actionButtonTapped(_ sender: UIButton) {
-        let vc = MeshSetupControlPanelUIManager.loadedViewController()
+        let vc = Gen3SetupControlPanelUIManager.loadedViewController()
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "action tapped: %@", withParameters: getVaList(["\(device)"]))
         vc.setDevice(self.device)
         vc.setCallback(self.controlPanelCompleted)
         self.present(vc, animated: true)
     }
 
-    func controlPanelCompleted(result: MeshSetupFlowResult, data: [AnyObject]?) {
+    func controlPanelCompleted(result: Gen3SetupFlowResult, data: [AnyObject]?) {
         if result == .unclaimed {
             (self.navigationController?.viewControllers[self.navigationController!.viewControllers.count-2] as! DeviceListViewController).refreshData()
             _ = self.navigationController?.popViewController(animated: false)

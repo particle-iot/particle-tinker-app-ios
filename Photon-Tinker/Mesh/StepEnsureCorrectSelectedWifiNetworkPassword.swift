@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureCorrectSelectedWifiNetworkPassword : MeshSetupStep {
+class StepEnsureCorrectSelectedWifiNetworkPassword : Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return
@@ -17,10 +17,10 @@ class StepEnsureCorrectSelectedWifiNetworkPassword : MeshSetupStep {
             }
             return
         }
-        context.delegate.meshSetupDidRequestToEnterSelectedWifiNetworkPassword(self)
+        context.delegate.gen3SetupDidRequestToEnterSelectedWifiNetworkPassword(self)
     }
 
-    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+    func setSelectedWifiNetworkPassword(_ password: String, onComplete:@escaping (Gen3SetupFlowError?) -> ()) {
         guard let context = self.context else {
             onComplete(nil)
             return

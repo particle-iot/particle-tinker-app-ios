@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepSetSimDataLimit: MeshSetupStep {
+class StepSetSimDataLimit: Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -13,7 +13,7 @@ class StepSetSimDataLimit: MeshSetupStep {
         }
 
         if context.targetDevice.setSimDataLimit == nil {
-            context.delegate.meshSetupDidRequestToSelectSimDataLimit(self)
+            context.delegate.gen3SetupDidRequestToSelectSimDataLimit(self)
         } else if context.targetDevice.sim!.status == nil {
             self.getSimStatus()
         } else if (context.targetDevice.sim!.dataLimit != context.targetDevice.setSimDataLimit) {
@@ -24,7 +24,7 @@ class StepSetSimDataLimit: MeshSetupStep {
     }
 
 
-    func setSimDataLimit(dataLimit: Int) -> MeshSetupFlowError? {
+    func setSimDataLimit(dataLimit: Int) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -85,7 +85,7 @@ class StepSetSimDataLimit: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

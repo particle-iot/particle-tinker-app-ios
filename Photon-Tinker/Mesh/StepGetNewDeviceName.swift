@@ -5,17 +5,17 @@
 
 import Foundation
 
-class StepGetNewDeviceName : MeshSetupStep {
+class StepGetNewDeviceName : Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return
         }
 
-        context.delegate.meshSetupDidRequestToEnterDeviceName(self)
+        context.delegate.gen3SetupDidRequestToEnterDeviceName(self)
     }
 
 
-    func setDeviceName(name: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+    func setDeviceName(name: String, onComplete:@escaping (Gen3SetupFlowError?) -> ()) {
         guard let context = self.context else {
             onComplete(nil)
             return

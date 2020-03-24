@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepOfferSelectOrCreateNetwork : MeshSetupStep {
+class StepOfferSelectOrCreateNetwork : Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -21,10 +21,10 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
         } else {
             //if device has no network interfaces, this will trigger UI to show the screen that has
             if context.targetDevice.hasActiveInternetInterface() {
-                context.delegate.meshSetupDidEnterState(self, state: .TargetInternetConnectedDeviceScanningForNetworks)
+                context.delegate.gen3SetupDidEnterState(self, state: .TargetInternetConnectedDeviceScanningForNetworks)
                 self.scanNetworks()
             } else {
-                context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceScanningForNetworks)
+                context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceScanningForNetworks)
                 self.scanNetworks()
             }
         }
@@ -39,7 +39,7 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
             self.log("sendScanNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
 
             if (result == .NONE) {
-                context.targetDevice.meshNetworks = MeshSetupStep.removeRepeatedMeshNetworks(networks!)
+                context.targetDevice.meshNetworks = Gen3SetupStep.removeRepeatedMeshNetworks(networks!)
             } else {
                 //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
                 context.targetDevice.meshNetworks = []
@@ -53,11 +53,11 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
             return
         }
 
-        let networks = MeshSetupStep.GetMeshNetworkCells(meshNetworks: context.targetDevice.meshNetworks!, apiMeshNetworks: context.apiNetworks!)
-        context.delegate.meshSetupDidRequestToSelectOrCreateNetwork(self, availableNetworks: networks)
+        let networks = Gen3SetupStep.GetMeshNetworkCells(meshNetworks: context.targetDevice.meshNetworks!, apiMeshNetworks: context.apiNetworks!)
+        context.delegate.gen3SetupDidRequestToSelectOrCreateNetwork(self, availableNetworks: networks)
     }
 
-    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> MeshSetupFlowError? {
+    func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -81,7 +81,7 @@ class StepOfferSelectOrCreateNetwork : MeshSetupStep {
         return nil
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

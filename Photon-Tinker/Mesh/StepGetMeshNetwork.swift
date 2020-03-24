@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetMeshNetwork: MeshSetupStep {
+class StepGetMeshNetwork: Gen3SetupStep {
     private var meshNetworkInfoLoaded = false
     private var apiNetworksLoaded = false
 
@@ -19,7 +19,7 @@ class StepGetMeshNetwork: MeshSetupStep {
             return
         }
 
-        guard context.targetDevice.supportsMesh else {
+        guard context.targetDevice.supportsMesh == nil || context.targetDevice.supportsMesh! == true else {
             self.fail(withReason: .MeshNotSupported)
             return
         }
@@ -67,7 +67,7 @@ class StepGetMeshNetwork: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

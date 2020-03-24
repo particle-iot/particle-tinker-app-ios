@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetUserWifiNetworkSelection : MeshSetupStep {
+class StepGetUserWifiNetworkSelection : Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return
@@ -14,7 +14,7 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
         if (context.selectedWifiNetworkInfo != nil) {
             self.stepCompleted()
         } else {
-            context.delegate.meshSetupDidEnterState(self, state: .TargetDeviceScanningForWifiNetworks)
+            context.delegate.gen3SetupDidEnterState(self, state: .TargetDeviceScanningForWifiNetworks)
             self.scanWifiNetworks()
         }
     }
@@ -32,19 +32,19 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
             self.log("sendScanWifiNetworks: \(result.description()), networksCount: \(networks?.count as Optional)\n\(networks as Optional)")
 
             if (result == .NONE) {
-                context.targetDevice.wifiNetworks = MeshSetupStep.removeRepeatedWifiNetworks(networks!)
+                context.targetDevice.wifiNetworks = Gen3SetupStep.removeRepeatedWifiNetworks(networks!)
             } else {
                 //this command will be repeated multiple times, no need to trigger errors.. just pretend all is fine
                 context.targetDevice.wifiNetworks = []
             }
-            context.delegate.meshSetupDidRequestToSelectWifiNetwork(self, availableNetworks: context.targetDevice.wifiNetworks!)
+            context.delegate.gen3SetupDidRequestToSelectWifiNetwork(self, availableNetworks: context.targetDevice.wifiNetworks!)
         }
     }
 
 
 
 
-    func setSelectedWifiNetwork(selectedNetwork: MeshSetupNewWifiNetworkInfo) -> MeshSetupFlowError? {
+    func setSelectedWifiNetwork(selectedNetwork: Gen3SetupNewWifiNetworkInfo) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -56,7 +56,7 @@ class StepGetUserWifiNetworkSelection : MeshSetupStep {
         return nil
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

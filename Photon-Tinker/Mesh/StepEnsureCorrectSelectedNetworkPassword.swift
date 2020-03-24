@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureCorrectSelectedNetworkPassword : MeshSetupStep {
+class StepEnsureCorrectSelectedNetworkPassword : Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -13,20 +13,20 @@ class StepEnsureCorrectSelectedNetworkPassword : MeshSetupStep {
         }
 
         if (self.context?.selectedNetworkPassword == nil) {
-            context.delegate.meshSetupDidRequestToEnterSelectedNetworkPassword(self)
+            context.delegate.gen3SetupDidRequestToEnterSelectedNetworkPassword(self)
         } else {
             self.stepCompleted()
         }
     }
 
-    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (MeshSetupFlowError?) -> ()) {
+    func setSelectedNetworkPassword(_ password: String, onComplete:@escaping (Gen3SetupFlowError?) -> ()) {
         guard let context = self.context else {
             onComplete(nil)
 
             return
         }
 
-        guard MeshSetupStep.validateNetworkPassword(password) else {
+        guard Gen3SetupStep.validateNetworkPassword(password) else {
             onComplete(.PasswordTooShort)
             return
         }
@@ -55,7 +55,7 @@ class StepEnsureCorrectSelectedNetworkPassword : MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

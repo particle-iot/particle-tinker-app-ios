@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureCanBeClaimed: MeshSetupStep {
+class StepEnsureCanBeClaimed: Gen3SetupStep {
 
     override func start() {
         guard let context = self.context else {
@@ -23,7 +23,7 @@ class StepEnsureCanBeClaimed: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

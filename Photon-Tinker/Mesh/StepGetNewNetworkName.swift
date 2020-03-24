@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetNewNetworkName: MeshSetupStep {
+class StepGetNewNetworkName: Gen3SetupStep {
     override func start() {
 
         guard let context = self.context else {
@@ -13,18 +13,18 @@ class StepGetNewNetworkName: MeshSetupStep {
         }
 
         if (context.newNetworkName == nil) {
-            context.delegate.meshSetupDidRequestToEnterNewNetworkName(self)
+            context.delegate.gen3SetupDidRequestToEnterNewNetworkName(self)
         } else {
             self.stepCompleted()
         }
     }
 
-    func setNewNetworkName(name: String) -> MeshSetupFlowError? {
+    func setNewNetworkName(name: String) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
 
-        guard MeshSetupStep.validateNetworkName(name) else {
+        guard Gen3SetupStep.validateNetworkName(name) else {
             return .NameTooShort
         }
 
@@ -45,7 +45,7 @@ class StepGetNewNetworkName: MeshSetupStep {
         return nil
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

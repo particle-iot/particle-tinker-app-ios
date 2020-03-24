@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepSetClaimCode: MeshSetupStep {
+class StepSetClaimCode: Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return

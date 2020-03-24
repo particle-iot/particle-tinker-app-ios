@@ -5,13 +5,13 @@
 
 import Foundation
 
-class StepControlPanelFlowCompleted: MeshSetupStep {
+class StepControlPanelFlowCompleted: Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return
         }
 
         self.stepCompleted()
-        context.delegate.meshSetupDidCompleteControlPanelFlow(self)
+        context.delegate.gen3SetupDidCompleteControlPanelFlow(self)
     }
 }

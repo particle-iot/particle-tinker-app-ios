@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepEnsureCorrectSimState: MeshSetupStep {
+class StepEnsureCorrectSimState: Gen3SetupStep {
 
     private var checkSimActiveRetryCount: Int = 0
     private var simStatusReceived: Bool = false
@@ -17,7 +17,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
 
 
         if context.targetDevice.setSimActive == nil {
-            context.delegate.meshSetupDidRequestToSelectSimStatus(self)
+            context.delegate.gen3SetupDidRequestToSelectSimStatus(self)
         } else if context.targetDevice.sim!.active == nil {
             self.getSimInfo()
         } else if context.targetDevice.sim!.status == nil && simStatusReceived == false {
@@ -30,7 +30,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
     }
 
 
-    func setTargetSimStatus(simActive: Bool) -> MeshSetupFlowError? {
+    func setTargetSimStatus(simActive: Bool) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -113,7 +113,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
             return
         }
 
-        if (self.checkSimActiveRetryCount > MeshSetup.activateSimRetryCount) {
+        if (self.checkSimActiveRetryCount > Gen3Setup.activateSimRetryCount) {
             self.checkSimActiveRetryCount = 0
             if (context.targetDevice.setSimActive!) {
                 self.fail(withReason: .FailedToActivateSim)
@@ -160,7 +160,7 @@ class StepEnsureCorrectSimState: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

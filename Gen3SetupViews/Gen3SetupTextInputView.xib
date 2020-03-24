@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gotham-Book.otf">
+            <string>Gotham-Book</string>
+        </array>
+        <array key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupCreateNetworkNameViewController" customModule="Particle" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonBottomConstraint" destination="wi6-4J-LAB" id="3f1-3d-kVf"/>
+                <outlet property="continueButton" destination="h56-E2-XgC" id="Cyp-We-ErH"/>
+                <outlet property="inputTextField" destination="p1q-0P-ww5" id="dRc-7E-JFa"/>
+                <outlet property="inputTitleLabel" destination="sC1-dN-Nic" id="WSG-5Y-2ev"/>
+                <outlet property="noteTextLabel" destination="uQY-p8-53i" id="5Qw-2z-bN2"/>
+                <outlet property="noteTitleLabel" destination="Tpg-xy-IQf" id="MyR-aW-5fT"/>
+                <outlet property="noteView" destination="bvA-g3-vaD" id="aSq-yp-xr7"/>
+                <outlet property="titleLabel" destination="UnX-o6-r2M" id="fL2-j8-Rqc"/>
+                <outlet property="view" destination="XEB-96-QjT" id="CE7-R0-sP7"/>
+                <outletCollection property="buttonSideConstraints" destination="S52-wI-PMw" collectionClass="NSMutableArray" id="d6q-No-cur"/>
+                <outletCollection property="buttonSideConstraints" destination="PD1-xY-QW3" collectionClass="NSMutableArray" id="LO4-j9-waP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="XEB-96-QjT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter network password for {{network}}" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnX-o6-r2M" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                    <rect key="frame" x="20" y="35" width="335" height="16"/>
+                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xc3-Es-AtC">
+                    <rect key="frame" x="15" y="71" width="345" height="46"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC1-dN-Nic" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="8" y="6" width="329" height="12"/>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p1q-0P-ww5" customClass="ParticleTextField" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="8" y="16" width="329" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="Wf7-LK-nkQ"/>
+                            </constraints>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                            <connections>
+                                <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="bnA-f5-cw8"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="p1q-0P-ww5" secondAttribute="bottom" id="E0B-yO-K1d"/>
+                        <constraint firstItem="sC1-dN-Nic" firstAttribute="top" secondItem="xc3-Es-AtC" secondAttribute="top" constant="6" id="JIx-wS-DRF"/>
+                        <constraint firstItem="sC1-dN-Nic" firstAttribute="leading" secondItem="xc3-Es-AtC" secondAttribute="leading" constant="8" id="Olj-eJ-laU"/>
+                        <constraint firstItem="p1q-0P-ww5" firstAttribute="top" secondItem="sC1-dN-Nic" secondAttribute="bottom" constant="-2" id="Wri-4s-wof"/>
+                        <constraint firstItem="p1q-0P-ww5" firstAttribute="leading" secondItem="xc3-Es-AtC" secondAttribute="leading" constant="8" id="f00-K8-aUB"/>
+                        <constraint firstAttribute="trailing" secondItem="p1q-0P-ww5" secondAttribute="trailing" constant="8" id="ftI-bY-8TS"/>
+                        <constraint firstAttribute="trailing" secondItem="sC1-dN-Nic" secondAttribute="trailing" constant="8" id="pXo-5l-niB"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvA-g3-vaD" customClass="ParticleNoteView" customModule="Particle" customModuleProvider="target">
+                    <rect key="frame" x="15" y="132" width="345" height="118"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpg-xy-IQf" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="10" y="15" width="325" height="16"/>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQY-p8-53i" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="10" y="39" width="325" height="64"/>
+                            <string key="text">This is the password that was set when the mesh network was first created. This password is required to authenticate new devices added to this network.</string>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="uQY-p8-53i" secondAttribute="bottom" constant="15" id="3GK-nC-cPi"/>
+                        <constraint firstItem="uQY-p8-53i" firstAttribute="top" secondItem="Tpg-xy-IQf" secondAttribute="bottom" constant="8" id="5zH-GJ-kBd"/>
+                        <constraint firstItem="Tpg-xy-IQf" firstAttribute="leading" secondItem="bvA-g3-vaD" secondAttribute="leading" constant="10" id="Gah-VC-OLM"/>
+                        <constraint firstItem="uQY-p8-53i" firstAttribute="leading" secondItem="bvA-g3-vaD" secondAttribute="leading" constant="10" id="QWf-kR-0jO"/>
+                        <constraint firstAttribute="trailing" secondItem="Tpg-xy-IQf" secondAttribute="trailing" constant="10" id="Sot-7h-cxs"/>
+                        <constraint firstItem="Tpg-xy-IQf" firstAttribute="top" secondItem="bvA-g3-vaD" secondAttribute="top" constant="15" id="pVC-Vz-YBa"/>
+                        <constraint firstAttribute="trailing" secondItem="uQY-p8-53i" secondAttribute="trailing" constant="10" id="pif-tj-Qe4"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h56-E2-XgC" customClass="ParticleButton" customModule="Particle" customModuleProvider="target">
+                    <rect key="frame" x="20" y="607" width="335" height="40"/>
+                    <color key="backgroundColor" red="0.1137254902" green="0.68627450980000004" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="QCg-OY-vv1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Join Network">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="continueButtonTapped:" destination="-1" eventType="touchUpInside" id="yAP-NS-qk3"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="g5o-EP-mEN" firstAttribute="trailing" secondItem="UnX-o6-r2M" secondAttribute="trailing" constant="20" id="1R7-ho-DzH"/>
+                <constraint firstItem="UnX-o6-r2M" firstAttribute="top" secondItem="g5o-EP-mEN" secondAttribute="top" constant="15" id="4jS-zW-rNh"/>
+                <constraint firstItem="bvA-g3-vaD" firstAttribute="top" secondItem="xc3-Es-AtC" secondAttribute="bottom" constant="15" id="EoN-im-NCk"/>
+                <constraint firstItem="g5o-EP-mEN" firstAttribute="trailing" secondItem="xc3-Es-AtC" secondAttribute="trailing" constant="15" id="GU0-zb-8n2"/>
+                <constraint firstItem="UnX-o6-r2M" firstAttribute="leading" secondItem="g5o-EP-mEN" secondAttribute="leading" constant="20" id="OaW-db-gqe"/>
+                <constraint firstItem="h56-E2-XgC" firstAttribute="leading" secondItem="g5o-EP-mEN" secondAttribute="leading" constant="20" id="PD1-xY-QW3"/>
+                <constraint firstItem="g5o-EP-mEN" firstAttribute="trailing" secondItem="h56-E2-XgC" secondAttribute="trailing" constant="20" id="S52-wI-PMw"/>
+                <constraint firstItem="g5o-EP-mEN" firstAttribute="trailing" secondItem="bvA-g3-vaD" secondAttribute="trailing" constant="15" id="Yox-KZ-XEb"/>
+                <constraint firstItem="bvA-g3-vaD" firstAttribute="leading" secondItem="g5o-EP-mEN" secondAttribute="leading" constant="15" id="bLO-uk-tfs"/>
+                <constraint firstItem="xc3-Es-AtC" firstAttribute="leading" secondItem="g5o-EP-mEN" secondAttribute="leading" constant="15" id="n1d-nQ-ytr"/>
+                <constraint firstItem="xc3-Es-AtC" firstAttribute="top" secondItem="UnX-o6-r2M" secondAttribute="bottom" constant="20" id="oMa-uZ-YEa"/>
+                <constraint firstItem="g5o-EP-mEN" firstAttribute="bottom" secondItem="h56-E2-XgC" secondAttribute="bottom" constant="20" id="wi6-4J-LAB"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="g5o-EP-mEN"/>
+            <point key="canvasLocation" x="39.200000000000003" y="46.326836581709152"/>
+        </view>
+    </objects>
+</document>

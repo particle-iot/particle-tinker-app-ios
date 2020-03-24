@@ -5,7 +5,7 @@
 
 import Foundation
 
-class StepGetWifiNetwork: MeshSetupStep {
+class StepGetWifiNetwork: Gen3SetupStep {
 
     private var wifiNetworkInfoLoaded = false
 
@@ -49,7 +49,7 @@ class StepGetWifiNetwork: MeshSetupStep {
         }
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {

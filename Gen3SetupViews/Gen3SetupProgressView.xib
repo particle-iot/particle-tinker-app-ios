@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gotham-Book.otf">
+            <string>Gotham-Book</string>
+        </array>
+        <array key="Gotham-Medium.otf">
+            <string>Gotham-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Gen3SetupCreatingNetworkViewController" customModule="Particle" customModuleProvider="target">
+            <connections>
+                <outlet property="progressIndicator" destination="E6G-zJ-mI7" id="2j8-dQ-1NM"/>
+                <outlet property="progressTitleLabel" destination="xTU-yW-pp6" id="2GO-kZ-xo0"/>
+                <outlet property="progressView" destination="YBq-Jh-669" id="60i-wo-g3f"/>
+                <outlet property="successTextLabel" destination="CW0-cQ-IAQ" id="MBl-g4-10A"/>
+                <outlet property="successTitleLabel" destination="fzr-5t-OzA" id="SKR-qp-c7i"/>
+                <outlet property="successView" destination="lp9-tt-YaS" id="Afb-Ik-IUD"/>
+                <outlet property="view" destination="uLB-BA-dui" id="Bww-y3-IyG"/>
+                <outletCollection property="progressTextLabels" destination="eDz-AZ-BFR" collectionClass="NSMutableArray" id="Uag-XZ-4Dp"/>
+                <outletCollection property="progressTextLabels" destination="HLo-Gx-ffn" collectionClass="NSMutableArray" id="uoF-jq-x89"/>
+                <outletCollection property="progressTextLabels" destination="F1s-fL-vln" collectionClass="NSMutableArray" id="7dS-oH-VjY"/>
+                <outletCollection property="progressTextLabels" destination="qtV-CW-ki7" collectionClass="NSMutableArray" id="a6E-YL-d3g"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="uLB-BA-dui">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lp9-tt-YaS" userLabel="SuccessView">
+                    <rect key="frame" x="30" y="241" width="315" height="118"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gen3SetupCompleteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Xuq-V1-Qoq">
+                            <rect key="frame" x="125.5" y="0.0" width="64" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="64" id="Zoc-8N-VHm"/>
+                                <constraint firstAttribute="width" constant="64" id="vqV-qq-Iis"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzr-5t-OzA" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="79" width="315" height="17"/>
+                            <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pairing in progress" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CW0-cQ-IAQ" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="101" width="315" height="17"/>
+                            <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="CW0-cQ-IAQ" firstAttribute="top" secondItem="fzr-5t-OzA" secondAttribute="bottom" constant="5" id="0jH-Dr-gwI"/>
+                        <constraint firstAttribute="trailing" secondItem="CW0-cQ-IAQ" secondAttribute="trailing" id="0w1-85-ps4"/>
+                        <constraint firstItem="Xuq-V1-Qoq" firstAttribute="top" secondItem="lp9-tt-YaS" secondAttribute="top" id="0xB-O6-Zvq"/>
+                        <constraint firstAttribute="bottom" secondItem="CW0-cQ-IAQ" secondAttribute="bottom" id="UmI-63-fFU"/>
+                        <constraint firstItem="fzr-5t-OzA" firstAttribute="top" secondItem="Xuq-V1-Qoq" secondAttribute="bottom" constant="15" id="eKh-T7-VCt"/>
+                        <constraint firstItem="CW0-cQ-IAQ" firstAttribute="leading" secondItem="lp9-tt-YaS" secondAttribute="leading" id="fxH-Td-v0F"/>
+                        <constraint firstAttribute="trailing" secondItem="fzr-5t-OzA" secondAttribute="trailing" id="kyX-WX-Ha7"/>
+                        <constraint firstItem="Xuq-V1-Qoq" firstAttribute="centerX" secondItem="lp9-tt-YaS" secondAttribute="centerX" id="o8k-77-ngb"/>
+                        <constraint firstItem="fzr-5t-OzA" firstAttribute="leading" secondItem="lp9-tt-YaS" secondAttribute="leading" id="xM8-RY-s3o"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="v2i-v9-c01"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBq-Jh-669">
+                    <rect key="frame" x="20" y="35" width="335" height="279"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your {{device}} is joining {{network}} mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTU-yW-pp6" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="335" height="32"/>
+                            <fontDescription key="fontDescription" name="Gotham-Medium" family="Gotham" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="E6G-zJ-mI7">
+                            <rect key="frame" x="157.5" y="47" width="20" height="20"/>
+                            <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting permission to add {{device}} to mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDz-AZ-BFR" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="92" width="335" height="32"/>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding {{device}} to the mesh network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLo-Gx-ffn" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="149" width="335" height="16"/>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1s-fL-vln" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="190" width="335" height="32"/>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting {{device}} to Particle Device Cloud via gateway" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtV-CW-ki7" customClass="ParticleLabel" customModule="Particle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="247" width="335" height="32"/>
+                            <fontDescription key="fontDescription" name="Gotham-Book" family="Gotham" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="E6G-zJ-mI7" firstAttribute="centerX" secondItem="YBq-Jh-669" secondAttribute="centerX" id="1dM-GL-qgz"/>
+                        <constraint firstItem="qtV-CW-ki7" firstAttribute="top" secondItem="F1s-fL-vln" secondAttribute="bottom" constant="25" id="6Pq-XV-W6O"/>
+                        <constraint firstItem="eDz-AZ-BFR" firstAttribute="top" secondItem="E6G-zJ-mI7" secondAttribute="bottom" constant="25" id="8TI-Yl-YTa"/>
+                        <constraint firstItem="F1s-fL-vln" firstAttribute="leading" secondItem="YBq-Jh-669" secondAttribute="leading" id="DlI-Zm-eGF"/>
+                        <constraint firstAttribute="trailing" secondItem="eDz-AZ-BFR" secondAttribute="trailing" id="Jpa-wH-ZIp"/>
+                        <constraint firstAttribute="trailing" secondItem="qtV-CW-ki7" secondAttribute="trailing" id="MNH-g9-pvc"/>
+                        <constraint firstItem="HLo-Gx-ffn" firstAttribute="leading" secondItem="YBq-Jh-669" secondAttribute="leading" id="O9f-kr-M69"/>
+                        <constraint firstItem="HLo-Gx-ffn" firstAttribute="top" secondItem="eDz-AZ-BFR" secondAttribute="bottom" constant="25" id="TAe-Ad-6UZ"/>
+                        <constraint firstAttribute="trailing" secondItem="xTU-yW-pp6" secondAttribute="trailing" id="Zsd-dE-Q2i"/>
+                        <constraint firstItem="eDz-AZ-BFR" firstAttribute="leading" secondItem="YBq-Jh-669" secondAttribute="leading" id="ec0-3P-koT"/>
+                        <constraint firstAttribute="bottom" secondItem="qtV-CW-ki7" secondAttribute="bottom" id="emv-cL-NT2"/>
+                        <constraint firstItem="xTU-yW-pp6" firstAttribute="top" secondItem="YBq-Jh-669" secondAttribute="top" id="fpT-6r-p2v"/>
+                        <constraint firstAttribute="trailing" secondItem="F1s-fL-vln" secondAttribute="trailing" id="gHd-gv-xa6"/>
+                        <constraint firstItem="E6G-zJ-mI7" firstAttribute="top" secondItem="xTU-yW-pp6" secondAttribute="bottom" constant="15" id="h8Y-jh-sHo"/>
+                        <constraint firstItem="F1s-fL-vln" firstAttribute="top" secondItem="HLo-Gx-ffn" secondAttribute="bottom" constant="25" id="lPI-Aq-HbP"/>
+                        <constraint firstAttribute="trailing" secondItem="HLo-Gx-ffn" secondAttribute="trailing" id="lvL-w5-Vgb"/>
+                        <constraint firstItem="qtV-CW-ki7" firstAttribute="leading" secondItem="YBq-Jh-669" secondAttribute="leading" id="maT-or-FZi"/>
+                        <constraint firstItem="xTU-yW-pp6" firstAttribute="leading" secondItem="YBq-Jh-669" secondAttribute="leading" id="nga-e5-6dS"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="lp9-tt-YaS" firstAttribute="leading" secondItem="Bsb-ol-MTi" secondAttribute="leading" constant="30" id="eSd-UZ-a8l"/>
+                <constraint firstItem="Bsb-ol-MTi" firstAttribute="trailing" secondItem="YBq-Jh-669" secondAttribute="trailing" constant="20" id="eXO-jL-qdv"/>
+                <constraint firstItem="YBq-Jh-669" firstAttribute="leading" secondItem="Bsb-ol-MTi" secondAttribute="leading" constant="20" id="gck-3q-sng"/>
+                <constraint firstItem="YBq-Jh-669" firstAttribute="top" secondItem="Bsb-ol-MTi" secondAttribute="top" constant="15" id="jwF-8e-Fto"/>
+                <constraint firstItem="Bsb-ol-MTi" firstAttribute="trailing" secondItem="lp9-tt-YaS" secondAttribute="trailing" constant="30" id="v9g-QZ-rwZ"/>
+                <constraint firstItem="lp9-tt-YaS" firstAttribute="centerY" secondItem="uLB-BA-dui" secondAttribute="centerY" multiplier="0.9" id="vRK-sK-u1V"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Bsb-ol-MTi"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Gen3SetupCompleteIcon" width="70" height="70"/>
+    </resources>
+</document>

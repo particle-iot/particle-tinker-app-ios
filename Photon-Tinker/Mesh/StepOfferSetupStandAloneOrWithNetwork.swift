@@ -5,22 +5,22 @@
 
 import Foundation
 
-class StepOfferSetupStandAloneOrWithNetwork : MeshSetupStep {
+class StepOfferSetupStandAloneOrWithNetwork : Gen3SetupStep {
     override func start() {
         guard let context = self.context else {
             return
         }
 
-        guard context.targetDevice.supportsMesh else {
+        guard let supportsMesh = context.targetDevice.supportsMesh, supportsMesh == true else {
             context.userSelectedToSetupMesh = false
             self.stepCompleted()
             return
         }
 
-        context.delegate.meshSetupDidRequestToSelectStandAloneOrMeshSetup(self)
+        context.delegate.gen3SetupDidRequestToSelectStandAloneOrMeshSetup(self)
     }
 
-    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> MeshSetupFlowError? {
+    func setSelectStandAloneOrMeshSetup(meshSetup: Bool) -> Gen3SetupFlowError? {
         guard let context = self.context else {
             return nil
         }
@@ -32,7 +32,7 @@ class StepOfferSetupStandAloneOrWithNetwork : MeshSetupStep {
         return nil
     }
 
-    override func rewindTo(context: MeshSetupContext) {
+    override func rewindTo(context: Gen3SetupContext) {
         super.rewindTo(context: context)
 
         guard let context = self.context else {
