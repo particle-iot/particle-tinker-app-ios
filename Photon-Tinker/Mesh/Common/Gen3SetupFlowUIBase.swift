@@ -405,6 +405,11 @@ class Gen3SetupUIBase : UIViewController, Storyboardable, Gen3SetupFlowRunnerDel
                     NSAttributedString.Key.foregroundColor: ParticleStyle.PrimaryTextColor
                 ]
 
+                if #available(iOS 13.0, *) {
+                    addCardViewController.overrideUserInterfaceStyle = .light
+                    navigationController.overrideUserInterfaceStyle = .light
+                }
+
                 self.present(navigationController, animated: true)
             }
         }
