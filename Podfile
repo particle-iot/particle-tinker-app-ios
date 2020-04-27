@@ -6,7 +6,7 @@ target 'Particle' do
     pod 'Particle-SDK'
     pod 'ParticleSetup'
     pod 'Zip', '~> 1.1'
-    pod 'Stripe'
+    pod 'Stripe', '~> 15'
     pod 'SwiftProtobuf', '~> 1.0'
     pod 'MBProgressHUD', '~> 0.9'
     pod 'RMessage'
