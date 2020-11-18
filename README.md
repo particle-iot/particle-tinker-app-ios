@@ -18,7 +18,7 @@ Use `Keys.template.swift` (located in root folder) as a template for `Keys.swift
 1. `segmentAnalyticsWriteKey` - obtained from https://app.segment.com/ by creating an iOS app source and copying API write key.
 2. `oAuthClientId` - obtained from [https://console.particle.io/authentication](https://console.particle.io/authentication).
 3. `oAuthSecret` - obtained from [https://console.particle.io/authentication](https://console.particle.io/authentication).
-3. `stripeKey` - obtained from [https://https://stripe.com/](https://https://stripe.com/).
+3. `stripeKey` - obtained from [https://stripe.com/](https://stripe.com/).
 3. `launchDarkly` - obtained from [https://launchdarkly.com/](https://launchdarkly.com/).
 
 You can use `GoogleService-Info.template.plist` (located in root folder) as a template for `GoogleService-Info.plist`. Or you can obtain a genuine Google file by following [Firebase integration tutorial](https://firebase.google.com/docs/ios/setup).
