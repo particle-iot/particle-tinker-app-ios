@@ -29,7 +29,7 @@ This repo utilizes submodules. To load them, you have to run `git submodule init
 
 All of the above secrets can be found in private mobile assets repo that you will have access to if you are part of Particle organization.
 
-## Maintainers
+## Contributors
 
 - Raimundas Sakalauskas [Github](https://www.github.com/raimundassakalauskas)
 
