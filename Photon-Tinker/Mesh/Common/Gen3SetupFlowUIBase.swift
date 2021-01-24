@@ -32,7 +32,7 @@ public enum Gen3SetupFlowResult: CustomStringConvertible {
 
 typealias Gen3SetupFlowCallback = (Gen3SetupFlowResult, [AnyObject]?) -> ()
 
-class Gen3SetupUIBase : UIViewController, Storyboardable, Gen3SetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, STPAddCardViewControllerDelegate {
+class Gen3SetupUIBase : UIViewController, Storyboardable, Gen3SetupFlowRunnerDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
 
     static var storyboardName: String {
         return "Gen3Setup"
@@ -386,51 +386,7 @@ class Gen3SetupUIBase : UIViewController, Storyboardable, Gen3SetupFlowRunnerDel
     }
 
     internal func pricingInfoViewCompleted() {
-        if let error = self.flowRunner.setPricingImpactDone() {
-            DispatchQueue.main.async {
-                STPTheme.default().emphasisFont = UIFont(name: ParticleStyle.BoldFont, size: CGFloat(ParticleStyle.RegularSize))
-                STPTheme.default().font = UIFont(name: ParticleStyle.RegularFont, size: CGFloat(ParticleStyle.RegularSize))
-                STPTheme.default().errorColor = ParticleStyle.RedTextColor
-                STPTheme.default().accentColor = ParticleStyle.ButtonColor
-                STPTheme.default().primaryForegroundColor = ParticleStyle.PrimaryTextColor
-                STPTheme.default().secondaryForegroundColor = ParticleStyle.SecondaryTextColor
-                STPTheme.default().primaryBackgroundColor = ParticleStyle.TableViewBackgroundColor
-
-                let addCardViewController = STPAddCardViewController()
-                addCardViewController.delegate = self
-
-                let navigationController = UINavigationController(rootViewController: addCardViewController)
-                navigationController.navigationBar.titleTextAttributes = [
-                    NSAttributedString.Key.font: UIFont(name: ParticleStyle.BoldFont, size: CGFloat(ParticleStyle.RegularSize)),
-                    NSAttributedString.Key.foregroundColor: ParticleStyle.PrimaryTextColor
-                ]
-
-                self.present(navigationController, animated: true)
-            }
-        }
     }
-
-    //MARK: Collect CC Delegate
-    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        self.rewindTo(Gen3SetupPricingInfoViewController.self)
-        addCardViewController.navigationController!.dismiss(animated:true)
-    }
-
-    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
-        ParticleCloud.sharedInstance().addCard(token.tokenId) { error in
-            if (error == nil) {
-                completion(nil)
-
-                self.flowRunner.retryLastAction()
-                addCardViewController.navigationController!.dismiss(animated:true)
-            } else {
-                completion(error)
-            }
-        }
-    }
-
-
-
     //MARK: Scan WIFI networks
     internal func showSelectWifiNetworkView() {
         DispatchQueue.main.async {

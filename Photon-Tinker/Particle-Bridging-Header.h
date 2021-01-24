@@ -15,11 +15,10 @@
 // pods
 #include "MBProgressHUD.h"
 #include "RMessage.h"
-#include "IQKeyboardManager.h"
+#include "IQKeyboardManager.h"a
 #include "YCTutorialBox.h"
 #include "DateTools.h"
 #include "SEGAnalytics.h"
-#include "Stripe.h"
 #include "ASValueTrackingSlider/ASValueTrackingSlider.h"
 #include "Segment-Firebase/SEGFirebaseIntegrationFactory.h"
 
