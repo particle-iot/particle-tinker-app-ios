@@ -362,31 +362,6 @@ class Gen3SetupUIBase : UIViewController, Storyboardable, Gen3SetupFlowRunnerDel
     }
 
 
-
-
-
-
-    //MARK: Pricing info
-    internal func gen3SetupDidRequestToShowPricingInfo(_ sender: Gen3SetupStep, info: ParticlePricingInfo) {
-        currentStepType = type(of: sender)
-
-        showPricingInfoView(info: info)
-    }
-
-    internal func showPricingInfoView(info: ParticlePricingInfo) {
-        DispatchQueue.main.async {
-            if (!self.rewindTo(Gen3SetupPricingInfoViewController.self)) {
-                let pricingInfoVC = Gen3SetupPricingInfoViewController.loadedViewController()
-                pricingInfoVC.ownerStepType = self.currentStepType
-                pricingInfoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh!
-                pricingInfoVC.setup(didPressContinue: self.pricingInfoViewCompleted, pricingInfo: info)
-                self.embededNavigationController.pushViewController(pricingInfoVC, animated: true)
-            }
-        }
-    }
-
-    internal func pricingInfoViewCompleted() {
-    }
     //MARK: Scan WIFI networks
     internal func showSelectWifiNetworkView() {
         DispatchQueue.main.async {

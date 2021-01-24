@@ -80,8 +80,6 @@ protocol Gen3SetupFlowRunnerDelegate {
     //func setOptionalSelectedNetwork(selectedNetworkExtPanID: String?) -> Gen3SetupFlowError?
     //func rescanNetworks() -> Gen3SetupFlowError?
 
-    func gen3SetupDidRequestToShowPricingInfo(_ sender: Gen3SetupStep, info: ParticlePricingInfo)
-    //func setPricingImpactDone() -> Gen3SetupFlowError?
     func gen3SetupDidRequestToShowInfo(_ sender: Gen3SetupStep)
     //func setInfoDone() -> Gen3SetupFlowError?
 
@@ -133,7 +131,6 @@ extension Gen3SetupFlowRunnerDelegate {
     func gen3SetupDidRequestToSelectStandAloneOrMeshSetup(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
     func gen3SetupDidRequestToSelectOrCreateNetwork(_ sender: Gen3SetupStep, availableNetworks: [Gen3SetupNetworkCellInfo]) { fatalError("Not implemented") }
 
-    func gen3SetupDidRequestToShowPricingInfo(_ sender: Gen3SetupStep, info: ParticlePricingInfo) { fatalError("Not implemented") }
     func gen3SetupDidRequestToShowInfo(_ sender: Gen3SetupStep) { fatalError("Not implemented") }
 
     func gen3SetupDidRequestToEnterDeviceName(_ sender: Gen3SetupStep) { fatalError("Not implemented") }

@@ -221,14 +221,6 @@ class Gen3SetupFlowRunner : Gen3SetupBluetoothConnectionManagerDelegate, Gen3Set
         return (currentStep as? StepOfferSelectOrCreateNetwork)?.setOptionalSelectedNetwork(selectedNetworkExtPanID: selectedNetworkExtPanID)
     }
 
-    func setPricingImpactDone() -> Gen3SetupFlowError? {
-        guard let currentStep = currentStep, type(of: currentStep) == StepShowPricingImpact.self else {
-            return .IllegalOperation
-        }
-
-        return (currentStep as? StepShowPricingImpact)?.setPricingImpactDone()
-    }
-
     func setInfoDone() -> Gen3SetupFlowError? {
         guard let currentStep = currentStep, type(of: currentStep) == StepShowInfo.self else {
             return .IllegalOperation

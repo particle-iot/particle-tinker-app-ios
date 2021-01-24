@@ -45,7 +45,6 @@ class Gen3SetupFlowManager : Gen3SetupFlowRunner {
 
 
     fileprivate let ethernetFlow: [Gen3SetupStep] = [
-        StepShowPricingImpact(),
         StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
         StepEnsureGotClaimed(),
@@ -53,7 +52,6 @@ class Gen3SetupFlowManager : Gen3SetupFlowRunner {
     ]
 
     fileprivate let wifiFlow: [Gen3SetupStep] = [
-        StepShowPricingImpact(),
         StepShowInfo(.creatorFlow),
         StepGetUserWifiNetworkSelection(),
         StepEnsureCorrectSelectedWifiNetworkPassword(),
@@ -63,7 +61,6 @@ class Gen3SetupFlowManager : Gen3SetupFlowRunner {
     ]
 
     fileprivate let cellularFlow: [Gen3SetupStep] = [
-        StepShowPricingImpact(),
         StepShowInfo(.creatorFlow),
         StepEnsureHasInternetAccess(),
         StepEnsureGotClaimed(),

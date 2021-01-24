@@ -18,7 +18,6 @@ class Gen3SetupControlPanelFlowManager : Gen3SetupFlowRunner {
 
     //runs post ethernet/wifi/cellular flows
     fileprivate let networkCreatorFlow: [Gen3SetupStep] = [
-        StepShowPricingImpact(),
         StepGetNewNetworkName(),
         StepGetNewNetworkPassword(),
         StepCreateNetwork(),
