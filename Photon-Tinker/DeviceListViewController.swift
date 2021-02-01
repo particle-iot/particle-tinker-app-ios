@@ -556,6 +556,34 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @IBAction func setupNewDeviceButtonTapped(_ sender: UIButton) {
+        if (self.isBusy) {
+            return
+        }
+
+        self.fade(animated: true)
+
+        ParticleCloud.sharedInstance().getDeveloperAgreement { (agreement: ParticleDeveloperAgreement?, error: Error?) in
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "ParticleDeveloperAgreement: %@", withParameters: getVaList([agreement?.description ?? "nil"]))
+            self.resume(animated: true)
+
+            if (agreement == nil || !agreement!.deviceLimitReached) {
+                self.presentNewDevicePrompt()
+            } else {
+                self.presentDeviceLimitReachedError(deviceLimit: Int(agreement?.maxDevices ?? 20))
+            }
+        }
+    }
+
+    private func presentDeviceLimitReachedError(deviceLimit: Int) {
+        let ac = UIAlertController(title: TinkerStrings.DeviceList.Prompt.DeviceLimitReachedError.Title.replacingOccurrences(of: "{{limit}}", with: String(deviceLimit)),
+                message: TinkerStrings.DeviceList.Prompt.DeviceLimitReachedError.Message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: TinkerStrings.Action.Close, style: .default) { [weak self] action in
+
+        })
+        present(ac, animated: true)
+    }
+
+    private func presentNewDevicePrompt() {
         let alert = UIAlertController(title: TinkerStrings.DeviceList.Prompt.SetupNewDevice.Title, message: nil, preferredStyle: .actionSheet)
 
         if (ParticleCloud.sharedInstance().isAuthenticated) {
