@@ -3,7 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 
 target 'Particle' do
-    pod 'Particle-SDK'
+    pod 'Particle-SDK', :path => '../particle-sdk-ios'
     pod 'ParticleSetup'
     pod 'Zip', '~> 1.1'
     pod 'SwiftProtobuf', '~> 1.0'
