@@ -571,12 +571,28 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "ParticleDeveloperAgreement: %@", withParameters: getVaList([agreement?.description ?? "nil"]))
             self.resume(animated: true)
 
+            guard error == nil else {
+                self.showNetworkError(error!)
+                return
+            }
+
             if (agreement == nil || !agreement!.deviceLimitReached) {
                 self.presentNewDevicePrompt()
             } else {
                 self.presentDeviceLimitReachedError(deviceLimit: Int(agreement?.maxDevices ?? 20))
             }
         }
+    }
+
+    private func showNetworkError(_ error: Error) {
+        //TODO: If Gen3 will ever get extracted, title and message of this prompt should be extracted
+        let alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: Gen3SetupFlowError.NetworkError.description, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Ok, style: .cancel) { action in
+
+        })
+
+        self.present(alert, animated: true)
     }
 
     private func presentDeviceLimitReachedError(deviceLimit: Int) {
