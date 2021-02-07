@@ -560,6 +560,11 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
             return
         }
 
+        guard ParticleCloud.sharedInstance().isAuthenticated else {
+            self.presentNewDevicePrompt()
+            return
+        }
+
         self.fade(animated: true)
 
         ParticleCloud.sharedInstance().getDeveloperAgreement { (agreement: ParticleDeveloperAgreement?, error: Error?) in
