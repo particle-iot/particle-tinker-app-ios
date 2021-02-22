@@ -322,7 +322,7 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 return
             }
 
-            self.reloadData()
+            self.refreshData()
         }
         self.present(esVC, animated: true, completion: nil)
     }
