@@ -34,12 +34,20 @@ extension String {
 
 
 class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarcodeViewControllerDelegate {
-    
+
+    typealias ElectronSetupCallback = (Bool) -> ()
+
+    private var callback: ElectronSetupCallback?
+
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.default
     }
-    
-    
+
+
+    public func setCallback(callback: @escaping ElectronSetupCallback) {
+        self.callback = callback
+    }
+
     func printTimestamp() -> String {
         let t = (Date().timeIntervalSince1970 - self.startTime);
         return String(format:"%f", t)
@@ -148,7 +156,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     @IBAction func closeButtonTapped(_ sender: AnyObject) {
         SEGAnalytics.shared().track("Tinker: Electron setup ended", properties: ["result":"cancelled"])
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) { [weak self] in
+            if let callback = self?.callback {
+                callback(false)
+            }
+        }
     }
     
 
@@ -215,7 +227,11 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             print("Scan credit card requested.. not implemented yet")
         } else if actionType == "done" {
             SEGAnalytics.shared().track("Tinker_ElectronSetupEnded", properties: ["result":"success"])
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true) { [weak self] in
+                if let callback = self?.callback {
+                    callback(true)
+                }
+            }
         } else if actionType == "notification" {
             let JSONDictionary : NSDictionary?
             if let JSONData = request.url?.fragment?.unescape().data(using: String.Encoding.utf8, allowLossyConversion: false) {

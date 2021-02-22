@@ -316,7 +316,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func invokeElectronSetup() {
         SEGAnalytics.shared().track("Tinker_ElectronSetupInvoked")
 
-        let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewController(withIdentifier: "electronSetup") as! ElectronSetupViewController
+        let esVC: ElectronSetupViewController = self.storyboard!.instantiateViewController(withIdentifier: "electronSetup") as! ElectronSetupViewController
+        esVC.setCallback { [weak self] success in
+            guard let self = self else {
+                return
+            }
+
+            self.reloadData()
+        }
         self.present(esVC, animated: true, completion: nil)
     }
 
