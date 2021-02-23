@@ -85,7 +85,7 @@ DEPENDENCIES:
   - DateTools
   - IQKeyboardManager
   - MBProgressHUD (~> 0.9)
-  - Particle-SDK (from `/Volumes/Data/Projects/Particle/particle-sdk-ios`)
+  - Particle-SDK
   - ParticleSetup
   - Reveal-SDK
   - RMessage
@@ -113,6 +113,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - MBProgressHUD
     - nanopb
+    - Particle-SDK
     - ParticleSetup
     - PPTopMostController
     - Reveal-SDK
@@ -121,10 +122,6 @@ SPEC REPOS:
     - SwiftProtobuf
     - YCTutorialBox
     - Zip
-
-EXTERNAL SOURCES:
-  Particle-SDK:
-    :path: "/Volumes/Data/Projects/Particle/particle-sdk-ios"
 
 SPEC CHECKSUMS:
   1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
@@ -154,6 +151,6 @@ SPEC CHECKSUMS:
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 51db7937ad28398efb040a5a3b9777d53bf906f8
+PODFILE CHECKSUM: f4e869d7e46c1623cc1def206512b36ee8383187
 
 COCOAPODS: 1.10.1
