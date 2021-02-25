@@ -1,19 +1,19 @@
 PODS:
   - 1PasswordExtension (1.8.5)
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - Analytics (3.6.9)
   - ASValueTrackingSlider (0.12.1)
@@ -45,13 +45,13 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Particle-SDK (1.0.4):
-    - Particle-SDK/Helpers (= 1.0.4)
-    - Particle-SDK/SDK (= 1.0.4)
-  - Particle-SDK/Helpers (1.0.4):
-    - AFNetworking (~> 3.0)
-  - Particle-SDK/SDK (1.0.4):
-    - AFNetworking (~> 3.0)
+  - Particle-SDK (1.0.6):
+    - Particle-SDK/Helpers (= 1.0.6)
+    - Particle-SDK/SDK (= 1.0.6)
+  - Particle-SDK/Helpers (1.0.6):
+    - AFNetworking (~> 4.0)
+  - Particle-SDK/SDK (1.0.6):
+    - AFNetworking (~> 4.0)
     - Particle-SDK/Helpers
   - ParticleSetup (1.0.0):
     - ParticleSetup/Comm (= 1.0.0)
@@ -73,7 +73,6 @@ PODS:
   - Segment-Firebase/Core (2.2.0):
     - Analytics (~> 3.2)
     - Firebase/Core (~> 4.0)
-  - Stripe (15.0.0)
   - SwiftProtobuf (1.1.2)
   - YCTutorialBox (1.0.9):
     - FXBlurView
@@ -91,7 +90,6 @@ DEPENDENCIES:
   - Reveal-SDK
   - RMessage
   - Segment-Firebase
-  - Stripe
   - SwiftProtobuf (~> 1.0)
   - YCTutorialBox
   - Zip (~> 1.1)
@@ -121,19 +119,18 @@ SPEC REPOS:
     - Reveal-SDK
     - RMessage
     - Segment-Firebase
-    - Stripe
     - SwiftProtobuf
     - YCTutorialBox
     - Zip
 
 SPEC CHECKSUMS:
   1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Analytics: 6541ce337e99d9f7a2240a8b3953940a7be5f998
   ASValueTrackingSlider: 5261de3fcf00adb339efc93885e8f0bc99e703cd
-  Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
+  Crashlytics: c91a8f1d5846d0e7dcdd57be03452f8bb7d33602
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
-  Fabric: bda89e242bce1b7b8ab264248cf3407774ce0095
+  Fabric: ca94fe636934aac75b20ad410c45549618e69332
   Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
   FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
   FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
@@ -144,17 +141,16 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 29514134ef0334a6fa33cf4eee11c36c064baeaf
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Particle-SDK: 7f01cdd51026603678d940c9b611c91b1da3dcd8
+  Particle-SDK: 493ecd9edf020ca25f56f26c9c6e50473d84129e
   ParticleSetup: 2c9b1c635edf49dd77f21fdf913a95ec0beed9e2
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RMessage: 761f8ff71247b8d72d0c4a0be5a8e6ce8dfdedd0
   Segment-Firebase: 05a04c7a69901841d2f6b6670e5be2e20d56b2d6
-  Stripe: 312b22a67af9fa55c246d26148b3f3a9636a0ff2
   SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 1afa767cc2b8b9e24215872997e8eca348baf351
+PODFILE CHECKSUM: f4e869d7e46c1623cc1def206512b36ee8383187
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.1

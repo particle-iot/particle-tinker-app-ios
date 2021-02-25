@@ -30,7 +30,6 @@ class Gen3SetupContext: NSObject {
     var userSelectedToSetupMesh: Bool?
     var userSelectedToCreateNetwork: Bool?
 
-    var pricingInfo: ParticlePricingInfo?
     var apiNetworks: [ParticleNetwork]?
 
     //to prevent long running actions from executing

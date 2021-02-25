@@ -70,8 +70,6 @@ class StepGetTargetDeviceInfo: Gen3SetupStep {
         context.userSelectedToUpdateFirmware = nil
         context.userSelectedToSetupMesh = nil
         context.userSelectedToCreateNetwork = nil
-
-        context.pricingInfo = nil
     }
 }
 

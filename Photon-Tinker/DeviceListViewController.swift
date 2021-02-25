@@ -316,7 +316,14 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     func invokeElectronSetup() {
         SEGAnalytics.shared().track("Tinker_ElectronSetupInvoked")
 
-        let esVC : ElectronSetupViewController = self.storyboard!.instantiateViewController(withIdentifier: "electronSetup") as! ElectronSetupViewController
+        let esVC: ElectronSetupViewController = self.storyboard!.instantiateViewController(withIdentifier: "electronSetup") as! ElectronSetupViewController
+        esVC.setCallback { [weak self] success in
+            guard let self = self else {
+                return
+            }
+
+            self.refreshData()
+        }
         self.present(esVC, animated: true, completion: nil)
     }
 
@@ -556,6 +563,55 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @IBAction func setupNewDeviceButtonTapped(_ sender: UIButton) {
+        if (self.isBusy) {
+            return
+        }
+
+        guard ParticleCloud.sharedInstance().isAuthenticated else {
+            self.presentNewDevicePrompt()
+            return
+        }
+
+        self.fade(animated: true)
+
+        ParticleCloud.sharedInstance().getDeveloperAgreement { (agreement: ParticleDeveloperAgreement?, error: Error?) in
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "ParticleDeveloperAgreement: %@", withParameters: getVaList([agreement?.description ?? "nil"]))
+            self.resume(animated: true)
+
+            guard error == nil else {
+                self.showNetworkError(error!)
+                return
+            }
+
+            if (agreement == nil || !agreement!.deviceLimitReached) {
+                self.presentNewDevicePrompt()
+            } else {
+                self.presentDeviceLimitReachedError(deviceLimit: Int(agreement?.maxDevices ?? 20))
+            }
+        }
+    }
+
+    private func showNetworkError(_ error: Error) {
+        //TODO: If Gen3 will ever get extracted, title and message of this prompt should be extracted
+        let alert = UIAlertController(title: Gen3SetupStrings.Prompt.ErrorTitle, message: Gen3SetupFlowError.NetworkError.description, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Ok, style: .cancel) { action in
+
+        })
+
+        self.present(alert, animated: true)
+    }
+
+    private func presentDeviceLimitReachedError(deviceLimit: Int) {
+        let ac = UIAlertController(title: TinkerStrings.DeviceList.Prompt.DeviceLimitReachedError.Title.replacingOccurrences(of: "{{limit}}", with: String(deviceLimit)),
+                message: TinkerStrings.DeviceList.Prompt.DeviceLimitReachedError.Message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: TinkerStrings.Action.Close, style: .default) { [weak self] action in
+
+        })
+        present(ac, animated: true)
+    }
+
+    private func presentNewDevicePrompt() {
         let alert = UIAlertController(title: TinkerStrings.DeviceList.Prompt.SetupNewDevice.Title, message: nil, preferredStyle: .actionSheet)
 
         if (ParticleCloud.sharedInstance().isAuthenticated) {

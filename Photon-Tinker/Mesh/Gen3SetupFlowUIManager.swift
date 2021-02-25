@@ -239,6 +239,7 @@ class Gen3SetupFlowUIManager : Gen3SetupUIBase {
                         if (!self.rewindTo(Gen3SetupInfoEthernetViewController.self)) {
                             let infoVC = Gen3SetupInfoEthernetViewController.loadedViewController()
                             infoVC.ownerStepType = self.currentStepType
+                            infoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh!
                             infoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: userSelectedToSetupMesh, deviceType: self.flowRunner.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(infoVC, animated: true)
                         }
@@ -248,6 +249,7 @@ class Gen3SetupFlowUIManager : Gen3SetupUIBase {
                         if (!self.rewindTo(Gen3SetupInfoWifiViewController.self)) {
                             let infoVC = Gen3SetupInfoWifiViewController.loadedViewController()
                             infoVC.ownerStepType = self.currentStepType
+                            infoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh!
                             infoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: userSelectedToSetupMesh, deviceType: self.flowRunner.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(infoVC, animated: true)
                         }
@@ -257,6 +259,7 @@ class Gen3SetupFlowUIManager : Gen3SetupUIBase {
                         if (!self.rewindTo(Gen3SetupCellularInfoViewController.self)) {
                             let cellularInfoVC = Gen3SetupCellularInfoViewController.loadedViewController()
                             cellularInfoVC.ownerStepType = self.currentStepType
+                            cellularInfoVC.allowBack = self.flowRunner.context.targetDevice.supportsMesh!
                             cellularInfoVC.setup(didFinishScreen: self.infoViewCompleted, setupMesh: userSelectedToSetupMesh, simActive: self.flowRunner.context.targetDevice.sim?.active ?? false, deviceType: self.flowRunner.context.targetDevice.type!)
                             self.embededNavigationController.pushViewController(cellularInfoVC, animated: true)
                         }

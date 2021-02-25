@@ -67,8 +67,6 @@ enum Gen3SetupFlowError: Error, CustomStringConvertible {
     case FailedToActivateSim
     case FailedToDeactivateSim
     case FailedToChangeSimDataLimit
-    case CCMissing
-    case UnableToGetPricingInformation
     case UnableToPublishDeviceSetupEvent
     case UnableToGetSimStatus
     case UnableToJoinNetwork
@@ -127,8 +125,6 @@ enum Gen3SetupFlowError: Error, CustomStringConvertible {
             case .FailedToActivateSim : return Gen3SetupStrings.Error.FailedToActivateSim.gen3SetupLocalized()
             case .FailedToDeactivateSim : return Gen3SetupStrings.Error.FailedToDeactivateSim.gen3SetupLocalized()
 
-            case .CCMissing : return Gen3SetupStrings.Error.CCMissing.gen3SetupLocalized()
-            case .UnableToGetPricingInformation : return Gen3SetupStrings.Error.UnableToGetPricingInformation.gen3SetupLocalized()
             case .UnableToGetSimStatus : return Gen3SetupStrings.Error.UnableToGetSimStatus.gen3SetupLocalized()
             case .UnableToPublishDeviceSetupEvent : return Gen3SetupStrings.Error.UnableToPublishDeviceSetupEvent.gen3SetupLocalized()
             case .UnableToLeaveNetwork : return Gen3SetupStrings.Error.UnableToLeaveNetwork.gen3SetupLocalized()

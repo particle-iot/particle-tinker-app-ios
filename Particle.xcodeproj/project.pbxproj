@@ -188,7 +188,6 @@
 		C810BA916934753E61C695B0 /* StepShowInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B32155C0434B05042B32 /* StepShowInfo.swift */; };
 		C810BAA713C48A6D9FC0EB8B /* FlashTinkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B79C6374F75D8AD759CA /* FlashTinkerView.swift */; };
 		C810BAC3442851AA614E21C9 /* Gen3SetupControlPanelCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BE9A127A3C10185D6BFB /* Gen3SetupControlPanelCellType.swift */; };
-		C810BB1BF2DD6162A3DEA418 /* Gen3SetupPricingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B009479C012C621C0E3B /* Gen3SetupPricingInfoViewController.swift */; };
 		C810BB7BA4BE7F27062A9538 /* StepControlPanelFlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B07EAB45C6C865E5FE08 /* StepControlPanelFlowCompleted.swift */; };
 		C810BB92C57ACE9DE6F8C9AB /* Gen3SetupSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BEAF25F7C0E3A87F9A97 /* Gen3SetupSuccessViewController.swift */; };
 		C810BBB7FF79D9EE7A85FBDF /* StepEnsureCommissionerNetworkMatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BAF19BA3CABD429F6A14 /* StepEnsureCommissionerNetworkMatches.swift */; };
@@ -235,7 +234,6 @@
 		C810BEFBDF0711FC95D70650 /* StepGetNewNetworkName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B020E939769A6DC0A174 /* StepGetNewNetworkName.swift */; };
 		C810BF378D103552B14AF327 /* Gen3SetupInfoViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B823B691B9A9B139E4BD /* Gen3SetupInfoViewControllers.swift */; };
 		C810BF44F954E2F9246AA078 /* ScaledHeightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBA624764829727882AB /* ScaledHeightImageView.swift */; };
-		C810BF551059B7D06F259BBB /* StepShowPricingImpact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5B5B1BE46062A1BABB3 /* StepShowPricingImpact.swift */; };
 		C810BF71BC9ADE53A4B501C9 /* StepCreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B70D0ED1C8CEE9EE1261 /* StepCreateNetwork.swift */; };
 		C810BF8EDF3AD29697CA3F57 /* DevicePinFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B5A1251B215505F677E9 /* DevicePinFunction.swift */; };
 		C810BFCBE4384F1089876AC3 /* StepGetCommissionerDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B0F312CB28F6DDA7E0B6 /* StepGetCommissionerDeviceInfo.swift */; };
@@ -362,7 +360,6 @@
 		93FFD5C5215E7F4A005A469D /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = SOURCE_ROOT; };
 		93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
-		C810B009479C012C621C0E3B /* Gen3SetupPricingInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupPricingInfoViewController.swift; sourceTree = "<group>"; };
 		C810B017C35C456634DA90F5 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C810B01A279D41FACD5BAA8F /* Gen3SetupSelectOrCreateNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupSelectOrCreateNetworkViewController.swift; sourceTree = "<group>"; };
 		C810B020E939769A6DC0A174 /* StepGetNewNetworkName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewNetworkName.swift; sourceTree = "<group>"; };
@@ -422,7 +419,6 @@
 		C810B5A1251B215505F677E9 /* DevicePinFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicePinFunction.swift; sourceTree = "<group>"; };
 		C810B5A2732EF43C3B85446F /* DevicePin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicePin.swift; sourceTree = "<group>"; };
 		C810B5B4C2E55C2A8FABBA46 /* Gen3SetupControlPanelUnclaimViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gen3SetupControlPanelUnclaimViewController.swift; path = ControlPanel/Gen3SetupControlPanelUnclaimViewController.swift; sourceTree = "<group>"; };
-		C810B5B5B1BE46062A1BABB3 /* StepShowPricingImpact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepShowPricingImpact.swift; sourceTree = "<group>"; };
 		C810B5B9D4A33EB025FFC03D /* PieProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
 		C810B5D870413FD9CA543093 /* Gen3SetupStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupStep.swift; sourceTree = "<group>"; };
 		C810B5E6BC6E42C45882C8FC /* Gen3SetupFindCommissionerStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupFindCommissionerStickerViewController.swift; sourceTree = "<group>"; };
@@ -991,7 +987,6 @@
 				C810BC5EF3D94548AAFE4FA1 /* Gen3SetupNetworkPasswordViewController.swift */,
 				C810B7DBADAA9D6B112594EA /* Gen3SetupPairingCommissionerProcessViewController.swift */,
 				C810B9E66EF7DDDBEACE46BB /* Gen3SetupPairingProcessViewController.swift */,
-				C810B009479C012C621C0E3B /* Gen3SetupPricingInfoViewController.swift */,
 				C810B7809DBC4488C9BEF72B /* Gen3SetupScanCommissionerStickerViewController.swift */,
 				C810BDDD54CA25C4E6780B83 /* Gen3SetupScanStickerViewController.swift */,
 				C810BD14B6CD42737D656BCF /* Gen3SetupSelectNetworkViewController.swift */,
@@ -1034,7 +1029,6 @@
 				C810B8CDDE324D38A2432ACB /* StepCheckHasNetworkInterfaces.swift */,
 				C810BBDE0699745CC6F5DCDE /* StepOfferSetupStandAloneOrWithNetwork.swift */,
 				C810B842B15A84D7BD37B421 /* StepOfferSelectOrCreateNetwork.swift */,
-				C810B5B5B1BE46062A1BABB3 /* StepShowPricingImpact.swift */,
 				C810B32155C0434B05042B32 /* StepShowInfo.swift */,
 				C810B809E348B315EFE80390 /* StepEnsureHasInternetAccess.swift */,
 				C810BEBECF35E8953DFCEE4E /* StepEnsureGotClaimed.swift */,
@@ -1327,7 +1321,6 @@
 				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground.png",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/NotificationButtonBackground.imageset/NotificationButtonBackground@2x.png",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/RMessageDefaultDesign.json",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Stripe/Stripe.bundle",
 				"${PODS_ROOT}/YCTutorialBox/YCTutorialBox.xib",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1347,7 +1340,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RMessageDefaultDesign.json",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Stripe.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/YCTutorialBox.nib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1488,7 +1480,6 @@
 				C810BE6C306E96A432923406 /* Gen3SetupNetworkPasswordViewController.swift in Sources */,
 				C810B7422FDBB9BE33C0282D /* Gen3SetupPairingCommissionerProcessViewController.swift in Sources */,
 				C810B30F88D90A053412796D /* Gen3SetupPairingProcessViewController.swift in Sources */,
-				C810BB1BF2DD6162A3DEA418 /* Gen3SetupPricingInfoViewController.swift in Sources */,
 				C810B19247FBFE57B8692964 /* Gen3SetupScanCommissionerStickerViewController.swift in Sources */,
 				C810B1558A354B03916D5C54 /* Gen3SetupScanStickerViewController.swift in Sources */,
 				C810B3FD9C729A78A9F7A5D6 /* Gen3SetupSelectNetworkViewController.swift in Sources */,
@@ -1519,7 +1510,6 @@
 				C810B757924A9596A91DBA01 /* StepCheckHasNetworkInterfaces.swift in Sources */,
 				C810B016C435334B245E60F9 /* StepOfferSetupStandAloneOrWithNetwork.swift in Sources */,
 				C810BC9CBBF2110FDB687B46 /* StepOfferSelectOrCreateNetwork.swift in Sources */,
-				C810BF551059B7D06F259BBB /* StepShowPricingImpact.swift in Sources */,
 				C810BA916934753E61C695B0 /* StepShowInfo.swift in Sources */,
 				C810B4CBC467113423756515 /* StepEnsureHasInternetAccess.swift in Sources */,
 				C810BE11B8CF188B09CEEF4E /* StepEnsureGotClaimed.swift in Sources */,
@@ -1781,13 +1771,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftProtobuf/SwiftProtobuf.modulemap\" $(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
@@ -1813,13 +1803,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftProtobuf/SwiftProtobuf.modulemap\" $(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.particle.Particle;
 				PRODUCT_NAME = Particle;
