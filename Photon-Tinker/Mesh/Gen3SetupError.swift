@@ -18,6 +18,7 @@ enum Gen3SetupFlowError: Error, CustomStringConvertible {
     case UnableToGenerateClaimCode
 
     //ConnectToTargetDevice && ConnectToCommissionerDevice
+    case XennonNotSupportedError
     case DeviceTooFar
     case FailedToStartScan
     case FailedToFlashBecauseOfTimeout
@@ -92,6 +93,7 @@ enum Gen3SetupFlowError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
                 //unproofread
+            case .XennonNotSupportedError : return Gen3SetupStrings.Error.XennonNotSupportedError.gen3SetupLocalized()
             case .CriticalFlowError : return Gen3SetupStrings.Error.CriticalFlowError.gen3SetupLocalized()
             case .SimBelongsToOtherAccount : return Gen3SetupStrings.Error.SimBelongsToOtherAccount.gen3SetupLocalized()
             case .ExternalSimNotSupported : return Gen3SetupStrings.Error.ExternalSimNotSupported.gen3SetupLocalized()

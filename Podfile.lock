@@ -1,5 +1,5 @@
 PODS:
-  - 1PasswordExtension (1.8.5)
+  - 1PasswordExtension (1.8.6)
   - AFNetworking (4.0.1):
     - AFNetworking/NSURLSession (= 4.0.1)
     - AFNetworking/Reachability (= 4.0.1)
@@ -45,19 +45,19 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Particle-SDK (1.0.6):
-    - Particle-SDK/Helpers (= 1.0.6)
-    - Particle-SDK/SDK (= 1.0.6)
-  - Particle-SDK/Helpers (1.0.6):
+  - Particle-SDK (1.0.7):
+    - Particle-SDK/Helpers (= 1.0.7)
+    - Particle-SDK/SDK (= 1.0.7)
+  - Particle-SDK/Helpers (1.0.7):
     - AFNetworking (~> 4.0)
-  - Particle-SDK/SDK (1.0.6):
+  - Particle-SDK/SDK (1.0.7):
     - AFNetworking (~> 4.0)
     - Particle-SDK/Helpers
-  - ParticleSetup (1.0.0):
-    - ParticleSetup/Comm (= 1.0.0)
-    - ParticleSetup/Core (= 1.0.0)
-  - ParticleSetup/Comm (1.0.0)
-  - ParticleSetup/Core (1.0.0):
+  - ParticleSetup (1.0.6):
+    - ParticleSetup/Comm (= 1.0.6)
+    - ParticleSetup/Core (= 1.0.6)
+  - ParticleSetup/Comm (1.0.6)
+  - ParticleSetup/Core (1.0.6):
     - 1PasswordExtension
     - Particle-SDK
     - ParticleSetup/Comm
@@ -124,7 +124,7 @@ SPEC REPOS:
     - Zip
 
 SPEC CHECKSUMS:
-  1PasswordExtension: 0e95bdea64ec8ff2f4f693be5467a09fac42a83d
+  1PasswordExtension: f97cc80ae58053c331b2b6dc8843ba7103b33794
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Analytics: 6541ce337e99d9f7a2240a8b3953940a7be5f998
   ASValueTrackingSlider: 5261de3fcf00adb339efc93885e8f0bc99e703cd
@@ -141,8 +141,8 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 29514134ef0334a6fa33cf4eee11c36c064baeaf
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Particle-SDK: 493ecd9edf020ca25f56f26c9c6e50473d84129e
-  ParticleSetup: 2c9b1c635edf49dd77f21fdf913a95ec0beed9e2
+  Particle-SDK: 35ccf1758905326a042907294338a19099b3de04
+  ParticleSetup: 76bd5ef3fe03120ebd5f2b779af658e271b443bd
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RMessage: 761f8ff71247b8d72d0c4a0be5a8e6ce8dfdedd0
@@ -151,6 +151,6 @@ SPEC CHECKSUMS:
   YCTutorialBox: acac7309db72b55791f624ba0786938e19341832
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: f4e869d7e46c1623cc1def206512b36ee8383187
+PODFILE CHECKSUM: b4ef02bc9ff6343ae74ed6c3e6d92f950c69d116
 
 COCOAPODS: 1.10.1

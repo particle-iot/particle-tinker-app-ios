@@ -21,6 +21,23 @@ class StepOfferToSwitchToControlPanel: Gen3SetupStep {
                 self.getDevice()
             }
         } else {
+            guard context.targetDevice.type != .xenon && context.targetDevice.type != .xSeries else {
+
+                self.fail(withReason: .XennonNotSupportedError)
+                //drop connection with current peripheral
+
+                if let connection = context.targetDevice!.transceiver!.connection {
+                    context.targetDevice!.transceiver = nil
+                    context.targetDevice = nil
+                    context.bluetoothManager.dropConnection(with: connection)
+                }
+
+                let _ = context.stepDelegate.rewindTo(self, step: StepGetTargetDeviceInfo.self, runStep: true)
+                context.paused = false
+
+                return
+            }
+
             self.stepCompleted()
         }
     }
