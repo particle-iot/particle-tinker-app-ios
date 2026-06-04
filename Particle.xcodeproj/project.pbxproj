@@ -183,6 +183,7 @@
 		C810B9E61844B6D0096D0EBD /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBDE8CBAB6EEC8BB7611 /* UICollectionView.swift */; };
 		C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7325DEF0029CCB800DC /* LogList.swift */; };
 		C810BA5D7ED42665F6C424B0 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7325DEF0029CCB800E0 /* Analytics.swift */; };
+		D1A2B3C4E5F60718293A4B5C /* MenuDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4E5F60718293A4B5D /* MenuDrawerViewController.swift */; };
 		C810BA5D7ED42665F6C424B1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C810B7325DEF0029CCB800E1 /* PrivacyInfo.xcprivacy */; };
 		C810BA6D41F43204736E6512 /* Gen3SetupNetworkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8D0878C6A9470C14CD8 /* Gen3SetupNetworkListViewController.swift */; };
 		C810BA905D364AED123BCA1A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBE1E4C0FD8B27FC0926 /* UIColor.swift */; };
@@ -432,6 +433,7 @@
 		C810B73014CF2413F6DE6758 /* StepJoinSelectedNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepJoinSelectedNetwork.swift; sourceTree = "<group>"; };
 		C810B7325DEF0029CCB800DC /* LogList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogList.swift; sourceTree = "<group>"; };
 		C810B7325DEF0029CCB800E0 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		D1A2B3C4E5F60718293A4B5D /* MenuDrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDrawerViewController.swift; sourceTree = "<group>"; };
 		C810B7325DEF0029CCB800E1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		C810B732B625EFDC289D0BB6 /* StepGetEthernetFeatureStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetEthernetFeatureStatus.swift; sourceTree = "<group>"; };
 		C810B7553841E661ECF0A0B8 /* StepGetNewDeviceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewDeviceName.swift; sourceTree = "<group>"; };
@@ -1010,6 +1012,7 @@
 				C810BCE8AF3C66B55136CAB4 /* Storyboardable.swift */,
 				C810B7325DEF0029CCB800DC /* LogList.swift */,
 				C810B7325DEF0029CCB800E0 /* Analytics.swift */,
+				D1A2B3C4E5F60718293A4B5D /* MenuDrawerViewController.swift */,
 				C810B7325DEF0029CCB800E1 /* PrivacyInfo.xcprivacy */,
 				C810B2A8784F584DD31176C0 /* TinkerStringsExtensions.swift */,
 			);
@@ -1577,6 +1580,7 @@
 				C810B9CC8DC2D88012EA4158 /* Date.swift in Sources */,
 				C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */,
 				C810BA5D7ED42665F6C424B0 /* Analytics.swift in Sources */,
+				D1A2B3C4E5F60718293A4B5C /* MenuDrawerViewController.swift in Sources */,
 				C810BFD2A7960D07F6144934 /* SearchBarView.swift in Sources */,
 				C810B403E746BEC82F1C62D3 /* UIImage.swift in Sources */,
 				C810BCCB56045A6C71A9CC77 /* Comparable.swift in Sources */,

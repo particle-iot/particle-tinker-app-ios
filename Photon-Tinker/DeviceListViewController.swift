@@ -629,31 +629,22 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
     @IBAction func moreButtonTapped(_ sender: UIButton) {
-        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "More tapped", withParameters: getVaList([]))
+        ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Menu tapped", withParameters: getVaList([]))
 
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-        if (ParticleCloud.sharedInstance().isAuthenticated) {
-            alert.addAction(UIAlertAction(title: TinkerStrings.Action.LogOut, style: .default, handler: { action in
-                let alert = UIAlertController(title: TinkerStrings.DeviceList.Prompt.LogOutConfirmation.Title, message: TinkerStrings.DeviceList.Prompt.LogOutConfirmation.Message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel))
-                alert.addAction(UIAlertAction(title: TinkerStrings.Action.LogOut, style: .default) { action in
-                    ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Logout confirmed", withParameters: getVaList([]))
-                    self.logout()
-                })
-                self.present(alert, animated: true)
-            }))
-        } else {
-            alert.addAction(UIAlertAction(title: TinkerStrings.Action.LogIn, style: .default, handler: { action in
-                self.navigationController?.popViewController(animated: true)
-            }))
+        guard ParticleCloud.sharedInstance().isAuthenticated else {
+            self.navigationController?.popViewController(animated: true)
+            return
         }
 
-        alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel, handler: { action in
-            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Cancel tapped", withParameters: getVaList([]))
-        }))
-
-        self.present(alert, animated: true)
+        let drawer = MenuDrawerViewController()
+        drawer.modalPresentationStyle = .overFullScreen
+        drawer.modalTransitionStyle = .crossDissolve
+        drawer.onLogOut = { [weak self] in
+            guard let self = self else { return }
+            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Logout confirmed", withParameters: getVaList([]))
+            self.logout()
+        }
+        self.present(drawer, animated: false)
     }
 
 
