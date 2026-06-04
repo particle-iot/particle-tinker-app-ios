@@ -6,10 +6,6 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
-
-let ANALYTICS = 1
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,23 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "App Version: v%@b%@", withParameters: getVaList([Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String, Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String]))
         ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "iOS Version: %@", withParameters: getVaList([UIDevice.current.systemVersion]))
 
-        #if !DEBUG
-            Fabric.with([Crashlytics.self])
-        #endif
-
-        let SegmentConfiguration = SEGAnalyticsConfiguration(writeKey: segmentAnalyticsWriteKey)
-        SegmentConfiguration.trackApplicationLifecycleEvents = true
-        SegmentConfiguration.recordScreenViews = false
-
-        SegmentConfiguration.use(SEGFirebaseIntegrationFactory.instance())
-        SEGAnalytics.setup(with: SegmentConfiguration)
-        
         ParticleCloud.sharedInstance().oAuthClientId = oAuthClientId
         ParticleCloud.sharedInstance().oAuthClientSecret = oAuthSecret
         
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
-        IQKeyboardManager.shared().toolbarManageBehaviour = .byTag
+        IQKeyboardManager.shared().toolbarManageBehavior = .byTag
 
 
         return true

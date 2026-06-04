@@ -76,7 +76,6 @@
 		93FFD5C3215E7EFF005A469D /* photon_wifi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */; };
 		93FFD5C4215E7EFF005A469D /* photon-tinker.bin in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5BC215E7EFE005A469D /* photon-tinker.bin */; };
 		93FFD5C6215E7F4B005A469D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFD5C5215E7F4A005A469D /* Keys.swift */; };
-		93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */; };
 		B2F38712C1F74BDA0B4F306B /* libPods-Particle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8656B063BC705A88C9D1A9B0 /* libPods-Particle.a */; };
 		C810B016C435334B245E60F9 /* StepOfferSetupStandAloneOrWithNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBDE0699745CC6F5DCDE /* StepOfferSetupStandAloneOrWithNetwork.swift */; };
 		C810B0261258DBCB7D1269A6 /* SortByView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B309E7368AB6A98AF224 /* SortByView.swift */; };
@@ -183,6 +182,8 @@
 		C810B9E226DC71E4B44C032A /* Gen3SetupCreateNetworkPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B0BAEB751EEF01988108 /* Gen3SetupCreateNetworkPasswordViewController.swift */; };
 		C810B9E61844B6D0096D0EBD /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBDE8CBAB6EEC8BB7611 /* UICollectionView.swift */; };
 		C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7325DEF0029CCB800DC /* LogList.swift */; };
+		C810BA5D7ED42665F6C424B0 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B7325DEF0029CCB800E0 /* Analytics.swift */; };
+		C810BA5D7ED42665F6C424B1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C810B7325DEF0029CCB800E1 /* PrivacyInfo.xcprivacy */; };
 		C810BA6D41F43204736E6512 /* Gen3SetupNetworkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B8D0878C6A9470C14CD8 /* Gen3SetupNetworkListViewController.swift */; };
 		C810BA905D364AED123BCA1A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810BBE1E4C0FD8B27FC0926 /* UIColor.swift */; };
 		C810BA916934753E61C695B0 /* StepShowInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810B32155C0434B05042B32 /* StepShowInfo.swift */; };
@@ -358,7 +359,6 @@
 		93FFD5BB215E7EFE005A469D /* photon_wifi.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = photon_wifi.mp4; sourceTree = "<group>"; };
 		93FFD5BC215E7EFE005A469D /* photon-tinker.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "photon-tinker.bin"; sourceTree = "<group>"; };
 		93FFD5C5215E7F4A005A469D /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = SOURCE_ROOT; };
-		93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Particle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Particle/Pods-Particle.release.xcconfig"; sourceTree = "<group>"; };
 		C810B017C35C456634DA90F5 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C810B01A279D41FACD5BAA8F /* Gen3SetupSelectOrCreateNetworkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gen3SetupSelectOrCreateNetworkViewController.swift; sourceTree = "<group>"; };
@@ -431,6 +431,8 @@
 		C810B730004492A7C74FCC39 /* DeviceFunctionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceFunctionTableViewCell.swift; sourceTree = "<group>"; };
 		C810B73014CF2413F6DE6758 /* StepJoinSelectedNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepJoinSelectedNetwork.swift; sourceTree = "<group>"; };
 		C810B7325DEF0029CCB800DC /* LogList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogList.swift; sourceTree = "<group>"; };
+		C810B7325DEF0029CCB800E0 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		C810B7325DEF0029CCB800E1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		C810B732B625EFDC289D0BB6 /* StepGetEthernetFeatureStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetEthernetFeatureStatus.swift; sourceTree = "<group>"; };
 		C810B7553841E661ECF0A0B8 /* StepGetNewDeviceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepGetNewDeviceName.swift; sourceTree = "<group>"; };
 		C810B76DA1F1580C99BAEDFE /* DeviceInspectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInspectorViewController.swift; sourceTree = "<group>"; };
@@ -591,7 +593,6 @@
 		50B125461AE06CF4003C29DC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				93FFD5C7215E7F5D005A469D /* GoogleService-Info.plist */,
 				50F62D9D1AE0727E00109F33 /* Particle-Bridging-Header.h */,
 				50B125471AE06CF4003C29DC /* Info.plist */,
 			);
@@ -1008,6 +1009,8 @@
 				C810BFF23EF2269E12E6F37A /* ScreenUtils.swift */,
 				C810BCE8AF3C66B55136CAB4 /* Storyboardable.swift */,
 				C810B7325DEF0029CCB800DC /* LogList.swift */,
+				C810B7325DEF0029CCB800E0 /* Analytics.swift */,
+				C810B7325DEF0029CCB800E1 /* PrivacyInfo.xcprivacy */,
 				C810B2A8784F584DD31176C0 /* TinkerStringsExtensions.swift */,
 			);
 			name = Model;
@@ -1146,10 +1149,8 @@
 				50B1253F1AE06CF4003C29DC /* Sources */,
 				50B125401AE06CF4003C29DC /* Frameworks */,
 				50B125411AE06CF4003C29DC /* Resources */,
-				50E5EF201D349D450087C7B6 /* Run Script */,
 				931C37F7215AAADE0014811C /* CopyFiles */,
 				4061BE20097F170B9053B6D9 /* [CP] Copy Pods Resources */,
-				F2F0CCCB7BA13C430642B444 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1238,6 +1239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B555DD216EB3F100146A1E /* Particle.entitlements in Resources */,
+				C810BA5D7ED42665F6C424B1 /* PrivacyInfo.xcprivacy in Resources */,
 				93D36EB2216CC8B60088000C /* Gen3SetupNetworkListView.xib in Resources */,
 				93FFD5B3215E7EDB005A469D /* FiraMono-Medium.ttf in Resources */,
 				93C7C9E52208A1BA00ABEE85 /* som_ethernet_power_on.mov in Resources */,
@@ -1279,7 +1281,6 @@
 				93845F8323F2C51900B694FD /* Gen3SetupStrings.strings in Resources */,
 				9394CADA22E7814200FF3E61 /* Gen3SetupNetworkListNoActivityIndicatorView.xib in Resources */,
 				931C3785215AA2240014811C /* Gen3Setup.storyboard in Resources */,
-				93FFD5C8215E7F5D005A469D /* GoogleService-Info.plist in Resources */,
 				93B0F85E2182236F00D8F8C0 /* boron_power_on_battery.mov in Resources */,
 				93D36EB9216CD3C20088000C /* Gen3SetupSubtitleCell.xib in Resources */,
 				9348298D225B927C0015C630 /* Gen3SetupHorizontalDetailCell.xib in Resources */,
@@ -1304,7 +1305,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/1PasswordExtension/OnePasswordExtensionResources.bundle",
 				"${PODS_ROOT}/DateTools/DateTools/DateTools/DateTools.bundle",
-				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManager/IQKeyboardManager.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ParticleSetup/ParticleSetup.bundle",
 				"${PODS_ROOT}/RMessage/RMessage/Resources/RMessageView.xib",
 				"${PODS_ROOT}/RMessage/RMessage/Assets/Icons.xcassets/Contents.json",
@@ -1347,20 +1348,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		50E5EF201D349D450087C7B6 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 405c4e8f70f820af48bc987dfee44ed465b1ab96 310129b7f7ad8668c52c28f31881750b85da9c6da0436b17001db72b76a62444\n";
-		};
 		6C888492D5EE51B2AD3827F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1387,14 +1374,18 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/shared-assets-mobile/tinker_strings/venv/iOS.py",
+				"$(SRCROOT)/shared-assets-mobile/tinker_strings/venv/Gen3SetupStrings.json",
 			);
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/Photon-Tinker/Base.lproj/Gen3SetupStrings.strings",
+				"$(SRCROOT)/Photon-Tinker/Mesh/Gen3SetupStrings.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/Gen3SetupStrings.json\" \"Photon-Tinker/Base.lproj/Gen3SetupStrings.strings\" \"Photon-Tinker/Mesh/Gen3SetupStrings.swift\" \"gen3SetupLocalized()\"\n";
+			shellScript = "python3 \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/Gen3SetupStrings.json\" \"Photon-Tinker/Base.lproj/Gen3SetupStrings.strings\" \"Photon-Tinker/Mesh/Gen3SetupStrings.swift\" \"gen3SetupLocalized()\"\n";
 		};
 		939DB13623184393001B4667 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1404,32 +1395,18 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/shared-assets-mobile/tinker_strings/venv/iOS.py",
+				"$(SRCROOT)/shared-assets-mobile/tinker_strings/venv/TinkerStrings.json",
 			);
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/Photon-Tinker/Base.lproj/TinkerStrings.strings",
+				"$(SRCROOT)/Photon-Tinker/TinkerStrings.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/TinkerStrings.json\" \"Photon-Tinker/Base.lproj/TinkerStrings.strings\" \"Photon-Tinker/TinkerStrings.swift\" \"tinkerLocalized()\"\n";
-		};
-		F2F0CCCB7BA13C430642B444 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer-20/iOS/RevealServer.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Particle/Pods-Particle-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "python3 \"shared-assets-mobile/tinker_strings/venv/iOS.py\" \"shared-assets-mobile/tinker_strings/venv/TinkerStrings.json\" \"Photon-Tinker/Base.lproj/TinkerStrings.strings\" \"Photon-Tinker/TinkerStrings.swift\" \"tinkerLocalized()\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1599,6 +1576,7 @@
 				C810B810ACEAEBCF17F7B7C9 /* StepEnterListeningMode.swift in Sources */,
 				C810B9CC8DC2D88012EA4158 /* Date.swift in Sources */,
 				C810BA5D7ED42665F6C424A7 /* LogList.swift in Sources */,
+				C810BA5D7ED42665F6C424B0 /* Analytics.swift in Sources */,
 				C810BFD2A7960D07F6144934 /* SearchBarView.swift in Sources */,
 				C810B403E746BEC82F1C62D3 /* UIImage.swift in Sources */,
 				C810BCCB56045A6C71A9CC77 /* Comparable.swift in Sources */,
@@ -1687,8 +1665,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1708,7 +1686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1750,7 +1728,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "158e6e37-8e30-41ec-ad98-c4e4879a5770";
 				SDKROOT = iphoneos;
@@ -1765,17 +1743,17 @@
 			baseConfigurationReference = E7C0C34AFCDD482ECAFB8CB1 /* Pods-Particle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUILD_VARIANTS = normal;
 				CODE_SIGN_ENTITLEMENTS = Particle.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftProtobuf/SwiftProtobuf.modulemap\" $(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"DEBUG\"";
@@ -1784,7 +1762,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -1797,17 +1775,17 @@
 			baseConfigurationReference = 9FC2037DF1D82D5B83B31B58 /* Pods-Particle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUILD_VARIANTS = normal;
 				CODE_SIGN_ENTITLEMENTS = Particle.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = TNJ67X9MQD;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Photon-Tinker/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftProtobuf/SwiftProtobuf.modulemap\" $(inherited) \"-D\" \"COCOAPODS\"";
@@ -1816,7 +1794,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Photon-Tinker/Particle-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
