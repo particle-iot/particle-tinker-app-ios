@@ -20,7 +20,9 @@ class DeviceListDataSource: NSCopying  {
     public private(set) var typeOptions: [DeviceTypeOptions] = []
 
     func setDevices(_ devices: [ParticleDevice]) {
-        self.devices = devices
+        // Hide devices of unknown/unsupported type — newer hardware this version of the app
+        // doesn't recognise. Showing them as "unknown" is confusing, so filter them out entirely.
+        self.devices = devices.filter { $0.type != .unknown }
         self.reloadData()
         NotificationCenter.default.post(name: .DeviceListFilteringChanged, object: self)
     }
