@@ -31,7 +31,9 @@ jobs:
         with:
           submodules: recursive
           # PAT with access to the private shared-assets-mobile submodule.
-          token: ${{ secrets.SUBMODULES_TOKEN }}
+          # Falls back to the default token if the secret is unset, so the main
+          # repo still checks out and only the submodule step fails (clearly).
+          token: ${{ secrets.SUBMODULES_TOKEN || github.token }}
 
       - name: Select Xcode 26
         uses: maxim-lobanov/setup-xcode@v1
