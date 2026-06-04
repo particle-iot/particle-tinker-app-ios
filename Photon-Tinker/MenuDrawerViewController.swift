@@ -19,8 +19,8 @@ class MenuDrawerViewController: UIViewController {
     private let panel = UIView()
     private var panelLeading: NSLayoutConstraint!
 
-    private let headerColor = UIColor(rgb: 0x1B1F2A)
-    private let accentColor = ParticleUtils.particleCyanColor
+    private let headerColor = UIColor(rgb: 0x00334F) // Particle brand navy
+    private let accentColor = UIColor(rgb: 0x00D2E6) // Particle brand cyan
 
     private struct Link {
         let title: String
