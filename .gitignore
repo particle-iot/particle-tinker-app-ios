@@ -48,6 +48,7 @@ playground.xcworkspace
 #Sensitive keys
 Keys.swift
 GoogleService-Info.plist
+CREDS.md
 
 # CocoaPods
 Pods/
