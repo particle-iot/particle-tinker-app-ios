@@ -41,12 +41,13 @@ jobs:
           xcode-version: '26'
 
       - name: Generate Keys.swift
-        # Keys.swift is git-ignored. The public "particle" OAuth client is enough
-        # to compile (and actually log in); production keys are not needed for CI.
+        # Keys.swift is git-ignored and lives at the repo root (referenced from the
+        # project as SOURCE_ROOT/Keys.swift). The public "particle" OAuth client is
+        # enough to compile (and actually log in); production keys aren't needed in CI.
         run: |
-          cp Keys.template.swift Photon-Tinker/Keys.swift
-          sed -i '' 's/let oAuthClientId = .*/let oAuthClientId = "particle"/' Photon-Tinker/Keys.swift
-          sed -i '' 's/let oAuthSecret = .*/let oAuthSecret = "particle"/' Photon-Tinker/Keys.swift
+          cp Keys.template.swift Keys.swift
+          sed -i '' 's/let oAuthClientId = .*/let oAuthClientId = "particle"/' Keys.swift
+          sed -i '' 's/let oAuthSecret = .*/let oAuthSecret = "particle"/' Keys.swift
 
       - name: Cache CocoaPods
         uses: actions/cache@v4

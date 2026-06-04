@@ -14,7 +14,7 @@ This repo utilises submodules. To load them, run `git submodule init` and then `
 
 ### App secret (`Keys.swift`)
 
-The app reads its OAuth client credentials from `Photon-Tinker/Keys.swift`, which is **git-ignored** and must be created locally. Copy `Keys.template.swift` (root folder) to `Photon-Tinker/Keys.swift`. The only values the app actually uses are:
+The app reads its OAuth client credentials from `Keys.swift` in the **repo root**, which is **git-ignored** and must be created locally. Copy `Keys.template.swift` to `Keys.swift` (both in the root folder). The only values the app actually uses are:
 
 1. `oAuthClientId` — the OAuth client id used to log in to the Particle Cloud.
 2. `oAuthSecret` — the matching OAuth client secret.
