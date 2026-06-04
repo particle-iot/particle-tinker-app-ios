@@ -12,7 +12,6 @@ target 'Particle' do
     pod 'ASValueTrackingSlider'
     pod 'DateTools'
     pod 'IQKeyboardManager', '~> 6.5'
-    pod 'YCTutorialBox'
 end
 
 post_install do |installer|

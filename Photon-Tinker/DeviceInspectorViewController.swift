@@ -66,8 +66,6 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
             self.initialControlPanelViewController = nil
             cp.setCallback(self.controlPanelCompleted)
             self.present(cp, animated: true)
-        } else {
-            self.showTutorial()
         }
     }
 
@@ -186,10 +184,6 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         tabs[selectedTabIdx].view.superview!.alpha = 0
         self.view.insertSubview(tabs[selectedTabIdx].view.superview!, belowSubview: self.infoSlider.view.superview!)
         tabs[selectedTabIdx].update()
-        //only show child tutorial if tutorial for this VC was already shown
-        if !ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            tabs[selectedTabIdx].showTutorial()
-        }
 
         if (!instant) {
             UIView.animate(withDuration: 0.25,
@@ -261,29 +255,6 @@ class DeviceInspectorViewController : UIViewController, DeviceInspectorChildView
         self.selectTab(selectedTabIdx: sender.selectedIdx)
     }
 
-    func showTutorial() {
-        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                //3
-                var tutorial3 = YCTutorialBox(headline: TinkerStrings.DeviceInspector.Tutorial.Tutorial3.Title, withHelpText: TinkerStrings.DeviceInspector.Tutorial.Tutorial3.Message) {
-                    self.selectTab(selectedTabIdx: self.tabBarView.selectedIdx, instant: true)
-                }
-
-                //2
-                var tutorial2 = YCTutorialBox(headline: TinkerStrings.DeviceInspector.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.DeviceInspector.Tutorial.Tutorial2.Message) {
-                    tutorial3?.showAndFocus(self.moreActionsButton)
-                }
-
-                // 1
-                var tutorial = YCTutorialBox(headline: TinkerStrings.DeviceInspector.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.DeviceInspector.Tutorial.Tutorial1.Message) {
-                    tutorial2?.showAndFocus(self.tabBarView)
-                }
-                tutorial?.showAndFocus(self.view)
-
-                ParticleUtils.setTutorialWasDisplayedForViewController(self)
-            }
-        }
-    }
 
     func infoSliderDidUpdateDevice() {
         self.updateWithoutReload()

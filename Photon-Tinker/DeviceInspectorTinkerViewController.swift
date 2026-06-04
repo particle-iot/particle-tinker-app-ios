@@ -65,26 +65,6 @@ class DeviceInspectorTinkerViewController: DeviceInspectorChildViewController {
         self.adjustTableViewHeaderViewConstraints()
     }
 
-    override func showTutorial() {
-        if (self.device.connected && self.device.isRunningTinker()) {
-            if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                    // 2
-                    var tutorial2 = YCTutorialBox(headline: TinkerStrings.Tinker.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.Tinker.Tutorial.Tutorial2.Message)
-
-                    // 1
-                    var tutorial = YCTutorialBox(headline: TinkerStrings.Tinker.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Tinker.Tutorial.Tutorial1.Message) {
-                        tutorial2?.showAndFocus(self.tinkerView.pinViews["D7"])
-                    }
-                    tutorial?.showAndFocus(self.view)
-
-                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
-                }
-            }
-
-        }
-    }
-
     @IBAction func flashTinkerButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: TinkerStrings.Tinker.Prompt.FlashTinker.Title, message: TinkerStrings.Tinker.Prompt.FlashTinker.Message, preferredStyle: .actionSheet)
 

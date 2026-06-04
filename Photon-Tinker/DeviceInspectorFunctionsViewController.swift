@@ -61,21 +61,6 @@ class DeviceInspectorFunctionsViewController: DeviceInspectorChildViewController
         self.adjustTableViewHeaderViewConstraints()
     }
 
-    override func showTutorial() {
-        if (functionNames.count > 0) {
-            if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                    let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
-
-                    var tutorial = YCTutorialBox(headline: TinkerStrings.Functions.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Functions.Tutorial.Tutorial1.Message)
-                    tutorial?.showAndFocus(firstCell)
-
-                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
-                }
-            }
-        }
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide;
     }

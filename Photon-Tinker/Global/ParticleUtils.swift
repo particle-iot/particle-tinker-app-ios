@@ -26,46 +26,6 @@ class ParticleUtils: NSObject {
     static var particleBoldFont = UIFont(name: "Gotham-medium", size: 16.0)!
 
 
-    @objc class func shouldDisplayTutorialForViewController(_ vc : UIViewController) -> Bool {
-        let prefs = UserDefaults.standard
-        let defaultsKeyName = "Tutorial"
-        let dictKeyName = String(describing: type(of: vc))
-        
-        if let onceDict = prefs.dictionary(forKey: defaultsKeyName) {
-            let keyExists = onceDict[dictKeyName] != nil
-            if keyExists {
-                return false
-            } else {
-                return true
-            }
-        } else {
-            return true
-        }
-    }
-
-
-    @objc class func setTutorialWasDisplayedForViewController(_ vc : UIViewController) {
-        
-        let prefs = UserDefaults.standard
-        let defaultsKeyName = "Tutorial"
-        let dictKeyName = String(describing: type(of: vc))
-        
-        if var onceDict = prefs.dictionary(forKey: defaultsKeyName) {
-            onceDict[dictKeyName] = true
-            prefs.set(onceDict, forKey: defaultsKeyName)
-        } else {
-            prefs.set([dictKeyName : true], forKey: defaultsKeyName)
-        }
-    }
-    
-    class func resetTutorialWasDisplayed() {
-        
-        let prefs = UserDefaults.standard
-        let keyName = "Tutorial"
-        prefs.removeObject(forKey: keyName)
-        
-    }
-
 
 
     @objc class func animateOnlineIndicatorImageView(_ imageView: UIImageView, online: Bool, flashing: Bool) {

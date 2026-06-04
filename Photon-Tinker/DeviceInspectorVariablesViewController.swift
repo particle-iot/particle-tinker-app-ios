@@ -59,21 +59,6 @@ class DeviceInspectorVariablesViewController: DeviceInspectorChildViewController
         self.adjustTableViewHeaderViewConstraints()
     }
 
-    override func showTutorial() {
-        if (variableNames.count > 0) {
-            if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                    // 1
-                    let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
-
-                    var tutorial = YCTutorialBox(headline: TinkerStrings.Variables.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Variables.Tutorial.Tutorial1.Message)
-                    tutorial?.showAndFocus(firstCell)
-
-                    ParticleUtils.setTutorialWasDisplayedForViewController(self)
-                }
-            }
-        }
-    }
 
 
     func loadAllVariables() {

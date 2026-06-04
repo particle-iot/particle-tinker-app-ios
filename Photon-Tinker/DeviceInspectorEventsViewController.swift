@@ -122,27 +122,6 @@ class DeviceInspectorEventsViewController: DeviceInspectorChildViewController, S
         }
     }
 
-    override func showTutorial() {
-        if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                //3
-                var tutorial3 = YCTutorialBox(headline: TinkerStrings.Events.Tutorial.Tutorial3.Title, withHelpText: TinkerStrings.Events.Tutorial.Tutorial3.Message)
-
-                //2
-                var tutorial2 = YCTutorialBox(headline: TinkerStrings.Events.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.Events.Tutorial.Tutorial2.Message) {
-                    tutorial3?.showAndFocus(self.searchBar.superview)
-                }
-
-                // 1
-                var tutorial = YCTutorialBox(headline: TinkerStrings.Events.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.Events.Tutorial.Tutorial1.Message) {
-                    tutorial2?.showAndFocus(self.searchBar)
-                }
-                tutorial?.showAndFocus(self.view)
-
-                ParticleUtils.setTutorialWasDisplayedForViewController(self)
-            }
-        }
-    }
 
     func filterEvents() {
         if self.filtering {

@@ -49,10 +49,6 @@ class DeviceInspectorChildViewController: UIViewController {
         }
     }
 
-    func showTutorial() {
-        assert(false, "This method must be overriden by the DeviceInspectorChildViewController subclass")
-    }
-
     func resetUserAppData() {
 
     }

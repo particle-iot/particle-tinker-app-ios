@@ -150,7 +150,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.handleGetDevicesResponse(devices, error: error)
                     self.resume(animated: true)
                     self.tableView.refreshControl?.endRefreshing()
-                    self.showTutorial()
                     self.isBusy = false
                 }
             }
@@ -198,29 +197,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
 
-    //MARK: Tutorials
-    func showTutorial() {
-       if ParticleUtils.shouldDisplayTutorialForViewController(self) {
-           DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                if (ParticleCloud.sharedInstance().isAuthenticated && self.dataSource.viewDevices.count > 0) {
-                    // 1
-                    let tutorial2 = YCTutorialBox(headline: TinkerStrings.DeviceList.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.DeviceList.Tutorial.Tutorial2.Message)
-
-                    // 0
-                    let tutorial = YCTutorialBox(headline: TinkerStrings.DeviceList.Tutorial.Tutorial1.Title, withHelpText: TinkerStrings.DeviceList.Tutorial.Tutorial1.Message) {
-                        tutorial2?.showAndFocus(self.setupNewDeviceButton)
-                    }
-                    let firstCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) //
-                    tutorial?.showAndFocus(firstCell)
-                } else {
-                    var tutorial = YCTutorialBox(headline: TinkerStrings.DeviceList.Tutorial.Tutorial2.Title, withHelpText: TinkerStrings.DeviceList.Tutorial.Tutorial2.Message)
-                    tutorial?.showAndFocus(self.setupNewDeviceButton)
-                }
-
-                ParticleUtils.setTutorialWasDisplayedForViewController(self)
-            }
-        }
-    }
 
 
 
@@ -672,17 +648,6 @@ class DeviceListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.navigationController?.popViewController(animated: true)
             }))
         }
-
-        alert.addAction(UIAlertAction(title: TinkerStrings.Action.ShareApplicationLogs, style: .default, handler: { action in
-            ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Device logs selected", withParameters: getVaList([]))
-
-            if let zipURL = LogList.getZip() {
-                let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
-                self.present(avc, animated: true)
-            } else {
-                RMessage.showNotification(withTitle: TinkerStrings.DeviceList.Error.ExportingLogsFailed.Title, subtitle: TinkerStrings.DeviceList.Error.ExportingLogsFailed.Message, type: .error, customTypeName: nil, duration: -1, callback: nil)
-            }
-        }))
 
         alert.addAction(UIAlertAction(title: TinkerStrings.Action.Cancel, style: .cancel, handler: { action in
             ParticleLogger.logInfo(NSStringFromClass(type(of: self)), format: "Cancel tapped", withParameters: getVaList([]))

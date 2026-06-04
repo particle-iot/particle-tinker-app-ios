@@ -16,7 +16,6 @@
 #include "MBProgressHUD.h"
 #include "RMessage.h"
 #include "IQKeyboardManager.h"
-#include "YCTutorialBox.h"
 #include "DateTools.h"
 #include "ASValueTrackingSlider/ASValueTrackingSlider.h"
 
