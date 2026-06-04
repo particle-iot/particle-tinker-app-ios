@@ -1,0 +1,73 @@
+name: Build
+
+# Compiles the app for the iOS Simulator on every pull request as a CI check.
+# This is a build-only job: it targets the simulator with code signing disabled,
+# so it needs no certificates or App Store Connect secrets.
+#
+# REQUIRED SECRET — SUBMODULES_TOKEN
+# The `shared-assets-mobile` submodule is a *private* repo, and the default
+# GITHUB_TOKEN can only read this repo. Create a fine-grained Personal Access
+# Token with read-only "Contents" access to particle-iot/shared-assets-mobile
+# (and this repo), then add it as the repository secret `SUBMODULES_TOKEN`
+# (Settings → Secrets and variables → Actions). Without it, checkout of the
+# submodule will fail.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (iOS Simulator)
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout (with private submodule)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          # PAT with access to the private shared-assets-mobile submodule.
+          # Falls back to the default token if the secret is unset, so the main
+          # repo still checks out and only the submodule step fails (clearly).
+          token: ${{ secrets.SUBMODULES_TOKEN || github.token }}
+
+      - name: Select Xcode 26
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26'
+
+      - name: Generate Keys.swift
+        # Keys.swift is git-ignored and lives at the repo root (referenced from the
+        # project as SOURCE_ROOT/Keys.swift). The public "particle" OAuth client is
+        # enough to compile (and actually log in); production keys aren't needed in CI.
+        run: |
+          cp Keys.template.swift Keys.swift
+          sed -i '' 's/let oAuthClientId = .*/let oAuthClientId = "particle"/' Keys.swift
+          sed -i '' 's/let oAuthSecret = .*/let oAuthSecret = "particle"/' Keys.swift
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: Pods
+          key: pods-${{ hashFiles('Podfile.lock') }}
+          restore-keys: pods-
+
+      - name: Install pods
+        run: pod install
+
+      - name: Build
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -workspace Particle.xcworkspace \
+            -scheme Particle \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build

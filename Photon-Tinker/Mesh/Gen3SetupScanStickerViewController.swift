@@ -78,11 +78,7 @@ class Gen3SetupScanStickerViewController: Gen3SetupViewController, AVCaptureMeta
             }
 
             if UIApplication.shared.canOpenURL(settingsUrl) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(settingsUrl)
-                } else {
-                    UIApplication.shared.openURL(settingsUrl)
-                }
+                UIApplication.shared.open(settingsUrl)
             }
         }
         ac.addAction(settingsAction)

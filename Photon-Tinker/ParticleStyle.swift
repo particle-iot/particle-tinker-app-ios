@@ -103,9 +103,62 @@ class ParticleTextField: UITextField {
 }
 
 class ParticleTextView: UITextView {
+
+    // UITextView has no native placeholder, so we render one with an overlay label.
+    private lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = ParticleStyle.SecondaryTextColor
+        label.font = self.font
+        label.isUserInteractionEnabled = false
+        return label
+    }()
+
+    @IBInspectable var placeholderText: String? {
+        get { placeholderLabel.text }
+        set {
+            placeholderLabel.text = newValue
+            setupPlaceholderIfNeeded()
+            updatePlaceholderVisibility()
+        }
+    }
+
+    private var placeholderObserver: NSObjectProtocol?
+
+    private func setupPlaceholderIfNeeded() {
+        guard placeholderLabel.superview == nil else { return }
+        addSubview(placeholderLabel)
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            placeholderLabel.topAnchor.constraint(equalTo: topAnchor, constant: textContainerInset.top),
+            placeholderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: textContainerInset.left + textContainer.lineFragmentPadding),
+            placeholderLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -(textContainerInset.right + textContainer.lineFragmentPadding)),
+        ])
+        if placeholderObserver == nil {
+            placeholderObserver = NotificationCenter.default.addObserver(forName: UITextView.textDidChangeNotification, object: self, queue: .main) { [weak self] _ in
+                self?.updatePlaceholderVisibility()
+            }
+        }
+    }
+
+    private func updatePlaceholderVisibility() {
+        placeholderLabel.isHidden = !self.text.isEmpty
+    }
+
+    override var text: String! {
+        didSet { updatePlaceholderVisibility() }
+    }
+
     func setStyle(font: String, size: Int, color: UIColor) {
         self.textColor = color
         self.font = UIFont(name: font, size: CGFloat(size))
+        self.placeholderLabel.font = self.font
+    }
+
+    deinit {
+        if let placeholderObserver = placeholderObserver {
+            NotificationCenter.default.removeObserver(placeholderObserver)
+        }
     }
 }
 

@@ -4,7 +4,6 @@
 //
 
 import UIKit
-import Crashlytics
 import Zip
 
 class LogList {
@@ -49,11 +48,6 @@ class LogList {
         let message = notification.userInfo?[ParticleLogNotificationMessageKey] as? String ?? ""
 
         var formattedMessage = "(\(component) \(typeString)) \(message)"
-        #if !DEBUG
-        DispatchQueue.main.async {
-            CLSLogv(formattedMessage, getVaList([]))
-        }
-        #endif
 
         if let file = file {
             file.write(Data("\n\(timeFormatter.string(from: Date())): ".utf8))

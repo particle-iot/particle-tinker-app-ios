@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import JavaScriptCore
+import WebKit
 
 extension String {
     func unescape()->String {
@@ -33,7 +33,7 @@ extension String {
 }
 
 
-class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarcodeViewControllerDelegate {
+class ElectronSetupViewController: UIViewController, WKNavigationDelegate, ScanBarcodeViewControllerDelegate {
 
     typealias ElectronSetupCallback = (Bool) -> ()
 
@@ -84,36 +84,50 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
 //        let url =
         
         self.request = URLRequest(url: self.setupWebAddress!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30.0)
-        
-//        self.webView.scalesPageToFit = true
-        self.webView.delegate = self
-        self.webView.loadRequest(self.request!)
-        
-//        print("after load request:"+self.printTimestamp())
 
-        self.webView.scrollView.bounces = false
+        // Force inject the access token and current username into the page's global
+        // 'window' object before any page script runs. On UIWebView this was done by
+        // reaching into the private JSContext; the WKWebView equivalent is a user
+        // script injected at document start.
+        let bootstrapJS = """
+            window.particleAccessToken = \(Self.jsString(ParticleCloud.sharedInstance().accessToken));
+            window.particleUsername = \(Self.jsString(ParticleCloud.sharedInstance().loggedInUsername));
+            window.mobileClient = "ios";
+        """
+        let userContentController = WKUserContentController()
+        userContentController.addUserScript(WKUserScript(source: bootstrapJS, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController = userContentController
+
+        let webView = WKWebView(frame: self.view.bounds, configuration: configuration)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.navigationDelegate = self
+        webView.scrollView.bounces = false
+        // Keep the web view behind the close button, which is wired up in the storyboard.
+        self.view.insertSubview(webView, at: 0)
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            webView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+        self.webView = webView
+
         self.closeButton.isHidden = false//true
-        
-        // Slick hack to get the JS console.logs() to XCode debugger!
-        
-        self.context = self.webView.value(forKeyPath: "documentView.webView.mainFrame.javaScriptContext") as? JSContext
-        
-        let logFunction : @convention(block) (String) -> Void =
-        {
-            (msg: String) in
-            NSLog("JS Console: %@", msg)
-        }
-//        context!.objectForKeyedSubscript("console").setObject(unsafeBitCast(logFunction, to: AnyObject.self), forKeyedSubscript: "log" as (NSCopying & NSObjectProtocol)!)
-//        print("after tapping into console logs:"+self.printTimestamp())
-        
-        
-        // force inject the access token and current username into the JS context global 'window' object
-        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().accessToken, forKeyedSubscript: "particleAccessToken" as (NSCopying & NSObjectProtocol))
-        context!.objectForKeyedSubscript("window").setObject(ParticleCloud.sharedInstance().loggedInUsername, forKeyedSubscript: "particleUsername" as (NSCopying & NSObjectProtocol))
-        context!.objectForKeyedSubscript("window").setObject("ios", forKeyedSubscript: "mobileClient" as (NSCopying & NSObjectProtocol))
 
-//        print("after setting mobileClient:"+self.printTimestamp())
-        // Do any additional setup after loading the view.
+        self.webView.load(self.request!)
+    }
+
+    // Encodes a Swift optional string as a safe JavaScript string literal (or `null`).
+    private static func jsString(_ value: String?) -> String {
+        guard let value = value,
+              let data = try? JSONSerialization.data(withJSONObject: [value], options: []),
+              let json = String(data: data, encoding: .utf8) else {
+            return "null"
+        }
+        // json is `["..."]`; strip the surrounding array brackets to get the literal.
+        return String(json.dropFirst().dropLast())
     }
     
     override func didReceiveMemoryWarning() {
@@ -123,10 +137,9 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
     
     @IBOutlet weak var closeButton: UIButton!
 
-    var context : JSContext? = nil
     var setupWebAddress : URL? = nil
-    
-    @IBOutlet weak var webView: UIWebView!
+
+    var webView: WKWebView!
     var request : URLRequest? = nil
     var loading : Bool = false
     var loadFramesCount : Int = 0
@@ -179,20 +192,25 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         self.loading = false
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         self.stopSpinner()
 //        print("failed loading")
         self.closeButton.isHidden = false
     }
-    
-    func webViewDidStartLoad(_ webView: UIWebView) {
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        self.stopSpinner()
+        self.closeButton.isHidden = false
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
 //        print("DidStartLoad")
         self.loadFramesCount += 1
 //        self.startSpinner()
     }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+
         print("webViewDidFinishLoad:"+self.printTimestamp())
         self.loadFramesCount-=1
         if self.loadFramesCount <= 0 {
@@ -200,22 +218,27 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
             self.closeButton.isHidden = false
         }
     }
-    
-    
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let request = navigationAction.request
         let myAppScheme = "particle"
-        
+
         if request.url?.scheme != myAppScheme { //&& request.URL?.host != self.setupWebAddress?.host {
-            if navigationType == UIWebView.NavigationType.linkClicked {
-                UIApplication.shared.openURL(request.url!)
-                return false
+            if navigationAction.navigationType == .linkActivated {
+                if let url = request.url {
+                    UIApplication.shared.open(url)
+                }
+                decisionHandler(.cancel)
+                return
             } else {
-                
+
                 self.startSpinner()
-                return true
+                decisionHandler(.allow)
+                return
             }
         }
-        
+
         let actionType = request.url?.host;
         if actionType == "scanSerialNum" {
             SEGAnalytics.shared().track("Tinker_ESerisSetupScanSerialNumber")
@@ -259,12 +282,10 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
                 }
             }
         }
-        
-        return false;
 
-        
+        decisionHandler(.cancel)
     }
-    
+
     // MARK: ScanBarcodeViewControllerDelegate functions
 
     func didFinishScanningBarcode(withResult scanBarcodeViewController: ScanBarcodeViewController, barcodeValue: String) {
@@ -272,13 +293,13 @@ class ElectronSetupViewController: UIViewController, UIWebViewDelegate, ScanBarc
         scanBarcodeViewController.dismiss(animated: true, completion: {
             DispatchQueue.main.async {
             
-                var jsCode : String = """
+                let jsCode : String = """
                     if (window.__PARTICLE_SET_SCANCODE){
                         window.__PARTICLE_SET_SCANCODE("\(barcodeValue)");
                     }
                 """
-            
-                self.webView.stringByEvaluatingJavaScript(from: jsCode)
+
+                self.webView.evaluateJavaScript(jsCode, completionHandler: nil)
             }
         })
         

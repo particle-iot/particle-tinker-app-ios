@@ -1770,11 +1770,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXY-xp-ysD">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXY-xp-ysD">
                                 <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <dataDetectorType key="dataDetectorTypes"/>
-                            </webView>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDc-YW-lrv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
@@ -1818,11 +1821,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgh-ZP-KBL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <dataDetectorType key="dataDetectorTypes"/>
-                            </webView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vSI-kv-UFt">
                                 <rect key="frame" x="8" y="0.0" width="40" height="40"/>
                                 <constraints>
@@ -1838,18 +1836,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="CB0-xF-8rl" firstAttribute="bottom" secondItem="Hgh-ZP-KBL" secondAttribute="bottom" id="2PS-vo-xcQ"/>
-                            <constraint firstAttribute="trailing" secondItem="Hgh-ZP-KBL" secondAttribute="trailing" id="6pn-zY-Dab"/>
-                            <constraint firstItem="vSI-kv-UFt" firstAttribute="leading" secondItem="Hgh-ZP-KBL" secondAttribute="leading" constant="8" id="Pcg-4e-hm1"/>
-                            <constraint firstItem="Hgh-ZP-KBL" firstAttribute="leading" secondItem="qrk-4R-k45" secondAttribute="leading" id="pC0-8j-3xU"/>
+                            <constraint firstItem="vSI-kv-UFt" firstAttribute="leading" secondItem="CB0-xF-8rl" secondAttribute="leading" constant="8" id="Pcg-4e-hm1"/>
                             <constraint firstItem="vSI-kv-UFt" firstAttribute="top" secondItem="CB0-xF-8rl" secondAttribute="top" id="pvh-Ra-65I"/>
-                            <constraint firstItem="Hgh-ZP-KBL" firstAttribute="top" secondItem="CB0-xF-8rl" secondAttribute="top" id="rgJ-V1-svn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CB0-xF-8rl"/>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="vSI-kv-UFt" id="NIT-dx-LLO"/>
-                        <outlet property="webView" destination="Hgh-ZP-KBL" id="ddX-mh-3am"/>
                         <segue destination="VvL-2o-D0b" kind="presentation" identifier="scan" id="He6-VW-FHj"/>
                     </connections>
                 </viewController>

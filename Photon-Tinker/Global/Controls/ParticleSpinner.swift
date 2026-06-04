@@ -17,7 +17,9 @@ open class ParticleSpinner : NSObject {
         hud.mode = .customView
         hud.animationType = .zoomIn
         hud.minShowTime = 0.5
-        hud.color = UIColor.clear
+        // MBProgressHUD 1.x: the HUD background colour moved onto bezelView.
+        hud.bezelView.style = .solidColor
+        hud.bezelView.color = UIColor.clear
         
         // prepare spinner view for first time populating of devices into table
         let spinnerView : UIImageView = UIImageView(image: UIImage(named: "ImgParticleSpinner"))

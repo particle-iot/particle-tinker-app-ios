@@ -14,6 +14,11 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
 
     private var versionLabelTapCount = 0
 
+    // Minimum time the branded splash (logo on navy) stays on screen for a logged-in
+    // user before we continue to the device list, so it doesn't just flash by.
+    private let splashMinimumDuration: TimeInterval = 2.0
+    private var hasAutoStarted = false
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -27,17 +32,30 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
                 .replacingOccurrences(of: "{{version}}", with: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
                 .replacingOccurrences(of: "{{build}}", with:(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String))
         self.versionLabel.text = verStr
-        
-        if let _ = ParticleCloud.sharedInstance().loggedInUsername
-        {
-            self.performSegue(withIdentifier: "start_no_animation", sender: self)
-        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // While we hold the splash for an already-logged-in user, present a clean logo
+        // screen by hiding the call-to-action button. When logged out (e.g. after
+        // returning here via logout) the button must be visible.
+        let loggedIn = ParticleCloud.sharedInstance().loggedInUsername != nil
+        self.getStartedButton.isHidden = loggedIn && !hasAutoStarted
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         versionLabelTapCount = 0
+
+        if !hasAutoStarted, ParticleCloud.sharedInstance().loggedInUsername != nil {
+            hasAutoStarted = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + splashMinimumDuration) { [weak self] in
+                guard let self = self else { return }
+                self.performSegue(withIdentifier: "start_no_animation", sender: self)
+            }
+        }
     }
 
     func checkFontNames()
