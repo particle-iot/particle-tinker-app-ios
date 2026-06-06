@@ -150,6 +150,12 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
     
     
     @IBAction func versionButtonTapped(_ sender: Any) {
+        // The custom cloud API override (used to point the app at staging) is a
+        // developer-only tool. It is compiled out of release builds so a shipped
+        // build can never be redirected away from production.
+        #if !DEBUG
+            return
+        #else
         versionLabelTapCount += 1
 
         if (versionLabelTapCount >= 10) {
@@ -172,8 +178,9 @@ class WelcomeViewController: UIViewController, ParticleSetupMainControllerDelega
 
             self.present(ac, animated: true)
         }
+        #endif
     }
-    
-      
+
+
 }
 
