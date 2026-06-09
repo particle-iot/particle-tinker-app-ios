@@ -6,6 +6,8 @@
 	<array>
 		<string>applinks:particle-iot.app.link</string>
 		<string>applinks:particle-iot-alternate.app.link</string>
+		<string>webcredentials:login.particle.io</string>
+		<string>webcredentials:particle.io</string>
 	</array>
 	<key>com.apple.developer.networking.wifi-info</key>
 	<true/>

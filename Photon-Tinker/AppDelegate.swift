@@ -33,7 +33,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         ParticleCloud.sharedInstance().oAuthClientId = oAuthClientId
         ParticleCloud.sharedInstance().oAuthClientSecret = oAuthSecret
-        
+
+        #if !DEBUG
+            // Production safeguard: release builds must always talk to the production
+            // cloud (https://api.particle.io). The custom API base URL is persisted in
+            // NSUserDefaults, so clear any value (e.g. a staging URL set via the hidden
+            // developer override on a debug build) to guarantee a release build can
+            // never accidentally point at staging.
+            ParticleCloud.sharedInstance().customAPIBaseURL = nil
+        #endif
+
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         IQKeyboardManager.shared().toolbarManageBehavior = .byTag

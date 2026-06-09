@@ -24,4 +24,29 @@ post_install do |installer|
             config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
         end
     end
+
+    # iOS one-time-code (2FA) AutoFill: the ParticleSetup MFA screen never sets the
+    # verification-code field's textContentType, so iOS won't offer the stored 2FA
+    # token from the Passwords app. Patch it here — Pods/ is git-ignored, so this
+    # reapplies on every `pod install` (locally and in CI).
+    mfa = installer.sandbox.root + 'ParticleSetup/ParticleSetup/UI/ParticleUserMFAViewController.m'
+    if File.exist?(mfa)
+        src = File.read(mfa)
+        if src.include?('UITextContentTypeOneTimeCode')
+            Pod::UI.puts 'MFA oneTimeCode AutoFill already patched'
+        else
+            anchor = 'self.codeTextField.delegate = self;'
+            if src.include?(anchor)
+                src = src.sub(anchor, anchor + "\n    if (@available(iOS 12.0, *)) { self.codeTextField.textContentType = UITextContentTypeOneTimeCode; } // AutoFill 2FA code from the Passwords app")
+                # CocoaPods marks pod sources read-only; make writable to apply the patch.
+                File.chmod(0644, mfa)
+                File.write(mfa, src)
+                Pod::UI.puts 'Patched ParticleUserMFAViewController: oneTimeCode AutoFill'
+            else
+                Pod::UI.warn 'Could not patch MFA oneTimeCode: anchor not found (ParticleSetup may have changed)'
+            end
+        end
+    else
+        Pod::UI.warn 'ParticleUserMFAViewController.m not found; skipping oneTimeCode patch'
+    end
 end
